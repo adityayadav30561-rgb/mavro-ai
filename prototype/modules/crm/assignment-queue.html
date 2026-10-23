@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · CRM · Assignment queue</title>
+<!-- Scenario: see pipeline.html. 8 Oct, 14:02: 9 leads in the assignment queue, 7 routed automatically by territory and
+     segment, 2 escalated: Coastline Irrigation (Ratnagiri) claimed by two territories, and one from a new region.
+     The three leads "waiting for first response" on the pipeline screen are here with the same timers. Rep load
+     out of a cap of 25 open leads. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .q td { padding-top: 8px; padding-bottom: 8px; }
+  tr.esc td { background: var(--warn-soft); }
+  .tmr { display: inline-block; padding: 2px 8px; border-radius: 7px; font: 600 12px var(--mono); background: var(--ok-soft); color: var(--ok); }
+  .tmr.w { background: var(--warn-soft); color: var(--warn); }
+  .tmr.b { background: var(--bad-soft); color: var(--bad); }
+  .rt { display: flex; align-items: center; gap: 6px; }
+  .rt i { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 600 9.5px var(--sans); font-style: normal; color: #fff; background: #5b6b8c; }
+  .load li { display: grid; grid-template-columns: 30px minmax(0, 1fr) 54px; gap: 4px 10px; align-items: center; padding: 8px 0; }
+  .load li + li { border-top: 1px solid var(--line); }
+  .load .av { grid-row: 1 / span 2; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font: 600 10.5px var(--sans); font-style: normal; color: #fff; background: #5b6b8c; }
+  .load b { font-weight: 550; }
+  .load .meter { grid-column: 2; }
+  .load em { grid-row: 1 / span 2; grid-column: 3; text-align: right; font: 600 12px var(--mono); font-style: normal; color: var(--ink-2); }
+  .rules li { padding: 8px 0; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+  .rules li + li { border-top: 1px solid var(--line); }
+  .rules b { color: var(--ink); font-weight: 550; }
+</style>
+</head>
+<body data-module="crm" data-view="Assignment queue" data-crumb="Sell / CRM / Assignment queue" data-who="Kavya Menon|Inside sales lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Lead assignment queue</h1>
+      <p>New leads routed by territory and segment · each one owned, with a first-response clock</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Open</span><span>Escalated</span><span>Assigned today</span></div>
+      <span class="btn">Routing rules</span>
+      <span class="btn pri">Assign selected</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>In the queue</label><div class="v"><strong>9</strong></div><div class="foot"><b class="delta up">7 routed</b><span>automatically</span></div></div>
+    <div class="card kpi"><label>Escalated</label><div class="v"><strong>2</strong></div><div class="foot"><b class="delta down">1 territory conflict</b><span>1 new region</span></div></div>
+    <div class="card kpi"><label>Average time to owner</label><div class="v"><strong>6 <small>min</small></strong><i data-spark="22,18,15,12,10,9,8,7,6,6" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">−16 min</b><span>since routing rules</span></div></div>
+    <div class="card kpi"><label>First response within SLA</label><div class="v"><strong>92%</strong></div><div class="foot"><b class="delta up">target 90%</b><span>4 working hours</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Queue</h2><span>oldest first · SLA time left</span><span class="more">Select all</span></header>
+      <div class="body">
+        <table class="q">
+          <thead><tr><th>Lead</th><th>Source</th><th>Territory · segment</th><th>Routed to</th><th>Score</th><th class="r">SLA left</th></tr></thead>
+          <tbody>
+            <tr class="esc"><td><b>Coastline Irrigation</b><small>LD-1851 · Ratnagiri</small></td><td>Market&shy;place</td><td>Konkan · 2 territories claim it</td><td><span class="chip warn">Escalated</span></td><td class="mono">—</td><td class="r"><span class="tmr b">0h 35m</span></td></tr>
+            <tr><td><b>Varad Engineering</b><small>LD-1853 · Nashik</small></td><td>Website</td><td>Nashik · pump OEM</td><td><span class="rt"><i style="background:#7a36fb">RK</i>Rohan Kulkarni</span></td><td class="mono">64</td><td class="r"><span class="tmr w">1h 45m</span></td></tr>
+            <tr class="esc"><td><b>Malwa Agro Tech</b><small>LD-1855 · Ujjain</small></td><td>Website</td><td>No territory · agri</td><td><span class="chip warn">Escalated</span></td><td class="mono">58</td><td class="r"><span class="tmr w">2h 20m</span></td></tr>
+            <tr><td><b>Shreeji Fabtech</b><small>LD-1856 · Rajkot</small></td><td>Trade fair</td><td>Saurashtra · fabrication</td><td><span class="rt"><i style="background:#0c9b6a">SI</i>Sneha Iyer</span></td><td class="mono">71</td><td class="r"><span class="tmr">3h 10m</span></td></tr>
+            <tr><td><b>Kolhapur Foundry Works</b><small>LD-1857 · Kolhapur</small></td><td>Referral</td><td>Kolhapur · foundry</td><td><span class="rt"><i style="background:#0a48fd">IS</i>Imran Shaikh</span></td><td class="mono">82</td><td class="r"><span class="tmr">3h 25m</span></td></tr>
+            <tr><td><b>Sahyadri Agro Pumps</b><small>LD-1858 · Satara</small></td><td>Referral</td><td>Pune rural · pump OEM</td><td><span class="rt"><i style="background:#7a36fb">RK</i>Rohan Kulkarni</span></td><td class="mono">77</td><td class="r"><span class="tmr">3h 40m</span></td></tr>
+            <tr><td><b>Navkar Hydraulics</b><small>LD-1859 · Ahmedabad</small></td><td>Market&shy;place</td><td>Gujarat · hydraulics</td><td><span class="rt"><i style="background:#0c9b6a">SI</i>Sneha Iyer</span></td><td class="mono">52</td><td class="r"><span class="tmr">3h 50m</span></td></tr>
+            <tr><td><b>Bharat Motor Rewinding</b><small>LD-1860 · Pune</small></td><td>Website</td><td>Pune city · service</td><td><span class="rt"><i style="background:#0a48fd">IS</i>Imran Shaikh</span></td><td class="mono">44</td><td class="r"><span class="tmr">3h 55m</span></td></tr>
+            <tr><td><b>Tirupati Valves</b><small>LD-1861 · Coimbatore</small></td><td>Customer</td><td>Coimbatore · valves</td><td><span class="rt"><i style="background:#0c9b6a">SI</i>Sneha Iyer</span></td><td class="mono">69</td><td class="r"><span class="tmr">4h 00m</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Rep load</h2><span>open leads · cap 25</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="load">
+            <li><span class="av" style="background:#0c9b6a">SI</span><b>Sneha Iyer</b><span class="meter warn"><i style="width:88%"></i></span><em>22</em></li>
+            <li><span class="av" style="background:#7a36fb">RK</span><b>Rohan Kulkarni</b><span class="meter"><i style="width:68%"></i></span><em>17</em></li>
+            <li><span class="av" style="background:#0a48fd">IS</span><b>Imran Shaikh</b><span class="meter"><i style="width:56%"></i></span><em>14</em></li>
+            <li><span class="av" style="background:#5b6b8c">KM</span><b>Kavya Menon</b><span class="meter"><i style="width:36%"></i></span><em>9</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Routing rules</h2><span>applied in order</span><span class="more">Edit</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="rules">
+            <li><b>Existing account</b> goes to the account owner.</li>
+            <li><b>Territory by PIN code,</b> then segment specialist within it.</li>
+            <li><b>Over the cap of 25,</b> the next rep in the territory takes it.</li>
+            <li><b>Two territories claim it:</b> escalated to the inside sales lead, not settled in the field.</li>
+            <li><b>No territory:</b> escalated; the lead is answered from inside sales meanwhile.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

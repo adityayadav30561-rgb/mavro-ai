@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · CRM · Lead register</title>
+<!-- Scenario: see pipeline.html. Last 30 days: 186 leads, 104 qualified, 14 won; 6 duplicates in 3 merge clusters;
+     4 opportunities idle over 14 days resurfaced with their last activity. Rows agree with the lead detail
+     (LD-1842 Godavari Pumps, 79) and the assignment queue (LD-1853 Varad Engineering, LD-1851 Coastline). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 260px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 7px; padding-bottom: 7px; }
+  tr.dup td { background: var(--warn-soft); }
+  .sc { display: inline-grid; place-items: center; min-width: 30px; height: 22px; border-radius: 6px; font: 600 11.5px var(--mono); background: var(--surface-2); border: 1px solid var(--line); }
+  .sc.hi { background: var(--ok-soft); color: var(--ok); border-color: #c8ecdc; }
+  .pg { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="crm" data-view="Lead register" data-crumb="Sell / CRM / Lead register" data-who="Kavya Menon|Inside sales lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Lead register</h1>
+      <p>Segment, region and owner on every lead · duplicates clustered for merge, idle leads brought back</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All</span><span>Qualified</span><span>Duplicates</span><span>Idle</span></div>
+      <span class="btn">Export</span>
+      <span class="btn pri">New lead</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Created <b>Last 30 days</b></span>
+    <span class="filter">Segment <b>All</b></span>
+    <span class="filter">Region <b>All</b></span>
+    <span class="filter">Owner <b>All</b></span>
+    <span class="filter" style="border-style:dashed;color:var(--ink-3)">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Company, contact or GSTIN</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Leads</label><strong>186</strong></div>
+    <div class="card sm"><label>Qualified</label><strong>104 <small>56%</small></strong></div>
+    <div class="card sm"><label>Won</label><strong>14 <small>₹1.62 Cr a year</small></strong></div>
+    <div class="card sm"><label>Duplicates</label><strong>6 <small>3 clusters</small></strong></div>
+    <div class="card sm"><label>Idle over 14 days</label><strong>4 <small>resurfaced</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Lead</th><th>Segment</th><th>Region</th><th>Source</th><th>Owner</th><th>Score</th><th>Stage</th><th>Last activity</th></tr></thead>
+        <tbody>
+          <tr><td><b>Godavari Pumps</b><small>LD-1842 · Aurangabad</small></td><td>Pump OEM</td><td>Marathwada</td><td>Trade fair</td><td>Sneha Iyer</td><td><span class="sc hi">79</span></td><td><span class="chip blue">Appointment</span></td><td>Booked 10 Oct · 6 Oct</td></tr>
+          <tr><td><b>Varad Engineering</b><small>LD-1853 · Nashik</small></td><td>Pump OEM</td><td>Nashik</td><td>Website</td><td>Rohan Kulkarni</td><td><span class="sc">64</span></td><td><span class="chip">New</span></td><td>Waiting first response</td></tr>
+          <tr class="dup"><td><b>Coastline Irrigation</b><small>LD-1851 · Ratnagiri</small></td><td>Agri equipment</td><td>Konkan</td><td>Marketplace</td><td><span class="chip warn">Escalated</span></td><td><span class="sc">—</span></td><td><span class="chip warn">Duplicate?</span></td><td>Matches LD-1798 by GSTIN</td></tr>
+          <tr><td><b>Kolhapur Foundry Works</b><small>LD-1857 · Kolhapur</small></td><td>Foundry</td><td>Kolhapur</td><td>Referral</td><td>Imran Shaikh</td><td><span class="sc hi">82</span></td><td><span class="chip">New</span></td><td>Routed 13:20 today</td></tr>
+          <tr><td><b>Pratap Agro Industries</b><small>LD-1822 · Jalgaon</small></td><td>Agri equipment</td><td>North Maharashtra</td><td>Website</td><td>Rohan Kulkarni</td><td><span class="sc hi">73</span></td><td><span class="chip blue">Quotation</span></td><td>QTN-2241 sent · 3 Oct</td></tr>
+          <tr><td><b>Unnati Pump Sets</b><small>LD-1809 · Rajkot</small></td><td>Pump OEM</td><td>Saurashtra</td><td>Distributor referral</td><td>Sneha Iyer</td><td><span class="sc hi">88</span></td><td><span class="chip ok">Won</span></td><td>Became SO-24862 · 2 Oct</td></tr>
+          <tr><td><b>Sri Lakshmi Motors</b><small>LD-1794 · Coimbatore</small></td><td>Motors</td><td>Coimbatore</td><td>Trade fair</td><td>Imran Shaikh</td><td><span class="sc">66</span></td><td><span class="chip warn">Idle 18 days</span></td><td>Call · 20 Sep</td></tr>
+          <tr class="dup"><td><b>Rapid Hydro Systems</b><small>LD-1812 · Pune</small></td><td>Hydraulics</td><td>Pune city</td><td>Marketplace</td><td>Rohan Kulkarni</td><td><span class="sc">48</span></td><td><span class="chip warn">Duplicate?</span></td><td>Same contact as LD-1790</td></tr>
+          <tr><td><b>Deccan Agri Implements</b><small>LD-1803 · Solapur</small></td><td>Agri equipment</td><td>Pune rural</td><td>Field rep</td><td>Imran Shaikh</td><td><span class="sc">55</span></td><td><span class="chip">Nurture</span></td><td>Catalogue sent · 29 Sep</td></tr>
+          <tr><td><b>Vindhya Valves</b><small>LD-1788 · Indore</small></td><td>Valves</td><td>Central</td><td>Existing customer</td><td>Kavya Menon</td><td><span class="sc">41</span></td><td><span class="chip bad">Disqualified</span></td><td>GSTIN cancelled · 15 Sep</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pg">
+      <span>Showing 1–10 of 186 leads · newest activity first</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>…</span><span>19</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

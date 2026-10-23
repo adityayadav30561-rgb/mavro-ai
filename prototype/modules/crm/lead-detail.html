@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · CRM · Lead detail</title>
+<!-- Scenario: see pipeline.html. LD-1842 Godavari Pumps, Aurangabad: met at the Nashik trade fair on 27 Sep, owner
+     Sneha Iyer, first response in 2h 10m (inside the 4-hour SLA). Asks for 2,400 IH-180 housings a year, est.
+     ₹44 L a year. Weighted score 79 of 100 (qualification at 70): GST 20/20, credit 18/25, trade references 12/15,
+     fit 20/25, engagement 9/15. Appointment booked 10 Oct. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .facts div { padding: 10px 12px; border-radius: 9px; background: var(--surface-2); border: 1px solid var(--line); }
+  .facts label { display: block; font-size: 11.5px; color: var(--ink-3); }
+  .facts b { font-weight: 550; }
+  .score { display: flex; align-items: center; gap: 18px; }
+  .ring { width: 108px; height: 108px; flex: none; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--accent) 0 79%, #e3e6ec 79% 100%); }
+  .ring div { width: 84px; height: 84px; border-radius: 50%; background: #fff; display: grid; place-items: center; text-align: center; }
+  .ring b { display: block; font-size: 28px; font-weight: 650; letter-spacing: -0.03em; line-height: 1; }
+  .ring small { color: var(--ink-3); font-size: 11px; }
+  .sig { flex: 1; display: grid; gap: 8px; }
+  .sig div { display: grid; grid-template-columns: 130px minmax(0, 1fr) 46px; align-items: center; gap: 10px; font-size: 12.5px; color: var(--ink-2); }
+  .sig .meter { height: 8px; border-radius: 4px; }
+  .sig .meter i { border-radius: 4px; }
+  .sig b { font: 600 12px var(--mono); text-align: right; color: var(--ink); }
+  .ev li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 8px 0; }
+  .ev li + li { border-top: 1px solid var(--line); }
+  .ev i { width: 20px; height: 20px; margin-top: 1px; border-radius: 50%; display: grid; place-items: center; font: 600 10px var(--mono); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .ev i.w { background: var(--warn-soft); color: var(--warn); }
+  .ev p { line-height: 1.35; }
+  .ev p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .ev em { font: 500 11.5px var(--mono); font-style: normal; color: var(--ink-3); }
+  .act { display: grid; gap: 8px; }
+  .act .btn { justify-content: center; }
+  .ownr { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .ownr i { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font: 600 11px var(--sans); font-style: normal; color: #fff; background: #0c9b6a; }
+  .ownr b { display: block; font-weight: 550; }
+  .ownr small { color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="crm" data-view="Leads" data-crumb="Sell / CRM / Leads / LD-1842" data-who="Kavya Menon|Inside sales lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Godavari Pumps &nbsp;<span class="chip ok" style="vertical-align:3px">Qualified · 79</span></h1>
+      <p>LD-1842 · Aurangabad · met at the Nashik trade fair, 27 Sep · first response in 2h 10m</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Merge</span>
+      <span class="btn">Disqualify</span>
+      <span class="btn pri">Convert to opportunity</span>
+    </div>
+  </div>
+
+  <div class="facts">
+    <div><label>Asks for</label><b>2,400 IH-180 housings a year</b></div>
+    <div><label>Estimated value</label><b>₹44 L a year</b></div>
+    <div><label>Segment · territory</label><b>Pump OEM · Marathwada</b></div>
+    <div><label>Decision maker</label><b>Sunil Deshpande, purchase head</b></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card">
+        <header><h2>Qualification score</h2><span>weighted on verified signals · qualifies at 70</span><span class="more">Scoring model</span></header>
+        <div class="body">
+          <div class="score">
+            <div class="ring"><div><span><b>79</b><small>of 100</small></span></div></div>
+            <div class="sig">
+              <div><span>GST registration</span><span class="meter ok"><i style="width:100%"></i></span><b>20/20</b></div>
+              <div><span>Credit standing</span><span class="meter"><i style="width:72%"></i></span><b>18/25</b></div>
+              <div><span>Trade references</span><span class="meter"><i style="width:80%"></i></span><b>12/15</b></div>
+              <div><span>Fit: segment, volume</span><span class="meter"><i style="width:80%"></i></span><b>20/25</b></div>
+              <div><span>Engagement</span><span class="meter warn"><i style="width:60%"></i></span><b>9/15</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Verified before the appointment</h2><span>5 checks</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="ev">
+            <li><i>✓</i><p><b>GSTIN 27AAHFG2290M1Z4 active</b><small>Returns filed on time for the last 12 months</small></p><em>auto · 27 Sep</em></li>
+            <li><i>✓</i><p><b>Credit report: moderate risk</b><small>Turnover about ₹28 Cr; no defaults; 2 delayed payments last year</small></p><em>auto · 27 Sep</em></li>
+            <li><i>✓</i><p><b>Trade reference: Meridian Compressors</b><small>Pays in 45 days on average, buys castings in volume</small></p><em>Sneha · 30 Sep</em></li>
+            <li><i>✓</i><p><b>Trade reference: Deccan Fluid Systems</b><small>Long-standing customer of theirs, no disputes</small></p><em>Sneha · 1 Oct</em></li>
+            <li><i class="w">!</i><p><b>Third reference not reached</b><small>Two calls, no answer · 3 of 15 points withheld</small></p><em>Sneha · 3 Oct</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card flush" style="flex:1">
+        <header><h2>Requirement and capacity</h2><span>checked against the plan before quoting</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Item</th><th class="r">Volume a year</th><th class="r">Target price</th><th>Line</th><th class="r">Free capacity</th><th>Fit</th></tr></thead>
+            <tbody>
+              <tr><td><b>IH-180 impeller housing</b><small>LM6, drawing awaited</small></td><td class="r mono">2,400</td><td class="r mono">₹1,840</td><td>Plant 1 · machining cell 2</td><td class="r mono">3,100</td><td><span class="chip ok">Fits</span></td></tr>
+              <tr><td><b>Export crating</b><small>optional</small></td><td class="r mono">96</td><td class="r mono">Included</td><td>Packing</td><td class="r mono">—</td><td><span class="chip ok">Fits</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Owner</h2><span>territory routing</span></header>
+        <div class="body">
+          <div class="ownr"><i>SI</i><span><b>Sneha Iyer</b><small>Marathwada and Nashik · 18 open leads</small></span></div>
+          <div class="act">
+            <span class="btn pri">Appointment · 10 Oct, 11:00</span>
+            <span class="btn">Send capability deck</span>
+            <span class="btn">Ask for drawing IH-180</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Activity</h2><span class="more">Log activity</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="ev">
+            <li><i>✓</i><p><b>Appointment booked</b><small>Plant visit with purchase head</small></p><em>6 Oct</em></li>
+            <li><i>✓</i><p><b>Call: volumes and lead time</b><small>Wants a second source by January</small></p><em>2 Oct</em></li>
+            <li><i>✓</i><p><b>First response</b><small>Email with catalogue, inside SLA</small></p><em>27 Sep</em></li>
+            <li><i>✓</i><p><b>Credit and GST checked</b><small>Automatically on capture</small></p><em>27 Sep</em></li>
+            <li><i>✓</i><p><b>Routed to Sneha Iyer</b><small>Territory rule: Marathwada</small></p><em>27 Sep</em></li>
+            <li><i>✓</i><p><b>Duplicate check</b><small>No matching account or lead</small></p><em>27 Sep</em></li>
+            <li><i>✓</i><p><b>Lead captured</b><small>Trade fair badge scan, Nashik</small></p><em>27 Sep</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
