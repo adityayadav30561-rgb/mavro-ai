@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Procure to Pay · PO register</title>
+<!-- Scenario: see spend-suppliers.html. Open POs at Plant 1 with their receipt, quality release and invoice state.
+     Values are before GST and agree with the vendor invoices in Vendor Invoice Management (VIM-2221 ₹1,84,080 =
+     PO-7699 ₹1,56,000 + 18%; VIM-2215 = PO-7690 ₹1,55,000; VIM-2211 = PO-7684 ₹3,00,000). PO-7709 Sharda Bearings:
+     760 of 800 BS-07 received (GRN-3319, 6 Oct), invoice for 800, one of VIM's 4 quantity exceptions. PO-7717 Shree
+     Ganesh Packaging is the vehicle at the gate now (GP-3189); PO-7688 is the late conveyor order on PRJ-0217. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 270px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 7px; padding-bottom: 7px; }
+  .rcv { display: flex; flex-direction: column; gap: 4px; width: 104px; }
+  .rcv span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .rcv .meter { min-width: 0; }
+  .tick { color: var(--ok); font-weight: 600; font-size: 12px; }
+  .cross { color: var(--bad); font-weight: 600; font-size: 12px; }
+  .amber { color: var(--warn); font-weight: 600; font-size: 12px; }
+  .pend { color: var(--ink-3); font-size: 12px; }
+  td.late { color: var(--bad); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="procure-to-pay" data-view="PO register" data-crumb="Buy / Procure to Pay / PO register" data-who="Rohan Menon|Buyer">
+<main>
+  <div class="head">
+    <div>
+      <h1>Purchase order register</h1>
+      <p>Open purchase orders with their receipt, quality release and invoice match, newest first</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Open</span><span>Awaiting approval</span><span>Overdue</span><span>Closed</span></div>
+      <span class="btn">Export</span>
+      <span class="btn pri">New purchase order</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Plant <b>Plant 1 · Pune</b></span>
+    <span class="filter">Buyer <b>All</b></span>
+    <span class="filter">Category <b>All</b></span>
+    <span class="filter">Vendor <b>All</b></span>
+    <span class="filter" style="border-style:dashed;color:var(--ink-3)">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>PO, vendor, item, GRN or invoice</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Open POs</label><strong>64 <small>₹1.86 Cr</small></strong></div>
+    <div class="card sm"><label>Awaiting receipt</label><strong>38 <small>₹1.21 Cr</small></strong></div>
+    <div class="card sm"><label>Received, QA pending</label><strong>7 <small>₹6.8 L</small></strong></div>
+    <div class="card sm"><label>Payment blocked</label><strong style="color:var(--bad)">10 <small>price 6 · quantity 4</small></strong></div>
+    <div class="card sm"><label>Past need-by date</label><strong style="color:var(--warn)">5 <small>₹11.2 L</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>PO</th><th>Vendor</th><th>Items</th><th class="r">Value</th><th>Need by</th><th>Received</th><th>Quality</th><th>Invoice</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">PO-7721</b><small>8 Oct · R. Menon</small></td><td><b>Deccan Tooling</b><small>Hyderabad</small></td><td>Fixture rework<small>4 sets · tooling</small></td><td class="r mono">₹2,84,000</td><td class="mono">20 Oct</td><td class="pend">—</td><td class="pend">—</td><td class="pend">—</td><td><span class="chip warn">To approve</span></td></tr>
+          <tr><td><b class="mono">PO-7720</b><small>7 Oct · R. Menon</small></td><td><b>Nova Seals</b><small>Pune</small></td><td>Seal ring SR-18<small>6,000 nos · second source</small></td><td class="r mono">₹2,52,000</td><td class="mono">16 Oct</td><td><span class="rcv"><span>0 of 6,000</span><span class="meter"><i style="width:0"></i></span></span></td><td class="pend">On receipt</td><td class="pend">—</td><td><span class="chip blue">Confirmed</span></td></tr>
+          <tr class="hl"><td><b class="mono">PO-7719</b><small>6 Oct · R. Menon</small></td><td><b>Kaveri Steel Traders</b><small>Chennai</small></td><td>EN8 round bar<small>6,240 kg · rate contract</small></td><td class="r mono">₹5,11,680</td><td class="mono">9 Oct</td><td><span class="rcv"><span>GP-3184 · gate</span><span class="meter warn"><i style="width:0"></i></span></span></td><td class="pend">On receipt</td><td class="pend">KST/1311 at gate</td><td><span class="chip warn">40 kg short</span></td></tr>
+          <tr><td><b class="mono">PO-7717</b><small>5 Oct · A. Kale</small></td><td><b>Shree Ganesh Packaging</b><small>Pune</small></td><td>Export cartons<small>2,400 nos · packing</small></td><td class="r mono">₹1,15,200</td><td class="mono">8 Oct</td><td><span class="rcv"><span>GP-3189 · gate</span><span class="meter"><i style="width:0"></i></span></span></td><td class="pend">Not required</td><td class="pend">—</td><td><span class="chip blue">At the gate</span></td></tr>
+          <tr><td><b class="mono">PO-7714</b><small>2 Oct · R. Menon</small></td><td><b>Aravali Castings</b><small>Faridabad</small></td><td>LM6 castings, IH-220<small>400 kg · for WO-5521</small></td><td class="r mono">₹1,02,400</td><td class="mono">12 Oct</td><td><span class="rcv"><span>0 of 400 kg</span><span class="meter"><i style="width:0"></i></span></span></td><td class="pend">Sample 5</td><td class="amber">VIM-2207 · no GRN</td><td><span class="chip blue">ETA 10 Oct</span></td></tr>
+          <tr><td><b class="mono">PO-7709</b><small>1 Oct · A. Kale</small></td><td><b>Sharda Bearings</b><small>Pune</small></td><td>Bearing sleeve BS-07<small>800 nos · single source</small></td><td class="r mono">₹1,48,000</td><td class="mono">6 Oct</td><td><span class="rcv"><span>760 of 800</span><span class="meter warn"><i style="width:95%"></i></span></span></td><td class="tick">Released</td><td class="cross">VIM-2219 · qty</td><td><span class="chip warn">40 nos short</span></td></tr>
+          <tr><td><b class="mono">PO-7702</b><small>29 Sep · R. Menon</small></td><td><b>Mehta Alloys</b><small>Pune</small></td><td>EN8 round bar, bushes<small>600 kg · 240 pcs</small></td><td class="r mono">₹73,200</td><td class="mono">5 Oct</td><td><span class="rcv"><span>complete</span><span class="meter ok"><i style="width:100%"></i></span></span></td><td class="tick">Released</td><td class="cross">VIM-2224 · rate +2.98%</td><td><span class="chip bad">Pay blocked</span></td></tr>
+          <tr><td><b class="mono">PO-7699</b><small>27 Sep · A. Kale</small></td><td><b>Deccan Tooling</b><small>Hyderabad</small></td><td>Carbide inserts, holders<small>tooling</small></td><td class="r mono">₹1,56,000</td><td class="mono">4 Oct</td><td><span class="rcv"><span>complete</span><span class="meter ok"><i style="width:100%"></i></span></span></td><td class="tick">Released</td><td class="tick">VIM-2221 · matched</td><td><span class="chip ok">In PR-0188</span></td></tr>
+          <tr><td><b class="mono">PO-7690</b><small>24 Sep · A. Kale</small></td><td><b>Precision Tooling Co.</b><small>Chakan</small></td><td>Boring bars, reamers<small>tooling</small></td><td class="r mono">₹1,55,000</td><td class="mono">3 Oct</td><td><span class="rcv"><span>complete</span><span class="meter ok"><i style="width:100%"></i></span></span></td><td class="tick">Released</td><td class="tick">VIM-2215 · matched</td><td><span class="chip warn">GST hold</span></td></tr>
+          <tr><td><b class="mono">PO-7688</b><small>23 Sep · R. Menon</small></td><td><b>Vertex Conveyors</b><small>Pune · for PRJ-0217</small></td><td>Conveyor modules<small>2 nos · capital</small></td><td class="r mono">₹6,80,000</td><td class="mono late">6 Oct</td><td><span class="rcv"><span>0 of 2</span><span class="meter"><i style="width:0"></i></span></span></td><td class="pend">At site</td><td class="pend">—</td><td><span class="chip bad">Late · 14 Oct</span></td></tr>
+          <tr><td><b class="mono">PO-7684</b><small>22 Sep · A. Kale</small></td><td><b>Shree Ganesh Packaging</b><small>Pune</small></td><td>Corrugated boxes, film<small>packing</small></td><td class="r mono">₹3,00,000</td><td class="mono">1 Oct</td><td><span class="rcv"><span>complete</span><span class="meter ok"><i style="width:100%"></i></span></span></td><td class="pend">Not required</td><td class="tick">VIM-2211 · matched</td><td><span class="chip warn">GST hold</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <span>Showing 1–11 of 64 open purchase orders · values before GST</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>…</span><span>6</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

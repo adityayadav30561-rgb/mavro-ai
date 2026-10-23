@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Gate Entry · Gate check (phone)</title>
+<!-- Scenario: see gate-dock.html. 13:26: gate officer Ramesh Jadhav checks GP-3189, Shree Ganesh Packaging's vehicle
+     MH 12 RS 3305 (driver Vijay T.) with invoice SGP/0931 for PO-7717: 2,400 export cartons, ₹1,15,200 + GST 18%
+     ₹20,736 = ₹1,35,936, e-way bill valid. Documents agree; the vehicle goes in to wait for D3 (blocked by GP-3168). -->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  .veh { display: flex; align-items: center; gap: 12px; }
+  .plate { padding: 6px 9px; border-radius: 7px; border: 2px solid var(--ink); font: 700 14px var(--mono); background: #fff; white-space: nowrap; }
+  .veh p { flex: 1; line-height: 1.35; }
+  .veh p b { display: block; font-size: 14px; font-weight: 600; }
+  .veh p small { color: var(--ink-3); font-size: 12px; }
+  .ck li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; font-size: 13px; }
+  .ck li + li { border-top: 1px solid var(--line); }
+  .ck i { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--ok-soft); color: var(--ok); font: 700 12px var(--sans); font-style: normal; }
+  .ck small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .ck em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-2); }
+  .shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .shots span { height: 52px; border-radius: 8px; background: repeating-linear-gradient(135deg, #eef0f4 0 6px, #f6f7f9 6px 12px); border: 1px solid var(--line); display: grid; place-items: end start; padding: 4px 6px; font: 10px var(--mono); color: var(--ink-3); }
+  .dock { display: flex; align-items: center; gap: 10px; font-size: 12.5px; }
+  .dock p { flex: 1; line-height: 1.35; }
+  .dock p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="gate-entry" data-title="Gate check" data-subtitle="GP-3189 · inward"
+      data-time="13:26" data-tab="Check" data-tabs="Gate:home|Check:check:2|Yard:supply|Alerts:bell:5|More:more" data-who="Ramesh Jadhav|Gate officer">
+<main>
+  <div class="card">
+    <div class="body">
+      <div class="veh">
+        <span class="plate">MH 12 RS 3305</span>
+        <p><b>Shree Ganesh Packaging</b><small>Driver Vijay T. · arrived 13:24</small></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Documents</h2><span>scanned at the gate</span></header>
+    <div class="body" style="padding-top:2px">
+      <ul class="ck">
+        <li><i>✓</i><span>Driving licence<small>Matches the driver's photo</small></span><em>OTP sent</em></li>
+        <li><i>✓</i><span>Invoice SGP/0931<small>2,400 cartons · ₹1,35,936</small></span><em>PO-7717</em></li>
+        <li><i>✓</i><span>E-way bill<small>Same vehicle · valid today</small></span><em>Valid</em></li>
+        <li><i>✓</i><span>Vehicle condition<small>Covered · dry · no other cargo</small></span><em>OK</em></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Photos</h2><span>4 taken</span></header>
+    <div class="body">
+      <div class="shots"><span>front</span><span>load</span><span>invoice</span><span>driver</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="dock"><p><b>Dock D3 is blocked</b><small>GP-3168 waits for sign-off · park in yard bay 2</small></p><span class="chip warn">Queue 1</span></div>
+    </div>
+  </div>
+
+  <div class="ph-actions">
+    <span class="btn">Hold at gate</span>
+    <span class="btn pri">Allow in</span>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

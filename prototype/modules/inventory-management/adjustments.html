@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Inventory Management · Stock adjustments</title>
+<!-- Scenario: see stock-position.html. The adjustment queue on 8 Oct: 8 open. Write-offs waiting for approval at
+     standard cost: ADJ-0631 GW-300 −3 = ₹7,800 and ADJ-0630 BS-07 −22 = ₹4,070 (CC-1008, over tolerance); ADJ-0627
+     IH-180 lot L-0889, 36 rejected at final inspection (porosity, the defect behind QI-0217 and the L-0897
+     complaints) × ₹1,240 = ₹44,640; ADJ-0624 export cartons −180 × ₹48 = ₹8,640 (rain damage); ADJ-0622 HLP-46 oil,
+     2 drums expired 30 Sep × ₹9,400 = ₹18,800. Total ₹83,950. ADJ-0619 found +42 kg EN8 offcuts × ₹82 = +₹3,444.
+     Waiting for QA disposition: L-0927 (BR-045, held today) and the 5 returned L-0897 pieces. Over ₹25,000 or over the
+     count tolerance goes to the plant head (Prakash Nair). Posted in October: ₹21,360. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .sums { grid-template-columns: repeat(4, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .cols { grid-template-columns: minmax(0, 1fr) 360px; flex: 1; }
+  .q td { padding-top: 8px; padding-bottom: 8px; }
+  .typ { display: inline-block; padding: 1px 7px; border-radius: 5px; background: var(--surface-2); border: 1px solid var(--line); font-size: 11.5px; color: var(--ink-2); }
+  td.neg { color: var(--bad); }
+  td.pos { color: var(--ok); }
+  .pend { color: var(--ink-3); }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .why { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .why > div { padding: 0 16px; border-left: 1px solid var(--line); display: grid; gap: 4px; align-content: start; }
+  .why > div:first-child { padding-left: 0; border-left: 0; }
+  .why label { color: var(--ink-2); font-size: 12px; }
+  .why b { font-size: 18px; font-weight: 620; letter-spacing: -0.02em; }
+  .why small { color: var(--ink-3); font-size: 11.5px; }
+  .det .top-l { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .det h3 { font-size: 15px; font-weight: 620; letter-spacing: -0.01em; }
+  .det .amt { font-size: 22px; font-weight: 640; letter-spacing: -0.02em; color: var(--bad); }
+  .det .lead { color: var(--ink-2); margin-top: 2px; }
+  .disp { margin-top: 12px; padding: 12px 14px; border-radius: 10px; background: var(--bad-soft); border: 1px solid #f8cfca; }
+  .disp b { display: block; font-weight: 600; color: var(--bad); }
+  .disp p { color: var(--ink-2); font-size: 12px; margin-top: 2px; line-height: 1.4; }
+  .ev { display: flex; gap: 6px; margin-top: 10px; }
+  .ev span { flex: 1; height: 46px; border-radius: 8px; background: repeating-linear-gradient(135deg, #eef0f4 0 6px, #f6f7f9 6px 12px); border: 1px solid var(--line); display: grid; place-items: end start; padding: 4px 6px; font: 10.5px var(--mono); color: var(--ink-3); }
+  .route li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0; }
+  .route li + li { border-top: 1px solid var(--line); }
+  .route i { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--ok-soft); color: var(--ok); font: 700 11px var(--sans); font-style: normal; }
+  .route i.w { background: var(--warn-soft); color: var(--warn); }
+  .route p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .route time { font: 11.5px var(--mono); color: var(--ink-3); }
+  .post { display: grid; grid-template-columns: 1fr auto auto; gap: 6px 14px; font-size: 12px; }
+  .post span:nth-child(3n+1) { color: var(--ink-2); }
+  .post .mono { text-align: right; }
+</style>
+</head>
+<body data-module="inventory-management" data-view="Adjustments" data-crumb="Stock / Inventory Management / Adjustments" data-who="Kavita Joshi|Stores manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Stock adjustments</h1>
+      <p>Write-offs and corrections, each with a reason, a QA disposition where needed, and an approval</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Open</span><span>Approved</span><span>Posted</span><span>Rejected</span></div>
+      <span class="btn">Approval limits</span>
+      <span class="btn pri">New adjustment</span>
+    </div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Write-offs to approve</label><strong style="color:var(--bad)">₹83,950 <small>5 adjustments</small></strong></div>
+    <div class="card sm"><label>Found stock to approve</label><strong>+₹3,444 <small>1 adjustment</small></strong></div>
+    <div class="card sm"><label>Waiting for QA disposition</label><strong style="color:var(--warn)">2 <small>lots on hold</small></strong></div>
+    <div class="card sm"><label>Posted in October</label><strong>₹21,360 <small>0.10% of stock value</small></strong></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+    <div class="card flush q">
+      <header><h2>Approval queue</h2><span>8 open · grouped by who it waits for</span></header>
+      <div class="body">
+        <table>
+          <thead><tr><th>Adjustment</th><th>Item · lot</th><th>Type</th><th class="r">Quantity</th><th class="r">Value</th><th>QA</th><th>Waiting for</th></tr></thead>
+          <tbody>
+            <tr class="hl"><td><b class="mono">ADJ-0627</b><small>7 Oct · S. Qureshi</small></td><td><b>IH-180 housing</b><small>Lot L-0889 · FG store</small></td><td><span class="typ">Rejected</span></td><td class="r mono">−36</td><td class="r mono neg">−₹44,640</td><td><span class="chip bad plain">Scrap</span></td><td><span class="chip warn">Plant head</span></td></tr>
+            <tr><td><b class="mono">ADJ-0631</b><small>8 Oct · CC-1008</small></td><td><b>Grinding wheel GW-300</b><small>RM-D-04</small></td><td><span class="typ">Count</span></td><td class="r mono">−3</td><td class="r mono neg">−₹7,800</td><td class="pend">—</td><td><span class="chip warn">Plant head</span></td></tr>
+            <tr><td><b class="mono">ADJ-0630</b><small>8 Oct · CC-1008</small></td><td><b>Bearing sleeve BS-07</b><small>RM-B-05</small></td><td><span class="typ">Count</span></td><td class="r mono">−22</td><td class="r mono neg">−₹4,070</td><td class="pend">—</td><td><span class="chip warn">Plant head</span></td></tr>
+            <tr><td><b class="mono">ADJ-0622</b><small>6 Oct · S. Qureshi</small></td><td><b>Hydraulic oil HLP-46</b><small>Batch B-2207 · expired 30 Sep</small></td><td><span class="typ">Expired</span></td><td class="r mono">−2 drums</td><td class="r mono neg">−₹18,800</td><td><span class="chip bad plain">Dispose</span></td><td><span class="chip blue">You</span></td></tr>
+            <tr><td><b class="mono">ADJ-0624</b><small>7 Oct · M. Gaikwad</small></td><td><b>Export cartons</b><small>Dock 3 · rain damage</small></td><td><span class="typ">Damaged</span></td><td class="r mono">−180</td><td class="r mono neg">−₹8,640</td><td class="pend">Not needed</td><td><span class="chip blue">You</span></td></tr>
+            <tr><td><b class="mono">ADJ-0619</b><small>5 Oct · S. Qureshi</small></td><td><b>EN8 round bar offcuts</b><small>Returned from machining</small></td><td><span class="typ">Found</span></td><td class="r mono">+42 kg</td><td class="r mono pos">+₹3,444</td><td class="pend">Not needed</td><td><span class="chip blue">You</span></td></tr>
+            <tr><td><b class="mono">ADJ-0632</b><small>8 Oct · QC hold</small></td><td><b>BR-045 bracket</b><small>Lot L-0927 · 2,400 held</small></td><td><span class="typ">On hold</span></td><td class="r mono pend">—</td><td class="r mono pend">—</td><td><span class="chip warn plain">Inspecting</span></td><td><span class="chip">QA first</span></td></tr>
+            <tr><td><b class="mono">ADJ-0629</b><small>8 Oct · returns</small></td><td><b>IH-180 housing</b><small>Lot L-0897 · 5 returned</small></td><td><span class="typ">Returned</span></td><td class="r mono pend">5</td><td class="r mono pend">—</td><td><span class="chip warn plain">QI-0217</span></td><td><span class="chip">QA first</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" style="flex:1">
+      <header><h2>Write-offs by reason</h2><span>April to date · Plant 1</span><span class="more">Trend</span></header>
+      <div class="body">
+        <div class="why">
+          <div><label>Rejected after inspection</label><b>₹1.42 L</b><span class="meter warn"><i style="width:100%"></i></span><small>14 lots · QA decided each</small></div>
+          <div><label>Count variance</label><b>₹38,600</b><span class="meter"><i style="width:27%"></i></span><small>11 counts · 0.4% of value</small></div>
+          <div><label>Damaged</label><b>₹26,900</b><span class="meter"><i style="width:19%"></i></span><small>9 events · 6 at the docks</small></div>
+          <div><label>Expired</label><b>₹21,400</b><span class="meter"><i style="width:15%"></i></span><small>3 batches · oils, adhesives</small></div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="card det">
+      <header><h2>ADJ-0627</h2><span>write-off · rejected stock</span></header>
+      <div class="body">
+        <div class="top-l"><h3>36 × IH-180 impeller housing</h3><span class="amt">−₹44,640</span></div>
+        <p class="lead">Lot L-0889 · FG store, bin FG-A-11 · ₹1,240 standard cost</p>
+        <div class="disp">
+          <b>QA disposition: scrap</b>
+          <p>Porosity at the flange found at final inspection, the same defect as the L-0897 complaints. Investigation QI-0217 · Asha Khan, 7 Oct</p>
+        </div>
+        <div class="ev"><span>photo 1</span><span>photo 2</span><span>photo 3</span><span>CMM</span></div>
+        <div class="rule"></div>
+        <ul class="route">
+          <li><i>✓</i><p><b>Raised</b><small>Sana Qureshi · stores in-charge</small></p><time>7 Oct</time></li>
+          <li><i>✓</i><p><b>QA disposition</b><small>Asha Khan · quality inspector</small></p><time>7 Oct</time></li>
+          <li><i>✓</i><p><b>Stores manager</b><small>Approved by you</small></p><time>13:52</time></li>
+          <li><i class="w">4</i><p><b>Plant head</b><small>Prakash Nair · above ₹25,000</small></p><time>waiting</time></li>
+        </ul>
+        <div class="rule"></div>
+        <div class="post">
+          <span>Scrap and write-off</span><span class="mono">Dr</span><span class="mono">₹44,640</span>
+          <span>Finished goods stock</span><span class="mono">Cr</span><span class="mono">₹44,640</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

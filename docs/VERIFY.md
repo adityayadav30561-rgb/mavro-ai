@@ -62,6 +62,8 @@ Before a screen is captured, open it on the dev server (`/prototype/modules/<slu
       table, no wrapped buttons or tabs. In the console:
       `(m => [m.scrollHeight - m.clientHeight, m.scrollWidth - m.clientWidth])(document.querySelector('main'))`
       must print `[0, 0]`.
+      Cards clip their content, so also check that no table is wider than its card:
+      `[...document.querySelectorAll('main .card .body')].filter(b => b.scrollWidth > b.clientWidth + 1)` must be empty.
 - [ ] **Scenario note:** the module's first screen opens with an HTML comment holding the scenario (records,
       figures, people, date); every screen of the module follows it.
 - [ ] **Figures agree:** totals add up (buckets sum to the total, counts match lists), the same record shows the

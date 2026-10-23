@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Procure to Pay · RFQ-0311</title>
+<!-- Scenario: see spend-suppliers.html. RFQ-0311 on 1 Oct, the day the third quote arrived and the day before PO-7714.
+     Quotes agree with the PO: Aravali Castings at ₹256/kg delivered (₹1,02,400 for 400 kg), Net 45 as an MSME vendor,
+     94% on time and 0.6% rejected (99.4% accepted). Budget before this PO: ₹29.4 L of ₹42 L (₹30.4 L with it). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .cmp { display: grid; grid-template-columns: 168px repeat(3, 1fr); }
+  .cmp > div { padding: 15px 16px; border-top: 1px solid var(--line); display: flex; align-items: center; gap: 8px; }
+  .cmp .k { color: var(--ink-2); padding-left: 0; }
+  .cmp .h { border-top: 0; flex-direction: column; align-items: flex-start; gap: 2px; padding-top: 14px; padding-bottom: 14px; }
+  .cmp .h b { font-size: 14px; font-weight: 600; }
+  .cmp .h small { color: var(--ink-3); }
+  .cmp .win { background: var(--accent-soft); border-left: 1px solid #cfd8ff; border-right: 1px solid #cfd8ff; }
+  .cmp .win.h { border-top: 1px solid #cfd8ff; border-radius: 12px 12px 0 0; }
+  .cmp .win.last { border-bottom: 1px solid #cfd8ff; border-radius: 0 0 12px 12px; }
+  .cmp .v { font-weight: 550; }
+  .cmp .big { font: 620 18px var(--sans); letter-spacing: -0.02em; }
+  .stars { color: #e0a030; letter-spacing: 1px; }
+  .origin { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .origin > div { padding: 0 16px; border-left: 1px solid var(--line); }
+  .origin > div:first-child { padding-left: 0; border-left: 0; }
+  .origin label { color: var(--ink-2); font-size: 12px; display: block; }
+  .origin b { font-weight: 600; font-size: 14px; display: block; margin-top: 3px; }
+  .origin small { color: var(--ink-3); }
+  .match { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
+  .match div { padding: 12px 6px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+  .match label { display: block; color: var(--ink-2); font-size: 12px; }
+  .match b { display: block; font: 620 17px var(--sans); margin-top: 3px; letter-spacing: -0.02em; }
+  .match .wait { color: var(--ink-3); }
+</style>
+</head>
+<body data-module="procure-to-pay" data-view="RFQs" data-live="Live · 1 Oct, 16:20" data-crumb="Buy / Procure to Pay / RFQs / RFQ-0311" data-who="Rohan Menon|Buyer">
+<main>
+  <div class="head">
+    <div>
+      <h1>RFQ-0311 &nbsp;<span class="chip ok" style="vertical-align:4px">3 of 3 quotes received</span></h1>
+      <p>LM6 aluminium castings · 400 kg · needed at Plant 1 by 12 Oct</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Ask for revision</span>
+      <span class="btn">Split award</span>
+      <span class="btn pri">Create purchase order</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Why this is being bought</h2><span>traced back to the customer order</span></header>
+    <div class="body">
+      <div class="origin">
+        <div><label>Customer order</label><b class="mono">SO-24817</b><small>Kestrel Pumps · 1,200 pcs · promised 18 Oct</small></div>
+        <div><label>Work order</label><b class="mono">WO-5521</b><small>890 pcs · needs 2,140 kg of castings</small></div>
+        <div><label>Shortage found by planning</label><b>400 kg</b><small>1,740 kg in stock on 28 Sep</small></div>
+        <div><label>Requisition</label><b class="mono">PR-0456</b><small>Raised by planning 28 Sep · approved by S. Iyer</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card">
+      <header><h2>Quote comparison</h2><span>ranked on landed cost and on meeting the date</span><span class="chip blue" style="margin-left:auto">Recommended: Aravali Castings</span></header>
+      <div class="body">
+        <div class="cmp">
+          <div class="k h"></div>
+          <div class="h win"><b>Aravali Castings</b><small>Approved · Faridabad · 14 orders</small></div>
+          <div class="h"><b>Northline Alloys</b><small>Approved · Rajkot · 6 orders</small></div>
+          <div class="h"><b>Sunrise Metals</b><small>Approved · Kolhapur · 9 orders</small></div>
+
+          <div class="k">Rate per kg</div><div class="win"><span class="big">₹256</span></div><div><span class="big">₹249</span><span class="chip ok plain">Lowest</span></div><div><span class="big">₹262</span></div>
+          <div class="k">Freight</div><div class="win v mono">Included</div><div class="v mono">₹3,600</div><div class="v mono">Included</div>
+          <div class="k">Landed cost, 400 kg</div><div class="win v mono">₹1,02,400</div><div class="v mono">₹1,03,200</div><div class="v mono">₹1,04,800</div>
+          <div class="k">Lead time</div><div class="win v">9 days</div><div class="v">14 days</div><div class="v">8 days</div>
+          <div class="k">Delivers by</div><div class="win v">10 Oct <span class="chip ok">2 days early</span></div><div class="v">15 Oct <span class="chip bad">3 days late</span></div><div class="v">9 Oct <span class="chip ok">3 days early</span></div>
+          <div class="k">Payment terms</div><div class="win v">Net 45</div><div class="v">Net 45</div><div class="v">Advance 20%</div>
+          <div class="k">Quality, last 12 months</div><div class="win"><span class="stars">★★★★★</span><span class="sub">99.4%</span></div><div><span class="stars">★★★★<span class="dim">★</span></span><span class="sub">95.6%</span></div><div><span class="stars">★★★★<span class="dim">★</span></span><span class="sub">96.9%</span></div>
+          <div class="k">On-time delivery</div><div class="win last v">94%</div><div class="v">81%</div><div class="v">92%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>What happens next</h2></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="feed">
+            <li><i class="blue">PO</i><p><b>Purchase order</b> to Aravali Castings<small>₹1,02,400 · plant head and purchase head approve</small></p><time>2 Oct</time></li>
+            <li><i>ASN</i><p><b>Shipment notice</b> from the vendor<small>Gate and stores see it before the truck arrives</small></p><time>3 Oct</time></li>
+            <li><i>GRN</i><p><b>Receipt and inspection</b><small>Only accepted weight becomes usable stock</small></p><time>10 Oct</time></li>
+            <li><i>WO</i><p><b>Allocated to WO-5521</b><small>Shortage on SO-24817 clears</small></p><time>10 Oct</time></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Payment check</h2><span>order, receipt and invoice must agree</span></header>
+        <div class="body">
+          <div class="match">
+            <div><label>Ordered</label><b>400 kg</b></div>
+            <div><label>Received</label><b class="wait">Pending</b></div>
+            <div><label>Invoiced</label><b class="wait">Pending</b></div>
+          </div>
+          <div class="rule"></div>
+          <dl class="kv">
+            <dt>Budget, raw material</dt><dd class="mono">₹29.4 L of ₹42 L used</dd>
+            <dt>Approval</dt><dd><span class="chip blue">2 levels · above ₹1 L</span></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

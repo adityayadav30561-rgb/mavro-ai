@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Gate Entry · Security exceptions</title>
+<!-- Scenario: see gate-dock.html. Open: SEC-0416 contract worker's pass expired 6 Oct, stopped at 07:52; SEC-0417 two
+     scrap bins leaving without a material gate pass, 11:40; SEC-0418 GP-3184 40 kg short, 12:49; SEC-0419 GP-3168
+     idle 3 h 10 m at D3, 13:50; SEC-0409 seal 22871 on GP-3104 (Sharda Bearings, 6 Oct) where the invoice says 22817,
+     and 760 of the 800 BS-07 sleeves on PO-7709 counted in. Four raised today. Closed this week: 11, average 3 h 20 m
+     to close. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .sums { grid-template-columns: repeat(4, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .cols { grid-template-columns: minmax(0, 1fr) 356px; flex: 1; }
+  .q td { padding-top: 8px; padding-bottom: 8px; }
+  .typ { display: inline-block; padding: 1px 7px; border-radius: 5px; background: var(--surface-2); border: 1px solid var(--line); font-size: 11.5px; color: var(--ink-2); }
+  .typ.bad { background: var(--bad-soft); border-color: #f8cfca; color: var(--bad); }
+  tr.closed td { color: var(--ink-3); }
+  tr.closed td b { color: var(--ink-2); }
+  .age { font: 11.5px var(--mono); color: var(--ink-2); }
+  .det h3 { font-size: 15px; font-weight: 620; letter-spacing: -0.01em; }
+  .det .lead { color: var(--ink-2); margin-top: 2px; }
+  .seal { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .seal div { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); }
+  .seal div.x { background: var(--bad-soft); border-color: #f8cfca; }
+  .seal label { display: block; color: var(--ink-2); font-size: 12px; }
+  .seal b { display: block; margin-top: 2px; font: 650 17px var(--mono); }
+  .seal .x b { color: var(--bad); }
+  .ev { display: flex; gap: 6px; margin-top: 10px; }
+  .ev span { flex: 1; height: 42px; border-radius: 8px; background: repeating-linear-gradient(135deg, #eef0f4 0 6px, #f6f7f9 6px 12px); border: 1px solid var(--line); display: grid; place-items: end start; padding: 4px 6px; font: 10.5px var(--mono); color: var(--ink-3); }
+  .esc li { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 7px 0; }
+  .esc li + li { border-top: 1px solid var(--line); }
+  .esc i { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); font: 600 10px var(--sans); font-style: normal; }
+  .esc i.w { background: var(--warn-soft); border-color: #f5e2b0; color: var(--warn); }
+  .esc p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .esc time { font: 11.5px var(--mono); color: var(--ink-3); }
+</style>
+</head>
+<body data-module="gate-entry" data-view="Security exceptions" data-crumb="Stock / Gate Entry / Security exceptions" data-who="Ganesh Patil|Security supervisor">
+<main>
+  <div class="head">
+    <div>
+      <h1>Security exceptions</h1>
+      <p>Document mismatches, expired passes, seal breaches and idle vehicles, each logged and escalated by name</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Open</span><span>Today</span><span>Closed</span></div>
+      <span class="btn">Escalation rules</span>
+      <span class="btn pri">Log exception</span>
+    </div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Open</label><strong style="color:var(--bad)">5 <small>2 escalated beyond the gate</small></strong></div>
+    <div class="card sm"><label>Raised today</label><strong>4 <small>3 by the system, 1 by the gate</small></strong></div>
+    <div class="card sm"><label>Closed this week</label><strong>11</strong></div>
+    <div class="card sm"><label>Average time to close</label><strong>3 h 20 m</strong></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush q">
+      <header><h2>Exception queue</h2><span>open first, newest on top</span></header>
+      <div class="body">
+        <table>
+          <thead><tr><th>Exception</th><th>Type</th><th>What happened</th><th>With</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b class="mono">SEC-0419</b><small>13:50 · yard timer</small></td><td><span class="typ">Idle vehicle</span></td><td><b>GP-3168 at D3 for 3 h 10 m</b><small>Deccan Tooling · blocks GP-3189</small></td><td>Nitin Kale<small>maintenance</small></td><td><span class="chip warn">Paged</span></td></tr>
+            <tr><td><b class="mono">SEC-0418</b><small>12:49 · weighbridge</small></td><td><span class="typ">Mismatch</span></td><td><b>GP-3184 weighed 40 kg short</b><small>Kaveri Steel · 0.64% against 0.5%</small></td><td>Rohan Menon<small>buyer</small></td><td><span class="chip blue">Unloading at net</span></td></tr>
+            <tr><td><b class="mono">SEC-0417</b><small>11:40 · R. Jadhav</small></td><td><span class="typ bad">No gate pass</span></td><td><b>2 scrap bins going out</b><small>Scrap contractor's tractor · stopped</small></td><td>Kavita Joshi<small>stores</small></td><td><span class="chip warn">Held at gate</span></td></tr>
+            <tr><td><b class="mono">SEC-0416</b><small>07:52 · turnstile</small></td><td><span class="typ bad">Pass expired</span></td><td><b>Contract worker, pass CLP-2281</b><small>Shree Om Facility Services · expired 6 Oct</small></td><td>Pooja Nair<small>contract labour</small></td><td><span class="chip bad">Entry refused</span></td></tr>
+            <tr class="hl"><td><b class="mono">SEC-0409</b><small>6 Oct · R. Jadhav</small></td><td><span class="typ bad">Seal breach</span></td><td><b>GP-3104 seal differs from invoice</b><small>Sharda Bearings · 760 of 800 counted</small></td><td>Rohan Menon<small>buyer · vendor told</small></td><td><span class="chip bad">Investigating</span></td></tr>
+            <tr class="closed"><td><b class="mono">SEC-0415</b><small>7 Oct · R. Jadhav</small></td><td><span class="typ">Visitor</span></td><td><b>Visitor with no host approval</b><small>Asked for stores · host not found</small></td><td>Ganesh Patil<small>security</small></td><td><span class="chip">Refused · closed</span></td></tr>
+            <tr class="closed"><td><b class="mono">SEC-0414</b><small>7 Oct · pass timer</small></td><td><span class="typ">Returnable</span></td><td><b>2 dies overdue on RGP-0218</b><small>Sent for repair · due back 5 Oct</small></td><td>Nitin Kale<small>maintenance</small></td><td><span class="chip ok">Returned · closed</span></td></tr>
+            <tr class="closed"><td><b class="mono">SEC-0412</b><small>6 Oct · R. Jadhav</small></td><td><span class="typ">Driver</span></td><td><b>Driver's licence not valid</b><small>Om Sai Transport · driver replaced</small></td><td>Ganesh Patil<small>security</small></td><td><span class="chip ok">Resolved · closed</span></td></tr>
+            <tr class="closed"><td><b class="mono">SEC-0411</b><small>6 Oct · pass timer</small></td><td><span class="typ">Visitor</span></td><td><b>Visitor still inside after pass expiry</b><small>Service engineer · CNC-01 · 40 m over</small></td><td>Ganesh Patil<small>security</small></td><td><span class="chip ok">Signed out · closed</span></td></tr>
+            <tr class="closed"><td><b class="mono">SEC-0410</b><small>6 Oct · D1 supervisor</small></td><td><span class="typ">Seal</span></td><td><b>Dispatch seal broken while loading</b><small>SO-24768 · re-sealed under watch</small></td><td>Ganesh Patil<small>security</small></td><td><span class="chip ok">Re-sealed · closed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card det">
+      <header><h2>SEC-0409</h2><span>seal breach · open 2 days</span></header>
+      <div class="body">
+        <h3>Sharda Bearings · GP-3104, 6 Oct</h3>
+        <p class="lead">800 BS-07 bearing sleeves on PO-7709 · sealed container</p>
+        <div class="seal">
+          <div><label>Seal on the invoice</label><b>22817</b></div>
+          <div class="x"><label>Seal on arrival</label><b>22871</b></div>
+        </div>
+        <div class="ev"><span>seal</span><span>invoice</span><span>container</span><span>count</span></div>
+        <div class="rule"></div>
+        <ul class="esc">
+          <li><i>RJ</i><p><b>Logged at the gate</b><small>Ramesh Jadhav · unloaded under watch</small></p><time>6 Oct 15:20</time></li>
+          <li><i>GP</i><p><b>Escalated to security</b><small>Ganesh Patil · count witnessed</small></p><time>15:24</time></li>
+          <li><i>SQ</i><p><b>760 of 800 counted in</b><small>Sana Qureshi · GRN-3319</small></p><time>16:02</time></li>
+          <li><i>RM</i><p><b>Vendor and transporter told</b><small>Rohan Menon · debit note on hold</small></p><time>16:30</time></li>
+          <li><i class="w">…</i><p><b>Transporter's statement</b><small>asked for by 9 Oct</small></p><time>waiting</time></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

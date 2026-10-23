@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Gate Entry · Gate register</title>
+<!-- Scenario: see gate-dock.html. Today's passes at the main gate, newest first. GP-3168 (Deccan Tooling, returnable
+     fixtures) came in at 07:25 and has stood at D3 since 10:52; GP-3171 took SO-24781 (640 GH-280) out at 09:05;
+     GP-3184 is Kaveri Steel's EN8 at 6,200 kg net; GP-3180 is the scrap tractor held under SEC-0417. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 7px; padding-bottom: 7px; }
+  .pl { display: inline-block; padding: 1px 6px; border-radius: 5px; border: 1.5px solid var(--ink-2); font: 600 11px var(--mono); color: var(--ink); background: #fff; }
+  .pur { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); }
+  .pur.in { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+  .pur.out { background: #eef0f6; border-color: #d9dce3; color: var(--ink); }
+  td.long { color: var(--bad); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="gate-entry" data-view="Gate register" data-crumb="Stock / Gate Entry / Gate register" data-who="Ganesh Patil|Security supervisor">
+<main>
+  <div class="head">
+    <div>
+      <h1>Gate register</h1>
+      <p>Every gate pass with vehicle, driver, party, document, dock and weight, the record for turnaround and detention</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All</span><span>Inward</span><span>Outward</span><span>Returnable</span><span>Visitors</span></div>
+      <span class="btn">Export</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Date <b>8 Oct</b></span>
+    <span class="filter">Gate <b>Main gate</b></span>
+    <span class="filter">Party <b>All</b></span>
+    <span class="filter">Status <b>All</b></span>
+    <span class="filter" style="border-style:dashed;color:var(--ink-3)">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Gate pass, vehicle, party or document</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Vehicle movements</label><strong>39 <small>24 in · 15 out</small></strong></div>
+    <div class="card sm"><label>In the plant now</label><strong>9 <small>3 at the gate</small></strong></div>
+    <div class="card sm"><label>Visitors</label><strong>8 <small>2 inside</small></strong></div>
+    <div class="card sm"><label>Weighbridge tickets</label><strong>21 <small>1 outside tolerance</small></strong></div>
+    <div class="card sm"><label>Over 3 h inside</label><strong style="color:var(--bad)">1 <small>GP-3168</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Gate pass</th><th>In</th><th>Out</th><th>Vehicle · driver</th><th>Party</th><th>Purpose</th><th>Document</th><th>Dock</th><th class="r">Net weight</th><th class="r">Inside</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">GP-3191</b></td><td class="mono">13:56</td><td class="mono dim">—</td><td><span class="pl">MH 12 PQ 7781</span><small>Sandeep M.</small></td><td><b>Pune Gas Agencies</b></td><td><span class="pur">Returnable</span></td><td class="mono">RGP-0231</td><td class="mono">D5 next</td><td class="r mono dim">weighing</td><td class="r mono">6 m</td><td><span class="chip">At weighbridge</span></td></tr>
+          <tr><td><b class="mono">GP-3190</b></td><td class="mono">13:41</td><td class="mono dim">—</td><td><span class="pl">MH 04 HT 2290</span><small>Anil P.</small></td><td><b>Om Sai Transport</b></td><td><span class="pur out">Outward</span></td><td class="mono">SO-24832</td><td class="mono">D1 next</td><td class="r mono dim">—</td><td class="r mono">21 m</td><td><span class="chip">Waiting</span></td></tr>
+          <tr><td><b class="mono">GP-3189</b></td><td class="mono">13:24</td><td class="mono dim">—</td><td><span class="pl">MH 12 RS 3305</span><small>Vijay T.</small></td><td><b>Shree Ganesh Packaging</b></td><td><span class="pur in">Inward</span></td><td class="mono">PO-7717</td><td class="mono">D3</td><td class="r mono dim">—</td><td class="r mono">38 m</td><td><span class="chip warn">Waiting for dock</span></td></tr>
+          <tr><td><b class="mono">GP-3187</b></td><td class="mono">13:15</td><td class="mono dim">—</td><td><span class="pl">MH 12 NB 9024</span><small>Kiran S.</small></td><td><b>Sundaram Valves</b></td><td><span class="pur out">Outward</span></td><td class="mono">SO-24826</td><td class="mono">D4</td><td class="r mono dim">—</td><td class="r mono">47 m</td><td><span class="chip blue">Loading</span></td></tr>
+          <tr><td><b class="mono">GP-3186</b></td><td class="mono">12:58</td><td class="mono dim">—</td><td><span class="pl">MH 04 KL 5521</span><small>Imtiaz K.</small></td><td><b>Om Sai Transport</b></td><td><span class="pur out">Outward</span></td><td class="mono">SO-24829</td><td class="mono">D1</td><td class="r mono dim">—</td><td class="r mono">1 h 04 m</td><td><span class="chip blue">Loading</span></td></tr>
+          <tr class="hl"><td><b class="mono">GP-3184</b></td><td class="mono">12:41</td><td class="mono dim">—</td><td><span class="pl">TN 28 BK 4417</span><small>Murugan S.</small></td><td><b>Kaveri Steel Traders</b></td><td><span class="pur in">Inward</span></td><td class="mono">PO-7719</td><td class="mono">D2</td><td class="r mono">6,200 kg</td><td class="r mono">1 h 21 m</td><td><span class="chip warn">Unloading · SEC-0418</span></td></tr>
+          <tr><td><b class="mono">GP-3183</b></td><td class="mono">12:10</td><td class="mono">13:22</td><td><span class="pl">MH 14 GU 6612</span><small>Dattatray K.</small></td><td><b>Pawar Heat Treaters</b></td><td><span class="pur">Job work in</span></td><td class="mono">JW-0142</td><td class="mono">D5</td><td class="r mono">1,860 kg</td><td class="r mono">1 h 12 m</td><td><span class="chip ok">Out</span></td></tr>
+          <tr><td><b class="mono">GP-3180</b></td><td class="mono">11:22</td><td class="mono dim">—</td><td><span class="pl">MH 12 TR 0417</span><small>Babu R.</small></td><td><b>Shiv Scrap Traders</b></td><td><span class="pur out">Scrap out</span></td><td class="mono dim">no pass</td><td class="mono">D6</td><td class="r mono">2,310 kg</td><td class="r mono">2 h 40 m</td><td><span class="chip bad">Held · SEC-0417</span></td></tr>
+          <tr><td><b class="mono">GP-3179</b></td><td class="mono">11:02</td><td class="mono">12:31</td><td><span class="pl">MH 12 KD 2218</span><small>Sunil G.</small></td><td><b>Mehta Alloys</b></td><td><span class="pur in">Inward</span></td><td class="mono">PO-7712</td><td class="mono">D5</td><td class="r mono">412 kg</td><td class="r mono">1 h 29 m</td><td><span class="chip ok">Out · GRN-3323</span></td></tr>
+          <tr><td><b class="mono">GP-3171</b></td><td class="mono">07:40</td><td class="mono">09:05</td><td><span class="pl">MH 04 KL 1186</span><small>Rafiq A.</small></td><td><b>Om Sai Transport</b></td><td><span class="pur out">Outward</span></td><td class="mono">SO-24781</td><td class="mono">D1</td><td class="r mono">3,120 kg</td><td class="r mono">1 h 25 m</td><td><span class="chip ok">Out · 640 GH-280</span></td></tr>
+          <tr><td><b class="mono">GP-3168</b></td><td class="mono">07:25</td><td class="mono dim">—</td><td><span class="pl">TS 08 UC 3390</span><small>Prasad V.</small></td><td><b>Deccan Tooling</b></td><td><span class="pur">Returnable</span></td><td class="mono">RGP-0226</td><td class="mono">D3</td><td class="r mono dim">—</td><td class="r mono long">6 h 37 m</td><td><span class="chip bad">Idle · SEC-0419</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <span>Showing 11 of 47 passes today (39 vehicles, 8 visitors) · kept with photos and weighbridge tickets</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

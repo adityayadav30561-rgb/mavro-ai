@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Procure to Pay · Spend and suppliers</title>
+<!--
+  Scenario (Procure to Pay, shared by every screen of the module; agrees with prototype/purchase-order.html,
+  prototype/procurement.html and the Vendor Invoice Management screens): Northfield Precision, Plant 1 (Pune),
+  8 Oct, 14:02. October commitments ₹1.04 Cr of a ₹1.41 Cr budget; raw material ₹30.4 L of ₹42 L (incl. PO-7714).
+  The LM6 castings purchase for WO-5521 / SO-24817: shortage found 28 Sep, PR-0456, RFQ-0311 (3 quotes by 1 Oct),
+  PO-7714 to Aravali Castings (Faridabad) on 2 Oct, 400 kg at ₹256 = ₹1,02,400 + GST ₹18,432; invoice VIM-2207
+  (3 Oct) waits for the goods, ETA 10 Oct. PO-7702 Mehta Alloys: EN8 bar invoiced at ₹86.50 against ₹84.00
+  (VIM-2224, +2.98%, payment blocked). 6 invoices over contract price (₹38,900 variance), as in VIM's 6 price
+  exceptions. PO-7719 Kaveri Steel Traders, 6,240 kg EN8 at ₹82 = ₹5,11,680, at the gate today (GP-3184, 40 kg
+  short on the weighbridge). BS-07 bearing sleeves are single-source (Sharda Bearings); the cycle count today raised
+  PR-0461. 147 POs placed this year to date at Plant 1 average 2.6 days from requisition to PO. Buyer: Rohan Menon;
+  purchase head: S. Iyer.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 344px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .bud { display: flex; align-items: center; gap: 10px; }
+  .bud .meter { width: 96px; }
+  .bud em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-2); width: 32px; }
+  td.pv { color: var(--bad); }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .ss li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; padding: 10px 0; align-items: center; }
+  .ss li + li { border-top: 1px solid var(--line); }
+  .ss p { line-height: 1.3; }
+  .ss p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="procure-to-pay" data-view="Spend and suppliers" data-crumb="Buy / Procure to Pay / Spend and suppliers" data-who="S. Iyer|Purchase head">
+<main>
+  <div class="head">
+    <div>
+      <h1>Spend and supplier health</h1>
+      <p>October commitments at Plant 1 · checked against rate contracts, receipts and quality</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">October</span><span>Quarter</span><span>Year to date</span></div>
+      <span class="btn">Rate contracts</span>
+      <span class="btn pri">New requisition</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Committed spend</label><div class="v"><strong>₹1.04 Cr</strong><i data-spark="0.82,0.91,0.88,0.97,1.02,0.94,1.08,0.99,1.04" data-color="#8b93a3"></i></div><div class="foot"><b class="delta flat">74% of ₹1.41 Cr</b><span>October budget</span></div></div>
+    <div class="card kpi"><label>Over contract price</label><div class="v"><strong style="color:var(--bad)">₹38,900</strong></div><div class="foot"><b class="delta down">6 invoices</b><span>payment blocked until resolved</span></div></div>
+    <div class="card kpi"><label>On-time receipts</label><div class="v"><strong>91%</strong><i data-spark="86,88,87,89,90,88,91,90,91" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta flat">Target 95%</b><span>GRN by the need-by date</span></div></div>
+    <div class="card kpi"><label>Requisition to PO</label><div class="v"><strong>2.6 <small>days</small></strong><i data-spark="4.8,4.4,4.1,3.7,3.5,3.2,2.9,2.8,2.6"></i></div><div class="foot"><b class="delta up">−2.2 days</b><span>since April</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Spend by category</h2><span>committed on POs, October</span><span class="more">All categories</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Category</th><th class="r">Committed</th><th>Budget used</th><th class="r">Over contract</th><th class="r">Vendors</th><th class="r">On time</th></tr></thead>
+            <tbody>
+              <tr><td><b>Raw material</b><small>Castings, bar stock</small></td><td class="r mono">₹30.4 L</td><td><span class="bud"><span class="meter"><i style="width:72%"></i></span><em>72%</em></span></td><td class="r mono pv">₹14,200</td><td class="r mono">9</td><td class="r mono">88%</td></tr>
+              <tr><td><b>Bought-out parts</b><small>Bearings, seals, fasteners</small></td><td class="r mono">₹24.6 L</td><td><span class="bud"><span class="meter"><i style="width:77%"></i></span><em>77%</em></span></td><td class="r mono pv">₹9,600</td><td class="r mono">14</td><td class="r mono">92%</td></tr>
+              <tr><td><b>Tooling and spares</b><small>Inserts, fixtures, spares</small></td><td class="r mono">₹18.2 L</td><td><span class="bud"><span class="meter warn"><i style="width:83%"></i></span><em>83%</em></span></td><td class="r mono pv">₹11,300</td><td class="r mono">6</td><td class="r mono">95%</td></tr>
+              <tr><td><b>Freight and services</b><small>Inbound freight, job work</small></td><td class="r mono">₹14.6 L</td><td><span class="bud"><span class="meter"><i style="width:73%"></i></span><em>73%</em></span></td><td class="r mono pv">₹3,800</td><td class="r mono">5</td><td class="r mono">90%</td></tr>
+              <tr><td><b>Packing</b><small>Cartons, crates, film</small></td><td class="r mono">₹9.8 L</td><td><span class="bud"><span class="meter"><i style="width:70%"></i></span><em>70%</em></span></td><td class="r mono dim">—</td><td class="r mono">3</td><td class="r mono">89%</td></tr>
+              <tr><td><b>Consumables</b><small>Oils, gases, abrasives</small></td><td class="r mono">₹6.4 L</td><td><span class="bud"><span class="meter"><i style="width:58%"></i></span><em>58%</em></span></td><td class="r mono dim">—</td><td class="r mono">7</td><td class="r mono">96%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card flush" style="flex:1">
+        <header><h2>Supplier health</h2><span>top vendors by October spend</span><span class="more">Vendor scorecards</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Vendor</th><th class="r">Spend</th><th class="r">On time</th><th class="r">Rejected</th><th>Price</th><th>GST</th><th>Watch</th></tr></thead>
+            <tbody>
+              <tr><td><b>Aravali Castings</b><small>Faridabad · castings</small></td><td class="r mono">₹14.8 L</td><td class="r mono">94%</td><td class="r mono">0.6%</td><td><span class="chip ok plain">On contract</span></td><td><span class="chip ok plain">In 2B</span></td><td><span class="chip blue">PO-7714 in transit</span></td></tr>
+              <tr><td><b>Kaveri Steel Traders</b><small>Chennai · bar stock</small></td><td class="r mono">₹9.6 L</td><td class="r mono">86%</td><td class="r mono">0.9%</td><td><span class="chip ok plain">On contract</span></td><td><span class="chip warn plain">Tax differs</span></td><td><span class="chip warn">40 kg short at gate</span></td></tr>
+              <tr><td><b>Precision Tooling Co.</b><small>Chakan · tooling</small></td><td class="r mono">₹7.4 L</td><td class="r mono">97%</td><td class="r mono">0.0%</td><td><span class="chip bad plain">+4.1%</span></td><td><span class="chip warn plain">GSTIN differs</span></td><td><span class="chip">Rate review 12 Oct</span></td></tr>
+              <tr><td><b>Mehta Alloys</b><small>Pune · bar stock, bushes</small></td><td class="r mono">₹6.2 L</td><td class="r mono">92%</td><td class="r mono">0.4%</td><td><span class="chip bad plain">+2.98%</span></td><td><span class="chip ok plain">In 2B</span></td><td><span class="chip bad">VIM-2224 blocked</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex:1">
+        <header><h2>Spend against budget</h2><span>₹ lakh a month</span></header>
+        <div class="body chart-c" data-bars="96,112,104,118,121,104|130,130,135,135,141,141" data-max="160" data-labels="May,Jun,Jul,Aug,Sep,Oct" data-colors="#0a48fd,#d9dce3"></div>
+      </div>
+      <div class="card">
+        <header><h2>Single-source risk</h2><span>critical items</span><span class="more">All items</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="ss">
+            <li><p><b>Bearing sleeve BS-07</b><small>Sharda Bearings only · below reorder, PR-0461 raised today</small></p><span class="chip bad">No alternate</span></li>
+            <li><p><b>CV-110 valve body casting</b><small>Aravali Castings only · 6 weeks of cover</small></p><span class="chip warn">Alternate in trial</span></li>
+            <li><p><b>Seal ring SR-18</b><small>Nova Seals · second source approved in September</small></p><span class="chip ok">2 sources</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Waiting on you</h2><span>approvals</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="feed">
+            <li><i class="warn">PR</i><p><b>PR-0461</b> · 1,000 BS-07 sleeves<small>From today's cycle count · ₹1.85 L</small></p><time>13:40</time></li>
+            <li><i class="blue">PO</i><p><b>PO-7721</b> · Deccan Tooling<small>Fixture rework · ₹2.84 L, above buyer limit</small></p><time>11:05</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Gate Entry · Vehicle clearance GP-3184</title>
+<!-- Scenario: see gate-dock.html. GP-3184: Kaveri Steel Traders' vehicle TN 28 BK 4417 with invoice KST/1311 (6 Oct)
+     for PO-7719, 6,240 kg EN8 round bar at ₹82 = ₹5,11,680 + GST 18% ₹92,102 = ₹6,03,782; e-way bill 3410 2296 7718,
+     valid to 9 Oct. Weighbridge WB-1, ticket WB-88213 at 12:46: gross 18,420 kg; tare on the vehicle's record
+     12,220 kg (last 3 trips), so 6,200 kg net: 40 kg (0.64%) under the invoice, over the 0.5% tolerance (31 kg).
+     Cleared with exception SEC-0418; buyer Rohan Menon accepted unloading at 13:05, GRN at the weighed net and a debit
+     note for the difference. D2 (crane bay) from 13:20, unloading since 13:31. Driver: Murugan S. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .flowcard .body { padding: 18px 8px 16px; }
+  .doc { display: grid; grid-template-columns: 128px repeat(4, minmax(0, 1fr)); }
+  .doc > div { padding: 10px 12px; border-top: 1px solid var(--line); display: flex; align-items: center; gap: 6px; min-width: 0; }
+  .doc .k { padding-left: 0; color: var(--ink-2); }
+  .doc .h { border-top: 0; flex-direction: column; align-items: flex-start; gap: 1px; padding-top: 0; }
+  .doc .h b { font-weight: 600; }
+  .doc .h small { color: var(--ink-3); font: 11.5px var(--mono); }
+  .doc .v { font: 550 12.5px var(--mono); }
+  .doc .bad { color: var(--bad); }
+  .doc .ok::after { content: '✓'; color: var(--ok); font: 700 12px var(--sans); }
+  .doc .dim { color: var(--ink-3); }
+  .note { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--warn-soft); color: #7a5214; border: 1px solid #f5e2b0; }
+  .wb { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .wb > div { padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); }
+  .wb label { display: block; color: var(--ink-2); font-size: 12px; }
+  .wb b { display: block; margin-top: 3px; font: 620 19px var(--sans); letter-spacing: -0.02em; }
+  .wb small { color: var(--ink-3); font-size: 11.5px; }
+  .wb .short { background: var(--bad-soft); border-color: #f8cfca; }
+  .wb .short b { color: var(--bad); }
+  .veh { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .plate { padding: 6px 10px; border-radius: 7px; border: 2px solid var(--ink); font: 700 14px var(--mono); letter-spacing: 0.02em; background: #fff; }
+  .veh b { display: block; font-weight: 600; }
+  .veh small { color: var(--ink-3); }
+  .checks li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; padding: 7px 0; align-items: center; }
+  .checks li + li { border-top: 1px solid var(--line); }
+  .checks i { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--ok-soft); color: var(--ok); font: 700 11px var(--sans); font-style: normal; }
+  .checks i.na { background: var(--surface-2); color: var(--ink-3); border: 1px solid var(--line); }
+  .checks small { color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="gate-entry" data-view="Vehicle clearance" data-crumb="Stock / Gate Entry / Vehicle clearance / GP-3184" data-who="Ganesh Patil|Security supervisor">
+<main>
+  <div class="head">
+    <div>
+      <h1>GP-3184 &nbsp;<span class="chip warn" style="vertical-align:4px">Cleared with exception</span></h1>
+      <p>Kaveri Steel Traders · EN8 round bar for PO-7719 · arrived 12:41 · unloading at D2</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Print gate pass</span>
+      <span class="btn">Exception SEC-0418</span>
+      <span class="btn pri">Record tare and gate out</span>
+    </div>
+  </div>
+
+  <div class="card flowcard">
+    <header><h2>Gate to dock</h2><span>every step recorded with who and when</span></header>
+    <div class="body">
+      <ol class="flow" style="--n:9;--at:0.75">
+        <li class="done"><i></i><b>Arrived</b><span>12:41</span></li>
+        <li class="done"><i></i><b>Documents</b><span>12:44</span></li>
+        <li class="done"><i></i><b>Weighbridge</b><span>12:46</span></li>
+        <li class="done"><i></i><b>Exception</b><span>SEC-0418</span></li>
+        <li class="done"><i></i><b>Buyer decision</b><span>13:05</span></li>
+        <li class="done"><i></i><b>Dock allotted</b><span>D2 · 13:20</span></li>
+        <li class="now"><i></i><b>Unloading</b><span>since 13:31</span></li>
+        <li class="next"><i></i><b>GRN</b><span>6,200 kg</span></li>
+        <li class="next"><i></i><b>Tare, gate out</b><span>WB-1</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card">
+        <header><h2>Documents against the order</h2><span>must agree before unloading</span></header>
+        <div class="body">
+          <div class="doc">
+            <div class="k h"></div>
+            <div class="h"><b>Purchase order</b><small>PO-7719 · 6 Oct</small></div>
+            <div class="h"><b>Invoice</b><small>KST/1311 · 6 Oct</small></div>
+            <div class="h"><b>E-way bill</b><small>3410 2296 7718</small></div>
+            <div class="h"><b>Weighbridge</b><small>WB-88213 · 12:46</small></div>
+            <div class="k">Material</div><div class="v">EN8 bar, 65 mm</div><div class="v ok">EN8 bar, 65 mm</div><div class="v ok">HSN 7214</div><div class="dim">—</div>
+            <div class="k">Quantity</div><div class="v">6,240 kg</div><div class="v ok">6,240 kg</div><div class="v ok">6,240 kg</div><div class="v bad">6,200 kg net</div>
+            <div class="k">Taxable value</div><div class="v">₹5,11,680</div><div class="v ok">₹5,11,680</div><div class="v ok">₹5,11,680</div><div class="dim">—</div>
+            <div class="k">Vehicle</div><div class="dim">—</div><div class="v ok">TN 28 BK 4417</div><div class="v ok">TN 28 BK 4417</div><div class="v ok">TN 28 BK 4417</div>
+            <div class="k">Valid</div><div class="v">Open · 0 received</div><div class="v ok">GSTIN active</div><div class="v ok">to 9 Oct, 23:59</div><div class="v ok">Calibrated</div>
+          </div>
+          <div class="note"><span class="chip warn">Exception</span><span>Weighed 40 kg below the invoice (0.64% against 0.5%). Buyer allowed unloading: GRN at the weighed net.</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <header><h2>Weighbridge</h2><span>WB-1 · ticket WB-88213</span><span class="more">Ticket</span></header>
+        <div class="body">
+          <div class="wb">
+            <div><label>Gross, in</label><b>18,420 kg</b><small>12:46 · camera photo</small></div>
+            <div><label>Tare, vehicle record</label><b>12,220 kg</b><small>last 3 trips · final tare at exit</small></div>
+            <div class="short"><label>Net</label><b>6,200 kg</b><small>40 kg under the invoice</small></div>
+            <div><label>Tolerance</label><b>±0.5%</b><small>31 kg on this load</small></div>
+          </div>
+          <div class="rule"></div>
+          <dl class="kv">
+            <dt>Decision</dt><dd>Unload · GRN at weighed net · debit note for 40 kg</dd>
+            <dt>Decided by</dt><dd>Rohan Menon, buyer · 13:05</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Vehicle and driver</h2></header>
+        <div class="body">
+          <div class="veh"><span class="plate">TN 28 BK 4417</span><div><b>16 t open body</b><small>Sri Balaji Roadlines</small></div></div>
+          <dl class="kv">
+            <dt>Driver</dt><dd>Murugan S.</dd>
+            <dt>Licence</dt><dd><span class="chip ok">Checked with photo</span></dd>
+            <dt>Mobile</dt><dd><span class="chip ok">OTP verified</span></dd>
+            <dt>Fitness, insurance, PUC</dt><dd><span class="chip ok">Valid</span></dd>
+          </dl>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Checks before unloading</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="checks">
+            <li><i>✓</i><span>Load covered, no other cargo</span><small>4 photos</small></li>
+            <li><i class="na">–</i><span>Seal</span><small>open body</small></li>
+            <li><i>✓</i><span>Driver PPE issued</span><small>helmet, shoes</small></li>
+            <li><i>✓</i><span>Safety briefing for crane bay</span><small>12:58</small></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Dock</h2><span>D2 · crane bay</span></header>
+        <div class="body">
+          <dl class="kv">
+            <dt>Allotted</dt><dd>13:20 · 15 m wait</dd>
+            <dt>Unloading</dt><dd>since 13:31</dd>
+            <dt>Stores</dt><dd>Sana Qureshi</dd>
+            <dt>Quality</dt><dd>Sample on GRN</dd>
+            <dt>In the plant</dt><dd><b>1 h 21 m</b></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -4,9 +4,9 @@ _Last updated: 2026-10-23. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–7 done (2026-10-23); next: Phase 8, Procure to Pay, Inventory
-Management and Gate Entry (deck slides 38, 56, 54; reuse the homepage `purchase-order`, `procurement`,
-`stock-item` and `inventory` screens as the first screens, on the module shell).** The
+**Stage C (phased implementation). Phases 1–8 done (2026-10-23); next: Phase 9, Production Management, mVLens
+Vendor Audit and Asset Management (deck slides 36, 30, 44; reuse the homepage `work-order` and `quality` screens on
+the module shell).** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -37,6 +37,30 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-23, **Phase 8 done: Procure to Pay, Inventory Management, Gate Entry pages.** On `main`.
+  - **Screens (9 new, 4 moved):** P2P `spend-suppliers` (new, lead), `rfq` and `purchase-order` (the homepage
+    `procurement` and `purchase-order` screens on the module shell), `po-register` (new); Inventory `stock-position`
+    and `item-stock` (homepage `inventory` and `stock-item` on the shell), `cycle-count`, `adjustments` (new); Gate
+    Entry `gate-dock`, `vehicle-clearance`, `security-exceptions`, `gate-register` and the phone `gate-check` (all
+    new). Homepage screens untouched. Scenarios in each module's first screen.
+  - **Figures made to agree** (in the module copies only; the homepage originals keep their approved figures):
+    RFQ-0311 now quotes Aravali Castings at ₹256/kg (₹1,02,400, as on PO-7714), Faridabad, Net 45, 94% on time;
+    the RFQ is dated 1 Oct (`data-live`), PO-7714 2 Oct and VIM-2207 3 Oct, matching Vendor Invoice Management;
+    LM6 castings on the stock position show 1,120 kg after today's 620 kg issue. PO register values equal VIM's
+    invoices less GST; VIM's 6 price and 4 quantity exceptions are the register's 10 blocked POs; PO-7719 (Kaveri
+    Steel, 40 kg short) is GP-3184 at the gate; the BS-07 count variance raises PR-0461, which waits on the P2P
+    dashboard; Sharda Bearings' short delivery (PO-7709) is the open seal-breach exception; GP-3171 is the
+    SO-24781 dispatch from the homepage inventory screen.
+  - **Content:** `content/procure-to-pay.ts` (v2 slides 38–39; the match and invoice-approval views stay with VIM,
+    so the tour shows sourcing and the PO), `inventory-management.ts` (slides 56–57), `gate-entry.ts` (slides
+    54–55, cold-chain kept for pharma); views for all three in `views.ts`. New names: plant head Prakash Nair,
+    security supervisor Ganesh Patil, gate officer Ramesh Jadhav.
+  - Verified: every screen fits its canvas (no `main` overflow, no clipped table); each page at 1440×900, 1366×768
+    and 390×844 (one H1, no overflow, no broken images, no console errors); `qa/measure.html` overflow=none at nine
+    sizes on all three; build passes (13 pages), titles and JSON-LD in the built files, all three in the sitemap.
+  - **Module pages live:** order-to-cash, accounting, vendor-invoice-management, travel-and-expense, crm,
+    sales-force-automation, customer-service, procure-to-pay, inventory-management, gate-entry.
 
 - 2026-10-23, **Phase 7 done: CRM, Sales Force Automation, Customer Service pages.** On `main`.
   - **Screens (10 new):** CRM `lead-detail`, `assignment-queue`, `lead-register` (with `pipeline`); SFA
@@ -305,10 +329,10 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 7: CRM, Sales Force Automation, Customer Service** (slides 46, 52, 48). Their screen 01 exists
-   (`crm/pipeline`, `sales-force-automation/field-force`, `customer-service/ticket-load`); build screens 02–04
-   (and a phone beat-plan screen for SFA), content files, register them.
-2. Then Phase 8 (Procure to Pay, Inventory Management, Gate Entry).
+1. **Phase 9: Production Management, mVLens Vendor Audit, Asset Management** (slides 36, 30, 44). Move the
+   homepage `work-order` and `quality` screens onto the module shell (as Phase 8 did with `purchase-order`), build
+   the rest, content files, register them. Tie to WO-5521 / SO-24817, lot L-0927 and the QI-0217 porosity case.
+2. Then Phase 10 (HRMS and Payroll, Roster Ledger, Rest Hours Log).
 
 ## Open items (need the user or real assets)
 

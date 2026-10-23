@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Inventory Management · Cycle count CC-1008</title>
+<!-- Scenario: see stock-position.html. CC-1008, raw-material store, Plant 1, 8 Oct: 46 A-class bins, counted blind by
+     two-person teams with the bins frozen 10:00–12:30. 38 lines exact, 6 within tolerance, 2 over it. Variances at
+     standard cost: BS-07 −22 × ₹185 = −₹4,070 (−2.34%); GW-300 −3 × ₹2,600 = −₹7,800 (−4.69%); SR-18 −38 × ₹42 =
+     −₹1,596; LM6 −6.5 kg × ₹256 = −₹1,664; FK-M8 +12 × ₹95 = +₹1,140. Within tolerance posts now (−₹2,120); the two over
+     it (−₹11,870) wait for the plant head. Net −₹13,990. ABC: 186 A, 402 B, 696 C = 1,284 items. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .lines td { padding-top: 7px; padding-bottom: 7px; }
+  .lines td.r small { font-family: var(--sans); }
+  .cnt { display: inline-flex; gap: 4px; }
+  .cnt span { padding: 1px 6px; border-radius: 5px; background: var(--surface-2); border: 1px solid var(--line); font: 11px var(--mono); color: var(--ink-2); }
+  td.neg { color: var(--bad); }
+  td.pos { color: var(--ok); }
+  .checks li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; padding: 8px 0; align-items: start; }
+  .checks li + li { border-top: 1px solid var(--line); }
+  .checks i { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--ok-soft); color: var(--ok); font: 700 11px var(--sans); font-style: normal; }
+  .checks p { line-height: 1.35; }
+  .checks p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .repl { padding: 12px 14px; border-radius: 10px; background: var(--accent-soft); border: 1px solid #d9e0ff; }
+  .repl b { display: block; font-size: 14px; font-weight: 600; }
+  .repl p { color: var(--ink-2); font-size: 12px; margin-top: 2px; }
+  .abc li { display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: center; padding: 6px 0; }
+  .abc li + li { border-top: 1px solid var(--line); }
+  .abc b.c { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--ink); color: #fff; font: 600 11px var(--mono); }
+  .abc li:nth-child(2) b.c { background: #3d4366; }
+  .abc li:nth-child(3) b.c { background: #8b93a3; }
+  .abc p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .abc .meter { width: 84px; }
+</style>
+</head>
+<body data-module="inventory-management" data-view="Cycle counts" data-crumb="Stock / Inventory Management / Cycle counts / CC-1008" data-who="Kavita Joshi|Stores manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>CC-1008 &nbsp;<span class="chip warn" style="vertical-align:4px">2 variances need approval</span></h1>
+      <p>Raw-material store, Plant 1 · 46 A-class bins · counted blind by two-person teams · bins frozen 10:00–12:30</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Count sheet</span>
+      <span class="btn">Recount a bin</span>
+      <span class="btn pri">Post within tolerance</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Bins counted</label><div class="v"><strong>46 <small>of 46</small></strong></div><div class="foot"><b class="delta up">Done 12:24</b><span>freeze released 12:30</span></div></div>
+    <div class="card kpi"><label>Count accuracy</label><div class="v"><strong>95.7%</strong><i data-spark="93.1,94.0,93.6,94.8,95.2,94.6,95.9,95.7" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta flat">44 of 46 lines</b><span>within tolerance</span></div></div>
+    <div class="card kpi"><label>Net variance</label><div class="v"><strong style="color:var(--bad)">−₹13,990</strong></div><div class="foot"><b class="delta flat">−₹2,120 posts now</b><span>−₹11,870 to approve</span></div></div>
+    <div class="card kpi"><label>Replenishment raised</label><div class="v"><strong>1 <small>request</small></strong></div><div class="foot"><b class="delta down">BS-07</b><span>PR-0461 to Procure to Pay</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush lines">
+      <header><h2>Count lines</h2><span>variances first · counted value at standard cost</span><span class="more">All 46 lines</span></header>
+      <div class="body">
+        <table>
+          <thead><tr><th>Item</th><th>Bin</th><th class="r">Book</th><th>Counts</th><th class="r">Variance</th><th class="r">Value</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr class="hl"><td><b>Grinding wheel GW-300</b><small>Consumable · A-class</small></td><td class="mono">RM-D-04</td><td class="r mono">64</td><td><span class="cnt"><span>61</span><span>61</span></span></td><td class="r mono neg">−3<small>4.69% · limit ±2%</small></td><td class="r mono neg">−₹7,800</td><td><span class="chip bad">Plant head</span></td></tr>
+            <tr class="hl"><td><b>Bearing sleeve BS-07</b><small>Bought-out · A-class</small></td><td class="mono">RM-B-05</td><td class="r mono">940</td><td><span class="cnt"><span>918</span><span>918</span></span></td><td class="r mono neg">−22<small>2.34% · limit ±2%</small></td><td class="r mono neg">−₹4,070</td><td><span class="chip bad">Plant head</span></td></tr>
+            <tr><td><b>LM6 aluminium castings</b><small>Raw material · A-class</small></td><td class="mono">RM-C-07</td><td class="r mono">1,120 kg</td><td><span class="cnt"><span>1,113.5</span><span>1,113.5</span></span></td><td class="r mono neg">−6.5<small>0.58% · limit ±1%</small></td><td class="r mono neg">−₹1,664</td><td><span class="chip ok">Posts now</span></td></tr>
+            <tr><td><b>Seal ring SR-18</b><small>Bought-out · A-class</small></td><td class="mono">RM-B-02</td><td class="r mono">3,650</td><td><span class="cnt"><span>3,612</span><span>3,612</span></span></td><td class="r mono neg">−38<small>1.04% · limit ±2%</small></td><td class="r mono neg">−₹1,596</td><td><span class="chip ok">Posts now</span></td></tr>
+            <tr><td><b>Fastener kit FK-M8</b><small>Consumable · A-class</small></td><td class="mono">RM-A-11</td><td class="r mono">2,400</td><td><span class="cnt"><span>2,412</span><span>2,412</span></span></td><td class="r mono pos">+12<small>0.50% · limit ±2%</small></td><td class="r mono pos">+₹1,140</td><td><span class="chip ok">Posts now</span></td></tr>
+            <tr><td><b>EN8 round bar, 65 mm</b><small>Raw material · A-class</small></td><td class="mono">RM-C-02</td><td class="r mono">4,380 kg</td><td><span class="cnt"><span>4,380</span><span>4,380</span></span></td><td class="r mono dim">—<small>limit ±1%</small></td><td class="r mono dim">—</td><td><span class="chip">Exact</span></td></tr>
+            <tr><td><b>CV-110 valve body casting</b><small>Raw material · A-class</small></td><td class="mono">RM-C-09</td><td class="r mono">520</td><td><span class="cnt"><span>520</span><span>520</span></span></td><td class="r mono dim">—<small>limit ±0.5%</small></td><td class="r mono dim">—</td><td><span class="chip">Exact</span></td></tr>
+            <tr><td><b>Bushes BU-24</b><small>Bought-out · A-class</small></td><td class="mono">RM-B-09</td><td class="r mono">1,860</td><td><span class="cnt"><span>1,860</span><span>1,860</span></span></td><td class="r mono dim">—<small>limit ±2%</small></td><td class="r mono dim">—</td><td><span class="chip">Exact</span></td></tr>
+            <tr><td><b>Bearing 6205-ZZ</b><small>Bought-out · A-class</small></td><td class="mono">RM-B-11</td><td class="r mono">2,240</td><td><span class="cnt"><span>2,240</span><span>2,240</span></span></td><td class="r mono dim">—<small>limit ±2%</small></td><td class="r mono dim">—</td><td><span class="chip">Exact</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Count integrity</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="checks">
+            <li><i>✓</i><p><b>Counted blind, by two people</b><small>Counters never saw the book quantity</small></p></li>
+            <li><i>✓</i><p><b>Bins frozen during the count</b><small>2 issues held at 11:10, released at 12:30</small></p></li>
+            <li><i>✓</i><p><b>Variances over tolerance recounted</b><small>Same result twice · R. Pawar, D. Shinde</small></p></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Replenishment</h2><span>from this count</span></header>
+        <div class="body">
+          <div class="repl">
+            <b>BS-07 · 28 free after 890 reserved</b>
+            <p>Reorder level 300 · single source, Sharda Bearings</p>
+          </div>
+          <div class="rule"></div>
+          <dl class="kv">
+            <dt>Request</dt><dd class="mono">PR-0461 · 1,000 nos</dd>
+            <dt>Estimated value</dt><dd class="mono">₹1,85,000</dd>
+            <dt>Sent to</dt><dd>Procure to Pay · 13:40</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>ABC count plan</h2><span>this quarter</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="abc">
+            <li><b class="c">A</b><p><b>186 items</b><small>every month · 80% of value</small></p><span class="meter ok"><i style="width:100%"></i></span></li>
+            <li><b class="c">B</b><p><b>402 items</b><small>every quarter</small></p><span class="meter"><i style="width:46%"></i></span></li>
+            <li><b class="c">C</b><p><b>696 items</b><small>twice a year</small></p><span class="meter"><i style="width:21%"></i></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
