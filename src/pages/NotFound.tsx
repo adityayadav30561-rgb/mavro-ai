@@ -35,7 +35,7 @@ export function Page() {
               {notFound.home}
               <Icon name="arrow" size={16} className="btn__arrow" />
             </a>
-            <button type="button" className="btn btn--ghost" onClick={openCatalogue}>
+            <button type="button" className="btn btn--ghost" onClick={() => openCatalogue()}>
               {notFound.catalogue}
             </button>
           </div>

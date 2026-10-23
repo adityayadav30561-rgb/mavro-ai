@@ -7,8 +7,15 @@
 
 .footer__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
-  gap: var(--s-6);
+  grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
+  gap: var(--s-6) clamp(2rem, 4vw, 4.5rem);
+}
+
+/* Platform, Popular modules, Solutions, Resources, Company. */
+.footer__cols {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s-6) var(--s-5);
 }
 
 .footer__brand {
@@ -43,7 +50,8 @@
   font-weight: 550;
 }
 
-.footer nav a:hover {
+.footer nav a:hover,
+.footer nav a[aria-current='page'] {
   color: var(--blue);
 }
 
@@ -64,13 +72,21 @@
   gap: var(--s-5);
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1180px) {
   .footer__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
   }
+}
 
-  .footer__brand {
-    grid-column: 1 / -1;
+@media (max-width: 860px) {
+  .footer__cols {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .footer__cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

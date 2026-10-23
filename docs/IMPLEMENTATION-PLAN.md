@@ -65,7 +65,7 @@ For each module in the phase:
 |---|---|---|---|
 | 1 | Routing, prerender and per-page SEO | route table, multi-page prerender, sitemap, 404 | **Done 2026-10-23** |
 | 2 | Section library | shared blocks + a QA gallery | **Done 2026-10-23** |
-| 3 | Header, mega menu, mobile menu, footer | new navigation | To do |
+| 3 | Header, mega menu, mobile menu, footer | new navigation | **Done 2026-10-23** |
 | 4 | Module content model and screen kit | data schema, prototype structure, phone shell | To do |
 | 5 | Module page template, piloted on Order to Cash | `/modules/order-to-cash` | To do |
 | 6 | Modules: Accounting, Vendor Invoice Management, Travel and Expense | 3 pages | To do |

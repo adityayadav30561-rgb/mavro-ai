@@ -213,6 +213,8 @@ export const implementation = {
 
 export interface Industry {
   name: string;
+  /** URL segment: the industry page `/industries/<slug>` and the homepage anchor `#industry-<slug>`. */
+  slug: string;
   icon: IconName;
   /** Who it is, in the deck's words. */
   who: string;
@@ -242,6 +244,7 @@ export const industries = {
   list: [
     {
       name: 'Manufacturing',
+      slug: 'manufacturing',
       icon: 'production',
       who: 'OEM suppliers and multi-line plants',
       title: 'OEM and aftermarket lines, run from one plan.',
@@ -258,6 +261,7 @@ export const industries = {
     },
     {
       name: 'Distribution',
+      slug: 'distribution',
       icon: 'distribution',
       who: 'Dealer, distributor and retail networks',
       title: 'Your whole channel on one order book.',
@@ -274,6 +278,7 @@ export const industries = {
     },
     {
       name: 'Pharma',
+      slug: 'pharma',
       icon: 'quality',
       who: 'Multi-plant, GMP-regulated manufacturing',
       title: 'Batch records, QC release and shelf life, built in.',
@@ -290,6 +295,7 @@ export const industries = {
     },
     {
       name: 'Service providers',
+      slug: 'service-providers',
       icon: 'workflow',
       who: 'IT companies and professional services',
       title: 'Projects, people and costs on one system.',
@@ -639,4 +645,4 @@ export const inlineCtas = {
   },
 };
 
-export const footerNote = 'Enterprise ERP for manufacturers, distributors and exporters: base modules, portals and premium modules on one platform.';
+export const footerNote = 'Enterprise ERP for manufacturers, distributors and service providers: base modules, portals and premium modules on one platform.';

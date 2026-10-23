@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Icon, type IconName } from '../components/Icon';
 import { industries } from '../data/home';
 import { channelPortals, moduleById, packs, vendorPortal, type Pack } from '../data/modules';
@@ -5,7 +6,12 @@ import { useTabs, vars } from '../motion/hooks';
 import './industries.css';
 
 const portalList = [vendorPortal, ...channelPortals];
-const portalIcons: Record<string, IconName> = { vendor: 'procurement', distributor: 'distribution', dealer: 'warehouse', retailer: 'sales' };
+const portalIcons: Record<string, IconName> = {
+  vendor: 'procurement',
+  distributor: 'distribution',
+  dealer: 'warehouse',
+  retailer: 'sales',
+};
 
 /** A module or portal id as a chip: its name, icon and the package anchor Explore listens for. */
 function moduleLink(id: string): { name: string; icon: IconName; pack: Pack } {
@@ -21,8 +27,29 @@ function moduleLink(id: string): { name: string; icon: IconName; pack: Pack } {
  * that exact module in Explore the platform (data-module, read by Explore's link handler).
  */
 export function Industries() {
-  const { active, tabProps, panelProps } = useTabs(industries.list.length, 'industry');
+  const { active, select, tabProps, panelProps } = useTabs(industries.list.length, 'industry');
   const industry = industries.list[active];
+
+  // #industry-pharma (the header's Solutions links, until the industry pages exist) scrolls here, to the marker
+  // below, and picks that industry's tab.
+  useEffect(() => {
+    const fromHash = (hash: string) => {
+      const index = industries.list.findIndex((item) => `#industry-${item.slug}` === hash);
+      if (index >= 0) select(index);
+    };
+    fromHash(window.location.hash);
+    const onClick = (event: MouseEvent) => {
+      const link = (event.target as Element | null)?.closest?.<HTMLAnchorElement>('a[href^="#industry-"]');
+      if (link) fromHash(link.getAttribute('href') ?? '');
+    };
+    const onHash = () => fromHash(window.location.hash);
+    document.addEventListener('click', onClick);
+    window.addEventListener('hashchange', onHash);
+    return () => {
+      document.removeEventListener('click', onClick);
+      window.removeEventListener('hashchange', onHash);
+    };
+  }, [select]);
 
   const stages = [
     ...industries.core.start.map((label) => ({ label, core: true })),
@@ -33,6 +60,9 @@ export function Industries() {
 
   return (
     <section id="industries" className="section section--paper ind" aria-labelledby="ind-title">
+      {industries.list.map((item) => (
+        <span key={item.slug} id={`industry-${item.slug}`} className="ind__anchor" aria-hidden="true" />
+      ))}
       <div className="page">
         <header className="head head--split" data-reveal>
           <h2 id="ind-title" className="h2">

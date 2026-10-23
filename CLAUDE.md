@@ -26,8 +26,9 @@ npx tsc --noEmit  # typecheck only
 
 - **Pages are built from the section library** (`src/blocks/`, [docs/LIBRARY.md](docs/LIBRARY.md)); a new kind of
   section becomes a block first.
-- **Content lives in data files, not components.** Copy: `src/data/home.ts`. Nav, CTAs, footer, site facts:
-  `src/data/site.ts`. Module catalogue, portals, premium spotlight: `src/data/modules.ts`. Which modules Explore
+- **Content lives in data files, not components.** Copy: `src/data/home.ts`. CTAs, site facts:
+  `src/data/site.ts`. Header, menus, footer links: `src/data/nav.ts` (a link shows its page once the route exists,
+  its homepage fallback until then: `src/links.ts`). Module catalogue, portals, premium spotlight: `src/data/modules.ts`. Which modules Explore
   features, and which product screen each Base module shows: `explore` in home.ts. Product screens are HTML
   pages in `prototype/`, captured by `npm run shots <name>` (dev server running) into `src/assets/screens/`.
 - **Sizes in rem** (16px = 1rem). The root font size scales on desktops (see top of `src/styles/base.css`);
@@ -53,10 +54,10 @@ src/Layout.tsx           skip link, Nav, <main>, Footer (shared by every page)
 src/pages/               one module per page type (Home.tsx = homepage section order, NotFound, PipelineCheck)
 src/blocks/              the section library: every reusable block (docs/LIBRARY.md); gallery at /_library (dev)
 src/library/             the dev-only gallery page and its sample data
-src/data/                site.ts, home.ts, modules.ts, platform.ts, pages.ts  (all content)
+src/data/                site.ts, nav.ts, home.ts, modules.ts, platform.ts, pages.ts  (all content)
 src/sections/            homepage sections, built on the blocks; hero/ = 3D scene; explore/ = premium mockups;
                          demo/ = demo form
-src/components/          Nav, PlatformMenu (mega-menu), Footer, Logo, Icon, Screen
+src/components/          Nav, PlatformMenu (mega menu), NavMenus, Drawer (mobile), NavLink, Footer, Logo, Icon, Screen
 src/styles/              tokens.css, base.css
 src/assets/              brand/ (logo), clients/ (client logos), screens/ (product screenshots)
 scripts/                 brand.mjs, clients.mjs, shots.mjs, capture.mjs, prerender.mjs

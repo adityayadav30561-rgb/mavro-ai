@@ -134,7 +134,7 @@ function PackageView({ pack, initial = 0 }: { pack: Pack; initial?: number }) {
           ))}
         </div>
         {copy.all && (
-          <button type="button" className="xp__all" onClick={openCatalogue}>
+          <button type="button" className="xp__all" onClick={() => openCatalogue(pack)}>
             <Icon name="layers" size={16} />
             {copy.all.replace('{n}', String(counts[pack]))}
             <Icon name="arrow" size={14} className="btn__arrow" />

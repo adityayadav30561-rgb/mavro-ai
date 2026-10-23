@@ -22,10 +22,14 @@ export interface Module {
   area: Area;
 }
 
-export const packs: Record<Pack, { name: string; blurb: string; href: string }> = {
-  base: { name: 'Base modules', blurb: 'Core ERP, HR and operations.', href: '#modules' },
-  portal: { name: 'Portals', blurb: 'Self-service for vendors and the channel.', href: '#portals' },
-  premium: { name: 'Premium modules', blurb: 'Niche and industry-specific capability.', href: '#premium' },
+/**
+ * `href` is the package's place on the homepage (Explore the platform picks the tab); `page` is its own page
+ * (SITE-PLAN.md), which the navigation links to once that route exists (src/links.ts).
+ */
+export const packs: Record<Pack, { name: string; blurb: string; href: string; page: string }> = {
+  base: { name: 'Base modules', blurb: 'Core ERP, HR and operations.', href: '#modules', page: '/platform/base' },
+  portal: { name: 'Portals', blurb: 'Self-service for vendors and the channel.', href: '#portals', page: '/platform/portals' },
+  premium: { name: 'Premium modules', blurb: 'Niche and industry-specific capability.', href: '#premium', page: '/platform/premium' },
 };
 
 export const areas: Record<Area, string> = {
@@ -96,6 +100,16 @@ export const byPack = (pack: Pack) => modules.filter((m) => m.pack === pack);
 export const moduleById = (id: string) => modules.find((m) => m.id === id)!;
 export const packHref = (m: Module) => packs[m.pack].href;
 
+/** URL segment for a module or portal page: lowercase, hyphenated ('Distributor / B2B Portal' → 'distributor-b2b-portal'). */
+export const slugify = (name: string) =>
+  name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+/** A module's or portal's own page, `/modules/<slug>` (SITE-PLAN.md section 2). */
+export const modulePage = (item: { name: string }) => `/modules/${slugify(item.name)}`;
+
 /* ---------- Base modules grid ---------- */
 
 export interface Capability {
@@ -145,6 +159,8 @@ export interface Portal {
   name: string;
   layer: string;
   who: string;
+  /** One line, for menus and lists. */
+  summary: string;
   body: string;
   points: string[];
 }
@@ -155,6 +171,7 @@ export const vendorPortal: Portal = {
   name: 'Vendor Portal',
   layer: 'Supply side',
   who: 'Suppliers',
+  summary: 'Onboarding, compliance vault, supplier 360°',
   body: 'Self-serve onboarding with GSTIN and PAN verification, a compliance vault and a 360° profile of every supplier.',
   points: ['Single vendor master', 'Guided onboarding', 'Compliance vault'],
 };
@@ -165,6 +182,7 @@ export const channelPortals: Portal[] = [
     name: 'Distributor / B2B Portal',
     layer: 'Primary',
     who: 'Distributors',
+    summary: 'Primary orders checked for scheme, stock, credit',
     body: 'Primary ordering off phone and email: an order builder that checks scheme, stock and credit before submission.',
     points: ['Credit and outstanding', 'Scheme-aware order builder', 'Claims and credit notes'],
     },
@@ -173,6 +191,7 @@ export const channelPortals: Portal[] = [
     name: 'Dealer Portal',
     layer: 'Secondary',
     who: 'Dealers',
+    summary: 'Offtake, stock cover and replenishment',
     body: 'Secondary offtake and stock cover made visible, with replenishment suggested from rolling offtake.',
     points: ['Offtake and stock cover', 'Replenishment planner', 'Retailer-linked claims'],
   },
@@ -181,10 +200,14 @@ export const channelPortals: Portal[] = [
     name: 'Retailer Portal',
     layer: 'Tertiary',
     who: 'Retailers',
+    summary: 'Counter orders, loyalty and returns',
     body: 'Tertiary demand captured at the counter: best-offer baskets, loyalty, returns and order status in one app.',
     points: ['Basket builder with offers', 'Loyalty and returns', 'Order and payment status'],
     },
 ];
+
+/** All four portals, supply side first. */
+export const portals: Portal[] = [vendorPortal, ...channelPortals];
 
 /* ---------- Premium modules ---------- */
 

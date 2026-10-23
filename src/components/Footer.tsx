@@ -1,21 +1,30 @@
 import { footerNote } from '../data/home';
-import { footer, legal, live, site } from '../data/site';
+import { footerColumns, legalLinks } from '../data/nav';
+import { site } from '../data/site';
+import { shown } from '../links';
 import { useHref } from '../routing';
 import { Icon } from './Icon';
 import { Logo } from './Logo';
+import { NavLink } from './NavLink';
 import './footer.css';
 
-/** Columns and links come from data/site.ts; planned links without a destination are left out. */
+/**
+ * Columns from data/nav.ts (SITE-PLAN.md section 8): Platform, Popular modules, Solutions, Resources, Company.
+ * Each link goes to its page once it exists, to its homepage section until then, and is left out if it has
+ * neither; a column with nothing to show is left out too.
+ */
 export function Footer() {
-  const groups = footer.map((group) => ({ ...group, links: live(group.links) })).filter((g) => g.links.length > 0);
-  const legalLinks = live(legal);
+  const columns = footerColumns
+    .map((column) => ({ ...column, links: shown(column.links) }))
+    .filter((c) => c.links.length > 0);
+  const legal = shown(legalLinks);
   const href = useHref();
 
   return (
     <footer className="footer">
       <div className="page footer__grid">
         <div className="footer__brand">
-          <a href={href('#top')} aria-label="MAVRO, back to top">
+          <a href={href('#top')} aria-label="MAVRO home">
             <Logo height={28} />
           </a>
           <p>{footerNote}</p>
@@ -40,29 +49,31 @@ export function Footer() {
             </a>
           </address>
         </div>
-        {groups.map((group) => (
-          <nav key={group.title} aria-label={`Footer: ${group.title}`}>
-            <p className="footer__title">{group.title}</p>
-            <ul>
-              {group.links.map((link) => (
-                <li key={link.label}>
-                  <a href={href(link.href)}>{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        ))}
+        <div className="footer__cols">
+          {columns.map((column) => (
+            <nav key={column.title} aria-label={`Footer: ${column.title}`}>
+              <p className="footer__title">{column.title}</p>
+              <ul>
+                {column.links.map((link) => (
+                  <li key={link.label}>
+                    <NavLink link={link} />
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+        </div>
       </div>
       <div className="page footer__legal">
         <p>
           © {new Date().getFullYear()} {site.company}. {site.name} is a product of {site.company}.
         </p>
         <p>Product visuals use illustrative sample data.</p>
-        {legalLinks.length > 0 && (
+        {legal.length > 0 && (
           <ul>
-            {legalLinks.map((link) => (
+            {legal.map((link) => (
               <li key={link.label}>
-                <a href={href(link.href)}>{link.label}</a>
+                <NavLink link={link} />
               </li>
             ))}
           </ul>

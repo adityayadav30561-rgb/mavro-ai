@@ -4,8 +4,8 @@ _Last updated: 2026-10-23. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–2 done (2026-10-23); next: Phase 3, header, mega menu, mobile menu and
-footer.** The
+**Stage C (phased implementation). Phases 1–3 done (2026-10-23); next: Phase 4, module content model and screen
+kit.** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -31,10 +31,34 @@ large-monitor sizes. The project is on GitHub (public, by the user's choice): ht
 | 11b | FAQ: 15 questions in two columns of native `<details>`, written for SEO/AEO/GEO, mirrored in FAQPage structured data | `#faq` | Done (2026-10-23) |
 | 12 | Demo: navy panel with pitch, direct email and phone, and the demo request form | `#demo` | Done (2026-10-22) |
 
-Header: logo, Platform mega-menu (all modules by business area + portals), Product, ERP Connect, Portals,
-Premium modules, Why MAVRO, Explore the platform, Request a demo. Mobile drawer with the same content.
+Header (Phase 3): logo, Platform ▾ (branched mega menu), Solutions ▾, Customers, Resources ▾, Company ▾, Request a
+demo. Links come from `src/data/nav.ts` and go to real pages as routes are added (`src/links.ts`); until then they
+land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-23, **Phase 3 (header, mega menu, mobile menu, footer) done.** On `main`.
+  - **Data:** `src/data/nav.ts` holds the header, every menu and the footer. Each link names its page (SITE-PLAN.md
+    URL) and a homepage fallback; `src/links.ts` `target()` picks the page once its route exists, the fallback until
+    then, and hides links with neither (About, Careers, Blog, Privacy, Terms today). `site.ts` lost `nav`, `footer`,
+    `legal`, `live`. `modules.ts` gained `packs.*.page`, `slugify`, `modulePage` (`/modules/<slug>`), portal
+    `summary` and `portals`; industries gained `slug`. New icon: `search`.
+  - **Header:** Platform ▾, Solutions ▾, Customers, Resources ▾, Company ▾, Request a demo ("Explore the platform"
+    link removed, as in the plan). One menu at a time; hover intent; Escape returns focus; current page gets
+    `aria-current`.
+  - **Platform menu** (`PlatformMenu.tsx`): rail of five branches with counts (42 / 18 / 4 / 20); overview by area
+    with an All / Base / Portals / Premium filter; package branches with icon + summary per module; Portals with
+    cards, points and the supply-to-retail chain; ERP Connect with systems, benefits and the rule; featured card
+    with a miniature Connect board (Connect branch: the TMS story). Up/Down/Home/End on the rail. Constant height.
+    Explore's "All N modules" opens the menu on that package's branch (drawer on phones, package expanded).
+  - **Solutions / Resources / Company** (`NavMenus.tsx`), **drawer** (`Drawer.tsx`: search, three-level accordions,
+    pinned demo button), **footer** (five columns + contact block).
+  - **Homepage:** Industries answers `#industry-<slug>` (picks the tab), the fallback for the Solutions links.
+  - Verified: keyboard (Tab, Enter, rail arrows, Escape focus return), hover intent and diagonal crossing, touch
+    taps, outside tap, drawer focus trap and Escape, catalogue button on desktop and phone, industry deep links,
+    `/#…` links off the homepage; screenshots at 1440×900, 1366×768, 1280×720, 1024×768, 2560×1440, 390×844;
+    `qa/measure.html` no overflow at nine sizes on `/`, `/pipeline-check`, `/404`, `/_library`; production build
+    hydrates with no console errors.
 
 - 2026-10-23, **Phase 2 (section library) done**, in two parts. All work is on `main` (user's rule).
   - **2a, blocks taken from the homepage** into `src/blocks/`: FaqBlock (full section; FAQPage via
@@ -152,10 +176,9 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 3: header, mega menu, mobile menu, footer** (IMPLEMENTATION-PLAN.md): the navigation from SITE-PLAN.md
-   section 8, links driven by the route table (a link renders only if its route exists).
-2. Then Phase 4 (module content model and screen kit), Phase 5 (Order to Cash pilot on the blocks, reviewed by
-   the user).
+1. **Phase 4: module content model and screen kit** (IMPLEMENTATION-PLAN.md). Module slugs already come from
+   `modulePage()` in modules.ts; the nav links to `/modules/<slug>` as soon as a route exists.
+2. Then Phase 5 (Order to Cash pilot on the blocks, reviewed by the user).
 
 ## Open items (need the user or real assets)
 
@@ -163,15 +186,15 @@ items when context is heavy.
 |---|---|---|
 | Production domain | `site.url` in `src/data/site.ts` | `https://mavro.example` placeholder |
 | Demo form endpoint | `site.demoEndpoint` in `src/data/site.ts` | `null`, so the form opens a pre-filled email to contact@saisatwik.com. Set a form service URL (Formspree, Basin, HubSpot or MAVRO's own API) that accepts a JSON POST to receive requests directly |
-| Industry list | `industries` in `src/data/home.ts` | Now the deck's audiences: Manufacturing, Distribution, Pharma, Exporters (Printing and packaging and Services, from the earlier site, were dropped). Confirm with the user before launch |
+| Industry list | `industries` in `src/data/home.ts` | Manufacturing, Distribution, Pharma, Service providers (Service providers replaced Exporters at the user's request, 2026-10-23). Confirm with the user before launch |
 | Testimonials / case studies | `proof` in `src/data/home.ts` | three anonymised stories from deck slide 23 (approved 2026-10-23). Named stories, quotes or logos per story only with the client's approval |
 | Social share image | `src/seo/head.ts` | none |
 | FAQ: pricing and hosting | `faq.items` in home.ts | not answered: the decks do not state a pricing model, deployment options beyond "cloud-native" or data ownership terms. Add those questions once the user supplies the answers |
-| Resources, Company, About, Careers, Privacy, Terms | `href: null` in `src/data/site.ts` | planned pages; links stay hidden until the pages exist |
+| About, Careers, Blog, Privacy, Terms | `src/data/nav.ts` (page, no fallback) | planned pages; links stay hidden until their routes exist |
+| Site title says "exporters" | `site.title` in `src/data/site.ts` (and the homepage `<title>`) | the industries decision replaced exporters with service providers; the footer note is updated, the SEO title is not. Ask the user before changing it |
 | Hidden test page | `/pipeline-check` in `src/routes.ts` | noindex, not linked, not in the sitemap; remove at launch QA (Phase 28) |
 | One stylesheet for all pages | `cssCodeSplit: false` in vite.config.ts | every page loads the full CSS (96 kB, about 19 kB gzip, after Phase 2's blocks); revisit in the Phase 28 performance pass as pages grow |
 | 404 has no canonical | `src/seo/head.ts` | deliberate (the plan said "own canonical"): the 404 answers at any missing URL, so it names none and is noindex |
-| Header and footer off the homepage | Nav, Footer | point back to homepage sections (`/#platform` etc.) until Phase 3 links them to real pages |
 
 ## Known quirks
 

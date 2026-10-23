@@ -274,6 +274,12 @@ const paths = {
       <circle cx="9" cy="17" r="2.5" className="i-fill" />
     </>
   ),
+  search: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6" />
+      <path d="m15 15 5 5" />
+    </>
+  ),
   cross: <path d="m6.5 6.5 11 11M17.5 6.5l-11 11" />,
   arrow: <path d="M4 12h15M13.5 6.5 19 12l-5.5 5.5" />,
   chevron: <path d="m6.5 9.5 5.5 5.5 5.5-5.5" />,

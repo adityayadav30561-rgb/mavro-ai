@@ -26,8 +26,8 @@ reintroduce anything under "Rejected". Add new entries as soon as the user state
 | Section | Decision | Why / history |
 |---|---|---|
 | Section order | Hero, Platform intro, Product showcase, ERP Connect, Explore the platform (Base / Portals / Premium), Workflow, Implementation, Industries, Why MAVRO, (Customer proof), Demo | User: ERP Connect is a focus section and the product's look and feel matters, so both moved up from the bottom (2026-10-19). |
-| Header nav | Platform (mega-menu), Product, ERP Connect, Portals, Premium modules, Why MAVRO; Resources/Company hidden until pages exist | Follows the page order. No dead links. |
-| Mega-menu | All modules grouped by business area; portals in a side panel; no package tags | From the deck; user removed premium tags. |
+| Header nav | **Since Phase 3 (2026-10-23):** Platform ▾, Solutions ▾, Customers, Resources ▾, Company ▾, Request a demo (SITE-PLAN.md section 8). The "Explore the platform" text link left the header (the plan has only the demo button) | Five destinations instead of six homepage anchors; every link opens a real page once it exists. No dead links. |
+| Mega-menu | **Since Phase 3:** branched. A rail (Platform overview, Base modules, Portals, Premium modules, ERP Connect) and a stage: the overview lists every module by business area with an All / Base / Portals / Premium filter; a package shows its modules by area with icon and summary; Portals shows the four portal cards and the supply-to-retail chain; ERP Connect shows the systems, the five benefits and the no-direct-access rule. Featured card bottom right: "Already on SAP, Oracle or Tally?" with a miniature of the Connect board (on the Connect branch: the TMS-alongside-SAP story). Modules carry no package tags; the package is only the branch | SITE-PLAN.md section 8; user removed premium tags earlier. |
 | Hero band | Client logos ("Trusted by"), grey, colour on hover | User: "in this row, our clientele should come, not the modules" (2026-10-22). |
 | Hero visual | Custom three.js scene: platform core + six module nodes + two floating UI panels (sales order, work order) on a diagonal | Original brief; reduced from three panels in item 8 so the core reads clearly. |
 | Hero copy | "One ERP for manufacturers & distributors." + proof points: live in 25–30 days, GST and India payroll built in, works with SAP/Oracle/Tally | Design review item 1 (2026-10-22): name the audience, answer speed / India / existing-ERP questions up front. |
@@ -122,6 +122,20 @@ least important, with full design effort. The ordered list lives in [STATUS.md](
 | Rewrite | Each becomes a short case: client type and sector, one headline result, the starting point (only what the deck's bullets imply), what was built, three deliverables, links to related modules. Clients stay anonymised | Reads as a story instead of a slide; no added facts. |
 | Design | Dark band (`section--night`), three glass cards; the result leads, a muted before figure with an arrow into the after figure in the brand sweep; the figures line up across cards | Results are the point; the dark band sits between white Why MAVRO and paper FAQ. |
 | Headline | "What clients changed with MAVRO." with the marker treatment (brighter on navy) | Follows the headline-variation rule (Why soft, Stories mark, FAQ grad). |
+
+## Navigation (Phase 3, 2026-10-23)
+
+| Decision | Choice | Why |
+|---|---|---|
+| Links follow the route table | Each link in `src/data/nav.ts` names its page and a homepage fallback; it goes to the page once the route exists, the fallback until then, and is hidden if it has neither (About, Careers, Blog, Privacy, Terms today) | The menus grow by themselves as pages land, and never show a dead end. Replaces the old `href: null` rule |
+| Fallbacks | Packages and modules → Explore (the module opens via `data-module`); industries → `#industry-<slug>` (picks that industry); Customers → `#stories`; Implementation → `#implementation`; Security and compliance → `#why`; Contact → email | Every menu entry is useful today |
+| Panel height | The Platform stage has one height for every branch (the overview's), so moving along the rail never moves the panel's edge | No jumping panel under the pointer |
+| Hover intent | Menus open after 90 ms of hover (60 ms when switching from an open menu) and close 220 ms after leaving; rail branches switch after the pointer rests 110 ms and only on real movement, so a panel opening under a still cursor keeps its branch | Diagonal moves towards a module do not switch the panel |
+| Keyboard | Triggers are buttons with `aria-expanded`; Up/Down/Home/End move along the rail and focusing a branch shows it; Escape closes and returns focus to the trigger; the drawer traps focus and Escape returns to the menu button | Disclosure pattern, not an ARIA menu: everything reads and tabs as links |
+| Solutions | By industry (4), by need (ERP Connect, replace a legacy ERP or Tally, India compliance), the first customer story as a navy card led by its result. Narrow desktops (<1200px) drop the story card | SITE-PLAN.md section 8 |
+| Company | The company pages that exist, then phone, email and city | Gives the menu something useful before About and Careers exist |
+| Mobile | Full-screen drawer: module search on top, then accordions Platform → package → business area → module, Solutions, Customers, Resources, Company; demo button pinned at the bottom | SITE-PLAN.md section 8 |
+| Footer | Brand, contact block, then five columns: Platform, Popular modules (8), Solutions (4 industries), Resources, Company; legal links appear when their pages exist. Footer note now says "service providers" instead of "exporters" | SITE-PLAN.md section 8 and the industries decision |
 
 ## Rest of the site (Stage B planning, 2026-10-23)
 
