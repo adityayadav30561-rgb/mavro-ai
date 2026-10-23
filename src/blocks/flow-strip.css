@@ -1,0 +1,245 @@
+/* Flow strip (blocks/FlowStrip.tsx): stages with arrows between them, on a paper board. */
+.fs {
+  margin: 0;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border-radius: var(--r-4);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.section--paper .fs {
+  background: var(--white);
+}
+
+.fs__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.25rem;
+  margin-bottom: 1rem;
+  font-size: var(--t-label);
+  font-weight: 650;
+  color: var(--fg-2);
+}
+
+.fs__legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.fs__legend span::before {
+  content: '';
+  width: .875rem;
+  height: .875rem;
+  border-radius: .25rem;
+}
+
+.fs__legend [data-kind='shared']::before {
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+  background: var(--white);
+}
+
+.fs__legend [data-kind='configured']::before {
+  background: var(--grad-brand);
+}
+
+.fs__stages {
+  display: flex;
+  align-items: center;
+}
+
+.fs__stage {
+  position: relative;
+  display: grid;
+  gap: .5rem;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* The arrow into every stage after the first. */
+.fs__stage + .fs__stage {
+  margin-left: 2.25rem;
+}
+
+.fs__stage + .fs__stage::before,
+.fs__stage + .fs__stage::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+}
+
+.fs__stage + .fs__stage::before {
+  left: -1.875rem;
+  width: 1.5rem;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--line-2);
+}
+
+.fs__stage + .fs__stage::after {
+  left: -.75rem;
+  width: .4375rem;
+  height: .4375rem;
+  margin-top: -.25rem;
+  border-top: 2px solid var(--line-2);
+  border-right: 2px solid var(--line-2);
+  transform: rotate(45deg);
+}
+
+.fs__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fg-3);
+}
+
+.fs__nodes {
+  display: grid;
+  gap: .5rem;
+}
+
+.fs__node {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 2.75rem;
+  padding: .5rem .75rem;
+  border-radius: var(--r-2);
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink);
+  transition:
+    box-shadow var(--d-2) var(--ease),
+    transform var(--d-2) var(--ease);
+}
+
+.fs__name {
+  flex: 1;
+  min-width: 0;
+}
+
+.fs__arrow {
+  color: var(--blue);
+  opacity: 0.45;
+  transition:
+    opacity var(--d-1) ease,
+    transform var(--d-2) var(--ease);
+}
+
+a.fs__node:hover {
+  box-shadow:
+    inset 0 0 0 1.5px var(--blue),
+    0 .5rem 1rem -.75rem rgb(10 72 253 / 0.6);
+  transform: translateY(-1px);
+}
+
+a.fs__node:hover .fs__arrow {
+  opacity: 1;
+  transform: translateX(.125rem);
+}
+
+.fs__node[data-kind='shared'] {
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+
+.fs__node[data-kind='configured'] {
+  color: #fff;
+  background: var(--grad-brand);
+  background-size: 400% 100%;
+  background-position: calc(var(--i, 0) * 12%) 0;
+  box-shadow: 0 .5rem 1.125rem -.625rem rgb(10 72 253 / 0.6);
+}
+
+.fs__node[data-kind='configured'] .icon {
+  --icon-accent: #fff;
+  --icon-soft: rgb(255 255 255 / 0.25);
+}
+
+.fs__node[data-kind='configured'] .fs__arrow {
+  color: #fff;
+}
+
+/* The module the page is about: larger, in the brand sweep, with a soft glow. */
+.fs__node[data-kind='current'] {
+  min-height: 3.5rem;
+  padding-inline: 1rem;
+  font-size: 1rem;
+  color: #fff;
+  background: var(--grad-brand);
+  box-shadow:
+    0 0 0 .3125rem rgb(10 72 253 / 0.1),
+    0 .875rem 1.75rem -.75rem rgb(10 72 253 / 0.7);
+}
+
+.fs__node[data-kind='current'] .icon {
+  --icon-accent: #fff;
+  --icon-soft: rgb(255 255 255 / 0.25);
+}
+
+.fs__note {
+  margin-top: 1rem;
+  font-size: 0.8125rem;
+  color: var(--fg-3);
+}
+
+/* Chain: compact stages that wrap, for long flows such as an industry's order flow. */
+.fs[data-layout='chain'] .fs__stages {
+  flex-wrap: wrap;
+  row-gap: .75rem;
+}
+
+.fs[data-layout='chain'] .fs__stage {
+  flex: none;
+}
+
+.fs[data-layout='chain'] .fs__stage + .fs__stage {
+  margin-left: 1.375rem;
+}
+
+.fs[data-layout='chain'] .fs__stage + .fs__stage::before {
+  left: -1.125rem;
+  width: .875rem;
+}
+
+.fs[data-layout='chain'] .fs__stage + .fs__stage::after {
+  left: -.5rem;
+  width: .375rem;
+  height: .375rem;
+  margin-top: -.1875rem;
+}
+
+.fs[data-layout='chain'] .fs__node {
+  min-height: 2.5rem;
+}
+
+/* Phones and tablets: columns run downwards, arrows pointing down. */
+@media (max-width: 860px) {
+  .fs[data-layout='columns'] .fs__stages {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .fs[data-layout='columns'] .fs__stage + .fs__stage {
+    margin: 2rem 0 0;
+  }
+
+  .fs[data-layout='columns'] .fs__stage + .fs__stage::before {
+    top: -1.625rem;
+    left: 50%;
+    width: 2px;
+    height: 1.25rem;
+    margin: 0 0 0 -1px;
+  }
+
+  .fs[data-layout='columns'] .fs__stage + .fs__stage::after {
+    top: -.75rem;
+    left: 50%;
+    margin: 0 0 0 -.25rem;
+    transform: rotate(135deg);
+  }
+
+  .fs[data-layout='columns'] .fs__label {
+    text-align: center;
+  }
+}

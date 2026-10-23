@@ -18,7 +18,7 @@
   justify-items: start;
 }
 
-/* Evidence: the trust card (styles in why/trust.css). */
+/* Evidence: the trust card (blocks/TrustPanel, trust-panel.css). */
 .why__trust {
   max-width: 30rem;
 }

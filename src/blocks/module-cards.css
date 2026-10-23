@@ -1,0 +1,170 @@
+/* Module cards (blocks/ModuleCards.tsx): thumbnail, name in the tier colour, summary, link. */
+.mc {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(.875rem, 1.6vw, 1.5rem);
+}
+
+.mc__item {
+  --tier: var(--blue);
+  --tier-soft: var(--blue-50);
+  display: flex;
+}
+
+.mc__item[data-tier='portal'] {
+  --tier: var(--cyan-600);
+  --tier-soft: var(--cyan-50);
+}
+
+.mc__item[data-tier='premium'] {
+  --tier: var(--violet);
+  --tier-soft: var(--violet-50);
+}
+
+.mc__card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--r-3);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
+  overflow: hidden;
+  transition:
+    transform var(--d-2) var(--ease),
+    box-shadow var(--d-2) var(--ease);
+}
+
+a.mc__card:hover {
+  transform: translateY(-.25rem);
+  box-shadow: var(--shadow-float);
+}
+
+a.mc__card:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* The thumbnail: the top left of the module's screen on a plate tinted with the tier colour. */
+.mc__thumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background:
+    radial-gradient(70% 90% at 15% 0%, color-mix(in srgb, var(--tier) 18%, transparent), transparent 70%),
+    var(--tier-soft);
+}
+
+.mc__screen {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 175%;
+  border-radius: var(--r-2) 0 0 0;
+  box-shadow:
+    0 0 0 1px rgb(9 14 52 / 0.08),
+    0 1rem 2rem -1rem rgb(9 14 52 / 0.35);
+  transition: transform 600ms var(--ease);
+  transform-origin: top left;
+}
+
+a.mc__card:hover .mc__screen {
+  transform: scale(1.03);
+}
+
+.mc__thumb:has(.mc__glyph)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(9 14 52 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(9 14 52 / 0.05) 1px, transparent 1px);
+  background-size: 1.5rem 1.5rem;
+  background-position: center;
+  mask-image: radial-gradient(50% 60% at 50% 50%, #000, transparent 80%);
+}
+
+.mc__glyph {
+  position: relative;
+  padding: .75rem;
+  border-radius: var(--r-3);
+  background: var(--white);
+  box-shadow: var(--shadow-float);
+  box-sizing: content-box;
+  color: var(--ink);
+  --icon-accent: var(--tier);
+  --icon-soft: color-mix(in srgb, var(--tier) 22%, transparent);
+}
+
+.mc__body {
+  display: grid;
+  gap: .5rem;
+  flex: 1;
+  align-content: start;
+  padding: 1rem 1.125rem 1.125rem;
+}
+
+.mc__name {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: 1.0625rem;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+.mc__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: var(--r-1);
+  background: var(--tier-soft);
+  --icon-accent: var(--tier);
+}
+
+.mc__summary {
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+
+.mc__more {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  margin-top: auto;
+  padding-top: .25rem;
+  font-size: var(--t-small);
+  font-weight: 700;
+  color: var(--tier);
+}
+
+.mc__more .icon {
+  transition: translate var(--d-2) var(--ease);
+}
+
+a.mc__card:hover .mc__more .icon {
+  translate: .1875rem 0;
+}
+
+@media (max-width: 1023px) {
+  .mc {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .mc {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.mc__card:hover,
+  a.mc__card:hover .mc__screen {
+    transform: none;
+  }
+}

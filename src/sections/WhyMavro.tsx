@@ -1,7 +1,7 @@
 import { Icon } from '../components/Icon';
 import { why } from '../data/home';
 import { vars } from '../motion/hooks';
-import { TrustCard } from './why/TrustCard';
+import { TrustPanel } from '../blocks/TrustPanel';
 import './why.css';
 
 /**
@@ -22,7 +22,7 @@ export function WhyMavro() {
           </header>
 
           <div className="why__trust" data-reveal style={vars({ '--i': 1 })}>
-            <TrustCard />
+            <TrustPanel data={why.trust} />
           </div>
         </div>
 

@@ -4,7 +4,8 @@ _Last updated: 2026-10-23. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phase 1 done (2026-10-23); next: Phase 2, the section library.** The
+**Stage C (phased implementation). Phases 1–2 done (2026-10-23); next: Phase 3, header, mega menu, mobile menu and
+footer.** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -34,6 +35,25 @@ Header: logo, Platform mega-menu (all modules by business area + portals), Produ
 Premium modules, Why MAVRO, Explore the platform, Request a demo. Mobile drawer with the same content.
 
 ## Most recent work (newest first)
+
+- 2026-10-23, **Phase 2 (section library) done**, in two parts. All work is on `main` (user's rule).
+  - **2a, blocks taken from the homepage** into `src/blocks/`: FaqBlock (full section; FAQPage via
+    `seo/schema.ts` `faqPage`), StoryCards, TrustPanel (was why/TrustCard), ChainDiagram (was explore/PortalChain;
+    icons and badge now in data), Timeline (from Implementation; data now `implementation.plan`), ConnectBoard
+    (from Connect), ScreenFrame (Explore's bleeding screenshot), InlineCta (moved from components/). Stylesheets
+    split into block and section parts; class names kept, so the homepage HTML is unchanged except the screen frame
+    wrapper (`sframe`, two renamed classes). Verified: the computed style and box of every homepage element at
+    1440×900, 390×844 and 1024×768 are identical to before.
+  - **2b, new blocks:** Section (+ SectionHead/Headline with the treatments), PageHero (module, industry, package,
+    solution, simple; light or dark; the header stays solid white over a dark hero so the logo is never on navy),
+    Breadcrumbs (from the route's crumbs), ScreenTour, CapabilityTiles, WhatWhy, FlowStrip (columns or chain;
+    shared / configured / current nodes), ModuleCards, PlatformStrip (deck slide 12, `data/platform.ts`),
+    LayeredArchitecture (slide 11), BeforeAfter and DataTable, CtaBand, DemoLink, TrustPanel `expanded` variant.
+    New icons: bell, rules, cross. New tokens: `--cyan-600`, `--bad`, `--bad-50`.
+  - **Demo prefill across pages:** links from other pages go to `/?interest=…#demo`; the form ticks that interest.
+  - **Gallery** at `/_library` (dev only, not in production builds): every block with deck-sourced sample data and a
+    PageHero variant switcher; no overflow at the nine sizes; checked at 1440×900 and 390×844.
+  - **docs/LIBRARY.md**: each block, its props, where it is used, the page rhythm rules.
 
 - 2026-10-23, **Phase 1 (routing, prerender, per-page SEO) done.** The site is now multi-page (README "Pages and
   routing"): `src/routes.ts` (route table), `src/Layout.tsx` (skip link, Nav, main, Footer), `src/pages/` (Home,
@@ -132,11 +152,10 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 2: section library** (IMPLEMENTATION-PLAN.md): shared blocks in `src/blocks/`, homepage sections
-   refactored onto them with no visual change, a dev-only `/_library` gallery, `docs/LIBRARY.md`. Add the gallery
-   as a route that is skipped in production builds.
-2. Then Phase 3 (navigation) and Phase 4 (module content model and screen kit), Phase 5 (Order to Cash pilot,
-   reviewed by the user).
+1. **Phase 3: header, mega menu, mobile menu, footer** (IMPLEMENTATION-PLAN.md): the navigation from SITE-PLAN.md
+   section 8, links driven by the route table (a link renders only if its route exists).
+2. Then Phase 4 (module content model and screen kit), Phase 5 (Order to Cash pilot on the blocks, reviewed by
+   the user).
 
 ## Open items (need the user or real assets)
 
@@ -150,7 +169,7 @@ items when context is heavy.
 | FAQ: pricing and hosting | `faq.items` in home.ts | not answered: the decks do not state a pricing model, deployment options beyond "cloud-native" or data ownership terms. Add those questions once the user supplies the answers |
 | Resources, Company, About, Careers, Privacy, Terms | `href: null` in `src/data/site.ts` | planned pages; links stay hidden until the pages exist |
 | Hidden test page | `/pipeline-check` in `src/routes.ts` | noindex, not linked, not in the sitemap; remove at launch QA (Phase 28) |
-| One stylesheet for all pages | `cssCodeSplit: false` in vite.config.ts | every page loads the full CSS (about 18 kB gzip today); revisit in the Phase 28 performance pass as pages grow |
+| One stylesheet for all pages | `cssCodeSplit: false` in vite.config.ts | every page loads the full CSS (96 kB, about 19 kB gzip, after Phase 2's blocks); revisit in the Phase 28 performance pass as pages grow |
 | 404 has no canonical | `src/seo/head.ts` | deliberate (the plan said "own canonical"): the 404 answers at any missing URL, so it names none and is noindex |
 | Header and footer off the homepage | Nav, Footer | point back to homepage sections (`/#platform` etc.) until Phase 3 links them to real pages |
 

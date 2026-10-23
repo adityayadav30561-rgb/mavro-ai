@@ -1,0 +1,157 @@
+/* Screen tour (blocks/ScreenTour.tsx): views left, the screen right; stacked with a swipeable tab row on phones. */
+.tour {
+  display: grid;
+  grid-template-columns: minmax(0, 0.34fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: start;
+}
+
+.tour__side {
+  display: grid;
+  gap: 1rem;
+  position: sticky;
+  top: calc(var(--nav-h) + 1.5rem);
+}
+
+.tour__tabs {
+  display: grid;
+  gap: .25rem;
+}
+
+.tour__tab {
+  display: flex;
+  align-items: center;
+  gap: .875rem;
+  width: 100%;
+  padding: .875rem 1rem;
+  border-radius: var(--r-2);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: left;
+  color: var(--fg-2);
+  transition:
+    background-color var(--d-1) ease,
+    color var(--d-1) ease,
+    box-shadow var(--d-2) var(--ease);
+}
+
+.tour__tab:hover {
+  background: rgb(9 14 52 / 0.035);
+  color: var(--fg);
+}
+
+.tour__tab[aria-selected='true'] {
+  background: var(--surface);
+  color: var(--fg);
+  box-shadow: var(--shadow-2);
+}
+
+.tour__tab:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.tour__num {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--r-1);
+  background: var(--paper-2);
+  font-size: 0.75rem;
+  font-weight: 750;
+  color: var(--fg-3);
+  transition:
+    background-color var(--d-1) ease,
+    color var(--d-1) ease;
+}
+
+.tour__tab[aria-selected='true'] .tour__num {
+  background: var(--primary);
+  color: #fff;
+}
+
+.tour__caption {
+  display: grid;
+  gap: .25rem;
+  padding: 1rem 1.125rem;
+  border-left: 3px solid var(--primary);
+  border-radius: 0 var(--r-2) var(--r-2) 0;
+  background: var(--blue-50);
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--fg-2);
+  animation: tour-in 500ms var(--ease) both;
+}
+
+.tour__caption b {
+  font-size: 0.9375rem;
+  color: var(--fg);
+}
+
+.tour__stage {
+  min-width: 0;
+}
+
+.tour__stage:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: .375rem;
+  border-radius: var(--r-3);
+}
+
+.tour__stage .sframe {
+  animation: tour-in 600ms var(--ease) both;
+}
+
+@keyframes tour-in {
+  from {
+    opacity: 0;
+    transform: translateY(.5rem);
+  }
+}
+
+@media (max-width: 1023px) {
+  .tour {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tour__side {
+    position: static;
+  }
+
+  /* The views become a swipeable row of pills. */
+  .tour__tabs {
+    display: flex;
+    gap: .5rem;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: .25rem var(--gutter) .5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tour__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tour__tab {
+    flex: none;
+    width: auto;
+    padding: .5rem .875rem .5rem .5rem;
+    font-size: 0.875rem;
+    background: var(--surface);
+    box-shadow: var(--shadow-1);
+  }
+
+  .tour__num {
+    width: 1.625rem;
+    height: 1.625rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tour__caption,
+  .tour__stage .sframe {
+    animation: none;
+  }
+}

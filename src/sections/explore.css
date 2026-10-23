@@ -386,31 +386,6 @@
   min-height: 20rem;
 }
 
-.xp__shot {
-  position: absolute;
-  top: .25rem;
-  left: 0;
-  width: 47.5rem;
-  border-radius: var(--r-3) 0 0 0;
-  box-shadow:
-    0 0 0 1px rgb(9 14 52 / 0.08),
-    0 2rem 4rem -1.5rem rgb(9 14 52 / 0.35);
-}
-
-.xp__sample {
-  position: absolute;
-  right: 1rem;
-  bottom: .875rem;
-  z-index: 1;
-  padding: .1875rem .625rem;
-  border-radius: var(--r-pill);
-  background: rgb(255 255 255 / 0.9);
-  box-shadow: 0 0 0 1px var(--line);
-  font-size: 0.6875rem;
-  font-weight: 650;
-  color: var(--ink-3);
-}
-
 /* ---------- Desktops: the rail's height follows the panel ---------- */
 
 @media (min-width: 1024px) {
@@ -536,8 +511,8 @@
     aspect-ratio: 4 / 3;
   }
 
-  .xp__shot {
-    width: 160%;
+  .xp__visual[data-shot] {
+    --sframe-w: 160%;
   }
 }
 

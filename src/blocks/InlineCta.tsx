@@ -1,6 +1,5 @@
-import { useHref } from '../routing';
-import { prefillDemo } from '../sections/demo/prefill';
-import { Icon } from './Icon';
+import { Icon } from '../components/Icon';
+import { DemoLink } from './DemoLink';
 import './inline-cta.css';
 
 interface InlineCtaProps {
@@ -14,11 +13,10 @@ interface InlineCtaProps {
 }
 
 /**
- * A call to action placed inside a section: a short question, one line of answer, and a button that scrolls to
- * the demo form with the relevant interest already ticked.
+ * A call to action placed inside a section: a short question, one line of answer, and a button to the demo form
+ * with the relevant interest already ticked.
  */
 export function InlineCta({ title, body, label, interest, tone = 'light' }: InlineCtaProps) {
-  const href = useHref();
   return (
     <aside className="icta" data-tone={tone} data-reveal>
       <span className="icta__mark" aria-hidden="true" />
@@ -26,10 +24,10 @@ export function InlineCta({ title, body, label, interest, tone = 'light' }: Inli
         <p className="icta__title">{title}</p>
         <p className="icta__body">{body}</p>
       </div>
-      <a className="btn btn--primary icta__btn" href={href('#demo')} onClick={() => prefillDemo({ interest })}>
+      <DemoLink interest={interest} className="btn btn--primary icta__btn">
         {label}
         <Icon name="arrow" size={16} className="btn__arrow" />
-      </a>
+      </DemoLink>
     </aside>
   );
 }

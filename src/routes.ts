@@ -2,6 +2,8 @@ import type { ComponentType } from 'react';
 import { faq } from './data/home';
 import { notFound, pipelineCheck } from './data/pages';
 import { site } from './data/site';
+import type { Crumb } from './routing';
+import { faqPage } from './seo/schema';
 
 /*
  * Every page of the site, in one table. The same entries drive:
@@ -15,11 +17,6 @@ import { site } from './data/site';
  * module is its own chunk, so a page only loads the code it uses (the homepage's three.js scene stays on the
  * homepage). Adding a page: write src/pages/<Name>.tsx, add a route here.
  */
-
-export interface Crumb {
-  name: string;
-  path: string;
-}
 
 export interface Route {
   /** Clean URL: lowercase, hyphenated, no trailing slash ('/' for the homepage). */
@@ -60,17 +57,7 @@ const home: Route = {
       url: site.url,
       publisher: { '@id': `${site.url}/#organization` },
     },
-    {
-      '@type': 'FAQPage',
-      '@id': `${site.url}/#faq`,
-      url: `${site.url}/#faq`,
-      inLanguage: 'en',
-      mainEntity: faq.items.map((item) => ({
-        '@type': 'Question',
-        name: item.q,
-        acceptedAnswer: { '@type': 'Answer', text: item.a },
-      })),
-    },
+    faqPage(`${site.url}/#faq`, faq.items),
   ],
 };
 
@@ -81,6 +68,15 @@ export const notFoundRoute: Route = {
   title: notFound.seo.title,
   description: notFound.seo.description,
   crumbs: [],
+  inSitemap: false,
+};
+
+const libraryRoute: Route = {
+  path: '/_library',
+  page: 'Library',
+  title: 'Section library | MAVRO',
+  description: 'Every shared block with sample data (development only).',
+  crumbs: [{ name: 'Section library', path: '/_library' }],
   inSitemap: false,
 };
 
@@ -96,6 +92,8 @@ export const routes: Route[] = [
     crumbs: [{ name: pipelineCheck.seo.crumb, path: '/pipeline-check' }],
     inSitemap: false,
   },
+  // Dev only: the section library (src/library/). Absent from production builds, so never prerendered or served.
+  ...(import.meta.env.DEV ? [libraryRoute] : []),
   notFoundRoute,
 ];
 
@@ -109,7 +107,8 @@ type PageModule = { Page: ComponentType };
 const pages = import.meta.glob<PageModule>('./pages/*.tsx');
 
 /** Loads a route's page module (its own chunk). */
-export function loadPage(route: Route) {
+export function loadPage(route: Route): Promise<PageModule> {
+  if (import.meta.env.DEV && route.page === 'Library') return import('./library/Library');
   const load = pages[`./pages/${route.page}.tsx`];
   if (!load) throw new Error(`routes: no page module src/pages/${route.page}.tsx for ${route.path}`);
   return load();

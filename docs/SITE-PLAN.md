@@ -89,7 +89,7 @@ Built from the deck's appendix, which has the same structure for every module: a
 | 10 | **CTA band** | "See Order to Cash on your data" with the demo form's interest pre-ticked | Dark CTA band |
 
 Portal pages use the same template; section 5 becomes the supply-to-retail chain with the portal lit (the
-`PortalChain` from Explore).
+`ChainDiagram` block, as in Explore).
 
 ### 3.2 Package pages (3)
 

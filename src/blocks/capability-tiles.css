@@ -1,0 +1,122 @@
+/* Capability tiles (blocks/CapabilityTiles.tsx): four cards, accent in the module's tier colour. */
+.cap {
+  --tier: var(--blue);
+  --tier-soft: var(--blue-50);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(.75rem, 1.5vw, 1.25rem);
+}
+
+.cap[data-tier='portal'] {
+  --tier: var(--cyan-600);
+  --tier-soft: var(--cyan-50);
+}
+
+.cap[data-tier='premium'] {
+  --tier: var(--violet);
+  --tier-soft: var(--violet-50);
+}
+
+.cap__tile {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: .625rem;
+  padding: 1.25rem 1.25rem 1.375rem;
+  border-radius: var(--r-3);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
+  overflow: hidden;
+  transition:
+    transform var(--d-2) var(--ease),
+    box-shadow var(--d-2) var(--ease);
+}
+
+/* A hairline of the tier colour along the top, drawn in on hover. */
+.cap__tile::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--tier), color-mix(in srgb, var(--tier) 20%, transparent));
+  transform: scaleX(0.25);
+  transform-origin: left;
+  transition: transform var(--d-2) var(--ease);
+}
+
+.cap__tile:hover {
+  transform: translateY(-.1875rem);
+  box-shadow: var(--shadow-float);
+}
+
+.cap__tile:hover::before {
+  transform: none;
+}
+
+.cap__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-bottom: .25rem;
+}
+
+.cap__icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--r-2);
+  background: var(--tier-soft);
+  color: var(--ink);
+  --icon-accent: var(--tier);
+}
+
+.cap__figure {
+  display: grid;
+  justify-items: end;
+  text-align: right;
+}
+
+.cap__figure b {
+  font-size: 1.25rem;
+  font-weight: 780;
+  letter-spacing: -0.02em;
+  color: var(--tier);
+}
+
+.cap__figure span {
+  font-size: 0.6875rem;
+  font-weight: 650;
+  color: var(--fg-3);
+}
+
+.cap__title {
+  font-size: 1.0625rem;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+.cap__body {
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+
+@media (max-width: 1023px) {
+  .cap {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .cap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cap__tile:hover {
+    transform: none;
+  }
+}

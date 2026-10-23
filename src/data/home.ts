@@ -3,6 +3,9 @@
  * copy can be revised without touching layout or animation code. All of it is temporary marketing copy, written
  * to evaluate the design; none of it states a figure, certification or customer result.
  */
+import type { ChainNode } from '../blocks/ChainDiagram';
+import type { Story } from '../blocks/StoryCards';
+import type { TimelineData, TimelinePhase } from '../blocks/Timeline';
 import type { IconName } from '../components/Icon';
 import type { ScreenName } from '../components/Screen';
 import { byPack, channelPortals } from './modules';
@@ -78,13 +81,14 @@ export const explore = {
   },
   /** The chain the portals sit on, in the order goods move. */
   chain: [
-    { id: 'vendor', name: 'Vendors', link: 'Supply' },
-    { id: 'company', name: 'Your business', link: 'Primary sales' },
-    { id: 'distributor', name: 'Distributors', link: 'Secondary sales' },
-    { id: 'dealer', name: 'Dealers', link: 'Tertiary sales' },
-    { id: 'retailer', name: 'Retailers', link: null },
-  ],
+    { id: 'vendor', name: 'Vendors', icon: 'procurement', link: 'Supply' },
+    { id: 'company', name: 'Your business', icon: 'layers', link: 'Primary sales' },
+    { id: 'distributor', name: 'Distributors', icon: 'distribution', link: 'Secondary sales' },
+    { id: 'dealer', name: 'Dealers', icon: 'warehouse', link: 'Tertiary sales' },
+    { id: 'retailer', name: 'Retailers', icon: 'sales', link: null },
+  ] satisfies ChainNode[],
   chainTitle: 'Where it sits in your chain',
+  chainBadge: 'Portal',
   sample: 'Illustrative data',
 };
 
@@ -110,7 +114,7 @@ export const connect = {
   title: 'How MAVRO connects to SAP,',
   titleSoft: 'Oracle and other ERPs.',
   lead: 'Every ERP syncs with the MAVRO Database. The MAVRO App and its users work from that single, connected source, while your ERP stays the system of record.',
-  columns: ['External systems', 'MAVRO platform', 'End users'],
+  columns: ['External systems', 'MAVRO platform', 'End users'] as [string, string, string],
   systems: [
     { name: 'SAP', detail: 'S/4HANA · ECC' },
     { name: 'Oracle', detail: 'EBS · Fusion Cloud' },
@@ -142,45 +146,50 @@ export const implementation = {
   title: 'Live in 25 to 30 days.',
   titleSoft: 'Not a year-long project.',
   lead: 'A phased rollout with one dedicated person from the first workshop to go-live, and support that stays after it.',
-  timelineLabel: 'Your first month with MAVRO',
-  milestones: [
-    { day: 15, label: 'First go-live' },
-    { day: 31, label: 'Live by day 30' },
-  ],
-  phases: [
-    {
-      when: 'Week 1–2',
-      from: 1,
-      to: 14,
-      icon: 'calendar',
-      title: 'Discovery and setup',
-      points: ['Process mapping and sign-off', 'Modules configured, users and roles set up', 'Trial data migration and UAT'],
-    },
-    {
-      when: 'Week 3',
-      from: 15,
-      to: 21,
-      icon: 'rocket',
-      title: 'First go-live',
-      points: ['Priority modules go live first', 'Department-wise training, on site or remote', 'Same-day issue resolution'],
-    },
-    {
-      when: 'Week 4',
-      from: 22,
-      to: 30,
-      icon: 'check',
-      title: 'Full go-live',
-      points: ['Remaining modules and the mobile app', 'SOPs and process documentation', 'Your team runs it independently'],
-    },
-    {
-      when: 'Ongoing',
-      from: 30,
-      to: 'ongoing',
-      icon: 'wrench',
-      title: 'Support after go-live',
-      points: ['A dedicated contact and fixes under AMS', 'Monthly review of usage and roadmap', 'New modules when you need them'],
-    },
-  ] satisfies { when: string; from: number; to: number | 'ongoing'; icon: IconName; title: string; points: string[] }[],
+  plan: {
+    label: 'Your first month with MAVRO',
+    span: 'Day 1 → Day 30',
+    after: 'After go-live',
+    ongoing: 'Ongoing',
+    milestones: [
+      { day: 15, label: 'First go-live' },
+      { day: 31, label: 'Live by day 30' },
+    ],
+    phases: [
+      {
+        when: 'Week 1–2',
+        from: 1,
+        to: 14,
+        icon: 'calendar',
+        title: 'Discovery and setup',
+        points: ['Process mapping and sign-off', 'Modules configured, users and roles set up', 'Trial data migration and UAT'],
+      },
+      {
+        when: 'Week 3',
+        from: 15,
+        to: 21,
+        icon: 'rocket',
+        title: 'First go-live',
+        points: ['Priority modules go live first', 'Department-wise training, on site or remote', 'Same-day issue resolution'],
+      },
+      {
+        when: 'Week 4',
+        from: 22,
+        to: 30,
+        icon: 'check',
+        title: 'Full go-live',
+        points: ['Remaining modules and the mobile app', 'SOPs and process documentation', 'Your team runs it independently'],
+      },
+      {
+        when: 'Ongoing',
+        from: 30,
+        to: 'ongoing',
+        icon: 'wrench',
+        title: 'Support after go-live',
+        points: ['A dedicated contact and fixes under AMS', 'Monthly review of usage and roadmap', 'New modules when you need them'],
+      },
+    ] satisfies TimelinePhase[],
+  } satisfies TimelineData,
   supportTitle: 'Who you work with',
   supportNote: 'The same team from kickoff to go-live, and after it.',
   support: [
@@ -472,20 +481,6 @@ export const faq = {
     },
   ] satisfies { q: string; a: string; link?: { label: string; href: string } }[],
 };
-
-export interface Story {
-  sector: string;
-  stack?: string;
-  client: string;
-  project: string;
-  /** The headline result. `before` is optional: a single figure shows on its own. */
-  result: { before?: string; after: string; label: string };
-  challenge: string;
-  built: string;
-  points: string[];
-  /** Related modules: `module` opens it in Explore the platform; otherwise a plain in-page link. */
-  links: { label: string; href: string; module?: string }[];
-}
 
 /**
  * Customer stories: the three implementations on the product deck's slide 23 ("Clients anonymised, results

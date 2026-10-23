@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 import { Icon } from '../../components/Icon';
 import { demo } from '../../data/home';
 import { site } from '../../data/site';
-import { DEMO_EVENT, type DemoPrefill } from './prefill';
+import { DEMO_EVENT, DEMO_PARAM, type DemoPrefill } from './prefill';
 
 type Field = 'name' | 'email' | 'phone' | 'company';
 type Status = 'idle' | 'sending' | 'sent' | 'mailto' | 'failed';
@@ -19,7 +19,16 @@ interface Values {
   website: string;
 }
 
-const empty: Values = { name: '', email: '', phone: '', company: '', system: '', interests: [], message: '', website: '' };
+const empty: Values = {
+  name: '',
+  email: '',
+  phone: '',
+  company: '',
+  system: '',
+  interests: [],
+  message: '',
+  website: '',
+};
 
 function validate(v: Values): Partial<Record<Field, string>> {
   const errors: Partial<Record<Field, string>> = {};
@@ -69,12 +78,24 @@ export function DemoForm() {
   useEffect(() => {
     const onPrefill = (event: Event) => {
       const { interest } = (event as CustomEvent<DemoPrefill>).detail;
-      if (interest) setValues((v) => (v.interests.includes(interest) ? v : { ...v, interests: [...v.interests, interest] }));
+      if (interest)
+        setValues((v) => (v.interests.includes(interest) ? v : { ...v, interests: [...v.interests, interest] }));
       // Focus the first field once the smooth scroll has had time to arrive.
-      window.setTimeout(() => formRef.current?.querySelector<HTMLInputElement>('input')?.focus({ preventScroll: true }), 700);
+      window.setTimeout(
+        () => formRef.current?.querySelector<HTMLInputElement>('input')?.focus({ preventScroll: true }),
+        700,
+      );
     };
     window.addEventListener(DEMO_EVENT, onPrefill);
     return () => window.removeEventListener(DEMO_EVENT, onPrefill);
+  }, []);
+
+  // A call to action on another page arrives as /?interest=…#demo.
+  useEffect(() => {
+    const interest = new URLSearchParams(window.location.search).get(DEMO_PARAM);
+    if (interest && (demo.interests as readonly string[]).includes(interest)) {
+      setValues((v) => (v.interests.includes(interest) ? v : { ...v, interests: [...v.interests, interest] }));
+    }
   }, []);
 
   useEffect(() => {
@@ -90,7 +111,12 @@ export function DemoForm() {
   };
 
   const toggleInterest = (interest: string) =>
-    set('interests', values.interests.includes(interest) ? values.interests.filter((i) => i !== interest) : [...values.interests, interest]);
+    set(
+      'interests',
+      values.interests.includes(interest)
+        ? values.interests.filter((i) => i !== interest)
+        : [...values.interests, interest],
+    );
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -222,7 +248,12 @@ export function DemoForm() {
         <div className="demo__field demo__field--wide">
           <label htmlFor={`${id}-system`}>{demo.form.system}</label>
           <span className="demo__select">
-            <select id={`${id}-system`} name="system" value={values.system} onChange={(e) => set('system', e.target.value)}>
+            <select
+              id={`${id}-system`}
+              name="system"
+              value={values.system}
+              onChange={(e) => set('system', e.target.value)}
+            >
               <option value="">{demo.form.systemPlaceholder}</option>
               {demo.systems.map((system) => (
                 <option key={system} value={system}>

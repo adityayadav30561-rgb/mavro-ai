@@ -13,7 +13,7 @@ const route = findRoute(window.location.pathname);
 loadPage(route).then(({ Page }) => {
   const app = (
     <StrictMode>
-      <Layout path={route.path}>
+      <Layout route={route}>
         <Page />
       </Layout>
     </StrictMode>

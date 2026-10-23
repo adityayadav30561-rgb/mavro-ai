@@ -64,7 +64,7 @@ For each module in the phase:
 | # | Phase | Pages / output | Status |
 |---|---|---|---|
 | 1 | Routing, prerender and per-page SEO | route table, multi-page prerender, sitemap, 404 | **Done 2026-10-23** |
-| 2 | Section library | shared blocks + a QA gallery | To do |
+| 2 | Section library | shared blocks + a QA gallery | **Done 2026-10-23** |
 | 3 | Header, mega menu, mobile menu, footer | new navigation | To do |
 | 4 | Module content model and screen kit | data schema, prototype structure, phone shell | To do |
 | 5 | Module page template, piloted on Order to Cash | `/modules/order-to-cash` | To do |

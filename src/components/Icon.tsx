@@ -260,6 +260,21 @@ const paths = {
       <circle cx="12" cy="10" r="2.3" className="i-fill" />
     </>
   ),
+  bell: (
+    <>
+      <path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z" />
+      <path d="M10 20.5a2 2 0 0 0 4 0" />
+      <circle cx="18" cy="5.5" r="2.2" className="i-fill" />
+    </>
+  ),
+  rules: (
+    <>
+      <path d="M4 7h8.5M17.5 7H20M4 17h2.5M11.5 17H20" />
+      <circle cx="15" cy="7" r="2.5" />
+      <circle cx="9" cy="17" r="2.5" className="i-fill" />
+    </>
+  ),
+  cross: <path d="m6.5 6.5 11 11M17.5 6.5l-11 11" />,
   arrow: <path d="M4 12h15M13.5 6.5 19 12l-5.5 5.5" />,
   chevron: <path d="m6.5 9.5 5.5 5.5 5.5-5.5" />,
   check: <path d="m5 12.5 4.5 4.5L19 7.5" />,

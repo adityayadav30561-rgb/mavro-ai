@@ -1,0 +1,41 @@
+/* Breadcrumbs: a quiet trail above the page headline. */
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .25rem;
+  font-size: var(--t-label);
+  font-weight: 650;
+  color: var(--fg-3);
+}
+
+.crumbs li {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+}
+
+.crumbs a {
+  border-radius: .25rem;
+  color: var(--fg-2);
+  transition: color var(--d-1) ease;
+}
+
+.crumbs a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: .2rem;
+}
+
+.section--night .crumbs a:hover {
+  color: var(--cyan);
+}
+
+.crumbs__sep {
+  rotate: -90deg;
+  opacity: 0.6;
+}
+
+.crumbs [aria-current] {
+  color: var(--fg);
+}

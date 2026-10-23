@@ -1,8 +1,9 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { openCatalogue } from '../components/catalogue';
 import { Icon, type IconName } from '../components/Icon';
-import { InlineCta } from '../components/InlineCta';
-import { Screen } from '../components/Screen';
+import { ChainDiagram } from '../blocks/ChainDiagram';
+import { InlineCta } from '../blocks/InlineCta';
+import { ScreenFrame } from '../blocks/ScreenFrame';
 import { explore, inlineCtas } from '../data/home';
 import {
   baseCapabilities,
@@ -15,7 +16,6 @@ import {
   type Pack,
 } from '../data/modules';
 import { useTabs, vars } from '../motion/hooks';
-import { PortalChain } from './explore/PortalChain';
 import { SpecialVisual } from './explore/SpecialVisual';
 import './explore.css';
 
@@ -34,7 +34,12 @@ interface Item {
 
 const capabilities = [baseFeatured, ...baseCapabilities];
 const portalList = [vendorPortal, ...channelPortals];
-const portalIcons: Record<string, IconName> = { vendor: 'procurement', distributor: 'distribution', dealer: 'warehouse', retailer: 'sales' };
+const portalIcons: Record<string, IconName> = {
+  vendor: 'procurement',
+  distributor: 'distribution',
+  dealer: 'warehouse',
+  retailer: 'sales',
+};
 
 const items: Record<Pack, Item[]> = {
   base: explore.packages.base.featured.map((id) => {
@@ -49,11 +54,12 @@ const items: Record<Pack, Item[]> = {
       body: capability.body,
       points: capability.tags,
       visual: (
-        <Screen
-          name={explore.packages.base.screens[id as keyof typeof explore.packages.base.screens].screen}
+        <ScreenFrame
+          screen={explore.packages.base.screens[id as keyof typeof explore.packages.base.screens].screen}
           alt={explore.packages.base.screens[id as keyof typeof explore.packages.base.screens].alt}
           sizes="(max-width: 1023px) 150vw, 48rem"
-          className="xp__shot"
+          variant="bleed"
+          note={explore.sample}
         />
       ),
       shot: true,
@@ -69,7 +75,15 @@ const items: Record<Pack, Item[]> = {
       title: portal.name,
       body: portal.body,
       points: portal.points,
-      visual: <PortalChain active={id} />,
+      visual: (
+        <ChainDiagram
+          title={explore.chainTitle}
+          nodes={explore.chain}
+          core="company"
+          active={id}
+          badge={explore.chainBadge}
+        />
+      ),
     };
   }),
   premium: explore.packages.premium.featured.map((id) => {
@@ -90,7 +104,11 @@ const items: Record<Pack, Item[]> = {
 
 const order: Pack[] = ['base', 'portal', 'premium'];
 const packIcons: Record<Pack, IconName> = { base: 'layers', portal: 'distribution', premium: 'rocket' };
-const counts: Record<Pack, number> = { base: byPack('base').length, portal: byPack('portal').length || portalList.length, premium: byPack('premium').length };
+const counts: Record<Pack, number> = {
+  base: byPack('base').length,
+  portal: byPack('portal').length || portalList.length,
+  premium: byPack('premium').length,
+};
 
 /* Links anywhere on the page (nav, footer, mega-menu, platform diagram) open the matching package. */
 const anchors: Record<string, number> = { '#modules': 0, '#portals': 1, '#premium': 2 };
@@ -140,11 +158,6 @@ function PackageView({ pack, initial = 0 }: { pack: Pack; initial?: number }) {
         </div>
         <div className="xp__visual" key={`${item.id}-visual`} data-shot={item.shot || undefined}>
           {item.visual}
-          {item.shot && (
-            <p className="xp__sample" aria-hidden="true">
-              {explore.sample}
-            </p>
-          )}
         </div>
       </div>
     </div>
@@ -161,7 +174,12 @@ export function Explore() {
   const pack = order[active];
   // A link elsewhere can ask for one module (data-module="tms"); n remounts the package view to apply it.
   const [focus, setFocus] = useState<{ id: string; n: number } | null>(null);
-  const initial = focus ? Math.max(0, items[pack].findIndex((item) => item.id === focus.id)) : 0;
+  const initial = focus
+    ? Math.max(
+        0,
+        items[pack].findIndex((item) => item.id === focus.id),
+      )
+    : 0;
 
   // Old anchors keep working: #modules, #portals and #premium scroll here (the markers below) and pick the tab.
   useEffect(() => {

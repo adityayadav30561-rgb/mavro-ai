@@ -1,0 +1,75 @@
+/* What it does / why it matters (blocks/WhatWhy.tsx): the paragraph left, the six points in a card right. */
+.ww {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+}
+
+.ww__title {
+  margin-bottom: 1rem;
+  font-size: var(--t-h3);
+  font-weight: 740;
+  letter-spacing: -0.015em;
+  color: var(--fg);
+}
+
+.ww__body {
+  font-size: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
+  font-weight: 560;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  text-wrap: pretty;
+}
+
+.ww__why {
+  padding: clamp(1.25rem, 2.2vw, 1.75rem);
+  border-radius: var(--r-4);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
+}
+
+.ww__points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.5rem;
+}
+
+.ww__points li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: .75rem;
+  align-items: start;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--fg-2);
+}
+
+.ww__check {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: .0625rem;
+  border-radius: 50%;
+  background: var(--grad-brand);
+  color: #fff;
+  box-shadow: 0 .25rem .625rem -.25rem rgb(10 72 253 / 0.6);
+}
+
+.ww__check .icon {
+  stroke-width: 2.4;
+}
+
+@media (max-width: 1023px) {
+  .ww {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .ww__points {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -12,7 +12,7 @@ export async function render(route: Route) {
   const { Page } = await loadPage(route);
   return renderToString(
     <StrictMode>
-      <Layout path={route.path}>
+      <Layout route={route}>
         <Page />
       </Layout>
     </StrictMode>,

@@ -2,23 +2,29 @@ import type { ReactNode } from 'react';
 import { Footer } from './components/Footer';
 import { Nav } from './components/Nav';
 import { useViewportFlags } from './motion/hooks';
-import { PathContext } from './routing';
+import { RouteContext, type Crumb } from './routing';
 
 /**
- * The frame every page shares: skip link, header, the page's sections in <main>, footer. `path` is the route
- * being rendered, so the header and footer can point their links correctly (see routing.tsx).
+ * The frame every page shares: skip link, header, the page's sections in <main>, footer. `route` is the page
+ * being rendered (its path and breadcrumb trail), read by the header, footer and breadcrumbs (routing.tsx).
  */
-export function Layout({ path, children }: { path: string; children: ReactNode }) {
+export function Layout({
+  route,
+  children,
+}: {
+  route: { path: string; crumbs: readonly Crumb[] };
+  children: ReactNode;
+}) {
   useViewportFlags();
 
   return (
-    <PathContext.Provider value={path}>
+    <RouteContext.Provider value={{ path: route.path, crumbs: route.crumbs }}>
       <a className="skip" href="#main">
         Skip to content
       </a>
       <Nav />
       <main id="main">{children}</main>
       <Footer />
-    </PathContext.Provider>
+    </RouteContext.Provider>
   );
 }

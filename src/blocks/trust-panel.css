@@ -243,6 +243,46 @@
   stroke-width: 2.6;
 }
 
+/* ---------- Expanded: both panels side by side (security and platform pages) ---------- */
+
+.trust--expanded {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(1rem, 2.5vw, 2rem);
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  border-radius: var(--r-4);
+}
+
+.trust__col {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.trust__col-title {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: var(--t-h3);
+  font-weight: 740;
+  letter-spacing: -0.015em;
+}
+
+.trust__col-title .icon {
+  color: var(--blue);
+}
+
+.trust--expanded .trust__security {
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border-radius: var(--r-3);
+  background: var(--paper);
+}
+
+@media (max-width: 1023px) {
+  .trust--expanded {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 400px) {
   .trust {
     padding: 1rem;

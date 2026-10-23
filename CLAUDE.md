@@ -24,6 +24,8 @@ npx tsc --noEmit  # typecheck only
 
 ## Rules that always apply
 
+- **Pages are built from the section library** (`src/blocks/`, [docs/LIBRARY.md](docs/LIBRARY.md)); a new kind of
+  section becomes a block first.
 - **Content lives in data files, not components.** Copy: `src/data/home.ts`. Nav, CTAs, footer, site facts:
   `src/data/site.ts`. Module catalogue, portals, premium spotlight: `src/data/modules.ts`. Which modules Explore
   features, and which product screen each Base module shows: `explore` in home.ts. Product screens are HTML
@@ -49,9 +51,11 @@ npx tsc --noEmit  # typecheck only
 src/routes.ts            every page: path, page module, title, description, breadcrumbs, JSON-LD, sitemap
 src/Layout.tsx           skip link, Nav, <main>, Footer (shared by every page)
 src/pages/               one module per page type (Home.tsx = homepage section order, NotFound, PipelineCheck)
-src/data/                site.ts, home.ts, modules.ts  (all content)
-src/sections/            one component + stylesheet per section; hero/ = 3D scene; explore/ = module screens,
-                         premium mockups, portal chain; why/ = trust card; demo/ = demo form
+src/blocks/              the section library: every reusable block (docs/LIBRARY.md); gallery at /_library (dev)
+src/library/             the dev-only gallery page and its sample data
+src/data/                site.ts, home.ts, modules.ts, platform.ts, pages.ts  (all content)
+src/sections/            homepage sections, built on the blocks; hero/ = 3D scene; explore/ = premium mockups;
+                         demo/ = demo form
 src/components/          Nav, PlatformMenu (mega-menu), Footer, Logo, Icon, Screen
 src/styles/              tokens.css, base.css
 src/assets/              brand/ (logo), clients/ (client logos), screens/ (product screenshots)
@@ -60,6 +64,6 @@ qa/                      measure.html, shot.html (dev-only QA pages, not built)
 prototype/               HTML product screens that `npm run shots` photographs
 brand/                   source artwork: official logo, clientele slide
 legacy/                  snapshot of the site before the redesign (not built)
-docs/                    STATUS, WORKFLOW, DECISIONS, PRODUCT, VERIFY, SITE-PLAN, IMPLEMENTATION-PLAN, CLOUD;
+docs/                    STATUS, WORKFLOW, DECISIONS, PRODUCT, VERIFY, SITE-PLAN, IMPLEMENTATION-PLAN, CLOUD, LIBRARY;
                          source/ = text of the source decks, slide by slide
 ```

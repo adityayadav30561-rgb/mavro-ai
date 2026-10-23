@@ -43,6 +43,17 @@ BASE=http://localhost:5181 node scripts/capture.mjs 1440 900 shots/x.png
 (The preview server serves `dist/`, which has no `qa/` folder; copy `qa/shot.html` into `dist/qa/` first, and
 delete it afterwards.)
 
+## Section library
+
+The dev-only gallery at `http://localhost:5180/_library` shows every block (docs/LIBRARY.md); a switcher at the
+bottom changes the PageHero variant. After changing a block, check the gallery at the nine sizes
+(`qa/measure.html?path=/_library`) and the pages that use it.
+
+When refactoring the homepage, prove it is unchanged: the normalised `dist/index.html` (asset hashes removed)
+should differ only where intended, and the computed style and box of every element at a few sizes should match
+a dump taken before the change (a Playwright script that records `getComputedStyle` and `getBoundingClientRect`
+for every element with reduced motion and all reveals applied).
+
 ## Pages and routes
 
 After `npm run build`, `npx vite preview` serves `dist/` like a static host: `/pipeline-check` gets
