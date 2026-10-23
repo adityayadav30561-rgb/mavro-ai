@@ -1,0 +1,212 @@
+.one {
+  position: relative;
+  background: var(--mist);
+}
+
+.one__track {
+  /*
+   * Scene timeline, as fractions of --p:
+   *   --t  0.10 → 0.55   fragments converge on the centre
+   *   --u  0.46 → 0.72   the single record resolves
+   */
+  --t: clamp(0, calc((var(--p, 0) - 0.1) / 0.45), 1);
+  --u: clamp(0, calc((var(--p, 0) - 0.46) / 0.26), 1);
+  height: 300vh;
+}
+
+.one__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: grid;
+  overflow: hidden;
+}
+
+.one__inner {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: clamp(1rem, 3vh, 2rem);
+  padding-top: calc(var(--nav-h) + clamp(0.75rem, 3vh, 2.5rem));
+  padding-bottom: clamp(1rem, 3vh, 2.5rem);
+}
+
+/* The two leads share one grid cell and cross-fade as the record resolves. */
+.one__head {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-4);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.one__head .lead {
+  grid-area: 2 / 1;
+  max-width: 38rem;
+}
+
+.one__lead-before {
+  opacity: calc(1 - var(--u) * 2);
+}
+
+.one__lead-after {
+  opacity: calc(var(--u) * 2 - 1);
+  color: var(--fg);
+}
+
+.one__stage {
+  position: relative;
+  container-type: size;
+}
+
+/* Each fragment starts at its own offset from the centre and travels home as --t goes to 1. */
+.one__fragment {
+  --k: calc(1 - var(--t));
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  gap: 3px;
+  width: 264px;
+  padding: 16px 18px;
+  background: #fff;
+  border-radius: var(--r-2);
+  box-shadow: var(--shadow-card);
+  transform: translate(-50%, -50%) translate(calc(var(--dx) * var(--k)), calc(var(--dy) * var(--k)))
+    rotate(calc(var(--rot) * var(--k))) scale(calc(0.7 + 0.3 * var(--k)));
+  opacity: calc(var(--k) * 2.4);
+  will-change: transform, opacity;
+}
+
+.one__fragment:nth-child(1) { --dx: -36cqw; --dy: -30cqh; --rot: -4deg; }
+.one__fragment:nth-child(2) { --dx: 0cqw; --dy: -36cqh; --rot: 2deg; }
+.one__fragment:nth-child(3) { --dx: 36cqw; --dy: -28cqh; --rot: 5deg; }
+.one__fragment:nth-child(4) { --dx: -38cqw; --dy: 6cqh; --rot: 3deg; }
+.one__fragment:nth-child(5) { --dx: 38cqw; --dy: 9cqh; --rot: -3deg; }
+.one__fragment:nth-child(6) { --dx: -19cqw; --dy: 36cqh; --rot: -2deg; }
+.one__fragment:nth-child(7) { --dx: 19cqw; --dy: 37cqh; --rot: 4deg; }
+
+.one__tool {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--fg-3);
+}
+
+.one__line {
+  font-size: 1.0625rem;
+  font-weight: 560;
+  letter-spacing: -0.015em;
+}
+
+.one__note {
+  justify-self: start;
+  margin-top: 5px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--amber-soft);
+  color: var(--amber);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+/* The record is as large as the stage allows while keeping the screenshot's 3:2 shape. */
+.one__record {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(100cqw, 148cqh, 980px);
+  transform: translate(-50%, -50%) scale(calc(0.9 + 0.1 * var(--u)));
+  opacity: var(--u);
+  will-change: transform, opacity;
+}
+
+.one__answer {
+  display: none;
+}
+
+/* Static presentation: phones, short windows and reduced motion. No pin, no travel. */
+@media (max-width: 960px), (max-height: 640px), (prefers-reduced-motion: reduce) {
+  .one__track {
+    height: auto;
+  }
+
+  .one__pin {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .one__inner {
+    padding-block: var(--section);
+    gap: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .one__head {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .one__head .lead {
+    grid-area: auto;
+    opacity: 1;
+  }
+
+  .one__lead-after {
+    display: none;
+  }
+
+  .one__stage {
+    container-type: normal;
+    display: grid;
+    gap: var(--s-7);
+  }
+
+  .one__fragments {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: var(--s-3);
+  }
+
+  .one__fragment {
+    position: static;
+    width: auto;
+    transform: none;
+    opacity: 1;
+  }
+
+  .one__record {
+    position: static;
+    width: auto;
+    transform: none;
+    opacity: 1;
+  }
+
+  .one__answer {
+    display: block;
+    margin-bottom: var(--s-5);
+    max-width: 34rem;
+    font-size: var(--t-h3);
+    font-weight: 560;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+}
+
+@media (max-width: 520px) {
+  .one__fragments {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .one__fragment {
+    padding: 12px;
+  }
+
+  .one__fragment:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .one__line {
+    font-size: 0.9375rem;
+  }
+}

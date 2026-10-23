@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Payroll</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .flowcard .body { padding: 14px 8px 12px; }
+  .dept td { padding-top: 6px; padding-bottom: 6px; }
+  tfoot td { font-weight: 600; background: var(--surface-2); }
+  .kv dd.mono { font-size: 12.5px; }
+  .post dt { padding-left: 0; }
+  .post dt.cr { padding-left: 18px; }
+</style>
+</head>
+<body data-nav="Payroll" data-crumb="People / Payroll / September" data-who="Kavita Iyer|HR and payroll lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Payroll · September &nbsp;<span class="chip ok" style="vertical-align:4px">Paid 1 Oct</span></h1>
+      <p>486 employees · Plant 1 and Plant 2 · attendance from biometric punches, locked 30 Sep</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Payslips</span>
+      <span class="btn">Variance vs August</span>
+      <span class="btn pri">Pay PF and ESI</span>
+    </div>
+  </div>
+
+  <div class="card flowcard">
+    <header><h2>Run</h2><span>each step starts from the one before it</span></header>
+    <div class="body">
+      <ol class="flow" style="--n:8;--at:0.857">
+        <li class="done"><i></i><b>Attendance</b><span>locked 30 Sep</span></li>
+        <li class="done"><i></i><b>Inputs</b><span>OT · claims · LOP</span></li>
+        <li class="done"><i></i><b>Computed</b><span>486 payslips</span></li>
+        <li class="done"><i></i><b>Approved</b><span>CFO · 30 Sep</span></li>
+        <li class="done"><i></i><b>Posted</b><span>JV-10391</span></li>
+        <li class="done"><i></i><b>Paid</b><span>bank file 1 Oct</span></li>
+        <li class="now"><i></i><b>Statutory</b><span>2 of 4 paid</span></li>
+        <li class="next"><i></i><b>Returns</b><span>ECR · 24Q</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Gross pay</label><div class="v"><strong>₹1.48 Cr</strong><i data-spark="139,141,140,143,142,144,145,144,146,147,146,148"></i></div><div class="foot"><b class="delta flat">+1.4%</b><span>vs August</span></div></div>
+    <div class="card kpi"><label>Net paid</label><div class="v"><strong>₹1.12 Cr</strong></div><div class="foot"><b class="delta up">486 of 486</b><span>credited 1 Oct</span></div></div>
+    <div class="card kpi"><label>Employee deductions</label><div class="v"><strong>₹36.0 L</strong></div><div class="foot"><b class="delta flat">PF · ESI · TDS · PT</b><span>calculated in the run</span></div></div>
+    <div class="card kpi"><label>Exceptions</label><div class="v"><strong>0 <small>open</small></strong></div><div class="foot"><b class="delta up">23 resolved</b><span>before approval</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Statutory dues</h2><span>from this run</span><span class="more">Challans</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Due</th><th>Covers</th><th class="r">Employee</th><th class="r">Employer</th><th class="r">Total</th><th class="r">Due by</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b>PF</b> <span class="dim">EPF + EPS</span></td><td>486 members</td><td class="r mono">₹8,90,400</td><td class="r mono">₹8,90,400</td><td class="r mono"><b>₹17,80,800</b></td><td class="r mono">15 Oct</td><td><span class="chip blue">Challan ready</span></td></tr>
+              <tr><td><b>ESI</b> <span class="dim">0.75% + 3.25%</span></td><td>212 eligible</td><td class="r mono">₹60,075</td><td class="r mono">₹2,60,325</td><td class="r mono"><b>₹3,20,400</b></td><td class="r mono">15 Oct</td><td><span class="chip blue">Challan ready</span></td></tr>
+              <tr><td><b>TDS</b> <span class="dim">24Q</span></td><td>138 employees</td><td class="r mono">₹24,80,000</td><td class="r mono">—</td><td class="r mono"><b>₹24,80,000</b></td><td class="r mono">7 Oct</td><td><span class="chip ok">Paid 7 Oct</span></td></tr>
+              <tr><td><b>PT</b> <span class="dim">Maharashtra</span></td><td>486 employees</td><td class="r mono">₹97,200</td><td class="r mono">—</td><td class="r mono"><b>₹97,200</b></td><td class="r mono">30 Oct</td><td><span class="chip ok">Paid 5 Oct</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card flush dept" style="flex:1">
+        <header><h2>By department</h2><span>September</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Department</th><th class="r">Headcount</th><th class="r">Gross</th><th class="r">Overtime</th><th class="r">vs August</th></tr></thead>
+            <tbody>
+              <tr><td><b>Production</b></td><td class="r mono">312</td><td class="r mono">₹82.4 L</td><td class="r mono">1,940 h</td><td class="r"><span class="delta flat">+3.1%</span></td></tr>
+              <tr><td><b>Quality</b></td><td class="r mono">41</td><td class="r mono">₹11.6 L</td><td class="r mono">210 h</td><td class="r"><span class="delta flat">+0.8%</span></td></tr>
+              <tr><td><b>Stores and dispatch</b></td><td class="r mono">38</td><td class="r mono">₹9.8 L</td><td class="r mono">160 h</td><td class="r"><span class="delta up">−1.2%</span></td></tr>
+              <tr><td><b>Sales</b></td><td class="r mono">33</td><td class="r mono">₹17.9 L</td><td class="r mono">—</td><td class="r"><span class="delta flat">+2.4%</span></td></tr>
+              <tr><td><b>Finance and admin</b></td><td class="r mono">62</td><td class="r mono">₹26.3 L</td><td class="r mono">—</td><td class="r"><span class="delta flat">0.0%</span></td></tr>
+            </tbody>
+            <tfoot><tr><td>Total</td><td class="r mono">486</td><td class="r mono">₹1.48 Cr</td><td class="r mono">2,310 h</td><td class="r"><span class="delta flat">+1.4%</span></td></tr></tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Resolved before approval</h2><span>23</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="feed">
+            <li><i class="warn">OT</i><p><b>Overtime capped</b> for 2 operators<small>Hours above the statutory cap went to the Rest Hours Log</small></p><time>29 Sep</time></li>
+            <li><i class="blue">NJ</i><p><b>6 new joiners</b> paid pro rata<small>From their joining dates in the HR record</small></p><time>28 Sep</time></li>
+            <li><i>LOP</i><p><b>14 days loss of pay</b><small>Absences with no approved leave, from punches</small></p><time>30 Sep</time></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Ledger posting</h2><span class="mono">JV-10391 · 30 Sep</span></header>
+        <div class="body">
+          <dl class="kv post">
+            <dt>Salaries and wages</dt><dd class="mono">Dr 1,48,00,000</dd>
+            <dt class="cr">Net salary payable</dt><dd class="mono">Cr 1,12,00,000</dd>
+            <dt class="cr">TDS payable</dt><dd class="mono">Cr 24,80,000</dd>
+            <dt class="cr">PF payable</dt><dd class="mono">Cr 8,90,400</dd>
+            <dt class="cr">PT and other</dt><dd class="mono">Cr 1,69,525</dd>
+            <dt class="cr">ESI payable</dt><dd class="mono">Cr 60,075</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="shell.js"></script>
+</body>
+</html>

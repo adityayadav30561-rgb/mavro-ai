@@ -1,0 +1,46 @@
+.cta {
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+/* One contained panel: a blue wash rising from the bottom edge, nothing else. */
+.cta__panel {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: var(--s-6);
+  padding: clamp(3rem, 8vw, 7rem) var(--gutter);
+  border-radius: clamp(20px, 3vw, 36px);
+  background:
+    radial-gradient(ellipse 70% 70% at 50% 115%, rgb(43 78 255 / 0.22), transparent 70%),
+    var(--mist);
+  text-align: center;
+  overflow: hidden;
+}
+
+.cta__rail {
+  --rail-bg: var(--mist);
+  width: min(100%, 860px);
+  margin-bottom: var(--s-5);
+}
+
+.cta__panel .display {
+  max-width: 18ch;
+}
+
+.cta__panel .lead {
+  max-width: 34rem;
+}
+
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-3);
+  margin-top: var(--s-3);
+}
+
+@media (max-width: 720px) {
+  .cta__rail .rail__label {
+    display: none;
+  }
+}

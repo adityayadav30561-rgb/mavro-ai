@@ -1,0 +1,495 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--white);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 1rem);
+}
+
+/*
+ * Every length on the site is in rem, so this one value scales the whole layout.
+ *
+ * Desktops and laptops: the page is drawn for a 1440 x 900 window and scales with the window by whichever of
+ * its width or height is tighter. A 1366 x 768 laptop sees the same composition, smaller; a 2560 x 1440
+ * monitor sees it larger, instead of a small page floating in empty space. Phones and tablets keep 16px.
+ */
+@media (min-width: 1024px) {
+  html {
+    font-size: clamp(14px, min(1.1111vw, 1.7778vh), 26px);
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  font-weight: 450;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'cv11';
+}
+
+body[data-lock] {
+  overflow: hidden;
+}
+
+main {
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ol,
+ul,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: .1875rem;
+  border-radius: .375rem;
+}
+
+::selection {
+  background: var(--blue);
+  color: #fff;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Layout ---------- */
+
+.page {
+  width: min(var(--page-max), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section);
+  background: var(--bg);
+}
+
+.section--paper {
+  --bg: var(--paper);
+}
+
+/* Immersive sections: navy from the wordmark, deepened. The logo never sits on these. */
+.section--night {
+  --bg: var(--night);
+  --fg: var(--night-ink);
+  --fg-2: var(--night-ink-2);
+  --fg-3: var(--night-ink-3);
+  --border: var(--night-line);
+  --focus: var(--cyan);
+  color: var(--fg);
+  color-scheme: dark;
+}
+
+.head {
+  display: grid;
+  gap: var(--s-4);
+  max-width: 46rem;
+  margin-bottom: clamp(2.5rem, 4.5vw, 4rem);
+}
+
+/* Desktops: headline on the left, intro paragraph on the right, so a section's heading takes two lines, not five. */
+@media (min-width: 1024px) {
+  .head--split {
+    max-width: none;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    column-gap: clamp(2rem, 5vw, 5rem);
+    align-items: end;
+  }
+
+  .head--split > .h2 {
+    grid-column: 1;
+  }
+
+  .head--split > .lead {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+  }
+}
+
+.head--center {
+  margin-inline: auto;
+  justify-items: center;
+  text-align: center;
+}
+
+/* ---------- Type ---------- */
+
+.display {
+  font-size: var(--t-display);
+  font-weight: 760;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.h2 {
+  font-size: var(--t-h2);
+  font-weight: 740;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.h3 {
+  font-size: var(--t-h3);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.lead {
+  font-size: var(--t-lead);
+  line-height: 1.6;
+  color: var(--fg-2);
+  max-width: 38rem;
+  text-wrap: pretty;
+}
+
+.soft {
+  color: var(--fg-3);
+}
+
+/* The brand sweep as type. Used once per view at most. */
+.grad-text {
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.section--night .grad-text {
+  background-image: linear-gradient(100deg, #a983ff 0%, #6f8dff 45%, var(--cyan) 100%);
+}
+
+/*
+ * Section headlines vary their second line so neighbouring sections never match: .soft (grey), .grad-text
+ * (the brand sweep) and .mark (ink, underlined with a brand-gradient marker that draws in on reveal).
+ */
+.mark {
+  color: var(--fg);
+  background-image: linear-gradient(90deg, rgb(122 54 251 / 0.3), rgb(10 72 253 / 0.26) 50%, rgb(3 200 253 / 0.32));
+  background-repeat: no-repeat;
+  background-position: 0 90%;
+  background-size: 100% .3em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.js [data-reveal] .mark {
+  background-size: 0% .3em;
+  transition: background-size 1100ms var(--ease) 300ms;
+}
+
+.js [data-reveal][data-in] .mark {
+  background-size: 100% .3em;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  --h: 3.125rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .625rem;
+  height: var(--h);
+  padding-inline: 1.5rem;
+  border-radius: var(--r-pill);
+  font-size: 0.975rem;
+  font-weight: 680;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  transition:
+    background-color var(--d-1) ease,
+    color var(--d-1) ease,
+    box-shadow var(--d-2) var(--ease),
+    transform var(--d-1) ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.22),
+    var(--glow-primary);
+}
+
+.btn--primary:hover {
+  background: var(--primary-hover);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.22),
+    0 .75rem 1.875rem -.625rem rgb(10 72 253 / 0.7);
+}
+
+.btn--primary:active {
+  background: var(--primary-press);
+}
+
+.btn--ghost {
+  background: rgb(255 255 255 / 0.7);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+}
+
+.btn--ghost:hover {
+  background: #fff;
+  box-shadow:
+    inset 0 0 0 1px var(--ink-3),
+    0 .375rem 1rem -.625rem rgb(9 14 52 / 0.3);
+}
+
+.section--night .btn--ghost {
+  background: rgb(255 255 255 / 0.04);
+  color: var(--night-ink);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.22);
+}
+
+.section--night .btn--ghost:hover {
+  background: rgb(255 255 255 / 0.09);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.45);
+}
+
+.btn--sm {
+  --h: 2.5rem;
+  padding-inline: 1.125rem;
+  font-size: 0.9rem;
+}
+
+.btn__arrow {
+  width: 1rem;
+  height: 1rem;
+  transition: transform var(--d-2) var(--ease);
+}
+
+.btn:hover .btn__arrow {
+  transform: translateX(.1875rem);
+}
+
+/* Text link with an arrow, for quiet secondary actions. */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  font-weight: 680;
+  color: var(--blue);
+}
+
+.section--night .link {
+  color: var(--cyan);
+}
+
+.link:hover {
+  text-decoration: underline;
+  text-underline-offset: .25rem;
+}
+
+/* ---------- Skip link ---------- */
+
+.skip {
+  position: fixed;
+  top: .5rem;
+  left: .5rem;
+  z-index: 300;
+  padding: .625rem .875rem;
+  background: var(--ink);
+  color: #fff;
+  border-radius: var(--r-1);
+  font-size: var(--t-small);
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+
+.skip:focus {
+  transform: none;
+}
+
+/* ---------- Product screenshot ---------- */
+
+.screen {
+  position: relative;
+  border-radius: var(--r-3);
+  background: var(--paper);
+  box-shadow: var(--shadow-screen);
+  overflow: hidden;
+}
+
+.screen img {
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Small interface primitives, shared by the mockups ---------- */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  height: 1.375rem;
+  padding-inline: .5rem;
+  border-radius: var(--r-pill);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  background: var(--paper-2);
+  color: var(--ink-2);
+}
+
+.chip--ok {
+  background: var(--ok-50);
+  color: var(--ok);
+}
+
+.chip--live {
+  background: var(--blue-50);
+  color: var(--blue);
+}
+
+.chip--warn {
+  background: var(--warn-50);
+  color: var(--warn);
+}
+
+.chip__dot {
+  width: .375rem;
+  height: .375rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ---------- Motion primitives ---------- */
+
+/* Reveal: content enters once. Only armed when JS is running, so the prerendered page reads without it. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 1.125rem, 0);
+  transition:
+    opacity var(--d-3) var(--ease),
+    transform var(--d-3) var(--ease);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.js [data-reveal][data-in] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Live: looping motion only runs while its region is on screen. */
+[data-live]:not([data-live-on]) *,
+[data-live]:not([data-live-on]) *::before,
+[data-live]:not([data-live-on]) *::after {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
+
+/* ---------- Icons (see components/Icon.tsx) ---------- */
+
+.icon {
+  flex: none;
+}
+
+.icon .i-fill {
+  fill: var(--icon-accent, var(--blue));
+  stroke: none;
+}
+
+.icon .i-fill-soft {
+  fill: var(--icon-soft, var(--blue-100));
+}
+
+.icon .i-stroke-accent {
+  stroke: var(--icon-accent, var(--blue));
+  stroke-width: 2;
+}
+
+.section--night .icon {
+  --icon-accent: var(--cyan);
+  --icon-soft: rgb(3 200 253 / 0.18);
+}

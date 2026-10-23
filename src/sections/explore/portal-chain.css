@@ -1,0 +1,167 @@
+/* The portal's place in the chain: five nodes top to bottom, the selected portal and its link lit. */
+.pc {
+  display: grid;
+  gap: .875rem;
+  padding: 1.125rem 1.25rem 1.25rem;
+  border-radius: var(--r-3);
+  background: var(--white);
+  box-shadow:
+    0 0 0 1px rgb(9 14 52 / 0.06),
+    0 2rem 3.5rem -1.75rem rgb(9 14 52 / 0.38),
+    0 0 6rem -2rem rgb(3 200 253 / 0.3);
+  color: var(--ink);
+  font-size: 0.875rem;
+}
+
+.pc__title {
+  font-size: var(--t-label);
+  font-weight: 700;
+  color: var(--fg-3);
+}
+
+.pc__chain {
+  display: grid;
+}
+
+.pc__step {
+  display: grid;
+  animation: xp-in 500ms var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+.pc__node {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  min-height: 2.875rem;
+  padding: .375rem .875rem .375rem .375rem;
+  border-radius: var(--r-2);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--ink-2);
+  transition:
+    background var(--d-2) ease,
+    box-shadow var(--d-2) ease;
+}
+
+.pc__node b {
+  font-weight: 700;
+}
+
+.pc__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.125rem;
+  height: 2.125rem;
+  border-radius: .625rem;
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--ink-2);
+}
+
+/* Your business: the hub, in the wordmark's navy. */
+.pc__step[data-core] .pc__node {
+  background: var(--night-2);
+  box-shadow: none;
+  color: var(--night-ink);
+}
+
+.pc__step[data-core] .pc__icon {
+  background: rgb(255 255 255 / 0.1);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16);
+  color: #fff;
+  --icon-accent: var(--cyan);
+  --icon-soft: rgb(3 200 253 / 0.3);
+}
+
+/* The selected portal. */
+.pc__step[data-on] .pc__node {
+  background: var(--blue-50);
+  box-shadow: inset 0 0 0 1.5px var(--blue);
+  color: var(--ink);
+}
+
+.pc__step[data-on] .pc__icon {
+  background: var(--grad-brand);
+  box-shadow: 0 .5rem 1.25rem -.5rem rgb(10 72 253 / 0.7);
+  color: #fff;
+  --icon-accent: #fff;
+  --icon-soft: rgb(255 255 255 / 0.3);
+}
+
+.pc__badge {
+  margin-left: auto;
+  padding: .125rem .5rem;
+  border-radius: var(--r-pill);
+  background: var(--blue);
+  font-size: 0.6875rem;
+  font-weight: 720;
+  color: #fff;
+}
+
+/* Links between nodes: a short vertical line with the flow it carries. */
+.pc__link {
+  display: flex;
+  align-items: center;
+  gap: .875rem;
+  height: 1.75rem;
+  padding-left: 1.4375rem;
+}
+
+.pc__line {
+  position: relative;
+  width: 2px;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--line-2);
+  overflow: hidden;
+}
+
+.pc__label {
+  font-size: 0.75rem;
+  font-weight: 650;
+  color: var(--fg-3);
+}
+
+.pc__link[data-on] .pc__line {
+  background: linear-gradient(var(--violet), var(--blue), var(--cyan));
+}
+
+/* A pulse travelling along the lit link, in the direction goods move. */
+.pc__link[data-on] .pc__line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: .5rem;
+  border-radius: 2px;
+  background: #fff;
+  opacity: 0.85;
+  animation: pc-flow 1.6s linear infinite;
+}
+
+@keyframes pc-flow {
+  from {
+    top: -.5rem;
+  }
+
+  to {
+    top: 100%;
+  }
+}
+
+.pc__link[data-on] .pc__label {
+  font-weight: 720;
+  color: var(--blue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc__step {
+    animation: none;
+  }
+
+  .pc__link[data-on] .pc__line::after {
+    display: none;
+  }
+}

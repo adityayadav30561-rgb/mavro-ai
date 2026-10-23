@@ -1,0 +1,551 @@
+/* Explore the platform: three package tabs, then the package's featured modules beside one panel. */
+.xp {
+  position: relative;
+}
+
+/* Landing points for the old #modules, #portals and #premium links (the section picks the matching tab). */
+.xp__anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+}
+
+/* ---------- Package tabs ---------- */
+
+.xp__packs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75rem;
+  margin-top: clamp(1.75rem, 4vh, 2.75rem);
+}
+
+.xp__pack {
+  --tier: var(--blue);
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .875rem;
+  padding: .875rem 1.125rem;
+  border-radius: var(--r-3);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line);
+  text-align: left;
+  color: var(--ink-2);
+  overflow: hidden;
+  transition:
+    background-color var(--d-2) ease,
+    box-shadow var(--d-2) ease,
+    color var(--d-2) ease;
+}
+
+.xp__pack[data-pack='portal'] {
+  --tier: var(--cyan);
+}
+
+.xp__pack[data-pack='premium'] {
+  --tier: var(--violet);
+}
+
+/* The selected package: lifted onto white, with its tier colour as a rule along the top. */
+.xp__pack::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: var(--tier);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--d-3) var(--ease);
+}
+
+.xp__pack:hover {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.xp__pack[aria-selected='true'] {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow:
+    inset 0 0 0 1px var(--line),
+    0 1.25rem 2.5rem -1.5rem rgb(9 14 52 / 0.3);
+}
+
+.xp__pack[aria-selected='true']::before {
+  transform: scaleX(1);
+}
+
+.xp__pack-icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: .875rem;
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--ink-2);
+  transition:
+    background var(--d-2) ease,
+    box-shadow var(--d-2) ease,
+    color var(--d-2) ease;
+}
+
+.xp__pack[aria-selected='true'] .xp__pack-icon {
+  background: var(--grad-brand);
+  box-shadow: 0 .625rem 1.25rem -.625rem rgb(10 72 253 / 0.7);
+  color: #fff;
+  --icon-accent: #fff;
+  --icon-soft: rgb(255 255 255 / 0.3);
+}
+
+.xp__pack-text {
+  display: grid;
+  gap: .125rem;
+  min-width: 0;
+}
+
+.xp__pack-name {
+  font-size: 1.0625rem;
+  font-weight: 760;
+  letter-spacing: -0.01em;
+}
+
+.xp__pack-blurb {
+  font-size: 0.8125rem;
+  color: var(--fg-3);
+}
+
+.xp__pack-count {
+  display: grid;
+  justify-items: end;
+  font-size: 1.75rem;
+  font-weight: 790;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.xp__pack[aria-selected='true'] .xp__pack-count {
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.xp__pack-count small {
+  margin-top: .25rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--fg-3);
+  -webkit-text-fill-color: var(--fg-3);
+}
+
+/* ---------- Stage: module list beside the panel ---------- */
+
+.xp__body-wrap {
+  margin-top: 1rem;
+}
+
+.xp__body-wrap:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: .25rem;
+  border-radius: var(--r-4);
+}
+
+.xp__stage {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.27fr) minmax(0, 1fr);
+  gap: var(--s-5);
+  align-items: stretch;
+  animation: xp-in 500ms var(--ease) both;
+}
+
+.xp__rail {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  min-width: 0;
+}
+
+.xp__tabs {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+}
+
+.xp__tab {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  width: 100%;
+  padding: .5rem .75rem .5rem .5rem;
+  border-radius: var(--r-2);
+  text-align: left;
+  color: var(--ink-2);
+  box-shadow: inset 0 0 0 1px transparent;
+  transition:
+    background-color var(--d-2) ease,
+    box-shadow var(--d-2) ease,
+    color var(--d-2) ease;
+}
+
+.xp__tab:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.xp__tab[aria-selected='true'] {
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--ink);
+}
+
+.xp__tab-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: .625rem;
+  background: var(--grad-brand-soft);
+  color: var(--ink);
+  transition:
+    background var(--d-2) ease,
+    color var(--d-2) ease;
+}
+
+.xp__tab[aria-selected='true'] .xp__tab-icon {
+  background: var(--grad-brand);
+  color: #fff;
+  box-shadow: 0 .5rem 1.25rem -.5rem rgb(10 72 253 / 0.7);
+  --icon-accent: #fff;
+  --icon-soft: rgb(255 255 255 / 0.3);
+}
+
+.xp__tab-name {
+  font-size: 0.9375rem;
+  font-weight: 690;
+  letter-spacing: -0.005em;
+}
+
+.xp__all {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  width: fit-content;
+  margin-top: auto;
+  padding: .625rem .875rem;
+  border-radius: var(--r-pill);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  font-size: 0.875rem;
+  font-weight: 720;
+  white-space: nowrap;
+  color: var(--blue);
+  transition:
+    background-color var(--d-1) ease,
+    box-shadow var(--d-1) ease;
+}
+
+.xp__all:hover {
+  background: var(--blue-50);
+  box-shadow: inset 0 0 0 1px var(--blue);
+}
+
+.xp__all:hover .btn__arrow {
+  translate: .1875rem 0;
+}
+
+.xp__all .btn__arrow {
+  transition: translate var(--d-2) var(--ease);
+}
+
+/* The panel: the module's story on the left, its screen on the right. */
+.xp__panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  align-items: center;
+  padding: clamp(1.25rem, 2.5vw, 2.25rem);
+  border-radius: var(--r-4);
+  background:
+    radial-gradient(60% 70% at 100% 0%, rgb(3 200 253 / 0.1), transparent 70%),
+    radial-gradient(55% 65% at 85% 100%, rgb(122 54 251 / 0.1), transparent 70%),
+    var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line);
+  overflow: hidden;
+}
+
+/* One height for every package and module, so switching never moves the page below. */
+@media (min-width: 1024px) {
+  .xp__panel {
+    min-height: 32rem;
+  }
+}
+
+.xp__panel:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.xp__text,
+.xp__visual {
+  animation: xp-in 600ms var(--ease) both;
+}
+
+.xp__visual {
+  animation-delay: 60ms;
+}
+
+@keyframes xp-in {
+  from {
+    opacity: 0;
+    transform: translateY(.625rem);
+  }
+}
+
+.xp__kicker {
+  margin-bottom: .625rem;
+  font-size: var(--t-label);
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.xp__title {
+  margin-bottom: .75rem;
+  font-size: clamp(1.35rem, 1.15rem + 0.8vw, 1.85rem);
+  font-weight: 760;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.xp__body {
+  color: var(--fg-2);
+}
+
+.xp__points {
+  display: grid;
+  gap: .625rem;
+  margin-top: 1.25rem;
+  font-weight: 660;
+  color: var(--ink);
+}
+
+.xp__points li {
+  display: flex;
+  align-items: center;
+  gap: .625rem;
+  animation: xp-in 500ms var(--ease) both;
+  animation-delay: calc(120ms + var(--i, 0) * 50ms);
+}
+
+.xp__points .icon {
+  flex: none;
+  color: var(--blue);
+  stroke-width: 2.4;
+}
+
+/* Every visual keeps one size, so switching modules never changes the panel's height. */
+.xp__visual {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 32rem);
+}
+
+/* Premium drawings sit on the light stage with a softer shadow than on the old dark band. */
+.xp .sv {
+  box-shadow:
+    0 0 0 1px rgb(9 14 52 / 0.06),
+    0 2rem 3.5rem -1.75rem rgb(9 14 52 / 0.38),
+    0 0 6rem -2rem rgb(10 72 253 / 0.25);
+}
+
+/*
+ * Base: a full product screen. The panel gives it the wider column and drops its own right and bottom padding,
+ * so the screen sits at the top of the column and runs off the panel's edge, clipped by its rounded corner.
+ */
+.xp__panel[data-shot] {
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  align-items: stretch;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+.xp__panel[data-shot] .xp__text {
+  align-self: center;
+  padding-bottom: clamp(1.25rem, 2.5vw, 2.25rem);
+}
+
+.xp__visual[data-shot] {
+  justify-self: stretch;
+  width: auto;
+  min-height: 20rem;
+}
+
+.xp__shot {
+  position: absolute;
+  top: .25rem;
+  left: 0;
+  width: 47.5rem;
+  border-radius: var(--r-3) 0 0 0;
+  box-shadow:
+    0 0 0 1px rgb(9 14 52 / 0.08),
+    0 2rem 4rem -1.5rem rgb(9 14 52 / 0.35);
+}
+
+.xp__sample {
+  position: absolute;
+  right: 1rem;
+  bottom: .875rem;
+  z-index: 1;
+  padding: .1875rem .625rem;
+  border-radius: var(--r-pill);
+  background: rgb(255 255 255 / 0.9);
+  box-shadow: 0 0 0 1px var(--line);
+  font-size: 0.6875rem;
+  font-weight: 650;
+  color: var(--ink-3);
+}
+
+/* ---------- Desktops: the rail's height follows the panel ---------- */
+
+@media (min-width: 1024px) {
+  .sv__map {
+    height: 10rem;
+  }
+
+  .sv__map svg {
+    height: 100%;
+  }
+}
+
+/* ---------- Tablets and phones ---------- */
+
+@media (max-width: 1023px) {
+  .xp__stage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  /* The rail dissolves: module chips above the panel, the catalogue button below it. */
+  .xp__rail {
+    display: contents;
+  }
+
+  .xp__panel {
+    order: 1;
+  }
+
+  /* The modules become a scrolling row of chips above the panel. */
+  .xp__tabs {
+    display: flex;
+    gap: .375rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 2px var(--gutter);
+  }
+
+  .xp__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .xp__tab {
+    flex: none;
+    width: auto;
+    gap: .5rem;
+    padding: .3125rem .875rem .3125rem .3125rem;
+    border-radius: var(--r-pill);
+    box-shadow: inset 0 0 0 1px var(--line);
+    white-space: nowrap;
+  }
+
+  .xp__tab-icon {
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 50%;
+  }
+
+  .xp__tab-name {
+    font-size: 0.875rem;
+  }
+
+  .xp__all {
+    order: 2;
+    margin-top: 0;
+    justify-self: start;
+  }
+
+  .xp__panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .xp__visual {
+    justify-self: stretch;
+    width: 100%;
+  }
+}
+
+/* Below desktop width the package tabs stack their count above the name; icon and blurb step aside. */
+@media (max-width: 1023px) {
+  .xp__packs {
+    gap: .5rem;
+  }
+
+  .xp__pack {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    gap: .375rem;
+    padding: .75rem .75rem .875rem;
+  }
+
+  .xp__pack-icon,
+  .xp__pack-blurb {
+    display: none;
+  }
+
+  .xp__pack-name {
+    font-size: 0.875rem;
+    line-height: 1.25;
+  }
+
+  .xp__pack-count {
+    grid-row: 1;
+    justify-items: start;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .xp__panel[data-shot] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .xp__panel[data-shot] .xp__text {
+    padding-bottom: 0;
+    padding-right: clamp(1.25rem, 2.5vw, 2.25rem);
+  }
+
+  /* The screen keeps a desktop-like crop: wider than the panel, cut at the right and bottom. */
+  .xp__visual[data-shot] {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .xp__shot {
+    width: 160%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xp__stage,
+  .xp__text,
+  .xp__visual,
+  .xp__points li {
+    animation: none;
+  }
+}

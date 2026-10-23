@@ -1,0 +1,283 @@
+.p2p__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 330px) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+}
+
+/* Tabs: a vertical thread. The blue segment grows to the selected stage. */
+.p2p__tabs {
+  --row: 46px;
+  position: relative;
+  display: grid;
+}
+
+.p2p__tabs::before,
+.p2p__tabs::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: calc(var(--row) / 2);
+  width: 2px;
+  height: calc(var(--row) * (var(--n) - 1));
+  border-radius: 1px;
+}
+
+.p2p__tabs::before {
+  background: var(--rule-2);
+}
+
+.p2p__tabs::after {
+  background: var(--blue);
+  transform: scaleY(calc(var(--at) / (var(--n) - 1)));
+  transform-origin: top;
+  transition: transform var(--d-3) var(--ease);
+}
+
+.p2p__tab {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  align-items: center;
+  gap: var(--s-4);
+  height: var(--row);
+  text-align: left;
+  color: var(--fg-3);
+  transition: color var(--d-1) ease;
+}
+
+.p2p__tab:hover {
+  color: var(--fg);
+}
+
+.p2p__tab[data-state='done'] {
+  color: var(--fg-2);
+}
+
+.p2p__tab[data-state='live'] {
+  color: var(--fg);
+}
+
+.p2p__dot {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--rule-2);
+  border-radius: 50%;
+  background: var(--mist);
+  transition:
+    background-color var(--d-2) ease,
+    border-color var(--d-2) ease,
+    box-shadow var(--d-2) ease;
+}
+
+.p2p__tab[data-state='done'] .p2p__dot {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.p2p__tab[data-state='live'] .p2p__dot {
+  border-color: var(--blue);
+  background: radial-gradient(circle, var(--blue) 0 4px, #fff 4.5px);
+  box-shadow: 0 0 0 5px rgb(43 78 255 / 0.14);
+}
+
+.p2p__name {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.p2p__tab[data-state='live'] .p2p__name {
+  font-weight: 600;
+}
+
+.p2p__docno {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.p2p__panel {
+  background: #fff;
+  border-radius: var(--r-3);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.p2p__doc {
+  padding: clamp(1.5rem, 3vw, 2.75rem);
+  min-height: 22rem;
+  animation: p2p-in var(--d-3) var(--ease) both;
+}
+
+@keyframes p2p-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+}
+
+.p2p__step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9375rem;
+  color: var(--fg-3);
+}
+
+.p2p__step .code {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: var(--blue-ink);
+  font-weight: 600;
+}
+
+.p2p__summary {
+  margin: var(--s-4) 0 var(--s-6);
+  max-width: 26ch;
+  font-size: clamp(1.5rem, 1.05rem + 1.6vw, 2.25rem);
+  font-weight: 560;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.p2p__facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4) var(--s-6);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--rule);
+}
+
+.p2p__facts dt,
+.p2p__ledger dt {
+  font-size: 0.875rem;
+  color: var(--fg-3);
+}
+
+.p2p__facts dd {
+  font-size: 1.0625rem;
+  font-weight: 500;
+}
+
+/* The ledger: four numbers that only exist once the purchase has earned them. */
+.p2p__ledger {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--rule);
+  background: var(--mist);
+}
+
+.p2p__ledger > div {
+  display: grid;
+  gap: 2px;
+  padding: var(--s-4) var(--s-5);
+}
+
+.p2p__ledger > div + div {
+  border-left: 1px solid var(--rule);
+}
+
+.p2p__ledger dd {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--fg-3);
+  transition: color var(--d-2) ease;
+}
+
+.p2p__ledger [data-known] dd {
+  color: var(--fg);
+}
+
+.p2p__ledger [data-known] dt {
+  color: var(--blue-ink);
+}
+
+.p2p__figure {
+  margin-top: clamp(3rem, 7vw, 6rem);
+}
+
+/* Tablet and phone: the thread turns horizontal and scrolls; the document sits beneath it. */
+@media (max-width: 900px) {
+  .p2p__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .p2p__tabs {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap: var(--s-2);
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 4px var(--gutter);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .p2p__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .p2p__tabs::before,
+  .p2p__tabs::after {
+    display: none;
+  }
+
+  .p2p__tab {
+    grid-template-columns: auto;
+    height: 42px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px var(--rule-2);
+    scroll-snap-align: center;
+  }
+
+  .p2p__tab[data-state='done'] {
+    box-shadow: inset 0 0 0 1px var(--blue-line);
+  }
+
+  .p2p__tab[data-state='live'] {
+    background: var(--ink);
+    color: #fff;
+    box-shadow: none;
+  }
+
+  .p2p__dot,
+  .p2p__docno {
+    display: none;
+  }
+
+  .p2p__name {
+    font-size: 0.9375rem;
+  }
+
+  .p2p__doc {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .p2p__facts {
+    grid-template-columns: 1fr;
+  }
+
+  .p2p__ledger {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .p2p__ledger > div {
+    padding: var(--s-3) var(--s-4);
+  }
+
+  .p2p__ledger > div:nth-child(odd) {
+    border-left: 0;
+  }
+
+  .p2p__ledger > div:nth-child(n + 3) {
+    border-top: 1px solid var(--rule);
+  }
+}

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · PRJ-0217</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+
+  /* Milestone plan: a Gantt over 14 weeks, baseline as a thin line under each bar. */
+  .gantt { display: grid; grid-template-columns: 210px 1fr 96px; }
+  .gantt .wk { display: grid; grid-template-columns: repeat(14, 1fr); position: relative; }
+  .gantt .scale { padding: 0 0 8px; color: var(--ink-3); font: 11px var(--mono); }
+  .gantt .scale span { border-left: 1px solid var(--line); padding-left: 4px; }
+  .gantt .row { display: contents; }
+  .gantt .row > div { padding: 9px 0; border-top: 1px solid var(--line); display: flex; align-items: center; min-height: 46px; }
+  .gantt .name { padding-left: 16px !important; gap: 10px; }
+  .gantt .name b { font-weight: 550; display: block; }
+  .gantt .name small { color: var(--ink-3); font-size: 11.5px; display: block; }
+  .gantt .lane { position: relative; }
+  .gantt .lane::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 calc(100% / 14 - 1px), var(--line) calc(100% / 14 - 1px) calc(100% / 14)); opacity: .6; }
+  .bar { position: absolute; top: 13px; height: 14px; border-radius: 4px; background: var(--accent); left: calc(var(--s) / 14 * 100%); width: calc(var(--w) / 14 * 100%); }
+  .bar.done { background: var(--ok); }
+  .bar.late { background: #e0a030; }
+  .bar.next { background: #c9d4ff; }
+  .bar .fill { position: absolute; inset: 0 auto 0 0; border-radius: 4px; background: var(--accent); }
+  .bar.part { background: #cfdaff; }
+  .base { position: absolute; top: 31px; height: 3px; border-radius: 2px; background: #9aa3b5; opacity: .7; left: calc(var(--s) / 14 * 100%); width: calc(var(--w) / 14 * 100%); }
+  .today { position: absolute; top: -26px; height: 408px; left: calc(8.3 / 14 * 100%); width: 2px; background: var(--bad); z-index: 2; }
+  .today::after { content: 'Today · 8 Oct'; position: absolute; bottom: -18px; left: -30px; white-space: nowrap; font: 600 10.5px var(--sans); color: var(--bad); }
+  .gate { position: absolute; top: 10px; width: 14px; height: 14px; transform: rotate(45deg); border: 2px solid var(--ink); background: #fff; left: calc(var(--s) / 14 * 100% - 7px); }
+  .gantt .st { justify-content: flex-end; padding-right: 16px !important; }
+  .legend2 { display: flex; gap: 14px; margin-left: auto; color: var(--ink-2); font-size: 12px; }
+  .legend2 i { display: inline-block; width: 14px; height: 8px; border-radius: 2px; margin-right: 6px; vertical-align: 0; }
+
+  .cr li { display: grid; grid-template-columns: 1fr auto; gap: 3px 10px; padding: 10px 0; }
+  .cr li + li { border-top: 1px solid var(--line); }
+  .cr b { font-weight: 600; }
+  .cr small { grid-column: 1; color: var(--ink-3); font-size: 12px; }
+  .cr .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .cr .amt { grid-column: 1; font: 600 12px var(--mono); color: var(--ink); }
+  .heads li { display: grid; grid-template-columns: 96px 1fr 70px; gap: 10px; align-items: center; padding: 6px 0; }
+  .heads li span { color: var(--ink-2); }
+  .heads em { font: 12px var(--mono); font-style: normal; text-align: right; }
+  .meter.tall { height: 8px; }
+</style>
+</head>
+<body data-nav="Planning" data-crumb="Make / Projects / PRJ-0217" data-who="Vikram Desai|Project owner">
+<main>
+  <div class="head">
+    <div>
+      <h1>PRJ-0217 · Plant 2 line automation &nbsp;<span class="chip warn" style="vertical-align:4px">6 days behind baseline</span></h1>
+      <p>Capex project · sanctioned ₹2.40 Cr · steering committee: plant head, CFO · baseline go-live 14 Nov, forecast 20 Nov</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Risk log</span>
+      <span class="btn">Raise change request</span>
+      <span class="btn pri">Update plan</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Budget used</label><div class="v"><strong>₹1.46 Cr</strong><i data-spark="12,21,33,41,52,63,74,88,97,112,131,146"></i></div><div class="foot"><b class="delta flat">61%</b><span>of ₹2.40 Cr sanctioned</span></div></div>
+    <div class="card kpi"><label>Complete</label><div class="v"><strong>64% <small>vs 70% planned</small></strong></div><div class="foot"><b class="delta down">−6 days</b><span>installation running late</span></div></div>
+    <div class="card kpi"><label>Change requests</label><div class="v"><strong>2 <small>open</small></strong></div><div class="foot"><b class="delta flat">₹18.5 L impact</b><span>1 needs steering</span></div></div>
+    <div class="card kpi"><label>Risks</label><div class="v"><strong>5 <small>open</small></strong></div><div class="foot"><b class="delta down">1 high</b><span>log updated 6 Oct</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush" style="flex:1">
+        <header><h2>Milestone plan</h2><span>Aug to Nov · baseline under each bar</span><div class="legend2"><span><i style="background:var(--ok)"></i>Done</span><span><i style="background:var(--accent)"></i>In progress</span><span><i style="background:#9aa3b5;height:3px"></i>Baseline</span><span>◇ Gate</span></div></header>
+        <div class="body">
+          <div class="gantt">
+            <div></div>
+            <div class="wk scale"><span>W33</span><span>W34</span><span>W35</span><span>W36</span><span>W37</span><span>W38</span><span>W39</span><span>W40</span><span>W41</span><span>W42</span><span>W43</span><span>W44</span><span>W45</span><span>W46</span></div>
+            <div></div>
+
+            <div class="row">
+              <div class="name"><div><b>Design freeze</b><small>Layout, P&amp;ID, BOM signed off</small></div></div>
+              <div class="lane"><span class="bar done" style="--s:0;--w:2"></span><span class="base" style="--s:0;--w:2"></span><span class="gate" style="--s:2"></span><span class="today"></span></div>
+              <div class="st"><span class="chip ok">Done</span></div>
+            </div>
+            <div class="row">
+              <div class="name"><div><b>Equipment PO and FAT</b><small>2 vendors · factory acceptance</small></div></div>
+              <div class="lane"><span class="bar done" style="--s:1.5;--w:3"></span><span class="base" style="--s:1.5;--w:3"></span></div>
+              <div class="st"><span class="chip ok">Done</span></div>
+            </div>
+            <div class="row">
+              <div class="name"><div><b>Civil and utilities</b><small>Foundations, power, air</small></div></div>
+              <div class="lane"><span class="bar late" style="--s:3.5;--w:3.6"></span><span class="base" style="--s:3.5;--w:3"></span></div>
+              <div class="st"><span class="chip warn">Done +4d</span></div>
+            </div>
+            <div class="row">
+              <div class="name"><div><b>Installation</b><small>Line 3 conveyors and cells</small></div></div>
+              <div class="lane"><span class="bar part" style="--s:6.3;--w:3.4"><span class="fill" style="width:60%"></span></span><span class="base" style="--s:6;--w:3"></span></div>
+              <div class="st"><span class="chip blue">60%</span></div>
+            </div>
+            <div class="row">
+              <div class="name"><div><b>Qualification (IQ / OQ)</b><small>Waits on installation</small></div></div>
+              <div class="lane"><span class="bar next" style="--s:10;--w:1.6"></span><span class="base" style="--s:9;--w:1.6"></span><span class="gate" style="--s:11.6"></span></div>
+              <div class="st"><span class="chip">Blocked</span></div>
+            </div>
+            <div class="row">
+              <div class="name"><div><b>Trial production</b><small>3 lots of IH-220</small></div></div>
+              <div class="lane"><span class="bar next" style="--s:11.6;--w:1.2"></span><span class="base" style="--s:10.6;--w:1.2"></span></div>
+              <div class="st"><span class="chip">Planned</span></div>
+            </div>
+            <div class="row">
+              <div class="name"><div><b>Handover and go-live</b><small>Baseline 14 Nov</small></div></div>
+              <div class="lane"><span class="bar next" style="--s:12.8;--w:1"></span><span class="base" style="--s:11.8;--w:1"></span><span class="gate" style="--s:13.8"></span></div>
+              <div class="st"><span class="chip warn">20 Nov</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <header><h2>Why it is late</h2><span>dependency named with its owner</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="feed">
+            <li><i class="warn">DEP</i><p><b>Installation waits on 2 conveyor modules</b> from the line vendor<small>Owner: Rohan Menon (buying) · recovery clause invoked on PO-7688 · expected 14 Oct</small></p><time>6 Oct</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Change requests</h2><span>2 open</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="cr">
+            <li><b>CR-031 · Extra robot cell</b><span class="amt">+₹14.2 L · +5 days</span><small>Beyond the plant head's delegation</small><span class="chip warn">Steering</span></li>
+            <li><b>CR-029 · Guarding change</b><span class="amt">+₹4.3 L · no delay</span><small>Within delegation</small><span class="chip blue">Plant head</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Budget by cost head</h2><span>spent of sanctioned</span></header>
+        <div class="body" style="padding-top:8px">
+          <ul class="heads">
+            <li><span>Equipment</span><span class="meter tall"><i style="width:78%"></i></span><em>₹96 L</em></li>
+            <li><span>Installation</span><span class="meter tall"><i style="width:46%"></i></span><em>₹28 L</em></li>
+            <li><span>Civil</span><span class="meter tall warn"><i style="width:100%"></i></span><em>₹19 L</em></li>
+            <li><span>Contingency</span><span class="meter tall ink"><i style="width:15%"></i></span><em>₹3 L</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Risks</h2><span>top 3 of 5</span><span class="more">Risk log</span></header>
+        <div class="body" style="padding-top:4px">
+          <dl class="kv">
+            <dt>Conveyor delivery slips again</dt><dd><span class="chip bad">High</span></dd>
+            <dt>Qualification lots fail first pass</dt><dd><span class="chip warn">Medium</span></dd>
+            <dt>Operators not trained in time</dt><dd><span class="chip">Low</span></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="shell.js"></script>
+</body>
+</html>

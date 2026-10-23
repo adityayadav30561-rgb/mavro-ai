@@ -1,0 +1,120 @@
+.footer {
+  padding-top: clamp(3rem, 6vw, 5rem);
+  border-top: 1px solid var(--line);
+  background: var(--white);
+  font-size: var(--t-small);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: var(--s-6);
+}
+
+.footer__brand {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: var(--s-4);
+}
+
+.footer__brand p {
+  max-width: 22rem;
+  color: var(--fg-3);
+}
+
+.footer__title {
+  margin-bottom: var(--s-3);
+  font-size: var(--t-label);
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.footer ul {
+  display: grid;
+  gap: 2px;
+}
+
+.footer nav a {
+  display: inline-block;
+  padding-block: .3125rem;
+  color: var(--fg-2);
+  font-weight: 550;
+}
+
+.footer nav a:hover {
+  color: var(--blue);
+}
+
+.footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-3) var(--s-6);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-block: var(--s-5);
+  border-top: 1px solid var(--line);
+  color: var(--fg-3);
+  font-size: var(--t-label);
+}
+
+.footer__legal ul {
+  display: flex;
+  gap: var(--s-5);
+}
+
+@media (max-width: 860px) {
+  .footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Head office, phone and email, from the product deck. */
+.footer__contact {
+  display: grid;
+  gap: .5rem;
+  margin-top: var(--s-2);
+  font-style: normal;
+  color: var(--fg-2);
+}
+
+.footer__office,
+.footer__contact a {
+  display: flex;
+  align-items: flex-start;
+  gap: .625rem;
+  max-width: 22rem;
+  line-height: 1.5;
+}
+
+.footer__office b,
+.footer__office span span {
+  display: block;
+}
+
+.footer__office b {
+  font-size: var(--t-label);
+  font-weight: 750;
+  color: var(--ink);
+}
+
+.footer__contact .icon {
+  flex: none;
+  margin-top: .1875rem;
+  color: var(--blue);
+}
+
+.footer__contact a {
+  width: fit-content;
+  font-weight: 600;
+  color: var(--fg-2);
+}
+
+.footer__contact a:hover {
+  color: var(--blue);
+}

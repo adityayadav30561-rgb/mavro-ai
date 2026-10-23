@@ -1,0 +1,107 @@
+.rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+}
+
+/* The line runs from the centre of the first stage to the centre of the last. */
+.rail::before,
+.rail::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: calc(50% / var(--n));
+  right: calc(50% / var(--n));
+  height: 2px;
+  border-radius: 1px;
+}
+
+.rail::before {
+  background: var(--rule-2);
+}
+
+.rail::after {
+  background: var(--blue);
+  transform: scaleX(var(--fill, 0));
+  transform-origin: left;
+  transition: transform var(--d-3) var(--ease);
+}
+
+.rail li {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 2px;
+  min-width: 0;
+  text-align: center;
+}
+
+.rail__dot {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  margin-bottom: 10px;
+  border: 2px solid var(--rule-2);
+  border-radius: 50%;
+  background: var(--rail-bg, var(--white));
+  transition:
+    background-color var(--d-2) ease,
+    border-color var(--d-2) ease;
+}
+
+.rail li[data-state='done'] .rail__dot {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.rail li[data-state='live'] .rail__dot {
+  border-color: var(--blue);
+  background: radial-gradient(circle, var(--blue) 0 4px, var(--rail-bg, var(--white)) 4.5px);
+}
+
+/* The live stage breathes: a single ring, compositor-only. */
+.rail li[data-state='live'] .rail__dot::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
+  animation: rail-ring 2.4s var(--ease) infinite;
+}
+
+@keyframes rail-ring {
+  from {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.rail__label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--fg-3);
+  transition: color var(--d-2) ease;
+  overflow-wrap: anywhere;
+}
+
+.rail li[data-state='done'] .rail__label {
+  color: var(--fg-2);
+}
+
+.rail li[data-state='live'] .rail__label {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.rail__sub {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--fg-3);
+}

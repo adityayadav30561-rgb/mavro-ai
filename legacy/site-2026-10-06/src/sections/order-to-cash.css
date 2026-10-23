@@ -1,0 +1,224 @@
+.o2c {
+  position: relative;
+  background: var(--white);
+}
+
+.o2c__track {
+  /* The rail reaches stage i exactly when stage i becomes active. */
+  --rail-fill: min(1, calc(var(--p, 0) * var(--steps) / (var(--steps) - 1)));
+  height: calc(100vh + var(--steps) * 46vh);
+}
+
+.o2c__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: grid;
+  overflow: hidden;
+}
+
+.o2c__inner {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: clamp(1.25rem, 3.5vh, 2.5rem);
+  padding-top: calc(var(--nav-h) + clamp(0.5rem, 2.5vh, 2rem));
+  padding-bottom: clamp(1rem, 3.5vh, 2.5rem);
+}
+
+.o2c__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: end;
+  gap: var(--s-5) var(--s-8);
+}
+
+/* Scroll drives this fill directly, so it must not ease behind the scroll position. */
+.o2c__rail .rail::after {
+  transition: none;
+}
+
+.o2c__body {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
+  min-height: 0;
+}
+
+/* Stages share one grid cell; only the active one is shown. */
+.o2c__stages {
+  display: grid;
+  align-items: center;
+}
+
+.o2c__stage {
+  grid-area: 1 / 1;
+  pointer-events: none;
+  transition:
+    opacity var(--d-2) var(--ease),
+    transform 700ms var(--ease);
+}
+
+.o2c__stage[data-state='past'] {
+  opacity: 0;
+  transform: translate3d(0, -24px, 0);
+}
+
+.o2c__stage[data-state='next'] {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+}
+
+.o2c__stage[data-state='active'] {
+  pointer-events: auto;
+}
+
+.o2c__doc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9375rem;
+  color: var(--fg-3);
+}
+
+.o2c__doc .code:first-child {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: var(--blue-ink);
+  font-weight: 600;
+}
+
+.o2c__title {
+  margin: var(--s-4) 0 var(--s-5);
+  font-size: clamp(1.5rem, 1.05rem + 1.7vw, 2.375rem);
+  font-weight: 560;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+/* Each consequence arrives a beat after the document, in order: the chain reaction, made visible. */
+.o2c__effects {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.o2c__effects li {
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--blue-line);
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--fg-2);
+  transition:
+    opacity var(--d-3) var(--ease),
+    transform var(--d-3) var(--ease);
+  transition-delay: calc(140ms + var(--i) * 110ms);
+}
+
+.o2c__effects b {
+  display: block;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.o2c__stage:not([data-state='active']) .o2c__effects li {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  transition-delay: 0s;
+}
+
+/* Screens share one cell too, and cross-fade. Their size is capped by the height left in the pin. */
+.o2c__shots {
+  display: grid;
+  align-self: center;
+  width: min(100%, calc((100svh - 23rem) * 1.5));
+  justify-self: end;
+}
+
+.o2c__shot {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: scale(0.97);
+  transition:
+    opacity 600ms var(--ease),
+    transform 900ms var(--ease);
+}
+
+.o2c__shot.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+/* Static presentation: the nine documents as a vertical chain joined by the thread, under one screen. */
+@media (max-width: 960px), (max-height: 680px), (prefers-reduced-motion: reduce) {
+  .o2c__track {
+    height: auto;
+  }
+
+  .o2c__pin {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .o2c__inner {
+    padding-block: var(--section);
+    gap: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .o2c__head,
+  .o2c__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .o2c__rail {
+    display: none;
+  }
+
+  /* The previous section ends on the order screen, so the static chain does not repeat it. */
+  .o2c__shots {
+    display: none;
+  }
+
+  .o2c__stages {
+    gap: var(--s-7);
+    padding-left: var(--s-5);
+    border-left: 2px solid var(--blue-line);
+  }
+
+  .o2c__stage,
+  .o2c__stage[data-state] {
+    grid-area: auto;
+    position: relative;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .o2c__stage::before {
+    content: '';
+    position: absolute;
+    top: 7px;
+    left: calc(-1 * var(--s-5) - 7px);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 0 4px var(--white);
+  }
+
+  .o2c__stage .o2c__effects li,
+  .o2c__stage:not([data-state='active']) .o2c__effects li {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .o2c__rail .rail__label {
+    font-size: 0.75rem;
+  }
+}

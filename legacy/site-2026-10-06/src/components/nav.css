@@ -1,0 +1,154 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+}
+
+.logo__word {
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: 0.15em;
+}
+
+.nav-sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 48px;
+  pointer-events: none;
+}
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--d-2) ease,
+    border-color var(--d-2) ease;
+}
+
+.nav__row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+  height: var(--nav-h);
+  transition: height var(--d-2) var(--ease);
+}
+
+.nav[data-compact],
+.nav[data-open] {
+  background: rgb(255 255 255 / 0.82);
+  border-bottom-color: var(--rule);
+  -webkit-backdrop-filter: saturate(160%) blur(16px);
+  backdrop-filter: saturate(160%) blur(16px);
+}
+
+.nav[data-compact] .nav__row {
+  height: 56px;
+}
+
+.nav__links {
+  display: flex;
+  gap: var(--s-6);
+  margin-left: auto;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--fg-2);
+}
+
+.nav__links a {
+  padding-block: 6px;
+  transition: color var(--d-1) ease;
+}
+
+.nav__links a:hover {
+  color: var(--fg);
+}
+
+.nav__toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  margin-right: -8px;
+  place-items: center;
+}
+
+.nav__bars,
+.nav__bars::before {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--ink);
+  transition: transform var(--d-2) var(--ease);
+}
+
+.nav__bars {
+  position: relative;
+  transform: translateY(-3px);
+}
+
+.nav__bars::before {
+  content: '';
+  position: absolute;
+  transform: translateY(6px);
+}
+
+.nav[data-open] .nav__bars {
+  transform: rotate(45deg);
+}
+
+.nav[data-open] .nav__bars::before {
+  transform: rotate(-90deg);
+}
+
+.nav__menu {
+  border-top: 1px solid var(--rule);
+  padding-block: var(--s-4) var(--s-6);
+}
+
+.nav__menu .page {
+  display: grid;
+  gap: 2px;
+}
+
+.nav__menu a:not(.btn) {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.nav__menu .btn {
+  margin-top: var(--s-5);
+}
+
+@media (max-width: 900px) {
+  .nav__links {
+    display: none;
+  }
+
+  .nav__cta {
+    margin-left: auto;
+  }
+
+  .nav__toggle {
+    display: grid;
+  }
+}
+
+@media (min-width: 901px) {
+  .nav__menu {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav__row {
+    gap: var(--s-4);
+  }
+}

@@ -1,0 +1,426 @@
+/* Industries: four audiences as cards above one full-width panel (story, order flow, modules to see). */
+.ind__wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+/* ---------- Industry cards ---------- */
+
+.ind__tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .75rem;
+}
+
+.ind__tab {
+  display: flex;
+  align-items: center;
+  gap: .875rem;
+  width: 100%;
+  padding: .875rem 1rem .875rem .875rem;
+  border-radius: var(--r-3);
+  text-align: left;
+  color: var(--ink-2);
+  background: rgb(255 255 255 / 0.5);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition:
+    background-color var(--d-2) ease,
+    box-shadow var(--d-2) ease,
+    color var(--d-2) ease;
+}
+
+.ind__tab:hover {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.ind__tab[aria-selected='true'] {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow:
+    inset 0 0 0 1px var(--line),
+    0 1rem 2rem -1.25rem rgb(9 14 52 / 0.3);
+}
+
+.ind__tab-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: .875rem;
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--ink-2);
+  transition:
+    background var(--d-2) ease,
+    box-shadow var(--d-2) ease,
+    color var(--d-2) ease;
+}
+
+.ind__tab[aria-selected='true'] .ind__tab-icon {
+  background: var(--grad-brand);
+  box-shadow: 0 .625rem 1.25rem -.625rem rgb(10 72 253 / 0.7);
+  color: #fff;
+  --icon-accent: #fff;
+  --icon-soft: rgb(255 255 255 / 0.3);
+}
+
+.ind__tab-text {
+  display: grid;
+  gap: .125rem;
+  min-width: 0;
+}
+
+.ind__tab-text b {
+  font-size: 1.0625rem;
+  font-weight: 760;
+  letter-spacing: -0.01em;
+}
+
+.ind__tab-text span {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--fg-3);
+}
+
+/* ---------- Panel ---------- */
+
+.ind__panel {
+  display: grid;
+  gap: clamp(1.25rem, 2.5vh, 1.75rem);
+  padding: clamp(1.25rem, 2.5vw, 2.25rem);
+  border-radius: var(--r-4);
+  background:
+    radial-gradient(45% 60% at 100% 0%, rgb(122 54 251 / 0.06), transparent 70%),
+    var(--white);
+  box-shadow:
+    inset 0 0 0 1px var(--line),
+    0 1.5rem 3rem -2rem rgb(9 14 52 / 0.25);
+}
+
+.ind__panel:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* Story: the headline on the left, three capabilities on the right. */
+.ind__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  column-gap: clamp(1.5rem, 3vw, 2.5rem);
+  animation: ind-in 500ms var(--ease) both;
+}
+
+.ind__title {
+  grid-column: 1;
+  align-self: center;
+  font-size: clamp(1.35rem, 1.15rem + 0.8vw, 1.85rem);
+  font-weight: 760;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.ind__points {
+  grid-column: 2;
+  display: grid;
+  align-content: center;
+  gap: .625rem;
+}
+
+.ind__points li {
+  display: flex;
+  align-items: flex-start;
+  gap: .625rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ink-2);
+  animation: ind-in 500ms var(--ease) both;
+  animation-delay: calc(80ms + var(--i, 0) * 50ms);
+}
+
+.ind__points .icon {
+  flex: none;
+  margin-top: .1875rem;
+  color: var(--blue);
+  stroke-width: 2.4;
+}
+
+/* Flow: shared stages outlined in ink, the configured middle in the brand gradient. */
+.ind__flowbox {
+  padding: 1.125rem 1.25rem 1rem;
+  border-radius: var(--r-3);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.ind__legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem 1.375rem;
+  margin-bottom: 1rem;
+  font-size: var(--t-label);
+  font-weight: 650;
+  color: var(--fg-3);
+}
+
+.ind__legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.ind__legend > span:not(.ind__record)::before {
+  content: '';
+  width: .875rem;
+  height: .875rem;
+  border-radius: .25rem;
+  background: var(--grad-brand);
+}
+
+.ind__legend span[data-core]::before {
+  background: var(--white);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+
+.ind__record {
+  margin-left: auto;
+  font-weight: 600;
+}
+
+.ind__record b {
+  margin-inline: .25rem;
+  font-weight: 750;
+  color: var(--ink);
+}
+
+.ind__flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .625rem 0;
+}
+
+.ind__flow li {
+  display: inline-flex;
+  align-items: center;
+  height: 2.5rem;
+  padding-inline: .8125rem;
+  border-radius: var(--r-1);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--grad-brand);
+  background-size: 400% 100%;
+  background-position: calc(var(--i) * 12%) 0;
+  box-shadow: 0 .5rem 1.125rem -.625rem rgb(10 72 253 / 0.6);
+  animation: ind-in 500ms var(--ease) both;
+  animation-delay: calc(var(--i) * 35ms);
+}
+
+.ind__flow li[data-core] {
+  color: var(--ink);
+  background: var(--white);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+  animation: none;
+}
+
+.ind__flow li + li {
+  position: relative;
+  margin-left: .875rem;
+}
+
+.ind__flow li + li::before {
+  content: '';
+  position: absolute;
+  left: -.875rem;
+  top: 50%;
+  width: .875rem;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--line-2);
+}
+
+.ind__shared {
+  margin-top: .875rem;
+  font-size: 0.8125rem;
+  color: var(--fg-3);
+}
+
+.ind__shared b {
+  font-weight: 650;
+  color: var(--ink-2);
+}
+
+/* Modules to see: each chip opens that module in Explore the platform. */
+.ind__modules {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .625rem 1rem;
+}
+
+.ind__modules-label {
+  font-size: var(--t-label);
+  font-weight: 700;
+  color: var(--fg-3);
+}
+
+.ind__modules ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.ind__modules li {
+  animation: ind-in 450ms var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 40ms);
+}
+
+.ind__modules a {
+  --tier: var(--blue);
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  height: 2.375rem;
+  padding: 0 .875rem 0 .3125rem;
+  border-radius: var(--r-pill);
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  font-size: 0.875rem;
+  font-weight: 680;
+  color: var(--ink);
+  transition:
+    box-shadow var(--d-1) ease,
+    background-color var(--d-1) ease;
+}
+
+.ind__modules a[data-pack='portal'] {
+  --tier: var(--cyan);
+}
+
+.ind__modules a[data-pack='premium'] {
+  --tier: var(--violet);
+}
+
+.ind__modules a:hover {
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1.5px var(--tier);
+}
+
+.ind__mod-icon {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--grad-brand-soft);
+  color: var(--ink);
+}
+
+.ind__mod-arrow {
+  color: var(--tier);
+  transition: translate var(--d-2) var(--ease);
+}
+
+.ind__modules a:hover .ind__mod-arrow {
+  translate: .1875rem 0;
+}
+
+@keyframes ind-in {
+  from {
+    opacity: 0;
+    transform: translateY(.375rem);
+  }
+}
+
+/* ---------- Tablets and phones ---------- */
+
+@media (max-width: 1023px) {
+  .ind__wrap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* The industries become a scrolling row above the panel. */
+  .ind__tabs {
+    display: flex;
+    gap: .375rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 2px var(--gutter) .5rem;
+  }
+
+  .ind__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ind__tab {
+    flex: none;
+    width: auto;
+    gap: .5rem;
+    padding: .3125rem 1rem .3125rem .3125rem;
+    border-radius: var(--r-pill);
+    background: rgb(255 255 255 / 0.6);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+
+  .ind__tab-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+  }
+
+  .ind__tab-text b {
+    font-size: 0.9375rem;
+    white-space: nowrap;
+  }
+
+  .ind__tab-text span {
+    display: none;
+  }
+
+  .ind__intro {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1rem;
+  }
+
+  .ind__points {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .ind__record {
+    margin-left: 0;
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .ind__flowbox {
+    padding: 1rem;
+  }
+
+  .ind__flow li {
+    height: 2.25rem;
+    padding-inline: .625rem;
+    font-size: 0.8125rem;
+  }
+
+  .ind__modules a {
+    font-size: 0.8125rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ind__intro,
+  .ind__points li,
+  .ind__flow li,
+  .ind__modules li {
+    animation: none;
+  }
+}

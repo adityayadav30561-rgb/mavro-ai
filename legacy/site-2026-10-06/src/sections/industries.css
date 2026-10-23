@@ -1,0 +1,198 @@
+.ind__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.ind__tab {
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px var(--rule-2);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--fg-2);
+  transition:
+    background-color var(--d-1) ease,
+    box-shadow var(--d-1) ease,
+    color var(--d-1) ease;
+}
+
+.ind__tab:hover {
+  box-shadow: inset 0 0 0 1px var(--ink);
+  color: var(--fg);
+}
+
+.ind__tab[aria-selected='true'] {
+  background: var(--ink);
+  box-shadow: none;
+  color: #fff;
+}
+
+.ind__panel {
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  border-radius: var(--r-3);
+  background: var(--mist);
+}
+
+/* The flow: ink stages are fixed, blue stages are the configured middle. */
+.ind__flow {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.ind__flow::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: calc(50% / var(--n));
+  right: calc(50% / var(--n));
+  height: 2px;
+  background: linear-gradient(to right, var(--ink) 0 22.2%, var(--blue) 22.2% 88.8%, var(--ink) 88.8%);
+}
+
+.ind__flow li {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 14px;
+  text-align: center;
+  min-width: 0;
+}
+
+.ind__dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--blue);
+  background: #fff;
+  box-shadow: 0 0 0 5px rgb(43 78 255 / 0.12);
+}
+
+.ind__flow li[data-core] .ind__dot {
+  border-color: var(--ink);
+  background: var(--ink);
+  box-shadow: none;
+}
+
+.ind__label {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.ind__flow li[data-core] .ind__label {
+  font-weight: 500;
+  color: var(--fg-2);
+}
+
+/* Only the configured stages are re-keyed on switch, so only they animate. */
+.ind__flow li:not([data-core]),
+.ind__swap dd {
+  animation: ind-in 700ms var(--ease) both;
+  animation-delay: calc((var(--i, 3) - 3) * 60ms);
+}
+
+@keyframes ind-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+}
+
+.ind__facts {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  border-top: 1px solid var(--rule-2);
+}
+
+.ind__facts > div {
+  display: grid;
+  gap: var(--s-2);
+  align-content: start;
+  padding: var(--s-5) var(--s-5) 0 0;
+}
+
+.ind__facts > div + div {
+  padding-left: var(--s-5);
+  border-left: 1px solid var(--rule-2);
+}
+
+.ind__facts dt {
+  font-size: 0.875rem;
+  color: var(--fg-3);
+}
+
+.ind__facts dd {
+  font-size: var(--t-h3);
+  font-weight: 560;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.ind__facts > div:first-child dd {
+  font-size: 1.0625rem;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  color: var(--fg-2);
+  max-width: 30rem;
+}
+
+/* Narrow: the flow runs down the page, thread on the left. */
+@media (max-width: 880px) {
+  .ind__flow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ind__flow::before {
+    top: 20px;
+    bottom: calc(clamp(2rem, 4vw, 3.5rem) + 20px);
+    left: 8px;
+    right: auto;
+    width: 2px;
+    height: auto;
+    background: linear-gradient(to bottom, var(--ink) 0 22.2%, var(--blue) 22.2% 88.8%, var(--ink) 88.8%);
+  }
+
+  .ind__flow li {
+    grid-template-columns: 18px 1fr;
+    justify-items: start;
+    align-items: center;
+    gap: var(--s-4);
+    height: 42px;
+    text-align: left;
+  }
+
+  .ind__label {
+    font-size: 1.0625rem;
+  }
+
+  .ind__facts {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ind__facts > div:first-child {
+    grid-column: 1 / -1;
+    padding-bottom: var(--s-5);
+    border-bottom: 1px solid var(--rule-2);
+  }
+
+  .ind__facts > div:nth-child(2) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .ind__tab {
+    height: 38px;
+    padding: 0 14px;
+    font-size: 0.875rem;
+  }
+}

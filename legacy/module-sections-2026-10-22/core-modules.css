@@ -1,0 +1,505 @@
+.core {
+  --bg: var(--paper);
+  position: relative;
+  background: var(--bg);
+}
+
+/* ---------- Layout: pinned on wide screens, swipeable everywhere else ---------- */
+
+.core__track {
+  position: relative;
+}
+
+.core__pin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.5rem, 3.5vh, 2.75rem);
+  padding-block: var(--section);
+}
+
+.core__track[data-mode='pin'] .core__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  justify-content: flex-start;
+  padding-block: calc(var(--nav-h) + 3vh) 3vh;
+  overflow: hidden;
+}
+
+/* Pinned, the row fills the height left under the heading and every card stretches to it. */
+.core__track[data-mode='pin'] .core__viewport {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.core__track[data-mode='pin'] .core__row {
+  height: 100%;
+  align-items: stretch;
+}
+
+.core__track[data-mode='pin'] .core__card {
+  max-height: 35rem;
+}
+
+.core__track[data-mode='pin'] .core__figure {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 7.5rem;
+  max-height: 15.625rem;
+}
+
+.core__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--s-6);
+}
+
+.core__intro {
+  display: grid;
+  gap: var(--s-3);
+  max-width: 50rem;
+}
+
+.core__intro .lead {
+  font-size: 1.0625rem;
+}
+
+.core__progress {
+  display: grid;
+  justify-items: end;
+  gap: .5rem;
+  min-width: 13.75rem;
+}
+
+.core__count {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--fg-3);
+}
+
+.core__count span {
+  color: var(--ink);
+}
+
+.core__bar {
+  width: 13.75rem;
+  height: .1875rem;
+  border-radius: .1875rem;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.core__bar span {
+  display: block;
+  height: 100%;
+  background: var(--grad-brand);
+  transform-origin: left;
+  transform: scaleX(0.04);
+}
+
+.core__hint {
+  font-size: var(--t-label);
+  color: var(--fg-3);
+}
+
+.core__track[data-mode='swipe'] .core__hint::after {
+  content: ' sideways';
+}
+
+/* The row starts aligned with the page column and runs off the right edge. */
+.core__viewport {
+  --inset: max(var(--gutter), (100vw - var(--page-max)) / 2);
+  overflow: hidden;
+}
+
+.core__row {
+  display: flex;
+  gap: 1.125rem;
+  width: max-content;
+  padding: .375rem var(--inset) 1rem;
+  will-change: transform;
+}
+
+.core__track[data-mode='swipe'] .core__viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--inset);
+  scrollbar-width: none;
+}
+
+.core__track[data-mode='swipe'] .core__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.core__track[data-mode='swipe'] .core__card {
+  scroll-snap-align: start;
+}
+
+/* ---------- Cards ---------- */
+
+.core__card {
+  --c: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  width: clamp(17.5rem, 24vw, 21.25rem);
+  padding: .75rem .75rem 1.25rem;
+  border-radius: var(--r-3);
+  background: var(--white);
+  box-shadow:
+    inset 0 0 0 1px var(--line),
+    0 1.25rem 2.5rem -1.875rem rgb(9 14 52 / 0.25);
+}
+
+.core__card > :not(.core__figure) {
+  margin-inline: .5rem;
+}
+
+.core__card > p:not(.core__num) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+
+/* The figure area frames a module screen that rises from its bottom edge. */
+.core__figure {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  height: 13.75rem;
+  padding: 1rem 1rem 0;
+  border-radius: var(--r-2);
+  background:
+    radial-gradient(70% 80% at 50% 100%, rgb(10 72 253 / 0.14), transparent 70%),
+    linear-gradient(180deg, #f3f5fd, #e9edfb);
+  overflow: hidden;
+}
+
+.core__num {
+  margin-top: .375rem;
+  font-size: 0.75rem;
+  font-weight: 750;
+  color: var(--fg-3);
+}
+
+.core__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .375rem;
+  margin-top: auto;
+  padding-top: .5rem;
+}
+
+.core__tags li {
+  padding: .1875rem .5625rem;
+  border-radius: var(--r-pill);
+  background: var(--paper-2);
+  font-size: 0.75rem;
+  font-weight: 650;
+  color: var(--ink-2);
+}
+
+/* The closing card: what is built in for India, in the wordmark navy. */
+.core__card[data-foundation] {
+  background:
+    radial-gradient(90% 60% at 100% 0%, rgb(122 54 251 / 0.3), transparent 60%),
+    radial-gradient(80% 60% at 0% 100%, rgb(3 200 253 / 0.16), transparent 60%),
+    var(--night-2);
+  color: var(--night-ink);
+  box-shadow: 0 1.25rem 2.5rem -1.5rem rgb(9 14 52 / 0.5);
+}
+
+.core__card[data-foundation] > p {
+  color: var(--night-ink-2);
+}
+
+.core__card[data-foundation] .core__figure {
+  background:
+    radial-gradient(60% 70% at 50% 60%, rgb(10 72 253 / 0.35), transparent 70%),
+    rgb(255 255 255 / 0.04);
+}
+
+.core__card[data-foundation] .core__tags li {
+  background: rgb(255 255 255 / 0.08);
+  color: var(--night-ink);
+}
+
+/* ---------- Mini module screens ---------- */
+
+.ms {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  width: 100%;
+  padding: .625rem .625rem .875rem;
+  border-radius: .625rem .625rem 0 0;
+  background: var(--white);
+  box-shadow:
+    0 0 0 1px rgb(9 14 52 / 0.07),
+    0 1.125rem 2.125rem -1rem rgb(9 14 52 / 0.3);
+  color: var(--ink);
+  font-size: .6562rem;
+  line-height: 1.3;
+  /* Runs to the bottom edge of its frame, like a screen seen over a desk. */
+  min-height: calc(100% + 2px);
+  transform: translateY(calc((1 - var(--c)) * 1.625rem));
+}
+
+/* Pieces assemble in build order as the card's progress --c runs from 0 to 1. */
+.ms-k {
+  --t: clamp(0, calc(var(--c) * 2.6 - var(--k, 0) * 0.16), 1);
+  opacity: var(--t);
+  transform: translateY(calc((1 - var(--t)) * .5rem));
+}
+
+.ms__bar {
+  display: flex;
+  align-items: center;
+  gap: .4375rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.ms__bar b {
+  flex: 1;
+  min-width: 0;
+  font-size: .6875rem;
+  font-weight: 750;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ms__logo {
+  flex: none;
+  width: .875rem;
+  height: .875rem;
+  border-radius: .25rem;
+  background: var(--grad-brand);
+}
+
+.ms__chip {
+  flex: none;
+  padding: 2px .4375rem;
+  border-radius: var(--r-pill);
+  font-size: .5938rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.ms__chip--ok { background: var(--ok-50); color: var(--ok); }
+.ms__chip--live { background: var(--blue-50); color: var(--blue); }
+.ms__chip--warn { background: var(--warn-50); color: var(--warn); }
+.ms__chip--plain { background: var(--paper-2); color: var(--ink-2); }
+
+.ms__steps {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+
+.ms__steps li {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: .25rem;
+  font-size: .5625rem;
+  font-weight: 650;
+  color: var(--ink-3);
+}
+
+.ms__steps li + li::before {
+  content: '';
+  position: absolute;
+  top: .375rem;
+  right: 50%;
+  width: 100%;
+  height: 2px;
+  background: var(--line);
+}
+
+.ms__steps li[data-state='done'] + li::before,
+.ms__steps li[data-state='live']::before {
+  background: var(--blue);
+}
+
+.ms__steps li[data-state='done'],
+.ms__steps li[data-state='live'] {
+  color: var(--ink);
+}
+
+.ms__dot {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: .875rem;
+  height: .875rem;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: inset 0 0 0 2px var(--line-2);
+  color: #fff;
+}
+
+[data-state='done'] > .ms__dot {
+  background: var(--blue);
+  box-shadow: none;
+}
+
+[data-state='done'] > .ms__dot .icon {
+  stroke-width: 3.4;
+}
+
+[data-state='live'] > .ms__dot {
+  box-shadow: inset 0 0 0 2px var(--blue), 0 0 0 .1875rem var(--blue-100);
+}
+
+.ms__kpis {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .375rem;
+}
+
+.ms__kpis div {
+  display: grid;
+  gap: 1px;
+  padding: .375rem .5rem;
+  border-radius: .4375rem;
+  background: var(--paper);
+}
+
+.ms__kpis span {
+  font-size: .5625rem;
+  color: var(--ink-3);
+}
+
+.ms__kpis b {
+  font-size: .8125rem;
+  font-weight: 780;
+  letter-spacing: -0.01em;
+}
+
+.ms__rows {
+  display: grid;
+}
+
+.ms__rows li {
+  display: flex;
+  justify-content: space-between;
+  gap: .5rem;
+  padding: .3125rem 2px;
+  border-bottom: 1px solid var(--line);
+  font-weight: 600;
+}
+
+.ms__rows li > span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ms__val {
+  flex: none;
+  color: var(--ink-2);
+}
+
+.ms__val--ok { color: var(--ok); }
+.ms__val--live { color: var(--blue); }
+.ms__val--warn { color: var(--warn); }
+
+.ms__progress {
+  display: grid;
+  gap: .4375rem;
+}
+
+.ms__progress li {
+  display: grid;
+  grid-template-columns: 4rem 1fr 2.125rem;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 600;
+}
+
+.ms__progress b {
+  text-align: right;
+  font-size: .625rem;
+}
+
+.ms__track {
+  height: .375rem;
+  border-radius: .375rem;
+  background: var(--paper-2);
+  overflow: hidden;
+}
+
+.ms__track span {
+  display: block;
+  height: 100%;
+  width: calc(var(--v) * var(--t) * 100%);
+  border-radius: inherit;
+  background: var(--grad-brand);
+}
+
+.ms__chart {
+  display: flex;
+  align-items: flex-end;
+  gap: .375rem;
+  height: 4rem;
+  padding: .25rem 2px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.ms__chart span {
+  flex: 1;
+  height: calc(var(--v) * 100%);
+  border-radius: .25rem .25rem 0 0;
+  background: linear-gradient(180deg, #5a86ff, var(--blue));
+  transform-origin: bottom;
+  transform: scaleY(var(--t));
+}
+
+.ms__chart span:last-child {
+  background: var(--grad-brand);
+}
+
+/* The compliance card's screen sits on navy. */
+.core__card[data-foundation] .ms {
+  box-shadow: 0 1.125rem 2.125rem -.75rem rgb(0 0 0 / 0.5);
+}
+
+/* ---------- Smaller screens ---------- */
+
+@media (max-height: 860px) and (min-width: 900px) {
+  .core__intro .lead {
+    display: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .core__head {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .core__progress {
+    justify-items: start;
+  }
+}
+
+@media (max-width: 560px) {
+  .core__card {
+    width: 78vw;
+  }
+
+  .core__bar {
+    width: 10rem;
+  }
+}

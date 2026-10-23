@@ -1,0 +1,10 @@
+{
+  "name": "MAVRO",
+  "short_name": "MAVRO",
+  "description": "Run the whole business as one system.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

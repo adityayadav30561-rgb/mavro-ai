@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Inventory</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .split { display: grid; grid-template-columns: 116px 1fr; gap: 18px; align-items: center; }
+  .split .d { width: 116px; height: 116px; position: relative; }
+  .split .d b { position: absolute; inset: 0; display: grid; place-items: center; font: 620 15px var(--sans); letter-spacing: -0.02em; }
+  .split li { display: flex; align-items: center; gap: 8px; padding: 4.5px 0; }
+  .split li i { width: 9px; height: 9px; border-radius: 3px; }
+  .split li em { margin-left: auto; font: 12px var(--mono); font-style: normal; color: var(--ink-2); }
+  .avail { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: #eceef2; width: 150px; }
+  .avail i { height: 100%; }
+  .avail .a { background: var(--ok); }
+  .avail .b { background: var(--accent); }
+  .avail .c { background: #e0a030; }
+</style>
+</head>
+<body data-nav="Inventory" data-crumb="Stock / Inventory" data-who="Kavita Joshi|Stores manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Inventory</h1>
+      <p>1,284 items across 4 stores · valued at actual receipt cost · counted 2 Oct</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All stores</span><span>Raw material</span><span>Work in progress</span><span>Finished goods</span></div>
+      <span class="btn">Stock count</span>
+      <span class="btn pri">Record movement</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Stock value</label><div class="v"><strong>₹2.14 Cr</strong><i data-spark="238,231,244,226,219,228,221,213,224,217,209,214" data-color="#8b93a3"></i></div><div class="foot"><b class="delta up">−4.1%</b><span>less cash tied up than Sep</span></div></div>
+    <div class="card kpi"><label>Days of cover</label><div class="v"><strong>27 <small>days</small></strong><i data-spark="34,33,31,32,30,29,30,28,29,27,28,27"></i></div><div class="foot"><b class="delta flat">Target 25</b><span>against open demand</span></div></div>
+    <div class="card kpi"><label>Under inspection</label><div class="v"><strong>₹6.8 L</strong></div><div class="foot"><b class="delta flat">9 receipts</b><span>blocked until quality releases</span></div></div>
+    <div class="card kpi"><label>Below reorder level</label><div class="v"><strong style="color:var(--warn)">3 <small>items</small></strong></div><div class="foot"><b class="delta down">1 short</b><span>2 already on order</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Stock by item</h2><span>what is on hand, and what it is already promised to</span><div class="legend"><span style="--c:#0c9b6a">Free</span><span>Reserved</span><span style="--c:#e0a030">In inspection</span></div></header>
+      <div class="body">
+        <table>
+          <thead><tr><th>Item</th><th>Store · bin</th><th class="r">On hand</th><th class="r">Reserved</th><th class="r">Free</th><th>Availability</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr class="hl"><td><b>IH-220 Impeller housing</b><small>Finished goods</small></td><td class="mono">FG-A-14</td><td class="r mono">310 pcs</td><td class="r mono">310</td><td class="r mono">0</td><td><span class="avail"><i class="b" style="width:100%"></i></span></td><td><span class="chip blue">Held for SO-24817</span></td></tr>
+            <tr><td><b>LM6 aluminium castings</b><small>Raw material</small></td><td class="mono">RM-C-07</td><td class="r mono">1,740 kg</td><td class="r mono">1,740</td><td class="r mono">0</td><td><span class="avail"><i class="b" style="width:100%"></i></span></td><td><span class="chip warn">400 kg on order</span></td></tr>
+            <tr><td><b>Seal ring SR-18</b><small>Bought-out part</small></td><td class="mono">RM-B-02</td><td class="r mono">3,650 nos</td><td class="r mono">1,530</td><td class="r mono">2,120</td><td><span class="avail"><i class="a" style="width:58%"></i><i class="b" style="width:42%"></i></span></td><td><span class="chip ok">Healthy</span></td></tr>
+            <tr><td><b>Bearing sleeve BS-07</b><small>Bought-out part</small></td><td class="mono">RM-B-05</td><td class="r mono">940 nos</td><td class="r mono">890</td><td class="r mono">50</td><td><span class="avail"><i class="a" style="width:6%"></i><i class="b" style="width:94%"></i></span></td><td><span class="chip warn">Below reorder</span></td></tr>
+            <tr><td><b>CV-110 Valve body</b><small>Work in progress</small></td><td class="mono">WIP-M-03</td><td class="r mono">412 pcs</td><td class="r mono">412</td><td class="r mono">0</td><td><span class="avail"><i class="b" style="width:70%"></i><i class="c" style="width:30%"></i></span></td><td><span class="chip">In machining</span></td></tr>
+            <tr><td><b>BR-045 Bearing bracket</b><small>Finished goods</small></td><td class="mono">FG-B-03</td><td class="r mono">2,400 pcs</td><td class="r mono">2,400</td><td class="r mono">0</td><td><span class="avail"><i class="c" style="width:100%"></i></span></td><td><span class="chip bad">Quality hold</span></td></tr>
+            <tr><td><b>Fastener kit FK-M8</b><small>Consumable</small></td><td class="mono">RM-A-11</td><td class="r mono">2,400 kits</td><td class="r mono">890</td><td class="r mono">1,510</td><td><span class="avail"><i class="a" style="width:63%"></i><i class="b" style="width:37%"></i></span></td><td><span class="chip ok">Healthy</span></td></tr>
+            <tr><td><b>IH-180 Impeller housing</b><small>Finished goods</small></td><td class="mono">FG-A-11</td><td class="r mono">800 pcs</td><td class="r mono">800</td><td class="r mono">0</td><td><span class="avail"><i class="b" style="width:100%"></i></span></td><td><span class="chip ok">Ready to ship</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Value by stock type</h2></header>
+        <div class="body">
+          <div class="split">
+            <div class="d"><div data-donut="86,52,61,15" data-colors="#0a48fd,#8497ff,#090e34,#d9dce3"></div><b>₹2.14 Cr</b></div>
+            <ul>
+              <li><i style="background:#0a48fd"></i>Raw material<em>₹86 L</em></li>
+              <li><i style="background:#8497ff"></i>Work in progress<em>₹52 L</em></li>
+              <li><i style="background:#090e34"></i>Finished goods<em>₹61 L</em></li>
+              <li><i style="background:#d9dce3"></i>Consumables<em>₹15 L</em></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Movements today</h2><span class="more">All movements</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="feed">
+            <li><i class="ok">IN</i><p><b>800 pcs IH-180</b> into finished goods<small>From WO-5498 after lot L-0930 released</small></p><time>12:48</time></li>
+            <li><i class="blue">ISS</i><p><b>620 kg castings</b> issued to WO-5521<small>Lot traced to its supplier batch</small></p><time>11:15</time></li>
+            <li><i class="warn">QC</i><p><b>2,400 pcs BR-045</b> blocked<small>Lot L-0927 on hold, cannot be shipped</small></p><time>10:32</time></li>
+            <li><i>OUT</i><p><b>640 pcs GH-280</b> dispatched<small>SO-24781, stock reduced at gate-out</small></p><time>09:05</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="shell.js"></script>
+</body>
+</html>

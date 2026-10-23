@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · WO-5521</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 336px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .op { display: flex; align-items: center; gap: 8px; }
+  .op .meter { width: 92px; min-width: 92px; }
+  .op span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .opn { display: inline-grid; place-items: center; width: 26px; height: 22px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--line); font: 600 11px var(--mono); color: var(--ink-2); }
+  tr.hl .opn { background: #fff; border-color: #cfd8ff; color: var(--accent-ink); }
+  .bom li { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 9px 0; }
+  .bom li + li { border-top: 1px solid var(--line); }
+  .bom b { font-weight: 550; }
+  .bom small { grid-column: 1; color: var(--ink-3); font-size: 12px; }
+  .bom .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .chartbox { height: 150px; }
+  .legend { margin-left: auto; }
+</style>
+</head>
+<body data-nav="Work orders" data-crumb="Make / Work orders / WO-5521" data-who="Vikram Desai|Production planner">
+<main>
+  <div class="head">
+    <div>
+      <h1>WO-5521 &nbsp;<span class="chip blue" style="vertical-align:4px">Running · 64%</span></h1>
+      <p>890 pcs IH-220 Impeller housing · for SO-24817 · BOM IH-220 rev D · routing R-220 · due 15 Oct</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Job card</span>
+      <span class="btn">Reschedule</span>
+      <span class="btn pri">Record output</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Machined</label><div class="v"><strong>570 <small>of 890</small></strong><i data-spark="40,92,151,210,268,318,372,421,470,522,548,570"></i></div><div class="foot"><b class="delta up">On plan</b><span>finishes 14 Oct</span></div></div>
+    <div class="card kpi"><label>Scrap and rework</label><div class="v"><strong>0.7%</strong><i data-spark="1.4,1.1,1.2,0.9,1,0.8,0.9,0.7,0.8,0.7,0.6,0.7" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">6 pcs</b><span>2 on hold at quality</span></div></div>
+    <div class="card kpi"><label>Machine hours</label><div class="v"><strong>212 <small>of 318 h</small></strong></div><div class="foot"><b class="delta flat">VMC-02 · VMC-04</b><span>2 shifts a day</span></div></div>
+    <div class="card kpi"><label>Cost per piece</label><div class="v"><strong>₹1,180</strong></div><div class="foot"><b class="delta flat">std ₹1,176</b><span>margin 23.1% on SO</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Routing</h2><span>R-220 · 6 operations</span><span class="more">Gantt</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Op</th><th>Operation</th><th>Work centre</th><th>Progress</th><th class="r">Std time</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><span class="opn">10</span></td><td><b>Casting receipt and fettling</b><small>Castings from stores, gates removed</small></td><td>Fettling bay</td><td><div class="op"><span class="meter ok"><i style="width:70%"></i></span><span>620 / 890</span></div></td><td class="r mono">2.0 min</td><td><span class="chip warn">Short 270</span></td></tr>
+              <tr><td><span class="opn">20</span></td><td><b>CNC rough machining</b><small>Faces, bore, flange</small></td><td class="mono">VMC-02</td><td><div class="op"><span class="meter ok"><i style="width:67%"></i></span><span>600 / 890</span></div></td><td class="r mono">9.5 min</td><td><span class="chip blue">Running</span></td></tr>
+              <tr class="hl"><td><span class="opn">30</span></td><td><b>CNC finish machining</b><small>Impeller seat to ±0.02 mm</small></td><td class="mono">VMC-04</td><td><div class="op"><span class="meter"><i style="width:64%"></i></span><span>570 / 890</span></div></td><td class="r mono">11.0 min</td><td><span class="chip blue">Running</span></td></tr>
+              <tr><td><span class="opn">40</span></td><td><b>Leak test</b><small>Air, 6 bar, 30 s hold</small></td><td class="mono">LT-1</td><td><div class="op"><span class="meter"><i style="width:62%"></i></span><span>548 / 890</span></div></td><td class="r mono">1.5 min</td><td><span class="chip blue">Running</span></td></tr>
+              <tr><td><span class="opn">50</span></td><td><b>Final inspection</b><small>Lot L-0932, 50 sampled</small></td><td>Quality</td><td><div class="op"><span class="meter warn"><i style="width:6%"></i></span><span>48 passed</span></div></td><td class="r mono">AQL 1.0</td><td><span class="chip warn">2 on hold</span></td></tr>
+              <tr><td><span class="opn">60</span></td><td><b>Packing</b><small>Export crating, 50 per crate</small></td><td>Dispatch</td><td><div class="op"><span class="meter ink"><i style="width:0%"></i></span><span>0 / 890</span></div></td><td class="r mono">0.8 min</td><td><span class="chip">Queued</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <header><h2>Output by shift</h2><span>finish machining, pieces</span><div class="legend"><span>Actual</span><span style="--c:#c9cfdb">Plan</span></div></header>
+        <div class="body"><div class="chartbox" data-bars="54,58,61,49,57,60,59,52|56,56,56,56,56,56,56,56" data-labels="A 3,B 3,A 4,B 4,A 6,B 6,A 7,B 7" data-max="75"></div></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Bill of materials</h2><span>IH-220 rev D · per piece</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="bom">
+            <li><b>LM6 aluminium casting</b><small>1 nos · issued 620 of 890</small><span class="chip warn">PO-7714 · 10 Oct</span></li>
+            <li><b>O-ring kit OR-55</b><small>1 set · issued 890</small><span class="chip ok">Issued</span></li>
+            <li><b>Fastener kit FK-12</b><small>4 nos · issued 3,560</small><span class="chip ok">Issued</span></li>
+            <li><b>Rust-preventive oil</b><small>0.02 L · backflushed</small><span class="chip ok">Backflush</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Cost</h2><span>per piece, to date</span></header>
+        <div class="body">
+          <dl class="kv">
+            <dt>Material</dt><dd class="mono">₹742</dd>
+            <dt>Machining</dt><dd class="mono">₹318</dd>
+            <dt>Labour</dt><dd class="mono">₹86</dd>
+            <dt>Overheads</dt><dd class="mono">₹34</dd>
+          </dl>
+          <div class="rule"></div>
+          <dl class="kv">
+            <dt>Actual cost</dt><dd class="mono" style="font-weight:650">₹1,180</dd>
+            <dt>Standard cost</dt><dd class="mono">₹1,176</dd>
+            <dt>Margin on SO-24817</dt><dd style="color:var(--ok)">23.1%</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+# B1 MAVRO flow deck
+
+_Extracted from `B1 MAVRO flow deck.pptx` (7 slides). MAVRO alongside SAP Business One: inbound to finished goods, sales order to dispatch._
+
+## Slide 1
+
+- MAVRO
+- End-to-End Material and Order Flow
+- SAP Business One (B1) + MAVRO EWM Integration
+- B1 is the transactional system. MAVRO is the EWM and inventory execution layer.
+- Presented by
+- SaiSatwik Technologies Pvt. Ltd.
+- 1415, 13th Floor, Galaxy Blue Sapphire
+- Greater Noida 201009
+- T: +91 9211429011 • E: contact@saisatwik.com
+- Deck Snapshot
+- ● Inbound, Quality, Warehouse and Production
+- ● Outbound, Billing and Dispatch
+- ● INWARD SCAN and OUTBOUND SCAN control points
+- ● One connected B1 and MAVRO flow
+- Prepared For
+- Client Name
+- For business & implementation discussions
+
+## Slide 2
+
+- Inbound to Finished Goods
+- ZONE 1
+- INBOUND
+- 01
+- Raw Material / Packing Material
+- 02
+- PO Created
+- B1
+- 03
+- Material Received
+- MAVRO
+- 04
+- GRN at Plant + Store Location
+- B1
+- 05
+- INWARD SCAN
+- Validates received material against GRN
+- MAVRO
+- 06
+- Sampling Plan?
+- MAVRO
+- IF YES
+- Inspection Lot
+- MAVRO
+- Goods Movement to Quality
+- MAVRO
+- Inspection
+- MAVRO
+- Accept
+- Released to inventory
+- MAVRO
+- Reject
+- Rejection or hold process
+- MAVRO
+- IF NO
+- Direct Inventory Receipt
+- MAVRO
+- 07
+- MAVRO EWM Inventory Update
+- MAVRO
+- ZONE 2
+- WAREHOUSE
+- 01
+- GRN Completion
+- Triggers a notification from B1 to MAVRO
+- B1
+- 02
+- MAVRO Updates Inventory
+- MAVRO
+- B1
+- MAVRO EWM
+- Organisation
+- Company Code
+- Plant
+- Office
+- Store Location
+- Store
+- Section
+- Rack
+- Bin
+- ✓
+- B1 records the GRN at Plant + Store Location. MAVRO manages the detailed warehouse-level inventory.
+- ZONE 2
+- PRODUCTION
+- 01
+- Production Order
+- Required RM identified through BOM, availability checked
+- B1
+- 02
+- RM Issue
+- MAVRO
+- 03
+- Production Execution
+- MAVRO
+- 04
+- Semi-Finished Output
+- MAVRO
+- 05
+- Packing Material Issue
+- MAVRO
+- 06
+- Packing
+- MAVRO
+- 07
+- Finished Goods
+- MAVRO
+- 08
+- MAVRO FG Inventory
+- MAVRO
+- 09
+- FG Stock Sync to B1
+- B1
+- B1
+- Transactional system
+- MAVRO
+- EWM and inventory execution
+- Mandatory scan
+- MAVRO · B1 + MAVRO EWM Integration · SaiSatwik Technologies
+
+## Slide 3
+
+- Inbound to Finished Goods
+- ZONE 1
+- INBOUND
+- Raw Material / Packing Material
+- B1
+- PO Created
+- MAVRO
+- Material Received
+- B1
+- GRN at Plant + Store Location
+- MAVRO
+- INWARD SCAN
+- Validates received material against GRN
+- MAVRO
+- Sampling Plan?
+- Yes
+- MAVRO
+- Inspection Lot
+- MAVRO
+- Goods Movement to Quality
+- MAVRO
+- Inspection
+- MAVRO
+- Accept
+- Released to inventory
+- MAVRO
+- MAVRO EWM Inventory Update
+- MAVRO
+- Reject
+- Rejection or hold process
+- No
+- MAVRO
+- Direct Inventory Receipt
+- ZONE 2
+- WAREHOUSE
+- B1
+- GRN Completion
+- Notification
+- MAVRO
+- MAVRO Updates Inventory
+- ✓
+- B1 records the GRN at Plant + Store Location. MAVRO manages the detailed warehouse-level inventory.
+- B1
+- Plant
+- Store Location
+- MAVRO EWM
+- Organisation
+- Company Code
+- Office
+- Store
+- Section
+- Rack
+- Bin
+- ZONE 2
+- PRODUCTION
+- B1
+- Production Order
+- Required RM identified through BOM, availability checked
+- MAVRO
+- RM Issue
+- MAVRO
+- Production Execution
+- MAVRO
+- Semi-Finished Output
+- MAVRO
+- Packing Material Issue
+- MAVRO
+- Packing
+- MAVRO
+- Finished Goods
+- MAVRO
+- MAVRO FG Inventory
+- B1
+- FG Stock Sync to B1
+- B1
+- Transactional system
+- MAVRO
+- EWM and inventory execution
+- Mandatory scan
+- Decision
+- MAVRO · B1 + MAVRO EWM Integration · SaiSatwik Technologies
+
+## Slide 4
+
+- Sales Order to Dispatch
+- ZONE 3
+- OUTBOUND
+- 01
+- Sales Order
+- B1
+- 02
+- Outbound Delivery
+- B1
+- 03
+- Shipment
+- B1
+- 04
+- Picking from EWM Inventory
+- MAVRO
+- 05
+- Packing
+- MAVRO
+- 06
+- Transporter Assignment
+- MAVRO
+- 07
+- OUTBOUND SCAN
+- Validates: correct material, correct quantity, correct shipment/delivery
+- MAVRO
+- 08
+- Shipment Confirmation
+- MAVRO
+- SHIPMENT INFORMATION
+- Customer
+- Delivery
+- Material/SKU
+- Quantity
+- Shipment
+- Transporter
+- Dispatch details
+- ZONE 4
+- BILLING AND CUSTOMER
+- SHIPMENT CONFIRMATION BRANCHES INTO
+- Customer Notification
+- "Your shipment has been dispatched from the facility."
+- MAVRO
+- Invoice
+- B1
+- E-Invoice
+- MAVRO / INTEGRATED
+- E-Way Bill
+- MAVRO / INTEGRATED
+- ALL LEAD TO
+- DISPATCH
+- MAVRO
+- ALL ZONES
+- SCANNING CONTROL
+- Inbound / GRN
+- MANDATORY
+- Validate received material against GRN
+- Quality
+- Optional, linked to inspection
+- Trace inspected material
+- Putaway
+- If implemented
+- Identify storage location/bin
+- Production Issue
+- If implemented
+- Validate material issued to production
+- Outbound
+- MANDATORY
+- Validate material against delivery/shipment
+- Dispatch
+- Shipment confirmation
+- Confirm goods leaving facility
+- B1
+- Transactional system
+- MAVRO
+- EWM and inventory execution
+- Mandatory scan
+- MAVRO · B1 + MAVRO EWM Integration · SaiSatwik Technologies
+
+## Slide 5
+
+- Sales Order to Dispatch
+- ZONE 3
+- OUTBOUND
+- B1
+- Sales Order
+- B1
+- Outbound Delivery
+- B1
+- Shipment
+- Customer, Delivery, Material/SKU, Quantity, Shipment, Transporter, Dispatch details
+- MAVRO
+- Picking from EWM Inventory
+- MAVRO
+- Packing
+- MAVRO
+- Transporter Assignment
+- MAVRO
+- OUTBOUND SCAN
+- Validates: correct material, correct quantity, correct shipment/delivery
+- MAVRO
+- Shipment Confirmation
+- ZONE 4
+- BILLING AND CUSTOMER
+- MAVRO
+- Shipment Confirmation
+- MAVRO
+- Customer Notification
+- "Your shipment has been dispatched from the facility."
+- B1
+- Invoice
+- MAVRO / INTEGRATED
+- E-Invoice
+- MAVRO / INTEGRATED
+- E-Way Bill
+- MAVRO
+- DISPATCH
+- SCANNING CONTROL
+- Inbound / GRN
+- MANDATORY
+- Validate received material against GRN
+- Quality
+- Optional, linked to inspection
+- Trace inspected material
+- Putaway
+- If implemented
+- Identify storage location/bin
+- Production Issue
+- If implemented
+- Validate material issued to production
+- Outbound
+- MANDATORY
+- Validate material against delivery/shipment
+- Dispatch
+- Shipment confirmation
+- Confirm goods leaving facility
+- B1
+- Transactional system
+- MAVRO
+- EWM and inventory execution
+- Mandatory scan
+- MAVRO · B1 + MAVRO EWM Integration · SaiSatwik Technologies
+
+## Slide 6
+
+- One Connected B1 and MAVRO Flow
+- 01
+- INBOUND
+- PO
+- GRN
+- Scan
+- Quality
+- EWM
+- →
+- 02
+- WAREHOUSE + PRODUCTION
+- EWM
+- Issue
+- Production
+- Packing
+- FG
+- →
+- 03
+- OUTBOUND
+- Sales Order
+- Delivery
+- Shipment
+- Picking
+- Packing
+- Transporter
+- Scan
+- →
+- 04
+- BILLING + CUSTOMER
+- Shipment Confirmation
+- Notification
+- Invoice
+- E-Invoice
+- E-Way Bill
+- Dispatch
+- B1 records the transactions.
+- MAVRO executes the warehouse.
+- MAVRO · B1 + MAVRO EWM Integration · SaiSatwik Technologies
+
+## Slide 7
+
+- 🤝
+- Thank You!
+- Aditya Kumar Yadav
+- Business Development Executive
+- ✉ contact@saisatwik.com
+- ☎ +91 9211429011
+- 🌐 www.saisatwik.com
+- 1415, 13th Floor, Galaxy Blue Sapphire, Greater Noida 201019
+- SaiSatwik Technologies • AI and Tech

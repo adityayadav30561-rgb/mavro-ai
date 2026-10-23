@@ -1,0 +1,369 @@
+.nav-sentinel {
+  position: absolute;
+  top: 0;
+  height: 1.5rem;
+  width: 1px;
+}
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  transition:
+    background-color var(--d-2) ease,
+    box-shadow var(--d-2) ease;
+}
+
+/* Over the hero the header is clear; once scrolled (or with a menu open) it becomes a quiet, solid surface. */
+.nav[data-scrolled],
+.nav[data-mega],
+.nav[data-drawer] {
+  background: rgb(255 255 255 / 0.86);
+  box-shadow: 0 1px 0 rgb(9 14 52 / 0.07);
+  -webkit-backdrop-filter: saturate(1.6) blur(.875rem);
+  backdrop-filter: saturate(1.6) blur(.875rem);
+}
+
+/* A backdrop filter makes the header the containing block for fixed children, which would collapse the
+   full-screen drawer into the header bar. With the drawer open the header is simply solid. */
+.nav[data-drawer] {
+  background: var(--white);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.nav__row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+  height: var(--nav-h);
+}
+
+.nav__logo {
+  flex: none;
+  border-radius: .375rem;
+}
+
+.nav__links {
+  flex: 1;
+}
+
+.nav__links > ul {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+}
+
+.nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  height: 2.375rem;
+  padding-inline: .8125rem;
+  border-radius: var(--r-pill);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  transition:
+    color var(--d-1) ease,
+    background-color var(--d-1) ease;
+}
+
+.nav__link:hover,
+.nav__trigger[aria-expanded='true'] {
+  color: var(--ink);
+  background: rgb(9 14 52 / 0.05);
+}
+
+.nav__chev {
+  transition: transform var(--d-2) var(--ease);
+}
+
+[aria-expanded='true'] > .nav__chev {
+  transform: rotate(180deg);
+}
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  flex: none;
+}
+
+.nav__explore {
+  font-size: 0.9375rem;
+  font-weight: 650;
+  color: var(--ink);
+  padding: .5rem .25rem;
+}
+
+.nav__explore:hover {
+  color: var(--blue);
+}
+
+.nav__toggle {
+  display: none;
+}
+
+/* ---------- Mega-menu ---------- */
+
+.mega {
+  position: absolute;
+  top: calc(100% - .375rem);
+  left: 0;
+  right: 0;
+  padding-top: .375rem;
+}
+
+.mega__panel {
+  width: min(var(--page-max), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr 16.75rem;
+  background: var(--white);
+  border-radius: var(--r-3);
+  box-shadow: var(--shadow-float), 0 2.5rem 5rem -2.5rem rgb(9 14 52 / 0.3);
+  overflow: hidden;
+  animation: mega-in var(--d-2) var(--ease);
+  max-height: calc(100vh - var(--nav-h) - 1rem);
+  overflow-y: auto;
+}
+
+@keyframes mega-in {
+  from {
+    opacity: 0;
+    transform: translateY(-.375rem);
+  }
+}
+
+.mega__cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.375rem 1.75rem;
+  padding: 1.625rem 1.75rem;
+}
+
+.mega__tier {
+  margin-bottom: .5rem;
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.mega__link {
+  display: flex;
+  align-items: center;
+  gap: .5625rem;
+  padding: .3125rem .5rem;
+  margin-inline: -.5rem;
+  border-radius: var(--r-1);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  transition:
+    background-color var(--d-1) ease,
+    color var(--d-1) ease;
+}
+
+.mega__link .icon {
+  color: var(--ink-3);
+}
+
+.mega__link:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.mega__aside {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  padding: 1.625rem 1.5rem;
+  background: var(--paper);
+  border-left: 1px solid var(--line);
+}
+
+.mega__portals {
+  display: grid;
+  gap: .375rem;
+}
+
+.mega__portals a {
+  display: grid;
+  padding: .625rem .75rem;
+  border-radius: var(--r-2);
+  background: var(--white);
+  box-shadow: var(--shadow-1);
+  transition: box-shadow var(--d-2) ease;
+}
+
+.mega__portals a:hover {
+  box-shadow: inset 0 0 0 1px var(--blue-200), var(--shadow-1);
+}
+
+.mega__portal-layer {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--violet);
+}
+
+.mega__name {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.mega__aside-foot {
+  display: grid;
+  gap: .5rem;
+  margin-top: auto;
+  padding-top: 1.125rem;
+}
+
+.mega__aside-body {
+  font-size: 0.8125rem;
+  color: var(--fg-2);
+  line-height: 1.5;
+}
+
+/* ---------- Mobile drawer ---------- */
+
+.drawer {
+  position: fixed;
+  inset: var(--nav-h) 0 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--white);
+  border-top: 1px solid var(--line);
+  animation: mega-in var(--d-2) var(--ease);
+}
+
+.drawer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  min-height: 100%;
+  padding-block: var(--s-4) var(--s-6);
+}
+
+.drawer__list > li {
+  border-bottom: 1px solid var(--line);
+}
+
+.drawer__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 3.5rem;
+  font-size: 1.125rem;
+  font-weight: 680;
+  text-align: left;
+}
+
+.drawer__sub {
+  display: grid;
+  gap: var(--s-5);
+  padding-bottom: var(--s-5);
+}
+
+.drawer__tier {
+  font-size: var(--t-label);
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  margin-bottom: .25rem;
+}
+
+.drawer__sub a {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  min-height: 2.75rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.drawer__actions {
+  display: grid;
+  gap: var(--s-3);
+  margin-top: auto;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1180px) {
+  .nav__explore {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .nav__links,
+  .nav__actions {
+    display: none;
+  }
+
+  .nav__row {
+    justify-content: space-between;
+  }
+
+  .nav__toggle {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-right: -.625rem;
+    border-radius: var(--r-1);
+  }
+
+  .nav__bars,
+  .nav__bars::before,
+  .nav__bars::after {
+    display: block;
+    width: 1.25rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--ink);
+    transition: transform var(--d-2) var(--ease), opacity var(--d-1) ease;
+  }
+
+  .nav__bars {
+    position: relative;
+  }
+
+  .nav__bars::before,
+  .nav__bars::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .nav__bars::before {
+    top: -.375rem;
+  }
+
+  .nav__bars::after {
+    top: .375rem;
+  }
+
+  [aria-expanded='true'] > .nav__bars {
+    background: transparent;
+  }
+
+  [aria-expanded='true'] > .nav__bars::before {
+    transform: translateY(.375rem) rotate(45deg);
+  }
+
+  [aria-expanded='true'] > .nav__bars::after {
+    transform: translateY(-.375rem) rotate(-45deg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .drawer {
+    display: none;
+  }
+}

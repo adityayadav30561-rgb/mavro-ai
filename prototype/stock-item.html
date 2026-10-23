@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · IH-220</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 336px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .stackbar { display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: #eceef2; margin: 6px 0 10px; }
+  .stackbar i { display: block; height: 100%; }
+  .keys li { display: grid; grid-template-columns: 10px 1fr auto; gap: 10px; align-items: center; padding: 6px 0; }
+  .keys li + li { border-top: 1px solid var(--line); }
+  .keys i { width: 10px; height: 10px; border-radius: 3px; }
+  .keys b { font: 600 12.5px var(--mono); }
+  .keys span { color: var(--ink-2); }
+  .chartbox { height: 128px; }
+  td.in { color: var(--ok); }
+  td.out { color: var(--ink); }
+</style>
+</head>
+<body data-nav="Inventory" data-crumb="Stock / Inventory / IH-220" data-who="Sana Qureshi|Stores in-charge">
+<main>
+  <div class="head">
+    <div>
+      <h1>IH-220 Impeller housing &nbsp;<span class="chip warn" style="vertical-align:4px">Free stock below reorder level</span></h1>
+      <p>Finished good · LM6 aluminium · lot-tracked · Plant 1 finished-goods store and the Pune depot</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Cycle count</span>
+      <span class="btn">Transfer</span>
+      <span class="btn pri">Plan replenishment</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>On hand</label><div class="v"><strong>362 <small>pcs</small></strong><i data-spark="296,318,274,246,212,246,158,338,242,242,482,362"></i></div><div class="foot"><b class="delta flat">₹4.26 L</b><span>at standard cost</span></div></div>
+    <div class="card kpi"><label>Reserved</label><div class="v"><strong>310 <small>pcs</small></strong></div><div class="foot"><b class="delta flat">SO-24817</b><span>held since 22 Sep</span></div></div>
+    <div class="card kpi"><label>Free to promise</label><div class="v"><strong>52 <small>pcs</small></strong></div><div class="foot"><b class="delta down">Reorder at 120</b><span>890 coming on WO-5521</span></div></div>
+    <div class="card kpi"><label>In inspection</label><div class="v"><strong>50 <small>pcs</small></strong></div><div class="foot"><b class="delta up">48 passed</b><span>2 on hold, lot L-0932</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Stock by location and lot</h2><span>4 bins</span><span class="more">Bin map</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Location</th><th>Bin</th><th>Lot</th><th class="r">Quantity</th><th class="r">Age</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b>Plant 1 · FG store</b></td><td class="mono">FG-A-14</td><td class="mono">L-0904</td><td class="r mono"><b>310</b></td><td class="r mono">19 days</td><td><span class="chip blue">Reserved · SO-24817</span></td></tr>
+              <tr><td><b>Plant 1 · FG store</b></td><td class="mono">FG-A-15</td><td class="mono">L-0911</td><td class="r mono"><b>40</b></td><td class="r mono">12 days</td><td><span class="chip ok">Free</span></td></tr>
+              <tr><td><b>Pune depot</b></td><td class="mono">D-02-07</td><td class="mono">L-0898</td><td class="r mono"><b>12</b></td><td class="r mono">26 days</td><td><span class="chip ok">Free</span></td></tr>
+              <tr><td><b>Plant 1 · quality hold</b></td><td class="mono">QC-03</td><td class="mono">L-0932</td><td class="r mono"><b>50</b></td><td class="r mono">today</td><td><span class="chip warn">48 to put away · 2 held</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card flush" style="flex:1">
+        <header><h2>Movements</h2><span>every entry traced to its document</span><span class="more">Full ledger</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Date</th><th>Document</th><th>Movement</th><th class="r">In</th><th class="r">Out</th><th class="r">Balance</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">8 Oct</td><td class="mono">L-0932</td><td>Inspection · 48 passed, 2 held</td><td class="r mono dim">—</td><td class="r mono dim">—</td><td class="r mono"><b>362</b></td></tr>
+              <tr><td class="mono">7 Oct</td><td class="mono">DSP-1890</td><td>Dispatch · Meridian Compressors</td><td class="r mono dim">—</td><td class="r mono out">120</td><td class="r mono"><b>362</b></td></tr>
+              <tr><td class="mono">5 Oct</td><td class="mono">WO-5508</td><td>Production receipt</td><td class="r mono in">240</td><td class="r mono dim">—</td><td class="r mono"><b>482</b></td></tr>
+              <tr><td class="mono">3 Oct</td><td class="mono">TRF-0412</td><td>Transfer · Plant 1 to Pune depot</td><td class="r mono in">12</td><td class="r mono out">12</td><td class="r mono"><b>242</b></td></tr>
+              <tr><td class="mono">1 Oct</td><td class="mono">DSP-1884</td><td>Dispatch · Varun Hydraulics</td><td class="r mono dim">—</td><td class="r mono out">96</td><td class="r mono"><b>242</b></td></tr>
+              <tr><td class="mono">28 Sep</td><td class="mono">WO-5496</td><td>Production receipt</td><td class="r mono in">180</td><td class="r mono dim">—</td><td class="r mono"><b>338</b></td></tr>
+              <tr><td class="mono">25 Sep</td><td class="mono">DSP-1871</td><td>Dispatch · Sundaram Valves</td><td class="r mono dim">—</td><td class="r mono out">88</td><td class="r mono"><b>158</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Availability</h2><span>pieces</span></header>
+        <div class="body">
+          <div class="stackbar"><i style="width:25%;background:var(--accent)"></i><i style="width:4%;background:var(--ok)"></i><i style="width:4%;background:#e0a030"></i><i style="width:67%;background:#c9d4ff"></i></div>
+          <ul class="keys">
+            <li><i style="background:var(--accent)"></i><span>Reserved for SO-24817</span><b>310</b></li>
+            <li><i style="background:var(--ok)"></i><span>Free to promise</span><b>52</b></li>
+            <li><i style="background:#e0a030"></i><span>In inspection</span><b>50</b></li>
+            <li><i style="background:#c9d4ff"></i><span>Coming · WO-5521, 15 Oct</span><b>890</b></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Demand</h2><span>pieces a week</span></header>
+        <div class="body">
+          <div class="chartbox" data-bars="186,204,171,232,198,216,240,210" data-labels="W33,W34,W35,W36,W37,W38,W39,W40" data-max="300"></div>
+          <div class="rule"></div>
+          <dl class="kv">
+            <dt>Reorder level</dt><dd class="mono">120</dd>
+            <dt>Safety stock</dt><dd class="mono">60</dd>
+            <dt>Stock cover</dt><dd>12 days</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="shell.js"></script>
+</body>
+</html>

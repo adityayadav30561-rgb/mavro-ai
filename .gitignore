@@ -1,0 +1,8 @@
+node_modules
+dist
+dist-ssr
+*.tsbuildinfo
+.env.local
+shots/
+.claude/settings.local.json
+*.log

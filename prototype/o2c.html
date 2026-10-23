@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Sales orders</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 316px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .alloc { display: flex; align-items: center; gap: 8px; }
+  .alloc .meter { width: 56px; min-width: 56px; }
+  .alloc span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .limit { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .limit strong { font-size: 20px; font-weight: 640; letter-spacing: -0.02em; }
+  .limit small { color: var(--ink-3); }
+  .meter.tall { height: 10px; border-radius: 5px; }
+  .meter.tall i { border-radius: 5px; }
+  .checks li { display: flex; align-items: center; gap: 10px; padding: 7px 0; }
+  .checks li + li { border-top: 1px solid var(--line); }
+  .checks li span { color: var(--ink-2); }
+  .checks .chip { margin-left: auto; }
+  .age { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; align-items: end; height: 92px; margin-top: 4px; }
+  .age div { display: grid; gap: 6px; justify-items: center; height: 100%; align-content: end; }
+  .age i { width: 100%; border-radius: 6px 6px 3px 3px; background: var(--accent); }
+  .age b { font: 600 12px var(--mono); }
+  .age small { color: var(--ink-3); font-size: 11px; }
+</style>
+</head>
+<body data-nav="Sales orders" data-crumb="Sell / Sales orders" data-who="Arjun Sethi|Sales manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Sales orders</h1>
+      <p>61 open orders · every order credit-checked and stock-allocated the moment it is confirmed</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All orders</span><span>Mine</span><span>On hold</span></div>
+      <span class="btn">Export</span>
+      <span class="btn pri">New sales order</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Open order value</label><div class="v"><strong>₹4.86 Cr</strong><i data-spark="398,412,405,431,446,439,452,468,461,474,480,486"></i></div><div class="foot"><b class="delta up">+9.2%</b><span>vs last month</span></div></div>
+    <div class="card kpi"><label>On credit hold</label><div class="v"><strong>3 <small>orders</small></strong><i data-spark="5,4,6,4,3,4,5,3,2,4,3,3" data-color="#b7791f"></i></div><div class="foot"><b class="delta flat">₹38.2 L</b><span>awaiting approval</span></div></div>
+    <div class="card kpi"><label>To dispatch this week</label><div class="v"><strong>9 <small>orders</small></strong></div><div class="foot"><b class="delta up">7 on time</b><span>2 need production</span></div></div>
+    <div class="card kpi"><label>Overdue receivables</label><div class="v"><strong>₹12.4 L</strong><i data-spark="21,19,20,18,17,16,15,15,14,13,13,12.4" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">−41%</b><span>since dunning began</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Open orders</h2><span>sorted by promise date</span><span class="more">Filters</span></header>
+      <div class="body">
+        <table>
+          <thead><tr><th>Order</th><th>Customer</th><th class="r">Value</th><th>Credit</th><th>Allocation</th><th>Stage</th><th class="r">Promised</th></tr></thead>
+          <tbody>
+            <tr><td><b class="mono">SO-24852</b><small>2 lines</small></td><td><b>Varun Hydraulics</b><small>Pune</small></td><td class="r mono">₹6,84,200</td><td><span class="chip ok">Within limit</span></td><td><div class="alloc"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="chip ok">Ready</span></td><td class="r mono">11 Oct</td></tr>
+            <tr><td><b class="mono">SO-24839</b><small>4 lines</small></td><td><b>Sundaram Valves</b><small>Chennai</small></td><td class="r mono">₹11,20,500</td><td><span class="chip ok">Within limit</span></td><td><div class="alloc"><span class="meter"><i style="width:72%"></i></span><span>72%</span></div></td><td><span class="chip blue">Production</span></td><td class="r mono">14 Oct</td></tr>
+            <tr class="hl"><td><b class="mono">SO-24817</b><small>2 lines</small></td><td><b>Kestrel Pumps Ltd</b><small>Pune</small></td><td class="r mono">₹21,73,560</td><td><span class="chip ok">Within limit</span></td><td><div class="alloc"><span class="meter"><i style="width:26%"></i></span><span>310 stock</span></div></td><td><span class="chip blue">Production</span></td><td class="r mono">18 Oct</td></tr>
+            <tr><td><b class="mono">SO-24861</b><small>1 line</small></td><td><b>Orion Agro Equipment</b><small>Indore</small></td><td class="r mono">₹14,62,000</td><td><span class="chip warn">Over by ₹2.1 L</span></td><td><div class="alloc"><span class="meter ink"><i style="width:0%"></i></span><span>on hold</span></div></td><td><span class="chip warn">Approval</span></td><td class="r mono">21 Oct</td></tr>
+            <tr><td><b class="mono">SO-24844</b><small>3 lines</small></td><td><b>Meridian Compressors</b><small>Coimbatore</small></td><td class="r mono">₹8,95,750</td><td><span class="chip ok">Within limit</span></td><td><div class="alloc"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="chip">Picking</span></td><td class="r mono">22 Oct</td></tr>
+            <tr><td><b class="mono">SO-24866</b><small>2 lines</small></td><td><b>Deccan Fluid Systems</b><small>Hyderabad</small></td><td class="r mono">₹5,40,000</td><td><span class="chip ok">Advance paid</span></td><td><div class="alloc"><span class="meter"><i style="width:40%"></i></span><span>40%</span></div></td><td><span class="chip blue">Planned</span></td><td class="r mono">25 Oct</td></tr>
+            <tr><td><b class="mono">SO-24870</b><small>1 line</small></td><td><b>Kestrel Pumps Ltd</b><small>Pune</small></td><td class="r mono">₹9,21,000</td><td><span class="chip ok">Within limit</span></td><td><div class="alloc"><span class="meter"><i style="width:15%"></i></span><span>15%</span></div></td><td><span class="chip">Confirmed</span></td><td class="r mono">30 Oct</td></tr>
+            <tr><td><b class="mono">SO-24875</b><small>2 lines</small></td><td><b>Nilgiri Pumps</b><small>Coimbatore</small></td><td class="r mono">₹4,12,800</td><td><span class="chip ok">Within limit</span></td><td><div class="alloc"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="chip">Confirmed</span></td><td class="r mono">5 Nov</td></tr>
+            <tr><td><b class="mono">SO-24873</b><small>5 lines</small></td><td><b>Anand Engineering Works</b><small>Rajkot</small></td><td class="r mono">₹17,08,300</td><td><span class="chip warn">Overdue ₹3.4 L</span></td><td><div class="alloc"><span class="meter ink"><i style="width:0%"></i></span><span>on hold</span></div></td><td><span class="chip warn">Approval</span></td><td class="r mono">4 Nov</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Credit check</h2><span>Kestrel Pumps Ltd</span></header>
+        <div class="body">
+          <div class="limit"><strong>₹41.6 L <small>of ₹75 L</small></strong><span class="chip ok">Within limit</span></div>
+          <span class="meter tall"><i style="width:55%"></i></span>
+          <ul class="checks" style="margin-top:10px">
+            <li><span>Overdue invoices</span><span class="chip ok">None</span></li>
+            <li><span>Average days to pay</span><span class="chip plain">27 days</span></li>
+            <li><span>SO-24817</span><span class="chip blue">Auto-approved</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Collections</h2><span>₹1.37 Cr outstanding</span><span class="more">Dunning</span></header>
+        <div class="body">
+          <div class="age">
+            <div><b>₹96 L</b><i style="height:60px"></i><small>0–30</small></div>
+            <div><b>₹28 L</b><i style="height:24px;background:#6f8ffe"></i><small>31–60</small></div>
+            <div><b>₹9 L</b><i style="height:11px;background:#e0a030"></i><small>61–90</small></div>
+            <div><b>₹3.4 L</b><i style="height:6px;background:var(--bad)"></i><small>90+</small></div>
+          </div>
+          <div class="rule"></div>
+          <ul class="feed">
+            <li><i class="warn">D2</i><p><b>Second reminder</b> to Anand Engineering<small>₹3.4 L over 90 days; new orders held</small></p><time>7 Oct</time></li>
+            <li><i class="ok">RC</i><p><b>₹8.6 L received</b> from Varun Hydraulics<small>Matched to 3 invoices from the bank line</small></p><time>6 Oct</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="shell.js"></script>
+</body>
+</html>

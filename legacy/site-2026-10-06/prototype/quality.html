@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Lot L-0932</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .trace li { display: grid; grid-template-columns: 14px 1fr; gap: 12px; padding-bottom: 14px; position: relative; }
+  .trace li::before { content: ''; width: 10px; height: 10px; margin-top: 4px; border-radius: 50%; border: 2px solid var(--accent); background: #fff; z-index: 1; }
+  .trace li:not(:last-child)::after { content: ''; position: absolute; left: 6px; top: 14px; bottom: -4px; width: 2px; background: #dfe3ec; }
+  .trace b { font-weight: 550; display: block; }
+  .trace small { color: var(--ink-3); font-size: 12px; }
+  .disp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .disp div { padding: 10px; border-radius: 10px; border: 1px solid var(--line); text-align: center; }
+  .disp b { display: block; font: 620 20px var(--sans); letter-spacing: -0.02em; }
+  .disp span { color: var(--ink-2); font-size: 12px; }
+</style>
+</head>
+<body data-nav="Quality" data-crumb="Make / Quality / Lot L-0932" data-who="Asha Khan|Quality inspector">
+<main>
+  <div class="head">
+    <div>
+      <h1>Inspection lot L-0932 &nbsp;<span class="chip warn" style="vertical-align:4px">2 pieces on hold</span></h1>
+      <p>IH-220 Impeller housing · WO-5521 · for Kestrel Pumps, SO-24817 · plan QP-IH-220 rev C</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Certificate preview</span>
+      <span class="btn">Send to rework</span>
+      <span class="btn pri">Release 48 pieces</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Sample size</label><div class="v"><strong>50 <small>of 890 pcs</small></strong></div><div class="foot"><b class="delta flat">AQL 1.0</b><span>normal inspection, level II</span></div></div>
+    <div class="card kpi"><label>Passed</label><div class="v"><strong style="color:var(--ok)">48</strong></div><div class="foot"><b class="delta up">96%</b><span>all four checks</span></div></div>
+    <div class="card kpi"><label>On hold</label><div class="v"><strong style="color:var(--warn)">2</strong></div><div class="foot"><b class="delta down">Pressure</b><span>leak at flange face</span></div></div>
+    <div class="card kpi"><label>Process capability, bore</label><div class="v"><strong>1.42 <small>Cpk</small></strong><i data-spark="1.31,1.36,1.29,1.38,1.41,1.35,1.44,1.39,1.43,1.42" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">Capable</b><span>target 1.33 or better</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Checks</h2><span>measured against the product specification</span><span class="more">Specification</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Check</th><th>Method</th><th>Specification</th><th class="r">Lowest</th><th class="r">Mean</th><th class="r">Highest</th><th class="r">Passed</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td><b>Bore diameter</b></td><td class="sub">CMM-01</td><td class="mono">42.00 ± 0.02 mm</td><td class="r mono">41.99</td><td class="r mono">42.01</td><td class="r mono">42.02</td><td class="r mono">50 / 50</td><td><span class="chip ok">Pass</span></td></tr>
+              <tr><td><b>Flange flatness</b></td><td class="sub">Surface plate</td><td class="mono">≤ 0.05 mm</td><td class="r mono">0.01</td><td class="r mono">0.03</td><td class="r mono">0.04</td><td class="r mono">50 / 50</td><td><span class="chip ok">Pass</span></td></tr>
+              <tr><td><b>Surface finish</b></td><td class="sub">Profilometer</td><td class="mono">Ra ≤ 1.6 µm</td><td class="r mono">1.1</td><td class="r mono">1.4</td><td class="r mono">1.6</td><td class="r mono">50 / 50</td><td><span class="chip ok">Pass</span></td></tr>
+              <tr class="hl"><td><b>Pressure hold</b></td><td class="sub">PT-01</td><td class="mono">16 bar, 60 s, no leak</td><td class="r mono">—</td><td class="r mono">—</td><td class="r mono">—</td><td class="r mono">48 / 50</td><td><span class="chip warn">2 held</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Bore diameter, piece by piece</h2><span>mm · 50 samples from CMM-01</span><div class="legend"><span>Measured</span><span style="--c:#d43a2f">Limits</span></div></header>
+        <div class="body" data-control="42.004,42.011,42.007,42.013,42.009,42.002,42.015,42.008,42.012,42.006,42.010,42.017,42.004,42.009,42.013,42.007,42.011,42.001,42.008,42.014,42.010,42.006,42.012,42.018,42.009,42.005,42.011,42.007,42.014,42.010,42.003,42.012,42.008,42.016,42.011,42.006,42.009,42.013,41.998,42.010,42.007,42.012,42.015,42.008,42.004,42.011,42.009,42.013,42.006,42.010" data-lo="41.98" data-hi="42.02" data-target="42.00"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Disposition</h2></header>
+        <div class="body">
+          <div class="disp">
+            <div style="background:var(--ok-soft);border-color:#c8ecdc"><b style="color:var(--ok)">48</b><span>Accept</span></div>
+            <div style="background:var(--warn-soft);border-color:#f5e2b0"><b style="color:var(--warn)">2</b><span>Rework</span></div>
+            <div><b class="dim">0</b><span>Scrap</span></div>
+          </div>
+          <div class="rule"></div>
+          <dl class="kv">
+            <dt>Held pieces</dt><dd class="mono">IH-220-0417, -0433</dd>
+            <dt>Rework on</dt><dd class="mono">WO-5521 · op 45</dd>
+            <dt>Stock status</dt><dd><span class="chip warn">Blocked until released</span></dd>
+            <dt>Signed by</dt><dd>A. Khan, 13:31</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Traceability</h2><span>from metal to customer</span></header>
+        <div class="body">
+          <ul class="trace">
+            <li><div><b>Heat H-40986 · Aravali Castings</b><small>LM6 ingot, mill certificate on file</small></div></li>
+            <li><div><b>GRN-5094 · incoming inspection passed</b><small>1,740 kg received 24 Sep</small></div></li>
+            <li><div><b>WO-5521 · CNC-01, CNC-02</b><small>Operators G. More, P. Shinde · Shift B</small></div></li>
+            <li><div><b>Lot L-0932 · this inspection</b><small>50 sampled, 48 accepted</small></div></li>
+            <li><div><b>SO-24817 · Kestrel Pumps Ltd</b><small>Certificate issued with dispatch</small></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="shell.js"></script>
+</body>
+</html>

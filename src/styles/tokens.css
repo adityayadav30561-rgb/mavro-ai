@@ -1,0 +1,127 @@
+/*
+ * MAVRO design tokens. The single source for colour, type, space, depth and motion.
+ *
+ * Every brand colour is sampled from the official logo (brand/mavro-logo.jpg):
+ *
+ *   violet   #7a36fb   the M's upper-left stroke, the I of .AI
+ *   indigo   #3f2af5   the M's shaded left leg
+ *   blue     #0a48fd   the fold at the centre of the M, the A of .AI   -> primary
+ *   cyan     #03c8fd   the M's upper-right stroke                       -> accent
+ *   navy     #090e34   the MAVRO wordmark                               -> ink
+ *
+ * The logo is drawn for white, so the site is light. Navy (the wordmark) carries type and the two immersive
+ * sections; the logo itself only ever sits on light surfaces. The violet-blue-cyan sweep of the M is the one
+ * brand gradient, kept for the platform core and moments of emphasis, never as decoration.
+ */
+:root {
+  /* Brand, from the logo */
+  --violet: #7a36fb;
+  --indigo: #3f2af5;
+  --blue: #0a48fd;
+  --cyan: #03c8fd;
+  --navy: #090e34;
+
+  /* Tints and shades of the brand blue */
+  --blue-600: #0838d6;
+  --blue-700: #0a2fb0;
+  --blue-50: #f1f4ff;
+  --blue-100: #e3e9ff;
+  --blue-200: #c9d4ff;
+  --violet-50: #f4efff;
+  --cyan-50: #e8f9ff;
+
+  /* Neutrals, cooled toward the navy so greys belong to the brand */
+  --white: #ffffff;
+  --paper: #f7f8fc;
+  --paper-2: #eff1f8;
+  --ink: var(--navy);
+  --ink-2: #3d4366;
+  --ink-3: #636988;
+  --line: #e4e6f0;
+  --line-2: #d3d7e6;
+
+  /* Immersive (dark) surfaces, deepened from the wordmark navy */
+  --night: #060920;
+  --night-2: #0c1136;
+  --night-3: #141a48;
+  --night-line: rgb(255 255 255 / 0.1);
+  --night-ink: #f4f6ff;
+  --night-ink-2: #b4bad8;
+  --night-ink-3: #8a90b4;
+
+  /* Status, for interface mockups only */
+  --ok: #0a9b6c;
+  --ok-50: #e7f7f0;
+  --warn: #b26b00;
+  --warn-50: #fff3df;
+
+  /* Semantic roles */
+  --bg: var(--white);
+  --bg-2: var(--paper);
+  --surface: var(--white);
+  --fg: var(--ink);
+  --fg-2: var(--ink-2);
+  --fg-3: var(--ink-3);
+  --border: var(--line);
+  --border-2: var(--line-2);
+  --primary: var(--blue);
+  --primary-hover: var(--blue-600);
+  --primary-press: var(--blue-700);
+  --secondary: var(--violet);
+  --accent: var(--cyan);
+  --focus: var(--blue);
+
+  /* Gradients: the sweep of the M (violet -> blue -> cyan) */
+  --grad-brand: linear-gradient(115deg, var(--violet) 0%, var(--blue) 52%, var(--cyan) 100%);
+  --grad-brand-soft: linear-gradient(115deg, #ece3ff 0%, #e1e8ff 52%, #dcf6ff 100%);
+  --grad-text: linear-gradient(100deg, var(--indigo) 0%, var(--blue) 48%, #0aa6f0 100%);
+
+  /* Type: Manrope, one family throughout */
+  --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --t-display: clamp(2.5rem, 1.35rem + 3.9vw, 4.6rem);
+  --t-h2: clamp(2rem, 1.35rem + 2.1vw, 3.25rem);
+  --t-h3: clamp(1.15rem, 1.07rem + 0.3vw, 1.35rem);
+  --t-lead: clamp(1.05rem, 0.99rem + 0.25vw, 1.2rem);
+  --t-body: 1rem;
+  --t-small: 0.875rem;
+  --t-label: 0.8125rem;
+
+  /* Space, on a .25rem base */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  /* Space between sections follows the window height, so a section and its neighbours fit the screen. */
+  --section: clamp(3.5rem, 9vh, 6.5rem);
+  --gutter: clamp(1rem, 0.4rem + 2.8vw, 2.5rem);
+  --page-max: 77.5rem;
+  --nav-h: 4.25rem;
+
+  /* Corners: small for controls, medium for panels, large only for stages */
+  --r-1: .5rem;
+  --r-2: .75rem;
+  --r-3: 1.125rem;
+  --r-4: 1.75rem;
+  --r-pill: 62.4375rem;
+
+  /* Depth */
+  --shadow-1: 0 1px 2px rgb(9 14 52 / 0.06), 0 0 0 1px rgb(9 14 52 / 0.05);
+  --shadow-2: 0 0 0 1px rgb(9 14 52 / 0.05), 0 2px .25rem rgb(9 14 52 / 0.04), 0 .75rem 2rem -.75rem rgb(9 14 52 / 0.16);
+  --shadow-float: 0 0 0 1px rgb(9 14 52 / 0.05), 0 .25rem .625rem -2px rgb(9 14 52 / 0.06),
+    0 1.375rem 2.75rem -1.125rem rgb(9 14 52 / 0.24);
+  --shadow-screen: 0 0 0 1px rgb(9 14 52 / 0.07), 0 2px .25rem rgb(9 14 52 / 0.04),
+    0 1.875rem 3.75rem -1.25rem rgb(9 14 52 / 0.2), 0 4.375rem 7.5rem -3.125rem rgb(10 72 253 / 0.25);
+  --glow-primary: 0 .5rem 1.5rem -.5rem rgb(10 72 253 / 0.55);
+
+  /* Motion */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --d-1: 160ms;
+  --d-2: 320ms;
+  --d-3: 800ms;
+}

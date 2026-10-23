@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Receivables</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .row2 { grid-template-columns: 1.15fr 1fr; height: 270px; }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .age li { display: grid; grid-template-columns: 92px 1fr 70px 34px; gap: 12px; align-items: center; padding: 9px 0; }
+  .age li + li { border-top: 1px solid var(--line); }
+  .age .meter { height: 14px; border-radius: 4px; }
+  .age .meter i { border-radius: 4px; }
+  .age em { font: 12px var(--mono); font-style: normal; text-align: right; }
+  .age small { color: var(--ink-3); text-align: right; }
+  .match { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
+  .match div { padding: 12px 6px; border: 1px solid #c8ecdc; border-radius: 10px; background: var(--ok-soft); }
+  .match label { display: block; color: var(--ink-2); font-size: 12px; }
+  .match b { display: block; font: 620 17px var(--sans); margin-top: 3px; letter-spacing: -0.02em; }
+</style>
+</head>
+<body data-nav="Receivables" data-crumb="Finance / Receivables" data-who="Nisha Verma|Finance controller">
+<main>
+  <div class="head">
+    <div>
+      <h1>Receivables and cash</h1>
+      <p>84 unpaid invoices · every figure posted from a dispatch, a receipt or a bank line</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span>Receivables</span><span>Payables</span><span class="on">Both</span></div>
+      <span class="btn">Statement run</span>
+      <span class="btn pri">Record receipt</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Receivables</label><div class="v"><strong>₹1.37 Cr</strong><i data-spark="148,152,144,139,146,141,137,143,138,134,139,137" data-color="#8b93a3"></i></div><div class="foot"><b class="delta up">−7.4%</b><span>vs last month</span></div></div>
+    <div class="card kpi"><label>Days to collect</label><div class="v"><strong>41 <small>days</small></strong><i data-spark="48,47,46,47,45,44,45,43,42,43,41,41" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">−4 days</b><span>since April</span></div></div>
+    <div class="card kpi"><label>Payables due in 7 days</label><div class="v"><strong>₹22.6 L</strong></div><div class="foot"><b class="delta flat">31 invoices</b><span>all three-way matched</span></div></div>
+    <div class="card kpi"><label>Cash and bank</label><div class="v"><strong>₹3.42 Cr</strong><i data-spark="298,305,311,302,318,324,315,329,336,331,340,342"></i></div><div class="foot"><b class="delta up">Reconciled</b><span>to today's statement</span></div></div>
+  </div>
+
+  <div class="grid row2">
+    <div class="card">
+      <header><h2>Money in and money out</h2><span>₹ lakh per week</span><div class="legend"><span>Collected</span><span style="--c:#c9cfdb">Paid</span></div></header>
+      <div class="body" data-bars="28,35,41,30,46,39,52,44,37,55,48,59|22,31,27,34,29,41,33,38,42,36,44,40" data-max="60" data-labels="W29,W30,W31,W32,W33,W34,W35,W36,W37,W38,W39,W40"></div>
+    </div>
+    <div class="card">
+      <header><h2>Receivables by age</h2><span>days past invoice date</span></header>
+      <div class="body" style="padding-top:8px">
+        <ul class="age">
+          <li><b>Not yet due</b><span class="meter"><i style="width:100%"></i></span><em>₹78.4 L</em><small>57%</small></li>
+          <li><b>1 to 30 days</b><span class="meter"><i style="width:48%;background:#8497ff"></i></span><em>₹37.6 L</em><small>27%</small></li>
+          <li><b>31 to 60 days</b><span class="meter"><i style="width:19%;background:#e0a030"></i></span><em>₹14.9 L</em><small>11%</small></li>
+          <li><b>Over 60 days</b><span class="meter"><i style="width:8%;background:#d43a2f"></i></span><em>₹6.1 L</em><small>5%</small></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols fill">
+    <div class="card flush">
+      <header><h2>Invoices</h2><span>each one opens the dispatch and the order behind it</span><span class="more">All 84</span></header>
+      <div class="body">
+        <table>
+          <thead><tr><th>Invoice</th><th>Customer</th><th>From</th><th class="r">Amount</th><th>Due</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b class="mono">INV-6112</b></td><td>Aster Compressors</td><td class="mono sub">DSP-1897 · SO-24771</td><td class="r mono">₹7,31,600</td><td>6 Oct</td><td><span class="chip ok">Paid, matched to bank</span></td></tr>
+            <tr><td><b class="mono">INV-6109</b></td><td>Vardhan Hydraulics</td><td class="mono sub">DSP-1894 · SO-24766</td><td class="r mono">₹13,29,150</td><td>11 Oct</td><td><span class="chip blue">Due in 3 days</span></td></tr>
+            <tr><td><b class="mono">INV-6098</b></td><td>Meridian Agro</td><td class="mono sub">DSP-1881 · SO-24749</td><td class="r mono">₹9,44,000</td><td>29 Sep</td><td><span class="chip warn">9 days overdue</span></td></tr>
+            <tr><td><b class="mono">INV-6120</b></td><td>Kestrel Pumps Ltd</td><td class="mono sub">DSP-1904 · SO-24817</td><td class="r mono">₹21,73,560</td><td>16 Nov</td><td><span class="chip">Raised on dispatch</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <header><h2>Ready to pay</h2><span class="chip ok" style="margin-left:auto">Match passed</span></header>
+      <div class="body">
+        <p class="sub" style="margin-bottom:12px"><b style="color:var(--ink)">Aravali Castings</b> · invoice AC/2611 against PO-7698</p>
+        <div class="match">
+          <div><label>Ordered</label><b>600 kg</b></div>
+          <div><label>Accepted</label><b>592 kg</b></div>
+          <div><label>Invoiced</label><b>592 kg</b></div>
+        </div>
+        <div class="rule"></div>
+        <dl class="kv">
+          <dt>Payable</dt><dd class="mono">₹1,25,504</dd>
+          <dt>Releases on</dt><dd>14 Oct, net 30</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="shell.js"></script>
+</body>
+</html>

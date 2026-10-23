@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Shop floor</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 372px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .gantt { position: relative; display: grid; grid-template-columns: 118px 1fr; row-gap: 0; }
+  .gantt .hours { grid-column: 2; display: grid; grid-template-columns: repeat(8, 1fr); color: var(--ink-3); font: 11px var(--mono); padding-bottom: 8px; }
+  .gantt .m { padding: 12px 0; border-top: 1px solid var(--line); }
+  .gantt .m b { display: block; font-weight: 550; }
+  .gantt .m small { color: var(--ink-3); font-size: 11.5px; }
+  .gantt .lane { position: relative; border-top: 1px solid var(--line); background: repeating-linear-gradient(to right, transparent 0 calc(12.5% - 1px), #eef0f4 calc(12.5% - 1px) 12.5%); }
+  .gantt .lane span { position: absolute; top: 10px; bottom: 10px; border-radius: 7px; padding: 0 9px; display: flex; align-items: center; gap: 6px; font: 550 11.5px var(--sans); white-space: nowrap; overflow: hidden; background: var(--accent-soft); color: var(--accent-ink); border: 1px solid #d3dbff; }
+  .gantt .lane span.run { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .gantt .lane span.done { background: #f1f3f7; color: var(--ink-2); border-color: var(--line); }
+  .gantt .lane span.down { background: repeating-linear-gradient(135deg, #fdecea 0 6px, #fbdcd8 6px 12px); color: var(--bad); border-color: #f8cfca; }
+  .gantt .now { position: absolute; top: 24px; bottom: 0; left: calc(118px + (100% - 118px) * 0.75); width: 2px; background: var(--ink); z-index: 2; }
+  .gantt .now::before { content: '14:00'; position: absolute; top: -17px; left: -18px; padding: 1px 6px; border-radius: 5px; background: var(--ink); color: #fff; font: 600 10px var(--mono); }
+  .ops li { display: grid; grid-template-columns: 24px 1fr 70px; gap: 4px 10px; align-items: center; padding: 8px 0; }
+  .ops li + li { border-top: 1px solid var(--line); }
+  .ops em { font: 500 11.5px var(--mono); font-style: normal; color: var(--ink-3); }
+  .ops b { font-weight: 550; }
+  .ops .n { text-align: right; font: 12px var(--mono); color: var(--ink-2); }
+  .ops .meter { grid-column: 2 / -1; }
+</style>
+</head>
+<body data-nav="Shop floor" data-crumb="Make / Shop floor" data-who="Sunil Iyer|Production planner">
+<main>
+  <div class="head">
+    <div>
+      <h1>Shop floor</h1>
+      <p>Shift B · 23 work orders released · 1 machine down</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span>Shift A</span><span class="on">Shift B</span><span>Shift C</span></div>
+      <span class="btn">Machining bay</span>
+      <span class="btn pri">Release work order</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Output this shift</label><div class="v"><strong>1,148 <small>pcs</small></strong><i data-spark="60,140,260,390,520,640,790,910,1040,1148"></i></div><div class="foot"><b class="delta up">98%</b><span>of plan at this hour</span></div></div>
+    <div class="card kpi"><label>Equipment effectiveness</label><div class="v"><strong>78.4%</strong><i data-spark="74,76,75,77,79,76,78,80,77,78.4" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">+2.1 pts</b><span>vs last week</span></div></div>
+    <div class="card kpi"><label>First-pass yield</label><div class="v"><strong>96.4%</strong><i data-spark="95,96,95.5,97,96,96.8,95.9,96.2,96.9,96.4" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta flat">1,840</b><span>inspection results</span></div></div>
+    <div class="card kpi"><label>Material shortages</label><div class="v"><strong>2 <small>work orders</small></strong><i data-spark="5,4,6,4,3,4,3,3,2,2" data-color="#b7791f"></i></div><div class="foot"><b class="delta down">400 kg</b><span>castings, arriving 10 Oct</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card">
+      <header><h2>Machine schedule</h2><span>today, 08:00 to 16:00</span><div class="legend"><span>Running</span><span style="--c:#c9d2ff">Planned</span><span style="--c:#d9dce3">Done</span></div></header>
+      <div class="body">
+        <div class="gantt"><i class="now"></i>
+          <div></div><div class="hours"><span>08:00</span><span>09:00</span><span>10:00</span><span>11:00</span><span>12:00</span><span>13:00</span><span>14:00</span><span>15:00</span></div>
+          <div class="m"><b>CNC-01</b><small>5-axis mill</small></div><div class="lane"><span class="done" style="left:0;width:30%">WO-5514 · BR-045</span><span class="run" style="left:31%;width:52%">WO-5521 · IH-220 Impeller housing</span><span style="left:84%;width:16%">WO-5527</span></div>
+          <div class="m"><b>CNC-02</b><small>5-axis mill</small></div><div class="lane"><span class="done" style="left:0;width:18%">WO-5509</span><span class="run" style="left:19%;width:58%">WO-5521 · IH-220 Impeller housing</span><span style="left:78%;width:22%">WO-5530 · GH-310</span></div>
+          <div class="m"><b>CNC-03</b><small>Turning centre</small></div><div class="lane"><span class="done" style="left:0;width:44%">WO-5518 · CV-110 Valve body</span><span class="down" style="left:45%;width:27%">Down · spindle alarm</span><span class="run" style="left:73%;width:27%">WO-5518 resumed</span></div>
+          <div class="m"><b>DB-01</b><small>Deburr and wash</small></div><div class="lane"><span class="done" style="left:6%;width:28%">WO-5514</span><span class="run" style="left:42%;width:40%">WO-5521 · 320 of 890</span></div>
+          <div class="m"><b>PT-01</b><small>Pressure test</small></div><div class="lane"><span class="done" style="left:0;width:22%">WO-5502</span><span class="run" style="left:52%;width:29%">Lot L-0932 · WO-5521</span><span style="left:82%;width:18%">Batch 2</span></div>
+          <div class="m"><b>ASM-02</b><small>Assembly cell</small></div><div class="lane"><span class="done" style="left:0;width:36%">WO-5498 · GH-280</span><span class="run" style="left:37%;width:44%">WO-5506 · GH-310 Gear housing</span><span style="left:82%;width:18%">WO-5511</span></div>
+          <div class="m"><b>ASM-03</b><small>Assembly cell</small></div><div class="lane"><span class="done" style="left:0;width:52%">WO-5503 · PB-090 Pump body</span><span class="run" style="left:53%;width:35%">WO-5512 · PB-120</span></div>
+          <div class="m"><b>PK-01</b><small>Packing line</small></div><div class="lane"><span class="done" style="left:10%;width:30%">SO-24790 · 800 pcs</span><span class="run" style="left:60%;width:24%">SO-24798</span><span style="left:85%;width:15%">SO-24809</span></div>
+          <div class="m"><b>CMM-01</b><small>Measuring room</small></div><div class="lane"><span class="done" style="left:4%;width:20%">L-0927</span><span class="done" style="left:30%;width:22%">L-0930</span><span class="run" style="left:66%;width:20%">L-0932</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2 style="white-space:nowrap">WO-5521</h2><span style="white-space:nowrap">890 pcs · SO-24817</span><span class="chip blue" style="margin-left:auto">Running</span></header>
+        <div class="body" style="padding-top:8px">
+          <ul class="ops">
+            <li><em>10</em><b>Core making</b><span class="n">890</span><span class="meter ink"><i style="width:100%"></i></span></li>
+            <li><em>20</em><b>Casting</b><span class="n">890</span><span class="meter ink"><i style="width:100%"></i></span></li>
+            <li><em>30</em><b>CNC machining</b><span class="n">570</span><span class="meter"><i style="width:64%"></i></span></li>
+            <li><em>40</em><b>Deburr and wash</b><span class="n">320</span><span class="meter"><i style="width:36%"></i></span></li>
+            <li><em>50</em><b>Pressure test</b><span class="n">50</span><span class="meter warn"><i style="width:6%"></i></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card flush" style="flex:1">
+        <header><h2>Materials for this order</h2><span class="more">Issue slip</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Item</th><th class="r">Need</th><th class="r">Have</th><th class="r">Status</th></tr></thead>
+            <tbody>
+              <tr><td><b>LM6 castings, kg</b></td><td class="r mono">2,140</td><td class="r mono">1,740</td><td class="r"><span class="chip warn">On order</span></td></tr>
+              <tr><td><b>Seal ring SR-18</b></td><td class="r mono">890</td><td class="r mono">1,200</td><td class="r"><span class="chip ok">Issued</span></td></tr>
+              <tr><td><b>Bearing sleeve BS-07</b></td><td class="r mono">890</td><td class="r mono">940</td><td class="r"><span class="chip ok">Issued</span></td></tr>
+              <tr><td><b>Fastener kit FK-M8</b></td><td class="r mono">890</td><td class="r mono">2,400</td><td class="r"><span class="chip ok">Available</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+/* A segmented control. One pill slides between the options instead of each drawing its own state. */
+.views__tabs {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: min(100%, 640px);
+  margin: 0 auto;
+  padding: 5px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.views__tab {
+  position: relative;
+  z-index: 1;
+  height: 44px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 560;
+  letter-spacing: -0.01em;
+  color: var(--fg-2);
+  transition: color var(--d-2) ease;
+}
+
+.views__tab[aria-selected='true'] {
+  color: #fff;
+}
+
+.views__marker {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  width: calc((100% - 10px) / var(--n));
+  border-radius: 999px;
+  background: var(--ink);
+  transform: translateX(calc(var(--at) * 100%));
+  transition: transform 600ms var(--ease);
+}
+
+.views__text {
+  max-width: 44rem;
+  margin: clamp(1.75rem, 4vw, 2.75rem) auto;
+  font-size: var(--t-lead);
+  line-height: 1.45;
+  text-align: center;
+  color: var(--fg-2);
+  text-wrap: balance;
+  animation: views-in var(--d-3) var(--ease) both;
+}
+
+.views__text b {
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.views__screen {
+  animation: views-in 900ms var(--ease) both;
+}
+
+@keyframes views-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+}
+
+@media (max-width: 560px) {
+  .views__tabs {
+    padding: 4px;
+  }
+
+  .views__tab {
+    height: 38px;
+    font-size: 0.8125rem;
+  }
+
+  .views__marker {
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: calc((100% - 8px) / var(--n));
+  }
+}

@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>MAVRO QA: section heights</title></head>
+<body style="margin:0;font:12px monospace">
+<pre id="out">measuring…</pre>
+<script>
+/*
+ * Open http://localhost:5180/qa/measure.html with the dev server running.
+ * Loads the homepage at common screen sizes and reports each section's height as a share of the window
+ * (target on desktops: about 0.75 to 1.2) and whether anything runs past the right edge.
+ * The page title becomes "done" when finished, so tools can wait for it.
+ */
+const sizes = [[360, 740], [390, 844], [768, 1024], [1024, 768], [1280, 720], [1366, 768], [1440, 900], [1920, 1080], [2560, 1440]];
+const out = []; let i = 0;
+function next() {
+  if (i >= sizes.length) { document.getElementById('out').textContent = out.join('\n'); document.title = 'done'; return; }
+  const [w, h] = sizes[i++];
+  const f = document.createElement('iframe');
+  f.style.cssText = `width:${w}px;height:${h}px;border:0;position:absolute;left:-99999px`;
+  f.src = '/';
+  f.onload = () => setTimeout(() => {
+    const d = f.contentDocument, win = f.contentWindow, W = win.innerWidth;
+    const rows = [...d.querySelectorAll('main > section')].map((s) => {
+      const r = s.getBoundingClientRect();
+      return `${(s.id || s.className.split(' ')[0]).padEnd(12)} ${String(Math.round(r.height)).padStart(5)}px  ${(r.height / h).toFixed(2)}x`;
+    });
+    const bad = [...d.querySelectorAll('main *, header *, footer *')].filter((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.width === 0 || r.right <= W + 1) return false;
+      for (let a = el.parentElement; a; a = a.parentElement) {
+        const ox = win.getComputedStyle(a).overflowX;
+        if (ox === 'auto' || ox === 'scroll') return false;
+        // Clipped by an ancestor that itself ends inside the window (e.g. the Explore screenshot bleed).
+        if ((ox === 'hidden' || ox === 'clip') && a.getBoundingClientRect().right <= W + 1) return false;
+        if (a.matches('.hero__band, .scene, .mega, .drawer')) return false;
+      }
+      return true;
+    }).filter((el, _, all) => !all.includes(el.parentElement)).slice(0, 5)
+      .map((el) => (typeof el.className === 'string' ? el.className.split(' ')[0] : el.tagName));
+    out.push(`== ${w}x${h}  root=${win.getComputedStyle(d.documentElement).fontSize}  overflow=${bad.length ? JSON.stringify(bad) : 'none'}`, ...rows, '');
+    f.remove(); next();
+  }, 2500);
+  document.body.appendChild(f);
+}
+next();
+</script>
+</body>
+</html>

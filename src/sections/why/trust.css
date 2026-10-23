@@ -1,0 +1,264 @@
+/* The trust card: India compliance and platform security, switched by a segmented control. */
+.trust {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: var(--r-3);
+  background: var(--white);
+  box-shadow: var(--shadow-float);
+}
+
+.trust__head {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.trust__mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: .75rem;
+  background: var(--grad-brand);
+  color: #fff;
+  box-shadow: 0 .625rem 1.25rem -.625rem rgb(10 72 253 / 0.7);
+  --icon-accent: #fff;
+  --icon-soft: rgb(255 255 255 / 0.35);
+}
+
+.trust__title {
+  font-size: 1.0625rem;
+  font-weight: 760;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* ---------- Segmented control ---------- */
+
+.trust__tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .25rem;
+  padding: .25rem;
+  border-radius: var(--r-pill);
+  background: var(--paper-2);
+}
+
+.trust__tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4375rem;
+  min-height: 2.25rem;
+  padding-inline: .75rem;
+  border-radius: var(--r-pill);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ink-2);
+  white-space: nowrap;
+  transition:
+    background-color var(--d-1) ease,
+    box-shadow var(--d-1) ease,
+    color var(--d-1) ease;
+}
+
+.trust__tab:hover {
+  color: var(--ink);
+}
+
+.trust__tab[aria-selected='true'] {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow:
+    0 0 0 1px rgb(9 14 52 / 0.06),
+    0 .25rem .75rem -.25rem rgb(9 14 52 / 0.18);
+}
+
+.trust__tab .icon {
+  color: var(--ink-3);
+  transition: color var(--d-1) ease;
+}
+
+.trust__tab[aria-selected='true'] .icon {
+  color: var(--blue);
+}
+
+/* ---------- Panels: stacked in one cell so the card never changes height ---------- */
+
+.trust__panels {
+  display: grid;
+}
+
+.trust__panel {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+.trust__panel:not([data-active]) {
+  visibility: hidden;
+}
+
+.trust__panel[data-active] {
+  animation: trust-in var(--d-2) var(--ease) both;
+}
+
+.trust__panel:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: .25rem;
+  border-radius: var(--r-2);
+}
+
+@keyframes trust-in {
+  from {
+    opacity: 0;
+    translate: 0 .5rem;
+  }
+}
+
+/* Compliance: five rules, each with the returns or registers it covers. */
+.trust__rules li {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: .75rem;
+  align-items: center;
+  padding-block: .5625rem;
+}
+
+.trust__rules li:first-child {
+  padding-top: .25rem;
+}
+
+.trust__rules li + li {
+  border-top: 1px solid var(--line);
+}
+
+.trust__icon {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: .625rem;
+  background: var(--grad-brand-soft);
+  color: var(--ink);
+}
+
+.trust__rule-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .25rem .5rem;
+}
+
+.trust__rule-head b {
+  font-size: 0.875rem;
+  font-weight: 740;
+  color: var(--ink);
+}
+
+.trust__tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: .25rem;
+}
+
+.trust__tags span {
+  padding: .0625rem .4375rem;
+  border-radius: .375rem;
+  background: var(--blue-50);
+  font-size: 0.6875rem;
+  font-weight: 720;
+  color: var(--blue);
+  white-space: nowrap;
+}
+
+.trust__rule-body {
+  margin-top: .125rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--fg-2);
+}
+
+/* Security: four figures from the architecture, then the access controls. */
+.trust__figures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .5rem;
+}
+
+.trust__figures > div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: .25rem;
+  padding: .875rem 1rem;
+  border-radius: var(--r-2);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.trust__figures dd {
+  width: fit-content;
+  font-size: 1.5rem;
+  font-weight: 790;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.trust__figures dt {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--fg-2);
+}
+
+.trust__controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .625rem 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.trust__controls li {
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  line-height: 1.35;
+  color: var(--ink-2);
+}
+
+.trust__controls .icon {
+  flex: none;
+  margin-top: .0625rem;
+  color: var(--blue);
+  stroke-width: 2.6;
+}
+
+@media (max-width: 400px) {
+  .trust {
+    padding: 1rem;
+  }
+
+  .trust__controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .trust__figures dd {
+    font-size: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trust__panel[data-active] {
+    animation: none;
+  }
+}

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Overview</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  .kpis { grid-template-columns: repeat(5, 1fr); }
+  .row2 { grid-template-columns: 2.1fr 1fr; height: 284px; }
+  .row3 { grid-template-columns: 2.1fr 1fr; flex: 1; }
+  .pipe li { display: grid; grid-template-columns: 112px 1fr 30px; gap: 12px; align-items: center; padding: 7px 0; white-space: nowrap; }
+  .pipe li b { font-weight: 500; }
+  .pipe li em { font-style: normal; text-align: right; color: var(--ink-2); font-family: var(--mono); font-size: 12px; }
+  .pipe .meter { height: 18px; border-radius: 5px; background: #f1f3f7; position: relative; }
+  .pipe .meter i { border-radius: 5px; }
+  .pipe .meter span { position: absolute; left: 8px; top: 0; line-height: 18px; font: 600 11px/18px var(--sans); color: #fff; }
+  .stage { display: flex; gap: 3px; }
+  .stage i { width: 14px; height: 5px; border-radius: 2px; background: #e3e6ec; }
+  .stage i.d { background: var(--accent); }
+</style>
+</head>
+<body data-nav="Overview" data-crumb="Overview">
+<main>
+  <div class="head">
+    <div>
+      <h1>Good afternoon, Meera</h1>
+      <p>61 open orders across 3 plants. 4 need a decision today.</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span>Today</span><span>Week</span><span class="on">Month</span><span>Quarter</span></div>
+      <span class="btn">All plants</span>
+      <span class="btn pri">New sales order</span>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="card kpi"><label>Open order book</label><div class="v"><strong>₹4.82 Cr</strong><i data-spark="31,44,38,52,47,61,49,58,66,54,71,63"></i></div><div class="foot"><b class="delta up">+8.4%</b><span>61 orders</span></div></div>
+    <div class="card kpi"><label>Revenue this month</label><div class="v"><strong>₹1.86 Cr</strong><i data-spark="12,18,26,31,44,52,61,78,96,121,150,186"></i></div><div class="foot"><b class="delta up">+12.1%</b><span>vs Sep</span></div></div>
+    <div class="card kpi"><label>On-time delivery</label><div class="v"><strong>94.1%</strong><i data-spark="91,90,92,91,93,92,92,93,94,93,94,94.1" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">+1.8 pts</b><span>212 dispatches</span></div></div>
+    <div class="card kpi"><label>Output this week</label><div class="v"><strong>11,480 <small>pcs</small></strong><i data-spark="820,910,760,980,1040,890,1120,1010,950,1180,1090,1150" data-color="#8b93a3"></i></div><div class="foot"><b class="delta down">−2.3%</b><span>plan 11,750</span></div></div>
+    <div class="card kpi"><label>Receivables</label><div class="v"><strong>₹1.37 Cr</strong><i data-spark="148,152,144,139,146,141,137,143,138,134,139,137" data-color="#8b93a3"></i></div><div class="foot"><b class="delta flat">41 days</b><span>to collect</span></div></div>
+  </div>
+
+  <div class="grid row2">
+    <div class="card">
+      <header><h2>Orders booked and dispatched</h2><span>₹ lakh per week</span><div class="legend"><span>Booked</span><span style="--c:#9aa3b5">Dispatched</span></div></header>
+      <div class="body" data-area="31,44,38,52,47,61,49,58,66,54,71,63|28,35,41,36,46,49,52,47,57,60,55,64" data-max="80" data-labels="W29,,W31,,W33,,W35,,W37,,W39,W40"></div>
+    </div>
+    <div class="card">
+      <header><h2>Where every order is</h2><span class="more">Open pipeline</span></header>
+      <div class="body">
+        <ul class="pipe">
+          <li><b>Enquiry</b><span class="meter"><i style="width:52%;background:#c3ccff"></i></span><em>38</em></li>
+          <li><b>Quotation</b><span class="meter"><i style="width:64%;background:#a5b2ff"></i></span><em>47</em></li>
+          <li><b>Confirmed</b><span class="meter"><i style="width:40%;background:#8497ff"></i></span><em>29</em></li>
+          <li><b>In production</b><span class="meter"><i style="width:31%;background:#5f77ff"></i></span><em>23</em></li>
+          <li><b>In quality</b><span class="meter"><i style="width:8%;background:#4562ff"></i></span><em>4</em></li>
+          <li><b>Ready to ship</b><span class="meter"><i style="width:12%"></i></span><em>9</em></li>
+          <li><b>Awaiting payment</b><span class="meter"><i style="width:100%;background:#0d1117"></i></span><em>84</em></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid fill row3">
+    <div class="card flush">
+      <header><h2>Orders that need attention</h2><span>ranked by risk to the promise date</span><span class="more">View all 61</span></header>
+      <div class="body">
+        <table>
+          <thead><tr><th>Order</th><th>Customer</th><th>Item</th><th>Promise</th><th>Stage</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b class="mono">SO-24817</b></td><td>Kestrel Pumps Ltd</td><td>IH-220 Impeller housing<small>1,200 pcs</small></td><td>18 Oct</td><td><span class="stage"><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i></i><i></i><i></i></span><small>Production 64%</small></td><td><span class="chip blue">On track</span></td></tr>
+            <tr><td><b class="mono">SO-24809</b></td><td>Vardhan Hydraulics</td><td>CV-110 Valve body<small>640 pcs</small></td><td>12 Oct</td><td><span class="stage"><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i></i><i></i><i></i></span><small>Waiting for castings</small></td><td><span class="chip warn">Material short</span></td></tr>
+            <tr><td><b class="mono">SO-24798</b></td><td>Aster Compressors</td><td>BR-045 Bearing bracket<small>2,400 pcs</small></td><td>10 Oct</td><td><span class="stage"><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i></i><i></i></span><small>Lot L-0927 on hold</small></td><td><span class="chip bad">Quality hold</span></td></tr>
+            <tr><td><b class="mono">SO-24822</b></td><td>Meridian Agro</td><td>GH-310 Gear housing<small>300 pcs</small></td><td>29 Oct</td><td><span class="stage"><i class="d"></i><i class="d"></i><i class="d"></i><i></i><i></i><i></i><i></i></span><small>Credit approval</small></td><td><span class="chip warn">Awaiting finance</span></td></tr>
+            <tr><td><b class="mono">SO-24790</b></td><td>Kestrel Pumps Ltd</td><td>IH-180 Impeller housing<small>800 pcs</small></td><td>9 Oct</td><td><span class="stage"><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i></i></span><small>Packed, vehicle booked</small></td><td><span class="chip ok">Ready to ship</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <header><h2>Across the business</h2><span class="more">Activity</span></header>
+      <div class="body">
+        <ul class="feed">
+          <li><i class="blue">PO</i><p><b>PO-7714 approved</b> for Aravali Castings<small>400 kg castings, raised from the shortage on WO-5521</small></p><time>14:02</time></li>
+          <li><i class="warn">QC</i><p><b>2 pieces held</b> on lot L-0932<small>Pressure test. Sent to rework on WO-5521</small></p><time>13:31</time></li>
+          <li><i class="ok">FG</i><p><b>SO-24790 ready to ship</b><small>800 pcs received into finished goods, FG-A-11</small></p><time>12:48</time></li>
+          <li><i>INV</i><p><b>INV-6112 paid in full</b> by Aster Compressors<small>₹7,31,600 matched to the bank statement</small></p><time>11:20</time></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="shell.js"></script>
+</body>
+</html>

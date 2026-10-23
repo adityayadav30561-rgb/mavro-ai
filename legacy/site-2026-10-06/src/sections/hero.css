@@ -1,0 +1,154 @@
+.hero {
+  position: relative;
+  padding-top: calc(var(--nav-h) + clamp(3rem, 7vw, 6.5rem));
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+  isolation: isolate;
+}
+
+/* A cool wash of light behind the product and a faint grid that fades out. Static. */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 70% 46% at 50% 58%, rgb(43 78 255 / 0.13), transparent 70%),
+    linear-gradient(to right, rgb(13 17 23 / 0.04) 1px, transparent 1px) 50% 0 / 80px 80px,
+    linear-gradient(to bottom, rgb(13 17 23 / 0.04) 1px, transparent 1px) 50% 0 / 80px 80px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 62%, transparent 96%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 62%, transparent 96%);
+}
+
+.hero__head {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-6);
+  text-align: center;
+}
+
+.hero__head .display {
+  max-width: 18ch;
+}
+
+.hero__accent {
+  display: block;
+  color: var(--blue);
+}
+
+.hero__head .lead {
+  max-width: 41rem;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-3);
+}
+
+/*
+ * The stage. The front screen rises and settles as the hero scrolls; the two behind it slide outwards, which
+ * is the only parallax on the page. --p comes from useScrollProgress on the section.
+ */
+.hero__stage {
+  --k: clamp(0, calc(var(--p, 0) * 2.6), 1);
+  position: relative;
+  width: min(1180px, 100% - 2 * var(--gutter));
+  margin: clamp(3rem, 6vw, 5rem) auto 0;
+}
+
+.hero__front {
+  position: relative;
+  z-index: 2;
+  transform: scale(calc(0.94 + 0.06 * var(--k)));
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+
+.hero__side {
+  position: absolute;
+  top: 9%;
+  width: 62%;
+  z-index: 1;
+  opacity: 0.92;
+  will-change: transform;
+}
+
+.hero__side--left {
+  left: 0;
+  transform: translate3d(calc(-17% - 9% * var(--k)), 0, 0) scale(0.92);
+  transform-origin: 0 50%;
+}
+
+.hero__side--right {
+  right: 0;
+  transform: translate3d(calc(17% + 9% * var(--k)), 0, 0) scale(0.92);
+  transform-origin: 100% 50%;
+}
+
+.hero__modules {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-2) var(--s-6);
+  margin-top: clamp(3.5rem, 7vw, 6rem);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--fg-3);
+}
+
+.hero__modules li + li::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  margin-right: var(--s-6);
+  border-radius: 50%;
+  background: var(--rule-2);
+  vertical-align: middle;
+}
+
+/* Entrance: four beats, in reading order. Runs once. */
+.hero__in {
+  animation: hero-rise 1.1s var(--ease) both;
+  animation-delay: calc(100ms + var(--i) * 110ms);
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+}
+
+/* Below desktop there is no room beside the front screen, so it stands alone. */
+@media (max-width: 1100px) {
+  .hero__side {
+    display: none;
+  }
+
+  .hero__front {
+    transform: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero__cta .btn {
+    flex: 1 1 auto;
+  }
+
+  .hero__modules {
+    gap: var(--s-1) var(--s-4);
+    font-size: 0.9375rem;
+  }
+
+  .hero__modules li + li::before {
+    margin-right: var(--s-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__front {
+    transform: none;
+  }
+}
