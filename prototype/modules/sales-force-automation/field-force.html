@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Sales Force Automation · Field force</title>
+<!--
+  Scenario (Sales Force Automation, shared by every screen of the module): Northfield Precision, 8 Oct, 14:02. 26 field
+  reps in eight territories visit dealers, distributors and workshop buyers; the call norm is 7 calls a day (56 so
+  far this month). Today: 168 calls planned, 142 made, ₹18.6 L of secondary orders booked. Month to date: 1,285
+  calls against a norm of 1,512, 91% of 214 A-class outlets covered, ₹1.86 Cr secondary value. Ahmedabad is below
+  norm. Waiting for approval: 12 field expense claims (₹38,400) and 7 secondary orders (₹4.9 L). Field sales
+  manager: Deepak Rao. Orders taken in the field flow into Order to Cash.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .calls { display: flex; align-items: center; gap: 8px; }
+  .calls .meter { width: 70px; min-width: 70px; }
+  .calls span { font: 11.5px var(--mono); color: var(--ink-2); }
+  tr.low td { background: var(--warn-soft); }
+  .cols td { padding-top: 7px; padding-bottom: 7px; }
+  tr.total td { background: var(--surface-2); font-weight: 600; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .rep { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 4px 10px; align-items: center; padding: 9px 0; }
+  .rep + .rep { border-top: 1px solid var(--line); }
+  .rep i { grid-row: 1 / span 2; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font: 600 10.5px var(--sans); font-style: normal; color: #fff; background: #5b6b8c; }
+  .rep b { font-weight: 550; }
+  .rep small { grid-column: 2; color: var(--ink-3); font-size: 11.5px; }
+  .rep em { grid-row: 1 / span 2; grid-column: 3; font: 600 12px var(--mono); font-style: normal; color: var(--warn); }
+  .queue { display: grid; gap: 10px; }
+  .queue div { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+  .queue div span:first-child { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; background: var(--accent-soft); color: var(--accent-ink); font: 600 13px var(--mono); }
+  .queue p { flex: 1; line-height: 1.3; }
+  .queue p b { display: block; font-weight: 550; }
+  .queue p small { color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="sales-force-automation" data-view="Field force" data-crumb="Sell / Sales Force Automation / Field force" data-who="Deepak Rao|Field sales manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Field force</h1>
+      <p>26 reps in eight territories · calls, coverage and secondary orders, live from the field app</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Today</span><span>Month</span><span>Quarter</span></div>
+      <span class="btn">Beat plans</span>
+      <span class="btn pri">Publish next week</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Calls today</label><div class="v"><strong>142 <small>of 168 planned</small></strong></div><div class="foot"><b class="delta up">85%</b><span>98% with location evidence</span></div></div>
+    <div class="card kpi"><label>A-class outlets covered</label><div class="v"><strong>91%</strong><i data-spark="72,76,79,81,83,84,86,88,89,90,90,91" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">195 of 214</b><span>this month</span></div></div>
+    <div class="card kpi"><label>Secondary orders today</label><div class="v"><strong>₹18.6 L</strong><i data-spark="12.1,14.6,13.2,16.8,15.4,17.9,16.2,18.6"></i></div><div class="foot"><b class="delta up">61 orders</b><span>to Order to Cash</span></div></div>
+    <div class="card kpi"><label>Reps in the field</label><div class="v"><strong>24 <small>of 26</small></strong></div><div class="foot"><b class="delta flat">2 on leave</b><span>beats reassigned</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Territories</h2><span>month to date · call norm 56 per rep</span><span class="more">Territory report</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Territory</th><th class="r">Reps</th><th>Calls against norm</th><th class="r">A-class coverage</th><th class="r">Secondary value</th></tr></thead>
+            <tbody>
+              <tr><td><b>Pune city</b></td><td class="r mono">4</td><td><div class="calls"><span class="meter ok"><i style="width:95%"></i></span><span>212 / 224</span></div></td><td class="r mono">96%</td><td class="r mono">₹38.4 L</td></tr>
+              <tr><td><b>Mumbai west</b></td><td class="r mono">4</td><td><div class="calls"><span class="meter"><i style="width:88%"></i></span><span>198 / 224</span></div></td><td class="r mono">90%</td><td class="r mono">₹33.8 L</td></tr>
+              <tr><td><b>Coimbatore</b></td><td class="r mono">3</td><td><div class="calls"><span class="meter ok"><i style="width:93%"></i></span><span>157 / 168</span></div></td><td class="r mono">94%</td><td class="r mono">₹22.4 L</td></tr>
+              <tr><td><b>Nashik</b></td><td class="r mono">3</td><td><div class="calls"><span class="meter"><i style="width:90%"></i></span><span>152 / 168</span></div></td><td class="r mono">93%</td><td class="r mono">₹21.6 L</td></tr>
+              <tr><td><b>Indore</b></td><td class="r mono">3</td><td><div class="calls"><span class="meter"><i style="width:89%"></i></span><span>150 / 168</span></div></td><td class="r mono">92%</td><td class="r mono">₹19.7 L</td></tr>
+              <tr><td><b>Hyderabad</b></td><td class="r mono">3</td><td><div class="calls"><span class="meter"><i style="width:87%"></i></span><span>146 / 168</span></div></td><td class="r mono">89%</td><td class="r mono">₹18.9 L</td></tr>
+              <tr><td><b>Pune rural</b></td><td class="r mono">3</td><td><div class="calls"><span class="meter"><i style="width:84%"></i></span><span>141 / 168</span></div></td><td class="r mono">88%</td><td class="r mono">₹17.2 L</td></tr>
+              <tr class="low"><td><b>Ahmedabad</b> <span class="chip warn" style="margin-left:6px">Below norm</span></td><td class="r mono">3</td><td><div class="calls"><span class="meter warn"><i style="width:77%"></i></span><span>129 / 168</span></div></td><td class="r mono">79%</td><td class="r mono">₹14.1 L</td></tr>
+              <tr class="total"><td>All territories</td><td class="r mono">26</td><td><div class="calls"><span class="meter"><i style="width:85%"></i></span><span>1,285 / 1,512</span></div></td><td class="r mono">91%</td><td class="r mono">₹1.86 Cr</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Calls per working day</h2><span>made against planned</span><div class="legend"><span>Made</span><span style="--c:#c9d2ff">Planned</span></div></header>
+        <div class="body chart-c" data-bars="151,158,146,162,149,155,160,142|168,168,168,168,168,168,168,168" data-max="180" data-labels="29 Sep,30 Sep,1 Oct,3 Oct,4 Oct,6 Oct,7 Oct,8 Oct" data-colors="#0a48fd,#c9d2ff"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Below call norm</h2><span>coach early</span></header>
+        <div class="body" style="padding-top:6px">
+          <div class="rep"><i style="background:#7a36fb">RP</i><b>Ravi Patel</b><small>Ahmedabad · 38 of 56 calls</small><em>68%</em></div>
+          <div class="rep"><i style="background:#0a48fd">AJ</i><b>Ankit Joshi</b><small>Pune rural · 41 of 56 calls</small><em>73%</em></div>
+          <div class="rep"><i style="background:#0c9b6a">MK</i><b>Meera Kapoor</b><small>Ahmedabad · 44 of 56 calls</small><em>79%</em></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Waiting for approval</h2><span class="more">Open queue</span></header>
+        <div class="body">
+          <div class="queue">
+            <div><span>12</span><p><b>Field expense claims</b><small>₹38,400 · 11 within policy, 1 over the daily allowance</small></p></div>
+            <div><span>7</span><p><b>Secondary orders</b><small>₹4.9 L · scheme and stock checked</small></p></div>
+            <div><span>2</span><p><b>Beat plan changes</b><small>Leave cover for Indore and Pune city</small></p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

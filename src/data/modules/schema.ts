@@ -18,6 +18,8 @@ export interface ModuleScreen {
   screen: ScreenName;
   /** The deck's name for the view (e.g. "Collections & Dunning Queue"), shown as the tour tab. */
   title: string;
+  /** The view it is in the module's menu (views.ts), e.g. "Collections"; the page lists the views not shown. */
+  view?: string;
   /** What the user does there, in two lines at most. */
   caption: string;
   /** Alt text: what the screen shows, with its key figures. */
@@ -51,8 +53,8 @@ export interface ModuleContent<S extends ModuleSlug = ModuleSlug> {
   flow: { from: readonly ModuleLink[]; to: readonly ModuleLink[] };
   /** Who uses it: the industries it serves, each with one line on what the module does there. */
   industries: readonly { slug: IndustrySlug; note: string }[];
-  /** The roles that work in it, each with what they do there. */
-  roles: readonly { name: string; task: string }[];
+  /** The roles that work in it, each with what they do there and the view they mostly work in (views.ts). */
+  roles: readonly { name: string; task: string; works?: string }[];
   /** Three or four other modules for the related cards; defaults to the same business area. */
   related?: readonly ModuleSlug[];
   /** The module's screens, 3–4, in tour order; the first is the hero screen. */

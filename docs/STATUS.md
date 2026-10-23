@@ -37,6 +37,25 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-10-23, **Phase 5 review round 1 applied** (user feedback on `/modules/order-to-cash`); waiting for the next
+  review.
+  - **Hero:** the screen runs off the right edge at every desktop width and is cut by the hero's bottom edge; the
+    plate and its border lines are gone. **Phone:** a proper device frame (rim, bezel, Dynamic Island, buttons,
+    sheen) in `Screen`, used everywhere phone screens appear.
+  - **Who uses it** redesigned (industry cards with coloured bands; people with avatars, tasks and "Works in"
+    chips; roles gained `works` in the schema). **Built on the platform** is now the night band, with the module
+    plate wired into the eight features (`PlatformStrip module`).
+  - **Related modules** show real lead screens: four new prototype screens, deck screen 01 each:
+    `crm/pipeline`, `sales-force-automation/field-force`, `customer-service/ticket-load`,
+    `scheme-and-rebate/schemes` (scenarios in their comments, tied to Northfield Precision and the O2C figures,
+    e.g. Meridian's 40-piece short supply). Mapped in `src/data/modules/leads.ts`; ModuleCards crop past the
+    sidebar.
+  - **Full views per module:** `src/data/modules/views.ts` (O2C 11 views, and the four modules above). The
+    prototype sidebar reads it (the `data-views` attribute is gone; the shell checks `data-view`), and the tour
+    lists the views it does not show. ModuleScreen gained `view`. All O2C screens recaptured with the new sidebar.
+  - Verified: the module page at 2000×880, 1440×900, 1366×768, 1024×768 and 390×844; `qa/measure.html` no overflow
+    at nine sizes on the module page, `/_library` and `/`; build passes; production hydrates without errors.
+
 - 2026-10-23, **Phase 5 (module page template, piloted on Order to Cash) built; waiting for the user's review.**
   - **FAQ:** "exporters" removed from the three homepage FAQ answers (user).
   - **Page:** `src/pages/ModulePage.tsx`, ten sections from the library (table in docs/LIBRARY.md); copy shared

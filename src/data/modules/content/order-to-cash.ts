@@ -71,22 +71,36 @@ export const content: ModuleContent<'order-to-cash'> = {
     { slug: 'service-providers', note: 'Orders invoiced with GST and collected against one customer ledger.' },
   ],
   roles: [
-    { name: 'Order desk', task: 'Captures orders with schemes, stock and credit checked as they are entered.' },
-    { name: 'Sales managers', task: 'Watch the order book by channel and ask for credit releases.' },
-    { name: 'Sales head', task: 'Releases or rejects held orders, from the web or the phone.' },
-    { name: 'Credit controllers', task: 'Work the dunning queue and record promises to pay.' },
-    { name: 'Finance', task: 'Sees invoices, receipts and DSO post to the ledger as they happen.' },
+    {
+      name: 'Order desk',
+      task: 'Captures orders with schemes, stock and credit checked as they are entered.',
+      works: 'Sales orders',
+    },
+    {
+      name: 'Sales managers',
+      task: 'Watch the order book by channel and ask for credit releases.',
+      works: 'Order book',
+    },
+    {
+      name: 'Sales head',
+      task: 'Releases or rejects held orders, from the web or the phone.',
+      works: 'Credit control',
+    },
+    { name: 'Credit controllers', task: 'Work the dunning queue and record promises to pay.', works: 'Collections' },
+    { name: 'Finance', task: 'Sees invoices, receipts and DSO post to the ledger as they happen.', works: 'Invoices' },
   ],
   related: ['crm', 'sales-force-automation', 'customer-service', 'scheme-and-rebate'],
   screens: [
     {
       screen: 'order-to-cash/order-book',
+      view: 'Order book',
       title: 'Order book',
       caption: 'Open orders with their credit status, allocation and stage, so the day starts from what is stuck.',
       alt: 'MAVRO Order to Cash order book: ₹4.86 Cr of open orders, three on credit hold worth ₹38.2 L, nine to dispatch this week and ₹12.4 L overdue, the order list with credit and allocation, a credit check for Kestrel Pumps and receivables by age (illustrative data).',
     },
     {
       screen: 'order-to-cash/order-workflow',
+      view: 'Sales orders',
       title: 'Order workflow',
       caption:
         'One order from enquiry to payment: its document flow, fulfilment from stock and production, and its credit.',
@@ -94,12 +108,14 @@ export const content: ModuleContent<'order-to-cash'> = {
     },
     {
       screen: 'order-to-cash/collections',
+      view: 'Collections',
       title: 'Collections and dunning',
       caption: 'Receivables by age with an owner per account, and each account’s stage on the dunning ladder.',
       alt: 'MAVRO collections and dunning queue: ₹1.37 Cr outstanding, ₹12.4 L over 60 days, ten accounts with their oldest invoice, dunning stage, owner and next step, receivables by age and the dunning ladder from courtesy notice to credit hold (illustrative data).',
     },
     {
       screen: 'order-to-cash/order-register',
+      view: 'Order register',
       title: 'Sales order register',
       caption:
         'Every order in the period with its allocation, invoice and e-invoice status, ready to filter and export.',
@@ -108,6 +124,7 @@ export const content: ModuleContent<'order-to-cash'> = {
   ],
   phone: {
     screen: 'order-to-cash/credit-release',
+    view: 'Credit control',
     title: 'Credit release',
     caption: 'The sales head releases a held order from the phone.',
     alt: 'MAVRO phone app: credit release for SO-24861, Orion Agro Equipment, ₹14,62,000, taking exposure to ₹42.10 L against a ₹40 L limit, with payment behaviour and Release and Reject buttons (illustrative data).',

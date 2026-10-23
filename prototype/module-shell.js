@@ -1,18 +1,19 @@
 /*
  * Chrome for module screens (prototype/modules/<slug>/*.html). Loaded as a module:
  *
- *   <body data-module="order-to-cash" data-view="Collections" data-views="Order book|Order workflow|Collections|Register"
- *         data-crumb="Sell / Order to Cash / Collections" data-who="Name|Role">
+ *   <body data-module="order-to-cash" data-view="Collections" data-crumb="Sell / Order to Cash / Collections"
+ *         data-who="Name|Role">
  *   <script type="module" src="../../module-shell.js"></script>
  *
  * The sidebar comes from the site's own catalogue (src/data/modules/catalogue.ts, served by the dev server), so it
- * always lists every module, grouped by business area: the active area is open, the active module shows its views
- * and the active view is highlighted. Phone screens (data-device="phone", prototype/phone.css) get a status bar,
+ * always lists every module, grouped by business area: the active area is open, the active module shows all its
+ * views (src/data/modules/views.ts, the module's full menu) and the active view is highlighted. Phone screens (data-device="phone", prototype/phone.css) get a status bar,
  * an app bar and a tab bar instead. Charts are drawn afterwards by shell.js, once the layout is final.
  *
  * Optional: data-org="NP|Northfield Precision|Plant 1 · Pune" (the tenant), data-live="Live · 8 Oct, 14:02".
  */
 import { areaOrder, areas, catalogue } from '/src/data/modules/catalogue.ts';
+import { moduleViews } from '/src/data/modules/views.ts';
 
 const ICON = {
   home: '<rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/>',
@@ -42,7 +43,10 @@ const d = body.dataset;
 const entry = catalogue.find((e) => e.slug === d.module);
 if (!entry) throw new Error(`module-shell: unknown module "${d.module}" (see src/data/modules/slugs.ts)`);
 const area = entry.area ?? 'portal';
-const views = (d.views || '').split('|').filter(Boolean);
+// The module's full menu (src/data/modules/views.ts); the screen's own view must be one of them.
+const views = moduleViews[entry.slug] ?? [];
+if (d.view && d.device !== 'phone' && !views.includes(d.view))
+  throw new Error(`module-shell: view "${d.view}" is not in moduleViews['${entry.slug}'] (src/data/modules/views.ts)`);
 const [orgMark, orgName, orgSub] = (d.org || 'NP|Northfield Precision|Plant 1 · Pune').split('|');
 const [whoName, whoRole] = (d.who || 'Meera Rao|Operations head').split('|');
 const live = d.live || 'Live · 8 Oct, 14:02';

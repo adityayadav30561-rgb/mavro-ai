@@ -63,12 +63,14 @@ a.mc__card:focus-visible {
     var(--tier-soft);
 }
 
+/* The screen's own content, not its sidebar: the sidebar is 236 of the capture's 1440 pixels (16.4%), so at 165%
+   of the card it is 27% of the card wide and starts off the left edge. */
 .mc__screen {
   position: absolute;
   top: 1rem;
-  left: 1rem;
-  width: 175%;
-  border-radius: var(--r-2) 0 0 0;
+  left: -24.5%;
+  width: 165%;
+  border-radius: 0;
   box-shadow:
     0 0 0 1px rgb(9 14 52 / 0.08),
     0 1rem 2rem -1rem rgb(9 14 52 / 0.35);

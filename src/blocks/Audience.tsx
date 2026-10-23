@@ -5,23 +5,43 @@ import './audience.css';
 export interface AudienceIndustry {
   name: string;
   icon: IconName;
+  /** Who the industry is, e.g. "OEM suppliers and multi-line plants". */
+  who: string;
   /** What the module does for this industry, in one line. */
   note: string;
   /** The industry page, or its homepage fallback; null for a plain card. */
   href: string | null;
 }
 
-interface AudienceProps {
-  industries: readonly AudienceIndustry[];
-  roles: readonly { name: string; task: string }[];
-  labels: { industries: string; roles: string };
+export interface AudienceRole {
+  name: string;
+  task: string;
+  /** The view they mostly work in (the module's views). */
+  works?: string;
 }
 
+interface AudienceProps {
+  industries: readonly AudienceIndustry[];
+  roles: readonly AudienceRole[];
+  labels: { industries: string; roles: string; works: string; see: string };
+  /** Where a role's view chip links, e.g. '#screens'. */
+  screensHref?: string;
+}
+
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .map((word) => word[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+
 /**
- * Who uses a module: the industries it serves as cards (icon, name, what it does there, a link to the industry)
- * beside the roles that work in it, each with its task. Module pages, section "Who uses it".
+ * Who uses a module. Industries as cards, each with a band in its own colour carrying the icon and name, who the
+ * industry is, and what the module does there; beside them the people who work in it, each with an avatar, what
+ * they do and the view they work in. Module pages, section "Who uses it".
  */
-export function Audience({ industries, roles, labels }: AudienceProps) {
+export function Audience({ industries, roles, labels, screensHref }: AudienceProps) {
   return (
     <div className="aud">
       <div className="aud__industries">
@@ -30,18 +50,26 @@ export function Audience({ industries, roles, labels }: AudienceProps) {
           {industries.map((industry, index) => {
             const body = (
               <>
-                <span className="aud__icon">
-                  <Icon name={industry.icon} size={22} />
+                <span className="aud__band">
+                  <span className="aud__icon">
+                    <Icon name={industry.icon} size={22} />
+                  </span>
+                  <b className="aud__name">{industry.name}</b>
                 </span>
-                <b className="aud__name">
-                  {industry.name}
-                  {industry.href && <Icon name="arrow" size={16} className="aud__arrow" />}
-                </b>
-                <span className="aud__note">{industry.note}</span>
+                <span className="aud__body">
+                  <span className="aud__who">{industry.who}</span>
+                  <span className="aud__note">{industry.note}</span>
+                  {industry.href && (
+                    <span className="aud__more">
+                      {labels.see.replace('{industry}', industry.name.toLowerCase())}
+                      <Icon name="arrow" size={14} />
+                    </span>
+                  )}
+                </span>
               </>
             );
             return (
-              <li key={industry.name} data-reveal style={vars({ '--i': index })}>
+              <li key={industry.name} data-reveal style={vars({ '--i': index })} data-n={index % 4}>
                 {industry.href ? (
                   <a className="aud__card" href={industry.href}>
                     {body}
@@ -55,16 +83,33 @@ export function Audience({ industries, roles, labels }: AudienceProps) {
         </ul>
       </div>
       <div className="aud__roles" data-reveal style={vars({ '--i': 2 })}>
-        <h3 className="aud__label">{labels.roles}</h3>
+        <h3 className="aud__label">
+          {labels.roles}
+          <span className="num">{roles.length}</span>
+        </h3>
         <ol>
-          {roles.map((role) => (
-            <li key={role.name}>
+          {roles.map((role, index) => (
+            <li key={role.name} data-n={index % 5}>
               <span className="aud__avatar" aria-hidden="true">
-                <Icon name="people" size={18} />
+                {initials(role.name)}
               </span>
-              <span>
-                <b>{role.name}</b>
-                <span>{role.task}</span>
+              <span className="aud__role">
+                <span className="aud__role-head">
+                  <b>{role.name}</b>
+                  {role.works &&
+                    (screensHref ? (
+                      <a className="aud__works" href={screensHref}>
+                        <Icon name="eye" size={14} />
+                        {labels.works} {role.works}
+                      </a>
+                    ) : (
+                      <span className="aud__works">
+                        <Icon name="eye" size={14} />
+                        {labels.works} {role.works}
+                      </span>
+                    ))}
+                </span>
+                <span className="aud__task">{role.task}</span>
               </span>
             </li>
           ))}

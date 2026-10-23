@@ -15,7 +15,9 @@ export const moduleTemplate = {
   tour: {
     title: 'See {name},',
     rest: 'screen by screen.',
-    lead: 'The views your team works in, built for this module. Each one reads and writes the same records as the rest of MAVRO.',
+    lead: 'A few of the views your team works in, built for this module. Each one reads and writes the same records as the rest of MAVRO.',
+    /** Over the module's other views, under the tour. */
+    more: 'Also in {name}',
   },
   whatWhy: {
     title: 'What it does,',
@@ -35,12 +37,16 @@ export const moduleTemplate = {
     rest: '{name}.',
     lead: 'The industries it is configured for, and the people who work in it every day.',
     industries: 'Industries',
-    roles: 'Roles',
+    roles: 'The people who work in it',
+    works: 'Works in',
+    see: '{name} for {industry}',
   },
   platform: {
     title: 'Built on the',
     rest: 'MAVRO platform.',
     lead: 'What {name} inherits from the platform, the same in every module: audit, workflow, notifications, mobile, security and APIs.',
+    /** Under the module's name on the plate; {name} here is the package. */
+    module: 'One of the {name}',
   },
   related: {
     title: 'Related',

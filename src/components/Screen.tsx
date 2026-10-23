@@ -58,22 +58,34 @@ export function Screen({
   const large = files[`../assets/screens/${name}@2x.webp`];
   if (!small) throw new Error(`Screen: no capture for "${name}" (run npm run shots ${name})`);
   const size = sizes[device];
-
-  return (
-    <div
-      className={className ? `screen ${className}` : 'screen'}
-      data-device={device === 'phone' ? 'phone' : undefined}
-    >
-      <img
-        src={small}
-        srcSet={large ? `${small} ${size.small}w, ${large} ${size.large}w` : undefined}
-        sizes={hint}
-        width={size.width}
-        height={size.height}
-        alt={alt}
-        loading={eager ? 'eager' : 'lazy'}
-        decoding="async"
-      />
-    </div>
+  const image = (
+    <img
+      src={small}
+      srcSet={large ? `${small} ${size.small}w, ${large} ${size.large}w` : undefined}
+      sizes={hint}
+      width={size.width}
+      height={size.height}
+      alt={alt}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+    />
   );
+
+  // A phone screen sits in a drawn device: rim, bezel, the glass with its Dynamic Island, and the side buttons.
+  if (device === 'phone') {
+    return (
+      <div className={className ? `screen phone ${className}` : 'screen phone'} data-device="phone">
+        <span className="phone__btn" data-btn="action" aria-hidden="true" />
+        <span className="phone__btn" data-btn="up" aria-hidden="true" />
+        <span className="phone__btn" data-btn="down" aria-hidden="true" />
+        <span className="phone__btn" data-btn="power" aria-hidden="true" />
+        <span className="phone__glass">
+          {image}
+          <span className="phone__island" aria-hidden="true" />
+        </span>
+      </div>
+    );
+  }
+
+  return <div className={className ? `screen ${className}` : 'screen'}>{image}</div>;
 }

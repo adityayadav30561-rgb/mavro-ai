@@ -140,7 +140,8 @@ movements reconcile), so keep them consistent when editing. Capture one screen w
 module. They load `../../app.css` and `<script type="module" src="../../module-shell.js">`, which builds the
 sidebar from the site's own catalogue (`src/data/modules/catalogue.ts`: every module, grouped by business area,
 the active module showing its views) and then runs `shell.js` for the charts. Body attributes: `data-module`
-(the slug), `data-view`, `data-views` (the module's views, `|`-separated), `data-crumb`, `data-who`, optionally
+(the slug), `data-view` (one of the module's views in `src/data/modules/views.ts`, which lists the module's whole menu
+for the sidebar), `data-crumb`, `data-who`, optionally
 `data-org`. Phone screens add `prototype/phone.css`, `class="phone" data-device="phone"`, and `data-title`,
 `data-subtitle`, `data-tab`, `data-tabs`; the shell adds the status bar, app bar and tab bar. Each module's first
 screen opens with a comment holding the module's scenario, which all its screens follow.

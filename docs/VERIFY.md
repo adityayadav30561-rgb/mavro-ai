@@ -69,8 +69,9 @@ Before a screen is captured, open it on the dev server (`/prototype/modules/<slu
       Northfield Precision, the `o2c` receivables), and dates fit the screen's "live" date (8 Oct).
 - [ ] **The deck's view:** the screen shows what the module's appendix slide names for it
       (`src/data/modules/sources.ts` says which slide); its title and the sidebar view use the deck's name.
-- [ ] **Sidebar:** `data-module` is the right slug (the shell throws on an unknown one), `data-view` is one of
-      `data-views`, and `data-views` is the same on every screen of the module.
+- [ ] **Sidebar:** `data-module` is the right slug and `data-view` is one of the module's views in
+      `src/data/modules/views.ts` (the shell throws on either mistake). The module's full menu lives there, not in
+      the page.
 - [ ] **No invented claims:** sample data only; no client names, no certifications, no results.
 - [ ] **Captured:** `npm run shots <slug>` (on a cloud machine:
       `CHROME_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome`); open the WebP files and look at them.

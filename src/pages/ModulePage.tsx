@@ -17,6 +17,8 @@ import {
   contentFor,
   entryBySlug,
   fill,
+  leadScreens,
+  moduleViews,
   modulePage,
   moduleTemplate as t,
   packs,
@@ -33,10 +35,12 @@ const pageOf = (entry: CatalogueEntry) => (hasPage(modulePage(entry)) ? modulePa
 
 const iconOf = (entry: CatalogueEntry) => (entry.kind === 'module' ? entry.item.icon : 'distribution');
 
-/** The lead screen of a module for its card: its own first screen once it has a page, else its Explore screen. */
+/** The lead screen of a module for its card: its own first screen once it has content, else its lead screen
+ *  (leads.ts), else its homepage Explore screen. */
 function thumbnail(slug: ModuleSlug): Pick<ModuleCard, 'screen' | 'alt'> {
   const own = contentFor(slug)?.screens[0];
   if (own) return { screen: own.screen, alt: own.alt };
+  if (leadScreens[slug]) return leadScreens[slug];
   const entry = entryBySlug(slug);
   const base = explore.packages.base.screens as Record<string, { screen: ModuleCard['screen']; alt: string }>;
   return entry.kind === 'module' && base[entry.item.id] ? base[entry.item.id] : {};
@@ -60,6 +64,9 @@ export function Page() {
   const pack = packs[entry.pack];
   const interest = pack.name;
   const [lead] = content.screens;
+  // The module's views the tour does not show (views.ts): the screens are a sample of the module.
+  const shownViews = [...content.screens, ...(content.phone ? [content.phone] : [])].map((s) => s.view);
+  const otherViews = (moduleViews[slug] ?? []).filter((view) => !shownViews.includes(view));
 
   const node = (link: ModuleLink): FlowNode => {
     const other = entryBySlug(link.slug);
@@ -73,7 +80,7 @@ export function Page() {
       page: `/industries/${industry.slug}`,
       fallback: `#industry-${industry.slug}`,
     });
-    return { name: industry.name, icon: industry.icon, note: use.note, href: to && href(to) };
+    return { name: industry.name, icon: industry.icon, who: industry.who, note: use.note, href: to && href(to) };
   });
 
   const related =
@@ -135,7 +142,12 @@ export function Page() {
         treatment="mark"
         lead={t.tour.lead}
       >
-        <ScreenTour id="module-tour" screens={content.screens} note={explore.sample} />
+        <ScreenTour
+          id="module-tour"
+          screens={content.screens}
+          note={explore.sample}
+          more={{ label: fill(t.tour.more, name), views: otherViews }}
+        />
       </Section>
 
       <Section id="what" title={t.whatWhy.title} rest={t.whatWhy.rest} treatment="grad" layout="stack">
@@ -172,19 +184,27 @@ export function Page() {
         <Audience
           industries={audience}
           roles={content.roles}
-          labels={{ industries: t.audience.industries, roles: t.audience.roles }}
+          labels={{
+            industries: t.audience.industries,
+            roles: t.audience.roles,
+            works: t.audience.works,
+            see: fill(t.audience.see, name),
+          }}
+          screensHref="#screens"
         />
       </Section>
 
       <Section
         id="platform"
-        tone="paper"
+        tone="night"
         title={t.platform.title}
         rest={t.platform.rest}
         treatment="grad"
         lead={fill(t.platform.lead, name)}
       >
-        <PlatformStrip />
+        <PlatformStrip
+          module={{ name, icon: iconOf(entry), tier: entry.pack, label: fill(t.platform.module, pack.name) }}
+        />
       </Section>
 
       <Section

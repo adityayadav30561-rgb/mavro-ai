@@ -159,6 +159,17 @@ least important, with full design effort. The ordered list lives in [STATUS.md](
 | Demo from a module page | The demo button ticks the module's package and starts the form's message with "I would like to see <module>." | The form keeps its four interests; the module still reaches the team |
 | Deck adaptation | The deck writes O2C for distribution-led pharma; the page states the same capabilities for every industry (FEFO stays, as batch allocation) | The site serves four industries |
 
+## Module page template, review round 1 (2026-10-23)
+
+| Decision | Choice | Why |
+|---|---|---|
+| Hero screen | Runs off the window's right edge on every desktop size (width max(52rem, 50vw + 14rem)), cut by the hero's bottom edge; no tinted plate and no border lines around it | User: "the screen should be in extreme right … like we have on our homepage, and these lines should not be visible" |
+| Phone mockup | A drawn device: graphite rim with a light edge, black bezel, Dynamic Island, side buttons, glass sheen; all sizes proportional (`Screen device="phone"`) | User: the earlier phone boundary "doesn't look good" |
+| Who uses it | Industry cards with a coloured band (icon, name), who the industry is, what the module does there and a link; the people who work in it with an initials avatar, their task and a "Works in <view>" chip linking to the screens | User asked to improve the section |
+| Built on the platform | The page's one night band: the module drawn on top of the eight platform features with a rail into each | User asked to improve the section |
+| Related modules | Each card shows that module's real lead screen (its deck screen 01, built now: CRM pipeline, SFA field force, Customer Service ticket load, Scheme and Rebate schemes), cropped to its content | User: "put 1 screen of that module" |
+| Screens are a sample | Every module has its full set of views (`src/data/modules/views.ts`): the prototype sidebar lists them all, and the page names the views the tour does not show ("Also in Order to Cash") | User: "if we are putting 4 screens per module, that doesn't mean we will have only 4 screens in the entire module" |
+
 ## Rest of the site (Stage B planning, 2026-10-23)
 
 | Question | User's decision |

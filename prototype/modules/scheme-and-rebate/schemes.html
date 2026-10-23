@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Scheme and Rebate · Schemes</title>
+<!--
+  Scenario (Scheme and Rebate, shared by every screen of the module): Northfield Precision, 8 Oct, 14:02. Seven trade
+  schemes this year with a total budget of ₹60.0 L, ₹42.6 L used (71%); five live, two settling. The festive volume
+  slab for distributors has used 89% of its ₹14 L budget and has raised the 85% alert. Accrued but not yet settled:
+  ₹11.8 L. 23 claims worth ₹6.4 L wait in the queue: 14 verified, 5 waiting for a POP audit, 4 flagged as duplicates.
+  The next bulk settlement on 9 Oct raises 14 credit notes worth ₹3.9 L. Trade marketing manager: Ritu Malhotra.
+  Schemes are checked as orders are entered in Order to Cash.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .used { display: grid; gap: 4px; min-width: 150px; }
+  .used span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .used .meter { position: relative; overflow: visible; }
+  .used .meter::after { content: ''; position: absolute; left: 85%; top: -3px; bottom: -3px; width: 1.5px; background: var(--ink-3); opacity: 0.5; }
+  .meter.bad i { background: var(--bad); }
+  tr.alert td { background: var(--bad-soft); }
+  .lift { font: 600 12px var(--mono); color: var(--ok); }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .claims { display: grid; gap: 8px; }
+  .claims div { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 10px; }
+  .claims b.n { display: grid; place-items: center; height: 30px; border-radius: 8px; font: 600 13px var(--mono); background: var(--surface-2); }
+  .claims .ok b.n { background: var(--ok-soft); color: var(--ok); }
+  .claims .warn b.n { background: var(--warn-soft); color: var(--warn); }
+  .claims .bad b.n { background: var(--bad-soft); color: var(--bad); }
+  .claims p { line-height: 1.3; }
+  .claims p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .claims em { font: 600 12px var(--mono); font-style: normal; color: var(--ink-2); }
+  .next { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 11px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-ink); font-size: 12px; }
+  .next b { font-weight: 600; white-space: nowrap; }
+</style>
+</head>
+<body data-module="scheme-and-rebate" data-view="Schemes" data-crumb="Sell / Scheme and Rebate / Schemes" data-who="Ritu Malhotra|Trade marketing manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Schemes</h1>
+      <p>Trade spend for distributors, dealers, retailers and workshops · budgets capped, claims verified before payout</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">This year</span><span>Live</span><span>Settling</span></div>
+      <span class="btn">Simulate</span>
+      <span class="btn pri">Create scheme</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Schemes</label><div class="v"><strong>7</strong></div><div class="foot"><b class="delta up">5 live</b><span>2 settling</span></div></div>
+    <div class="card kpi"><label>Budget used</label><div class="v"><strong>₹42.6 L <small>of ₹60.0 L</small></strong></div><div class="target" style="display:flex;align-items:center;gap:10px;margin-top:12px"><span class="meter" style="flex:1"><i style="width:71%"></i></span><span style="color:var(--ink-3);font-size:12px">71%</span></div></div>
+    <div class="card kpi"><label>Accrued, not yet settled</label><div class="v"><strong>₹11.8 L</strong><i data-spark="6.2,7.1,8.4,7.9,9.2,10.1,9.6,10.8,11.2,11.8" data-color="#b7791f"></i></div><div class="foot"><b class="delta flat">booked monthly</b><span>to the ledger</span></div></div>
+    <div class="card kpi"><label>Claims waiting</label><div class="v"><strong>23 <small>· ₹6.4 L</small></strong></div><div class="foot"><b class="delta down">4 duplicates</b><span>caught before payout</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Scheme performance</h2><span>budget against cap, sales lift against the base period</span><span class="more">Scheme register</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Scheme</th><th>Period</th><th>Budget used</th><th class="r">Lift</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr class="alert"><td><b>Festive volume slab</b><small>Distributors · 3 slabs on monthly quantity</small></td><td class="mono">1 Oct – 15 Nov</td><td><div class="used"><span class="meter bad"><i style="width:89%"></i></span><span>₹12.4 L of ₹14.0 L</span></div></td><td class="r lift">+18%</td><td><span class="chip bad">Over 85%</span></td></tr>
+              <tr><td><b>Monsoon pump-set slab</b><small>Retailers · Value slabs</small></td><td class="mono">Jun – Sep</td><td><div class="used"><span class="meter warn"><i style="width:93%"></i></span><span>₹5.6 L of ₹6.0 L</span></div></td><td class="r lift">+9%</td><td><span class="chip">Settling</span></td></tr>
+              <tr><td><b>Quarterly target rebate</b><small>Dealers · Q2, on target achieved</small></td><td class="mono">Jul – Sep</td><td><div class="used"><span class="meter"><i style="width:82%"></i></span><span>₹9.8 L of ₹12.0 L</span></div></td><td class="r lift">+11%</td><td><span class="chip">Settling</span></td></tr>
+              <tr><td><b>Early payment discount</b><small>All customers · 2% within 10 days</small></td><td class="mono">Apr – Mar</td><td><div class="used"><span class="meter"><i style="width:62%"></i></span><span>₹6.2 L of ₹10.0 L</span></div></td><td class="r lift">DSO −4 d</td><td><span class="chip ok">Live</span></td></tr>
+              <tr><td><b>IH-300 series launch</b><small>Distributors, dealers · Per-piece incentive</small></td><td class="mono">15 Sep – 31 Dec</td><td><div class="used"><span class="meter"><i style="width:51%"></i></span><span>₹4.1 L of ₹8.0 L</span></div></td><td class="r lift">+24%</td><td><span class="chip ok">Live</span></td></tr>
+              <tr><td><b>Counter display</b><small>Retailers · Paid on POP audit</small></td><td class="mono">Sep – Oct</td><td><div class="used"><span class="meter"><i style="width:58%"></i></span><span>₹2.3 L of ₹4.0 L</span></div></td><td class="r lift">+6%</td><td><span class="chip ok">Live</span></td></tr>
+              <tr><td><b>Workshop loyalty points</b><small>Workshops · Points on every purchase</small></td><td class="mono">Apr – Mar</td><td><div class="used"><span class="meter"><i style="width:37%"></i></span><span>₹2.2 L of ₹6.0 L</span></div></td><td class="r lift">+7%</td><td><span class="chip ok">Live</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Accrued and settled</h2><span>₹ lakh per month</span><div class="legend"><span style="--c:#e0a030">Accrued</span><span>Settled</span></div></header>
+        <div class="body chart-c" data-bars="6.8,8.2,9.4,10.6,7.9|5.9,7.4,8.1,7.2,2.5" data-max="12" data-labels="Jun,Jul,Aug,Sep,Oct" data-colors="#e0a030,#0a48fd"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex:1">
+        <header><h2>Claims queue</h2><span>23 claims · ₹6.4 L</span><span class="more">Open queue</span></header>
+        <div class="body">
+          <div class="claims">
+            <div class="ok"><b class="n">14</b><p><b>Verified</b><small>Slab, invoices and stock checked</small></p><em>₹3.9 L</em></div>
+            <div class="warn"><b class="n">5</b><p><b>Waiting for POP audit</b><small>Counter display photos to confirm</small></p><em>₹1.1 L</em></div>
+            <div class="bad"><b class="n">4</b><p><b>Flagged as duplicates</b><small>Same invoices claimed twice</small></p><em>₹1.4 L</em></div>
+          </div>
+          <div class="next"><b>9 Oct</b><span>Bulk settlement: 14 credit notes, ₹3.9 L, posted to the ledger</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Budget alert</h2></header>
+        <div class="body">
+          <p style="color:var(--ink-2);line-height:1.5"><b style="color:var(--ink)">Festive volume slab</b> passed 85% of its budget on 6 Oct. New accruals stop at ₹14.0 L unless the cap is raised.</p>
+          <div style="display:flex;gap:8px;margin-top:12px"><span class="btn">Hold the cap</span><span class="btn pri">Raise cap</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -8,17 +8,7 @@
   z-index: 2;
   left: -2.25rem;
   bottom: 2.5rem;
-  width: 11rem;
-  filter: drop-shadow(0 1.75rem 2.5rem rgb(9 14 52 / 0.35));
-}
-
-.mp__phone .screen[data-device='phone'] {
-  padding: .375rem;
-  border-radius: 2rem;
-}
-
-.mp__phone .screen[data-device='phone'] img {
-  border-radius: 1.625rem;
+  width: 11.5rem;
 }
 
 @media (max-width: 1023px) {

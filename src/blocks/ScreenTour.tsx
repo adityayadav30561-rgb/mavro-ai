@@ -20,10 +20,13 @@ export function ScreenTour({
   id = 'tour',
   screens,
   note,
+  more,
 }: {
   id?: string;
   screens: readonly TourScreen[];
   note: string;
+  /** The module's other views, which the tour does not show: the screens are a sample of the module. */
+  more?: { label: string; views: readonly string[] };
 }) {
   const { active, tabProps, panelProps } = useTabs(screens.length, id);
   const view = screens[active];
@@ -45,6 +48,16 @@ export function ScreenTour({
           <b>{view.title}</b>
           {view.caption}
         </p>
+        {more && more.views.length > 0 && (
+          <div className="tour__more">
+            <p>{more.label}</p>
+            <ul>
+              {more.views.map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
 
       <div className="tour__stage" {...panelProps}>

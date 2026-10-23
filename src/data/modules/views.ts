@@ -1,0 +1,71 @@
+import type { ModuleSlug } from './slugs';
+
+/*
+ * Every view of a module: the module's full menu, in the order its sidebar lists them. The 3–4 screens a module
+ * page shows are a sample of these, not the whole module (user, 2026-10-23). Read by the prototype sidebar
+ * (prototype/module-shell.js), which lists them under the active module, and by the module page, which names the
+ * views its tour does not show. Names follow the deck's screens where it has them; the rest are the standard views
+ * of a module of that kind.
+ */
+export const moduleViews: Partial<Record<ModuleSlug, readonly string[]>> = {
+  'order-to-cash': [
+    'Order book',
+    'Quotations',
+    'Sales orders',
+    'Price lists',
+    'Credit control',
+    'Invoices',
+    'Credit notes',
+    'Collections',
+    'Dunning rules',
+    'Order register',
+    'Reports',
+  ],
+  crm: [
+    'Pipeline',
+    'Leads',
+    'Assignment queue',
+    'Accounts',
+    'Contacts',
+    'Opportunities',
+    'Activities',
+    'Campaigns',
+    'Lead register',
+    'Reports',
+  ],
+  'sales-force-automation': [
+    'Field force',
+    'Beat plans',
+    'Call reports',
+    'Rep activity',
+    'Secondary orders',
+    'Field expenses',
+    'Approvals',
+    'Targets',
+    'Territories',
+    'Reports',
+  ],
+  'customer-service': [
+    'Ticket load',
+    'Tickets',
+    'Resolution workbench',
+    'Escalations',
+    'Warranty claims',
+    'Knowledge base',
+    'SLA policies',
+    'Ticket register',
+    'Reports',
+  ],
+  'scheme-and-rebate': [
+    'Schemes',
+    'Scheme register',
+    'Slab builder',
+    'Budgets',
+    'Accruals',
+    'Claims',
+    'Settlements',
+    'Credit notes',
+    'Scheme performance',
+    'Reports',
+  ],
+};

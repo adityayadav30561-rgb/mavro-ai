@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Customer Service · Ticket load</title>
+<!--
+  Scenario (Customer Service, shared by every screen of the module): Northfield Precision, 8 Oct, 14:02. 74 open
+  tickets from five channels, 27 new today; first response SLA met 94%, resolution SLA 88%, reopen rate 3.1%,
+  CSAT 4.4 of 5. Three complaints on lot L-0897 (IH-180 housings, flange porosity) form a cluster: QA investigation
+  QI-0217 is open and replacements wait for its disposition. TKT-4398 is Meridian Compressors' "40 pieces short on
+  INV-5951", the same dispute that holds their dunning (credit note CN-0418 in approval). Service lead: Anita Rao.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .health { display: flex; align-items: center; gap: 8px; }
+  .health .meter { width: 70px; min-width: 70px; }
+  .health span { font: 11.5px var(--mono); color: var(--ink-2); }
+  tr.total td { background: var(--surface-2); font-weight: 600; }
+  tr.slow td { background: var(--warn-soft); }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .due li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 10px; padding: 9px 0; }
+  .due li + li { border-top: 1px solid var(--line); }
+  .due b { font-weight: 550; }
+  .due b .mono { color: var(--ink-3); font-weight: 500; margin-right: 6px; }
+  .due small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .due em { grid-row: 1 / span 2; grid-column: 2; align-self: center; font: 600 12px var(--mono); font-style: normal; padding: 3px 8px; border-radius: 7px; background: var(--warn-soft); color: var(--warn); }
+  .due em.bad { background: var(--bad-soft); color: var(--bad); }
+  .cluster { padding: 12px 14px; border: 1px solid #f8cfca; border-radius: 10px; background: var(--bad-soft); }
+  .cluster b { display: block; font-weight: 600; }
+  .cluster p { margin-top: 4px; color: var(--ink-2); font-size: 12px; line-height: 1.5; }
+  .cluster .row { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+</style>
+</head>
+<body data-module="customer-service" data-view="Ticket load" data-crumb="Sell / Customer Service / Ticket load" data-who="Anita Rao|Service lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Ticket load and SLA health</h1>
+      <p>74 open tickets from five channels · one ticket record per complaint, whichever channel it came from</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Today</span><span>Week</span><span>Month</span></div>
+      <span class="btn">Ticket register</span>
+      <span class="btn pri">New ticket</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Open tickets</label><div class="v"><strong>74</strong><i data-spark="88,85,90,83,81,79,82,78,76,77,75,74"></i></div><div class="foot"><b class="delta up">27 new today</b><span>31 closed</span></div></div>
+    <div class="card kpi"><label>First response within SLA</label><div class="v"><strong>94%</strong><i data-spark="89,90,90,91,92,91,93,92,93,94,93,94" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">target 90%</b><span>by channel and agent</span></div></div>
+    <div class="card kpi"><label>Resolved within SLA</label><div class="v"><strong>88%</strong></div><div class="foot"><b class="delta down">8 breaches</b><span>this week</span></div></div>
+    <div class="card kpi"><label>Reopen rate</label><div class="v"><strong>3.1%</strong></div><div class="foot"><b class="delta flat">CSAT 4.4 of 5</b><span>on 212 responses</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>By channel</h2><span>open now, response this week</span><span class="more">SLA policies</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Channel</th><th class="r">Open</th><th class="r">New today</th><th class="r">First response</th><th class="r">Breaches</th><th>SLA health</th></tr></thead>
+            <tbody>
+              <tr><td><b>Helpline</b></td><td class="r mono">21</td><td class="r mono">9</td><td class="r mono">18m</td><td class="r mono">2</td><td><div class="health"><span class="meter ok"><i style="width:96%"></i></span><span>96%</span></div></td></tr>
+              <tr><td><b>Email</b> <span class="chip warn" style="margin-left:6px">Slow</span></td><td class="r mono">19</td><td class="r mono">7</td><td class="r mono">2h 10m</td><td class="r mono">4</td><td><div class="health"><span class="meter warn"><i style="width:81%"></i></span><span>81%</span></div></td></tr>
+              <tr><td><b>Customer portal</b></td><td class="r mono">17</td><td class="r mono">6</td><td class="r mono">42m</td><td class="r mono">1</td><td><div class="health"><span class="meter ok"><i style="width:94%"></i></span><span>94%</span></div></td></tr>
+              <tr><td><b>Field service</b><small>Visits from the service app</small></td><td class="r mono">11</td><td class="r mono">3</td><td class="r mono">4h 30m</td><td class="r mono">1</td><td><div class="health"><span class="meter"><i style="width:90%"></i></span><span>90%</span></div></td></tr>
+              <tr><td><b>Dealer portal</b></td><td class="r mono">6</td><td class="r mono">2</td><td class="r mono">55m</td><td class="r mono">0</td><td><div class="health"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td></tr>
+              <tr class="total"><td>All channels</td><td class="r mono">74</td><td class="r mono">27</td><td class="r mono">1h 04m</td><td class="r mono">8</td><td><div class="health"><span class="meter"><i style="width:94%"></i></span><span>94%</span></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Tickets opened and closed</h2><span>per working day</span><div class="legend"><span>Opened</span><span style="--c:#0c9b6a">Closed</span></div></header>
+        <div class="body chart-c" data-bars="24,31,22,28,26,30,25,27|26,29,27,30,28,27,29,31" data-max="45" data-labels="29 Sep,30 Sep,1 Oct,3 Oct,4 Oct,6 Oct,7 Oct,8 Oct" data-colors="#0a48fd,#0c9b6a"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Complaint cluster</h2><span>raised to QA</span></header>
+        <div class="body">
+          <div class="cluster">
+            <b>3 complaints on lot L-0897</b>
+            <p>IH-180 housings, porosity at the flange, from Meridian Compressors and two dealers. Replacements wait for the QA disposition.</p>
+            <div class="row"><span class="chip bad">QI-0217 open</span><span class="chip">3 tickets linked</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Breaching soon</h2><span>resolution SLA</span><span class="more">All 9</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="due">
+            <li><b><span class="mono">TKT-4417</span>Flange leak, lot L-0897</b><small>Meridian Compressors · helpline · Anita Rao</small><em class="bad">0h 25m</em></li>
+            <li><b><span class="mono">TKT-4398</span>40 short on INV-5951</b><small>Meridian Compressors · email · credit note CN-0418</small><em>1h 10m</em></li>
+            <li><b><span class="mono">TKT-4421</span>Warranty replacement</b><small>Nilgiri Pumps · dealer portal · Imran Shaikh</small><em>1h 50m</em></li>
+            <li><b><span class="mono">TKT-4403</span>Drawing revision query</b><small>Kestrel Pumps · customer portal · Anita Rao</small><em>2h 35m</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

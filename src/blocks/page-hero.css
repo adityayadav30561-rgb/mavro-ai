@@ -91,17 +91,8 @@ body:has(.ph.section--night) .nav {
     padding-bottom: clamp(2rem, 6vh, 4rem);
   }
 
-  /* Plate and screen hang from the hero's bottom edge, so the edge always cuts the screen: the screen (2:3 of its
-     width tall) runs 6rem past the edge and the plate starts 1.25rem above the screen's top. */
-  .ph[data-variant='module'] .ph__visual {
-    --shot-h: calc(var(--sframe-w) * 2 / 3);
-  }
-
-  .ph[data-variant='module'] .ph__visual::before {
-    top: auto;
-    height: calc(var(--shot-h) - 4.75rem);
-  }
-
+  /* The screen hangs from the hero's bottom edge, which always cuts it: the screen (2:3 of its width tall) runs 6rem
+     past the edge, and its height sets how high it starts. */
   .ph[data-variant='module'] .ph__visual .sframe__shot {
     top: auto;
     bottom: -6rem;
@@ -225,24 +216,14 @@ body:has(.ph.section--night) .nav {
   min-width: 0;
 }
 
-/* Module: the lead screen hangs from the top left of a tinted plate and runs off the window's right edge; the
- * plate cuts it at the bottom (clip-path keeps the shadow above and the overflow to the right). */
+/* Module: the lead screen runs off the window's right edge and is cut by the hero's bottom edge, with no plate or
+ * border around it (clip-path keeps the shadow and the phone on the left, and the overflow to the right). */
 .ph[data-variant='module'] .ph__visual {
-  --sframe-w: 52rem;
+  /* Wide enough to run off the window's right edge on every desktop size, as on the homepage. */
+  --sframe-w: max(52rem, calc(50vw + 14rem));
   align-self: stretch;
   min-height: clamp(22rem, 58vh, 34rem);
   clip-path: inset(-4rem -100vw 0 -4rem);
-}
-
-.ph[data-variant='module'] .ph__visual::before {
-  content: '';
-  position: absolute;
-  inset: 1.25rem -100vw 0 -1.25rem;
-  border-radius: var(--r-4) 0 0 0;
-  background:
-    radial-gradient(60% 70% at 20% 10%, rgb(10 72 253 / 0.1), transparent 70%),
-    linear-gradient(160deg, var(--blue-50), rgb(241 244 255 / 0.4));
-  box-shadow: inset 0 0 0 1px var(--line);
 }
 
 .ph[data-variant='module'] .ph__visual .sframe__shot {

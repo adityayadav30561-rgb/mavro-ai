@@ -28,14 +28,14 @@ and the shared headings in `src/data/modules/template.ts`. Ten sections, tones a
 
 | # | Section (id) | Block | Tone | Treatment |
 |---|---|---|---|---|
-| 1 | Hero (`top`) | PageHero `module`: package chip, H1, tagline, demo (package ticked, module in the message) + "See the screens"; lead screen bleeding off the plate, the phone screen in front | hero | none (H1 is the name) |
+| 1 | Hero (`top`) | PageHero `module`: package chip, H1, tagline, demo (package ticked, module in the message) + "See the screens"; the lead screen runs off the window's right edge and is cut by the hero's bottom edge (no plate, no border lines), the phone screen in a drawn device in front | hero | none (H1 is the name) |
 | 2 | Capabilities | CapabilityTiles in the tier colour, figures from the screens | white | soft |
-| 3 | Screens | ScreenTour, the module's 3–4 screens | paper | mark |
+| 3 | Screens | ScreenTour, the module's 3–4 screens, then "Also in <module>": its other views (views.ts) | paper | mark |
 | 4 | What it does / why it matters | WhatWhy | white | grad |
 | 5 | Where it sits (`flow`) | FlowStrip: feeds it / module / it feeds, each node with what passes | paper | soft |
-| 6 | Who uses it (`audience`) | Audience: industries + roles | white | mark |
-| 7 | Built on the platform | PlatformStrip | paper | grad |
-| 8 | Related modules | ModuleCards (four: one row on desktops), thumbnails from each module's lead screen | white | soft |
+| 6 | Who uses it (`audience`) | Audience: industry cards with a coloured band, who it is and what the module does there; the people who work in it with an avatar, their task and the view they work in | white | mark |
+| 7 | Built on the platform | PlatformStrip with `module`: the module stands on the platform, a rail feeding all eight features; the page's one night band | night | grad |
+| 8 | Related modules | ModuleCards (four: one row on desktops), each with that module's lead screen (its content's first screen, else `leads.ts`), cropped past the sidebar | white | soft |
 | 9 | FAQ | FaqBlock + FAQPage JSON-LD (routes.ts) | paper | mark |
 | 10 | CTA | CtaBand | night | grad |
 
@@ -61,13 +61,13 @@ section (src/links.ts), so a module page never links to a missing page.
 | `PageHero` | PageHero.tsx | `variant` (module, industry, package, solution, simple), `tone` (light/dark), `chip` {label, tier, icon}, title parts, `lead`, `actions` (first primary; `href` or a demo `interest`), `facts`, `visual` | Every page below the homepage |
 | `Breadcrumbs` | Breadcrumbs.tsx | none: reads the route's `crumbs` (routes.ts), so it matches the BreadcrumbList JSON-LD | Inside PageHero |
 | `ScreenFrame` | ScreenFrame.tsx | `screen` (a homepage screen or `<slug>/<file>`), `alt`, `sizes`, `variant` (contained/bleed), `note`. Bleed: the container must be relative, clip and have a height; `--sframe-w` sets the width | Everywhere screens appear; Explore (bleed) |
-| `ScreenTour` | ScreenTour.tsx | `screens` [{screen, title, caption, alt}], `note`, `id` | Module, industry, platform |
+| `ScreenTour` | ScreenTour.tsx | `screens` [{screen, title, caption, alt}], `note`, `id`, `more` {label, views} (the module's other views) | Module, industry, platform |
 | `CapabilityTiles` | CapabilityTiles.tsx | `tiles` [{icon, title, body, figure?}], `tier` | Module, package |
 | `WhatWhy` | WhatWhy.tsx | `what` {title, body}, `why` {title, points} | Module |
-| `Audience` | Audience.tsx | `industries` [{name, icon, note, href or null}], `roles` [{name, task}], `labels` | Module (who uses it) |
+| `Audience` | Audience.tsx | `industries` [{name, icon, who, note, href or null}], `roles` [{name, task, works?}], `labels` {industries, roles, works, see}, `screensHref` | Module (who uses it) |
 | `FlowStrip` | FlowStrip.tsx | `stages` [{label?, nodes [{name, href?, icon?, note?, kind?}]}] (`note`: what passes along the link), `layout` (columns/chain), `legend`, `note`. Kinds: shared, configured, current | Module (where it sits), industry (order flow), package |
 | `ModuleCards` | ModuleCards.tsx | `cards` [{name, summary, icon, tier, href or null, screen?, alt?}], `more` (link label) | Package, industry, related modules |
-| `PlatformStrip` | PlatformStrip.tsx | none: the eight features of deck slide 12 (`data/platform.ts`), identical everywhere | Every module page, platform |
+| `PlatformStrip` | PlatformStrip.tsx | the eight features of deck slide 12 (`data/platform.ts`), identical everywhere; optional `module` {name, icon, tier, label} draws the module on top, wired into the features. Light or night band | Every module page, platform |
 | `ChainDiagram` | ChainDiagram.tsx | `title`, `nodes` [{id, name, icon, link}], `core`, `active`, `badge` | Homepage Explore (Portals), portal pages |
 | `ConnectBoard` | ArchitectureDiagram.tsx | `data` (the ERP Connect board: systems, broker, app, users, rule). Dark band only | Homepage, ERP Connect |
 | `LayeredArchitecture` | ArchitectureDiagram.tsx | `data` {layers, security} (deck slide 11, `data/platform.ts`) | Platform, security |

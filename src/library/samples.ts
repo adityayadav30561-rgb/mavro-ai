@@ -15,10 +15,25 @@ export const o2c = {
   name: 'Order to Cash',
   tagline: 'Order capture to collection: credit-safe, batch-accurate revenue operations.',
   tiles: [
-    { icon: 'orders', title: 'Order book health', body: 'Channel-wise open orders, fill rate and DSO.', figure: { value: '₹4.86 Cr', label: 'open orders' } },
-    { icon: 'shield', title: 'Credit and exposure', body: 'Limit breaches held before allocation.', figure: { value: '3', label: 'on credit hold' } },
+    {
+      icon: 'orders',
+      title: 'Order book health',
+      body: 'Channel-wise open orders, fill rate and DSO.',
+      figure: { value: '₹4.86 Cr', label: 'open orders' },
+    },
+    {
+      icon: 'shield',
+      title: 'Credit and exposure',
+      body: 'Limit breaches held before allocation.',
+      figure: { value: '3', label: 'on credit hold' },
+    },
     { icon: 'inventory', title: 'Batch allocation', body: 'FEFO and shelf-life rules on every order line.' },
-    { icon: 'finance', title: 'Dunning engine', body: 'Ageing-driven reminders, escalation and hold.', figure: { value: '₹12.4 L', label: 'overdue' } },
+    {
+      icon: 'finance',
+      title: 'Dunning engine',
+      body: 'Ageing-driven reminders, escalation and hold.',
+      figure: { value: '₹12.4 L', label: 'overdue' },
+    },
   ] satisfies CapabilityTile[],
   what: {
     title: 'What it does',
@@ -36,9 +51,25 @@ export const o2c = {
     ],
   },
   tour: [
-    { screen: 'o2c', title: 'Order book', caption: 'Open orders by channel with credit holds and dispatch dates, so the day starts from what is stuck.', alt: 'MAVRO Order to Cash order book: open order value, orders on credit hold, dispatches this week and overdue receivables, with the order list below (illustrative data).' },
-    { screen: 'sales-order', title: 'Order, credit and allocation', caption: 'One order from capture to dispatch: the credit check, the allocated lots and the documents it produced.', alt: 'MAVRO sales order SO-24817 for Kestrel Pumps with its credit check, allocation and linked documents (illustrative data).' },
-    { screen: 'finance', title: 'Collections and dunning', caption: 'Receivables by ageing bucket with an owner per account, and the reminders already sent.', alt: 'MAVRO finance view of receivables by ageing bucket with collections status (illustrative data).' },
+    {
+      screen: 'o2c',
+      title: 'Order book',
+      caption: 'Open orders by channel with credit holds and dispatch dates, so the day starts from what is stuck.',
+      alt: 'MAVRO Order to Cash order book: open order value, orders on credit hold, dispatches this week and overdue receivables, with the order list below (illustrative data).',
+    },
+    {
+      screen: 'sales-order',
+      title: 'Order, credit and allocation',
+      caption:
+        'One order from capture to dispatch: the credit check, the allocated lots and the documents it produced.',
+      alt: 'MAVRO sales order SO-24817 for Kestrel Pumps with its credit check, allocation and linked documents (illustrative data).',
+    },
+    {
+      screen: 'finance',
+      title: 'Collections and dunning',
+      caption: 'Receivables by ageing bucket with an owner per account, and the reminders already sent.',
+      alt: 'MAVRO finance view of receivables by ageing bucket with collections status (illustrative data).',
+    },
   ] satisfies TourScreen[],
 };
 
@@ -47,10 +78,21 @@ const o2cContent = contentFor('order-to-cash')!;
 export const audience = {
   industries: o2cContent.industries.map((use) => {
     const industry = industries.list.find((item) => item.slug === use.slug)!;
-    return { name: industry.name, icon: industry.icon, note: use.note, href: `/#industry-${industry.slug}` };
+    return {
+      name: industry.name,
+      icon: industry.icon,
+      who: industry.who,
+      note: use.note,
+      href: `/#industry-${industry.slug}`,
+    };
   }),
   roles: o2cContent.roles,
-  labels: { industries: 'Industries', roles: 'Roles' },
+  labels: {
+    industries: 'Industries',
+    roles: 'The people who work in it',
+    works: 'Works in',
+    see: 'Order to Cash for {industry}',
+  },
 };
 
 const node = (id: string, kind?: 'current') => {
@@ -75,7 +117,15 @@ export const chain: FlowStage[] = [
 
 const card = (id: string, screen?: ModuleCard['screen']): ModuleCard => {
   const module = moduleById(id);
-  return { name: module.name, summary: module.summary, icon: module.icon, tier: module.pack, href: '/#explore', screen, alt: '' };
+  return {
+    name: module.name,
+    summary: module.summary,
+    icon: module.icon,
+    tier: module.pack,
+    href: '/#explore',
+    screen,
+    alt: '',
+  };
 };
 
 export const cards: ModuleCard[] = [
@@ -92,11 +142,17 @@ export const beforeAfter = {
   before: 'Today, native ERP only',
   after: 'After MAVRO',
   rows: [
-    { before: 'Every ERP user needs a paid named licence', after: 'Occasional users on MAVRO; ERP seats for core users' },
+    {
+      before: 'Every ERP user needs a paid named licence',
+      after: 'Occasional users on MAVRO; ERP seats for core users',
+    },
     { before: 'Complex screens and long user training', after: 'Simple role-based screens, minimal training' },
     { before: 'Every process change is costly ERP development', after: 'Boutique workflows configured in MAVRO' },
     { before: 'ERP access limited to the office desktop', after: 'Native Android and iOS app with offline sync' },
-    { before: 'Data split across SAP, Oracle, Tally and legacy tools', after: 'One MAVRO Database, synced with every ERP' },
+    {
+      before: 'Data split across SAP, Oracle, Tally and legacy tools',
+      after: 'One MAVRO Database, synced with every ERP',
+    },
     { before: 'Customisations put ERP upgrades at risk', after: 'ERP core untouched: clean, safe upgrades' },
   ],
 };
@@ -111,9 +167,29 @@ export const risks = {
     { key: 'owner', label: 'Owner' },
   ],
   rows: [
-    { risk: 'Poor master data quality', impact: { level: 'high', text: 'High' }, mitigation: 'Data cleansing workshop in month 1; trial migration before go-live', owner: 'Client IT' },
-    { risk: 'User adoption resistance', impact: { level: 'high', text: 'High' }, mitigation: 'Department champions appointed; in-person training on site', owner: 'Joint' },
-    { risk: 'Legacy data migration issues', impact: { level: 'medium', text: 'Medium' }, mitigation: 'Trial migration in month 1; exceptions handled before cutover', owner: 'SaiSatwik' },
-    { risk: 'Integration delays', impact: { level: 'low', text: 'Low' }, mitigation: 'Clean cutover assumed; parallel-run buffer built in', owner: 'SaiSatwik' },
+    {
+      risk: 'Poor master data quality',
+      impact: { level: 'high', text: 'High' },
+      mitigation: 'Data cleansing workshop in month 1; trial migration before go-live',
+      owner: 'Client IT',
+    },
+    {
+      risk: 'User adoption resistance',
+      impact: { level: 'high', text: 'High' },
+      mitigation: 'Department champions appointed; in-person training on site',
+      owner: 'Joint',
+    },
+    {
+      risk: 'Legacy data migration issues',
+      impact: { level: 'medium', text: 'Medium' },
+      mitigation: 'Trial migration in month 1; exceptions handled before cutover',
+      owner: 'SaiSatwik',
+    },
+    {
+      risk: 'Integration delays',
+      impact: { level: 'low', text: 'Low' },
+      mitigation: 'Clean cutover assumed; parallel-run buffer built in',
+      owner: 'SaiSatwik',
+    },
   ],
 } as const;
