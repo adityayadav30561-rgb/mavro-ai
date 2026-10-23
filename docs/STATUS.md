@@ -11,7 +11,7 @@ _Last updated: 2026-10-22. Update this file at the end of every task and before 
 per session; the user approves the module template after Phase 5. See [WORKFLOW.md](WORKFLOW.md).
 
 Everything builds (`npm run build` passes) and has been checked in the browser at phone, tablet, laptop and
-large-monitor sizes. The project is on GitHub (private): https://github.com/adityayadav30561-rgb/mavro-ai. See docs/CLOUD.md.
+large-monitor sizes. The project is on GitHub (public, by the user's choice): https://github.com/adityayadav30561-rgb/mavro-ai. See docs/CLOUD.md.
 
 ## The homepage, in order (`src/App.tsx`)
 
@@ -35,7 +35,7 @@ Premium modules, Why MAVRO, Explore the platform, Request a demo. Mobile drawer 
 
 ## Most recent work (newest first)
 
-- 2026-10-23: the project was put under git and pushed to GitHub (private repo) so work can continue from
+- 2026-10-23: the project was put under git and pushed to GitHub (public repo, by the user's choice) so work can continue from
   another Claude account or a cloud session. Added `docs/CLOUD.md` (setup), `docs/source/` (text of the decks),
   `CHROME_PATH` and Linux browser paths in the capture scripts.
 

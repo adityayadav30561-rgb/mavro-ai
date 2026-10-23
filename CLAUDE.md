@@ -37,7 +37,7 @@ npx tsc --noEmit  # typecheck only
   come from the decks (docs/PRODUCT.md). Sample data in mockups is labelled as illustrative.
 - **Verify in the browser** at desktop, laptop (1366×768) and phone widths before calling work done
   (docs/VERIFY.md), then run `npm run build`.
-- **Git: https://github.com/adityayadav30561-rgb/mavro-ai** (private). Commit at the end of every phase and push,
+- **Git: https://github.com/adityayadav30561-rgb/mavro-ai** (public). Commit at the end of every phase and push,
   so the next session, on any machine or Claude account, starts from the latest state. Working from a cloud
   session or another machine: [docs/CLOUD.md](docs/CLOUD.md) (setup, browser for screenshots, deck text).
 - **Keep the docs current.** At the end of every task, update docs/STATUS.md (and DECISIONS.md when the user

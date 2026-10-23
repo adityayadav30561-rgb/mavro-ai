@@ -1,6 +1,6 @@
 # Working on this project from another machine or a cloud session
 
-The project lives at **https://github.com/adityayadav30561-rgb/mavro-ai** (private). Everything needed to continue
+The project lives at **https://github.com/adityayadav30561-rgb/mavro-ai** (public; the user chose this on 2026-10-23, deck text included). Everything needed to continue
 is in the repository: code, prototype screens, docs, and the text of the source decks.
 
 ## First steps in a new session
