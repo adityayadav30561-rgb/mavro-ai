@@ -98,6 +98,12 @@ in the sitemap. One table drives everything:
   carry `data-module`, so Explore opens that module; industry links fall back to `#industry-<slug>`, which picks
   that industry in the Industries section.
 
+**Module pages** are generated: every module registered in `src/data/modules/content/index.ts` gets a route
+`/modules/<slug>` on the template `src/pages/ModulePage.tsx` (which reads the slug from the path), with its SEO
+title and description, the trail Home / package / module (the package crumb falls back to its homepage section),
+and SoftwareApplication + FAQPage structured data. Adding a module page: write its content file and screens
+(IMPLEMENTATION-PLAN.md, module recipe) and register it; the menus, footer and sitemap pick it up by themselves.
+
 Adding a page: write `src/pages/<Name>.tsx` exporting `Page`, add a route. `/pipeline-check` is a hidden test page
 (noindex, not linked, not in the sitemap) to be removed at launch QA.
 

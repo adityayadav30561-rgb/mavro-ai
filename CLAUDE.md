@@ -53,7 +53,8 @@ npx tsc --noEmit  # typecheck only
 ```
 src/routes.ts            every page: path, page module, title, description, breadcrumbs, JSON-LD, sitemap
 src/Layout.tsx           skip link, Nav, <main>, Footer (shared by every page)
-src/pages/               one module per page type (Home.tsx = homepage section order, NotFound, PipelineCheck)
+src/pages/               one module per page type (Home.tsx = homepage section order, ModulePage = the module
+                         template for every /modules/<slug>, NotFound, PipelineCheck)
 src/blocks/              the section library: every reusable block (docs/LIBRARY.md); gallery at /_library (dev)
 src/library/             the dev-only gallery page and its sample data
 src/data/                site.ts, nav.ts, home.ts, modules/, platform.ts, pages.ts  (all content)

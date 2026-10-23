@@ -2,7 +2,8 @@ import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 import { Icon } from '../../components/Icon';
 import { demo } from '../../data/home';
 import { site } from '../../data/site';
-import { DEMO_EVENT, DEMO_PARAM, type DemoPrefill } from './prefill';
+import { catalogue } from '../../data/modules';
+import { DEMO_EVENT, DEMO_MODULE_PARAM, DEMO_PARAM, type DemoPrefill } from './prefill';
 
 type Field = 'name' | 'email' | 'phone' | 'company';
 type Status = 'idle' | 'sending' | 'sent' | 'mailto' | 'failed';
@@ -90,11 +91,17 @@ export function DemoForm() {
     return () => window.removeEventListener(DEMO_EVENT, onPrefill);
   }, []);
 
-  // A call to action on another page arrives as /?interest=…#demo.
+  // A call to action on another page arrives as /?interest=…#demo; from a module page also &module=<name>, which
+  // starts the message (only names from the catalogue are taken).
   useEffect(() => {
-    const interest = new URLSearchParams(window.location.search).get(DEMO_PARAM);
+    const params = new URLSearchParams(window.location.search);
+    const interest = params.get(DEMO_PARAM);
     if (interest && (demo.interests as readonly string[]).includes(interest)) {
       setValues((v) => (v.interests.includes(interest) ? v : { ...v, interests: [...v.interests, interest] }));
+    }
+    const module = params.get(DEMO_MODULE_PARAM);
+    if (module && catalogue.some((entry) => entry.name === module)) {
+      setValues((v) => (v.message ? v : { ...v, message: demo.form.moduleMessage.replace('{module}', module) }));
     }
   }, []);
 

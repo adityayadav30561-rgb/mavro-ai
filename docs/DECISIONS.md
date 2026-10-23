@@ -147,6 +147,18 @@ least important, with full design effort. The ordered list lives in [STATUS.md](
 | Phone screens | Captured without a device frame; the site draws the frame (navy bezel) around them | One capture works in any frame size; the frame stays in the design system |
 | Prototype sidebar | Module screens list every module by business area, the active area open and the active module's views under it; homepage screens keep their original sidebar | "The sidebar grows to cover every module" (SITE-PLAN.md 6) without re-capturing approved screens |
 
+## Module page template (Phase 5, 2026-10-23; pending the user's review)
+
+| Decision | Choice | Why |
+|---|---|---|
+| FAQ wording | "Exporters" removed from the homepage FAQ ("What is MAVRO?" now says service providers; "Who is MAVRO for?" and the multi-currency answer no longer name exporters) | User, 2026-10-23: "yes change the faq too" |
+| Order to Cash screens | All four deck views (order book, order workflow, collections and dunning, sales order register) under `prototype/modules/order-to-cash/` with the module sidebar. Order book and order workflow are the approved `o2c` and `sales-order` screens moved onto the module shell (same content; the homepage keeps its originals); the register is new | One consistent sidebar across the module's tour; reuse where the screen is genuinely the module's view |
+| Phone screen | The module's phone screen (O2C: credit release) stands in front of the lead screen in the hero | Shows web and mobile together without another section |
+| Hero | The plate and screen hang from the hero's bottom edge, which cuts the screen on every desktop size | No empty band under the screen |
+| Section headings | Shared across modules with the module's name (`template.ts`); per-module copy is the content file | 42 pages stay consistent; content effort goes into the module's own facts |
+| Demo from a module page | The demo button ticks the module's package and starts the form's message with "I would like to see <module>." | The form keeps its four interests; the module still reaches the team |
+| Deck adaptation | The deck writes O2C for distribution-led pharma; the page states the same capabilities for every industry (FEFO stays, as batch allocation) | The site serves four industries |
+
 ## Rest of the site (Stage B planning, 2026-10-23)
 
 | Question | User's decision |

@@ -1,9 +1,10 @@
 import type { ComponentType } from 'react';
 import { faq } from './data/home';
+import { entryBySlug, moduleContent, modulePage, packs } from './data/modules';
 import { notFound, pipelineCheck } from './data/pages';
 import { site } from './data/site';
 import type { Crumb } from './routing';
-import { faqPage } from './seo/schema';
+import { faqPage, moduleSoftware } from './seo/schema';
 
 /*
  * Every page of the site, in one table. The same entries drive:
@@ -71,6 +72,32 @@ export const notFoundRoute: Route = {
   inSitemap: false,
 };
 
+/**
+ * One page per module with content (src/data/modules/content/), all on the module template (src/pages/ModulePage.tsx).
+ * The trail runs Home / package / module; the package crumb links to its homepage section until the package page
+ * exists. Each page carries the module as a SoftwareApplication (part of MAVRO) and its FAQ.
+ */
+const moduleRoutes: Route[] = Object.values(moduleContent).map((content) => {
+  const entry = entryBySlug(content.slug);
+  const pack = packs[entry.pack];
+  const path = modulePage(entry);
+  return {
+    path,
+    page: 'ModulePage',
+    title: content.seo.title,
+    description: content.seo.description,
+    crumbs: [
+      { name: pack.name, path: pack.page, fallback: `/${pack.href}` },
+      { name: entry.name, path },
+    ],
+    inSitemap: true,
+    schema: () => [
+      moduleSoftware(site.url, path, entry.name, pack.name, content.seo.description),
+      faqPage(`${site.url}${path}#faq`, content.faq),
+    ],
+  };
+});
+
 const libraryRoute: Route = {
   path: '/_library',
   page: 'Library',
@@ -92,6 +119,7 @@ export const routes: Route[] = [
     crumbs: [{ name: pipelineCheck.seo.crumb, path: '/pipeline-check' }],
     inSitemap: false,
   },
+  ...moduleRoutes,
   // Dev only: the section library (src/library/). Absent from production builds, so never prerendered or served.
   ...(import.meta.env.DEV ? [libraryRoute] : []),
   notFoundRoute,

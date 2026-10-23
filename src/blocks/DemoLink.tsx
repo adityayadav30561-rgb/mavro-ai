@@ -5,6 +5,8 @@ import { demoHref, prefillDemo } from '../sections/demo/prefill';
 interface DemoLinkProps {
   /** The demo-form interest to tick ('Base modules', 'Portals', 'Premium modules', 'ERP Connect'), or null. */
   interest: string | null;
+  /** On a module page: the module, which the form puts in its message. */
+  module?: string | null;
   className?: string;
   children: ReactNode;
 }
@@ -13,13 +15,13 @@ interface DemoLinkProps {
  * A link to the demo request form that ticks an interest. On the homepage it scrolls to #demo and tells the form
  * by event; on any other page it opens the homepage form with the interest in the URL.
  */
-export function DemoLink({ interest, className, children }: DemoLinkProps) {
+export function DemoLink({ interest, module, className, children }: DemoLinkProps) {
   const home = usePath() === '/';
   return (
     <a
       className={className}
-      href={home ? '#demo' : demoHref(interest)}
-      onClick={home ? () => prefillDemo({ interest }) : undefined}
+      href={home ? '#demo' : demoHref(interest, module)}
+      onClick={home ? () => prefillDemo({ interest, module }) : undefined}
     >
       {children}
     </a>

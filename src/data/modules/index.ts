@@ -7,9 +7,11 @@
  *   sources.ts     where each page's content comes from in docs/source/ (every slug, enforced by the type)
  *   schema.ts      the shape of a module page's content (`ModuleContent`)
  *   content/       one content file per module page, registered in content/index.ts as module phases land
+ *   template.ts    the module page template's shared headings, with {name} for the module
  */
 export * from './catalogue';
 export * from './content';
 export * from './schema';
 export * from './slugs';
 export * from './sources';
+export * from './template';

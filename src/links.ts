@@ -28,5 +28,9 @@ export function target(link: Link): string | null {
 /** True when the link has reached its own page (rather than a homepage fallback). */
 export const isPage = (link: Link) => !!link.page && hasPage(link.page);
 
+/** Where a breadcrumb links: its page once built, else its fallback (a homepage section), else its path. */
+export const crumbTarget = (crumb: { path: string; fallback?: string }) =>
+  hasPage(crumb.path) ? crumb.path : (crumb.fallback ?? crumb.path);
+
 /** The links that have somewhere to go. */
 export const shown = <T extends Link>(links: readonly T[]) => links.filter((link) => target(link) !== null);

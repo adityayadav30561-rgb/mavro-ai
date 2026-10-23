@@ -8,7 +8,7 @@ import type { FlowStage } from '../blocks/FlowStrip';
 import type { ModuleCard } from '../blocks/ModuleCards';
 import type { TourScreen } from '../blocks/ScreenTour';
 import { industries } from '../data/home';
-import { moduleById } from '../data/modules';
+import { contentFor, moduleById } from '../data/modules';
 
 /** Product deck slide 34: Order to Cash. */
 export const o2c = {
@@ -40,6 +40,17 @@ export const o2c = {
     { screen: 'sales-order', title: 'Order, credit and allocation', caption: 'One order from capture to dispatch: the credit check, the allocated lots and the documents it produced.', alt: 'MAVRO sales order SO-24817 for Kestrel Pumps with its credit check, allocation and linked documents (illustrative data).' },
     { screen: 'finance', title: 'Collections and dunning', caption: 'Receivables by ageing bucket with an owner per account, and the reminders already sent.', alt: 'MAVRO finance view of receivables by ageing bucket with collections status (illustrative data).' },
   ] satisfies TourScreen[],
+};
+
+/** Who uses Order to Cash: its industries and roles (src/data/modules/content/order-to-cash.ts). */
+const o2cContent = contentFor('order-to-cash')!;
+export const audience = {
+  industries: o2cContent.industries.map((use) => {
+    const industry = industries.list.find((item) => item.slug === use.slug)!;
+    return { name: industry.name, icon: industry.icon, note: use.note, href: `/#industry-${industry.slug}` };
+  }),
+  roles: o2cContent.roles,
+  labels: { industries: 'Industries', roles: 'Roles' },
 };
 
 const node = (id: string, kind?: 'current') => {

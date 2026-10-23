@@ -5,6 +5,13 @@
   gap: clamp(.875rem, 1.6vw, 1.5rem);
 }
 
+/* Exactly four cards (related modules): one row of four on desktops, two by two below, never three and one. */
+@media (min-width: 1024px) {
+  .mc:has(> .mc__item:nth-child(4):last-child) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 .mc__item {
   --tier: var(--blue);
   --tier-soft: var(--blue-50);

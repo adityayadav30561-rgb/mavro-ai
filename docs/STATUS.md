@@ -4,8 +4,8 @@ _Last updated: 2026-10-23. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–4 done (2026-10-23); next: Phase 5, the module page template piloted
-on Order to Cash (the user reviews it before Phase 6).** The
+**Stage C (phased implementation). Phases 1–4 done; Phase 5 built (2026-10-23): the module page template on
+`/modules/order-to-cash`, waiting for the user's review before Phase 6.** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,31 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-23, **Phase 5 (module page template, piloted on Order to Cash) built; waiting for the user's review.**
+  - **FAQ:** "exporters" removed from the three homepage FAQ answers (user).
+  - **Page:** `src/pages/ModulePage.tsx`, ten sections from the library (table in docs/LIBRARY.md); copy shared
+    across modules in `src/data/modules/template.ts`; O2C content in `src/data/modules/content/order-to-cash.ts`
+    from v2 slides 34–35 (tagline, four tiles with screen figures, what, six why points, flow from/to with what
+    passes, four industries with a line each, five roles, four related modules, five FAQs, SEO).
+  - **Routes:** generated from the content registry (`routes.ts`, `moduleRoutes`): title, description, trail Home
+    / Base modules (falls back to `/#modules`) / Order to Cash, SoftwareApplication (part of MAVRO) + FAQPage. In
+    the sitemap. The menus and footer now link Order to Cash to its page by themselves.
+  - **Screens:** `order-to-cash/order-book` and `order-workflow` (the approved `o2c` and `sales-order` moved onto
+    the module shell), `collections` (Phase 4), the new `order-register` (186 orders, ₹11.40 Cr booked, ₹4.86 Cr
+    open, 42 of 61 allocated, e-invoice IRNs), and the phone `credit-release` in the hero.
+  - **Blocks:** new `Audience` (who uses it; in the gallery and LIBRARY.md); FlowStrip nodes take a `note`;
+    ModuleCards with exactly four cards use one row of four; PageHero module variant: plate and screen hang from
+    the hero's bottom edge; Screen phone frame; DemoLink / PageHero / CtaBand take `module`, and the demo form
+    starts its message with the module (`?module=`, only catalogue names accepted). Breadcrumbs and the
+    BreadcrumbList use a crumb's fallback until its page exists (`crumbTarget` in links.ts).
+  - Verified: tsc and build; `/modules/order-to-cash` at 1440×900, 1366×768, 1024×768, 1920×1080 and 390×844;
+    `qa/measure.html` no overflow at nine sizes on the module page, `/_library` and `/`; one H1; prerendered head
+    (title, description, canonical, JSON-LD); production hydration with no console errors and no three.js;
+    tour keyboard; demo prefill from the CTA (Base modules ticked, message set).
+  - **Section heights** (1440×900): hero 0.88, capabilities 0.58, screens 1.04, what 0.75, flow 0.74, audience 0.89,
+    platform 0.80, related 0.61, FAQ 0.75, CTA 0.40. Capabilities and related are lighter than the 0.75 guide; left
+    as they are for the review.
 
 - 2026-10-23, after Phase 4 (user feedback):
   - **Platform menu:** the "Platform overview" branch is gone (user: the packages already cover every module, and
@@ -218,11 +243,10 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 5: module page template, piloted on Order to Cash** (IMPLEMENTATION-PLAN.md): `src/pages/ModulePage.tsx`
-   with all ten sections; `src/data/modules/content/order-to-cash.ts` from v2 slide 34; routes generated from
-   `moduleContent`; screens: the existing `o2c`, `sales-order` (or bespoke), plus `order-to-cash/collections`
-   (done) and the phone `credit-release` (done). **The user reviews the template before Phase 6.**
-2. Accounting (Phase 6) uses standard accounting-module information plus the deck's summary points.
+1. **The user reviews `/modules/order-to-cash`** (the template). Apply the feedback to the template and
+   DECISIONS.md, then mark Phase 5 done.
+2. Phase 6: Accounting, Vendor Invoice Management, Travel and Expense (Accounting from standard accounting-module
+   information plus the deck's summary points).
 
 ## Open items (need the user or real assets)
 
@@ -235,7 +259,6 @@ items when context is heavy.
 | Social share image | `src/seo/head.ts` | none |
 | FAQ: pricing and hosting | `faq.items` in home.ts | not answered: the decks do not state a pricing model, deployment options beyond "cloud-native" or data ownership terms. Add those questions once the user supplies the answers |
 | About, Careers, Blog, Privacy, Terms | `src/data/nav.ts` (page, no fallback) | planned pages; links stay hidden until their routes exist |
-| FAQ still says "exporters" | `faq.items` in home.ts ("What is MAVRO?", "Who is MAVRO for?", multi-currency answer) | the title now says service providers (user, 2026-10-23); the FAQ answers were not changed. Ask the user |
 | Hidden test page | `/pipeline-check` in `src/routes.ts` | noindex, not linked, not in the sitemap; remove at launch QA (Phase 28) |
 | One stylesheet for all pages | `cssCodeSplit: false` in vite.config.ts | every page loads the full CSS (96 kB, about 19 kB gzip, after Phase 2's blocks); revisit in the Phase 28 performance pass as pages grow |
 | 404 has no canonical | `src/seo/head.ts` | deliberate (the plan said "own canonical"): the 404 answers at any missing URL, so it names none and is noindex |

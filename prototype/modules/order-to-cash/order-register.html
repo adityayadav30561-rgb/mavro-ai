@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Order to Cash · Order register</title>
+<!--
+  Scenario: see collections.html. The register for 1 Sep – 8 Oct: 186 orders booked for ₹11.40 Cr; ₹6.54 Cr invoiced
+  (124 invoices, each with its e-invoice IRN), ₹4.86 Cr still open across 61 orders (as on the order book), 42 of
+  them fully allocated to stock or production. Rows agree with order-book.html, order-workflow.html (SO-24817) and
+  collections.html (SO-24861 and SO-24873 held).
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .filter.add { border-style: dashed; color: var(--ink-3); }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 260px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sum { padding: 12px 16px; }
+  .sum label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sum strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sum strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .sum .meter { margin-top: 8px; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 7px; padding-bottom: 7px; }
+  .ch { display: inline-block; padding: 1px 7px; border-radius: 5px; background: var(--surface-2); border: 1px solid var(--line); font-size: 11.5px; color: var(--ink-2); }
+  .alloc { display: flex; align-items: center; gap: 8px; }
+  .alloc .meter { width: 52px; min-width: 52px; }
+  .alloc span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .irn { display: inline-flex; align-items: center; gap: 5px; color: var(--ok); font-size: 11.5px; font-weight: 550; }
+  .irn::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--ok-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3.2 6.2 5 8l3.8-4' fill='none' stroke='%230c9b6a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px no-repeat; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="order-to-cash" data-view="Order register" data-views="Order book|Order workflow|Collections|Order register"
+      data-crumb="Sell / Order to Cash / Order register" data-who="Arjun Sethi|Sales manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Sales order register</h1>
+      <p>Every order with its allocation, invoice and e-invoice status · each row opens its document trail</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All</span><span>Open</span><span>Invoiced</span><span>Held</span></div>
+      <span class="btn">Columns</span>
+      <span class="btn">Export</span>
+      <span class="btn pri">New sales order</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Period <b>1 Sep – 8 Oct</b></span>
+    <span class="filter">Plant <b>Pune</b></span>
+    <span class="filter">Channel <b>All</b></span>
+    <span class="filter">Sales owner <b>All</b></span>
+    <span class="filter add">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Order, customer, item or invoice</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sum"><label>Orders booked</label><strong>186</strong></div>
+    <div class="card sum"><label>Booked value</label><strong>₹11.40 Cr</strong></div>
+    <div class="card sum"><label>Invoiced</label><strong>₹6.54 Cr <small>124 invoices</small></strong></div>
+    <div class="card sum"><label>Open</label><strong>₹4.86 Cr <small>61 orders</small></strong></div>
+    <div class="card sum"><label>Open orders fully allocated</label><strong>42 <small>of 61</small></strong><span class="meter ok"><i style="width:69%"></i></span></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Order</th><th>Date</th><th>Customer</th><th>Channel</th><th class="r">Value</th><th>Allocation</th><th>Status</th><th>Invoice</th><th>e-Invoice</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">SO-24873</b><small>5 lines</small></td><td class="mono">6 Oct</td><td><b>Anand Engineering Works</b><small>Rajkot</small></td><td><span class="ch">Direct</span></td><td class="r mono">₹17,08,300</td><td><div class="alloc"><span class="meter ink"><i style="width:0%"></i></span><span>held</span></div></td><td><span class="chip bad">Credit hold</span></td><td class="dim">—</td><td class="dim">—</td></tr>
+          <tr><td><b class="mono">SO-24866</b><small>2 lines</small></td><td class="mono">3 Oct</td><td><b>Deccan Fluid Systems</b><small>Hyderabad</small></td><td><span class="ch">Distributor</span></td><td class="r mono">₹5,40,000</td><td><div class="alloc"><span class="meter"><i style="width:40%"></i></span><span>40%</span></div></td><td><span class="chip blue">Planned</span></td><td class="dim">Advance received</td><td class="dim">—</td></tr>
+          <tr><td><b class="mono">SO-24861</b><small>1 line</small></td><td class="mono">1 Oct</td><td><b>Orion Agro Equipment</b><small>Indore</small></td><td><span class="ch">Distributor</span></td><td class="r mono">₹14,62,000</td><td><div class="alloc"><span class="meter ink"><i style="width:0%"></i></span><span>held</span></div></td><td><span class="chip warn">Credit release</span></td><td class="dim">—</td><td class="dim">—</td></tr>
+          <tr><td><b class="mono">SO-24852</b><small>2 lines</small></td><td class="mono">29 Sep</td><td><b>Varun Hydraulics</b><small>Pune</small></td><td><span class="ch">Direct</span></td><td class="r mono">₹6,84,200</td><td><div class="alloc"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="chip ok">Ready</span></td><td class="dim">On dispatch, 11 Oct</td><td class="dim">—</td></tr>
+          <tr><td><b class="mono">SO-24844</b><small>3 lines</small></td><td class="mono">27 Sep</td><td><b>Meridian Compressors</b><small>Coimbatore</small></td><td><span class="ch">Dealer</span></td><td class="r mono">₹8,95,750</td><td><div class="alloc"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="chip">Picking</span></td><td class="dim">On dispatch</td><td class="dim">—</td></tr>
+          <tr><td><b class="mono">SO-24839</b><small>4 lines</small></td><td class="mono">25 Sep</td><td><b>Sundaram Valves</b><small>Chennai</small></td><td><span class="ch">Distributor</span></td><td class="r mono">₹11,20,500</td><td><div class="alloc"><span class="meter"><i style="width:72%"></i></span><span>72%</span></div></td><td><span class="chip blue">Production</span></td><td class="dim">On dispatch</td><td class="dim">—</td></tr>
+          <tr class="hl"><td><b class="mono">SO-24817</b><small>2 lines</small></td><td class="mono">22 Sep</td><td><b>Kestrel Pumps Ltd</b><small>Pune</small></td><td><span class="ch">Direct</span></td><td class="r mono">₹21,73,560</td><td><div class="alloc"><span class="meter"><i style="width:26%"></i></span><span>310 stock</span></div></td><td><span class="chip blue">Production</span></td><td><b class="mono">INV-6120</b><small>raised on dispatch</small></td><td class="dim">—</td></tr>
+          <tr><td><b class="mono">SO-24811</b><small>3 lines</small></td><td class="mono">19 Sep</td><td><b>Sundaram Valves</b><small>Chennai</small></td><td><span class="ch">Distributor</span></td><td class="r mono">₹7,36,400</td><td><div class="alloc"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="chip ok">Invoiced</span></td><td><b class="mono">INV-6104</b><small>2 Oct</small></td><td><span class="irn">IRN generated</span></td></tr>
+          <tr><td><b class="mono">SO-24808</b><small>2 lines</small></td><td class="mono">18 Sep</td><td><b>Deccan Fluid Systems</b><small>Hyderabad</small></td><td><span class="ch">Distributor</span></td><td class="r mono">₹4,98,600</td><td><div class="alloc"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="chip ok">Invoiced</span></td><td><b class="mono">INV-6109</b><small>4 Oct</small></td><td><span class="irn">IRN generated</span></td></tr>
+          <tr><td><b class="mono">SO-24799</b><small>1 line</small></td><td class="mono">12 Sep</td><td><b>Patel Irrigation</b><small>Ahmedabad</small></td><td><span class="ch">Dealer</span></td><td class="r mono">₹3,64,000</td><td><div class="alloc"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="chip ok">Paid</span></td><td><b class="mono">INV-6092</b><small>29 Sep</small></td><td><span class="irn">IRN generated</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <span>Showing 1–10 of 186 orders · sorted by order date</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>…</span><span>19</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

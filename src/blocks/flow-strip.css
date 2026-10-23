@@ -119,6 +119,21 @@
   min-width: 0;
 }
 
+/* What passes along the link, under the module's name. */
+.fs__pass {
+  display: block;
+  margin-top: .125rem;
+  font-size: 0.75rem;
+  font-weight: 550;
+  line-height: 1.35;
+  color: var(--fg-3);
+}
+
+.fs__node[data-kind='configured'] .fs__pass,
+.fs__node[data-kind='current'] .fs__pass {
+  color: rgb(255 255 255 / 0.8);
+}
+
 .fs__arrow {
   color: var(--blue);
   opacity: 0.45;

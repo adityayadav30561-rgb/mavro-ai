@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Order to Cash · SO-24817</title>
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 332px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .flowcard .body { padding: 18px 8px 16px; }
+  .ful { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .ful > div { padding: 2px 16px; border-left: 1px solid var(--line); }
+  .ful > div:first-child { border-left: 0; padding-left: 0; }
+  .ful label { color: var(--ink-2); font-size: 12px; }
+  .ful strong { display: block; font-size: 20px; font-weight: 620; letter-spacing: -0.02em; margin: 3px 0 8px; }
+  .ful small { color: var(--ink-3); font-size: 12px; }
+  .docs li { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+  .docs li + li { border-top: 1px solid var(--line); }
+  .docs b { font: 550 12px var(--mono); width: 78px; }
+  .docs span { color: var(--ink-2); }
+  .docs .chip { margin-left: auto; }
+  .total { display: flex; justify-content: space-between; align-items: baseline; }
+  .total strong { font-size: 20px; font-weight: 650; letter-spacing: -0.02em; }
+</style>
+</head>
+<body data-module="order-to-cash" data-view="Order workflow" data-views="Order book|Order workflow|Collections|Order register" data-crumb="Sell / Order to Cash / SO-24817" data-who="Arjun Sethi|Sales manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>SO-24817 &nbsp;<span class="chip blue" style="vertical-align:4px">In production</span></h1>
+      <p>Kestrel Pumps Ltd · customer PO KP/PO/1182 · confirmed 22 Sep · promised 18 Oct</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Print</span>
+      <span class="btn">Amend order</span>
+      <span class="btn pri">Plan dispatch</span>
+    </div>
+  </div>
+
+  <div class="card flowcard">
+    <header><h2>Document flow</h2><span>every document on this order, created from the one before it</span></header>
+    <div class="body">
+      <ol class="flow" style="--n:9;--at:0.375">
+        <li class="done"><i></i><b>Enquiry</b><span>ENQ-3391</span></li>
+        <li class="done"><i></i><b>Quotation</b><span>QTN-2207</span></li>
+        <li class="done"><i></i><b>Sales order</b><span>SO-24817</span></li>
+        <li class="now"><i></i><b>Production</b><span>WO-5521 · 64%</span></li>
+        <li class="next"><i></i><b>Quality</b><span>L-0932</span></li>
+        <li class="next"><i></i><b>Inventory</b><span>FG-A-14</span></li>
+        <li class="next"><i></i><b>Dispatch</b><span>17 Oct</span></li>
+        <li class="next"><i></i><b>Invoice</b><span>on dispatch</span></li>
+        <li class="next"><i></i><b>Payment</b><span>Net 30</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card">
+        <header><h2>Fulfilment</h2><span>1,200 pcs of IH-220 Impeller housing</span></header>
+        <div class="body">
+          <div class="ful">
+            <div><label>Reserved from stock</label><strong>310</strong><span class="meter ok"><i style="width:100%"></i></span><small>Finished goods, FG-A-14</small></div>
+            <div><label>In production</label><strong>890</strong><span class="meter"><i style="width:64%"></i></span><small>WO-5521 · 570 through machining</small></div>
+            <div><label>Passed quality</label><strong>48 <small>of 50 sampled</small></strong><span class="meter warn"><i style="width:96%"></i></span><small>2 on hold, in rework</small></div>
+            <div><label>Ready for dispatch</label><strong>310 <small>of 1,200</small></strong><span class="meter ink"><i style="width:26%"></i></span><small>Vehicle planned 17 Oct</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card flush" style="flex:1">
+        <header><h2>Order lines</h2><span>2 lines</span><span class="more">Price history</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>#</th><th>Item</th><th class="r">Quantity</th><th class="r">Unit price</th><th class="r">Tax</th><th class="r">Line value</th><th>Supply</th></tr></thead>
+            <tbody>
+              <tr><td class="dim">10</td><td><b>IH-220 Impeller housing</b><small>LM6 aluminium, drawing IH-220 rev D</small></td><td class="r mono">1,200 pcs</td><td class="r mono">₹1,535.00</td><td class="r mono">GST 18%</td><td class="r mono"><b>₹18,42,000</b></td><td><span class="chip blue">Make 890 · Stock 310</span></td></tr>
+              <tr><td class="dim">20</td><td><b>Export-grade crating</b><small>24 crates, heat-treated pallets</small></td><td class="r mono">24 nos</td><td class="r mono">Included</td><td class="r mono">—</td><td class="r mono"><b>—</b></td><td><span class="chip ok">In stock</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <header><h2>What this order has set in motion</h2><span class="more">Full activity</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="feed">
+            <li><i class="blue">PO</i><p><b>Purchase order PO-7714</b> raised for 400 kg of castings<small>Planning found the shortage on WO-5521 and sourced it from Aravali Castings</small></p><time>8 Oct</time></li>
+            <li><i class="ok">INV</i><p><b>310 pcs reserved</b> from finished goods<small>Stock held for this order the moment it was confirmed</small></p><time>22 Sep</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Commercials</h2></header>
+        <div class="body">
+          <dl class="kv">
+            <dt>Taxable value</dt><dd class="mono">₹18,42,000</dd>
+            <dt>GST 18%</dt><dd class="mono">₹3,31,560</dd>
+          </dl>
+          <div class="rule"></div>
+          <div class="total"><span class="sub">Order total</span><strong>₹21,73,560</strong></div>
+          <div class="rule"></div>
+          <dl class="kv">
+            <dt>Payment terms</dt><dd>Net 30</dd>
+            <dt>Quoted margin</dt><dd>23.4%</dd>
+            <dt>Margin at actual cost</dt><dd style="color:var(--ok)">23.1%</dd>
+            <dt>Customer credit</dt><dd><span class="chip ok">Within limit</span></dd>
+          </dl>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Linked documents</h2><span>7</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="docs">
+            <li><b>QTN-2207</b><span>Quotation</span><span class="chip ok">Accepted</span></li>
+            <li><b>WO-5521</b><span>Work order</span><span class="chip blue">Running</span></li>
+            <li><b>PR-0456</b><span>Requisition</span><span class="chip ok">Ordered</span></li>
+            <li><b>PO-7714</b><span>Purchase order</span><span class="chip blue">In transit</span></li>
+            <li><b>L-0932</b><span>Inspection lot</span><span class="chip warn">2 on hold</span></li>
+            <li><b>DSP-1904</b><span>Dispatch plan</span><span class="chip">Planned</span></li>
+            <li><b>INV-6120</b><span>Invoice</span><span class="chip">On dispatch</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

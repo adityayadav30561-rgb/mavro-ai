@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { ConnectBoard, LayeredArchitecture } from '../blocks/ArchitectureDiagram';
+import { Audience } from '../blocks/Audience';
 import { CapabilityTiles } from '../blocks/CapabilityTiles';
 import { ChainDiagram } from '../blocks/ChainDiagram';
 import { BeforeAfter, DataTable } from '../blocks/ComparisonTable';
@@ -20,7 +21,7 @@ import { WhatWhy } from '../blocks/WhatWhy';
 import { Screen } from '../components/Screen';
 import { connect, explore, faq, implementation, industries, inlineCtas, proof, why } from '../data/home';
 import { architecture, platformFeatures } from '../data/platform';
-import { beforeAfter, cards, chain, o2c, risks, sits } from './samples';
+import { audience, beforeAfter, cards, chain, o2c, risks, sits } from './samples';
 import './library.css';
 
 /*
@@ -161,6 +162,9 @@ export function Page() {
         </Entry>
         <Entry name="WhatWhy" file="blocks/WhatWhy.tsx" use="Module">
           <WhatWhy what={o2c.what} why={o2c.why} />
+        </Entry>
+        <Entry name="Audience" file="blocks/Audience.tsx" use="Module (who uses it)">
+          <Audience {...audience} />
         </Entry>
       </Section>
 

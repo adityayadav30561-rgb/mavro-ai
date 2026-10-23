@@ -2,7 +2,10 @@ import { createContext, useContext } from 'react';
 
 export interface Crumb {
   name: string;
+  /** The page this crumb names (its route path). */
   path: string;
+  /** Until that page exists: where the crumb links instead, usually a homepage section ('/#modules'). */
+  fallback?: string;
 }
 
 /**

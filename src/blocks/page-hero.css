@@ -74,6 +74,40 @@ body:has(.ph.section--night) .nav {
   }
 }
 
+/* Module heroes: the plate and its screen run to the bottom edge of the hero, which cuts them; the copy stays
+   centred beside them. */
+@media (min-width: 1024px) {
+  .ph[data-variant='module']:not([data-simple]) {
+    align-items: stretch;
+    padding-bottom: 0;
+  }
+
+  .ph[data-variant='module'] .ph__grid {
+    align-items: stretch;
+  }
+
+  .ph[data-variant='module'] .ph__copy {
+    align-self: center;
+    padding-bottom: clamp(2rem, 6vh, 4rem);
+  }
+
+  /* Plate and screen hang from the hero's bottom edge, so the edge always cuts the screen: the screen (2:3 of its
+     width tall) runs 6rem past the edge and the plate starts 1.25rem above the screen's top. */
+  .ph[data-variant='module'] .ph__visual {
+    --shot-h: calc(var(--sframe-w) * 2 / 3);
+  }
+
+  .ph[data-variant='module'] .ph__visual::before {
+    top: auto;
+    height: calc(var(--shot-h) - 4.75rem);
+  }
+
+  .ph[data-variant='module'] .ph__visual .sframe__shot {
+    top: auto;
+    bottom: -6rem;
+  }
+}
+
 .ph__copy {
   display: grid;
   justify-items: start;

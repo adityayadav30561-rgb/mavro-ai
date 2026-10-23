@@ -13,13 +13,15 @@ interface CtaBandProps {
   /** The primary button, and the demo-form interest it ticks. */
   label: string;
   interest: string | null;
+  /** On a module page: the module the form names in its message. */
+  module?: string | null;
 }
 
 /**
  * The close of every page below the homepage: a navy band with one ask (the demo, with the page's interest
  * ticked) and the direct contact details for people who prefer to write or call.
  */
-export function CtaBand({ id = 'cta', title, rest, treatment = 'grad', body, label, interest }: CtaBandProps) {
+export function CtaBand({ id = 'cta', title, rest, treatment = 'grad', body, label, interest, module }: CtaBandProps) {
   return (
     <section id={id} className="section section--night cta" aria-labelledby={`${id}-title`}>
       <div className="cta__glow" aria-hidden="true" />
@@ -29,7 +31,7 @@ export function CtaBand({ id = 'cta', title, rest, treatment = 'grad', body, lab
           <p className="lead">{body}</p>
         </div>
         <div className="cta__actions">
-          <DemoLink interest={interest} className="btn btn--primary cta__btn">
+          <DemoLink interest={interest} module={module} className="btn btn--primary cta__btn">
             {label}
             <Icon name="arrow" size={16} className="btn__arrow" />
           </DemoLink>

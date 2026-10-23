@@ -418,12 +418,12 @@ export const faq = {
   items: [
     {
       q: 'What is MAVRO ERP?',
-      a: 'MAVRO is an enterprise resource planning (ERP) platform for manufacturers, distributors and exporters, made by SaiSatwik Technologies in Greater Noida, India. It brings base modules (accounting, payroll, order to cash, procure to pay, production, inventory), portals for vendors and the sales channel, and premium modules for specialised operations onto one platform with one set of business data.',
+      a: 'MAVRO is an enterprise resource planning (ERP) platform for manufacturers, distributors and service providers, made by SaiSatwik Technologies in Greater Noida, India. It brings base modules (accounting, payroll, order to cash, procure to pay, production, inventory), portals for vendors and the sales channel, and premium modules for specialised operations onto one platform with one set of business data.',
       link: { label: 'Explore the platform', href: '#explore' },
     },
     {
       q: 'Who is MAVRO ERP built for?',
-      a: 'MAVRO is built for businesses running at scale: OEM suppliers, multi-line and multi-plant manufacturers, distribution-led companies with dealer and retailer networks, pharma manufacturers, exporters, and service providers such as IT companies. It suits businesses that need finance, operations, HR and channel data in one place, in real time, with Indian compliance built in.',
+      a: 'MAVRO is built for businesses running at scale: OEM suppliers, multi-line and multi-plant manufacturers, distribution-led companies with dealer and retailer networks, pharma manufacturers, and service providers such as IT companies. It suits businesses that need finance, operations, HR and channel data in one place, in real time, with Indian compliance built in.',
       link: { label: 'See industries', href: '#industries' },
     },
     {
@@ -467,7 +467,7 @@ export const faq = {
     },
     {
       q: 'Does MAVRO support multiple companies, plants and currencies?',
-      a: 'Yes. MAVRO is cloud-native and runs multiple entities, branches and plants in multiple currencies on one platform, with a live multi-currency P&L for exporters and role dashboards for the CFO, plant heads, sales and HR.',
+      a: 'Yes. MAVRO is cloud-native and runs multiple entities, branches and plants in multiple currencies on one platform, with a live multi-currency P&L and role dashboards for the CFO, plant heads, sales and HR.',
     },
     {
       q: 'How does MAVRO keep our data secure?',
@@ -603,6 +603,8 @@ export const demo = {
     interests: 'Interested in',
     message: 'Anything we should know?',
     messageHint: 'Optional. Industry, number of plants or users, timelines.',
+    /** Starts the message when the visitor comes from a module page. */
+    moduleMessage: 'I would like to see {module}.',
     submit: 'Request my demo',
     sending: 'Sending…',
     privacy: 'We use these details only to arrange your demo.',

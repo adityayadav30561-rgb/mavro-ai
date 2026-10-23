@@ -1,0 +1,142 @@
+/* Who uses a module (blocks/Audience.tsx): industry cards beside the roles that work in it. */
+.aud {
+  display: grid;
+  gap: var(--s-6);
+}
+
+@media (min-width: 1024px) {
+  .aud {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+}
+
+.aud__label {
+  margin-bottom: var(--s-3);
+  font-size: var(--t-label);
+  font-weight: 750;
+  color: var(--fg-3);
+}
+
+.aud__cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-4);
+}
+
+.aud__card {
+  display: grid;
+  align-content: start;
+  gap: .5rem;
+  height: 100%;
+  padding: 1.25rem 1.25rem 1.375rem;
+  border-radius: var(--r-3);
+  background: var(--white);
+  box-shadow: var(--shadow-2);
+  transition:
+    box-shadow var(--d-2) ease,
+    transform var(--d-2) var(--ease);
+}
+
+a.aud__card:hover {
+  box-shadow:
+    inset 0 0 0 1.5px var(--blue-200),
+    var(--shadow-2);
+  transform: translateY(-2px);
+}
+
+.aud__icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: .25rem;
+  border-radius: var(--r-2);
+  background: var(--blue-50);
+  color: var(--blue);
+}
+
+.aud__name {
+  display: flex;
+  align-items: center;
+  gap: .375rem;
+  font-size: 1.0625rem;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+.aud__arrow {
+  color: var(--blue);
+  opacity: 0.5;
+  transition:
+    opacity var(--d-1) ease,
+    transform var(--d-2) var(--ease);
+}
+
+a.aud__card:hover .aud__arrow {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+.aud__note {
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+
+.aud__roles {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.5rem 1.25rem;
+  border-radius: var(--r-3);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.aud__roles ol {
+  display: grid;
+  flex: 1;
+  align-content: space-between;
+  gap: .25rem;
+}
+
+.aud__roles li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: .875rem;
+  align-items: start;
+  padding: .75rem 0;
+}
+
+.aud__roles li + li {
+  border-top: 1px solid var(--line);
+}
+
+.aud__avatar {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: var(--shadow-1);
+  color: var(--violet);
+}
+
+.aud__roles b {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 720;
+}
+
+.aud__roles li span span {
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--fg-2);
+}
+
+@media (max-width: 600px) {
+  .aud__cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

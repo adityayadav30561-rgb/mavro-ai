@@ -13,6 +13,8 @@ export interface HeroAction {
   href?: string;
   /** For the demo form: the interest to tick. */
   interest?: string | null;
+  /** For the demo form, on a module page: the module to name in the message. */
+  module?: string | null;
 }
 
 interface PageHeroProps {
@@ -100,7 +102,7 @@ export function PageHero({
                     {content}
                   </a>
                 ) : (
-                  <DemoLink key={action.label} interest={action.interest ?? null} className={className}>
+                  <DemoLink key={action.label} interest={action.interest ?? null} module={action.module} className={className}>
                     {content}
                   </DemoLink>
                 );

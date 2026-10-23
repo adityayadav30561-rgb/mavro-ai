@@ -1,4 +1,5 @@
 import { site } from '../data/site';
+import { crumbTarget } from '../links';
 import type { Route } from '../routes';
 
 const escape = (value: string) =>
@@ -22,7 +23,7 @@ function structuredData(route: Route) {
             '@type': 'ListItem',
             position: index + 1,
             name: crumb.name,
-            item: absolute(crumb.path),
+            item: absolute(crumbTarget(crumb)),
           })),
         },
       ]

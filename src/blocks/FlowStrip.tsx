@@ -7,6 +7,8 @@ export interface FlowNode {
   /** A real page; nodes without one render as plain labels. */
   href?: string | null;
   icon?: IconName;
+  /** One line under the name: what passes along the link (a module's inputs and outputs). */
+  note?: string;
   /**
    * shared: the same in every industry (outlined); configured: set up for this industry (brand fill);
    * current: the module this page is about (emphasised).
@@ -53,7 +55,10 @@ export function FlowStrip({ stages, legend, note, layout = 'columns' }: FlowStri
                 const content = (
                   <>
                     {node.icon && <Icon name={node.icon} size={18} />}
-                    <span className="fs__name">{node.name}</span>
+                    <span className="fs__name">
+                      {node.name}
+                      {node.note && <small className="fs__pass">{node.note}</small>}
+                    </span>
                     {node.href && <Icon name="arrow" size={14} className="fs__arrow" />}
                   </>
                 );

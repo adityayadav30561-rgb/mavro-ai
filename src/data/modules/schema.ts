@@ -36,8 +36,8 @@ export interface ModuleLink {
 export type Four<T> = readonly [T, T, T, T];
 export type Six<T> = readonly [T, T, T, T, T, T];
 
-export interface ModuleContent {
-  slug: ModuleSlug;
+export interface ModuleContent<S extends ModuleSlug = ModuleSlug> {
+  slug: S;
   /** The deck's one-line tagline, e.g. "Order capture to collection: credit-safe, batch-accurate revenue
    *  operations." It is the hero lead. */
   tagline: string;
@@ -49,13 +49,16 @@ export interface ModuleContent {
   why: Six<string>;
   /** Where it sits: what feeds it, what it feeds (section 5 of the page). Portals show the chain instead. */
   flow: { from: readonly ModuleLink[]; to: readonly ModuleLink[] };
-  /** Who uses it: the industries (their slugs) and the roles, in the deck's words. */
-  industries: readonly IndustrySlug[];
-  roles: readonly string[];
+  /** Who uses it: the industries it serves, each with one line on what the module does there. */
+  industries: readonly { slug: IndustrySlug; note: string }[];
+  /** The roles that work in it, each with what they do there. */
+  roles: readonly { name: string; task: string }[];
   /** Three or four other modules for the related cards; defaults to the same business area. */
   related?: readonly ModuleSlug[];
   /** The module's screens, 3–4, in tour order; the first is the hero screen. */
   screens: readonly [ModuleScreen, ModuleScreen, ModuleScreen, ...ModuleScreen[]];
+  /** A phone screen of the module, shown in the hero in front of the lead screen. */
+  phone?: ModuleScreen;
   /** The one scenario every screen shares (records, figures, people), as written at the top of the first screen
    *  file. Kept here so captions and tile figures can be checked against it. */
   scenario: string;
