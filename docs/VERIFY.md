@@ -54,6 +54,31 @@ should differ only where intended, and the computed style and box of every eleme
 a dump taken before the change (a Playwright script that records `getComputedStyle` and `getBoundingClientRect`
 for every element with reduced motion and all reveals applied).
 
+## Product screens (module screens and phone screens)
+
+Before a screen is captured, open it on the dev server (`/prototype/modules/<slug>/<file>.html`) and check:
+
+- [ ] **Fit at 1440 × 960** (phone: 390 × 844): nothing clipped or scrolling inside `main`, no column cut off in a
+      table, no wrapped buttons or tabs. In the console:
+      `(m => [m.scrollHeight - m.clientHeight, m.scrollWidth - m.clientWidth])(document.querySelector('main'))`
+      must print `[0, 0]`.
+- [ ] **Scenario note:** the module's first screen opens with an HTML comment holding the scenario (records,
+      figures, people, date); every screen of the module follows it.
+- [ ] **Figures agree:** totals add up (buckets sum to the total, counts match lists), the same record shows the
+      same values on every screen of the module and on any homepage screen it shares (SO-24817, Kestrel Pumps,
+      Northfield Precision, the `o2c` receivables), and dates fit the screen's "live" date (8 Oct).
+- [ ] **The deck's view:** the screen shows what the module's appendix slide names for it
+      (`src/data/modules/sources.ts` says which slide); its title and the sidebar view use the deck's name.
+- [ ] **Sidebar:** `data-module` is the right slug (the shell throws on an unknown one), `data-view` is one of
+      `data-views`, and `data-views` is the same on every screen of the module.
+- [ ] **No invented claims:** sample data only; no client names, no certifications, no results.
+- [ ] **Captured:** `npm run shots <slug>` (on a cloud machine:
+      `CHROME_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome`); open the WebP files and look at them.
+      Never re-capture the homepage screens by accident (`npm run shots` with no name captures everything):
+      `git status src/assets/screens` should list only the module's folder.
+- [ ] **Alt text:** written in the module's content file (`screens[].alt`): what the screen shows and its key
+      figures, ending "(illustrative data)".
+
 ## Pages and routes
 
 After `npm run build`, `npx vite preview` serves `dist/` like a static host: `/pipeline-check` gets

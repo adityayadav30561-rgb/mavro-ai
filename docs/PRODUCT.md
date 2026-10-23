@@ -1,7 +1,7 @@
 # Product facts
 
 What MAVRO is, as stated in the user's decks. Use this instead of re-reading the decks. The site's data files
-already encode most of it (`src/data/modules.ts`, `src/data/home.ts`).
+already encode most of it (`src/data/modules/catalogue.ts`, `src/data/home.ts`).
 
 ## Sources
 
@@ -43,7 +43,7 @@ elements), in the order of `ppt/presentation.xml`.
   Management.
 
 Per-module descriptions, features and "why it matters" points are in the deck's appendix (slides 29–111, one
-detail slide plus one screens slide per module). The site's condensed versions are in `src/data/modules.ts`.
+detail slide plus one screens slide per module). The site's condensed versions are in `src/data/modules/catalogue.ts`.
 
 ## Contact (deck slides 1 and 112)
 

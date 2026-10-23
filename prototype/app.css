@@ -30,7 +30,8 @@
 }
 
 * { box-sizing: border-box; }
-html, body { height: 100%; }
+/* The screen is drawn for exactly 1440 × 960 (phone.css: 390 × 844), whatever the window, so captures are exact. */
+html, body { height: 960px; }
 body {
   margin: 0;
   display: grid;
@@ -204,3 +205,20 @@ tr.hl td { background: var(--accent-soft); }
 .chart text { font: 10.5px var(--sans); fill: var(--ink-3); }
 .legend { display: flex; gap: 14px; margin-left: auto; color: var(--ink-2); font-size: 12px; }
 .legend span::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; background: var(--c, var(--accent)); }
+
+/* ---------- Module sidebar (module-shell.js) ----------
+   Every module, grouped by business area. The active area is open; the active module shows its views. */
+.side--modules .nav h6 { margin-top: 12px; }
+.side--modules .grp { height: 30px; }
+.side--modules .grp span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.side--modules .grp em { margin-left: 0; }
+.side--modules .grp svg:last-child { width: 12px; height: 12px; opacity: 0.55; transition: none; }
+.side--modules .grp.open { color: var(--ink); font-weight: 550; }
+.side--modules .grp.open svg:last-child { transform: rotate(90deg); }
+.side--modules .mods { position: relative; margin: 1px 0 6px 18px; padding-left: 10px; border-left: 1px solid var(--line); }
+.side--modules .mod { height: 27px; padding: 0 8px; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; line-height: 27px; }
+.side--modules .mod.cur { color: var(--ink); font-weight: 600; }
+.side--modules .views { margin: 0 0 4px 8px; }
+.side--modules .view { height: 26px; padding: 0 10px; font-size: 12px; border-radius: 7px; }
+.side--modules .view::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--line-2); flex: none; }
+.side--modules .view.on::before { background: var(--accent); }

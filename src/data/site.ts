@@ -28,7 +28,7 @@ export const site = {
     region: 'Uttar Pradesh',
     country: 'IN',
   },
-  title: 'MAVRO | Enterprise ERP for manufacturers, distributors and exporters',
+  title: 'MAVRO | Enterprise ERP for manufacturers, distributors and service providers',
   description:
     'MAVRO brings base ERP modules, vendor and channel portals and premium modules onto one platform, and connects to SAP, Oracle, Tally and legacy ERPs.',
 } as const;

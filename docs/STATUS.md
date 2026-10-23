@@ -4,8 +4,8 @@ _Last updated: 2026-10-23. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–3 done (2026-10-23); next: Phase 4, module content model and screen
-kit.** The
+**Stage C (phased implementation). Phases 1–4 done (2026-10-23); next: Phase 5, the module page template piloted
+on Order to Cash (the user reviews it before Phase 6).** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,39 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-23, **Phase 4 (module content model and screen kit) done.** On `main`.
+  - **Site title** now "MAVRO | Enterprise ERP for manufacturers, distributors and service providers" (user asked;
+    `site.title` and `index.html`). The FAQ answers still mention exporters (see open items).
+  - **`src/data/modules/`** replaces `src/data/modules.ts` (moved to `catalogue.ts`, imports unchanged):
+    `slugs.ts` (the 42 page slugs, `ModuleSlug`; every catalogue entry has an explicit `slug`, checked once each at
+    load), `sources.ts` (deck and slides per module, a `Record` over all 42 slugs), `schema.ts` (`ModuleContent`:
+    tagline, four tiles, what, six why points, flow from/to, industries, roles, related, 3–4 screens, scenario,
+    3–5 FAQ, SEO; tuples enforce the counts), `content/index.ts` (empty registry; one file per module as module
+    phases land), `catalogue` / `entryBySlug` (modules and portals as one list). `IndustrySlug` in home.ts.
+    Distributor portal slug: `distributor-portal`.
+  - **Content gap:** Document Management is resolved (AMR L1 deck slide 78 has the full appendix slide). Accounting
+    has no detail slide in any deck; only summary points (v2 slides 2, 7, 21, 24). Open item for the user.
+  - **Prototype:** `prototype/modules/<slug>/`; `module-shell.js` (ES module) builds the sidebar from the site's
+    catalogue: every module grouped by business area (short labels), active area open, the active module's views
+    listed; then loads `shell.js` for charts (which now skips its own chrome on module screens; homepage screens
+    unchanged). `phone.css` + phone chrome (status bar, app bar, tab bar with badges). `app.css` pins the canvas
+    to 960px high so captures are exact.
+  - **Sample screens (both real Order to Cash views for Phase 5):** `order-to-cash/collections` (deck screen 03,
+    Collections and Dunning Queue: ₹1.37 Cr receivables, ageing, ten-account dunning queue, the dunning ladder)
+    and `order-to-cash/credit-release` (phone: release SO-24861, over its limit by ₹2.10 L). Figures agree with
+    the homepage `o2c` and `sales-order` screens; scenario in the comment at the top of collections.html.
+  - **`scripts/shots.mjs`:** captures `prototype/modules/<slug>/*.html` (`npm run shots order-to-cash` or
+    `order-to-cash/collections`) into `src/assets/screens/<slug>/`; phone screens at 390 × 844, 3x (1170 and 780
+    wide). Renders in a larger window and crops to the canvas, because this Chromium's viewport is ~87px shorter
+    than its window. Re-capturing `o2c` this way matched the committed image's layout (0.67% of pixels differ,
+    font rendering); the committed homepage screens were left as they were.
+  - **`Screen`** takes `<slug>/<file>` names and `device="phone"` (navy phone frame drawn in CSS). A "ScreenKit"
+    entry in `/_library` shows both samples.
+  - **docs/VERIFY.md:** a product-screen checklist (fit, scenario note, figures, deck view, sidebar, alt text,
+    capture without touching homepage screens).
+  - Verified: tsc, build; both screens fit (`main` has no overflow) and captured exactly; `/_library` checked at
+    1440 × 900 and 390 × 844; `qa/measure.html` no overflow at nine sizes on `/` and `/_library`.
 
 - 2026-10-23, **Phase 3 (header, mega menu, mobile menu, footer) done.** On `main`.
   - **Data:** `src/data/nav.ts` holds the header, every menu and the footer. Each link names its page (SITE-PLAN.md
@@ -176,9 +209,11 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 4: module content model and screen kit** (IMPLEMENTATION-PLAN.md). Module slugs already come from
-   `modulePage()` in modules.ts; the nav links to `/modules/<slug>` as soon as a route exists.
-2. Then Phase 5 (Order to Cash pilot on the blocks, reviewed by the user).
+1. **Phase 5: module page template, piloted on Order to Cash** (IMPLEMENTATION-PLAN.md): `src/pages/ModulePage.tsx`
+   with all ten sections; `src/data/modules/content/order-to-cash.ts` from v2 slide 34; routes generated from
+   `moduleContent`; screens: the existing `o2c`, `sales-order` (or bespoke), plus `order-to-cash/collections`
+   (done) and the phone `credit-release` (done). **The user reviews the template before Phase 6.**
+2. Before Phase 6: Accounting content from the user (no deck covers it).
 
 ## Open items (need the user or real assets)
 
@@ -191,7 +226,8 @@ items when context is heavy.
 | Social share image | `src/seo/head.ts` | none |
 | FAQ: pricing and hosting | `faq.items` in home.ts | not answered: the decks do not state a pricing model, deployment options beyond "cloud-native" or data ownership terms. Add those questions once the user supplies the answers |
 | About, Careers, Blog, Privacy, Terms | `src/data/nav.ts` (page, no fallback) | planned pages; links stay hidden until their routes exist |
-| Site title says "exporters" | `site.title` in `src/data/site.ts` (and the homepage `<title>`) | the industries decision replaced exporters with service providers; the footer note is updated, the SEO title is not. Ask the user before changing it |
+| Accounting module content | `moduleSources.accounting` in `src/data/modules/sources.ts` | no deck has its detail slide (tagline, tiles, what it does, why it matters, screens); needed for Phase 6 |
+| FAQ still says "exporters" | `faq.items` in home.ts ("What is MAVRO?", "Who is MAVRO for?", multi-currency answer) | the title now says service providers (user, 2026-10-23); the FAQ answers were not changed. Ask the user |
 | Hidden test page | `/pipeline-check` in `src/routes.ts` | noindex, not linked, not in the sitemap; remove at launch QA (Phase 28) |
 | One stylesheet for all pages | `cssCodeSplit: false` in vite.config.ts | every page loads the full CSS (96 kB, about 19 kB gzip, after Phase 2's blocks); revisit in the Phase 28 performance pass as pages grow |
 | 404 has no canonical | `src/seo/head.ts` | deliberate (the plan said "own canonical"): the 404 answers at any missing URL, so it names none and is noindex |

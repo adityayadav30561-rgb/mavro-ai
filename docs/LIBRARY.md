@@ -39,7 +39,7 @@ Content comes from data files (`src/data/`), never from the page component.
 | `SectionHead`, `Headline` | SectionHead.tsx | heading parts; `level` 1 or 2. Also exports `Tone`, `Treatment`, `sectionClass` | Inside the blocks |
 | `PageHero` | PageHero.tsx | `variant` (module, industry, package, solution, simple), `tone` (light/dark), `chip` {label, tier, icon}, title parts, `lead`, `actions` (first primary; `href` or a demo `interest`), `facts`, `visual` | Every page below the homepage |
 | `Breadcrumbs` | Breadcrumbs.tsx | none: reads the route's `crumbs` (routes.ts), so it matches the BreadcrumbList JSON-LD | Inside PageHero |
-| `ScreenFrame` | ScreenFrame.tsx | `screen`, `alt`, `sizes`, `variant` (contained/bleed), `note`. Bleed: the container must be relative, clip and have a height; `--sframe-w` sets the width | Everywhere screens appear; Explore (bleed) |
+| `ScreenFrame` | ScreenFrame.tsx | `screen` (a homepage screen or `<slug>/<file>`), `alt`, `sizes`, `variant` (contained/bleed), `note`. Bleed: the container must be relative, clip and have a height; `--sframe-w` sets the width | Everywhere screens appear; Explore (bleed) |
 | `ScreenTour` | ScreenTour.tsx | `screens` [{screen, title, caption, alt}], `note`, `id` | Module, industry, platform |
 | `CapabilityTiles` | CapabilityTiles.tsx | `tiles` [{icon, title, body, figure?}], `tier` | Module, package |
 | `WhatWhy` | WhatWhy.tsx | `what` {title, body}, `why` {title, points} | Module |

@@ -40,7 +40,7 @@ export const intro = {
 /**
  * Explore the platform: the three packages as tabs, each with its strongest modules given full treatment.
  * The complete catalogue stays in the Platform mega-menu (and on module pages, Stage B). Module copy and
- * counts come from data/modules.ts.
+ * counts come from data/modules/catalogue.ts.
  */
 export const explore = {
   title: 'Explore the platform.',
@@ -211,10 +211,12 @@ export const implementation = {
   ] satisfies { icon: IconName; title: string; body: string }[],
 };
 
+export type IndustrySlug = 'manufacturing' | 'distribution' | 'pharma' | 'service-providers';
+
 export interface Industry {
   name: string;
   /** URL segment: the industry page `/industries/<slug>` and the homepage anchor `#industry-<slug>`. */
-  slug: string;
+  slug: IndustrySlug;
   icon: IconName;
   /** Who it is, in the deck's words. */
   who: string;

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Order to Cash · Credit release (phone)</title>
+<!--
+  Scenario: see collections.html. The sales head releases SO-24861 for Orion Agro Equipment from the phone:
+  ₹14,62,000 (950 GB-310 gearbox casings, promised 21 Oct) takes exposure to ₹42.10 L against a ₹40.00 L limit
+  (outstanding invoices ₹21.60 L + open orders ₹5.88 L + this order ₹14.62 L), over by ₹2.10 L. ₹4.2 L is over
+  60 days, with a promise to pay on 12 Oct. Three orders wait for credit release (₹38.2 L, as on the o2c screen).
+-->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  .order { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .order h1 { font-size: 19px; font-weight: 650; letter-spacing: -0.02em; line-height: 1.2; }
+  .order p { color: var(--ink-2); margin-top: 2px; }
+  .amount { margin-top: 8px; font-size: 26px; font-weight: 640; letter-spacing: -0.03em; }
+  .amount small { font-size: 13px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .expo { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .expo strong { font-size: 18px; font-weight: 640; letter-spacing: -0.02em; }
+  .expo strong small { font-size: 12.5px; font-weight: 500; color: var(--ink-3); }
+  .bar { position: relative; display: flex; height: 12px; border-radius: 6px; background: #eceef2; overflow: visible; }
+  .bar i { height: 100%; }
+  .bar i:first-child { border-radius: 6px 0 0 6px; }
+  .bar .inv { background: #aab1bf; width: 51.3%; }
+  .bar .open { background: #6f8ffe; width: 14%; }
+  .bar .this { background: var(--warn); width: 34.7%; border-radius: 0 6px 6px 0; }
+  .bar .limit { position: absolute; top: -5px; bottom: -5px; left: 95%; width: 2px; border-radius: 1px; background: var(--ink); }
+  .keys { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 12px; color: var(--ink-2); font-size: 12px; }
+  .keys span::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; background: var(--c); }
+  body.phone .kv { gap: 7px 12px; }
+  body.phone main { gap: 10px; }
+  .note { padding: 8px 12px; font-size: 12.5px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--ink-3); }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="order-to-cash" data-title="Credit release" data-subtitle="1 of 3 waiting · ₹38.2 L"
+      data-tab="Approvals" data-tabs="Home:home|Approvals:check:3|Orders:cart|Collections:coin|More:more" data-who="Vikram Shah|Sales head">
+<main>
+  <div class="card">
+    <div class="body">
+      <div class="order">
+        <div>
+          <h1>SO-24861</h1>
+          <p>Orion Agro Equipment · Indore</p>
+        </div>
+        <span class="chip warn">Over limit</span>
+      </div>
+      <div class="amount">₹14,62,000 <small>incl. GST</small></div>
+      <p class="sub" style="margin-top:4px">950 pcs GB-310 gearbox casing · promised 21 Oct</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Credit exposure</h2><span>limit ₹40.00 L</span></header>
+    <div class="body">
+      <div class="expo"><strong>₹42.10 L <small>after this order</small></strong><span class="chip bad">+₹2.10 L</span></div>
+      <div class="bar"><i class="inv"></i><i class="open"></i><i class="this"></i><span class="limit"></span></div>
+      <div class="keys"><span style="--c:#aab1bf">Invoices ₹21.60 L</span><span style="--c:#6f8ffe">Open orders ₹5.88 L</span><span style="--c:var(--warn)">This order ₹14.62 L</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Payment behaviour</h2></header>
+    <div class="body">
+      <dl class="kv">
+        <dt>Over 60 days</dt><dd class="mono" style="color:var(--bad)">₹4.20 L</dd>
+        <dt>Promise to pay</dt><dd>₹4.2 L on 12 Oct</dd>
+        <dt>Average days to pay</dt><dd class="mono">49 days</dd>
+        <dt>Dunning stage</dt><dd><span class="chip warn">Final notice</span></dd>
+      </dl>
+    </div>
+  </div>
+
+  <p class="note">Arjun Sethi, Sales manager: “Orion's ₹4.2 L promise for 12 Oct is confirmed by their CFO.”</p>
+
+  <div class="ph-actions">
+    <span class="btn">Reject</span>
+    <span class="btn pri">Release order</span>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -80,3 +80,22 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Screen kit sample: a module screen beside a phone screen. */
+.lib__kit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 17rem;
+  align-items: center;
+  gap: var(--s-6);
+}
+
+@media (max-width: 760px) {
+  .lib__kit {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+
+  .lib__kit > .screen:first-child {
+    width: 100%;
+  }
+}

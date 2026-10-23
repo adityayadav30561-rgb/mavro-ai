@@ -137,6 +137,15 @@ least important, with full design effort. The ordered list lives in [STATUS.md](
 | Mobile | Full-screen drawer: module search on top, then accordions Platform → package → business area → module, Solutions, Customers, Resources, Company; demo button pinned at the bottom | SITE-PLAN.md section 8 |
 | Footer | Brand, contact block, then five columns: Platform, Popular modules (8), Solutions (4 industries), Resources, Company; legal links appear when their pages exist. Footer note now says "service providers" instead of "exporters" | SITE-PLAN.md section 8 and the industries decision |
 
+## Module model and screens (Phase 4, 2026-10-23)
+
+| Decision | Choice | Why |
+|---|---|---|
+| Site title | "MAVRO \| Enterprise ERP for manufacturers, distributors and service providers" | User, 2026-10-23 ("yes change the title"), following the industries decision |
+| Module URLs | Explicit slugs per catalogue entry (`slugs.ts`); `/modules/distributor-portal` rather than a slug made from "Distributor / B2B Portal" | Stable, readable URLs that do not change if a display name changes |
+| Phone screens | Captured without a device frame; the site draws the frame (navy bezel) around them | One capture works in any frame size; the frame stays in the design system |
+| Prototype sidebar | Module screens list every module by business area, the active area open and the active module's views under it; homepage screens keep their original sidebar | "The sidebar grows to cover every module" (SITE-PLAN.md 6) without re-capturing approved screens |
+
 ## Rest of the site (Stage B planning, 2026-10-23)
 
 | Question | User's decision |

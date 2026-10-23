@@ -32,7 +32,7 @@ import { Workflow } from '../sections/Workflow';
  * Backgrounds alternate white and paper down the page; moving a section may mean swapping its
  * `section--paper` class with a neighbour's.
  *
- * Module names and packages come from the product deck (data/modules.ts); ERP Connect from the connectivity deck.
+ * Module names and packages come from the product deck (data/modules/catalogue.ts); ERP Connect from the connectivity deck.
  */
 export function Page() {
   return (

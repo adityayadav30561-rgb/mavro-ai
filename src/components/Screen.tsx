@@ -1,10 +1,23 @@
+import type { ModuleSlug } from '../data/modules/slugs';
+
 /*
- * A product screenshot. The images are captured from the prototype in /prototype by `npm run shots`, at two
- * widths: 1440 (name.webp) and 2880 (name@2x.webp).
+ * A product screenshot. The images are captured from the prototype in /prototype by `npm run shots`:
+ *
+ *   desktop  1440 × 960 at two widths, 1440 (name.webp) and 2880 (name@2x.webp)
+ *   phone    390 × 844 at two widths, 780 (name.webp) and 1170 (name@2x.webp)
+ *
+ * Homepage screens sit in src/assets/screens/; module screens in src/assets/screens/<slug>/ and are named
+ * '<slug>/<file>' (prototype/modules/<slug>/<file>.html).
  */
-const files = import.meta.glob<string>('../assets/screens/*.webp', { eager: true, import: 'default' });
+const files = import.meta.glob<string>('../assets/screens/**/*.webp', { eager: true, import: 'default' });
+
+const sizes = {
+  desktop: { width: 1440, height: 960, small: 1440, large: 2880 },
+  phone: { width: 390, height: 844, small: 780, large: 1170 },
+};
 
 export type ScreenName =
+  | `${ModuleSlug}/${string}`
   | 'overview'
   | 'sales-order'
   | 'production'
@@ -29,20 +42,34 @@ interface ScreenProps {
   /** Above the fold: load immediately instead of lazily. */
   eager?: boolean;
   className?: string;
+  /** A phone screen (prototype/phone.css): its own size and aspect. */
+  device?: 'desktop' | 'phone';
 }
 
-export function Screen({ name, alt, sizes = '(max-width: 1240px) 94vw, 1180px', eager, className }: ScreenProps) {
+export function Screen({
+  name,
+  alt,
+  sizes: hint = '(max-width: 1240px) 94vw, 1180px',
+  eager,
+  className,
+  device = 'desktop',
+}: ScreenProps) {
   const small = files[`../assets/screens/${name}.webp`];
   const large = files[`../assets/screens/${name}@2x.webp`];
+  if (!small) throw new Error(`Screen: no capture for "${name}" (run npm run shots ${name})`);
+  const size = sizes[device];
 
   return (
-    <div className={className ? `screen ${className}` : 'screen'}>
+    <div
+      className={className ? `screen ${className}` : 'screen'}
+      data-device={device === 'phone' ? 'phone' : undefined}
+    >
       <img
         src={small}
-        srcSet={`${small} 1440w, ${large} 2880w`}
-        sizes={sizes}
-        width={1440}
-        height={960}
+        srcSet={large ? `${small} ${size.small}w, ${large} ${size.large}w` : undefined}
+        sizes={hint}
+        width={size.width}
+        height={size.height}
         alt={alt}
         loading={eager ? 'eager' : 'lazy'}
         decoding="async"

@@ -17,6 +17,7 @@ import { StoryCards } from '../blocks/StoryCards';
 import { Timeline } from '../blocks/Timeline';
 import { TrustPanel } from '../blocks/TrustPanel';
 import { WhatWhy } from '../blocks/WhatWhy';
+import { Screen } from '../components/Screen';
 import { connect, explore, faq, implementation, industries, inlineCtas, proof, why } from '../data/home';
 import { architecture, platformFeatures } from '../data/platform';
 import { beforeAfter, cards, chain, o2c, risks, sits } from './samples';
@@ -245,6 +246,24 @@ export function Page() {
         >
           <div className="lib__narrow">
             <ScreenFrame screen="inventory" alt="MAVRO inventory view (illustrative data)." note={explore.sample} />
+          </div>
+        </Entry>
+        <Entry
+          name="ScreenKit"
+          file="components/Screen.tsx"
+          use="Module screens (prototype/modules/<slug>/) and phone screens (prototype/phone.css), Phase 4 samples"
+        >
+          <div className="lib__kit">
+            <Screen
+              name="order-to-cash/collections"
+              alt="Order to Cash collections and dunning queue: ₹1.37 Cr outstanding, ₹12.4 L over 60 days, ten accounts in the dunning queue with their stage, owner and next step (illustrative data)."
+            />
+            <Screen
+              device="phone"
+              name="order-to-cash/credit-release"
+              sizes="17rem"
+              alt="Credit release on the MAVRO phone app: SO-24861 for Orion Agro Equipment, ₹14,62,000, takes exposure to ₹42.10 L against a ₹40 L limit (illustrative data)."
+            />
           </div>
         </Entry>
         <Entry name="InlineCta" file="blocks/InlineCta.tsx" use="Long pages">

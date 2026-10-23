@@ -36,6 +36,9 @@
     ['Admin', [['Roles and audit', 'lock']]],
   ];
 
+  // Module screens (prototype/modules/) get their chrome from module-shell.js, which then loads this file for
+  // the charts.
+  const moduleScreen = 'module' in document.body.dataset;
   const active = document.body.dataset.nav;
   const crumb = (document.body.dataset.crumb || '').split('/').map((s) => s.trim());
   const who = (document.body.dataset.who || 'Meera Rao|Operations head').split('|');
@@ -60,7 +63,7 @@
     `<span class="live">Live · 8 Oct, 14:02</span>` +
     `<div class="who"><i>${who[0].split(' ').map((w) => w[0]).join('')}</i><span>${who[0]}<small>${who[1]}</small></span></div>`;
 
-  document.body.prepend(side, top);
+  if (!moduleScreen) document.body.prepend(side, top);
 
   /* ---------- Charts ---------- */
   const nums = (s) => s.split(',').map(Number);

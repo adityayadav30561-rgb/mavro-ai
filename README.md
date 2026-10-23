@@ -25,7 +25,7 @@ node scripts/capture.mjs 1366 768 shots/x.png "id=explore"   # screenshot at an 
 | Pages not built yet (About, Careers, Blog, Privacy, Terms, and every page in SITE-PLAN.md) | [src/data/nav.ts](src/data/nav.ts) | each link names its page and a homepage fallback; it switches to the page when the route exists, and links with no fallback stay hidden until then (src/links.ts) |
 | Client logos | `clients` in [src/data/home.ts](src/data/home.ts) | 20 logos from the clientele slide, shown in the hero band |
 | Testimonials / case studies | `proof` in [src/data/home.ts](src/data/home.ts) | three anonymised stories from deck slide 23 (approved by the user). Add only verified, approved material |
-| Module catalogue | [src/data/modules.ts](src/data/modules.ts) | from the product deck (Mavro Modules v2); all modules live. Premium spotlight content and its sample screens are in `premiumFeatures` |
+| Module catalogue | [src/data/modules/catalogue.ts](src/data/modules/catalogue.ts) | from the product deck (Mavro Modules v2); all modules live. Premium spotlight content and its sample screens are in `premiumFeatures` |
 | Industry list | `industries` in home.ts | Manufacturing, Distribution, Pharma, Service providers (user, 2026-10-23); confirm before launch |
 | Social share image | [src/seo/head.ts](src/seo/head.ts) | none; add `og:image` / `twitter:image` once artwork exists |
 
@@ -58,7 +58,7 @@ wordmark and it holds up from 74px headlines down to 11px interface labels.
 
 [src/pages/Home.tsx](src/pages/Home.tsx) lists the sections in order. Every heading, paragraph and label lives in
 [src/data/home.ts](src/data/home.ts); CTAs in [src/data/site.ts](src/data/site.ts); header, menus and footer links in [src/data/nav.ts](src/data/nav.ts); modules in
-[src/data/modules.ts](src/data/modules.ts). Copy changes never touch layout or animation code.
+[src/data/modules/catalogue.ts](src/data/modules/catalogue.ts). Copy changes never touch layout or animation code.
 
 | Section | Anchor | What it does |
 |---|---|---|
@@ -66,7 +66,7 @@ wordmark and it holds up from 74px headlines down to 11px interface labels.
 | PlatformIntro | `#platform` | Base modules, portals and premium modules on one shared platform (isometric SVG). Each tier label links to its package in Explore (`packs[*].href`); hover or focus lifts the matching plate, and clicking a plate clicks its label |
 | Showcase | `#product` | The real interface (prototype screenshots) as five teams see it |
 | Connect | `#connect` | ERP Connect: SAP, Oracle, Tally and legacy ERPs sync two ways with the MAVRO Database, the sole integration broker (from the connectivity deck's architecture page) A dark band (`section--night`) with a glow behind the board, the broker hub as its one bright object, and the deck's five benefits (`connect.benefits`, slide 5) before a dark CTA |
-| Explore | `#explore` | The three packages as tabs (Base, Portals, Premium; counts from data/modules.ts). Each shows its featured modules (`explore.packages.*.featured` in home.ts) in a rail beside a panel: the module's story and points, plus an illustrative screen: a full product screenshot for Base (one prototype page per module, larger, running off the panel's right and bottom edges), the portal's place in the chain for Portals (blocks/ChainDiagram), bespoke drawings for Premium (SpecialVisual). "All N modules" opens the Platform menu (components/catalogue.ts). `#modules`, `#portals` and `#premium` land here and select the tab. Ends with the "Plan my modules" CTA |
+| Explore | `#explore` | The three packages as tabs (Base, Portals, Premium; counts from data/modules/catalogue.ts). Each shows its featured modules (`explore.packages.*.featured` in home.ts) in a rail beside a panel: the module's story and points, plus an illustrative screen: a full product screenshot for Base (one prototype page per module, larger, running off the panel's right and bottom edges), the portal's place in the chain for Portals (blocks/ChainDiagram), bespoke drawings for Premium (SpecialVisual). "All N modules" opens the Platform menu (components/catalogue.ts). `#modules`, `#portals` and `#premium` land here and select the tab. Ends with the "Plan my modules" CTA |
 | Workflow | `#workflow` | Order to cash across seven modules, all writing to one record |
 | Implementation | `#implementation` | Live in 25–30 days: a 30-day timeline with go-live milestones, four phase cards, and the support model (deck slides 25, 28) |
 | Industries | `#industries` | Four audiences from the deck as cards; each panel has a headline, three points, the order flow (shared ends, configured middle, working record and trace) and module chips. A chip is a link with `data-module`: Explore selects that package and module (only modules in `explore.packages.*.featured` may be used) |
@@ -130,6 +130,19 @@ Pumps, SO-24817 and so on), kept consistent with the sample order used across th
 Figures agree across screens (SO-24817 → WO-5521 → PO-7714 → lot L-0932; the payroll posting balances; stock
 movements reconcile), so keep them consistent when editing. Capture one screen with `npm run shots <name>`.
 
+**Module screens** (Phase 4 onwards) live in `prototype/modules/<slug>/`, 3–4 per module, each designed for that
+module. They load `../../app.css` and `<script type="module" src="../../module-shell.js">`, which builds the
+sidebar from the site's own catalogue (`src/data/modules/catalogue.ts`: every module, grouped by business area,
+the active module showing its views) and then runs `shell.js` for the charts. Body attributes: `data-module`
+(the slug), `data-view`, `data-views` (the module's views, `|`-separated), `data-crumb`, `data-who`, optionally
+`data-org`. Phone screens add `prototype/phone.css`, `class="phone" data-device="phone"`, and `data-title`,
+`data-subtitle`, `data-tab`, `data-tabs`; the shell adds the status bar, app bar and tab bar. Each module's first
+screen opens with a comment holding the module's scenario, which all its screens follow.
+`npm run shots order-to-cash` captures every screen of a module (`npm run shots order-to-cash/collections` one)
+into `src/assets/screens/<slug>/`; phone screens are captured at 390 × 844 (3x). The site shows them with
+`<Screen name="<slug>/<file>" />` (`device="phone"` draws the phone frame). The prototype pins its canvas (1440 ×
+960, phone 390 × 844) and the script crops to it, so captures are exact in any browser. Checklist: docs/VERIFY.md.
+
 ## Responsive sizing
 
 Every length in the stylesheets is in `rem`, so one value scales the whole layout (see the top of
@@ -176,7 +189,9 @@ src/
   links.ts             navigation links: page once its route exists, homepage fallback until then
   components/          Nav (header), PlatformMenu (branched mega menu), NavMenus (Solutions, Resources,
                        Company), Drawer (mobile), NavLink, Footer, Logo, Icon, Screen
-  data/                site.ts (facts, CTAs), nav.ts (header, menus, footer), modules.ts (catalogue), home.ts (copy),
+  data/                site.ts (facts, CTAs), nav.ts (header, menus, footer), home.ts (copy),
+  data/modules/        catalogue.ts (modules, portals, slugs per entry), slugs.ts (the 42 page slugs), sources.ts
+                       (deck slides per module), schema.ts (ModuleContent), content/ (one file per module page)
                        platform.ts (platform features and architecture, deck slides 11–12)
   motion/hooks.ts      viewport flags, accessible tabs, CSS variable helper
   sections/            the homepage sections, built on the blocks; hero/ holds the 3D scene; explore/ the

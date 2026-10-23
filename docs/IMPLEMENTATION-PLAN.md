@@ -66,7 +66,7 @@ For each module in the phase:
 | 1 | Routing, prerender and per-page SEO | route table, multi-page prerender, sitemap, 404 | **Done 2026-10-23** |
 | 2 | Section library | shared blocks + a QA gallery | **Done 2026-10-23** |
 | 3 | Header, mega menu, mobile menu, footer | new navigation | **Done 2026-10-23** |
-| 4 | Module content model and screen kit | data schema, prototype structure, phone shell | To do |
+| 4 | Module content model and screen kit | data schema, prototype structure, phone shell | **Done 2026-10-23** |
 | 5 | Module page template, piloted on Order to Cash | `/modules/order-to-cash` | To do |
 | 6 | Modules: Accounting, Vendor Invoice Management, Travel and Expense | 3 pages | To do |
 | 7 | Modules: CRM, Sales Force Automation, Customer Service | 3 pages | To do |
@@ -269,7 +269,7 @@ has its 3–4 bespoke screens, and its links (menu, related modules, package dat
 
 | Item | Needed by | From |
 |---|---|---|
-| Accounting and Document Management content | Phases 6 and 20 | Mavro Modules v1 / AMR decks, else the user |
+| Accounting content (Document Management resolved in Phase 4: AMR L1 deck slide 78) | Phase 6 | The user: no deck has an Accounting detail slide (sources.ts lists the summary points that exist) |
 | Company copy, photos | Phase 26 | The user |
 | Privacy policy and terms | Phase 26 | The user |
 | Production domain | Phase 28 | The user |

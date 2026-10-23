@@ -1,0 +1,49 @@
+/*
+ * Phone screens of the MAVRO mobile app (prototype/modules/<slug>/*.html with data-device="phone"). Load after
+ * app.css: same tokens, cards, chips and meters, laid out for a 390 × 844 screen. module-shell.js adds the status
+ * bar, the app bar and the tab bar; the page supplies <main>. `npm run shots` captures the 390 × 844 screen alone
+ * (no device frame: the website draws the phone around it).
+ */
+html { background: #dfe3ea; }
+body.phone {
+  display: flex;
+  flex-direction: column;
+  width: 390px;
+  height: 844px;
+  overflow: hidden;
+  background: var(--bg);
+  font-size: 13.5px;
+}
+
+/* Status bar */
+.ph-status { display: flex; align-items: center; justify-content: space-between; height: 47px; padding: 12px 28px 0 34px; flex: none; background: var(--surface); }
+.ph-status b { font: 600 15px var(--sans); letter-spacing: -0.01em; }
+.ph-sys { display: flex; align-items: center; gap: 6px; }
+.ph-sys svg { height: 11px; width: auto; fill: var(--ink); }
+.ph-batt { position: relative; width: 25px; height: 12px; border: 1.3px solid rgb(9 14 52 / 0.45); border-radius: 4px; padding: 1.5px; }
+.ph-batt::after { content: ''; position: absolute; right: -4px; top: 3.5px; width: 2px; height: 4px; border-radius: 0 1px 1px 0; background: rgb(9 14 52 / 0.45); }
+.ph-batt i { display: block; width: 78%; height: 100%; border-radius: 2px; background: var(--ink); }
+
+/* App bar */
+.ph-bar { display: flex; align-items: center; gap: 12px; height: 56px; padding: 0 16px; flex: none; background: var(--surface); border-bottom: 1px solid var(--line); }
+.ph-back { display: grid; place-items: center; width: 32px; height: 32px; margin-left: -6px; border-radius: 9px; }
+.ph-back svg, .ph-tabs svg { width: 20px; height: 20px; stroke: var(--ink); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.ph-title { flex: 1; min-width: 0; line-height: 1.2; }
+.ph-title b { display: block; font-size: 16px; font-weight: 650; letter-spacing: -0.015em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ph-title small { color: var(--ink-3); font-size: 12px; }
+.ph-who { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #0a48fd, #7a36fb); color: #fff; display: grid; place-items: center; font: 600 11.5px var(--sans); font-style: normal; }
+
+/* Content */
+body.phone main { flex: 1; min-height: 0; padding: 14px 14px 16px; gap: 12px; overflow: hidden; }
+body.phone .card > header { padding: 13px 14px 0; }
+body.phone .card > .body { padding: 12px 14px 14px; }
+.ph-actions { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px; margin-top: auto; }
+.ph-actions .btn { justify-content: center; height: 46px; border-radius: 12px; font-size: 14px; }
+
+/* Tab bar */
+.ph-tabs { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; height: 82px; padding: 8px 6px 0; flex: none; background: var(--surface); border-top: 1px solid var(--line); }
+.ph-tabs a { position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--ink-3); font-size: 10.5px; font-weight: 550; }
+.ph-tabs a svg { width: 22px; height: 22px; stroke: currentColor; }
+.ph-tabs a.on { color: var(--accent); }
+.ph-tabs em { position: absolute; top: -3px; left: calc(50% + 6px); min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; background: var(--bad); color: #fff; font: 600 10px/17px var(--sans); font-style: normal; text-align: center; box-shadow: 0 0 0 2px var(--surface); }
+.ph-home { position: absolute; left: 50%; bottom: 8px; width: 134px; height: 5px; margin-left: -67px; border-radius: 3px; background: var(--ink); }

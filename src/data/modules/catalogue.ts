@@ -1,4 +1,5 @@
-import type { IconName } from '../components/Icon';
+import type { IconName } from '../../components/Icon';
+import { moduleSlugs, type ModuleSlug } from './slugs';
 
 /*
  * The MAVRO module catalogue, taken from the product deck (Mavro Modules v2): one list, read by the Platform
@@ -15,6 +16,8 @@ export type Area = 'finance' | 'sales' | 'supply' | 'make' | 'people' | 'data';
 export interface Module {
   id: string;
   name: string;
+  /** Its page: `/modules/<slug>`. */
+  slug: ModuleSlug;
   /** One line, for menus and lists. */
   summary: string;
   icon: IconName;
@@ -45,54 +48,54 @@ export const areaOrder: Area[] = ['finance', 'sales', 'supply', 'make', 'people'
 
 export const modules: Module[] = [
   // Finance and control
-  { id: 'acc', name: 'Accounting', summary: 'Auto journals, live GL, GST reports', icon: 'finance', pack: 'base', area: 'finance' },
-  { id: 'vim', name: 'Vendor Invoice Management', summary: '3-way PO, GRN and invoice match', icon: 'claims', pack: 'base', area: 'finance' },
-  { id: 'tne', name: 'Travel and Expense', summary: 'Requests, advances and settlements', icon: 'travel', pack: 'base', area: 'finance' },
-  { id: 'cfo', name: 'Cost Forecasting', summary: 'Budgets, forecasts and variance', icon: 'scheme', pack: 'premium', area: 'finance' },
-  { id: 'aud', name: 'Audit Management', summary: 'Audit plan to CAPA closure', icon: 'quality', pack: 'premium', area: 'finance' },
-  { id: 'ast', name: 'Asset Management', summary: 'Register, maintenance, depreciation', icon: 'warehouse', pack: 'base', area: 'finance' },
-  { id: 'ins', name: 'Insurance Management', summary: 'Policies, renewals and claims', icon: 'shield', pack: 'premium', area: 'finance' },
+  { id: 'acc', name: 'Accounting', slug: 'accounting', summary: 'Auto journals, live GL, GST reports', icon: 'finance', pack: 'base', area: 'finance' },
+  { id: 'vim', name: 'Vendor Invoice Management', slug: 'vendor-invoice-management', summary: '3-way PO, GRN and invoice match', icon: 'claims', pack: 'base', area: 'finance' },
+  { id: 'tne', name: 'Travel and Expense', slug: 'travel-and-expense', summary: 'Requests, advances and settlements', icon: 'travel', pack: 'base', area: 'finance' },
+  { id: 'cfo', name: 'Cost Forecasting', slug: 'cost-forecasting', summary: 'Budgets, forecasts and variance', icon: 'scheme', pack: 'premium', area: 'finance' },
+  { id: 'aud', name: 'Audit Management', slug: 'audit-management', summary: 'Audit plan to CAPA closure', icon: 'quality', pack: 'premium', area: 'finance' },
+  { id: 'ast', name: 'Asset Management', slug: 'asset-management', summary: 'Register, maintenance, depreciation', icon: 'warehouse', pack: 'base', area: 'finance' },
+  { id: 'ins', name: 'Insurance Management', slug: 'insurance-management', summary: 'Policies, renewals and claims', icon: 'shield', pack: 'premium', area: 'finance' },
 
   // Sales and channel
-  { id: 'o2c', name: 'Order to Cash', summary: 'Order capture to collection', icon: 'orders', pack: 'base', area: 'sales' },
-  { id: 'crm', name: 'CRM', summary: 'Leads, pipeline and follow-ups', icon: 'sales', pack: 'base', area: 'sales' },
-  { id: 'sfa', name: 'Sales Force Automation', summary: 'Beat plans and mobile ordering', icon: 'route', pack: 'base', area: 'sales' },
-  { id: 'csm', name: 'Customer Service', summary: 'Tickets, SLAs and warranty', icon: 'people', pack: 'base', area: 'sales' },
-  { id: 'snr', name: 'Scheme and Rebate', summary: 'Slabs, accruals and claim settlement', icon: 'scheme', pack: 'premium', area: 'sales' },
-  { id: 'ecm', name: 'Ecommerce Integration', summary: 'Marketplace orders and returns', icon: 'link', pack: 'premium', area: 'sales' },
-  { id: 'sub', name: 'Subscription Management', summary: 'Recurring billing and renewals', icon: 'workflow', pack: 'premium', area: 'sales' },
+  { id: 'o2c', name: 'Order to Cash', slug: 'order-to-cash', summary: 'Order capture to collection', icon: 'orders', pack: 'base', area: 'sales' },
+  { id: 'crm', name: 'CRM', slug: 'crm', summary: 'Leads, pipeline and follow-ups', icon: 'sales', pack: 'base', area: 'sales' },
+  { id: 'sfa', name: 'Sales Force Automation', slug: 'sales-force-automation', summary: 'Beat plans and mobile ordering', icon: 'route', pack: 'base', area: 'sales' },
+  { id: 'csm', name: 'Customer Service', slug: 'customer-service', summary: 'Tickets, SLAs and warranty', icon: 'people', pack: 'base', area: 'sales' },
+  { id: 'snr', name: 'Scheme and Rebate', slug: 'scheme-and-rebate', summary: 'Slabs, accruals and claim settlement', icon: 'scheme', pack: 'premium', area: 'sales' },
+  { id: 'ecm', name: 'Ecommerce Integration', slug: 'ecommerce-integration', summary: 'Marketplace orders and returns', icon: 'link', pack: 'premium', area: 'sales' },
+  { id: 'sub', name: 'Subscription Management', slug: 'subscription-management', summary: 'Recurring billing and renewals', icon: 'workflow', pack: 'premium', area: 'sales' },
 
   // Supply chain and logistics
-  { id: 'p2p', name: 'Procure to Pay', summary: 'Indent to PO to payment', icon: 'procurement', pack: 'base', area: 'supply' },
-  { id: 'inv', name: 'Inventory Management', summary: 'Batch, lot and serial across warehouses', icon: 'inventory', pack: 'base', area: 'supply' },
-  { id: 'wms', name: 'Warehouse Management', summary: 'Bin putaway, picking, barcodes', icon: 'warehouse', pack: 'premium', area: 'supply' },
-  { id: 'gte', name: 'Gate Entry', summary: 'Gate passes, inward and outward', icon: 'gate', pack: 'base', area: 'supply' },
-  { id: 'tms', name: 'Transportation Management', summary: 'Shipments, loads and lanes', icon: 'transport', pack: 'premium', area: 'supply' },
-  { id: 'flt', name: 'Fleet Management', summary: 'Vehicles, trips and fuel', icon: 'dispatch', pack: 'premium', area: 'supply' },
-  { id: 'auc', name: 'Auction and Bidding', summary: 'Reverse auctions and sealed bids', icon: 'auction', pack: 'premium', area: 'supply' },
-  { id: 'fsc', name: 'FSC Portal', summary: 'Consignment stock and custody', icon: 'distribution', pack: 'premium', area: 'supply' },
+  { id: 'p2p', name: 'Procure to Pay', slug: 'procure-to-pay', summary: 'Indent to PO to payment', icon: 'procurement', pack: 'base', area: 'supply' },
+  { id: 'inv', name: 'Inventory Management', slug: 'inventory-management', summary: 'Batch, lot and serial across warehouses', icon: 'inventory', pack: 'base', area: 'supply' },
+  { id: 'wms', name: 'Warehouse Management', slug: 'warehouse-management', summary: 'Bin putaway, picking, barcodes', icon: 'warehouse', pack: 'premium', area: 'supply' },
+  { id: 'gte', name: 'Gate Entry', slug: 'gate-entry', summary: 'Gate passes, inward and outward', icon: 'gate', pack: 'base', area: 'supply' },
+  { id: 'tms', name: 'Transportation Management', slug: 'transportation-management', summary: 'Shipments, loads and lanes', icon: 'transport', pack: 'premium', area: 'supply' },
+  { id: 'flt', name: 'Fleet Management', slug: 'fleet-management', summary: 'Vehicles, trips and fuel', icon: 'dispatch', pack: 'premium', area: 'supply' },
+  { id: 'auc', name: 'Auction and Bidding', slug: 'auction-and-bidding', summary: 'Reverse auctions and sealed bids', icon: 'auction', pack: 'premium', area: 'supply' },
+  { id: 'fsc', name: 'FSC Portal', slug: 'fsc-portal', summary: 'Consignment stock and custody', icon: 'distribution', pack: 'premium', area: 'supply' },
 
   // Manufacturing and quality
-  { id: 'prd', name: 'Production Management', summary: 'Work orders, BOM and routing', icon: 'production', pack: 'base', area: 'make' },
-  { id: 'ppds', name: 'PPDS', summary: 'Detailed scheduling and MRP', icon: 'bom', pack: 'premium', area: 'make' },
-  { id: 'sfc', name: 'Shop Floor Control', summary: 'Live OEE, downtime and WIP', icon: 'eye', pack: 'premium', area: 'make' },
-  { id: 'mvl', name: 'mVLens Vendor Audit', summary: 'Vendor audits, CAPA, agreements', icon: 'quality', pack: 'base', area: 'make' },
+  { id: 'prd', name: 'Production Management', slug: 'production-management', summary: 'Work orders, BOM and routing', icon: 'production', pack: 'base', area: 'make' },
+  { id: 'ppds', name: 'PPDS', slug: 'ppds', summary: 'Detailed scheduling and MRP', icon: 'bom', pack: 'premium', area: 'make' },
+  { id: 'sfc', name: 'Shop Floor Control', slug: 'shop-floor-control', summary: 'Live OEE, downtime and WIP', icon: 'eye', pack: 'premium', area: 'make' },
+  { id: 'mvl', name: 'mVLens Vendor Audit', slug: 'mvlens-vendor-audit', summary: 'Vendor audits, CAPA, agreements', icon: 'quality', pack: 'base', area: 'make' },
 
   // People and workforce
-  { id: 'hrms', name: 'HRMS and Payroll', summary: 'Payroll with PF, ESI and TDS', icon: 'people', pack: 'base', area: 'people' },
-  { id: 'ros', name: 'Roster Ledger', summary: 'Shift rosters and coverage', icon: 'layers', pack: 'base', area: 'people' },
-  { id: 'rhl', name: 'Rest Hours Log', summary: 'Duty and rest-hour compliance', icon: 'shield', pack: 'base', area: 'people' },
-  { id: 'lms', name: 'Learning Management', summary: 'Courses, paths and certification', icon: 'workflow', pack: 'premium', area: 'people' },
-  { id: 'cls', name: 'Contract Labour Supply', summary: 'Contractor workforce and billing', icon: 'people', pack: 'premium', area: 'people' },
-  { id: 'clp', name: 'Contract Labour Purchase', summary: 'Contractor rates and invoices', icon: 'procurement', pack: 'premium', area: 'people' },
+  { id: 'hrms', name: 'HRMS and Payroll', slug: 'hrms-and-payroll', summary: 'Payroll with PF, ESI and TDS', icon: 'people', pack: 'base', area: 'people' },
+  { id: 'ros', name: 'Roster Ledger', slug: 'roster-ledger', summary: 'Shift rosters and coverage', icon: 'layers', pack: 'base', area: 'people' },
+  { id: 'rhl', name: 'Rest Hours Log', slug: 'rest-hours-log', summary: 'Duty and rest-hour compliance', icon: 'shield', pack: 'base', area: 'people' },
+  { id: 'lms', name: 'Learning Management', slug: 'learning-management', summary: 'Courses, paths and certification', icon: 'workflow', pack: 'premium', area: 'people' },
+  { id: 'cls', name: 'Contract Labour Supply', slug: 'contract-labour-supply', summary: 'Contractor workforce and billing', icon: 'people', pack: 'premium', area: 'people' },
+  { id: 'clp', name: 'Contract Labour Purchase', slug: 'contract-labour-purchase', summary: 'Contractor rates and invoices', icon: 'procurement', pack: 'premium', area: 'people' },
 
   // Data, projects and assets
-  { id: 'dat', name: 'Data Analytics', summary: 'Pipelines, lineage and quality', icon: 'eye', pack: 'base', area: 'data' },
-  { id: 'baa', name: 'Business Analyst App', summary: 'Certified self-service reports', icon: 'sales', pack: 'premium', area: 'data' },
-  { id: 'mdm', name: 'Master Data Management', summary: 'Golden records, governed changes', icon: 'master', pack: 'premium', area: 'data' },
-  { id: 'dms', name: 'Document Management', summary: 'Repository, versions, approvals', icon: 'procurement', pack: 'premium', area: 'data' },
-  { id: 'prj', name: 'Project Management', summary: 'Plans, milestones and costs', icon: 'workflow', pack: 'base', area: 'data' },
-  { id: 'res', name: 'Real Estate Management', summary: 'Property, leases and rent', icon: 'warehouse', pack: 'premium', area: 'data' },
+  { id: 'dat', name: 'Data Analytics', slug: 'data-analytics', summary: 'Pipelines, lineage and quality', icon: 'eye', pack: 'base', area: 'data' },
+  { id: 'baa', name: 'Business Analyst App', slug: 'business-analyst-app', summary: 'Certified self-service reports', icon: 'sales', pack: 'premium', area: 'data' },
+  { id: 'mdm', name: 'Master Data Management', slug: 'master-data-management', summary: 'Golden records, governed changes', icon: 'master', pack: 'premium', area: 'data' },
+  { id: 'dms', name: 'Document Management', slug: 'document-management', summary: 'Repository, versions, approvals', icon: 'procurement', pack: 'premium', area: 'data' },
+  { id: 'prj', name: 'Project Management', slug: 'project-management', summary: 'Plans, milestones and costs', icon: 'workflow', pack: 'base', area: 'data' },
+  { id: 'res', name: 'Real Estate Management', slug: 'real-estate-management', summary: 'Property, leases and rent', icon: 'warehouse', pack: 'premium', area: 'data' },
 ];
 
 export const byArea = (area: Area) => modules.filter((m) => m.area === area);
@@ -100,15 +103,8 @@ export const byPack = (pack: Pack) => modules.filter((m) => m.pack === pack);
 export const moduleById = (id: string) => modules.find((m) => m.id === id)!;
 export const packHref = (m: Module) => packs[m.pack].href;
 
-/** URL segment for a module or portal page: lowercase, hyphenated ('Distributor / B2B Portal' → 'distributor-b2b-portal'). */
-export const slugify = (name: string) =>
-  name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
-
 /** A module's or portal's own page, `/modules/<slug>` (SITE-PLAN.md section 2). */
-export const modulePage = (item: { name: string }) => `/modules/${slugify(item.name)}`;
+export const modulePage = (item: { slug: ModuleSlug }) => `/modules/${item.slug}`;
 
 /* ---------- Base modules grid ---------- */
 
@@ -157,6 +153,8 @@ export const platformFoundation = {
 export interface Portal {
   id: string;
   name: string;
+  /** Its page: `/modules/<slug>`. */
+  slug: ModuleSlug;
   layer: string;
   who: string;
   /** One line, for menus and lists. */
@@ -169,6 +167,7 @@ export interface Portal {
 export const vendorPortal: Portal = {
   id: 'vendor',
   name: 'Vendor Portal',
+  slug: 'vendor-portal',
   layer: 'Supply side',
   who: 'Suppliers',
   summary: 'Onboarding, compliance vault, supplier 360°',
@@ -180,6 +179,7 @@ export const channelPortals: Portal[] = [
   {
     id: 'distributor',
     name: 'Distributor / B2B Portal',
+    slug: 'distributor-portal',
     layer: 'Primary',
     who: 'Distributors',
     summary: 'Primary orders checked for scheme, stock, credit',
@@ -189,6 +189,7 @@ export const channelPortals: Portal[] = [
   {
     id: 'dealer',
     name: 'Dealer Portal',
+    slug: 'dealer-portal',
     layer: 'Secondary',
     who: 'Dealers',
     summary: 'Offtake, stock cover and replenishment',
@@ -198,6 +199,7 @@ export const channelPortals: Portal[] = [
   {
     id: 'retailer',
     name: 'Retailer Portal',
+    slug: 'retailer-portal',
     layer: 'Tertiary',
     who: 'Retailers',
     summary: 'Counter orders, loyalty and returns',
@@ -208,6 +210,30 @@ export const channelPortals: Portal[] = [
 
 /** All four portals, supply side first. */
 export const portals: Portal[] = [vendorPortal, ...channelPortals];
+
+/** One module page's place in the catalogue: a module (with its business area) or a portal. */
+export type CatalogueEntry =
+  | { kind: 'module'; slug: ModuleSlug; name: string; summary: string; pack: Pack; area: Area; item: Module }
+  | { kind: 'portal'; slug: ModuleSlug; name: string; summary: string; pack: 'portal'; area: null; item: Portal };
+
+/** Every module page, in catalogue order: the 38 modules, then the 4 portals. */
+export const catalogue: CatalogueEntry[] = [
+  ...modules.map((item) => ({ kind: 'module' as const, slug: item.slug, name: item.name, summary: item.summary, pack: item.pack, area: item.area, item })),
+  ...portals.map((item) => ({ kind: 'portal' as const, slug: item.slug, name: item.name, summary: item.summary, pack: 'portal' as const, area: null, item })),
+];
+
+export const entryBySlug = (slug: ModuleSlug) => catalogue.find((entry) => entry.slug === slug)!;
+
+// Every slug in slugs.ts belongs to exactly one catalogue entry. Runs on load, so dev, the build and the
+// prerender all stop on a mismatch.
+{
+  const used = catalogue.map((entry) => entry.slug);
+  const missing = moduleSlugs.filter((slug) => !used.includes(slug));
+  const twice = used.filter((slug, i) => used.indexOf(slug) !== i);
+  if (missing.length || twice.length) {
+    throw new Error(`catalogue: slugs out of step with slugs.ts (missing: ${missing.join(', ') || 'none'}; repeated: ${twice.join(', ') || 'none'})`);
+  }
+}
 
 /* ---------- Premium modules ---------- */
 
