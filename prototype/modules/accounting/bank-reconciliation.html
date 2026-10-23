@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Accounting · Bank reconciliation</title>
+<!-- Scenario: see general-ledger.html. HDFC current a/c, statement to 7 Oct: 186 lines, 179 matched automatically,
+     7 to review. Bank ₹1,44,18,640 − cheques not presented ₹2,36,500 + receipt not credited ₹96,000 − lines still to
+     post ₹41,320 (unknown IMPS ₹42,500 less RTGS charges ₹1,180) = books ₹1,42,36,820. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .pair { display: grid; grid-template-columns: minmax(0, 1fr) 34px minmax(0, 1fr); align-items: stretch; gap: 0; }
+  .sd h3 { font: 500 11.5px var(--sans); color: var(--ink-3); padding: 0 16px 8px; }
+  .row { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: 8px; align-items: center; height: 46px; padding: 0 16px; border-top: 1px solid var(--line); }
+  .row b { font-weight: 550; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row small { color: var(--ink-3); font-size: 11.5px; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row .amt { font: 12.5px var(--mono); text-align: right; }
+  .row .d { font: 11.5px var(--mono); color: var(--ink-3); }
+  .row.hl { background: var(--accent-soft); }
+  .row.miss { background: var(--warn-soft); }
+  .link { display: flex; flex-direction: column; padding-top: 27px; }
+  .link span { height: 46px; display: grid; place-items: center; border-top: 1px solid transparent; }
+  .link i { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 600 10px var(--mono); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .link i.q { background: var(--warn-soft); color: var(--warn); }
+  .link i.n { background: var(--surface-2); color: var(--ink-3); }
+  .stmt li { display: grid; grid-template-columns: minmax(0, 1fr) auto; padding: 8px 0; gap: 10px; }
+  .stmt li + li { border-top: 1px solid var(--line); }
+  .stmt li span { color: var(--ink-2); }
+  .stmt li b { font: 600 12.5px var(--mono); }
+  .stmt li.t { border-top: 1.5px solid var(--ink); }
+  .stmt li.t span { color: var(--ink); font-weight: 600; }
+  .rules li { display: flex; justify-content: space-between; padding: 8px 0; gap: 10px; }
+  .rules li + li { border-top: 1px solid var(--line); }
+  .rules small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .rules b { font-weight: 550; }
+  .rules em { font: 600 12px var(--mono); font-style: normal; color: var(--ink-2); align-self: center; }
+</style>
+</head>
+<body data-module="accounting" data-view="Bank reconciliation" data-crumb="Finance / Accounting / Bank reconciliation" data-who="Nisha Verma|Finance controller">
+<main>
+  <div class="head">
+    <div>
+      <h1>Bank reconciliation · HDFC current a/c</h1>
+      <p>Statement to 7 Oct · lines matched to receipts, payments and charges by rule, the rest queued</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">HDFC</span><span>ICICI</span><span>SBI</span><span>Axis</span></div>
+      <span class="btn">Import statement</span>
+      <span class="btn pri">Reconcile</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Statement lines</label><div class="v"><strong>186</strong></div><div class="foot"><b class="delta up">179 matched</b><span>96% automatic</span></div></div>
+    <div class="card kpi"><label>To review</label><div class="v"><strong>7 <small>lines</small></strong></div><div class="foot"><b class="delta flat">₹4,92,180</b><span>suggested matches for 5</span></div></div>
+    <div class="card kpi"><label>Book balance</label><div class="v"><strong>₹1.42 Cr</strong><i data-spark="1.21,1.28,1.25,1.33,1.31,1.38,1.36,1.40,1.39,1.42" data-color="#8b93a3"></i></div><div class="foot"><b class="delta flat">₹1,42,36,820</b><span>general ledger</span></div></div>
+    <div class="card kpi"><label>Bank balance</label><div class="v"><strong>₹1.44 Cr</strong></div><div class="foot"><b class="delta flat">₹1,44,18,640</b><span>per statement</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Match review</h2><span>statement line and the ledger entry it belongs to</span><span class="more">Show matched</span></header>
+      <div class="body">
+        <div class="pair">
+          <div class="sd">
+            <h3>Bank statement</h3>
+            <div class="row hl"><span class="d">7 Oct</span><span><b>NEFT · VARUN HYDRAULICS</b><small>UTR HDFCN52281907</small></span><span class="amt">+8,60,000</span></div>
+            <div class="row"><span class="d">7 Oct</span><span><b>RTGS · SUNDARAM VALVES</b><small>UTR SBINR52281423</small></span><span class="amt">+3,12,400</span></div>
+            <div class="row"><span class="d">6 Oct</span><span><b>NEFT · ARAVALI CASTINGS</b><small>Payment run PR-0187</small></span><span class="amt">−2,46,800</span></div>
+            <div class="row"><span class="d">6 Oct</span><span><b>CHQ 004412</b><small>Cleared</small></span><span class="amt">−58,410</span></div>
+            <div class="row miss"><span class="d">5 Oct</span><span><b>BANK CHARGES · RTGS</b><small>No ledger entry</small></span><span class="amt">−1,180</span></div>
+            <div class="row"><span class="d">5 Oct</span><span><b>NEFT · PATEL IRRIGATION</b><small>2 invoices</small></span><span class="amt">+3,64,000</span></div>
+            <div class="row miss"><span class="d">4 Oct</span><span><b>IMPS · 7739XXXX21</b><small>Unknown remitter</small></span><span class="amt">+42,500</span></div>
+            <div class="row"><span class="d">4 Oct</span><span><b>NEFT · DECCAN FLUID SYSTEMS</b><small>Advance on SO-24866</small></span><span class="amt">+1,62,000</span></div>
+            <div class="row"><span class="d">3 Oct</span><span><b>GST CHALLAN · CBIC</b><small>September GSTR-3B</small></span><span class="amt">−13,92,400</span></div>
+            <div class="row"><span class="d">3 Oct</span><span><b>NEFT · SALARY ADVANCE</b><small>Payroll · 4 employees</small></span><span class="amt">−1,20,000</span></div>
+            <div class="row"><span class="d">2 Oct</span><span><b>RTGS · MERIDIAN COMPRESSORS</b><small>UTR ICICR52270199</small></span><span class="amt">+2,40,000</span></div>
+            <div class="row"><span class="d">1 Oct</span><span><b>INTEREST CREDIT</b><small>Sweep deposit</small></span><span class="amt">+18,240</span></div>
+          </div>
+          <div class="link"><span><i>✓</i></span><span><i class="q">?</i></span><span><i>✓</i></span><span><i class="q">?</i></span><span><i class="n">+</i></span><span><i class="q">?</i></span><span><i class="n">+</i></span><span><i>✓</i></span><span><i>✓</i></span><span><i>✓</i></span><span><i>✓</i></span><span><i>✓</i></span></div>
+          <div class="sd">
+            <h3>Ledger</h3>
+            <div class="row hl"><span class="d">6 Oct</span><span><b>Receipt RC-2291</b><small>Varun Hydraulics · 3 invoices</small></span><span class="amt">8,60,000</span></div>
+            <div class="row"><span class="d">7 Oct</span><span><b>Receipt RC-2296</b><small>Sundaram Valves · part payment</small></span><span class="amt">3,12,400</span></div>
+            <div class="row"><span class="d">6 Oct</span><span><b>Payment PAY-1402</b><small>Aravali Castings · PO-7714</small></span><span class="amt">2,46,800</span></div>
+            <div class="row"><span class="d">2 Oct</span><span><b>Cheque 004412</b><small>Shree Ganesh Packaging</small></span><span class="amt">58,410</span></div>
+            <div class="row miss"><span class="d">—</span><span><b>Create bank charges entry</b><small>Rule: RTGS charges to 6120</small></span><span class="amt">1,180</span></div>
+            <div class="row"><span class="d">5 Oct</span><span><b>Receipt RC-2288</b><small>Patel Irrigation · INV-6092, 6087</small></span><span class="amt">3,64,000</span></div>
+            <div class="row miss"><span class="d">—</span><span><b>Suspense, find customer</b><small>Ask Sales: 3 open invoices of ₹42,500</small></span><span class="amt">42,500</span></div>
+            <div class="row"><span class="d">4 Oct</span><span><b>Receipt RC-2284</b><small>Deccan Fluid Systems · advance</small></span><span class="amt">1,62,000</span></div>
+            <div class="row"><span class="d">3 Oct</span><span><b>Payment PAY-1398</b><small>GST cash ledger · GSTR-3B</small></span><span class="amt">13,92,400</span></div>
+            <div class="row"><span class="d">3 Oct</span><span><b>Payment PAY-1396</b><small>Salary advances · HR</small></span><span class="amt">1,20,000</span></div>
+            <div class="row"><span class="d">2 Oct</span><span><b>Receipt RC-2279</b><small>Meridian Compressors · INV-5944</small></span><span class="amt">2,40,000</span></div>
+            <div class="row"><span class="d">1 Oct</span><span><b>Journal JV-10402</b><small>Interest income · sweep deposit</small></span><span class="amt">18,240</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Reconciliation statement</h2><span>as at 7 Oct</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="stmt">
+            <li><span>Balance per bank</span><b>1,44,18,640</b></li>
+            <li><span>Less: cheques not yet presented (3)</span><b>−2,36,500</b></li>
+            <li><span>Add: receipts not yet credited (1)</span><b>+96,000</b></li>
+            <li><span>Less: lines to post (2)</span><b>−41,320</b></li>
+            <li class="t"><span>Balance per books</span><b>1,42,36,820</b></li>
+            <li><span>Difference</span><b style="color:var(--ok)">0 · agrees</b></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Matching rules</h2><span>applied in order</span><span class="more">Edit</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="rules">
+            <li><span><b>UTR equals receipt reference</b><small>Customer receipts by NEFT and RTGS</small></span><em>112</em></li>
+            <li><span><b>Payment run and amount</b><small>Vendor payments</small></span><em>41</em></li>
+            <li><span><b>Cheque number</b><small>Issued cheques</small></span><em>18</em></li>
+            <li><span><b>Bank charge narration</b><small>Posts to charges account 6120</small></span><em>8</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

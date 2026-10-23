@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Accounting · General ledger</title>
+<!--
+  Scenario (Accounting, shared by every screen of the module; agrees with prototype/accounting.html, o2c.html and
+  the Order to Cash screens): Northfield Precision, three entities (NP Pune, NP Chennai, NP Exports), 8 Oct, 14:02.
+  1,284 journals this month, 98.6% posted from source documents; GST payable ₹14.2 L after ₹18.6 L ITC; September
+  closed in 2 working days. Receivables ₹1.37 Cr (₹96.4 L not yet due, ₹12.4 L over 60 days). Bank: 4 accounts,
+  HDFC current a/c statement to 7 Oct with 186 lines, 179 matched automatically. Finance controller: Nisha Verma.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .src { display: inline-flex; align-items: center; gap: 6px; }
+  .src i { width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; font: 600 9.5px var(--mono); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .src i.blue { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+  .src i.ok { background: var(--ok-soft); border-color: #c8ecdc; color: var(--ok); }
+  .jv { display: grid; grid-template-columns: 1fr 120px 120px; }
+  .jv > div { padding: 6px 0; border-top: 1px solid var(--line); }
+  .jv .h { border-top: 0; padding-top: 0; color: var(--ink-3); font-size: 11.5px; }
+  .jv .r { text-align: right; font-family: var(--mono); font-size: 12.5px; }
+  .jv .cr { padding-left: 22px; color: var(--ink-2); }
+  .jv .t { font-weight: 600; }
+  .from { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; color: var(--ink-2); }
+  .from .chip { margin-left: auto; }
+  .ret li { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 9px 0; }
+  .ret li + li { border-top: 1px solid var(--line); }
+  .ret b { font-weight: 600; }
+  .ret small { grid-column: 1; color: var(--ink-3); font-size: 12px; }
+  .ret .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .todo li { display: flex; align-items: center; gap: 10px; padding: 7px 0; color: var(--ink-2); }
+  .todo li + li { border-top: 1px solid var(--line); }
+  .todo i { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #d5d9e2; flex: none; }
+  .todo i.done { background: var(--ok); border-color: var(--ok); position: relative; }
+  .todo i.done::after { content: ''; position: absolute; left: 4px; top: 4px; width: 7px; height: 4px; border: solid #fff; border-width: 0 0 2px 2px; transform: rotate(-45deg); }
+  .todo span:last-child { margin-left: auto; font: 11.5px var(--mono); color: var(--ink-3); }
+</style>
+</head>
+<body data-module="accounting" data-view="General ledger" data-crumb="Finance / Accounting / General ledger" data-who="Nisha Verma|Finance controller">
+<main>
+  <div class="head">
+    <div>
+      <h1>General ledger · October</h1>
+      <p>3 entities · journals posted automatically from the documents that caused them</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All entities</span><span>NP Pune</span><span>NP Chennai</span></div>
+      <span class="btn">Trial balance</span>
+      <span class="btn pri">Close period</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Journals this month</label><div class="v"><strong>1,284</strong><i data-spark="62,88,71,104,96,118,91,126,110,134,121,143"></i></div><div class="foot"><b class="delta up">98.6% automatic</b><span>from source documents</span></div></div>
+    <div class="card kpi"><label>Manual journals</label><div class="v"><strong>18 <small>entries</small></strong></div><div class="foot"><b class="delta flat">3 awaiting</b><span>maker-checker approval</span></div></div>
+    <div class="card kpi"><label>GST payable (GSTR-3B)</label><div class="v"><strong>₹14.2 L</strong><i data-spark="11.8,12.4,13.1,12.6,13.9,14.4,13.2,13.8,14.6,13.9,14.1,14.2" data-color="#8b93a3"></i></div><div class="foot"><b class="delta flat">Due 20 Oct</b><span>after ₹18.6 L ITC</span></div></div>
+    <div class="card kpi"><label>September close</label><div class="v"><strong>2 <small>working days</small></strong></div><div class="foot"><b class="delta up">Locked 2 Oct</b><span>all three entities</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Journal entries</h2><span>newest first</span><span class="more">All journals</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Journal</th><th>Source</th><th>Debit</th><th>Credit</th><th class="r">Amount</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b class="mono">JV-10482</b><small>8 Oct</small></td><td><span class="src"><i class="blue">INV</i><span class="mono">INV-6114</span></span></td><td>Sundaram Valves</td><td>Sales · output GST</td><td class="r mono"><b>₹6,24,140</b></td><td><span class="chip ok">Auto-posted</span></td></tr>
+              <tr><td><b class="mono">JV-10481</b><small>8 Oct</small></td><td><span class="src"><i class="ok">GRN</i><span class="mono">GRN-3316</span></span></td><td>Raw material</td><td>GR / IR clearing</td><td class="r mono">₹2,46,800</td><td><span class="chip ok">Auto-posted</span></td></tr>
+              <tr><td><b class="mono">JV-10479</b><small>8 Oct</small></td><td><span class="src"><i>BNK</i><span class="mono">BANK-0912</span></span></td><td>HDFC current a/c</td><td>Varun Hydraulics</td><td class="r mono">₹8,60,000</td><td><span class="chip ok">Auto-posted</span></td></tr>
+              <tr><td><b class="mono">JV-10476</b><small>7 Oct</small></td><td><span class="src"><i>VIM</i><span class="mono">VIM-2203</span></span></td><td>GR / IR · input GST</td><td>Shree Ganesh Packaging</td><td class="r mono">₹58,410</td><td><span class="chip ok">Auto-posted</span></td></tr>
+              <tr><td><b class="mono">JV-10471</b><small>7 Oct</small></td><td><span class="src"><i class="blue">WO</i><span class="mono">WO-5508</span></span></td><td>Finished goods</td><td>Work in progress</td><td class="r mono">₹4,38,600</td><td><span class="chip ok">Auto-posted</span></td></tr>
+              <tr><td><b class="mono">JV-10468</b><small>6 Oct</small></td><td><span class="src"><i>MJ</i><span class="mono">MJ-0041</span></span></td><td>Warranty expense</td><td>Warranty provision</td><td class="r mono">₹75,000</td><td><span class="chip warn">Awaiting approval</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <header><h2>JV-10482</h2><span>posted 8 Oct, 11:42 · no one typed it</span><span class="more">Open invoice</span></header>
+        <div class="body">
+          <div class="from"><span class="chip blue">From INV-6114</span><span>Sundaram Valves · dispatch DSP-1897 · e-invoice IRN generated</span><span class="chip ok">Balanced</span></div>
+          <div class="jv">
+            <div class="h">Account</div><div class="h r">Debit</div><div class="h r">Credit</div>
+            <div class="t">Sundaram Valves · trade receivable</div><div class="r">6,24,140</div><div class="r"></div>
+            <div class="cr">Sales · domestic</div><div class="r"></div><div class="r">5,28,932</div>
+            <div class="cr">Output CGST 9%</div><div class="r"></div><div class="r">47,604</div>
+            <div class="cr">Output SGST 9%</div><div class="r"></div><div class="r">47,604</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>GST returns</h2><span>October</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="ret">
+            <li><b>GSTR-1</b><small>412 invoices · 412 IRNs generated</small><span class="chip ok">Ready to file</span></li>
+            <li><b>GSTR-3B</b><small>₹14.2 L payable after input credit</small><span class="chip blue">Draft</span></li>
+            <li><b>GSTR-2B reconciliation</b><small>96% matched · 7 vendor invoices held</small><span class="chip warn">7 held</span></li>
+            <li><b>Input tax credit</b><small>₹18.6 L eligible this month</small><span class="chip ok">Protected</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>October close</h2><span>prepared as the month runs</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="todo">
+            <li><i class="done"></i><span>Bank lines matched, 4 accounts</span><span>to 7 Oct</span></li>
+            <li><i class="done"></i><span>Inter-entity balances agree</span><span>live</span></li>
+            <li><i class="done"></i><span>GR / IR clearing reviewed</span><span>7 Oct</span></li>
+            <li><i></i><span>Approve manual journals</span><span>3 open</span></li>
+            <li><i></i><span>Payroll journal from October run</span><span>31 Oct</span></li>
+            <li><i></i><span>Depreciation run</span><span>31 Oct</span></li>
+            <li><i></i><span>Lock period</span><span>2 Nov</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

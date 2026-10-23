@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Accounting · GST returns</title>
+<!-- Scenario: see general-ledger.html. October so far (to 8 Oct), NP Pune GSTIN 27AAKCN4417M1Z3. GSTR-1: 412 invoices,
+     412 IRNs, taxable ₹1.82 Cr. GSTR-3B: output tax ₹32.8 L (IGST 12.4, CGST 10.2, SGST 10.2); eligible ITC ₹18.6 L;
+     payable ₹14.2 L. GSTR-2B: 184 vendor invoices, 177 matched (96%), 7 held with ₹1.92 L of ITC at risk; those 7
+     invoices are held from payment in Vendor Invoice Management. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 360px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .cal { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .cal div { padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+  .cal div.now { background: var(--accent-soft); border-color: #d9e0ff; }
+  .cal label { display: block; font-size: 11.5px; color: var(--ink-3); }
+  .cal b { display: block; margin-top: 2px; font-size: 15px; font-weight: 620; }
+  .cal small { display: block; margin-top: 6px; color: var(--ink-2); font-size: 12px; }
+  .cal .chip { margin-top: 8px; }
+  table.tb td, table.tb th { padding-top: 7px; padding-bottom: 7px; }
+  tr.sub td { font-weight: 600; background: var(--surface-2); }
+  tr.tot td { font-weight: 650; border-top: 1.5px solid var(--ink); }
+  tr.ind td:first-child { padding-left: 30px; color: var(--ink-2); }
+  .held li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 8px 0; }
+  .held li + li { border-top: 1px solid var(--line); }
+  .held b { font-weight: 550; }
+  .held small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .held em { grid-row: 1 / span 2; grid-column: 2; align-self: center; font: 600 12px var(--mono); font-style: normal; color: var(--bad); }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .auto { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-ink); font-size: 12px; line-height: 1.5; }
+  .donut-row { display: flex; align-items: center; gap: 16px; }
+  .donut-row .d { width: 96px; height: 96px; flex: none; }
+  .donut-row dl { flex: 1; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; }
+  .donut-row dt { color: var(--ink-2); display: flex; align-items: center; gap: 7px; }
+  .donut-row dt i { width: 8px; height: 8px; border-radius: 2px; }
+  .donut-row dd { text-align: right; font: 600 12.5px var(--mono); }
+</style>
+</head>
+<body data-module="accounting" data-view="GST returns" data-crumb="Finance / Accounting / GST returns" data-who="Nisha Verma|Finance controller">
+<main>
+  <div class="head">
+    <div>
+      <h1>GST returns · October</h1>
+      <p>NP Pune · GSTIN 27AAKCN4417M1Z3 · every figure built from posted invoices, credit notes and bills</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">NP Pune</span><span>NP Chennai</span><span>NP Exports</span></div>
+      <span class="btn">Download JSON</span>
+      <span class="btn pri">File GSTR-1</span>
+    </div>
+  </div>
+
+  <div class="cal">
+    <div class="now"><label>GSTR-1 · outward supplies</label><b>Due 11 Oct</b><small>412 invoices · 412 IRNs generated</small><span class="chip ok">Ready to file</span></div>
+    <div><label>GSTR-3B · summary and payment</label><b>Due 20 Oct</b><small>₹14.2 L payable after input credit</small><span class="chip blue">Draft</span></div>
+    <div><label>GSTR-2B · inward reconciliation</label><b>Matched daily</b><small>Against vendors' filed GSTR-1</small><span class="chip warn">7 held</span></div>
+    <div><label>TDS on GST · e-way bills</label><b>Live</b><small>286 e-way bills · 0 expired in transit</small><span class="chip ok">Clean</span></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>GSTR-3B computation</h2><span>₹ lakh · October to date</span><span class="more">Open worksheet</span></header>
+        <div class="body">
+          <table class="tb">
+            <thead><tr><th>Line</th><th class="r">Taxable value</th><th class="r">IGST</th><th class="r">CGST</th><th class="r">SGST</th><th class="r">Total tax</th></tr></thead>
+            <tbody>
+              <tr class="sub"><td>3.1 Outward taxable supplies</td><td class="r mono">182.2</td><td class="r mono">12.4</td><td class="r mono">10.2</td><td class="r mono">10.2</td><td class="r mono">32.8</td></tr>
+              <tr class="ind"><td>Inter-state, 18%</td><td class="r mono">68.9</td><td class="r mono">12.4</td><td class="r mono dim">—</td><td class="r mono dim">—</td><td class="r mono">12.4</td></tr>
+              <tr class="ind"><td>Intra-state, 18%</td><td class="r mono">113.3</td><td class="r mono dim">—</td><td class="r mono">10.2</td><td class="r mono">10.2</td><td class="r mono">20.4</td></tr>
+              <tr class="sub"><td>4 Eligible input tax credit</td><td class="r mono">103.3</td><td class="r mono">5.8</td><td class="r mono">6.4</td><td class="r mono">6.4</td><td class="r mono">18.6</td></tr>
+              <tr class="ind"><td>Imports and inter-state purchases</td><td class="r mono">32.2</td><td class="r mono">5.8</td><td class="r mono dim">—</td><td class="r mono dim">—</td><td class="r mono">5.8</td></tr>
+              <tr class="ind"><td>Intra-state purchases, 2B matched</td><td class="r mono">71.1</td><td class="r mono dim">—</td><td class="r mono">6.4</td><td class="r mono">6.4</td><td class="r mono">12.8</td></tr>
+              <tr class="ind"><td>Held: 2B mismatch (not claimed)</td><td class="r mono">10.7</td><td class="r mono dim">—</td><td class="r mono">0.96</td><td class="r mono">0.96</td><td class="r mono" style="color:var(--bad)">1.92</td></tr>
+              <tr class="tot"><td>Payable in cash</td><td class="r mono dim">—</td><td class="r mono">6.6</td><td class="r mono">3.8</td><td class="r mono">3.8</td><td class="r mono">14.2</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Output tax, input credit and cash paid</h2><span>₹ lakh per month</span><div class="legend"><span>Output tax</span><span style="--c:#0c9b6a">Input credit</span><span style="--c:#c9cfdb">Paid in cash</span></div></header>
+        <div class="body chart-c" data-bars="88.4,91.2,94.6,90.8,97.2,101.6|52.1,55.4,56.8,53.2,58.9,61.4|36.3,35.8,37.8,37.6,38.3,40.2" data-max="120" data-labels="Apr,May,Jun,Jul,Aug,Sep" data-colors="#0a48fd,#0c9b6a,#c9cfdb"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>GSTR-2B match</h2><span>184 vendor invoices</span></header>
+        <div class="body">
+          <div class="donut-row">
+            <div class="d" data-donut="177,5,2" data-colors="#0c9b6a,#e0a030,#d43a2f"></div>
+            <dl>
+              <dt><i style="background:#0c9b6a"></i>Matched</dt><dd>177</dd>
+              <dt><i style="background:#e0a030"></i>Amount differs</dt><dd>5</dd>
+              <dt><i style="background:#d43a2f"></i>Not in 2B</dt><dd>2</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Held from ITC</h2><span>₹1.92 L at risk</span><span class="more">Open in VIM</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="held">
+            <li><b>Shree Ganesh Packaging</b><small>VIM-2211 · not in 2B, vendor filed late</small><em>₹54,000</em></li>
+            <li><b>Om Sai Transport</b><small>VIM-2207 · not in 2B</small><em>₹38,400</em></li>
+            <li><b>Kaveri Steel Traders</b><small>VIM-2198 · tax differs by ₹6,120</small><em>₹31,200</em></li>
+            <li><b>Precision Tooling Co.</b><small>VIM-2215 · GSTIN on invoice differs</small><em>₹27,900</em></li>
+            <li><b>3 more vendors</b><small>amount differs</small><em>₹40,500</em></li>
+          </ul>
+          <p class="auto">Held invoices are released for payment and their credit claimed automatically once the vendor's filing matches.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

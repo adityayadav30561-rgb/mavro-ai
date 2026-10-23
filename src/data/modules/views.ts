@@ -8,6 +8,43 @@ import type { ModuleSlug } from './slugs';
  * of a module of that kind.
  */
 export const moduleViews: Partial<Record<ModuleSlug, readonly string[]>> = {
+  accounting: [
+    'General ledger',
+    'Journals',
+    'Chart of accounts',
+    'Receivables',
+    'Payables',
+    'Bank reconciliation',
+    'GST returns',
+    'Fixed assets',
+    'Budgets',
+    'Financial statements',
+    'Period close',
+    'Reports',
+  ],
+  'vendor-invoice-management': [
+    'AP dashboard',
+    'Invoice inbox',
+    'Invoice register',
+    '3-way match',
+    'Exceptions',
+    'GSTR-2B reconciliation',
+    'Payment runs',
+    'TDS',
+    'Vendor statements',
+    'Reports',
+  ],
+  'travel-and-expense': [
+    'Spend and compliance',
+    'Trip requests',
+    'Bookings',
+    'Advances',
+    'Expense reports',
+    'Reimbursements',
+    'Travel policy',
+    'Expense register',
+    'Reports',
+  ],
   'order-to-cash': [
     'Order book',
     'Quotations',
