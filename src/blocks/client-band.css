@@ -1,0 +1,81 @@
+/*
+ * Client band (blocks/ClientBand.tsx): the clients from the clientele slide, grey until hovered, drifting slowly.
+ * Taken from the homepage hero, so its classes keep their hero__ names (the homepage markup did not change).
+ */
+.hero__band {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  padding: .875rem 0 .875rem max(var(--gutter), (100vw - var(--page-max)) / 2);
+  border-block: 1px solid var(--line);
+  background: rgb(255 255 255 / 0.6);
+}
+
+.hero__band-label {
+  flex: none;
+  font-size: var(--t-label);
+  font-weight: 700;
+  color: var(--fg-3);
+  white-space: nowrap;
+}
+
+.hero__marquee {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 92%, transparent);
+}
+
+.hero__track {
+  display: flex;
+  width: max-content;
+  animation: band 70s linear infinite;
+}
+
+.hero__marquee:hover .hero__track {
+  animation-play-state: paused;
+}
+
+.hero__track ul {
+  display: flex;
+  flex: none;
+}
+
+/* Each logo sits in the same box, so wide wordmarks and square marks read at a similar weight. */
+.hero__track li {
+  display: grid;
+  place-items: center;
+  width: 9rem;
+  height: 2.75rem;
+  margin-right: 2.25rem;
+}
+
+.hero__track img {
+  width: 100%;
+  height: 2.75rem;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.62;
+  transition:
+    filter var(--d-2) ease,
+    opacity var(--d-2) ease;
+}
+
+.hero__track li:hover img {
+  filter: none;
+  opacity: 1;
+}
+
+@keyframes band {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* With reduced motion the band stands still at its start (and scrolls by hand on touch screens). */
+@media (prefers-reduced-motion: reduce) {
+  .hero__track {
+    animation: none;
+  }
+}

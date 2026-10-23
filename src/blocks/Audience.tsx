@@ -37,9 +37,9 @@ const initials = (name: string) =>
     .toUpperCase();
 
 /**
- * Who uses a module. Industries as cards, each with a band in its own colour carrying the icon and name, who the
- * industry is, and what the module does there; beside them the people who work in it, each with an avatar, what
- * they do and the view they work in. Module pages, section "Who uses it".
+ * Who uses a module. Industries as cards (icon, name, who the industry is, what the module does there, a link);
+ * beside them the people who work in it, each with initials, what they do and the view they work in. One brand
+ * colour throughout. Module pages, section "Who uses it".
  */
 export function Audience({ industries, roles, labels, screensHref }: AudienceProps) {
   return (
@@ -50,14 +50,16 @@ export function Audience({ industries, roles, labels, screensHref }: AudiencePro
           {industries.map((industry, index) => {
             const body = (
               <>
-                <span className="aud__band">
+                <span className="aud__head">
                   <span className="aud__icon">
                     <Icon name={industry.icon} size={22} />
                   </span>
-                  <b className="aud__name">{industry.name}</b>
+                  <span>
+                    <b className="aud__name">{industry.name}</b>
+                    <span className="aud__who">{industry.who}</span>
+                  </span>
                 </span>
                 <span className="aud__body">
-                  <span className="aud__who">{industry.who}</span>
                   <span className="aud__note">{industry.note}</span>
                   {industry.href && (
                     <span className="aud__more">
@@ -69,7 +71,7 @@ export function Audience({ industries, roles, labels, screensHref }: AudiencePro
               </>
             );
             return (
-              <li key={industry.name} data-reveal style={vars({ '--i': index })} data-n={index % 4}>
+              <li key={industry.name} data-reveal style={vars({ '--i': index })}>
                 {industry.href ? (
                   <a className="aud__card" href={industry.href}>
                     {body}
@@ -88,8 +90,8 @@ export function Audience({ industries, roles, labels, screensHref }: AudiencePro
           <span className="num">{roles.length}</span>
         </h3>
         <ol>
-          {roles.map((role, index) => (
-            <li key={role.name} data-n={index % 5}>
+          {roles.map((role) => (
+            <li key={role.name}>
               <span className="aud__avatar" aria-hidden="true">
                 {initials(role.name)}
               </span>

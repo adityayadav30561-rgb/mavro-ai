@@ -1,4 +1,5 @@
 import { Audience } from '../blocks/Audience';
+import { ClientBand } from '../blocks/ClientBand';
 import { CapabilityTiles } from '../blocks/CapabilityTiles';
 import { CtaBand } from '../blocks/CtaBand';
 import { FaqBlock } from '../blocks/FaqBlock';
@@ -112,6 +113,7 @@ export function Page() {
           { label: t.demo, interest, module: name },
           { label: t.seeScreens, href: '#screens' },
         ]}
+        band={<ClientBand />}
         visual={
           <>
             <ScreenFrame variant="bleed" screen={lead.screen} alt={lead.alt} note={explore.sample} eager />
@@ -196,7 +198,7 @@ export function Page() {
 
       <Section
         id="platform"
-        tone="night"
+        tone="paper"
         title={t.platform.title}
         rest={t.platform.rest}
         treatment="grad"

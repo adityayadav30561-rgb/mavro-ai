@@ -38,6 +38,8 @@ interface PageHeroProps {
   /** Short facts under the actions (value + label), only from the decks. */
   facts?: readonly { value: string; label: string }[];
   visual?: ReactNode;
+  /** A full-width strip at the hero's foot, e.g. the client band (module pages). */
+  band?: ReactNode;
 }
 
 /**
@@ -56,6 +58,7 @@ export function PageHero({
   actions = [],
   facts,
   visual,
+  band,
 }: PageHeroProps) {
   const simple = variant === 'simple' || !visual;
 
@@ -65,6 +68,7 @@ export function PageHero({
       className={tone === 'dark' ? 'section section--night ph' : 'section ph'}
       data-variant={variant}
       data-simple={simple || undefined}
+      data-band={band ? '' : undefined}
       aria-labelledby="page-title"
     >
       <div className="ph__bg" aria-hidden="true" />
@@ -128,6 +132,7 @@ export function PageHero({
           </div>
         )}
       </div>
+      {band}
     </section>
   );
 }

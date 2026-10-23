@@ -170,6 +170,14 @@ least important, with full design effort. The ordered list lives in [STATUS.md](
 | Related modules | Each card shows that module's real lead screen (its deck screen 01, built now: CRM pipeline, SFA field force, Customer Service ticket load, Scheme and Rebate schemes), cropped to its content | User: "put 1 screen of that module" |
 | Screens are a sample | Every module has its full set of views (`src/data/modules/views.ts`): the prototype sidebar lists them all, and the page names the views the tour does not show ("Also in Order to Cash") | User: "if we are putting 4 screens per module, that doesn't mean we will have only 4 screens in the entire module" |
 
+## Module page template, review round 2 (2026-10-23)
+
+| Decision | Choice | Why |
+|---|---|---|
+| Clients on module pages | The homepage client band ("Trusted by", the clientele logos) sits at the foot of every module hero (`blocks/ClientBand.tsx`, shared with the homepage, same markup) | User: "put the clientele on these pages as well, just like homepage" |
+| No decorative colour | One brand colour per element: industry cards are white with a blue icon tile (no coloured gradient bands), role avatars are neutral, the platform plate is navy instead of the brand sweep, the module card on the platform is plain, the flow's current node is solid blue, capability accent lines are solid, the CTA band keeps one soft light | User: the coloured glowing bands "look like AI slop" |
+| Page rhythm | Hero (light) + client band, then white / paper alternating to the FAQ, one night band (the CTA), white footer; headline treatments cycle soft, mark, grad without repeats | Design pass after the user asked for backgrounds "in good sync and not random" |
+
 ## Rest of the site (Stage B planning, 2026-10-23)
 
 | Question | User's decision |
@@ -185,6 +193,7 @@ least important, with full design effort. The ordered list lives in [STATUS.md](
 
 ## Rejected (do not bring back)
 
+- Coloured gradient bands, multi-colour avatars and glowing accents on cards ("looks like AI slop", 2026-10-23).
 - A "Platform overview" branch in the Platform mega menu listing every module (user, 2026-10-23: the Base, Portals and
   Premium branches already cover it, and it looked cluttered). Platform overview stays a footer link.
 - Eyebrow labels above headings.

@@ -34,7 +34,7 @@ and the shared headings in `src/data/modules/template.ts`. Ten sections, tones a
 | 4 | What it does / why it matters | WhatWhy | white | grad |
 | 5 | Where it sits (`flow`) | FlowStrip: feeds it / module / it feeds, each node with what passes | paper | soft |
 | 6 | Who uses it (`audience`) | Audience: industry cards with a coloured band, who it is and what the module does there; the people who work in it with an avatar, their task and the view they work in | white | mark |
-| 7 | Built on the platform | PlatformStrip with `module`: the module stands on the platform, a rail feeding all eight features; the page's one night band | night | grad |
+| 7 | Built on the platform | PlatformStrip with `module`: the module stands on the platform, a hairline rail into all eight features | paper | grad |
 | 8 | Related modules | ModuleCards (four: one row on desktops), each with that module's lead screen (its content's first screen, else `leads.ts`), cropped past the sidebar | white | soft |
 | 9 | FAQ | FaqBlock + FAQPage JSON-LD (routes.ts) | paper | mark |
 | 10 | CTA | CtaBand | night | grad |
@@ -78,6 +78,7 @@ section (src/links.ts), so a module page never links to a missing page.
 | `DataTable` | ComparisonTable.tsx | `caption`, `columns` [{key, label}], `rows` (cells: text or {level, text}) | Implementation (risks) |
 | `FaqBlock` | FaqBlock.tsx | a full section: `id`, `tone`, title parts, `lead`, `items` [{q, a, link?}], `more`. Give the route `faqPage(url, items)` (seo/schema.ts) | Homepage and every page's own FAQ |
 | `CtaBand` | CtaBand.tsx | a full dark section: title parts, `body`, `label`, `interest`, `module` (module pages: named in the form's message) | The close of every page below the homepage |
+| `ClientBand` | ClientBand.tsx | none: the clientele logos (`clients` in home.ts) | Homepage hero, module heroes (PageHero `band`) |
 | `InlineCta` | InlineCta.tsx | `title`, `body`, `label`, `interest`, `tone` | Homepage, long pages |
 | `DemoLink` | DemoLink.tsx | `interest`, children. Homepage: scrolls to `#demo` and ticks by event; elsewhere links to `/?interest=…#demo` (the form reads it) | PageHero, CtaBand, InlineCta |
 

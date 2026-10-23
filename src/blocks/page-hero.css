@@ -74,6 +74,23 @@ body:has(.ph.section--night) .nav {
   }
 }
 
+/* With a band at its foot (module pages: the clients) the hero stacks its grid over the band, and the grid takes
+   the height left. The band keeps the homepage's look; here it only loses its top margin. */
+.ph[data-band] {
+  flex-direction: column;
+}
+
+.ph[data-band] .ph__grid {
+  flex: 1;
+}
+
+.ph[data-band] .hero__band {
+  position: relative;
+  z-index: 3;
+  margin-top: 0;
+  background: var(--white);
+}
+
 /* Module heroes: the plate and its screen run to the bottom edge of the hero, which cuts them; the copy stays
    centred beside them. */
 @media (min-width: 1024px) {
@@ -254,6 +271,14 @@ body:has(.ph.section--night) .nav {
 @media (max-width: 1023px) {
   .ph {
     padding-bottom: var(--section);
+  }
+
+  .ph[data-band] {
+    padding-bottom: 0;
+  }
+
+  .ph[data-band] .hero__band {
+    margin-top: var(--s-6);
   }
 
   .ph[data-variant='module'] .ph__visual {

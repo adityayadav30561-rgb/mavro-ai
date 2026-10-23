@@ -38,7 +38,7 @@
   position: absolute;
   inset: 0 0 auto;
   height: 3px;
-  background: linear-gradient(90deg, var(--tier), color-mix(in srgb, var(--tier) 20%, transparent));
+  background: var(--tier);
   transform: scaleX(0.25);
   transform-origin: left;
   transition: transform var(--d-2) var(--ease);

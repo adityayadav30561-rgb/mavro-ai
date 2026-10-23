@@ -37,6 +37,12 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-10-23, **Phase 5 review round 2 applied; template approved for the module phases** (the user asked for
+  these fixes and then Phase 6). Client band at the foot of the module hero (`ClientBand` block, moved out of the
+  homepage hero, same markup); all decorative colour removed (industry bands, coloured avatars, brand-sweep plate,
+  gradient accents); Audience columns aligned; design pass on section rhythm (DECISIONS.md). Verified at nine
+  sizes; build passes.
+
 - 2026-10-23, **Phase 5 review round 1 applied** (user feedback on `/modules/order-to-cash`); waiting for the next
   review.
   - **Hero:** the screen runs off the right edge at every desktop width and is cut by the hero's bottom edge; the
