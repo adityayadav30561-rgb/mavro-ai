@@ -2,6 +2,7 @@ import type { ModuleContent } from '../schema';
 import type { ModuleSlug } from '../slugs';
 import { content as accounting } from './accounting';
 import { content as crm } from './crm';
+import { content as customerService } from './customer-service';
 import { content as orderToCash } from './order-to-cash';
 import { content as salesForceAutomation } from './sales-force-automation';
 import { content as travelAndExpense } from './travel-and-expense';
@@ -21,6 +22,7 @@ type Registry = { [S in ModuleSlug]?: ModuleContent<S> };
 export const moduleContent: Registry = {
   accounting,
   crm,
+  'customer-service': customerService,
   'order-to-cash': orderToCash,
   'sales-force-automation': salesForceAutomation,
   'travel-and-expense': travelAndExpense,

@@ -1,7 +1,7 @@
 import type { ModuleContent } from '../schema';
 
 /*
- * Sales Force Automation. Source: product deck v2, slides 50–51 (tagline, four tiles, what it does, why it matters,
+ * Sales Force Automation. Source: product deck v2, slides 52–53 (tagline, four tiles, what it does, why it matters,
  * four screens), written for every market rather than the deck's prescription example. Figures on the tiles come
  * from the module's screens (prototype/modules/sales-force-automation/), whose scenario is below; like all screen
  * data they are illustrative.

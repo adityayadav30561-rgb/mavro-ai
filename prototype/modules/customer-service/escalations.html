@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Customer Service · Escalations</title>
+<!-- Scenario: see ticket-load.html. 7 escalated tickets, 2 at level 2. One safety screen pending: TKT-4426, Kestrel
+     Pumps, a housing cracked on their test rig at 12:50 today, nobody hurt; screening is due within 24 hours (9 Oct,
+     12:50). 34 tickets screened since April, all inside the window, none reportable. TKT-4398 (40 short on INV-5951)
+     sits with finance for credit note CN-0418; TKT-4429 (Sanand Auto Components) disputes the discount on SO-S-2276,
+     the order Deepak Rao has in his approval queue. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 350px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .eq td { padding-top: 10px; padding-bottom: 10px; vertical-align: top; }
+  .eq td small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .eq tr.safe td { background: var(--bad-soft); }
+  .eq tr.sel td { box-shadow: inset 0 1px 0 var(--accent), inset 0 -1px 0 var(--accent); }
+  .eq tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--accent), inset 0 1px 0 var(--accent), inset 0 -1px 0 var(--accent); }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .lv { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--line); font: 600 11px var(--mono); }
+  .lv.l2 { background: var(--warn-soft); border-color: transparent; color: var(--warn); }
+  .tmr { display: inline-block; padding: 2px 8px; border-radius: 7px; font: 600 12px var(--mono); background: var(--ok-soft); color: var(--ok); white-space: nowrap; }
+  .tmr.w { background: var(--warn-soft); color: var(--warn); }
+  .tmr.b { background: var(--bad-soft); color: var(--bad); }
+  .q li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; font-size: 12.5px; }
+  .q li + li { border-top: 1px solid var(--line); }
+  .clock { display: flex; align-items: baseline; justify-content: space-between; padding: 12px 14px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--line); }
+  .clock b { font: 650 22px var(--mono); letter-spacing: -0.02em; }
+  .clock span { color: var(--ink-3); font-size: 11.5px; }
+  .ladder li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; padding: 8px 0; font-size: 12.5px; line-height: 1.4; }
+  .ladder li + li { border-top: 1px solid var(--line); }
+  .ladder small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="customer-service" data-view="Escalations" data-crumb="Sell / Customer Service / Escalations" data-who="Anita Rao|Service lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Escalation and complaint queue</h1>
+      <p>Tickets beyond the desk's authority or SLA, and complaints screened for safety before anything else</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Open 7</span><span>Safety screens</span><span>Closed this week</span></div>
+      <span class="btn">Escalation matrix</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Escalated</label><div class="v"><strong>7</strong></div><div class="foot"><b class="delta down">2 at level 2</b><span>5 at level 1</span></div></div>
+    <div class="card kpi"><label>Safety screens pending</label><div class="v"><strong>1</strong></div><div class="foot"><b class="delta flat">due in 22h 48m</b><span>24-hour window</span></div></div>
+    <div class="card kpi"><label>Screened inside the window</label><div class="v"><strong>34 <small>of 34</small></strong></div><div class="foot"><b class="delta up">since April</b><span>none reportable</span></div></div>
+    <div class="card kpi"><label>Complaints with QA</label><div class="v"><strong>3</strong></div><div class="foot"><b class="delta flat">1 investigation</b><span>QI-0217, lot L-0897</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+    <div class="card flush">
+      <header><h2>Queue</h2><span>safety first, then SLA</span><span class="more">Export</span></header>
+      <div class="body">
+        <table class="eq">
+          <thead><tr><th>Ticket</th><th>Reason</th><th>With</th><th>Level</th><th class="r">Clock</th></tr></thead>
+          <tbody>
+            <tr class="safe sel"><td><b class="mono">TKT-4426</b><small>Kestrel Pumps Ltd · helpline</small></td><td><b>Housing cracked on test rig</b><small>Nobody hurt · safety screen pending</small></td><td>Anita Rao<small>Service lead</small></td><td><span class="lv">1</span></td><td class="r"><span class="tmr w">22h 48m</span></td></tr>
+            <tr><td><b class="mono">TKT-4417</b><small>Meridian Compressors · helpline</small></td><td><b>Quality cluster, lot L-0897</b><small>3 tickets · QI-0217 open</small></td><td>Prakash Nair<small>QA</small></td><td><span class="lv l2">2</span></td><td class="r"><span class="tmr b">0h 25m</span></td></tr>
+            <tr><td><b class="mono">TKT-4381</b><small>Shah Hydraulics · dealer portal</small></td><td><b>Resolution SLA breached</b><small>Spares back-order · 1 day over</small></td><td>Anita Rao<small>Service lead</small></td><td><span class="lv l2">2</span></td><td class="r"><span class="tmr b">−1d 2h</span></td></tr>
+            <tr><td><b class="mono">TKT-4398</b><small>Meridian Compressors · email</small></td><td><b>40 short on INV-5951</b><small>Credit note CN-0418 in approval · dunning held</small></td><td>Nisha Verma<small>Finance</small></td><td><span class="lv">1</span></td><td class="r"><span class="tmr w">1h 10m</span></td></tr>
+            <tr><td><b class="mono">TKT-4421</b><small>Nilgiri Pumps · dealer portal</small></td><td><b>Warranty replacement ₹1.2 L</b><small>Above the desk's ₹50,000 limit</small></td><td>Suresh Pillai<small>Service head</small></td><td><span class="lv">1</span></td><td class="r"><span class="tmr w">1h 50m</span></td></tr>
+            <tr><td><b class="mono">TKT-4390</b><small>Varun Hydraulics · email</small></td><td><b>Third delivery complaint in 30 days</b><small>Repeat complaint · account review</small></td><td>Vikram Shah<small>Sales head</small></td><td><span class="lv">1</span></td><td class="r"><span class="tmr">6h 15m</span></td></tr>
+            <tr><td><b class="mono">TKT-4429</b><small>Sanand Auto Components · field</small></td><td><b>Discount differs on SO-S-2276</b><small>Order in the sales approval queue</small></td><td>Deepak Rao<small>Field sales</small></td><td><span class="lv">1</span></td><td class="r"><span class="tmr">7h 30m</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card" style="flex:1">
+      <header><h2>Escalations by reason</h2><span>last 8 weeks · 41 in all</span></header>
+      <div class="body chart-c" data-bars="9,8,6,5,3,10" data-max="12" data-labels="Quality,Commercial,Warranty,SLA breach,Repeat complaint,Safety screen" data-colors="#0a48fd"></div>
+    </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Safety screen · TKT-4426</h2><span>opened 12:50</span></header>
+        <div class="body" style="display:flex;flex-direction:column;gap:10px;padding-top:4px">
+          <div class="clock"><b>22h 48m</b><span>left to screen · due 9 Oct, 12:50</span></div>
+          <ul class="q">
+            <li><span>Anyone injured?</span><span class="chip ok">No</span></li>
+            <li><span>Failure in service, at the end user?</span><span class="chip ok">No, test rig</span></li>
+            <li><span>Same item or lot complained of before?</span><span class="chip warn">Check IH-220</span></li>
+            <li><span>Reportable under law or contract?</span><span class="chip">To decide</span></li>
+          </ul>
+          <span class="btn pri" style="justify-content:center">Record the screening</span>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Escalation matrix</h2><span>applied automatically</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="ladder">
+            <li><span class="lv">1</span><span>Owner of the decision<small>Finance, QA, service head or sales head, by reason</small></span></li>
+            <li><span class="lv l2">2</span><span>Service lead<small>When the resolution SLA breaches or a cluster forms</small></span></li>
+            <li><span class="lv">3</span><span>Head of quality or sales<small>Two days past SLA, or a reportable safety event</small></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -4,8 +4,9 @@ _Last updated: 2026-10-23. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–6 done (2026-10-23); next: Phase 7, CRM, Sales Force Automation and
-Customer Service (their lead screens already exist).** The
+**Stage C (phased implementation). Phases 1–7 done (2026-10-23); next: Phase 8, Procure to Pay, Inventory
+Management and Gate Entry (deck slides 38, 56, 54; reuse the homepage `purchase-order`, `procurement`,
+`stock-item` and `inventory` screens as the first screens, on the module shell).** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +37,23 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-23, **Phase 7 done: CRM, Sales Force Automation, Customer Service pages.** On `main`.
+  - **Screens (10 new):** CRM `lead-detail`, `assignment-queue`, `lead-register` (with `pipeline`); SFA
+    `rep-activity`, `beat-plan`, `approvals` (with `field-force`) and the phone `call-report`; Customer Service
+    `resolution-workbench`, `escalations`, `ticket-register` (with `ticket-load`). Scenarios in each module's
+    first screen. Figures tie together: SFA rep calls add up to the territory totals (field-force norm total fixed
+    to 1,456); the approval queue matches the dashboard (12 claims ₹38,400, 7 orders ₹4.9 L, 2 beat changes);
+    Ravi Patel's missed A-class outlets are the overdue visits in his beat plan; lot L-0897's 414 dispatched
+    pieces split across six customers, three of whom complained; SO-S-2276 (SFA approvals) is disputed in
+    TKT-4429 (CS escalations). The service head is Suresh Pillai (Imran Shaikh is a CRM rep; ticket-load fixed).
+  - **Content:** `content/crm.ts` (v2 slides 46–47), `sales-force-automation.ts` (slides 52–53, written for trade
+    markets with pharma as one industry), `customer-service.ts` (slides 48–49; pharmacovigilance stated as the
+    pharma case of a safety screen that applies to every industry).
+  - Verified: each page at 1440×900, 1366×768 and 390×844 (one H1, no overflow, no broken images, related
+    thumbnails load); every screen fits its canvas; `qa/measure.html` at nine sizes; build passes (10 pages).
+  - **Module pages live:** order-to-cash, accounting, vendor-invoice-management, travel-and-expense, crm,
+    sales-force-automation, customer-service.
 
 - 2026-10-23, **Phase 6 done: Accounting, Vendor Invoice Management, Travel and Expense pages.** On `main`.
   - **Screens (13 new):** Accounting `general-ledger` (the approved `accounting` screen on the module shell),

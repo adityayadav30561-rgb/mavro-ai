@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Customer Service · Resolution workbench</title>
+<!-- Scenario: see ticket-load.html. TKT-4417, Meridian Compressors (Coimbatore, dealer): 5 of 150 IH-180 housings from
+     DSP-1862 (26 Sep, lot L-0897) leak at the flange on the customer's pressure test. Lot L-0897: WO-5462, 600 pcs,
+     LM6 aluminium, released 20 Sep; outgoing pressure test sampled 32 of 600, all passed. 414 dispatched to 6
+     customers (Meridian 150, Kestrel 120, Nilgiri 64, Sabar 30, Ambica 30, Varun 20), 186 on QA hold. Three tickets on the lot (TKT-4417 Meridian, 5 pcs; TKT-4409 Sabar Pumps & Spares,
+     1 pc; TKT-4412 Ambica Pumps, 1 pc). QI-0217 open, owner Prakash Nair (QA). The replacement of 5 pcs waits for
+     the disposition; resolution SLA left 0h 25m, so the customer gets an interim reply. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 320px; gap: 16px; flex: 1; min-height: 0; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .tk { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .tk .mono { color: var(--ink-3); }
+  .meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .meta div { padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+  .meta label { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .meta b { display: block; margin-top: 3px; font-size: 15px; font-weight: 600; }
+  .meta b.w { color: var(--bad); }
+  .thread li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 10px; padding: 10px 0; }
+  .thread li + li { border-top: 1px solid var(--line); }
+  .thread .av { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font: 600 10.5px var(--sans); color: #fff; background: #5b6b8c; }
+  .thread p { font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+  .thread p b { color: var(--ink); font-weight: 600; }
+  .thread p small { margin-left: 6px; color: var(--ink-3); font: 11px var(--mono); }
+  .thread .att { display: inline-flex; gap: 6px; margin-top: 6px; }
+  .draft { margin-top: auto; padding: 12px 14px; border: 1px solid var(--accent); border-radius: 10px; background: var(--accent-soft); font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+  .draft b { display: block; color: var(--accent-ink); font-weight: 600; margin-bottom: 4px; }
+  .lot dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 7px 14px; font-size: 12.5px; }
+  .lot dt { color: var(--ink-3); }
+  .lot dd { margin: 0; font-weight: 550; }
+  .split { display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin: 12px 0 6px; }
+  .split i { display: block; }
+  .split-l { display: flex; justify-content: space-between; font: 11.5px var(--mono); color: var(--ink-3); }
+  .disp td { padding-top: 8px; padding-bottom: 8px; }
+  .disp td small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .disp tr.hit td { background: var(--bad-soft); }
+  .disp td.none { color: var(--ink-3); }
+  .scr { font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+  .linked li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 8px 0; font-size: 12.5px; }
+  .linked li + li { border-top: 1px solid var(--line); }
+  .linked small { color: var(--ink-3); font-size: 11.5px; }
+  .linked li > span:last-child { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .steps li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; padding: 8px 0; font-size: 12.5px; line-height: 1.4; }
+  .steps li + li { border-top: 1px solid var(--line); }
+  .steps .ic { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); color: #fff; background: var(--ok); }
+  .steps .ic.w { background: var(--warn); }
+  .steps .ic.n { background: var(--surface-2); color: var(--ink-3); border: 1px solid var(--line); }
+  .steps small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .do { display: grid; gap: 8px; margin-top: auto; }
+  .do .btn { justify-content: center; }
+</style>
+</head>
+<body data-module="customer-service" data-view="Resolution workbench" data-crumb="Sell / Customer Service / Resolution workbench" data-who="Anita Rao|Service lead">
+<main>
+  <div class="head">
+    <div>
+      <div class="tk"><h1>Flange leak on IH-180 housings</h1><span class="chip bad">Quality complaint</span><span class="chip">Lot L-0897</span></div>
+      <p><span class="mono">TKT-4417</span> · Meridian Compressors, Coimbatore · helpline · opened 6 Oct, 10:12</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Merge</span>
+      <span class="btn">Reassign</span>
+      <span class="btn pri">Send interim reply</span>
+    </div>
+  </div>
+
+  <div class="meta">
+    <div><label>Resolution SLA left</label><b class="w mono">0h 25m</b></div>
+    <div><label>Priority</label><b>High · production stopped</b></div>
+    <div><label>Owner</label><b>Anita Rao</b></div>
+    <div><label>Affected</label><b>5 of 150 pcs · DSP-1862</b></div>
+  </div>
+
+  <div class="cols">
+    <div class="card" style="min-height:0">
+      <header><h2>Conversation</h2><span>helpline, email and portal on one ticket</span></header>
+      <div class="body" style="display:flex;flex-direction:column;gap:6px;padding-top:2px">
+        <ul class="thread">
+          <li><span class="av" style="background:#0a48fd">MC</span><p><b>Meridian Compressors</b><small>6 Oct 10:12 · helpline</small><br>Five housings from your 26 Sep despatch leak at the flange on our 10 bar test. Line stopped on the CX-40 build.<br><span class="att"><span class="chip">4 photos</span><span class="chip">Test log</span></span></p></li>
+          <li><span class="av" style="background:#0c9b6a">AR</span><p><b>Anita Rao</b><small>6 Oct 10:31 · email</small><br>Logged against lot L-0897. Please hold the 5 pieces for collection; QA is checking the lot record.</p></li>
+          <li><span class="av" style="background:#7a36fb">PN</span><p><b>Prakash Nair, QA</b><small>7 Oct 16:05 · internal</small><br>Two more complaints on the same lot. Raised QI-0217 and put the 186 pieces in stock on hold. Sectioning tomorrow.</p></li>
+          <li><span class="av" style="background:#0a48fd">MC</span><p><b>Meridian Compressors</b><small>8 Oct 09:40 · portal</small><br>Can you ship replacements this week?</p></li>
+        </ul>
+        <div class="draft"><b>Interim reply, drafted</b>Replacements are reserved from lot L-0930 and ship once QA confirms the cause, expected 10 Oct. A credit for the 5 pieces is raised if you prefer.</div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card lot">
+        <header><h2>Lot record · L-0897</h2><span class="more">Open lot</span></header>
+        <div class="body">
+          <dl>
+            <dt>Item</dt><dd>IH-180 impeller housing · LM6 aluminium</dd>
+            <dt>Work order</dt><dd class="mono">WO-5462 · 600 pcs · released 20 Sep</dd>
+            <dt>Outgoing test</dt><dd>10 bar pressure test · 32 of 600 sampled · all passed</dd>
+            <dt>Casting shift</dt><dd>B shift, 18 Sep · die D-14</dd>
+          </dl>
+          <div class="split"><i style="width:69%;background:#0a48fd"></i><i style="width:31%;background:#e8a23a"></i></div>
+          <div class="split-l"><span>414 dispatched to 6 customers</span><span>186 on QA hold</span></div>
+        </div>
+      </div>
+      <div class="card flush" style="flex:1">
+        <header><h2>Where the lot went</h2><span>6 customers · 3 complaints</span></header>
+        <div class="body">
+          <table class="disp">
+            <thead><tr><th>Customer</th><th class="r">Pcs</th><th>Complaint</th></tr></thead>
+            <tbody>
+              <tr class="hit"><td><b>Meridian Compressors</b><small>DSP-1862 · 26 Sep</small></td><td class="r mono">150</td><td><b class="mono">TKT-4417</b><small>5 pcs leak at 10 bar</small></td></tr>
+              <tr><td><b>Kestrel Pumps Ltd</b><small>DSP-1858 · 24 Sep</small></td><td class="r mono">120</td><td class="none">None</td></tr>
+              <tr><td><b>Nilgiri Pumps</b><small>DSP-1866 · 27 Sep</small></td><td class="r mono">64</td><td class="none">None</td></tr>
+              <tr class="hit"><td><b>Sabar Pumps &amp; Spares</b><small>DSP-1871 · 29 Sep</small></td><td class="r mono">30</td><td><b class="mono">TKT-4409</b><small>1 pc weeps at the flange</small></td></tr>
+              <tr class="hit"><td><b>Ambica Pumps</b><small>DSP-1872 · 29 Sep</small></td><td class="r mono">30</td><td><b class="mono">TKT-4412</b><small>1 pc porous on machining</small></td></tr>
+              <tr><td><b>Varun Hydraulics</b><small>DSP-1875 · 30 Sep</small></td><td class="r mono">20</td><td class="none">None</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+    <div class="card">
+      <header><h2>Safety screening</h2><span class="chip ok">Not reportable</span></header>
+      <div class="body" style="padding-top:2px">
+        <p class="scr">Screened by Anita Rao on 6 Oct, 10:40: found on the customer's test bench, no failure in service, no injury. Recorded on the ticket with the reasons.</p>
+      </div>
+    </div>
+    <div class="card" style="flex:1">
+      <header><h2>QA investigation</h2><span class="chip bad">QI-0217 open</span></header>
+      <div class="body" style="display:flex;flex-direction:column;gap:10px;padding-top:2px;flex:1">
+        <ul class="steps">
+          <li><span class="ic">✓</span><span>Complaints clustered<small>3 tickets linked by lot, 7 Oct</small></span></li>
+          <li><span class="ic">✓</span><span>Stock contained<small>186 pcs of L-0897 on hold</small></span></li>
+          <li><span class="ic w">!</span><span>Sectioning and X-ray<small>Prakash Nair · due 9 Oct</small></span></li>
+          <li><span class="ic n">4</span><span>Disposition<small>Rework, scrap or use as is</small></span></li>
+          <li><span class="ic n">5</span><span>Replacement despatch<small>5 pcs reserved from L-0930, released on disposition</small></span></li>
+        </ul>
+        <div class="do">
+          <span class="btn">Raise credit note instead</span>
+          <span class="btn">Notify the other 3 customers</span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

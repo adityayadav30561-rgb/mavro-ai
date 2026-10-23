@@ -69,7 +69,7 @@ For each module in the phase:
 | 4 | Module content model and screen kit | data schema, prototype structure, phone shell | **Done 2026-10-23** |
 | 5 | Module page template, piloted on Order to Cash | `/modules/order-to-cash` | **Done 2026-10-23** (two review rounds) |
 | 6 | Modules: Accounting, Vendor Invoice Management, Travel and Expense | 3 pages | **Done 2026-10-23** |
-| 7 | Modules: CRM, Sales Force Automation, Customer Service | 3 pages | To do |
+| 7 | Modules: CRM, Sales Force Automation, Customer Service | 3 pages | **Done 2026-10-23** |
 | 8 | Modules: Procure to Pay, Inventory Management, Gate Entry | 3 pages | To do |
 | 9 | Modules: Production Management, mVLens Vendor Audit, Asset Management | 3 pages | To do |
 | 10 | Modules: HRMS and Payroll, Roster Ledger, Rest Hours Log | 3 pages | To do |

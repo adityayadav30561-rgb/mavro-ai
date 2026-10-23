@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Customer Service · Ticket register</title>
+<!-- Scenario: see ticket-load.html. 74 open tickets. By category: delivery 16, quality complaint 14, technical query
+     13, billing and commercial 12, warranty 11, spares 8. By agent: Ritu Sharma 18, Manoj Kale 17, Farida Khan 15,
+     Suresh Pillai 12, Anita Rao 8, unassigned 4. 9 older than seven days. Tickets match the other screens: TKT-4417,
+     4409, 4412 (lot L-0897), 4426 (safety screen), 4398 (CN-0418), 4421 (warranty), 4381 (SLA breached), 4390, 4429. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 300px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .tr td { padding-top: 7px; padding-bottom: 7px; }
+  .tr td small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .tr tr.old td { background: var(--warn-soft); }
+  .tr tr.rest td { color: var(--ink-3); font-style: italic; }
+  .pr { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; }
+  .pr i { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-3); }
+  .pr.h i { background: var(--bad); }
+  .pr.m i { background: var(--warn); }
+  .bars li { display: grid; grid-template-columns: minmax(0, 1fr) 30px; gap: 5px 10px; align-items: center; padding: 5px 0; font-size: 12.5px; }
+  .bars .meter { grid-column: 1 / -1; }
+  .bars em { text-align: right; font: 600 12px var(--mono); font-style: normal; color: var(--ink-2); }
+</style>
+</head>
+<body data-module="customer-service" data-view="Ticket register" data-crumb="Sell / Customer Service / Ticket register" data-who="Anita Rao|Service lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Ticket register</h1>
+      <p>Every ticket with its category, agent, priority and age · one record whichever channel it came from</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Open 74</span><span>Mine</span><span>Older than 7 days</span><span>Closed</span></div>
+      <span class="btn">Export</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Open</label><div class="v"><strong>74</strong></div><div class="foot"><b class="delta up">27 new today</b><span>31 closed</span></div></div>
+    <div class="card kpi"><label>Older than 7 days</label><div class="v"><strong>9</strong></div><div class="foot"><b class="delta down">4 wait on customers</b><span>5 on us</span></div></div>
+    <div class="card kpi"><label>Unassigned</label><div class="v"><strong>4</strong></div><div class="foot"><b class="delta flat">all under 1 hour</b><span>routed by category</span></div></div>
+    <div class="card kpi"><label>Reopened</label><div class="v"><strong>3.1%</strong><i data-spark="4.6,4.2,4.4,3.9,3.7,3.5,3.3,3.1" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">CSAT 4.4 of 5</b><span>on 212 responses</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Open tickets</h2><span>newest first</span><span class="more">Columns</span></header>
+      <div class="body">
+        <table class="tr">
+          <thead><tr><th>Ticket</th><th>Customer</th><th>Category</th><th>Agent</th><th>Priority</th><th class="r">Age</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">TKT-4431</td><td><b>Kestrel Pumps Ltd</b><small>IH-220 dimension report</small></td><td>Technical query</td><td><span class="chip">Unassigned</span></td><td><span class="pr"><i></i>Low</span></td><td class="r mono">0h 40m</td><td><span class="chip">New</span></td></tr>
+            <tr><td class="mono">TKT-4429</td><td><b>Sanand Auto Components</b><small>Discount on SO-S-2276</small></td><td>Billing</td><td>Deepak Rao</td><td><span class="pr m"><i></i>Medium</span></td><td class="r mono">0h 55m</td><td><span class="chip warn">Escalated</span></td></tr>
+            <tr><td class="mono">TKT-4426</td><td><b>Kestrel Pumps Ltd</b><small>Housing cracked on test rig</small></td><td>Quality</td><td>Anita Rao</td><td><span class="pr h"><i></i>High</span></td><td class="r mono">1h 12m</td><td><span class="chip bad">Safety screen</span></td></tr>
+            <tr><td class="mono">TKT-4421</td><td><b>Nilgiri Pumps</b><small>Warranty replacement</small></td><td>Warranty</td><td>Suresh Pillai</td><td><span class="pr m"><i></i>Medium</span></td><td class="r mono">1d 3h</td><td><span class="chip warn">Escalated</span></td></tr>
+            <tr><td class="mono">TKT-4417</td><td><b>Meridian Compressors</b><small>Flange leak, lot L-0897</small></td><td>Quality</td><td>Anita Rao</td><td><span class="pr h"><i></i>High</span></td><td class="r mono">2d 4h</td><td><span class="chip bad">With QA</span></td></tr>
+            <tr><td class="mono">TKT-4412</td><td><b>Ambica Pumps</b><small>Porosity on machining</small></td><td>Quality</td><td>Farida Khan</td><td><span class="pr m"><i></i>Medium</span></td><td class="r mono">2d 6h</td><td><span class="chip bad">With QA</span></td></tr>
+            <tr><td class="mono">TKT-4409</td><td><b>Sabar Pumps &amp; Spares</b><small>Weep at the flange face</small></td><td>Quality</td><td>Farida Khan</td><td><span class="pr m"><i></i>Medium</span></td><td class="r mono">3d 1h</td><td><span class="chip bad">With QA</span></td></tr>
+            <tr><td class="mono">TKT-4398</td><td><b>Meridian Compressors</b><small>40 short on INV-5951</small></td><td>Billing</td><td>Ritu Sharma</td><td><span class="pr m"><i></i>Medium</span></td><td class="r mono">5d 3h</td><td><span class="chip warn">Credit note</span></td></tr>
+            <tr><td class="mono">TKT-4390</td><td><b>Varun Hydraulics</b><small>Third late delivery in 30 days</small></td><td>Delivery</td><td>Manoj Kale</td><td><span class="pr m"><i></i>Medium</span></td><td class="r mono">6d 5h</td><td><span class="chip warn">Escalated</span></td></tr>
+            <tr class="old"><td class="mono">TKT-4381</td><td><b>Shah Hydraulics</b><small>Spares back-order</small></td><td>Spares</td><td>Manoj Kale</td><td><span class="pr h"><i></i>High</span></td><td class="r mono">8d 1h</td><td><span class="chip bad">SLA breached</span></td></tr>
+            <tr class="old"><td class="mono">TKT-4366</td><td><b>Nilgiri Pumps</b><small>Test certificate copy</small></td><td>Technical query</td><td>Ritu Sharma</td><td><span class="pr"><i></i>Low</span></td><td class="r mono">11d 4h</td><td><span class="chip">On customer</span></td></tr>
+            <tr class="rest"><td colspan="7">63 more open tickets</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>By category</h2><span>open</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="bars">
+            <li>Delivery<em>16</em><span class="meter"><i style="width:100%"></i></span></li>
+            <li>Quality complaint<em>14</em><span class="meter"><i style="width:88%"></i></span></li>
+            <li>Technical query<em>13</em><span class="meter"><i style="width:81%"></i></span></li>
+            <li>Billing and commercial<em>12</em><span class="meter"><i style="width:75%"></i></span></li>
+            <li>Warranty<em>11</em><span class="meter"><i style="width:69%"></i></span></li>
+            <li>Spares<em>8</em><span class="meter"><i style="width:50%"></i></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>By agent</h2><span>open</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="bars">
+            <li>Ritu Sharma<em>18</em><span class="meter warn"><i style="width:100%"></i></span></li>
+            <li>Manoj Kale<em>17</em><span class="meter"><i style="width:94%"></i></span></li>
+            <li>Farida Khan<em>15</em><span class="meter"><i style="width:83%"></i></span></li>
+            <li>Suresh Pillai<em>12</em><span class="meter"><i style="width:67%"></i></span></li>
+            <li>Anita Rao<em>8</em><span class="meter"><i style="width:44%"></i></span></li>
+            <li>Unassigned<em>4</em><span class="meter"><i style="width:22%"></i></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
