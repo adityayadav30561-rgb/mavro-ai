@@ -4,8 +4,8 @@ _Last updated: 2026-10-23. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–4 done; Phase 5 built (2026-10-23): the module page template on
-`/modules/order-to-cash`, waiting for the user's review before Phase 6.** The
+**Stage C (phased implementation). Phases 1–6 done (2026-10-23); next: Phase 7, CRM, Sales Force Automation and
+Customer Service (their lead screens already exist).** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,25 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-23, **Phase 6 done: Accounting, Vendor Invoice Management, Travel and Expense pages.** On `main`.
+  - **Screens (13 new):** Accounting `general-ledger` (the approved `accounting` screen on the module shell),
+    `bank-reconciliation`, `gst-returns`, `financial-statements`; VIM `ap-dashboard`, `invoice-register`,
+    `three-way-match`, `payment-run`; T&E `spend-compliance`, `trip-request`, `reimbursements`, `expense-register`
+    and the phone `receipt-claim`. Scenarios in each module's first screen; figures cross-checked (3B computation,
+    bank reconciliation, payment run, settlement totals and ITC held all add up) and tied across modules: the 7
+    GSTR-2B holds (₹1.92 L) appear in Accounting and VIM; VIM-2207 is Aravali Castings' invoice waiting for the
+    goods on PO-7714 (as on the homepage screen); PR-0187 and cheque 004412 match the bank reconciliation;
+    T&E travellers are the SFA field force; reimbursements settle in the payroll run.
+  - **Content:** `content/accounting.ts` (deck summary points plus standard accounting capabilities, per the
+    user's rule), `vendor-invoice-management.ts` (slides 42–43), `travel-and-expense.ts` (slides 40–41); views
+    for all three in `views.ts`. Related modules chosen so every card has a real screen.
+  - **Template tweak:** industry card links read "Explore <industry>" (long module names wrapped badly).
+  - **Prototype:** `.seg span` no longer wraps (app.css); `plan` icon in the phone tab bar. VERIFY.md lists the
+    prototype's reserved class names (two screens broke by reusing `.side` and `.rule`).
+  - Verified: each page at 1440×900 and 390×844 (one H1, no overflow, no broken images); every screen fits its
+    canvas; `qa/measure.html` at nine sizes; build passes.
+  - **Module pages live:** order-to-cash, accounting, vendor-invoice-management, travel-and-expense.
 
 - 2026-10-23, **Phase 5 review round 2 applied; template approved for the module phases** (the user asked for
   these fixes and then Phase 6). Client band at the foot of the module hero (`ClientBand` block, moved out of the
@@ -268,10 +287,10 @@ items when context is heavy.
 
 ## Next steps
 
-1. **The user reviews `/modules/order-to-cash`** (the template). Apply the feedback to the template and
-   DECISIONS.md, then mark Phase 5 done.
-2. Phase 6: Accounting, Vendor Invoice Management, Travel and Expense (Accounting from standard accounting-module
-   information plus the deck's summary points).
+1. **Phase 7: CRM, Sales Force Automation, Customer Service** (slides 46, 52, 48). Their screen 01 exists
+   (`crm/pipeline`, `sales-force-automation/field-force`, `customer-service/ticket-load`); build screens 02–04
+   (and a phone beat-plan screen for SFA), content files, register them.
+2. Then Phase 8 (Procure to Pay, Inventory Management, Gate Entry).
 
 ## Open items (need the user or real assets)
 

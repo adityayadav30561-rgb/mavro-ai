@@ -67,8 +67,8 @@ For each module in the phase:
 | 2 | Section library | shared blocks + a QA gallery | **Done 2026-10-23** |
 | 3 | Header, mega menu, mobile menu, footer | new navigation | **Done 2026-10-23** |
 | 4 | Module content model and screen kit | data schema, prototype structure, phone shell | **Done 2026-10-23** |
-| 5 | Module page template, piloted on Order to Cash | `/modules/order-to-cash` | **Built 2026-10-23; waiting for the user's review** |
-| 6 | Modules: Accounting, Vendor Invoice Management, Travel and Expense | 3 pages | To do |
+| 5 | Module page template, piloted on Order to Cash | `/modules/order-to-cash` | **Done 2026-10-23** (two review rounds) |
+| 6 | Modules: Accounting, Vendor Invoice Management, Travel and Expense | 3 pages | **Done 2026-10-23** |
 | 7 | Modules: CRM, Sales Force Automation, Customer Service | 3 pages | To do |
 | 8 | Modules: Procure to Pay, Inventory Management, Gate Entry | 3 pages | To do |
 | 9 | Modules: Production Management, mVLens Vendor Audit, Asset Management | 3 pages | To do |

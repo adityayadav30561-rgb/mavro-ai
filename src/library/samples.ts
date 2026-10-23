@@ -91,7 +91,7 @@ export const audience = {
     industries: 'Industries',
     roles: 'The people who work in it',
     works: 'Works in',
-    see: 'Order to Cash for {industry}',
+    see: 'Explore {industry}',
   },
 };
 

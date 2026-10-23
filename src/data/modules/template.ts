@@ -39,7 +39,7 @@ export const moduleTemplate = {
     industries: 'Industries',
     roles: 'The people who work in it',
     works: 'Works in',
-    see: '{name} for {industry}',
+    see: 'Explore {industry}',
   },
   platform: {
     title: 'Built on the',

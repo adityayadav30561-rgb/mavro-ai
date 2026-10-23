@@ -72,7 +72,13 @@ Before a screen is captured, open it on the dev server (`/prototype/modules/<slu
 - [ ] **Sidebar:** `data-module` is the right slug and `data-view` is one of the module's views in
       `src/data/modules/views.ts` (the shell throws on either mistake). The module's full menu lives there, not in
       the page.
-- [ ] **No invented claims:** sample data only; no client names, no certifications, no results.
+- [ ] **No invented claims:** sample data only; no client names, no certifications, no results, no real brands
+      (airlines, hotels chains) and no years in dates.
+- [ ] **Class names:** a page's own classes must not reuse the prototype's (`app.css`): brand, btn, card, chart,
+      chip, crumb, delta, dim, feed, flow, flush, grid, grow, head, kpi, kpis, kv, legend, live, meter, mono, nav,
+      org, r, rule, search, seg, side, sub, top, who. Reusing one (e.g. `.side`, `.rule`) silently breaks layout.
+- [ ] **Charts fill their card:** a `data-bars` / `data-area` chart in a flexible card is wrapped so its SVG is
+      absolutely positioned (`.chart-c` pattern in the module screens); a fixed-size chart stops the card shrinking.
 - [ ] **Captured:** `npm run shots <slug>` (on a cloud machine:
       `CHROME_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome`); open the WebP files and look at them.
       Never re-capture the homepage screens by accident (`npm run shots` with no name captures everything):
