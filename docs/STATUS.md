@@ -37,6 +37,15 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-10-23, after Phase 4 (user feedback):
+  - **Platform menu:** the "Platform overview" branch is gone (user: the packages already cover every module, and
+    it looked cluttered). The rail is Base modules, Portals, Premium modules, ERP Connect and opens on Base (also
+    from the 404's "Browse all modules"); the stage keeps one height (43rem, Base's). Removed: the overview list,
+    its package filter and their styles. Platform overview stays in the footer (`overviewLink` in nav.ts); the
+    drawer no longer lists it. Checked at 1440 × 900, 1024 × 768 and 390 × 844.
+  - **Missing deck content rule:** where the decks say nothing, use standard information for that kind of module
+    (DECISIONS.md, standing preferences). The Accounting gap is closed on that basis (sources.ts).
+
 - 2026-10-23, **Phase 4 (module content model and screen kit) done.** On `main`.
   - **Site title** now "MAVRO | Enterprise ERP for manufacturers, distributors and service providers" (user asked;
     `site.title` and `index.html`). The FAQ answers still mention exporters (see open items).
@@ -213,7 +222,7 @@ items when context is heavy.
    with all ten sections; `src/data/modules/content/order-to-cash.ts` from v2 slide 34; routes generated from
    `moduleContent`; screens: the existing `o2c`, `sales-order` (or bespoke), plus `order-to-cash/collections`
    (done) and the phone `credit-release` (done). **The user reviews the template before Phase 6.**
-2. Before Phase 6: Accounting content from the user (no deck covers it).
+2. Accounting (Phase 6) uses standard accounting-module information plus the deck's summary points.
 
 ## Open items (need the user or real assets)
 
@@ -226,7 +235,6 @@ items when context is heavy.
 | Social share image | `src/seo/head.ts` | none |
 | FAQ: pricing and hosting | `faq.items` in home.ts | not answered: the decks do not state a pricing model, deployment options beyond "cloud-native" or data ownership terms. Add those questions once the user supplies the answers |
 | About, Careers, Blog, Privacy, Terms | `src/data/nav.ts` (page, no fallback) | planned pages; links stay hidden until their routes exist |
-| Accounting module content | `moduleSources.accounting` in `src/data/modules/sources.ts` | no deck has its detail slide (tagline, tiles, what it does, why it matters, screens); needed for Phase 6 |
 | FAQ still says "exporters" | `faq.items` in home.ts ("What is MAVRO?", "Who is MAVRO for?", multi-currency answer) | the title now says service providers (user, 2026-10-23); the FAQ answers were not changed. Ask the user |
 | Hidden test page | `/pipeline-check` in `src/routes.ts` | noindex, not linked, not in the sitemap; remove at launch QA (Phase 28) |
 | One stylesheet for all pages | `cssCodeSplit: false` in vite.config.ts | every page loads the full CSS (96 kB, about 19 kB gzip, after Phase 2's blocks); revisit in the Phase 28 performance pass as pages grow |

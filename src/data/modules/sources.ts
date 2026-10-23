@@ -2,8 +2,11 @@ import type { ModuleSlug } from './slugs';
 
 /*
  * Where each module page's content comes from (docs/source/, the text of the decks). Keyed by every slug, so a
- * module without a source is a type error. Module phases read the slides named here; nothing on a module page is
- * written from anywhere else (no invented facts).
+ * module without a source is a type error. Module phases read the slides named here first.
+ *
+ * Where the decks fall short (`gap`), the page uses standard information for that kind of module (user,
+ * 2026-10-23): the capabilities an ERP module of its type normally has, written in the deck's voice and kept to
+ * what MAVRO offers. Never invented figures, customer results, certifications or claims.
  */
 
 /** The deck text files in docs/source/. */
@@ -25,7 +28,7 @@ export interface ModuleSource {
   appendix: { deck: Deck; detail: number; screens: number } | null;
   /** Further material for the page (detailed decks, summary slides). */
   extra?: { deck: Deck; where: string }[];
-  /** What the decks do not cover; the page needs it from the user. */
+  /** What the decks do not cover; filled with standard information for the module type (see above). */
   gap?: string;
 }
 
@@ -47,7 +50,7 @@ export const moduleSources: Record<ModuleSlug, ModuleSource> = {
           'slides 2, 21 and 24 (multi-entity and multi-plant financials; GST at every touchpoint; live GL, auto journals, auto-generated GST filings from transactions)',
       },
     ],
-    gap: 'No appendix slide in any deck (v2, v1, AMR, AMR L1, healthcare): no tagline, four tiles, "what it does", "why it matters" or screen list. The summary points above are all there is. Needs the user before Phase 6.',
+    gap: 'No appendix slide in any deck (v2, v1, AMR, AMR L1, healthcare): no tagline, four tiles, "what it does", "why it matters" or screen list. Built from the summary points above plus standard accounting-module information (general ledger, journals, AP/AR, bank reconciliation, GST returns, period close, financial statements), with no invented figures.',
   },
   'vendor-invoice-management': { appendix: v2(42) },
   'travel-and-expense': { appendix: v2(40) },

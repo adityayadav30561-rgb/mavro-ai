@@ -124,7 +124,7 @@
   }
 }
 
-/* Branch rail: overview, the three packages, ERP Connect. The active branch is a white card with its tier
+/* Branch rail: the three packages and ERP Connect. The active branch is a white card with its tier
    colour on the icon tile and a bar on the left. */
 .mega__rail {
   display: grid;
@@ -264,9 +264,9 @@
   display: flex;
   flex-direction: column;
   gap: 1.125rem;
-  /* One height for every branch (the overview's, the tallest), so moving along the rail never moves the
+  /* One height for every branch (Base modules', the tallest), so moving along the rail never moves the
      panel's bottom edge. */
-  min-height: 44rem;
+  min-height: 43rem;
   padding: 1.5rem 1.75rem 1.25rem;
   overflow-y: auto;
   animation: stage-in var(--d-2) var(--ease);
@@ -301,36 +301,6 @@
   color: var(--fg-2);
 }
 
-.mega__filter {
-  display: flex;
-  flex: none;
-  gap: 2px;
-  padding: 3px;
-  border-radius: var(--r-pill);
-  background: var(--paper-2);
-}
-
-.mega__filter button {
-  padding: .3125rem .75rem;
-  border-radius: var(--r-pill);
-  font-size: 0.8125rem;
-  font-weight: 650;
-  color: var(--ink-2);
-  transition:
-    background-color var(--d-1) ease,
-    color var(--d-1) ease;
-}
-
-.mega__filter button:hover {
-  color: var(--ink);
-}
-
-.mega__filter button[aria-pressed='true'] {
-  background: var(--white);
-  box-shadow: var(--shadow-1);
-  color: var(--ink);
-}
-
 .mega__tier {
   margin-bottom: .375rem;
   font-size: 0.75rem;
@@ -340,58 +310,15 @@
   color: var(--ink);
 }
 
-/* Modules by business area, in balanced columns: names only on the overview, name and summary per package. */
+/* Modules by business area, in balanced columns, each with its summary. */
 .mega__groups {
   columns: 3;
   column-gap: 1.75rem;
 }
 
-.mega__groups--names {
-  columns: 4;
-  column-gap: 1.5rem;
-}
-
 .mega__group {
   break-inside: avoid;
   padding-bottom: .875rem;
-}
-
-.mega__link {
-  display: flex;
-  align-items: center;
-  gap: .5625rem;
-  padding: .25rem .5rem;
-  margin-inline: -.5rem;
-  border-radius: var(--r-1);
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--ink-2);
-  transition:
-    background-color var(--d-1) ease,
-    color var(--d-1) ease;
-}
-
-.mega__link .icon {
-  flex: none;
-  color: var(--ink-3);
-}
-
-.mega__link:hover {
-  background: var(--paper);
-  color: var(--ink);
-}
-
-.mega__link[data-tier='base']:hover .icon {
-  color: var(--blue);
-}
-
-.mega__link[data-tier='portal']:hover .icon {
-  color: var(--cyan-600);
-}
-
-.mega__link[data-tier='premium']:hover .icon {
-  color: var(--violet);
 }
 
 .mega__item {

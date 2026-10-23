@@ -269,7 +269,7 @@ has its 3–4 bespoke screens, and its links (menu, related modules, package dat
 
 | Item | Needed by | From |
 |---|---|---|
-| Accounting content (Document Management resolved in Phase 4: AMR L1 deck slide 78) | Phase 6 | The user: no deck has an Accounting detail slide (sources.ts lists the summary points that exist) |
+| Accounting content (Document Management resolved in Phase 4: AMR L1 deck slide 78) | Phase 6 | Resolved: standard accounting-module information plus the deck's summary points (user, 2026-10-23) |
 | Company copy, photos | Phase 26 | The user |
 | Privacy policy and terms | Phase 26 | The user |
 | Production domain | Phase 28 | The user |

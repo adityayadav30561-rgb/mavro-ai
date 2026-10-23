@@ -155,7 +155,6 @@ export function Drawer({ id, open, expanded, onToggle, onNavigate }: DrawerProps
                     open={is('platform')}
                     onToggle={() => onToggle('platform')}
                   >
-                    {list([branches[0].link])}
                     {packOrder.map((pack) => (
                       <Fold
                         key={pack}

@@ -20,6 +20,7 @@ reintroduce anything under "Rejected". Add new entries as soon as the user state
 | No invented claims | Stats, testimonials, certifications, customer results only when supplied and verified. Client logos are supplied (clientele slide). |
 | Git: `main` only | All work is committed and pushed to `main`; no feature or session branches (user, 2026-10-23). |
 | Content from the decks | Module names, portals, packages and ERP Connect come from the user's decks (docs/PRODUCT.md). |
+| Missing deck content | Where a deck says nothing about a module (or part of one), use standard information for that kind of module, kept to the modules MAVRO offers (user, 2026-10-23: "just know the modules we are offering, and if something is missing for any module, use standard info"). Still no invented figures, customer results or certifications. Accounting is the first case. |
 
 ## Section by section
 
@@ -27,7 +28,7 @@ reintroduce anything under "Rejected". Add new entries as soon as the user state
 |---|---|---|
 | Section order | Hero, Platform intro, Product showcase, ERP Connect, Explore the platform (Base / Portals / Premium), Workflow, Implementation, Industries, Why MAVRO, (Customer proof), Demo | User: ERP Connect is a focus section and the product's look and feel matters, so both moved up from the bottom (2026-10-19). |
 | Header nav | **Since Phase 3 (2026-10-23):** Platform ▾, Solutions ▾, Customers, Resources ▾, Company ▾, Request a demo (SITE-PLAN.md section 8). The "Explore the platform" text link left the header (the plan has only the demo button) | Five destinations instead of six homepage anchors; every link opens a real page once it exists. No dead links. |
-| Mega-menu | **Since Phase 3:** branched. A rail (Platform overview, Base modules, Portals, Premium modules, ERP Connect) and a stage: the overview lists every module by business area with an All / Base / Portals / Premium filter; a package shows its modules by area with icon and summary; Portals shows the four portal cards and the supply-to-retail chain; ERP Connect shows the systems, the five benefits and the no-direct-access rule. Featured card bottom right: "Already on SAP, Oracle or Tally?" with a miniature of the Connect board (on the Connect branch: the TMS-alongside-SAP story). Modules carry no package tags; the package is only the branch | SITE-PLAN.md section 8; user removed premium tags earlier. |
+| Mega-menu | **Since Phase 3:** branched. A rail (Base modules, Portals, Premium modules, ERP Connect; it opens on Base) and a stage: a package shows its modules by area with icon and summary; Portals shows the four portal cards and the supply-to-retail chain; ERP Connect shows the systems, the five benefits and the no-direct-access rule. Featured card bottom right: "Already on SAP, Oracle or Tally?" with a miniature of the Connect board (on the Connect branch: the TMS-alongside-SAP story). Modules carry no package tags; the package is only the branch | SITE-PLAN.md section 8; user removed premium tags earlier. |
 | Hero band | Client logos ("Trusted by"), grey, colour on hover | User: "in this row, our clientele should come, not the modules" (2026-10-22). |
 | Hero visual | Custom three.js scene: platform core + six module nodes + two floating UI panels (sales order, work order) on a diagonal | Original brief; reduced from three panels in item 8 so the core reads clearly. |
 | Hero copy | "One ERP for manufacturers & distributors." + proof points: live in 25–30 days, GST and India payroll built in, works with SAP/Oracle/Tally | Design review item 1 (2026-10-22): name the audience, answer speed / India / existing-ERP questions up front. |
@@ -161,6 +162,8 @@ least important, with full design effort. The ordered list lives in [STATUS.md](
 
 ## Rejected (do not bring back)
 
+- A "Platform overview" branch in the Platform mega menu listing every module (user, 2026-10-23: the Base, Portals and
+  Premium branches already cover it, and it looked cluttered). Platform overview stays a footer link.
 - Eyebrow labels above headings.
 - "Coming soon" tags; "Premium" tags on modules.
 - Compact lists of module names (the "also in the package" lists).

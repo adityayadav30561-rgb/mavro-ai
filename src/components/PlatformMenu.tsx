@@ -1,7 +1,7 @@
-import { useRef, useState, type KeyboardEvent } from 'react';
+import { useRef, type KeyboardEvent } from 'react';
 import { connect, explore, proof } from '../data/home';
-import { areaOrder, areas, byPack, modules, packs, type Pack } from '../data/modules';
-import { branches, connectLink, moduleLink, packFilter, portalLinks, type Branch } from '../data/nav';
+import { areaOrder, areas, byPack, modules, type Pack } from '../data/modules';
+import { branches, connectLink, moduleLink, portalLinks, type Branch } from '../data/nav';
 import { Icon } from './Icon';
 import { NavLink } from './NavLink';
 
@@ -14,7 +14,6 @@ interface PlatformMenuProps {
 }
 
 const counts: Record<Branch, number | null> = {
-  overview: modules.length + portalLinks.length,
   base: byPack('base').length,
   portal: portalLinks.length,
   premium: byPack('premium').length,
@@ -25,7 +24,7 @@ const counts: Record<Branch, number | null> = {
 const sapStory = proof.stories.find((story) => 'stack' in story) ?? proof.stories[0];
 
 /**
- * The Platform mega-menu (SITE-PLAN.md section 8). A rail of branches on the left (overview, the three packages,
+ * The Platform mega-menu (SITE-PLAN.md section 8). A rail of branches on the left (the three packages,
  * ERP Connect); hovering or focusing one shows its modules on the right, grouped by business area, each linking
  * to its page. A disclosure, not an ARIA menu: everything is an ordinary link, read and tabbed as such. Up and
  * Down arrows move along the rail.
@@ -33,7 +32,6 @@ const sapStory = proof.stories.find((story) => 'stack' in story) ?? proof.storie
 export function PlatformMenu({ id, open, branch, onBranch, onNavigate }: PlatformMenuProps) {
   const rail = useRef<HTMLUListElement>(null);
   const intent = useRef(0);
-  const [filter, setFilter] = useState<'all' | Pack>('all');
   const current = branches.find((b) => b.id === branch)!;
 
   // Hover intent: a branch takes over only when the pointer rests on it, so crossing the rail diagonally on the
@@ -106,24 +104,8 @@ export function PlatformMenu({ id, open, branch, onBranch, onNavigate }: Platfor
               <p className="mega__title">{current.title}</p>
               <p className="mega__lead">{current.lead}</p>
             </div>
-            {branch === 'overview' && (
-              <div className="mega__filter" role="group" aria-label="Show package">
-                {packFilter.map((option) => (
-                  <button
-                    key={option.id}
-                    type="button"
-                    data-tier={option.id}
-                    aria-pressed={filter === option.id}
-                    onClick={() => setFilter(option.id)}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
 
-          {branch === 'overview' && <Overview filter={filter} onNavigate={onNavigate} />}
           {(branch === 'base' || branch === 'premium') && <Package pack={branch} onNavigate={onNavigate} />}
           {branch === 'portal' && <Portals onNavigate={onNavigate} />}
           {branch === 'connect' && <Connect />}
@@ -158,54 +140,6 @@ export function PlatformMenu({ id, open, branch, onBranch, onNavigate }: Platfor
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-/** Every module by business area, names only, with the portals as their own group; the filter narrows it. */
-function Overview({ filter, onNavigate }: { filter: 'all' | Pack; onNavigate: () => void }) {
-  const groups = areaOrder
-    .map((area) => ({ area, items: modules.filter((m) => m.area === area && (filter === 'all' || m.pack === filter)) }))
-    .filter((group) => group.items.length > 0);
-  const showPortals = filter === 'all' || filter === 'portal';
-
-  return (
-    <div className="mega__groups mega__groups--names">
-      {groups.map(({ area, items }) => (
-        <div key={area} className="mega__group">
-          <p className="mega__tier">{areas[area]}</p>
-          <ul>
-            {items.map((module) => (
-              <li key={module.id}>
-                <NavLink
-                  link={moduleLink(module, module.pack)}
-                  className="mega__link"
-                  data-tier={module.pack}
-                  onClick={onNavigate}
-                >
-                  <Icon name={module.icon} size={16} />
-                  <span>{module.name}</span>
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-      {showPortals && (
-        <div className="mega__group">
-          <p className="mega__tier">{packs.portal.name}</p>
-          <ul>
-            {portalLinks.map(({ portal, link }) => (
-              <li key={portal.id}>
-                <NavLink link={link} className="mega__link" data-tier="portal" onClick={onNavigate}>
-                  <Icon name="distribution" size={16} />
-                  <span>{portal.name}</span>
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 }

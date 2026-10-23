@@ -42,7 +42,11 @@ export const moduleLink = (item: Module | Portal, pack: Pack): NavLink => ({
   note: item.summary,
 });
 
-export type Branch = 'overview' | Pack | 'connect';
+export type Branch = Pack | 'connect';
+
+/** The platform overview page. Not a branch of the menu (user, 2026-10-23: the packages already cover every
+ *  module); linked from the footer. */
+export const overviewLink: NavLink = { label: 'Platform overview', page: '/platform', fallback: '#platform', icon: 'layers' };
 
 export const connectLink: NavLink = {
   label: 'ERP Connect',
@@ -54,19 +58,6 @@ export const connectLink: NavLink = {
 
 /** The Platform menu's left rail. Hovering or focusing a branch shows its modules on the right. */
 export const branches: { id: Branch; link: NavLink; title: string; lead: string; all: string }[] = [
-  {
-    id: 'overview',
-    link: {
-      label: 'Platform overview',
-      page: '/platform',
-      fallback: '#platform',
-      icon: 'layers',
-      note: 'Every module, one platform',
-    },
-    title: 'Every module, by business area',
-    lead: 'Base modules, portals and premium modules share one set of customers, items, ledgers and roles.',
-    all: 'Platform overview',
-  },
   {
     id: 'base',
     link: {
@@ -113,14 +104,6 @@ export const branches: { id: Branch; link: NavLink; title: string; lead: string;
     lead: 'MAVRO works alongside your ERP. Every system syncs with the MAVRO Database, and your ERP stays the system of record.',
     all: 'How ERP Connect works',
   },
-];
-
-/** The filter on the overview branch: every package, or one. */
-export const packFilter: { id: 'all' | Pack; label: string }[] = [
-  { id: 'all', label: 'All' },
-  { id: 'base', label: 'Base' },
-  { id: 'portal', label: 'Portals' },
-  { id: 'premium', label: 'Premium' },
 ];
 
 /** The portals in the order goods move, for the Portals branch and the drawer. */
@@ -233,7 +216,7 @@ const popular = ['o2c', 'acc', 'hrms', 'p2p', 'prd', 'inv', 'tms', 'wms'].map((i
 const label = (link: NavLink, text: string): NavLink => ({ ...link, label: text });
 
 export const footerColumns: { title: string; links: NavLink[] }[] = [
-  { title: 'Platform', links: branches.map((branch) => branch.link) },
+  { title: 'Platform', links: [overviewLink, ...branches.map((branch) => branch.link)] },
   { title: 'Popular modules', links: popular },
   { title: 'Solutions', links: industryLinks },
   { title: 'Resources', links: [label(implementationLink, 'Implementation'), securityLink, storiesLink, faqLink] },

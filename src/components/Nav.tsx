@@ -23,7 +23,7 @@ const panels = { solutions: SolutionsMenu, resources: ResourcesMenu, company: Co
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState<MenuId | null>(null);
-  const [branch, setBranch] = useState<Branch>('overview');
+  const [branch, setBranch] = useState<Branch>('base');
   const [drawer, setDrawer] = useState(false);
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(new Set());
   const sentinel = useRef<HTMLDivElement>(null);
@@ -52,7 +52,7 @@ export function Nav() {
       const pack = (event as CustomEvent<Pack | undefined>).detail;
       const wide = triggers.current.platform?.offsetParent != null;
       if (wide) {
-        setBranch(pack ?? 'overview');
+        setBranch(pack ?? 'base');
         setMenu('platform');
       } else {
         setDrawer(true);
@@ -142,10 +142,10 @@ export function Nav() {
     hoverTimer.current = window.setTimeout(() => show(id), delay);
   };
 
-  // Opening the Platform menu fresh starts on the overview; one that is already open keeps its branch.
+  // Opening the Platform menu fresh starts on Base modules; one that is already open keeps its branch.
   const show = (id: MenuId | null) => {
     if (id === current.current) return;
-    if (id === 'platform') setBranch('overview');
+    if (id === 'platform') setBranch('base');
     setMenu(id);
   };
 
