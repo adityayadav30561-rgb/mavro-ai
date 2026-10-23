@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Sales Force Automation · Rep activity</title>
+<!-- Scenario: see field-force.html. The rep register, lowest against the call norm (56 to date) first. Ahmedabad
+     (Ravi 38 + Meera 44 + Farhan 47 = 129 calls, ₹14.1 L) and Pune rural (Ankit 41 + Sachin 49 + Neha 51 = 141,
+     ₹17.2 L) are shown in full and match the territory table. 18 of 26 reps are at 90% of norm or more. Ravi
+     Patel is selected: 38 calls, 22 of 30 dealer visits, 5 A-class outlets not visited in 14 days, 2 samples not
+     yet accounted for. Joint visit with Deepak Rao on 10 Oct. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .reg td { padding-top: 12px; padding-bottom: 12px; }
+  .reg td small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .calls { display: flex; align-items: center; gap: 8px; }
+  .calls .meter { width: 52px; min-width: 52px; }
+  .calls span { font: 11.5px var(--mono); color: var(--ink-2); }
+  tr.low td { background: var(--warn-soft); }
+  tr.sel td { box-shadow: inset 0 1px 0 var(--accent), inset 0 -1px 0 var(--accent); }
+  tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--accent), inset 0 1px 0 var(--accent), inset 0 -1px 0 var(--accent); }
+  tr.rest td { color: var(--ink-3); font-style: italic; }
+  tr.total td { background: var(--surface-2); font-weight: 600; }
+  .pr { display: flex; align-items: center; gap: 12px; }
+  .pr .av { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font: 600 13px var(--sans); color: #fff; background: #7a36fb; }
+  .pr p { flex: 1; line-height: 1.3; }
+  .pr p b { display: block; font-size: 14px; font-weight: 600; }
+  .pr p small { color: var(--ink-3); font-size: 11.5px; }
+  .mix li { display: grid; grid-template-columns: minmax(0, 1fr) 60px; gap: 5px 10px; align-items: center; padding: 6px 0; font-size: 12.5px; }
+  .mix .meter { grid-column: 1 / -1; }
+  .mix em { text-align: right; font: 600 12px var(--mono); font-style: normal; color: var(--ink-2); }
+  .miss li { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; font-size: 12.5px; }
+  .miss li + li { border-top: 1px solid var(--line); }
+  .miss span { color: var(--ink-3); font: 11.5px var(--mono); white-space: nowrap; }
+  .note { margin-top: 10px; padding: 10px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-ink); font-size: 12.5px; line-height: 1.4; }
+</style>
+</head>
+<body data-module="sales-force-automation" data-view="Rep activity" data-crumb="Sell / Sales Force Automation / Rep activity" data-who="Deepak Rao|Field sales manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Rep activity register</h1>
+      <p>Call compliance, evidence and secondary contribution per rep · month to date</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Against norm</span><span>Secondary value</span><span>Coverage</span></div>
+      <span class="btn">Export</span>
+      <span class="btn pri">Book joint visit</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>At 90% of norm or more</label><div class="v"><strong>18 <small>of 26 reps</small></strong></div><div class="foot"><b class="delta up">+3</b><span>on last month</span></div></div>
+    <div class="card kpi"><label>Below 80% of norm</label><div class="v"><strong>3</strong></div><div class="foot"><b class="delta down">2 in Ahmedabad</b><span>coach this week</span></div></div>
+    <div class="card kpi"><label>Calls with location evidence</label><div class="v"><strong>98%</strong><i data-spark="93,94,95,95,96,97,97,98" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">1,259 of 1,285</b><span>geo-tagged at the outlet</span></div></div>
+    <div class="card kpi"><label>Secondary value per call</label><div class="v"><strong>₹14.5 k</strong></div><div class="foot"><b class="delta up">₹1.86 Cr</b><span>over 1,285 calls</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Reps</h2><span>lowest against norm first · norm 56 calls to date</span><span class="more">All 26</span></header>
+      <div class="body">
+        <table class="reg">
+          <thead><tr><th>Rep</th><th>Territory</th><th>Calls against norm</th><th class="r">Location</th><th class="r">A-class</th><th class="r">Samples</th><th class="r">Secondary</th></tr></thead>
+          <tbody>
+            <tr class="low sel"><td><b>Ravi Patel</b></td><td>Ahmedabad</td><td><div class="calls"><span class="meter warn"><i style="width:68%"></i></span><span>38 · 68%</span></div></td><td class="r mono">94%</td><td class="r mono">74%</td><td class="r"><span class="chip warn">2 open</span></td><td class="r mono">₹3.9 L</td></tr>
+            <tr class="low"><td><b>Ankit Joshi</b></td><td>Pune rural</td><td><div class="calls"><span class="meter warn"><i style="width:73%"></i></span><span>41 · 73%</span></div></td><td class="r mono">96%</td><td class="r mono">81%</td><td class="r mono">20 / 20</td><td class="r mono">₹4.6 L</td></tr>
+            <tr class="low"><td><b>Meera Kapoor</b></td><td>Ahmedabad</td><td><div class="calls"><span class="meter warn"><i style="width:79%"></i></span><span>44 · 79%</span></div></td><td class="r mono">97%</td><td class="r mono">80%</td><td class="r mono">22 / 22</td><td class="r mono">₹4.8 L</td></tr>
+            <tr><td><b>Kiran Reddy</b></td><td>Hyderabad</td><td><div class="calls"><span class="meter"><i style="width:82%"></i></span><span>46 · 82%</span></div></td><td class="r mono">98%</td><td class="r mono">86%</td><td class="r mono">24 / 24</td><td class="r mono">₹5.9 L</td></tr>
+            <tr><td><b>Farhan Ali</b></td><td>Ahmedabad</td><td><div class="calls"><span class="meter"><i style="width:84%"></i></span><span>47 · 84%</span></div></td><td class="r mono">99%</td><td class="r mono">83%</td><td class="r mono">21 / 21</td><td class="r mono">₹5.4 L</td></tr>
+            <tr><td><b>Pooja Nair</b></td><td>Mumbai west</td><td><div class="calls"><span class="meter"><i style="width:86%"></i></span><span>48 · 86%</span></div></td><td class="r mono">98%</td><td class="r mono">88%</td><td class="r mono">26 / 26</td><td class="r mono">₹7.6 L</td></tr>
+            <tr><td><b>Sachin More</b></td><td>Pune rural</td><td><div class="calls"><span class="meter"><i style="width:88%"></i></span><span>49 · 88%</span></div></td><td class="r mono">99%</td><td class="r mono">89%</td><td class="r mono">18 / 18</td><td class="r mono">₹6.0 L</td></tr>
+            <tr><td><b>Arjun Mehta</b> <span class="chip" style="margin-left:4px">On leave</span></td><td>Indore</td><td><div class="calls"><span class="meter"><i style="width:88%"></i></span><span>49 · 88%</span></div></td><td class="r mono">97%</td><td class="r mono">90%</td><td class="r mono">19 / 19</td><td class="r mono">₹6.3 L</td></tr>
+            <tr><td><b>Neha Kulkarni</b></td><td>Pune rural</td><td><div class="calls"><span class="meter ok"><i style="width:91%"></i></span><span>51 · 91%</span></div></td><td class="r mono">99%</td><td class="r mono">92%</td><td class="r mono">23 / 23</td><td class="r mono">₹6.6 L</td></tr>
+            <tr><td><b>Lakshmi Iyer</b></td><td>Coimbatore</td><td><div class="calls"><span class="meter ok"><i style="width:93%"></i></span><span>52 · 93%</span></div></td><td class="r mono">99%</td><td class="r mono">94%</td><td class="r mono">25 / 25</td><td class="r mono">₹7.4 L</td></tr>
+            <tr><td><b>Siddharth Rao</b></td><td>Pune city</td><td><div class="calls"><span class="meter ok"><i style="width:98%"></i></span><span>55 · 98%</span></div></td><td class="r mono">100%</td><td class="r mono">97%</td><td class="r mono">28 / 28</td><td class="r mono">₹10.2 L</td></tr>
+            <tr class="rest"><td colspan="7">15 more reps at 90% of norm or above</td></tr>
+            <tr class="total"><td>All reps · 26</td><td>8 territories</td><td><div class="calls"><span class="meter"><i style="width:88%"></i></span><span>1,285 / 1,456</span></div></td><td class="r mono">98%</td><td class="r mono">91%</td><td class="r mono">2 open</td><td class="r mono">₹1.86 Cr</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <div class="body">
+          <div class="pr"><span class="av">RP</span><p><b>Ravi Patel</b><small>Field rep · Ahmedabad · 38 of 56 calls</small></p><span class="chip warn">Coach</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Visit mix against norm</h2><span>to date</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="mix">
+            <li>Dealers<em>22 / 30</em><span class="meter warn"><i style="width:73%"></i></span></li>
+            <li>Distributors<em>8 / 10</em><span class="meter"><i style="width:80%"></i></span></li>
+            <li>Workshop buyers<em>8 / 16</em><span class="meter warn"><i style="width:50%"></i></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>A-class outlets not visited</h2><span>in 14 days</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="miss">
+            <li><b>Shah Hydraulics, Naroda</b><span>21 days</span></li>
+            <li><b>Vatva Machine Tools</b><span>18 days</span></li>
+            <li><b>Sabar Pumps &amp; Spares</b><span>17 days</span></li>
+            <li><b>Om Industrial Traders</b><span>16 days</span></li>
+            <li><b>Kalol Agro Equipment</b><span>15 days</span></li>
+          </ul>
+          <p class="note">Joint visit with Deepak Rao booked for 10 Oct. 2 samples issued on 3 Oct are not yet reported against a call.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

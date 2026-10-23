@@ -3,6 +3,7 @@ import type { ModuleSlug } from '../slugs';
 import { content as accounting } from './accounting';
 import { content as crm } from './crm';
 import { content as orderToCash } from './order-to-cash';
+import { content as salesForceAutomation } from './sales-force-automation';
 import { content as travelAndExpense } from './travel-and-expense';
 import { content as vendorInvoiceManagement } from './vendor-invoice-management';
 
@@ -21,6 +22,7 @@ export const moduleContent: Registry = {
   accounting,
   crm,
   'order-to-cash': orderToCash,
+  'sales-force-automation': salesForceAutomation,
   'travel-and-expense': travelAndExpense,
   'vendor-invoice-management': vendorInvoiceManagement,
 };

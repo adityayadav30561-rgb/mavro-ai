@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Sales Force Automation · Beat plans</title>
+<!-- Scenario: see field-force.html. Deepak Rao reviews Ravi Patel's (Ahmedabad) beat plan for the week of 13 Oct before
+     "Publish next week". 42 calls in six beats (7 a day): 22 dealers, 7 distributors, 13 workshop buyers, matching
+     the weekly mix norm. 11 A-class visits, including the 5 A-class outlets not visited in 14 days on the rep
+     activity screen. Travel 340 km; Thursday (Kalol – Mehsana, 138 km) is over the 120 km a day limit. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 300px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .week { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; height: 100%; }
+  .day { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); overflow: hidden; }
+  .day.over { border-color: var(--warn); }
+  .day > header { padding: 10px 10px 9px; border-bottom: 1px solid var(--line); background: var(--surface); }
+  .day > header b { display: block; font-size: 12.5px; font-weight: 600; }
+  .day > header span { display: block; min-height: 2.6em; margin-top: 2px; font-size: 11.5px; line-height: 1.3; color: var(--ink-2); }
+  .day > header small { display: flex; justify-content: space-between; margin-top: 6px; font: 11px var(--mono); color: var(--ink-3); }
+  .day.over > header small em { color: var(--warn); font-style: normal; font-weight: 600; }
+  .day ol { list-style: none; margin: 0; padding: 6px 8px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .day li { padding: 7px 8px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line); line-height: 1.25; }
+  .day li b { display: block; font-size: 11.5px; font-weight: 550; }
+  .day li small { display: flex; align-items: center; gap: 5px; margin-top: 2px; font-size: 10.5px; color: var(--ink-3); }
+  .day li .a { padding: 0 5px; border-radius: 5px; background: var(--accent-soft); color: var(--accent-ink); font: 600 10px/16px var(--mono); }
+  .day li .od { margin-left: auto; color: var(--warn); font: 600 10.5px var(--mono); }
+  .checks li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 2px 10px; padding: 9px 0; font-size: 12.5px; line-height: 1.4; }
+  .checks li + li { border-top: 1px solid var(--line); }
+  .checks .ic { grid-row: 1 / span 2; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); color: #fff; background: var(--ok); }
+  .checks .ic.w { background: var(--warn); }
+  .checks b { font-weight: 550; }
+  .checks small { color: var(--ink-3); font-size: 11.5px; }
+  .fix { margin-top: 10px; padding: 10px 12px; border-radius: 10px; background: var(--warn-soft); color: var(--warn); font-size: 12.5px; line-height: 1.4; }
+  .fix b { font-weight: 600; }
+</style>
+</head>
+<body data-module="sales-force-automation" data-view="Beat plans" data-crumb="Sell / Sales Force Automation / Beat plans" data-who="Deepak Rao|Field sales manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Beat plan · Ravi Patel</h1>
+      <p>Ahmedabad · week of 13 Oct · built from coverage norms, checked before it is published</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span>This week</span><span class="on">Next week</span><span>Month</span></div>
+      <span class="btn">Rebuild from norms</span>
+      <span class="btn pri">Publish to the field app</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Calls planned</label><div class="v"><strong>42 <small>of norm 42</small></strong></div><div class="foot"><b class="delta up">7 a day</b><span>six working days</span></div></div>
+    <div class="card kpi"><label>A-class visits</label><div class="v"><strong>11</strong></div><div class="foot"><b class="delta up">5 overdue</b><span>all included</span></div></div>
+    <div class="card kpi"><label>Dealers · distributors · workshops</label><div class="v"><strong>22 · 7 · 13</strong></div><div class="foot"><b class="delta up">on norm</b><span>weekly visit mix</span></div></div>
+    <div class="card kpi"><label>Planned travel</label><div class="v"><strong>340 <small>km</small></strong></div><div class="foot"><b class="delta down">1 day over</b><span>limit 120 km a day</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card">
+      <header><h2>Call planner</h2><span>drag an outlet to move it · A = A-class</span><div class="legend"><span style="--c:var(--warn)">Overdue A-class</span></div></header>
+      <div class="body">
+        <div class="week">
+          <section class="day">
+            <header><b>Mon 13 Oct</b><span>Naroda – Odhav</span><small><span>7 calls</span><span>46 km</span></small></header>
+            <ol>
+              <li><b>Shah Hydraulics</b><small><span class="a">A</span>Dealer<span class="od">21 d</span></small></li>
+              <li><b>Gujarat Agro Distributors</b><small><span class="a">A</span>Distributor</small></li>
+              <li><b>Naroda Pump House</b><small>Dealer</small></li>
+              <li><b>Odhav Engineering Works</b><small>Workshop</small></li>
+              <li><b>Patel Pipe Fittings</b><small>Dealer</small></li>
+              <li><b>Krishna Motor Works</b><small>Workshop</small></li>
+              <li><b>Nikol Spares</b><small>Dealer</small></li>
+            </ol>
+          </section>
+          <section class="day">
+            <header><b>Tue 14 Oct</b><span>Vatva – Narol</span><small><span>7 calls</span><span>38 km</span></small></header>
+            <ol>
+              <li><b>Vatva Machine Tools</b><small><span class="a">A</span>Dealer<span class="od">18 d</span></small></li>
+              <li><b>Saurashtra Distributors</b><small><span class="a">A</span>Distributor</small></li>
+              <li><b>Ambica Pumps</b><small>Dealer</small></li>
+              <li><b>Narol Fabricators</b><small>Workshop</small></li>
+              <li><b>Isanpur Hardware</b><small>Dealer</small></li>
+              <li><b>Vatva Rewinding Centre</b><small>Workshop</small></li>
+              <li><b>Jay Bhavani Traders</b><small>Dealer</small></li>
+            </ol>
+          </section>
+          <section class="day">
+            <header><b>Wed 15 Oct</b><span>Sabarmati – Chandkheda</span><small><span>7 calls</span><span>42 km</span></small></header>
+            <ol>
+              <li><b>Sabar Pumps &amp; Spares</b><small><span class="a">A</span>Dealer<span class="od">17 d</span></small></li>
+              <li><b>Ranip Industrial Supply</b><small>Distributor</small></li>
+              <li><b>Chandkheda Hydro Tech</b><small>Dealer</small></li>
+              <li><b>Sabarmati Engineering</b><small>Workshop</small></li>
+              <li><b>Motera Motors</b><small>Workshop</small></li>
+              <li><b>Ganesh Hardware</b><small>Dealer</small></li>
+              <li><b>Adalaj Agro</b><small>Dealer</small></li>
+            </ol>
+          </section>
+          <section class="day over">
+            <header><b>Thu 16 Oct</b><span>Kalol – Mehsana</span><small><span>7 calls</span><em>138 km</em></small></header>
+            <ol>
+              <li><b>Kalol Agro Equipment</b><small><span class="a">A</span>Dealer<span class="od">15 d</span></small></li>
+              <li><b>Mehsana Irrigation</b><small><span class="a">A</span>Distributor</small></li>
+              <li><b>Kalol Pump Centre</b><small>Dealer</small></li>
+              <li><b>Kadi Motor Works</b><small>Workshop</small></li>
+              <li><b>Unjha Krishi Kendra</b><small>Dealer</small></li>
+              <li><b>Mehsana Engineering</b><small>Workshop</small></li>
+              <li><b>Visnagar Pumps</b><small>Dealer</small></li>
+            </ol>
+          </section>
+          <section class="day">
+            <header><b>Fri 17 Oct</b><span>Sanand – Changodar</span><small><span>7 calls</span><span>54 km</span></small></header>
+            <ol>
+              <li><b>Om Industrial Traders</b><small><span class="a">A</span>Dealer<span class="od">16 d</span></small></li>
+              <li><b>Sanand Auto Components</b><small><span class="a">A</span>Workshop</small></li>
+              <li><b>Changodar Industrial</b><small>Distributor</small></li>
+              <li><b>Bavla Pumps</b><small>Dealer</small></li>
+              <li><b>Sanand Fab Works</b><small>Workshop</small></li>
+              <li><b>Moraiya Tools</b><small>Workshop</small></li>
+              <li><b>Shree Hari Agencies</b><small>Distributor</small></li>
+            </ol>
+          </section>
+          <section class="day">
+            <header><b>Sat 18 Oct</b><span>Ashram Road – CG Road</span><small><span>7 calls</span><span>22 km</span></small></header>
+            <ol>
+              <li><b>Ahmedabad Pump Mart</b><small><span class="a">A</span>Dealer</small></li>
+              <li><b>Navrangpura Distributors</b><small><span class="a">A</span>Distributor</small></li>
+              <li><b>Ellisbridge Hardware</b><small>Dealer</small></li>
+              <li><b>City Motor Rewinding</b><small>Workshop</small></li>
+              <li><b>Paldi Engineering</b><small>Workshop</small></li>
+              <li><b>Ashram Road Traders</b><small>Dealer</small></li>
+              <li><b>Vasna Spares</b><small>Dealer</small></li>
+            </ol>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Checks before publishing</h2><span>4 of 5 pass</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="checks">
+            <li><span class="ic">✓</span><b>Call norm met</b><small>42 calls, 7 on every working day</small></li>
+            <li><span class="ic">✓</span><b>A-class frequency</b><small>All 11 due this week are planned, the 5 overdue first</small></li>
+            <li><span class="ic">✓</span><b>Visit mix on norm</b><small>22 dealers, 7 distributors, 13 workshop buyers</small></li>
+            <li><span class="ic">✓</span><b>No outlet twice</b><small>Each outlet once in the week</small></li>
+            <li><span class="ic w">!</span><b>Travel limit</b><small>Thursday 138 km against 120 km a day</small></li>
+          </ul>
+          <p class="fix"><b>To publish:</b> approve Thursday as an outstation day (travel allowance applies), or move Unjha, Visnagar and Mehsana Engineering to the week of 20 Oct.</p>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Changes waiting</h2><span>for this week</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="checks">
+            <li><span class="ic w">2</span><b>Leave cover</b><small>Arjun Mehta (Indore) and one Pune city beat reassigned for today</small></li>
+            <li><span class="ic">✓</span><b>Joint visit</b><small>Deepak Rao rides with Ravi Patel on 10 Oct</small></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

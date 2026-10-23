@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Sales Force Automation · Call report (phone)</title>
+<!-- Scenario: see field-force.html. Meera Kapoor (Ahmedabad) files call 5 of 7 today at Ambica Pumps, Vatva (dealer,
+     B-class), 14:02. Checked in 18 m from the outlet's pin. One IH-180 sample issued on 3 Oct is handed over and
+     accounted for. Secondary order: IH-180 × 12 at ₹1,980 = ₹23,760 and IH-220 × 6 at ₹2,640 = ₹15,840; ₹39,600
+     less the festive volume slab 2% (₹792) = ₹38,808, placed on the dealer's distributor. -->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  .loc { display: flex; align-items: center; gap: 12px; }
+  .pin { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 12px; background: var(--ok-soft); color: var(--ok); }
+  .pin svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+  .loc p { flex: 1; line-height: 1.35; }
+  .loc p b { display: block; font-size: 14px; font-weight: 600; }
+  .loc p small { color: var(--ink-3); font-size: 12px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags span { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); font-size: 12px; color: var(--ink-2); }
+  .tags span.on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent-ink); font-weight: 550; }
+  .ol li { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; font-size: 13px; }
+  .ol li + li { border-top: 1px solid var(--line); }
+  .ol li small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .ol li.sch { color: var(--ok); }
+  .ol li.tot { font-weight: 650; }
+  .smp { display: flex; align-items: center; gap: 10px; font-size: 12.5px; }
+  .smp p { flex: 1; line-height: 1.35; }
+  .smp p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="sales-force-automation" data-title="Call report" data-subtitle="Ambica Pumps · call 5 of 7 today"
+      data-time="14:04" data-tab="Calls" data-tabs="Today:home|Calls:check|Orders:cart|Expenses:coin|More:more" data-who="Meera Kapoor|Field rep">
+<main>
+  <div class="card">
+    <div class="body">
+      <div class="loc">
+        <span class="pin"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+        <p><b>Ambica Pumps, Vatva</b><small>Dealer · B-class · checked in 14:02</small></p>
+        <span class="chip ok">18 m</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Purpose</h2></header>
+    <div class="body">
+      <div class="tags"><span class="on">Order</span><span class="on">Sample</span><span>Collection</span><span>Complaint</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="smp"><p><b>Sample: IH-180 housing × 1</b><small>Issued to you on 3 Oct · now accounted for</small></p><span class="chip ok">Matched</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Secondary order</h2><span>via Navrangpura Distributors</span></header>
+    <div class="body" style="padding-top:4px">
+      <ul class="ol">
+        <li><span>IH-180 impeller housing<small>12 × ₹1,980</small></span><span class="mono">₹23,760</span></li>
+        <li><span>IH-220 impeller housing<small>6 × ₹2,640</small></span><span class="mono">₹15,840</span></li>
+        <li class="sch"><span>Festive volume slab 2%</span><span class="mono">−₹792</span></li>
+        <li class="tot"><span>Order value</span><span class="mono">₹38,808</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="smp"><p><b>Note</b><small>Wants the order delivered before 18 Oct for festive stock</small></p><span class="chip">Next visit 22 Oct</span></div>
+    </div>
+  </div>
+
+  <div class="ph-actions">
+    <span class="btn">Save draft</span>
+    <span class="btn pri">Submit call</span>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Sales Force Automation · Approvals</title>
+<!-- Scenario: see field-force.html. The approval queue behind "Waiting for approval": 12 field expense claims
+     (₹38,400; 11 within policy, 1 over: FE-0941 Pooja Nair, customer meal ₹1,150 against a ₹600 limit), 7 secondary
+     orders (₹4.9 L; 1 with an extra 3% discount beyond the rep's limit) and 2 beat plan changes (leave cover for
+     Indore and Pune city). FE-0941: week 29 Sep – 4 Oct, 312 km claimed against 309 km tracked from call reports,
+     ₹4,338 claimed, ₹3,788 within policy. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 360px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .aq td { padding-top: 7px; padding-bottom: 7px; }
+  .aq td small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .aq tr.grp td { padding-top: 10px; padding-bottom: 6px; background: var(--surface-2); color: var(--ink-2); font-size: 11.5px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; }
+  .aq tr.grp td span { float: right; font: 500 11.5px var(--mono); text-transform: none; letter-spacing: 0; color: var(--ink-3); }
+  .aq tr.flag td { background: var(--warn-soft); }
+  .aq tr.sel td { box-shadow: inset 0 1px 0 var(--accent), inset 0 -1px 0 var(--accent); }
+  .aq tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--accent), inset 0 1px 0 var(--accent), inset 0 -1px 0 var(--accent); }
+  .lines { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .lines td { padding: 7px 0; border-top: 1px solid var(--line); vertical-align: top; }
+  .lines td small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .lines tr.over td { color: var(--warn); }
+  .lines tr.sum td { font-weight: 600; }
+  .ev li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; padding: 7px 0; font-size: 12.5px; line-height: 1.4; }
+  .ev li + li { border-top: 1px solid var(--line); }
+  .ev .ic { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); color: #fff; background: var(--ok); }
+  .ev .ic.w { background: var(--warn); }
+  .ev small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .do { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; }
+  .do .btn { justify-content: center; }
+  .do .btn.pri { grid-column: 1 / -1; }
+</style>
+</head>
+<body data-module="sales-force-automation" data-view="Approvals" data-crumb="Sell / Sales Force Automation / Approvals" data-who="Deepak Rao|Field sales manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Expense and order approvals</h1>
+      <p>Field claims, secondary orders and beat changes · each checked against policy first</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All 21</span><span>Flagged 2</span><span>Expenses</span><span>Orders</span></div>
+      <span class="btn pri">Approve 19 within policy</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Waiting</label><div class="v"><strong>21</strong></div><div class="foot"><b class="delta down">2 flagged</b><span>19 within policy</span></div></div>
+    <div class="card kpi"><label>Field expense claims</label><div class="v"><strong>₹38,400</strong></div><div class="foot"><b class="delta flat">12 claims</b><span>1 over the allowance</span></div></div>
+    <div class="card kpi"><label>Secondary orders</label><div class="v"><strong>₹4.9 L</strong></div><div class="foot"><b class="delta flat">7 orders</b><span>scheme and stock checked</span></div></div>
+    <div class="card kpi"><label>Average time to approve</label><div class="v"><strong>1.4 <small>days</small></strong><i data-spark="3.1,2.8,2.6,2.2,2.0,1.8,1.6,1.4" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">target 2 days</b><span>last 8 weeks</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Queue</h2><span>flagged first, then oldest</span><span class="more">Approval rules</span></header>
+      <div class="body">
+        <table class="aq">
+          <thead><tr><th>Item</th><th>Rep</th><th class="r">Amount</th><th>Policy check</th><th class="r">Waiting</th></tr></thead>
+          <tbody>
+            <tr class="grp"><td colspan="5">Field expense claims <span>12 · ₹38,400</span></td></tr>
+            <tr class="flag sel"><td><b>FE-0941</b><small>29 Sep – 4 Oct · 6 days</small></td><td>Pooja Nair<small>Mumbai west</small></td><td class="r mono">₹4,338</td><td><span class="chip warn">Meal over limit</span></td><td class="r mono">1 d</td></tr>
+            <tr><td><b>FE-0938</b><small>29 Sep – 4 Oct · 6 days</small></td><td>Siddharth Rao<small>Pune city</small></td><td class="r mono">₹3,620</td><td><span class="chip ok">Within policy</span></td><td class="r mono">1 d</td></tr>
+            <tr><td><b>FE-0936</b><small>29 Sep – 4 Oct · 6 days</small></td><td>Kiran Reddy<small>Hyderabad</small></td><td class="r mono">₹3,180</td><td><span class="chip ok">Within policy</span></td><td class="r mono">2 d</td></tr>
+            <tr><td colspan="5" style="color:var(--ink-3);font-style:italic">9 more claims within policy · ₹27,262</td></tr>
+            <tr class="grp"><td colspan="5">Secondary orders <span>7 · ₹4.9 L</span></td></tr>
+            <tr class="flag"><td><b>SO-S-2276</b><small>Sanand Auto Components · via Changodar Industrial</small></td><td>Farhan Ali<small>Ahmedabad</small></td><td class="r mono">₹64,800</td><td><span class="chip warn">3% over discount limit</span></td><td class="r mono">1 d</td></tr>
+            <tr><td><b>SO-S-2281</b><small>Ahmedabad Pump Mart · via Navrangpura Distributors</small></td><td>Meera Kapoor<small>Ahmedabad</small></td><td class="r mono">₹1,18,000</td><td><span class="chip ok">Festive slab applied</span></td><td class="r mono">0 d</td></tr>
+            <tr><td><b>SO-S-2279</b><small>Mehsana Irrigation · direct</small></td><td>Farhan Ali<small>Ahmedabad</small></td><td class="r mono">₹92,400</td><td><span class="chip ok">Stock confirmed</span></td><td class="r mono">0 d</td></tr>
+            <tr><td colspan="5" style="color:var(--ink-3);font-style:italic">4 more orders, scheme and stock checked · ₹2.15 L</td></tr>
+            <tr class="grp"><td colspan="5">Beat plan changes <span>2</span></td></tr>
+            <tr><td><b>Leave cover · Indore</b><small>Arjun Mehta's beat for 8 Oct</small></td><td>Vivek Sharma<small>Indore</small></td><td class="r mono">—</td><td><span class="chip ok">Within call norm</span></td><td class="r mono">0 d</td></tr>
+            <tr><td><b>Leave cover · Pune city</b><small>Kothrud – Warje beat for 8 Oct</small></td><td>Siddharth Rao<small>Pune city</small></td><td class="r mono">—</td><td><span class="chip ok">Within call norm</span></td><td class="r mono">0 d</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex:1">
+        <header><h2>FE-0941 · Pooja Nair</h2><span>29 Sep – 4 Oct</span></header>
+        <div class="body" style="display:flex;flex-direction:column;gap:12px;padding-top:6px">
+          <table class="lines">
+            <tbody>
+              <tr><td>Conveyance<small>312 km, own two-wheeler at ₹4 a km</small></td><td class="r mono">₹1,248</td></tr>
+              <tr><td>Daily allowance<small>6 days at headquarters, ₹300 a day</small></td><td class="r mono">₹1,800</td></tr>
+              <tr class="over"><td>Customer meal<small>Andheri dealer buyers · limit ₹600 a day</small></td><td class="r mono">₹1,150</td></tr>
+              <tr><td>Parking and tolls<small>4 receipts</small></td><td class="r mono">₹140</td></tr>
+              <tr class="sum"><td>Claimed</td><td class="r mono">₹4,338</td></tr>
+            </tbody>
+          </table>
+          <ul class="ev">
+            <li><span class="ic">✓</span><span>Distance matches call reports<small>312 km claimed, 309 km tracked between geo-tagged calls</small></span></li>
+            <li><span class="ic">✓</span><span>Calls on every claimed day<small>41 calls in six days, all with location evidence</small></span></li>
+            <li><span class="ic">✓</span><span>Receipts attached<small>Meal, parking and tolls read on capture</small></span></li>
+            <li><span class="ic w">!</span><span>Customer meal ₹550 over the limit<small>Within policy: ₹3,788</small></span></li>
+          </ul>
+          <div class="do">
+            <span class="btn">Send back</span>
+            <span class="btn">Approve in full, with reason</span>
+            <span class="btn pri">Approve ₹3,788 within policy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
