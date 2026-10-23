@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Vendor Invoice Management · Payment run</title>
+<!-- Scenario: see ap-dashboard.html. Payment run PR-0188, value date 10 Oct, from the HDFC current account: 38
+     invoices from 24 vendors, gross ₹62,40,000, early-payment discount ₹48,600, TDS ₹1,12,000, net ₹60,79,400.
+     Held out of the run: the 23 exception invoices. Maker Sanjay Kulkarni, checker Nisha Verma, release by the CFO
+     (runs above ₹50 L need three levels). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .runt td { padding-top: 8px; padding-bottom: 8px; }
+  tr.tot td { font-weight: 650; border-top: 1.5px solid var(--ink); background: var(--surface-2); }
+  .steps li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; padding: 9px 0; position: relative; }
+  .steps li + li { border-top: 1px solid var(--line); }
+  .steps i { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font: 600 11px var(--mono); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .steps i.now { background: var(--accent); color: #fff; }
+  .steps i.w { background: var(--surface-2); color: var(--ink-3); border: 1px solid var(--line); }
+  .steps b { font-weight: 550; display: block; }
+  .steps small { color: var(--ink-3); font-size: 11.5px; }
+  .checks li { display: flex; align-items: center; gap: 10px; padding: 7px 0; font-size: 12.5px; color: var(--ink-2); }
+  .checks li + li { border-top: 1px solid var(--line); }
+  .checks .chip { margin-left: auto; }
+</style>
+</head>
+<body data-module="vendor-invoice-management" data-view="Payment runs" data-crumb="Finance / Vendor Invoice Management / Payment runs / PR-0188" data-who="Nisha Verma|Finance controller">
+<main>
+  <div class="head">
+    <div>
+      <h1>PR-0188 &nbsp;<span class="chip blue" style="vertical-align:3px">Waiting for release</span></h1>
+      <p>Value date 10 Oct · HDFC current a/c · 38 invoices from 24 vendors · exceptions held out of the run</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Remittance advice</span>
+      <span class="btn">Bank file</span>
+      <span class="btn pri">Send for release</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Gross invoices</label><div class="v"><strong>₹62.40 L</strong></div><div class="foot"><b class="delta flat">38 invoices</b><span>all 3-way matched</span></div></div>
+    <div class="card kpi"><label>Early-payment discount</label><div class="v"><strong>₹48,600</strong></div><div class="foot"><b class="delta up">9 invoices</b><span>paid inside 10 days</span></div></div>
+    <div class="card kpi"><label>TDS deducted</label><div class="v"><strong>₹1,12,000</strong></div><div class="foot"><b class="delta flat">194C, 194Q, 194J</b><span>to the TDS register</span></div></div>
+    <div class="card kpi"><label>Net to bank</label><div class="v"><strong>₹60,79,400</strong></div><div class="foot"><b class="delta flat">NEFT and RTGS</b><span>one bank file</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>By vendor</h2><span>8 largest of 24 · ₹</span><span class="more">Show invoices</span></header>
+      <div class="body">
+        <table class="runt">
+          <thead><tr><th>Vendor</th><th class="r">Invoices</th><th class="r">Gross</th><th class="r">Discount</th><th class="r">TDS</th><th class="r">Net</th><th>Bank</th><th>Account</th></tr></thead>
+          <tbody>
+              <tr><td><b>Deccan Tooling</b><small>Hyderabad</small></td><td class="r mono">3</td><td class="r mono">8,24,000</td><td class="r mono" style="color:var(--ok)">−16,480</td><td class="r mono">−8,240</td><td class="r mono"><b>7,99,280</b></td><td>HDFC</td><td><span class="chip ok">Verified</span></td></tr>
+              <tr><td><b>Mehta Alloys</b><small>Pune</small></td><td class="r mono">4</td><td class="r mono">6,12,400</td><td class="r mono" style="color:var(--ok)">−12,248</td><td class="r mono">−6,124</td><td class="r mono"><b>5,94,028</b></td><td>HDFC</td><td><span class="chip ok">Verified</span></td></tr>
+              <tr><td><b>Kaveri Steel Traders</b><small>Chennai</small></td><td class="r mono">2</td><td class="r mono">5,46,800</td><td class="r mono" style="color:var(--ok)"><span class="dim">—</span></td><td class="r mono">−5,468</td><td class="r mono"><b>5,41,332</b></td><td>SBI</td><td><span class="chip ok">Verified</span></td></tr>
+              <tr><td><b>Aravali Castings</b><small>Faridabad</small></td><td class="r mono">2</td><td class="r mono">4,86,200</td><td class="r mono" style="color:var(--ok)">−9,724</td><td class="r mono">−4,862</td><td class="r mono"><b>4,71,614</b></td><td>ICICI</td><td><span class="chip ok">Verified</span></td></tr>
+              <tr><td><b>Om Sai Transport</b><small>Bhiwandi</small></td><td class="r mono">5</td><td class="r mono">3,98,600</td><td class="r mono" style="color:var(--ok)"><span class="dim">—</span></td><td class="r mono">−7,972</td><td class="r mono"><b>3,90,628</b></td><td>HDFC</td><td><span class="chip warn">New bank a/c, verify</span></td></tr>
+              <tr><td><b>Precision Tooling Co.</b><small>Chakan</small></td><td class="r mono">3</td><td class="r mono">3,62,500</td><td class="r mono" style="color:var(--ok)"><span class="dim">—</span></td><td class="r mono">−3,625</td><td class="r mono"><b>3,58,875</b></td><td>Axis</td><td><span class="chip ok">Verified</span></td></tr>
+              <tr><td><b>Shree Ganesh Packaging</b><small>Pune</small></td><td class="r mono">2</td><td class="r mono">2,84,300</td><td class="r mono" style="color:var(--ok)">−5,686</td><td class="r mono">−2,843</td><td class="r mono"><b>2,75,771</b></td><td>HDFC</td><td><span class="chip ok">Verified</span></td></tr>
+              <tr><td><b>Sahyadri Power Services</b><small>Pune</small></td><td class="r mono">1</td><td class="r mono">2,36,000</td><td class="r mono" style="color:var(--ok)"><span class="dim">—</span></td><td class="r mono">−4,720</td><td class="r mono"><b>2,31,280</b></td><td>SBI</td><td><span class="chip blue">First payment</span></td></tr>
+              <tr><td><b>16 more vendors</b><small>all bank details verified</small></td><td class="r mono">16</td><td class="r mono">24,89,200</td><td class="r mono" style="color:var(--ok)">−4,462</td><td class="r mono">−68,146</td><td class="r mono"><b>24,16,592</b></td><td>Mixed</td><td><span class="chip ok">Verified</span></td></tr>
+              <tr class="tot"><td>Run total</td><td class="r mono">38</td><td class="r mono">62,40,000</td><td class="r mono" style="color:var(--ok)">−48,600</td><td class="r mono">−1,12,000</td><td class="r mono">60,79,400</td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Authorisation</h2><span>three levels above ₹50 L</span></header>
+        <div class="body" style="padding-top:4px">
+          <ol class="steps">
+            <li><i>✓</i><span><b>Prepared</b><small>Sanjay Kulkarni · 8 Oct, 11:20</small></span></li>
+            <li><i>✓</i><span><b>Checked</b><small>Nisha Verma · 8 Oct, 13:45</small></span></li>
+            <li><i class="now">3</i><span><b>Release</b><small>CFO · due by 9 Oct, 17:00</small></span></li>
+          </ol>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Checks before release</h2></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="checks">
+            <li>All invoices 3-way matched<span class="chip ok">38 of 38</span></li>
+            <li>Vendors in GSTR-2B<span class="chip ok">38 of 38</span></li>
+            <li>Duplicates screened<span class="chip ok">None</span></li>
+            <li>Bank details verified<span class="chip warn">1 to verify</span></li>
+            <li>Balance in HDFC after run<span class="chip ok">₹83.4 L</span></li>
+            <li>Within approved budget<span class="chip ok">Yes</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

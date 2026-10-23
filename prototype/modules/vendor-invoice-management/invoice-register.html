@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Vendor Invoice Management · Invoice register</title>
+<!-- Scenario: see ap-dashboard.html. October to date: 214 invoices worth ₹2.84 Cr. Rows agree with the other
+     screens: VIM-2207 Aravali Castings waits for GRN on PO-7714; VIM-2224 Mehta Alloys price exception; VIM-2211,
+     2209, 2198, 2215 held on the GSTR-2B match (GST amounts as in Accounting); VIM-2226 suspected duplicate of
+     VIM-2203 (Shree Ganesh Packaging ₹58,410, paid by cheque 004412). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 270px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 7px; padding-bottom: 7px; }
+  .src { display: inline-block; padding: 1px 7px; border-radius: 5px; background: var(--surface-2); border: 1px solid var(--line); font-size: 11.5px; color: var(--ink-2); }
+  .tick { color: var(--ok); font-weight: 600; font-size: 12px; }
+  .cross { color: var(--bad); font-weight: 600; font-size: 12px; }
+  .pend { color: var(--ink-3); font-size: 12px; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="vendor-invoice-management" data-view="Invoice register" data-crumb="Finance / Vendor Invoice Management / Invoice register" data-who="Sanjay Kulkarni|Accounts payable lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Invoice register</h1>
+      <p>Every vendor invoice with its source, match, GSTR-2B status and where it stands for payment</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All</span><span>Matched</span><span>Exceptions</span><span>Paid</span></div>
+      <span class="btn">Export</span>
+      <span class="btn pri">Upload invoices</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Received <b>1 – 8 Oct</b></span>
+    <span class="filter">Entity <b>All</b></span>
+    <span class="filter">Vendor <b>All</b></span>
+    <span class="filter">Source <b>All</b></span>
+    <span class="filter" style="border-style:dashed;color:var(--ink-3)">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Invoice, vendor, PO or GRN</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Invoices</label><strong>214</strong></div>
+    <div class="card sm"><label>Value</label><strong>₹2.84 Cr</strong></div>
+    <div class="card sm"><label>Touchless</label><strong>152 <small>71%</small></strong></div>
+    <div class="card sm"><label>In exception</label><strong>23 <small>₹29.8 L</small></strong></div>
+    <div class="card sm"><label>Paid</label><strong>118 <small>₹1.42 Cr</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Invoice</th><th>Vendor</th><th>Source</th><th>PO · GRN</th><th class="r">Amount</th><th>3-way</th><th>GSTR-2B</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">VIM-2226</b><small>8 Oct · SGP/0918</small></td><td><b>Shree Ganesh Packaging</b><small>Pune</small></td><td><span class="src">Email</span></td><td class="mono">PO-7681 · GRN-3290</td><td class="r mono">₹58,410</td><td class="pend">—</td><td class="tick">In 2B</td><td><span class="chip bad">Duplicate of VIM-2203</span></td></tr>
+          <tr class="hl"><td><b class="mono">VIM-2224</b><small>6 Oct · MA/1187</small></td><td><b>Mehta Alloys</b><small>Pune</small></td><td><span class="src">Portal</span></td><td class="mono">PO-7702 · GRN-3321</td><td class="r mono">₹90,978</td><td class="cross">Rate +2.98%</td><td class="tick">In 2B</td><td><span class="chip warn">With buyer</span></td></tr>
+          <tr><td><b class="mono">VIM-2221</b><small>6 Oct · DT/4471</small></td><td><b>Deccan Tooling</b><small>Hyderabad</small></td><td><span class="src">Portal</span></td><td class="mono">PO-7699 · GRN-3318</td><td class="r mono">₹1,84,080</td><td class="tick">Matched</td><td class="tick">In 2B</td><td><span class="chip blue">In run PR-0188</span></td></tr>
+          <tr><td><b class="mono">VIM-2215</b><small>5 Oct · PTC/772</small></td><td><b>Precision Tooling Co.</b><small>Chakan</small></td><td><span class="src">Scan</span></td><td class="mono">PO-7690 · GRN-3309</td><td class="r mono">₹1,82,900</td><td class="tick">Matched</td><td class="cross">GSTIN differs</td><td><span class="chip warn">Held, ITC</span></td></tr>
+          <tr><td><b class="mono">VIM-2211</b><small>4 Oct · SGP/0902</small></td><td><b>Shree Ganesh Packaging</b><small>Pune</small></td><td><span class="src">Email</span></td><td class="mono">PO-7684 · GRN-3301</td><td class="r mono">₹3,54,000</td><td class="tick">Matched</td><td class="cross">Not in 2B</td><td><span class="chip warn">Held, ITC</span></td></tr>
+          <tr><td><b class="mono">VIM-2209</b><small>4 Oct · OST/218</small></td><td><b>Om Sai Transport</b><small>Bhiwandi</small></td><td><span class="src">Email</span></td><td class="mono">PO-7680 · trip sheet</td><td class="r mono">₹2,51,733</td><td class="tick">Matched</td><td class="cross">Not in 2B</td><td><span class="chip warn">Held, ITC</span></td></tr>
+          <tr><td><b class="mono">VIM-2207</b><small>3 Oct · AC/3391</small></td><td><b>Aravali Castings</b><small>Faridabad</small></td><td><span class="src">Portal</span></td><td class="mono">PO-7714 · awaited</td><td class="r mono">₹1,20,832</td><td class="pend">Waits for GRN</td><td class="tick">In 2B</td><td><span class="chip">Waiting for goods</span></td></tr>
+          <tr><td><b class="mono">VIM-2203</b><small>1 Oct · SGP/0887</small></td><td><b>Shree Ganesh Packaging</b><small>Pune</small></td><td><span class="src">Email</span></td><td class="mono">PO-7681 · GRN-3290</td><td class="r mono">₹58,410</td><td class="tick">Matched</td><td class="tick">In 2B</td><td><span class="chip ok">Paid · chq 004412</span></td></tr>
+          <tr><td><b class="mono">VIM-2198</b><small>1 Oct · KST/1290</small></td><td><b>Kaveri Steel Traders</b><small>Chennai</small></td><td><span class="src">Portal</span></td><td class="mono">PO-7675 · GRN-3287</td><td class="r mono">₹2,04,533</td><td class="tick">Matched</td><td class="cross">Tax differs</td><td><span class="chip warn">Held, ITC</span></td></tr>
+          <tr><td><b class="mono">VIM-2196</b><small>1 Oct · AC/3370</small></td><td><b>Aravali Castings</b><small>Faridabad</small></td><td><span class="src">Portal</span></td><td class="mono">PO-7698 · GRN-3302</td><td class="r mono">₹2,46,800</td><td class="tick">Matched</td><td class="tick">In 2B</td><td><span class="chip ok">Paid · PR-0187</span></td></tr>
+          <tr><td><b class="mono">VIM-2195</b><small>1 Oct · MA/1172</small></td><td><b>Mehta Alloys</b><small>Pune</small></td><td><span class="src">Portal</span></td><td class="mono">PO-7671 · GRN-3283</td><td class="r mono">₹68,440</td><td class="tick">Matched</td><td class="tick">In 2B</td><td><span class="chip ok">Paid · PR-0187</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <span>Showing 1–11 of 214 invoices · newest first</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>…</span><span>20</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -1,6 +1,8 @@
 import type { ModuleContent } from '../schema';
 import type { ModuleSlug } from '../slugs';
+import { content as accounting } from './accounting';
 import { content as orderToCash } from './order-to-cash';
+import { content as vendorInvoiceManagement } from './vendor-invoice-management';
 
 /*
  * Module page content, one file per module (./<slug>.ts, exporting `content`), registered here as each module
@@ -14,7 +16,9 @@ import { content as orderToCash } from './order-to-cash';
 type Registry = { [S in ModuleSlug]?: ModuleContent<S> };
 
 export const moduleContent: Registry = {
+  accounting,
   'order-to-cash': orderToCash,
+  'vendor-invoice-management': vendorInvoiceManagement,
 };
 
 export const contentFor = (slug: ModuleSlug): ModuleContent | undefined => moduleContent[slug];

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Vendor Invoice Management · 3-way match</title>
+<!-- Scenario: see ap-dashboard.html. VIM-2224 from Mehta Alloys (Pune), invoice MA/1187 dated 6 Oct, against
+     PO-7702 and GRN-3321 (received 5 Oct). Line 10: 600 kg EN8 round bar, PO ₹84.00, invoiced ₹86.50 (+2.98%, over the
+     1% tolerance): variance ₹1,500. Line 20: 240 pcs bushes, matches. Line 30: freight ₹2,400 not on the PO. Taxable
+     invoiced ₹77,100 (PO value ₹73,200); GST 18% ₹13,878; total ₹90,978. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .docs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .docs div { padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+  .docs label { display: block; font-size: 11.5px; color: var(--ink-3); }
+  .docs b { display: block; margin-top: 2px; font: 600 14px var(--mono); }
+  .docs small { display: block; margin-top: 4px; color: var(--ink-2); font-size: 12px; }
+  table.m td, table.m th { padding-top: 9px; padding-bottom: 9px; }
+  table.m td.ok { color: var(--ok); }
+  table.m td.bad { color: var(--bad); font-weight: 600; }
+  tr.flag td { background: var(--bad-soft); }
+  tr.warnr td { background: var(--warn-soft); }
+  tr.tot td { font-weight: 650; border-top: 1.5px solid var(--ink); }
+  .ocr { position: relative; flex: 1; min-height: 0; border: 1px solid var(--line); border-radius: 10px; background: #fff; padding: 18px 20px; font-size: 11.5px; color: var(--ink-2); overflow: hidden; }
+  .ocr h4 { font-size: 14px; color: var(--ink); margin: 0 0 2px; }
+  .ocr .r2 { display: flex; justify-content: space-between; margin-top: 10px; }
+  .ocr .ln { display: grid; grid-template-columns: minmax(0,1fr) 60px 60px 70px; gap: 6px; padding: 5px 0; border-top: 1px dashed var(--line); font-family: var(--mono); font-size: 11px; }
+  .ocr .hlb { outline: 2px solid var(--bad); outline-offset: 1px; border-radius: 3px; background: var(--bad-soft); }
+  .ocr .hlg { outline: 1.5px solid #c8ecdc; outline-offset: 1px; border-radius: 3px; }
+  .ocr .conf { position: absolute; right: 12px; top: 12px; }
+  .act { display: grid; gap: 8px; }
+  .act .btn { justify-content: center; }
+  .why { flex: none; padding: 10px 12px; border-radius: 10px; background: var(--surface-2); color: var(--ink-2); font-size: 12px; line-height: 1.5; }
+  .why b { color: var(--ink); }
+</style>
+</head>
+<body data-module="vendor-invoice-management" data-view="3-way match" data-crumb="Finance / Vendor Invoice Management / 3-way match" data-who="Sanjay Kulkarni|Accounts payable lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>VIM-2224 &nbsp;<span class="chip bad" style="vertical-align:3px">Price over tolerance</span></h1>
+      <p>Mehta Alloys · invoice MA/1187 · 6 Oct · against PO-7702 and GRN-3321</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Previous</span>
+      <span class="btn">Next exception</span>
+    </div>
+  </div>
+
+  <div class="docs">
+    <div><label>Purchase order</label><b>PO-7702 · ₹73,200</b><small>Rohan Menon · contract rates · 2 lines</small></div>
+    <div><label>Goods receipt</label><b>GRN-3321 · 5 Oct</b><small>600 kg and 240 pcs accepted · QC passed</small></div>
+    <div><label>Vendor invoice</label><b>₹90,978 incl. GST</b><small>Read by OCR · 98% confidence · in GSTR-2B</small></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Line match</h2><span>PO against GRN against invoice · tolerance 1% on rate, 0.5% on quantity</span></header>
+        <div class="body">
+          <table class="m">
+            <thead><tr><th>Line</th><th class="r">PO qty</th><th class="r">GRN qty</th><th class="r">Inv qty</th><th class="r">PO rate</th><th class="r">Inv rate</th><th class="r">Variance</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr class="flag"><td><b>10 · EN8 round bar, 40 mm</b><small>kg</small></td><td class="r mono">600</td><td class="r mono">600</td><td class="r mono">600</td><td class="r mono">₹84.00</td><td class="r mono bad">₹86.50</td><td class="r mono bad">+₹1,500</td><td><span class="chip bad">Rate +2.98%</span></td></tr>
+              <tr><td><b>20 · Bronze bush, 32 mm</b><small>pcs</small></td><td class="r mono">240</td><td class="r mono">240</td><td class="r mono">240</td><td class="r mono">₹95.00</td><td class="r mono">₹95.00</td><td class="r mono ok">₹0</td><td><span class="chip ok">Matched</span></td></tr>
+              <tr class="warnr"><td><b>30 · Freight</b><small>not on the PO</small></td><td class="r mono dim">—</td><td class="r mono dim">—</td><td class="r mono">1</td><td class="r mono dim">—</td><td class="r mono">₹2,400</td><td class="r mono" style="color:var(--warn)">+₹2,400</td><td><span class="chip warn">Unplanned</span></td></tr>
+              <tr class="tot"><td>Taxable value</td><td></td><td></td><td></td><td class="r mono">₹73,200</td><td class="r mono">₹77,100</td><td class="r mono bad">+₹3,900</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Invoice as read</h2><span>OCR fields highlighted where they disagree with the PO</span><span class="more">Original PDF</span></header>
+        <div class="body" style="display:flex">
+          <div class="ocr">
+            <span class="chip ok conf">98% confidence</span>
+            <h4>MEHTA ALLOYS</h4>
+            <div>Bhosari MIDC, Pune 411026 · GSTIN <span class="hlg">27AAFFM2231R1ZQ</span></div>
+            <div class="r2"><span>Invoice <b class="hlg">MA/1187</b> · 6 Oct</span><span>Your PO <b class="hlg">PO-7702</b></span></div>
+            <div class="ln" style="margin-top:10px;color:var(--ink-3)"><span>Description</span><span>Qty</span><span>Rate</span><span>Amount</span></div>
+            <div class="ln"><span>EN8 Round Bar 40mm</span><span>600 kg</span><span class="hlb">86.50</span><span>51,900.00</span></div>
+            <div class="ln"><span>Bronze Bush 32mm</span><span>240</span><span>95.00</span><span>22,800.00</span></div>
+            <div class="ln"><span>Freight Charges</span><span>1</span><span class="hlb">2,400</span><span>2,400.00</span></div>
+            <div class="ln"><span>CGST 9% · SGST 9%</span><span></span><span></span><span>13,878.00</span></div>
+            <div class="ln" style="color:var(--ink);font-weight:600"><span>Total</span><span></span><span></span><span>90,978.00</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Resolve</h2><span>₹3,900 over the PO</span></header>
+        <div class="body">
+          <div class="act">
+            <span class="btn pri">Pay at PO rate, debit note ₹1,500</span>
+            <span class="btn">Accept rate, route to buyer</span>
+            <span class="btn">Accept freight ₹2,400</span>
+            <span class="btn">Reject invoice to vendor</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>What applies</h2></header>
+        <div class="body" style="display:flex;flex-direction:column;gap:10px">
+          <div class="why"><b>Rate tolerance 1%.</b> Above it, the invoice is held and the buyer, Rohan Menon, is asked to confirm or raise a debit note.</div>
+          <div class="why"><b>Freight not on the PO.</b> Accepted only if the PO terms allow it; this PO says vendor's own transport.</div>
+          <div class="why"><b>GST and TDS.</b> Invoice is in GSTR-2B; TDS under 194Q at 0.1% applies on payment.</div>
+          <div class="why"><b>Due 5 Nov.</b> Net 30. Paid in the first run after it clears.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
