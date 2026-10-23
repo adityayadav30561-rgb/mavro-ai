@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Travel and Expense · Add receipt (phone)</title>
+<!-- Scenario: see spend-compliance.html. Ravi Patel adds one of the two missing hotel receipts to ER-2291 (held):
+     Hotel Sai Residency, Ahmedabad, 2 nights 23–25 Sep, ₹4,800 + GST 12% ₹576 = ₹5,376. Grade E2 limit in a non-metro
+     city ₹3,000 a night: within. One receipt still missing. -->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  .shot { position: relative; height: 170px; border-radius: 12px; overflow: hidden; background: linear-gradient(160deg, #e9ecf2, #d8dde7); }
+  .paper { position: absolute; left: 50%; top: 14px; width: 168px; height: 190px; margin-left: -84px; transform: rotate(-3deg); background: #fff; border-radius: 4px; box-shadow: 0 6px 18px rgb(9 14 52 / 0.18); padding: 12px 12px; font: 8.5px/1.5 var(--mono); color: #4a5068; }
+  .paper b { display: block; font: 700 10px var(--sans); color: #1b2140; text-align: center; margin-bottom: 4px; }
+  .paper .l { display: flex; justify-content: space-between; border-top: 1px dashed #d5d9e2; padding-top: 2px; margin-top: 2px; }
+  .frame { position: absolute; inset: 10px 70px; border: 2px solid var(--accent); border-radius: 8px; box-shadow: 0 0 0 999px rgb(9 14 52 / 0.12); }
+  .read { position: absolute; left: 10px; bottom: 10px; }
+  body.phone .kv { gap: 7px 12px; font-size: 13px; }
+  .pol { display: flex; align-items: center; gap: 10px; }
+  .pol p { flex: 1; color: var(--ink-2); font-size: 12.5px; line-height: 1.4; }
+  .pol p b { color: var(--ink); }
+  .left { padding: 10px 12px; border-radius: 10px; background: var(--warn-soft); color: var(--warn); font-size: 12.5px; font-weight: 550; }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="travel-and-expense" data-title="Add receipt" data-subtitle="ER-2291 · held, 2 receipts missing"
+      data-tab="Expenses" data-tabs="Home:home|Expenses:coin:1|Trips:plan|Approvals:check|More:more" data-who="Ravi Patel|Field rep">
+<main>
+  <div class="shot">
+    <div class="paper">
+      <b>HOTEL SAI RESIDENCY</b>
+      <div>Ashram Rd, Ahmedabad</div>
+      <div>GSTIN 24AAGFS7712K1Z9</div>
+      <div class="l"><span>Room x2 nights</span><span>4,800.00</span></div>
+      <div class="l"><span>CGST 6%</span><span>288.00</span></div>
+      <div class="l"><span>SGST 6%</span><span>288.00</span></div>
+      <div class="l"><span>TOTAL</span><span>5,376.00</span></div>
+    </div>
+    <div class="frame"></div>
+    <span class="chip ok read">Read · 99%</span>
+  </div>
+
+  <div class="card">
+    <header><h2>From the receipt</h2><span>edit if wrong</span></header>
+    <div class="body">
+      <dl class="kv">
+        <dt>Merchant</dt><dd>Hotel Sai Residency</dd>
+        <dt>Stay</dt><dd>23–25 Sep · 2 nights</dd>
+        <dt>Amount</dt><dd class="mono">₹4,800.00</dd>
+        <dt>GST 12%</dt><dd class="mono">₹576.00</dd>
+        <dt>Hotel GSTIN</dt><dd><span class="chip ok">Valid</span></dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="pol"><span class="chip ok">Within policy</span><p><b>₹2,400 a night.</b> E2 limit in Ahmedabad is ₹3,000.</p></div>
+    </div>
+  </div>
+
+  <p class="left">1 receipt still missing: cab, 26 Sep, ₹1,240</p>
+
+  <div class="ph-actions">
+    <span class="btn">Retake</span>
+    <span class="btn pri">Attach to ER-2291</span>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Travel and Expense · Reimbursements</title>
+<!-- Scenario: see spend-compliance.html. 18 approved expense reports waiting for settlement, ₹2,86,000: 4 by NEFT on
+     9 Oct (₹1,02,100, those nearest the 7-day SLA), 12 in the October payroll run on 31 Oct
+     (₹1,25,850), 2 held (₹58,050: missing receipts, invalid hotel GST invoice). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .q td { padding-top: 7px; padding-bottom: 7px; }
+  .way { padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+  .way + .way { margin-top: 10px; }
+  .way.pri { background: var(--accent-soft); border-color: #d9e0ff; }
+  .way label { display: block; font-size: 11.5px; color: var(--ink-3); }
+  .way strong { display: block; margin-top: 2px; font-size: 18px; font-weight: 640; letter-spacing: -0.02em; }
+  .way small { display: block; margin-top: 2px; color: var(--ink-2); font-size: 12px; }
+  .heldl li { padding: 9px 0; }
+  .heldl li + li { border-top: 1px solid var(--line); }
+  .heldl b { font-weight: 550; display: block; }
+  .heldl small { color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="travel-and-expense" data-view="Reimbursements" data-crumb="Finance / Travel and Expense / Reimbursements" data-who="Anjali Deshmukh|Finance shared services">
+<main>
+  <div class="head">
+    <div>
+      <h1>Reimbursement settlement</h1>
+      <p>Approved expense reports waiting to be paid · advances netted off · settled by NEFT or in the payroll run</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Waiting</span><span>Settled</span><span>Held</span></div>
+      <span class="btn">Settlement rules</span>
+      <span class="btn pri">Settle 4 by NEFT</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Waiting for settlement</label><div class="v"><strong>₹2,86,000</strong></div><div class="foot"><b class="delta flat">18 reports</b><span>all approved</span></div></div>
+    <div class="card kpi"><label>Inside the 7-day SLA</label><div class="v"><strong>17 <small>of 18</small></strong></div><div class="foot"><b class="delta down">1 over</b><span>held for receipts</span></div></div>
+    <div class="card kpi"><label>Advances netted off</label><div class="v"><strong>₹48,000</strong></div><div class="foot"><b class="delta flat">2 travellers</b><span>recovered from claims</span></div></div>
+    <div class="card kpi"><label>Average settlement</label><div class="v"><strong>4.2 <small>days</small></strong><i data-spark="6.1,5.5,5.0,4.6,4.4,4.2"></i></div><div class="foot"><b class="delta up">−1.9 days</b><span>since July</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Settlement queue</h2><span>oldest first</span><span class="more">Export</span></header>
+      <div class="body">
+        <table class="q">
+          <thead><tr><th>Report</th><th>Traveller and trip</th><th class="r">Amount</th><th>Policy</th><th class="r">Age</th><th>Settles</th></tr></thead>
+          <tbody>
+          <tr><td><b class="mono">ER-2291</b></td><td><b>Ravi Patel</b><small>Gujarat beat, 22–27 Sep</small></td><td class="r mono">₹38,400</td><td><span class="chip bad">Missing 2 receipts</span></td><td class="r mono" style="color:var(--warn)">9 d</td><td><span class="chip bad">Held</span></td></tr>
+          <tr><td><b class="mono">ER-2288</b></td><td><b>Sneha Iyer</b><small>South dealers, 18–24 Sep</small></td><td class="r mono">₹41,250</td><td><span class="chip ok">Within policy</span></td><td class="r mono" style="color:var(--warn)">6 d</td><td><span class="chip blue">NEFT 9 Oct</span></td></tr>
+          <tr><td><b class="mono">ER-2287</b></td><td><b>Ankit Joshi</b><small>Beat, 23–28 Sep</small></td><td class="r mono">₹18,600</td><td><span class="chip ok">Within policy</span></td><td class="r mono">5 d</td><td><span class="chip blue">NEFT 9 Oct</span></td></tr>
+          <tr><td><b class="mono">ER-2285</b></td><td><b>Meera Kapoor</b><small>Beat, 22–26 Sep</small></td><td class="r mono">₹22,900</td><td><span class="chip warn">Hotel +₹1,200, approved</span></td><td class="r mono">5 d</td><td><span class="chip">Payroll 31 Oct</span></td></tr>
+          <tr><td><b class="mono">ER-2284</b></td><td><b>Deepak Rao</b><small>Indore review, 25–27 Sep</small></td><td class="r mono">₹27,450</td><td><span class="chip ok">Within policy</span></td><td class="r mono">4 d</td><td><span class="chip blue">NEFT 9 Oct</span></td></tr>
+          <tr><td><b class="mono">ER-2282</b></td><td><b>Priya Nair</b><small>Rajkot collections, 1–2 Oct</small></td><td class="r mono">₹14,800</td><td><span class="chip ok">Within policy</span></td><td class="r mono">4 d</td><td><span class="chip blue">NEFT 9 Oct</span></td></tr>
+          <tr><td><b class="mono">ER-2280</b></td><td><b>Anita Rao</b><small>Coimbatore site visit, 29 Sep–1 Oct</small></td><td class="r mono">₹19,650</td><td><span class="chip bad">GST invoice invalid</span></td><td class="r mono">3 d</td><td><span class="chip bad">Held</span></td></tr>
+          <tr><td><b class="mono">ER-2279</b></td><td><b>Rohan Kulkarni</b><small>Nashik trade fair, 26–28 Sep</small></td><td class="r mono">₹24,300</td><td><span class="chip ok">Within policy</span></td><td class="r mono">3 d</td><td><span class="chip">Payroll 31 Oct</span></td></tr>
+          <tr><td><b class="mono">ER-2277</b></td><td><b>Kavya Menon</b><small>Mumbai fair follow-up, 3 Oct</small></td><td class="r mono">₹6,150</td><td><span class="chip ok">Within policy</span></td><td class="r mono">2 d</td><td><span class="chip">Payroll 31 Oct</span></td></tr>
+          <tr><td><b class="mono">ER-2275</b></td><td><b>Ritu Malhotra</b><small>Dealer POP audits, 30 Sep–2 Oct</small></td><td class="r mono">₹21,800</td><td><span class="chip ok">Within policy</span></td><td class="r mono">2 d</td><td><span class="chip">Payroll 31 Oct</span></td></tr>
+          <tr><td class="dim">+8</td><td><b>8 more reports</b><small>Local travel and meals</small></td><td class="r mono">₹50,700</td><td><span class="chip ok">Within policy</span></td><td class="r mono">1–2 d</td><td><span class="chip">Payroll 31 Oct</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>How it settles</h2></header>
+        <div class="body">
+          <div class="way pri"><label>NEFT · 9 Oct</label><strong>₹1,02,100</strong><small>4 reports nearest the SLA</small></div>
+          <div class="way"><label>October payroll run · 31 Oct</label><strong>₹1,25,850</strong><small>12 reports, not taxed, shown on the payslip</small></div>
+          <div class="way"><label>Held</label><strong>₹58,050</strong><small>2 reports waiting for documents</small></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Held</h2><span>out of every payment run</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="heldl">
+            <li><b>ER-2291 · Ravi Patel · ₹38,400</b><small>Hotel and cab receipts missing; the ₹62,000 advance stays open against him</small></li>
+            <li><b>ER-2280 · Anita Rao · ₹19,650</b><small>Hotel GST invoice has no GSTIN; the hotel has been asked for a corrected invoice</small></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

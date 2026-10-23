@@ -32,6 +32,7 @@ const ICON = {
   coin: '<circle cx="8" cy="8" r="5.6"/><path d="M6 6.2h4M6 8h4M9.6 11.4 6.4 8"/>',
   more: '<circle cx="3.5" cy="8" r="1.1"/><circle cx="8" cy="8" r="1.1"/><circle cx="12.5" cy="8" r="1.1"/>',
   bell: '<path d="M4 11.5V7.5a4 4 0 0 1 8 0v4l1.2 1.3H2.8zM6.6 14h2.8"/>',
+  plan: '<rect x="2.5" y="3" width="11" height="10.5" rx="1.5"/><path d="M2.5 6.2h11M5.5 1.8v2.4M10.5 1.8v2.4"/>',
 };
 // The business areas, short enough for the sidebar.
 const SHORT = { finance: 'Finance', sales: 'Sales and channel', supply: 'Supply chain', make: 'Manufacturing', people: 'People', data: 'Data and projects' };

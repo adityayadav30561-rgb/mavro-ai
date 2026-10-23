@@ -2,6 +2,7 @@ import type { ModuleContent } from '../schema';
 import type { ModuleSlug } from '../slugs';
 import { content as accounting } from './accounting';
 import { content as orderToCash } from './order-to-cash';
+import { content as travelAndExpense } from './travel-and-expense';
 import { content as vendorInvoiceManagement } from './vendor-invoice-management';
 
 /*
@@ -18,6 +19,7 @@ type Registry = { [S in ModuleSlug]?: ModuleContent<S> };
 export const moduleContent: Registry = {
   accounting,
   'order-to-cash': orderToCash,
+  'travel-and-expense': travelAndExpense,
   'vendor-invoice-management': vendorInvoiceManagement,
 };
 

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Travel and Expense · Expense register</title>
+<!-- Scenario: see spend-compliance.html. Reports submitted 22 Sep – 8 Oct: 238, ₹31.4 L; 221 within policy; 17 flagged.
+     Rows agree with the reimbursement queue (ER-2291 and ER-2280 held; ER-2288 and ER-2284 by NEFT on 9 Oct). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 270px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 7px; padding-bottom: 7px; }
+  .pg { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="travel-and-expense" data-view="Expense register" data-crumb="Finance / Travel and Expense / Expense register" data-who="Anjali Deshmukh|Finance shared services">
+<main>
+  <div class="head">
+    <div>
+      <h1>Expense report register</h1>
+      <p>Every expense report with its cost centre, policy flags and where it stands for payment</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All</span><span>Flagged</span><span>Waiting</span><span>Paid</span></div>
+      <span class="btn">Export</span>
+      <span class="btn pri">New expense report</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Submitted <b>22 Sep – 8 Oct</b></span>
+    <span class="filter">Region <b>All</b></span>
+    <span class="filter">Cost centre <b>All</b></span>
+    <span class="filter">Status <b>All</b></span>
+    <span class="filter" style="border-style:dashed;color:var(--ink-3)">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Report, traveller or trip</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Reports</label><strong>238</strong></div>
+    <div class="card sm"><label>Value</label><strong>₹31.4 L</strong></div>
+    <div class="card sm"><label>Within policy</label><strong>221 <small>93%</small></strong></div>
+    <div class="card sm"><label>Flagged</label><strong>17 <small>2 held</small></strong></div>
+    <div class="card sm"><label>Receipts attached</label><strong>99.2% <small>of lines</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Report</th><th>Traveller and trip</th><th>Cost centre</th><th class="r">Lines</th><th class="r">Amount</th><th>Policy flags</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">ER-2296</b></td><td><b>Vikram Shah</b><small>Mumbai, 6–7 Oct</small></td><td>Sales · head office</td><td class="r mono">5</td><td class="r mono">₹18,240</td><td><span class="dim">—</span></td><td><span class="chip blue">Submitted</span></td></tr>
+          <tr><td><b class="mono">ER-2294</b></td><td><b>Sneha Iyer</b><small>Chennai beat, 1–5 Oct</small></td><td>Sales · South</td><td class="r mono">14</td><td class="r mono">₹16,980</td><td><span class="dim">—</span></td><td><span class="chip ok">Approved</span></td></tr>
+          <tr><td><b class="mono">ER-2293</b></td><td><b>Ravi Patel</b><small>Gujarat beat, 29 Sep–4 Oct</small></td><td>Sales · Gujarat</td><td class="r mono">17</td><td class="r mono">₹24,600</td><td><span class="chip warn">Booked late</span></td><td><span class="chip warn">Manager review</span></td></tr>
+          <tr><td><b class="mono">ER-2291</b></td><td><b>Ravi Patel</b><small>Gujarat beat, 22–27 Sep</small></td><td>Sales · Gujarat</td><td class="r mono">16</td><td class="r mono">₹38,400</td><td><span class="chip bad">2 receipts missing</span></td><td><span class="chip bad">Held</span></td></tr>
+          <tr><td><b class="mono">ER-2288</b></td><td><b>Sneha Iyer</b><small>South dealers, 18–24 Sep</small></td><td>Sales · South</td><td class="r mono">19</td><td class="r mono">₹41,250</td><td><span class="dim">—</span></td><td><span class="chip blue">NEFT 9 Oct</span></td></tr>
+          <tr><td><b class="mono">ER-2285</b></td><td><b>Meera Kapoor</b><small>Beat, 22–26 Sep</small></td><td>Sales · Gujarat</td><td class="r mono">12</td><td class="r mono">₹22,900</td><td><span class="chip warn">Hotel +₹1,200</span></td><td><span class="chip">Payroll 31 Oct</span></td></tr>
+          <tr><td><b class="mono">ER-2284</b></td><td><b>Deepak Rao</b><small>Indore review, 25–27 Sep</small></td><td>Sales · Central</td><td class="r mono">9</td><td class="r mono">₹27,450</td><td><span class="dim">—</span></td><td><span class="chip blue">NEFT 9 Oct</span></td></tr>
+          <tr><td><b class="mono">ER-2280</b></td><td><b>Anita Rao</b><small>Coimbatore visit, 29 Sep–1 Oct</small></td><td>Service · West</td><td class="r mono">8</td><td class="r mono">₹19,650</td><td><span class="chip bad">GST invoice invalid</span></td><td><span class="chip bad">Held</span></td></tr>
+          <tr><td><b class="mono">ER-2271</b></td><td><b>Nisha Verma</b><small>Chennai entity close, 1–2 Oct</small></td><td>Finance · head office</td><td class="r mono">6</td><td class="r mono">₹12,300</td><td><span class="dim">—</span></td><td><span class="chip ok">Paid 4 Oct</span></td></tr>
+          <tr><td><b class="mono">ER-2266</b></td><td><b>Sanjay Kulkarni</b><small>Vendor visits, Faridabad, 26–27 Sep</small></td><td>Finance · head office</td><td class="r mono">7</td><td class="r mono">₹21,480</td><td><span class="dim">—</span></td><td><span class="chip ok">Paid 3 Oct</span></td></tr>
+          <tr><td><b class="mono">ER-2262</b></td><td><b>Arjun Sethi</b><small>Kestrel Pumps review, 24 Sep</small></td><td>Sales · West</td><td class="r mono">4</td><td class="r mono">₹3,860</td><td><span class="dim">—</span></td><td><span class="chip ok">Paid 30 Sep</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pg">
+      <span>Showing 1–11 of 238 reports · newest first</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>…</span><span>22</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

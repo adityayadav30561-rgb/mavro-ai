@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Travel and Expense · Trip request</title>
+<!-- Scenario: see spend-compliance.html. TR-0418: Vikram Shah, sales head (grade M3), Pune to Chennai 14–16 Oct to
+     review the Sundaram Valves account and meet two dealers. Requested 8 Oct (6 days ahead: late-booking flag).
+     Entitlement M3: economy air, hotel up to ₹6,000 a night in metro cities, daily allowance ₹1,500. Requested hotel
+     ₹7,800 a night for 2 nights: excess ₹3,600, shown for approval. Estimate: air ₹14,600, hotel ₹15,600, local ₹3,000,
+     daily allowance ₹4,500 = ₹37,700; within entitlement ₹34,100. Advance requested ₹10,000. Approver: Rahul Bhatia,
+     managing director. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .route { display: grid; grid-template-columns: auto 1fr auto 1fr auto; align-items: center; gap: 14px; }
+  .city b { display: block; font-size: 20px; font-weight: 640; letter-spacing: -0.02em; }
+  .city small { color: var(--ink-3); font-size: 12px; }
+  .leg { height: 1px; background: var(--line-2); position: relative; }
+  .leg span { position: absolute; left: 50%; top: -11px; transform: translateX(-50%); padding: 2px 8px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); font-size: 11.5px; color: var(--ink-2); white-space: nowrap; }
+  .meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
+  .meta div { padding: 10px 12px; border-radius: 9px; background: var(--surface-2); border: 1px solid var(--line); }
+  .meta label { display: block; font-size: 11.5px; color: var(--ink-3); }
+  .meta b { font-weight: 550; }
+  table.pc td { padding-top: 9px; padding-bottom: 9px; }
+  tr.flag td { background: var(--warn-soft); }
+  tr.tot td { font-weight: 650; border-top: 1.5px solid var(--ink); }
+  .ok { color: var(--ok); font-weight: 600; font-size: 12px; }
+  .ex { color: var(--warn); font-weight: 600; font-size: 12px; }
+  .why { flex: none; padding: 10px 12px; border-radius: 10px; background: var(--surface-2); color: var(--ink-2); font-size: 12px; line-height: 1.5; }
+  .why b { color: var(--ink); }
+  .act { display: grid; gap: 8px; }
+  .act .btn { justify-content: center; }
+  .appr li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; padding: 8px 0; }
+  .appr li + li { border-top: 1px solid var(--line); }
+  .appr i { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font: 600 11px var(--mono); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .appr i.now { background: var(--accent); color: #fff; }
+  .appr b { font-weight: 550; display: block; }
+  .appr small { color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="travel-and-expense" data-view="Trip requests" data-crumb="Finance / Travel and Expense / Trip requests / TR-0418" data-who="Rahul Bhatia|Managing director">
+<main>
+  <div class="head">
+    <div>
+      <h1>TR-0418 &nbsp;<span class="chip warn" style="vertical-align:3px">2 policy flags</span></h1>
+      <p>Vikram Shah · sales head, grade M3 · requested 8 Oct · account review at Sundaram Valves and two dealer visits</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Send back</span>
+      <span class="btn pri">Approve with excess</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="route">
+        <div class="city"><b>Pune</b><small>PNQ · 14 Oct, 07:10</small></div>
+        <div class="leg"><span>Air · economy · 1h 45m</span></div>
+        <div class="city" style="text-align:center"><b>Chennai</b><small>2 nights · Guindy</small></div>
+        <div class="leg"><span>Air · economy · 1h 50m</span></div>
+        <div class="city" style="text-align:right"><b>Pune</b><small>16 Oct, 19:40</small></div>
+      </div>
+      <div class="meta">
+        <div><label>Purpose</label><b>Customer and dealer visits</b></div>
+        <div><label>Cost centre</label><b>Sales · South region</b></div>
+        <div><label>Linked to</label><b>Sundaram Valves account</b></div>
+        <div><label>Advance requested</label><b>₹10,000</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush" style="flex:1">
+        <header><h2>Policy check</h2><span>against the M3 entitlement and negotiated rates</span></header>
+        <div class="body">
+          <table class="pc">
+            <thead><tr><th>Line</th><th>Requested</th><th>Entitlement</th><th class="r">Estimate</th><th class="r">Allowed</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr class="flag"><td><b>Air, Pune and back</b><small>Booked 6 days ahead</small></td><td>Economy, direct</td><td>Economy, 7 days ahead</td><td class="r mono">₹14,600</td><td class="r mono">₹14,600</td><td class="ex">Booked late</td></tr>
+              <tr class="flag"><td><b>Hotel, 2 nights</b><small>Business hotel, Guindy</small></td><td>₹7,800 a night</td><td>₹6,000 a night, metro</td><td class="r mono">₹15,600</td><td class="r mono">₹12,000</td><td class="ex">+₹3,600 over</td></tr>
+              <tr><td><b>Local travel</b><small>Cabs, 3 days</small></td><td>₹1,000 a day</td><td>Actuals with receipts</td><td class="r mono">₹3,000</td><td class="r mono">₹3,000</td><td class="ok">Within</td></tr>
+              <tr><td><b>Daily allowance</b><small>3 days</small></td><td>₹1,500 a day</td><td>₹1,500 a day</td><td class="r mono">₹4,500</td><td class="r mono">₹4,500</td><td class="ok">Within</td></tr>
+              <tr class="tot"><td>Trip estimate</td><td></td><td></td><td class="r mono">₹37,700</td><td class="r mono">₹34,100</td><td class="ex">₹3,600 to approve</td></tr>
+            </tbody>
+          </table>
+          <div style="padding:14px 16px 0;display:flex;flex-direction:column;gap:10px">
+            <div class="why"><b>Negotiated rate available.</b> The Guindy partner hotel is ₹5,600 a night with breakfast and meets the entitlement; rebooking removes the excess.</div>
+            <div class="why"><b>South region budget.</b> ₹12.2 L of ₹13.0 L used in September; this trip keeps October inside its budget.</div>
+            <div class="why"><b>Traveller history.</b> 3 trips this quarter, all reports within policy, advances settled in 4 days on average.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Decide</h2><span>excess ₹3,600</span></header>
+        <div class="body">
+          <div class="act">
+            <span class="btn pri">Approve with excess</span>
+            <span class="btn">Approve at partner hotel rate</span>
+            <span class="btn">Send back to traveller</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Approvals</h2></header>
+        <div class="body" style="padding-top:4px">
+          <ol class="appr">
+            <li><i>✓</i><span><b>Requested</b><small>Vikram Shah · 8 Oct, 10:05</small></span></li>
+            <li><i>✓</i><span><b>Policy checked</b><small>Automatic · 2 flags raised</small></span></li>
+            <li><i class="now">3</i><span><b>Approval with excess</b><small>Rahul Bhatia · needed before booking</small></span></li>
+            <li><i style="background:var(--surface-2);color:var(--ink-3);border:1px solid var(--line)">4</i><span><b>Booking and advance</b><small>Travel desk books; ₹10,000 by NEFT</small></span></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

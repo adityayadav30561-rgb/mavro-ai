@@ -70,7 +70,7 @@ export const content: ModuleContent<'vendor-invoice-management'> = {
     { name: 'Finance controller', task: 'Checks each payment run before it goes for release.', works: 'Payment runs' },
     { name: 'CFO', task: 'Releases high-value runs, on the web or the phone.', works: 'AP dashboard' },
   ],
-  related: ['accounting', 'procure-to-pay', 'vendor-portal', 'inventory-management'],
+  related: ['accounting', 'procure-to-pay', 'inventory-management', 'travel-and-expense'],
   screens: [
     {
       screen: 'vendor-invoice-management/ap-dashboard',

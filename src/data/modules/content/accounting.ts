@@ -71,7 +71,7 @@ export const content: ModuleContent<'accounting'> = {
     { name: 'CFO', task: 'Reads consolidated results across entities as soon as the books close.', works: 'Financial statements' },
     { name: 'Auditors', task: 'Trace any figure to its journal and the document that caused it.', works: 'General ledger' },
   ],
-  related: ['vendor-invoice-management', 'order-to-cash', 'asset-management', 'cost-forecasting'],
+  related: ['vendor-invoice-management', 'order-to-cash', 'travel-and-expense', 'procure-to-pay'],
   screens: [
     {
       screen: 'accounting/general-ledger',
