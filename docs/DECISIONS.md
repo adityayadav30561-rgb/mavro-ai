@@ -18,6 +18,7 @@ reintroduce anything under "Rejected". Add new entries as soon as the user state
 | Fit the screen | Sections should take about one screen on laptops and large monitors alike (rem scaling, see README "Responsive sizing"). |
 | Fully responsive | Every screen size and device type: phones, tablets, laptops, 27" monitors. |
 | No invented claims | Stats, testimonials, certifications, customer results only when supplied and verified. Client logos are supplied (clientele slide). |
+| Git: `main` only | All work is committed and pushed to `main`; no feature or session branches (user, 2026-10-23). |
 | Content from the decks | Module names, portals, packages and ERP Connect come from the user's decks (docs/PRODUCT.md). |
 
 ## Section by section

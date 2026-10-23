@@ -38,8 +38,9 @@ site uses. Client-specific decks (a proposal with pricing, a client company deck
 
 ## Git
 
-- Work on `main` or on a branch per phase, as the session prefers; commit at the end of every phase
-  ("Phase N: …") and push, so the next session (on any machine or account) starts from the latest state.
+- **Everything happens on `main` only** (user, 2026-10-23): no feature or session branches. If a session starts
+  on another branch, switch to `main` before working. Commit at the end of every phase ("Phase N: …") and push
+  `main`, so the next session (on any machine or account) starts from the latest state.
 - `node_modules/`, `dist/`, `dist-ssr/` and `shots/` are ignored; screenshots used by the site live in
   `src/assets/screens/` and are committed.
 - The user's personal notes for Claude on the original machine are not in the repo; everything that matters is in
