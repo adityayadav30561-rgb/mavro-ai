@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>MAVRO QA: capture frame</title></head>
+<body style="margin:0;overflow:hidden">
+<iframe id="f" src="/" style="border:0;width:100vw;height:100vh"></iframe>
+<script>
+/*
+ * Frame for screenshots of one section (used by scripts/capture.mjs):
+ *   /qa/shot.html?id=premium&dy=-40      scroll to a section (plus an offset)
+ *   &click=.nav__trigger|.other          click elements after scrolling
+ *   &hover=.selector                     send a mouse-over to an element after scrolling
+ *   &reveal=1                            show scroll-revealed content immediately
+ *   &still=1                             no transitions or animations: everything in its final state
+ */
+const p = new URLSearchParams(location.search);
+f.onload = () => setTimeout(() => {
+  const w = f.contentWindow, d = f.contentDocument;
+  d.documentElement.style.scrollBehavior = 'auto';
+  if (p.get('still')) {
+    const css = d.createElement('style');
+    css.textContent = '*, *::before, *::after { transition: none !important; animation-duration: 0s !important; animation-delay: 0s !important; }';
+    d.head.appendChild(css);
+  }
+  if (p.get('reveal')) d.querySelectorAll('[data-reveal]').forEach((e) => { e.style.transition = 'none'; e.setAttribute('data-in', ''); });
+  // Scroll, then keep re-anchoring: the carousel, scroll-driven sections and late-loading images change the
+  // page height above the target for a few seconds, which would otherwise leave the frame a section early.
+  const go = () => {
+    const el = p.get('id') ? d.getElementById(p.get('id')) : null;
+    w.scrollTo(0, (el ? el.getBoundingClientRect().top + w.scrollY : 0) + Number(p.get('dy') || 0));
+  };
+  go();
+  setTimeout(() => {
+    go();
+    for (const sel of (p.get('click') || '').split('|').filter(Boolean)) d.querySelector(sel)?.click();
+    for (const sel of (p.get('hover') || '').split('|').filter(Boolean)) d.querySelector(sel)?.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, pointerType: 'mouse' }));
+  }, 800);
+  for (let t = 1200; t <= 6000; t += 400) setTimeout(go, t);
+}, 2000);
+</script>
+</body>
+</html>

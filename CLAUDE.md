@@ -46,7 +46,9 @@ npx tsc --noEmit  # typecheck only
 ## Map
 
 ```
-src/App.tsx              section order
+src/routes.ts            every page: path, page module, title, description, breadcrumbs, JSON-LD, sitemap
+src/Layout.tsx           skip link, Nav, <main>, Footer (shared by every page)
+src/pages/               one module per page type (Home.tsx = homepage section order, NotFound, PipelineCheck)
 src/data/                site.ts, home.ts, modules.ts  (all content)
 src/sections/            one component + stylesheet per section; hero/ = 3D scene; explore/ = module screens,
                          premium mockups, portal chain; why/ = trust card; demo/ = demo form

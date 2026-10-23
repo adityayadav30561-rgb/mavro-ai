@@ -1,5 +1,6 @@
 import { footerNote } from '../data/home';
 import { footer, legal, live, site } from '../data/site';
+import { useHref } from '../routing';
 import { Icon } from './Icon';
 import { Logo } from './Logo';
 import './footer.css';
@@ -8,12 +9,13 @@ import './footer.css';
 export function Footer() {
   const groups = footer.map((group) => ({ ...group, links: live(group.links) })).filter((g) => g.links.length > 0);
   const legalLinks = live(legal);
+  const href = useHref();
 
   return (
     <footer className="footer">
       <div className="page footer__grid">
         <div className="footer__brand">
-          <a href="#top" aria-label="MAVRO, back to top">
+          <a href={href('#top')} aria-label="MAVRO, back to top">
             <Logo height={28} />
           </a>
           <p>{footerNote}</p>
@@ -44,7 +46,7 @@ export function Footer() {
             <ul>
               {group.links.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href}>{link.label}</a>
+                  <a href={href(link.href)}>{link.label}</a>
                 </li>
               ))}
             </ul>
@@ -60,7 +62,7 @@ export function Footer() {
           <ul>
             {legalLinks.map((link) => (
               <li key={link.label}>
-                <a href={link.href}>{link.label}</a>
+                <a href={href(link.href)}>{link.label}</a>
               </li>
             ))}
           </ul>

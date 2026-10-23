@@ -11,7 +11,8 @@ npm run build        # typecheck + bundle + prerender; must pass
 
 With the dev server running (`npm run dev`):
 
-- **Section heights and overflow:** open `http://localhost:5180/qa/measure.html`. It loads the homepage at nine
+- **Section heights and overflow:** open `http://localhost:5180/qa/measure.html` (any other page:
+  `qa/measure.html?path=/pipeline-check`). It loads the page at nine
   screen sizes (phone to 2560×1440) and prints each section's height as a share of the screen plus anything
   running past the right edge. Targets: desktop sections about 0.75–1.2×; `overflow=none` everywhere. Takes
   about 25 seconds; the tab title changes to "done".
@@ -25,7 +26,7 @@ node scripts/capture.mjs 1024 768 shots/tablet-top.png
 node scripts/capture.mjs 1440 900 shots/menu.png "click=.nav__trigger"
 ```
 
-Query options (see `qa/shot.html`): `id` (section anchor), `dy` (extra scroll in px), `reveal=1` (show
+Query options (see `qa/shot.html`): `path` (the page, default `/`), `id` (section anchor), `dy` (extra scroll in px), `reveal=1` (show
 scroll-revealed content at once), `still=1` (no transitions: everything in its final state, e.g. grown timeline
 bars), `click` (CSS selectors, `|`-separated), `hover` (sends a mouse-over, e.g. a platform tier label). `shots/` is git-ignored scratch space.
 
@@ -41,6 +42,14 @@ BASE=http://localhost:5181 node scripts/capture.mjs 1440 900 shots/x.png
 
 (The preview server serves `dist/`, which has no `qa/` folder; copy `qa/shot.html` into `dist/qa/` first, and
 delete it afterwards.)
+
+## Pages and routes
+
+After `npm run build`, `npx vite preview` serves `dist/` like a static host: `/pipeline-check` gets
+`dist/pipeline-check/index.html`, an unknown URL gets `dist/404.html` with status 404 (vite.config.ts). For each
+new page check: its own `<title>`, description, canonical and JSON-LD in the built file; it is in `sitemap.xml`
+(unless hidden); it hydrates with no console errors; its network requests contain no `scene-*.js` (three.js) unless
+it is the homepage.
 
 ## Sizes to check
 

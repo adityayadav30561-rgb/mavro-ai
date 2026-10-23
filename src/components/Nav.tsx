@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import { areaOrder, areas, byArea, channelPortals, packHref, packs, vendorPortal } from '../data/modules';
 import { cta, live, nav } from '../data/site';
+import { useHref } from '../routing';
 import { CATALOGUE_EVENT } from './catalogue';
 import { Icon } from './Icon';
 import { Logo } from './Logo';
@@ -19,6 +20,7 @@ export function Nav() {
   const megaTrigger = useRef<HTMLButtonElement>(null);
   const drawerToggle = useRef<HTMLButtonElement>(null);
   const hoverTimer = useRef(0);
+  const href = useHref();
 
   // Solid surface once the top of the page has scrolled away. An observer, not a scroll handler.
   useEffect(() => {
@@ -130,7 +132,7 @@ export function Nav() {
         data-drawer={drawer || undefined}
       >
         <div className="page nav__row">
-          <a href="#top" className="nav__logo" aria-label="MAVRO home" onClick={closeAll}>
+          <a href={href('#top')} className="nav__logo" aria-label="MAVRO home" onClick={closeAll}>
             <Logo height={26} />
           </a>
 
@@ -154,7 +156,7 @@ export function Nav() {
                   </li>
                 ) : (
                   <li key={item.label}>
-                    <a className="nav__link" href={item.href}>
+                    <a className="nav__link" href={href(item.href)}>
                       {item.label}
                     </a>
                   </li>
@@ -164,10 +166,10 @@ export function Nav() {
           </nav>
 
           <div className="nav__actions">
-            <a className="nav__explore" href={cta.secondary.href}>
+            <a className="nav__explore" href={href(cta.secondary.href)}>
               {cta.secondary.label}
             </a>
-            <a className="btn btn--primary btn--sm" href={cta.primary.href}>
+            <a className="btn btn--primary btn--sm" href={href(cta.primary.href)}>
               {cta.primary.label}
             </a>
           </div>
@@ -208,7 +210,7 @@ export function Nav() {
                           <ul>
                             {byArea(area).map((module) => (
                               <li key={module.id}>
-                                <a href={packHref(module)} onClick={closeAll}>
+                                <a href={href(packHref(module))} onClick={closeAll}>
                                   <Icon name={module.icon} size={18} />
                                   {module.name}
                                 </a>
@@ -222,7 +224,7 @@ export function Nav() {
                         <ul>
                           {[vendorPortal, ...channelPortals].map((portal) => (
                             <li key={portal.id}>
-                              <a href={packs.portal.href} onClick={closeAll}>
+                              <a href={href(packs.portal.href)} onClick={closeAll}>
                                 <Icon name="distribution" size={18} />
                                 {portal.name}
                               </a>
@@ -234,7 +236,7 @@ export function Nav() {
                   </li>
                 ) : (
                   <li key={item.label}>
-                    <a className="drawer__link" href={item.href} onClick={closeAll}>
+                    <a className="drawer__link" href={href(item.href)} onClick={closeAll}>
                       {item.label}
                     </a>
                   </li>
@@ -242,10 +244,10 @@ export function Nav() {
               )}
             </ul>
             <div className="drawer__actions">
-              <a className="btn btn--primary" href={cta.primary.href} onClick={closeAll}>
+              <a className="btn btn--primary" href={href(cta.primary.href)} onClick={closeAll}>
                 {cta.primary.label}
               </a>
-              <a className="btn btn--ghost" href={cta.secondary.href} onClick={closeAll}>
+              <a className="btn btn--ghost" href={href(cta.secondary.href)} onClick={closeAll}>
                 {cta.secondary.label}
               </a>
             </div>

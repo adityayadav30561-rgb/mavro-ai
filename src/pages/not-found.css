@@ -1,0 +1,191 @@
+/* 404: one screen on desktops, the copy beside a record lookup card in the product's interface language. */
+.nf {
+  padding-top: calc(var(--nav-h) + var(--section));
+  isolation: isolate;
+  overflow: clip;
+}
+
+@media (min-width: 1024px) {
+  .nf {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    padding-block: calc(var(--nav-h) + 2rem) 3rem;
+  }
+}
+
+/* The hero's atmosphere, quieter: two soft brand lights over a fine grid that fades out. */
+.nf__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(50% 55% at 76% 42%, rgb(10 72 253 / 0.09), transparent 70%),
+    radial-gradient(35% 40% at 96% 10%, rgb(3 200 253 / 0.1), transparent 70%),
+    radial-gradient(35% 40% at 10% 90%, rgb(122 54 251 / 0.06), transparent 70%),
+    linear-gradient(180deg, #fbfcff 0%, #f5f7ff 70%, var(--white) 100%);
+}
+
+.nf__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(9 14 52 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(9 14 52 / 0.045) 1px, transparent 1px);
+  background-size: 3.5rem 3.5rem;
+  mask-image: radial-gradient(60% 60% at 72% 45%, #000 0%, transparent 75%);
+}
+
+.nf__grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .nf__grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+}
+
+.nf__copy {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-5);
+}
+
+.nf__title {
+  max-width: 10em;
+}
+
+.nf__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-2);
+}
+
+/* ---------- Lookup card ---------- */
+
+.nf__card {
+  border-radius: var(--r-4);
+  background: var(--surface);
+  box-shadow: var(--shadow-float);
+  padding: clamp(1.25rem, 2.2vw, 1.75rem);
+}
+
+.nf__bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  font-size: var(--t-label);
+  font-weight: 700;
+  color: var(--fg-3);
+}
+
+.nf__code {
+  font-size: clamp(2.5rem, 1.8rem + 2.4vw, 3.75rem);
+  font-weight: 780;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nf__search {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+  padding: .75rem .875rem;
+  border-radius: var(--r-2);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--fg-3);
+}
+
+.nf__path {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 650;
+  color: var(--fg);
+}
+
+.nf__suggest {
+  margin: var(--s-5) 0 var(--s-2);
+  font-size: var(--t-label);
+  font-weight: 700;
+  color: var(--fg-3);
+}
+
+.nf__links {
+  display: grid;
+  gap: 2px;
+}
+
+.nf__link {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-4);
+  padding: .75rem;
+  margin-inline: -.75rem;
+  border-radius: var(--r-2);
+  transition: background-color var(--d-1) ease;
+}
+
+.nf__link:hover,
+.nf__link:focus-visible {
+  background: var(--blue-50);
+}
+
+.nf__icon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--r-2);
+  background: var(--blue-50);
+  color: var(--ink);
+  transition: background-color var(--d-1) ease;
+}
+
+.nf__link:hover .nf__icon,
+.nf__link:focus-visible .nf__icon {
+  background: var(--white);
+}
+
+.nf__text {
+  display: grid;
+  gap: .125rem;
+}
+
+.nf__text b {
+  font-weight: 700;
+}
+
+.nf__text span {
+  font-size: var(--t-small);
+  color: var(--fg-2);
+}
+
+.nf__arrow {
+  color: var(--blue);
+  opacity: 0.4;
+  transition:
+    opacity var(--d-1) ease,
+    transform var(--d-2) var(--ease);
+}
+
+.nf__link:hover .nf__arrow,
+.nf__link:focus-visible .nf__arrow {
+  opacity: 1;
+  transform: translateX(.1875rem);
+}

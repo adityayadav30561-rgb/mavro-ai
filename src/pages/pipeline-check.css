@@ -1,0 +1,26 @@
+/* Hidden pipeline check page: plain, but on the site's grid and type. */
+.pcheck {
+  min-height: 100vh;
+  padding-top: calc(var(--nav-h) + var(--section));
+}
+
+.pcheck__list {
+  display: grid;
+  gap: var(--s-3);
+  max-width: 40rem;
+}
+
+.pcheck__list li {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-4);
+  border-radius: var(--r-2);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+}
+
+.pcheck__btn {
+  margin-top: var(--s-6);
+}

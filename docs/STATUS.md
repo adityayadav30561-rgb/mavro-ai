@@ -1,19 +1,19 @@
 # Status
 
-_Last updated: 2026-10-22. Update this file at the end of every task and before clearing context._
+_Last updated: 2026-10-23. Update this file at the end of every task and before clearing context._
 
 ## Where we are
 
-**Stage C (phased implementation), starting.** The homepage is done (Stage A). The site plan
-([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23, and the phased plan is
-[IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module pages 6–20, other pages
-21–26, homepage integration 27, launch QA 28). **Next: Phase 1, routing, prerender and per-page SEO.** One phase
-per session; the user approves the module template after Phase 5. See [WORKFLOW.md](WORKFLOW.md).
+**Stage C (phased implementation). Phase 1 done (2026-10-23); next: Phase 2, the section library.** The
+homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
+and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
+pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
+the module template after Phase 5. See [WORKFLOW.md](WORKFLOW.md).
 
 Everything builds (`npm run build` passes) and has been checked in the browser at phone, tablet, laptop and
 large-monitor sizes. The project is on GitHub (public, by the user's choice): https://github.com/adityayadav30561-rgb/mavro-ai. See docs/CLOUD.md.
 
-## The homepage, in order (`src/App.tsx`)
+## The homepage, in order (`src/pages/Home.tsx`)
 
 | # | Section | Anchor | State |
 |---|---|---|---|
@@ -34,6 +34,21 @@ Header: logo, Platform mega-menu (all modules by business area + portals), Produ
 Premium modules, Why MAVRO, Explore the platform, Request a demo. Mobile drawer with the same content.
 
 ## Most recent work (newest first)
+
+- 2026-10-23, **Phase 1 (routing, prerender, per-page SEO) done.** The site is now multi-page (README "Pages and
+  routing"): `src/routes.ts` (route table), `src/Layout.tsx` (skip link, Nav, main, Footer), `src/pages/` (Home,
+  NotFound, PipelineCheck; `src/App.tsx` became `src/pages/Home.tsx`), `src/routing.tsx` (`useHref`: header,
+  footer and CTA `#section` links become `/#section` off the homepage). The prerender writes one HTML file per
+  route with its own head and a modulepreload of its page chunk, plus `sitemap.xml` from the table; `head.ts`
+  takes the route (BreadcrumbList below the homepage, noindex outside the sitemap). A designed 404 page
+  (`dist/404.html`: headline, record-lookup card showing the missing address, four closest destinations, "Browse
+  all modules" opens the catalogue). Hidden `/pipeline-check` proves the pipeline. `qa/measure.html` and
+  `qa/shot.html` take `path=`; `vite preview` now serves clean URLs and the 404 like a static host. Files touched
+  are snapshotted in `legacy/routing-2026-10-23/`.
+  Verified: `dist/index.html` identical to before apart from one added modulepreload line; homepage
+  `qa/measure.html` output identical at all nine sizes; new pages no overflow at nine sizes; checked at 1440×900,
+  1366×768, 390×844; the check page and the 404 hydrate with no console errors and load no three.js (homepage
+  loads Home + scene as before); unknown URLs return 404 in preview.
 
 - 2026-10-23: the project was put under git and pushed to GitHub (public repo, by the user's choice) so work can continue from
   another Claude account or a cloud session. Added `docs/CLOUD.md` (setup), `docs/source/` (text of the decks),
@@ -117,9 +132,11 @@ items when context is heavy.
 
 ## Next steps
 
-1. The improvement plan is done except item 7 (MAVRO AI, parked until the user confirms which capabilities are live).
-2. When the user says the homepage is done, close Stage A (checklist in [WORKFLOW.md](WORKFLOW.md)).
-3. Stage B: plan the rest of the website with the user (sitemap, page types, content sources).
+1. **Phase 2: section library** (IMPLEMENTATION-PLAN.md): shared blocks in `src/blocks/`, homepage sections
+   refactored onto them with no visual change, a dev-only `/_library` gallery, `docs/LIBRARY.md`. Add the gallery
+   as a route that is skipped in production builds.
+2. Then Phase 3 (navigation) and Phase 4 (module content model and screen kit), Phase 5 (Order to Cash pilot,
+   reviewed by the user).
 
 ## Open items (need the user or real assets)
 
@@ -132,6 +149,10 @@ items when context is heavy.
 | Social share image | `src/seo/head.ts` | none |
 | FAQ: pricing and hosting | `faq.items` in home.ts | not answered: the decks do not state a pricing model, deployment options beyond "cloud-native" or data ownership terms. Add those questions once the user supplies the answers |
 | Resources, Company, About, Careers, Privacy, Terms | `href: null` in `src/data/site.ts` | planned pages; links stay hidden until the pages exist |
+| Hidden test page | `/pipeline-check` in `src/routes.ts` | noindex, not linked, not in the sitemap; remove at launch QA (Phase 28) |
+| One stylesheet for all pages | `cssCodeSplit: false` in vite.config.ts | every page loads the full CSS (about 18 kB gzip today); revisit in the Phase 28 performance pass as pages grow |
+| 404 has no canonical | `src/seo/head.ts` | deliberate (the plan said "own canonical"): the 404 answers at any missing URL, so it names none and is noindex |
+| Header and footer off the homepage | Nav, Footer | point back to homepage sections (`/#platform` etc.) until Phase 3 links them to real pages |
 
 ## Known quirks
 

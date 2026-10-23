@@ -1,4 +1,5 @@
 import { areaOrder, areas, byArea, channelPortals, packHref, packs, vendorPortal } from '../data/modules';
+import { useHref } from '../routing';
 import { Icon } from './Icon';
 
 interface PlatformMenuProps {
@@ -14,6 +15,7 @@ const portals = [vendorPortal, ...channelPortals];
  * not an ARIA menu, so it is read and tabbed like ordinary links.
  */
 export function PlatformMenu({ id, open, onNavigate }: PlatformMenuProps) {
+  const href = useHref();
   return (
     <div id={id} className="mega" data-open={open || undefined} hidden={!open}>
       <div className="mega__panel">
@@ -24,7 +26,7 @@ export function PlatformMenu({ id, open, onNavigate }: PlatformMenuProps) {
               <ul>
                 {byArea(area).map((module) => (
                   <li key={module.id}>
-                    <a href={packHref(module)} className="mega__link" onClick={onNavigate}>
+                    <a href={href(packHref(module))} className="mega__link" onClick={onNavigate}>
                       <Icon name={module.icon} size={16} />
                       <span>{module.name}</span>
                     </a>
@@ -40,7 +42,7 @@ export function PlatformMenu({ id, open, onNavigate }: PlatformMenuProps) {
           <ul className="mega__portals">
             {portals.map((portal) => (
               <li key={portal.id}>
-                <a href={packs.portal.href} onClick={onNavigate}>
+                <a href={href(packs.portal.href)} onClick={onNavigate}>
                   <span className="mega__portal-layer">{portal.layer}</span>
                   <span className="mega__name">{portal.name}</span>
                 </a>
@@ -49,7 +51,7 @@ export function PlatformMenu({ id, open, onNavigate }: PlatformMenuProps) {
           </ul>
           <div className="mega__aside-foot">
             <p className="mega__aside-body">Already on SAP, Oracle or Tally? MAVRO works alongside your ERP.</p>
-            <a href="#connect" className="link" onClick={onNavigate}>
+            <a href={href('#connect')} className="link" onClick={onNavigate}>
               ERP Connect
               <Icon name="arrow" size={16} />
             </a>
