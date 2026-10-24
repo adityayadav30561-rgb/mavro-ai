@@ -4,8 +4,8 @@ _Last updated: 2026-10-24. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–12 done (2026-10-24); next: Phase 13, Dealer Portal and Retailer Portal
-(deck slides 69, 71; the Retailer Portal has a phone screen).** The
+**Stage C (phased implementation). Phases 1–13 done (2026-10-24); next: Phase 14, Transportation Management, Fleet
+Management and Warehouse Management (deck slides 76 + TMS deck, 94, 96 + WMS deck; the TMS customer story links here).** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,31 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-24, **Phase 13 done: Dealer Portal and Retailer Portal pages.** On `main`. All four portals now have pages.
+  - **Screens (7 new, 1 phone):** Dealer Portal `offtake` (lead) and `claims` (Northfield's channel views) with
+    `replenishment` and `secondary-sales` (what the dealer sees, partner chrome with a dealer menu); Retailer Portal
+    `home` (lead), `loyalty-returns`, `orders` (partner chrome, what the retailer sees) and the phone `basket`
+    (basket builder) in the hero. The retailer tour has three desktop screens; the basket builder is the phone.
+  - **Chain:** Navrangpura Distributors (Phase 12) → Ambica Pumps, Vatva (dealer, B-class; dealer prices IH-180
+    ₹1,980, IH-220 ₹2,640 as on the SFA call report; sells IH-180 ₹2,180, IH-220 ₹2,890) and Ahmedabad Pump Mart,
+    Kankaria (retailer, buys from Navrangpura and Changodar; SO-S-2281 ₹1,18,000 is the order Meera Kapoor took,
+    approved on the SFA approvals screen). The IH-220 shortage (depot 90, Navrangpura's NPO-3318 takes 120, refill
+    12 Oct) shows as five dealers out of IH-220, Ambica's order in two lots and the retailer's basket in two lots;
+    SK-22 batch B0602 is near expiry at two dealers (reorders held) and returned by the retailer.
+  - **Figures:** Ahmedabad territory 18 dealers, September offtake ₹1.12 Cr, October ₹29.6 L, 271 of 312 retailers
+    billed; Ambica's October bills ₹2.60 L (31 bills); Ambica's suggested order ₹4,43,942 (target = sales a day ×
+    23); dealer claims 8, ₹1,76,640, ₹1,06,640 verified for 9 Oct, 2 duplicates; retailer: ₹8.36 L delivered since
+    April, 1 point per ₹200, 4,820 points (Gold), basket ₹64,251 with the 2% early-payment offer (from Scheme and
+    Rebate's schemes) picked over the festive slab. New names: Mahesh Prajapati (Ambica Pumps), Harsh Mehta
+    (Ahmedabad Pump Mart).
+  - **Content:** `content/dealer-portal.ts` (v2 slides 69–70), `retailer-portal.ts` (slides 71–72); views for both
+    (`Secondary sales` rather than "Secondary sales register", which wrapped in the sidebar).
+  - Verified: every screen fits its canvas; each page at 1440×900, 1366×768 and 390×844 (one H1, no overflow, no
+    broken images, no console errors); `qa/measure.html` overflow=none at nine sizes on both; build passes, titles,
+    canonical and FAQPage in the built files, both in the sitemap; production build hydrates with no errors and no
+    three.js.
+  - **Module pages live (22):** all 18 Base modules and all 4 portals.
 
 - 2026-10-24, **Phase 12 done: Vendor Portal and Distributor / B2B Portal pages; portal page variant.** On `main`.
   - **Portal page variant:** on portal pages the "where it sits" section shows the supply-to-retail chain
@@ -445,10 +470,10 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 13: Dealer Portal, Retailer Portal** (slides 69, 71). Partner chrome for the dealer's screens; the
-   Retailer Portal needs a phone screen (phone chrome with the retailer's tabs). Dealers buy from distributors such
-   as Navrangpura Distributors (secondary sales); retailers such as Ahmedabad Pump Mart (SFA) buy from dealers.
-2. Then Phase 14 (Transportation, Fleet and Warehouse Management).
+1. **Phase 14: Transportation Management, Fleet Management, Warehouse Management** (v2 slides 76, 94, 96; the TMS
+   and WMS decks in docs/source). The first Premium modules; the customer story "TMS alongside SAP S/4HANA" links
+   to the Transportation page. Ties: the dispatches already on Gate Entry and Inventory, the Ahmedabad depot.
+2. Then Phase 15 (Scheme and Rebate, Ecommerce Integration, Subscription Management).
 
 ## Open items (need the user or real assets)
 

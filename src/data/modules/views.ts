@@ -251,6 +251,26 @@ export const moduleViews: Partial<Record<ModuleSlug, readonly string[]>> = {
     'Ship-to addresses',
     'Reports',
   ],
+  'dealer-portal': [
+    'Offtake and stock',
+    'Replenishment planner',
+    'Dealer claims',
+    'Secondary sales',
+    'Retailers',
+    'Schemes',
+    'Stock',
+    'Reports',
+  ],
+  // The retailer's own menu: every Retailer Portal screen is what the retailer sees.
+  'retailer-portal': [
+    'Store home',
+    'Basket builder',
+    'Loyalty and returns',
+    'My orders',
+    'Offers',
+    'Payments',
+    'Reports',
+  ],
   'scheme-and-rebate': [
     'Schemes',
     'Scheme register',

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Retailer Portal · Basket builder (phone)</title>
+<!-- Scenario: see home.html. 14:20, Harsh Mehta builds a basket from the reorder list on his phone. IH-180 × 10 at
+     ₹2,060 = ₹20,600; IH-220 × 6 at ₹2,750 = ₹16,500, but Navrangpura has 2 today, so 2 come now and 4 after its
+     refill on 12 Oct; CV-110 × 4 at ₹2,330 = ₹9,320; the single SK-22 kit is out at Changodar, so the app proposes
+     4 packs of 5 at ₹2,350 = ₹9,400 (the same 20 kits, ₹400 less), which he accepts. Items ₹55,820. Best offer: the
+     festive slab needs ₹1 L, so the engine applies the 2% early-payment discount for paying within 10 days,
+     −₹1,116; taxable ₹54,704; GST 18% ₹9,847; ₹64,551; 600 expiring points redeemed −₹300; to pay ₹64,251. -->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  .offer { display: flex; gap: 10px; align-items: flex-start; padding: 11px 12px; border-radius: 12px; background: var(--ok-soft); border: 1px solid #c8ecdc; }
+  .offer i { width: 26px; height: 26px; flex: none; border-radius: 8px; display: grid; place-items: center; background: #fff; color: var(--ok); font: 700 12px var(--sans); font-style: normal; box-shadow: inset 0 0 0 1px #c8ecdc; }
+  .offer p { font-size: 12.5px; line-height: 1.4; color: var(--ink-2); }
+  .offer b { display: block; color: var(--ink); font-size: 13px; }
+  .it { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 7px 0; }
+  .it + .it { border-top: 1px solid var(--line); }
+  .it b { font-weight: 600; font-size: 13px; }
+  .it small { color: var(--ink-3); font-size: 11.5px; }
+  .it em { font: 600 12.5px var(--mono); font-style: normal; text-align: right; }
+  .it .tag { grid-column: 1 / -1; justify-self: start; margin-top: 3px; }
+  .from { font: 550 11px var(--sans); color: var(--ink-3); margin: 2px 0 2px; }
+  .tot { display: grid; grid-template-columns: 1fr auto; gap: 5px 12px; font-size: 12.5px; }
+  .tot dt { color: var(--ink-2); }
+  .tot dd { text-align: right; font: 500 12.5px var(--mono); }
+  .tot .g { color: var(--ok); }
+  .tot .t { padding-top: 7px; border-top: 1px solid var(--line); font-weight: 650; color: var(--ink); }
+  .tot dd.t { font: 700 15px var(--mono); }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="retailer-portal" data-title="Basket" data-subtitle="2 distributors · 4 items"
+      data-time="14:20" data-tab="Basket" data-tabs="Home:home|Basket:cart:4|Rewards:gift|Orders:supply|More:more" data-who="Harsh Mehta|Owner">
+<main>
+  <div class="offer"><i>%</i><p><b>Best offer applied: 2% for paying in 10 days</b>Better than the festive slab, which needs ₹1 L.</p></div>
+
+  <div class="card">
+    <div class="body" style="padding-top:8px;padding-bottom:6px">
+      <p class="from">Navrangpura Distributors</p>
+      <div class="it"><p><b>IH-180 housing × 10</b><br><small>₹2,060 each</small></p><em>₹20,600</em></div>
+      <div class="it"><p><b>IH-220 housing × 6</b><br><small>₹2,750 each</small></p><em>₹16,500</em><span class="tag chip warn">2 today, 4 on 12 Oct</span></div>
+      <div class="it"><p><b>CV-110 valve body × 4</b><br><small>₹2,330 each</small></p><em>₹9,320</em></div>
+      <p class="from" style="margin-top:6px">Changodar Industrial</p>
+      <div class="it"><p><b>SK-22 seal kit, pack of 5 × 4</b><br><small>for 20 single kits, out of stock</small></p><em>₹9,400</em><span class="tag chip ok">Swapped · ₹400 less</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <dl class="tot">
+        <dt>Items</dt><dd>₹55,820</dd>
+        <dt>Pay in 10 days, 2%</dt><dd class="g">−₹1,116</dd>
+        <dt>GST 18%</dt><dd>₹9,847</dd>
+        <dt>600 points, expiring</dt><dd class="g">−₹300</dd>
+        <dt class="t">To pay</dt><dd class="t">₹64,251</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="ph-actions">
+    <span class="btn">Save</span>
+    <span class="btn pri">Place order</span>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

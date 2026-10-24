@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Dealer Portal · Replenishment planner (dealer's view)</title>
+<!-- Scenario: see offtake.html. What Ambica Pumps (Vatva, B-class dealer, buys from Navrangpura Distributors; owner
+     Mahesh Prajapati) sees. Suggested order from 4-week offtake, stock today and a 21-day cover norm plus 2 days'
+     lead time (target = daily offtake × 23), rounded to the pack: IH-180 168 → 6 a day, stock 92 (15 d), target 138,
+     suggest 50; IH-220 84 → 3 a day, stock 0 (out), target 69, suggest 70 in two lots (40 on 9 Oct, 30 after the
+     depot refill on 12 Oct); CV-110 56 → 2 a day, stock 38 (19 d), target 46, suggest 10; SK-22 112 → 4 a day, stock
+     74 (18.5 d), target 92, suggest 20 (no near-expiry stock here); BR-045 28 → 1 a day, stock 40 (40 d), over the
+     norm, suggest 0; IH-300 (launch) 12 in 3 weeks, stock 6, launch norm 20, suggest 20. Dealer prices: IH-180 ₹1,980,
+     IH-220 ₹2,640 (as on the SFA call report), CV-110 ₹2,230, SK-22 ₹470, IH-300 ₹3,420. Order ₹3,83,900, festive
+     slab 2% −₹7,678, GST 18% ₹67,720, total ₹4,43,942. IH-300 launch incentive ₹120 a piece credited later.
+     Credit with Navrangpura: ₹8.0 L limit, ₹2.1 L outstanding, so the order fits. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .rp td { padding-top: 12px; padding-bottom: 12px; }
+  .cv { display: flex; align-items: center; gap: 8px; }
+  .cv .meter { width: 70px; min-width: 70px; position: relative; overflow: visible; }
+  .cv .meter::after { content: ''; position: absolute; left: 70%; top: -3px; bottom: -3px; width: 1.5px; background: var(--ink); opacity: .5; }
+  .cv span { font: 11.5px var(--mono); color: var(--ink-2); width: 34px; }
+  .cv span.out { color: var(--bad); font-weight: 600; }
+  .sug { display: inline-flex; align-items: center; border: 1px solid var(--line-2); border-radius: 8px; overflow: hidden; }
+  .sug span { width: 24px; text-align: center; color: var(--ink-3); background: var(--surface-2); font-weight: 600; line-height: 26px; }
+  .sug b { min-width: 42px; text-align: center; font: 600 12.5px var(--mono); line-height: 26px; border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+  .sug.zero b { color: var(--ink-3); }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .tot { display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; font-size: 13px; }
+  .tot dt { color: var(--ink-2); }
+  .tot dd { text-align: right; font: 500 13px var(--mono); }
+  .tot .disc { color: var(--ok); }
+  .tot .grand { padding-top: 10px; border-top: 1px solid var(--line); font-weight: 650; color: var(--ink); }
+  .tot dd.grand { font: 700 16px var(--mono); }
+  .how { font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+  .how b { color: var(--ink); font-weight: 600; }
+  .lst li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 6px 0; }
+  .lst li + li { border-top: 1px solid var(--line); }
+  .lst b { font-weight: 550; }
+  .lst small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="dealer-portal" data-chrome="partner" data-view="Replenishment planner"
+      data-menu="Home:home|Replenishment planner:cart|Secondary sales:doc|Claims:coin|Stock:supply|Retailers:user|Schemes:gift"
+      data-host="Northfield Precision|Dealer portal" data-org="AP|Ambica Pumps|Vatva · B-class dealer"
+      data-crumb="Dealer portal / Replenishment planner" data-search="Search items, retailers, bills"
+      data-who="Mahesh Prajapati|Owner, Ambica Pumps">
+<main>
+  <div class="head">
+    <div>
+      <h1>Replenishment planner</h1>
+      <p>Suggested order to Navrangpura Distributors · from your last 4 weeks of sales to retailers and stock today · cover norm 21 days</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Change norms</span>
+      <span class="btn pri">Send to Navrangpura (5 items)</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush rp">
+        <header><h2>Suggested order</h2><span>target = sales a day × (21 days + 2 days' delivery)</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Item</th><th class="r">Sold, 4 weeks</th><th class="r">Stock</th><th>Cover</th><th class="r">Target</th><th>Suggested</th><th class="r">Value</th></tr></thead>
+            <tbody>
+              <tr><td><b>IH-180 impeller housing</b><small>₹1,980</small></td><td class="r mono">168</td><td class="r mono">92</td><td><div class="cv"><span class="meter warn"><i style="width:50%"></i></span><span>15 d</span></div></td><td class="r mono">138</td><td><span class="sug"><span>−</span><b>50</b><span>+</span></span></td><td class="r mono">₹99,000</td></tr>
+              <tr class="hl"><td><b>IH-220 impeller housing</b><small>₹2,640 · 40 on 9 Oct, 30 after 12 Oct</small></td><td class="r mono">84</td><td class="r mono">0</td><td><div class="cv"><span class="meter warn"><i style="width:0"></i></span><span class="out">out</span></div></td><td class="r mono">69</td><td><span class="sug"><span>−</span><b>70</b><span>+</span></span></td><td class="r mono">₹1,84,800</td></tr>
+              <tr><td><b>CV-110 valve body</b><small>₹2,230</small></td><td class="r mono">56</td><td class="r mono">38</td><td><div class="cv"><span class="meter ok"><i style="width:63%"></i></span><span>19 d</span></div></td><td class="r mono">46</td><td><span class="sug"><span>−</span><b>10</b><span>+</span></span></td><td class="r mono">₹22,300</td></tr>
+              <tr><td><b>SK-22 seal kit</b><small>₹470 · fresh batches only</small></td><td class="r mono">112</td><td class="r mono">74</td><td><div class="cv"><span class="meter ok"><i style="width:62%"></i></span><span>18 d</span></div></td><td class="r mono">92</td><td><span class="sug"><span>−</span><b>20</b><span>+</span></span></td><td class="r mono">₹9,400</td></tr>
+              <tr><td><b>IH-300 impeller housing</b><small>₹3,420 · new series, launch norm 20</small></td><td class="r mono">12</td><td class="r mono">6</td><td><div class="cv"><span class="meter warn"><i style="width:37%"></i></span><span>11 d</span></div></td><td class="r mono">20</td><td><span class="sug"><span>−</span><b>20</b><span>+</span></span></td><td class="r mono">₹68,400</td></tr>
+              <tr><td><b>BR-045 bracket</b><small>₹1,160 · over cover, none needed</small></td><td class="r mono">28</td><td class="r mono">40</td><td><div class="cv"><span class="meter ok"><i style="width:100%"></i></span><span>40 d</span></div></td><td class="r mono">23</td><td><span class="sug zero"><span>−</span><b>0</b><span>+</span></span></td><td class="r mono dim">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Your sales to retailers</h2><span>₹ lakh a week, from the bills you upload</span><div class="legend"><span>This year</span><span style="--c:#c9cfdb">Last year</span></div></header>
+        <div class="body chart-c" data-bars="2.1,2.3,2.2,2.4,2.3,2.2,2.5,2.4|1.8,1.9,2.0,1.9,2.1,2.0,2.1,2.0" data-max="3" data-labels="W34,W35,W36,W37,W38,W39,W40,W41"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Order value</h2></header>
+        <div class="body" style="padding-top:8px">
+          <dl class="tot">
+            <dt>5 items, 170 pieces</dt><dd>₹3,83,900</dd>
+            <dt>Festive slab, 2%</dt><dd class="disc">−₹7,678</dd>
+            <dt>GST 18%</dt><dd>₹67,720</dd>
+            <dt class="grand">To pay</dt><dd class="grand">₹4,43,942</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>How the suggestion is made</h2></header>
+        <div class="body" style="padding-top:8px">
+          <p class="how"><b>IH-180:</b> you sold 168 in 4 weeks, 6 a day. For 21 days of cover plus 2 days' delivery you need 138; you have 92, so 46, rounded to 50.</p>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>With Navrangpura</h2><span>your distributor</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>Credit</b><small>₹2.1 L used of ₹8.0 L</small></p><span class="chip ok">₹5.9 L free</span></li>
+            <li><p><b>IH-300 launch incentive</b><small>₹120 a piece, credited later</small></p><span class="chip blue">₹2,400</span></li>
+            <li><p><b>Delivery</b><small>Navrangpura's van, Thursdays</small></p><span class="chip">9 Oct</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

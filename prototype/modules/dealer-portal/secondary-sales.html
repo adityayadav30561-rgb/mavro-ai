@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Dealer Portal · Secondary sales register (dealer's view)</title>
+<!-- Scenario: see offtake.html. Ambica Pumps' bills to retailers and workshops in October, synced from its billing
+     app or uploaded from Excel, with payment terms. Dealer selling prices before GST: IH-180 ₹2,180, IH-220 ₹2,890,
+     CV-110 ₹2,450, SK-22 ₹520, IH-300 ₹3,780. October to date ₹2,60,000 in 31 bills (the 10 latest, ₹1,22,160, are
+     shown); retailers billed in 30 days 24 of 27, as on the offtake dashboard. Outstanding from retailers ₹1,18,400.
+     The two IH-220 bills (AP/1418, AP/1424) used the last of its IH-220 stock. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 270px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .sums { grid-template-columns: repeat(4, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 8px; padding-bottom: 8px; }
+  .reg td.it { font-size: 11.5px; color: var(--ink-2); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="dealer-portal" data-chrome="partner" data-view="Secondary sales"
+      data-menu="Home:home|Replenishment planner:cart|Secondary sales:doc|Claims:coin|Stock:supply|Retailers:user|Schemes:gift"
+      data-host="Northfield Precision|Dealer portal" data-org="AP|Ambica Pumps|Vatva · B-class dealer"
+      data-crumb="Dealer portal / Secondary sales" data-search="Search items, retailers, bills"
+      data-who="Mahesh Prajapati|Owner, Ambica Pumps">
+<main>
+  <div class="head">
+    <div>
+      <h1>Secondary sales register</h1>
+      <p>Your bills to retailers and workshops, with payment terms · synced from your billing app or uploaded from Excel</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Upload bills</span>
+      <span class="btn pri">Add a bill</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Month <b>October</b></span>
+    <span class="filter">Customer type <b>All</b></span>
+    <span class="filter">Payment <b>All</b></span>
+    <span class="filter" style="border-style:dashed;color:var(--ink-3)">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Bill, retailer or item</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Billed in October</label><strong>₹2.60 L <small>31 bills, before GST</small></strong></div>
+    <div class="card sm"><label>Retailers billed, 30 days</label><strong>24 <small>of 27 you serve</small></strong></div>
+    <div class="card sm"><label>Due from retailers</label><strong>₹1.18 L <small>on 15 and 30 days</small></strong></div>
+    <div class="card sm"><label>Last upload</label><strong>Today, 13:40 <small>billing app</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Bill</th><th>Date</th><th>Billed to</th><th>Items</th><th class="r">Value</th><th>Terms</th><th>Scheme</th><th>Payment</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">AP/1427</b></td><td class="mono">8 Oct</td><td><b>Vatva Pump House</b><small>Retailer</small></td><td class="mono it">IH-180 × 4, SK-22 × 10</td><td class="r mono">₹13,920</td><td>Cash</td><td><span class="dim">—</span></td><td><span class="chip ok">Paid</span></td><td class="dim">Billing app</td></tr>
+          <tr><td><b class="mono">AP/1426</b></td><td class="mono">8 Oct</td><td><b>Narol Fabricators</b><small>Workshop</small></td><td class="mono it">CV-110 × 3</td><td class="r mono">₹7,350</td><td>15 days</td><td><span class="dim">—</span></td><td><span class="chip ">Due 23 Oct</span></td><td class="dim">Billing app</td></tr>
+          <tr><td><b class="mono">AP/1425</b></td><td class="mono">7 Oct</td><td><b>Moraiya Tools</b><small>Workshop</small></td><td class="mono it">IH-180 × 6, SK-22 × 12</td><td class="r mono">₹19,320</td><td>30 days</td><td><span class="dim">—</span></td><td><span class="chip ">Due 6 Nov</span></td><td class="dim">Billing app</td></tr>
+          <tr><td><b class="mono">AP/1424</b></td><td class="mono">7 Oct</td><td><b>Maninagar Pumps</b><small>Retailer</small></td><td class="mono it">IH-220 × 2</td><td class="r mono">₹5,780</td><td>Cash</td><td><span class="dim">—</span></td><td><span class="chip ok">Paid</span></td><td class="dim">Billing app</td></tr>
+          <tr><td><b class="mono">AP/1423</b></td><td class="mono">6 Oct</td><td><b>Sabarmati Engineering</b><small>Workshop</small></td><td class="mono it">IH-300 × 2</td><td class="r mono">₹7,560</td><td>15 days</td><td><span class="chip blue">IH-300 launch</span></td><td><span class="chip ">Due 21 Oct</span></td><td class="dim">Billing app</td></tr>
+          <tr><td><b class="mono">AP/1422</b></td><td class="mono">6 Oct</td><td><b>Isanpur Pump Centre</b><small>Retailer</small></td><td class="mono it">IH-180 × 8</td><td class="r mono">₹17,440</td><td>15 days</td><td><span class="dim">—</span></td><td><span class="chip ">Due 21 Oct</span></td><td class="dim">Excel upload</td></tr>
+          <tr><td><b class="mono">AP/1421</b></td><td class="mono">4 Oct</td><td><b>Paldi Engineering</b><small>Workshop</small></td><td class="mono it">SK-22 × 20, CV-110 × 2</td><td class="r mono">₹15,300</td><td>30 days</td><td><span class="dim">—</span></td><td><span class="chip ">Due 3 Nov</span></td><td class="dim">Excel upload</td></tr>
+          <tr><td><b class="mono">AP/1420</b></td><td class="mono">3 Oct</td><td><b>Narol Hardware</b><small>Retailer</small></td><td class="mono it">IH-180 × 5, IH-220 × 3</td><td class="r mono">₹19,570</td><td>Cash</td><td><span class="dim">—</span></td><td><span class="chip ok">Paid</span></td><td class="dim">Excel upload</td></tr>
+          <tr><td><b class="mono">AP/1419</b></td><td class="mono">3 Oct</td><td><b>Motera Motors</b><small>Workshop</small></td><td class="mono it">IH-180 × 2</td><td class="r mono">₹4,360</td><td>15 days</td><td><span class="dim">—</span></td><td><span class="chip ">Due 18 Oct</span></td><td class="dim">Excel upload</td></tr>
+          <tr><td><b class="mono">AP/1418</b></td><td class="mono">1 Oct</td><td><b>Vatva Pump House</b><small>Retailer</small></td><td class="mono it">IH-220 × 4</td><td class="r mono">₹11,560</td><td>Cash</td><td><span class="dim">—</span></td><td><span class="chip ok">Paid</span></td><td class="dim">Excel upload</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <span>Showing 10 of 31 bills in October · values before GST</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>4</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

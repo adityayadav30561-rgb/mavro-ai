@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Dealer Portal · Dealer claim approval queue</title>
+<!-- Scenario: see offtake.html. Dealer claims from the Ahmedabad territory waiting for trade marketing (Ritu Malhotra),
+     part of Scheme and Rebate's queue of 23. Retailer-linked claims are matched to the retailer bills the dealer
+     uploaded before anything is paid. 8 claims, ₹1,76,640: verified DCL-0412 Ambica Pumps monsoon pump-set slab
+     ₹38,600 (64 retailer bills), DCL-0417 Nikol Spares Q2 target rebate ₹46,200 (target ₹16.0 L, achieved ₹17.1 L),
+     DCL-0421 Bavla Pumps IH-300 launch 42 × ₹120 = ₹5,040; part verified DCL-0418 Vasna Spares monsoon slab ₹22,400
+     (3 of 14 retailers' bills not uploaded: ₹16,800 now, ₹5,600 when they are); waiting for POP audit DCL-0415
+     Visnagar Pumps counter display ₹18,000 (4 of 6 audited), DCL-0422 Ellisbridge Hardware ₹12,000 (Ravi Patel,
+     18 Oct); duplicates DCL-0419 Isanpur Hardware ₹19,800 (bills already in DCL-0408) and DCL-0423 Ganesh Hardware
+     ₹14,600 (DCL-0410). Verified ₹1,06,640 settles in the bulk run on 9 Oct. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .q td { padding-top: 14px; padding-bottom: 14px; }
+  .mt { font: 12px var(--mono); }
+  .mt.x { color: var(--bad); font-weight: 600; }
+  .mt.w { color: var(--warn); font-weight: 600; }
+  tr.dup td { background: var(--bad-soft); }
+  .kv { font-size: 12.5px; gap: 8px 14px; }
+  .bills { display: grid; grid-template-columns: repeat(14, 1fr); gap: 4px; margin: 12px 0 6px; }
+  .bills i { height: 22px; border-radius: 5px; background: var(--ok-soft); box-shadow: inset 0 0 0 1px #c8ecdc; }
+  .bills i.no { background: #fff; box-shadow: inset 0 0 0 1px var(--line-2); background-image: repeating-linear-gradient(135deg, transparent 0 4px, #eceef2 4px 6px); }
+  .lg { display: flex; gap: 14px; font-size: 11.5px; color: var(--ink-2); }
+  .note { margin-top: 10px; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .note b { color: var(--ink); }
+  .acts2 { display: grid; grid-template-columns: 1fr 1.5fr; gap: 8px; margin-top: 12px; }
+  .acts2 .btn { justify-content: center; }
+  .lst li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 6px 0; }
+  .lst li + li { border-top: 1px solid var(--line); }
+  .lst b { font-weight: 550; }
+  .lst small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="dealer-portal" data-view="Dealer claims" data-crumb="Portals / Dealer Portal / Dealer claims"
+      data-org="NP|Northfield Precision|Ahmedabad territory" data-who="Ritu Malhotra|Trade marketing manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Dealer claim approval queue</h1>
+      <p>Retailer-linked scheme claims, matched to the retailer bills each dealer uploaded before anything is paid · next settlement 9 Oct</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Scheme rules</span>
+      <span class="btn pri">Approve verified (3)</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Claims waiting</label><div class="v"><strong>8 <small>₹1,76,640</small></strong></div><div class="foot"><b class="delta flat">8 dealers</b><span>Ahmedabad territory</span></div></div>
+    <div class="card kpi"><label>Matched to retailer bills</label><div class="v"><strong>₹1.07 L</strong></div><div class="foot"><b class="delta up">settles 9 Oct</b><span>3 full, 1 in part</span></div></div>
+    <div class="card kpi"><label>Duplicates stopped</label><div class="v"><strong>2 <small>₹34,400</small></strong></div><div class="foot"><b class="delta down">same bills</b><span>claimed before</span></div></div>
+    <div class="card kpi"><label>Waiting for POP audit</label><div class="v"><strong>2 <small>₹30,000</small></strong></div><div class="foot"><b class="delta flat">counter display</b><span>photos by the field rep</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush q" style="flex:1">
+        <header><h2>Claims</h2><span>8 · by status</span><span class="more">All schemes</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Claim</th><th>Dealer</th><th>Scheme</th><th class="r">Claimed</th><th>Checked against</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><b class="mono">DCL-0412</b></td><td><b>Ambica Pumps</b><small>Vatva</small></td><td>Monsoon pump-set slab<small>retailers</small></td><td class="r mono">₹38,600</td><td class="mt">64 retailer bills</td><td><span class="chip ok">Verified</span></td></tr>
+              <tr><td><b class="mono">DCL-0417</b></td><td><b>Nikol Spares</b><small>Nikol</small></td><td>Quarterly target rebate<small>Q2, dealers</small></td><td class="r mono">₹46,200</td><td class="mt">₹17.1 L of ₹16.0 L target</td><td><span class="chip ok">Verified</span></td></tr>
+              <tr><td><b class="mono">DCL-0421</b></td><td><b>Bavla Pumps</b><small>Bavla</small></td><td>IH-300 launch<small>₹120 a piece</small></td><td class="r mono">₹5,040</td><td class="mt">42 pcs in secondary sales</td><td><span class="chip ok">Verified</span></td></tr>
+              <tr class="hl"><td><b class="mono">DCL-0418</b></td><td><b>Vasna Spares</b><small>Vasna</small></td><td>Monsoon pump-set slab<small>retailers</small></td><td class="r mono">₹22,400</td><td class="mt w">11 of 14 retailers</td><td><span class="chip warn">₹16,800 now</span></td></tr>
+              <tr><td><b class="mono">DCL-0415</b></td><td><b>Visnagar Pumps</b><small>Visnagar</small></td><td>Counter display<small>retailers, Sep</small></td><td class="r mono">₹18,000</td><td class="mt">4 of 6 audited</td><td><span class="chip">POP audit</span></td></tr>
+              <tr><td><b class="mono">DCL-0422</b></td><td><b>Ellisbridge Hardware</b><small>Ellisbridge</small></td><td>Counter display<small>retailers, Sep</small></td><td class="r mono">₹12,000</td><td class="mt">audit on 18 Oct</td><td><span class="chip">POP audit</span></td></tr>
+              <tr class="dup"><td><b class="mono">DCL-0419</b></td><td><b>Isanpur Hardware</b><small>Isanpur</small></td><td>Monsoon pump-set slab<small>retailers</small></td><td class="r mono">₹19,800</td><td class="mt x">bills in DCL-0408</td><td><span class="chip bad">Duplicate</span></td></tr>
+              <tr class="dup"><td><b class="mono">DCL-0423</b></td><td><b>Ganesh Hardware</b><small>Naroda</small></td><td>Monsoon pump-set slab<small>retailers</small></td><td class="r mono">₹14,600</td><td class="mt x">bills in DCL-0410</td><td><span class="chip bad">Duplicate</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>DCL-0418</h2><span>Vasna Spares</span><span class="chip warn" style="margin-left:auto">Part</span></header>
+        <div class="body" style="padding-top:10px">
+          <dl class="kv">
+            <dt>Scheme</dt><dd>Monsoon pump-set slab</dd>
+            <dt>Claimed</dt><dd>₹22,400 for 14 retailers</dd>
+            <dt>Field rep</dt><dd>Ravi Patel</dd>
+          </dl>
+          <div class="bills"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="no"></i><i class="no"></i><i class="no"></i></div>
+          <div class="lg"><span>■ bills uploaded · 11</span><span>▨ missing · 3</span></div>
+          <p class="note"><b>Pay ₹16,800 on 9 Oct.</b> The other ₹5,600 is paid when Vasna uploads the three retailers' bills; the dealer sees why on the portal.</p>
+          <div class="acts2"><span class="btn">Reject</span><span class="btn pri">Approve ₹16,800</span></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>How a claim is checked</h2></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>Retailer slabs</b><small>against the retailer bills the dealer uploaded</small></p><span class="chip">Bills</span></li>
+            <li><p><b>Display schemes</b><small>photos from the field rep's visit</small></p><span class="chip">POP</span></li>
+            <li><p><b>Target rebates</b><small>against secondary purchases</small></p><span class="chip">Target</span></li>
+            <li><p><b>Any claim</b><small>against earlier claims on the same bills</small></p><span class="chip">Duplicate</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

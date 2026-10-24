@@ -5,6 +5,7 @@ import { content as assetManagement } from './asset-management';
 import { content as crm } from './crm';
 import { content as customerService } from './customer-service';
 import { content as dataAnalytics } from './data-analytics';
+import { content as dealerPortal } from './dealer-portal';
 import { content as distributorPortal } from './distributor-portal';
 import { content as gateEntry } from './gate-entry';
 import { content as hrmsAndPayroll } from './hrms-and-payroll';
@@ -15,6 +16,7 @@ import { content as procureToPay } from './procure-to-pay';
 import { content as productionManagement } from './production-management';
 import { content as projectManagement } from './project-management';
 import { content as restHoursLog } from './rest-hours-log';
+import { content as retailerPortal } from './retailer-portal';
 import { content as rosterLedger } from './roster-ledger';
 import { content as salesForceAutomation } from './sales-force-automation';
 import { content as travelAndExpense } from './travel-and-expense';
@@ -38,6 +40,7 @@ export const moduleContent: Registry = {
   crm,
   'customer-service': customerService,
   'data-analytics': dataAnalytics,
+  'dealer-portal': dealerPortal,
   'distributor-portal': distributorPortal,
   'gate-entry': gateEntry,
   'hrms-and-payroll': hrmsAndPayroll,
@@ -48,6 +51,7 @@ export const moduleContent: Registry = {
   'production-management': productionManagement,
   'project-management': projectManagement,
   'rest-hours-log': restHoursLog,
+  'retailer-portal': retailerPortal,
   'roster-ledger': rosterLedger,
   'sales-force-automation': salesForceAutomation,
   'travel-and-expense': travelAndExpense,

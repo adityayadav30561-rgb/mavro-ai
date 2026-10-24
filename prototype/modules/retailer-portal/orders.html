@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Retailer Portal · Tertiary order register (retailer's view)</title>
+<!-- Scenario: see home.html. Every order Ahmedabad Pump Mart has placed with its two distributors, on the app or
+     through the field rep, with delivery and payment status. 22 orders since 1 April, ₹8.36 L delivered before
+     today's SO-S-2281 (as on the points statement); 14 placed on the app, 8 through Meera Kapoor. Delivered in 2.1
+     days on average. Due to pay ₹84,200 (RO-1172 ₹64,200 on 14 Oct, RO-1187 ₹20,000 on 17 Oct). Today's basket
+     (₹64,251) is saved, not sent. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 270px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .sums { grid-template-columns: repeat(4, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 12px; padding-bottom: 12px; }
+  .reg tr.dr td { background: var(--surface-2); color: var(--ink-2); }
+  .nt { font-size: 12px; color: var(--ink-2); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="retailer-portal" data-chrome="partner" data-view="My orders"
+      data-menu="Store home:home|Basket builder:cart|Loyalty and returns:gift|My orders:supply|Offers:bell|Payments:coin|Reports:data"
+      data-host="Northfield Precision|Retailer app" data-org="AM|Ahmedabad Pump Mart|Kankaria · Gold tier"
+      data-crumb="Retailer app / My orders" data-search="Search items, orders, offers"
+      data-who="Harsh Mehta|Owner, Ahmedabad Pump Mart">
+<main>
+  <div class="head">
+    <div>
+      <h1>My orders</h1>
+      <p>Every order with each distributor, placed on the app or by your field rep · delivery and payment status</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All</span><span>Navrangpura</span><span>Changodar</span></div>
+      <span class="btn pri">Repeat an order</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Distributor <b>All</b></span>
+    <span class="filter">Placed by <b>All</b></span>
+    <span class="filter">Since <b>1 Apr</b></span>
+    <span class="filter" style="border-style:dashed;color:var(--ink-3)">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Order or item</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Orders since April</label><strong>22 <small>₹8.36 L delivered</small></strong></div>
+    <div class="card sm"><label>Placed on the app</label><strong>14 <small>8 by the field rep</small></strong></div>
+    <div class="card sm"><label>Delivered in</label><strong>2.1 days <small>on average</small></strong></div>
+    <div class="card sm"><label>Due to pay</label><strong>₹84,200 <small>first on 14 Oct</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Order</th><th>Placed</th><th>From</th><th>Placed by</th><th class="r">Value</th><th>Delivery</th><th>Status</th><th>Payment</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr class="dr"><td><b class="mono">Basket</b></td><td class="mono">today, 14:20</td><td>Navrangpura, Changodar</td><td>You, on the app</td><td class="r mono">₹64,251</td><td class="mono">—</td><td><span class="chip ">Not sent</span></td><td><span class="chip plain">Not due</span></td><td><span class="nt">draft · 2% early payment</span></td></tr>
+          <tr class="hl"><td><b class="mono">SO-S-2281</b></td><td class="mono">8 Oct</td><td>Navrangpura</td><td>Meera Kapoor, field rep</td><td class="r mono">₹1,18,000</td><td class="mono">10 Oct</td><td><span class="chip blue">Approved</span></td><td><span class="chip ">Due 25 Oct</span></td><td><span class="nt">festive slab 2%</span></td></tr>
+          <tr><td><b class="mono">RO-1187</b></td><td class="mono">2 Oct</td><td>Changodar</td><td>You, on the app</td><td class="r mono">₹20,000</td><td class="mono">4 Oct</td><td><span class="chip ok">Delivered</span></td><td><span class="chip ">Due 17 Oct</span></td><td><span class="dim">—</span></td></tr>
+          <tr><td><b class="mono">RO-1172</b></td><td class="mono">24 Sep</td><td>Navrangpura</td><td>You, on the app</td><td class="r mono">₹64,200</td><td class="mono">26 Sep</td><td><span class="chip ok">Delivered</span></td><td><span class="chip warn">Due 14 Oct</span></td><td><span class="nt">2 returns open</span></td></tr>
+          <tr><td><b class="mono">RO-1160</b></td><td class="mono">16 Sep</td><td>Changodar</td><td>You, on the app</td><td class="r mono">₹18,400</td><td class="mono">18 Sep</td><td><span class="chip ok">Delivered</span></td><td><span class="chip ok">Paid 1 Oct</span></td><td><span class="nt">1 return open</span></td></tr>
+          <tr><td><b class="mono">RO-1151</b></td><td class="mono">9 Sep</td><td>Navrangpura</td><td>Meera Kapoor, field rep</td><td class="r mono">₹71,600</td><td class="mono">11 Sep</td><td><span class="chip ok">Delivered</span></td><td><span class="chip ok">Paid 24 Sep</span></td><td><span class="nt">1,000 points used</span></td></tr>
+          <tr><td><b class="mono">RO-1139</b></td><td class="mono">28 Aug</td><td>Navrangpura</td><td>You, on the app</td><td class="r mono">₹42,800</td><td class="mono">30 Aug</td><td><span class="chip ok">Delivered</span></td><td><span class="chip ok">Paid 12 Sep</span></td><td><span class="dim">—</span></td></tr>
+          <tr><td><b class="mono">RO-1126</b></td><td class="mono">19 Aug</td><td>Changodar</td><td>You, on the app</td><td class="r mono">₹16,200</td><td class="mono">21 Aug</td><td><span class="chip ok">Delivered</span></td><td><span class="chip ok">Paid 3 Sep</span></td><td><span class="dim">—</span></td></tr>
+          <tr><td><b class="mono">RO-1118</b></td><td class="mono">8 Aug</td><td>Navrangpura</td><td>Meera Kapoor, field rep</td><td class="r mono">₹58,400</td><td class="mono">11 Aug</td><td><span class="chip ok">Delivered</span></td><td><span class="chip ok">Paid 23 Aug</span></td><td><span class="dim">—</span></td></tr>
+          <tr><td><b class="mono">RO-1109</b></td><td class="mono">29 Jul</td><td>Navrangpura</td><td>You, on the app</td><td class="r mono">₹39,600</td><td class="mono">31 Jul</td><td><span class="chip ok">Delivered</span></td><td><span class="chip ok">Paid 13 Aug</span></td><td><span class="dim">—</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <span>Showing 9 of 22 orders, and today's saved basket · values with GST</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>3</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

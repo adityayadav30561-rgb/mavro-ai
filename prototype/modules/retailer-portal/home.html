@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Retailer Portal · Store home (retailer's view)</title>
+<!--
+  Scenario (Retailer Portal, shared by every screen; agrees with Sales Force Automation, the Distributor and Dealer
+  Portals and Scheme and Rebate): what Ahmedabad Pump Mart (Kankaria, Ahmedabad; owner Harsh Mehta) sees on Northfield
+  Precision's retailer app and web portal, 8 Oct, 14:02. It buys from Navrangpura Distributors (pump parts) and
+  Changodar Industrial (seal kits). Retailer prices: IH-180 ₹2,060, IH-220 ₹2,750, CV-110 ₹2,330, SK-22 ₹490 (single)
+  or ₹2,350 (pack of 5). October to date it has bought ₹1,38,000: SO-S-2281 ₹1,18,000 taken by field rep Meera
+  Kapoor today with the festive slab (approved in Sales Force Automation) and RO-1187 ₹20,000 on 2 Oct. Due to pay (RO-1172 ₹64,200 and RO-1187)
+  ₹84,200 (15-day credit). Rewards: Gold tier, 4,820 points (₹0.50 each), 600 expire 31 Oct; Platinum at 6,000.
+  Out at the counter: IH-220 and the single SK-22 kit. Counter display scheme ₹3,000 a month, September paid after the
+  POP audit. Monsoon pump-set slab settled: 1,240 bonus points on 30 Sep. Basket on the phone at 14:20: see basket.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .ro td { padding-top: 9px; padding-bottom: 9px; }
+  .cv { display: flex; align-items: center; gap: 8px; }
+  .cv .meter { width: 60px; min-width: 60px; }
+  .cv span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .cv span.out { color: var(--bad); font-weight: 600; }
+  .add { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 8px; background: var(--accent-soft); color: var(--accent-ink); font-weight: 600; font-size: 12px; }
+  .tier { display: flex; align-items: center; gap: 12px; }
+  .tier i { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: #fdf3dc; color: var(--warn); font: 700 13px var(--sans); font-style: normal; box-shadow: inset 0 0 0 1px #f5e2b0; }
+  .tier b { display: block; font-size: 15px; font-weight: 650; }
+  .tier small { color: var(--ink-3); font-size: 12px; }
+  .prog { margin-top: 12px; }
+  .prog .meter { height: 8px; }
+  .prog p { display: flex; justify-content: space-between; margin-top: 6px; font: 11.5px var(--mono); color: var(--ink-3); }
+  .lst li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 6px 0; }
+  .lst li + li { border-top: 1px solid var(--line); }
+  .lst b { font-weight: 550; }
+  .lst small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="retailer-portal" data-chrome="partner" data-view="Store home"
+      data-menu="Store home:home|Basket builder:cart|Loyalty and returns:gift|My orders:supply|Offers:bell|Payments:coin|Reports:data"
+      data-host="Northfield Precision|Retailer app" data-org="AM|Ahmedabad Pump Mart|Kankaria · Gold tier"
+      data-crumb="Retailer app / Store home" data-search="Search items, orders, offers"
+      data-who="Harsh Mehta|Owner, Ahmedabad Pump Mart">
+<main>
+  <div class="head">
+    <div>
+      <h1>Orders and rewards</h1>
+      <p>Buying from Navrangpura Distributors and Changodar Industrial · your field rep: Meera Kapoor · prices and offers as of today</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Returns</span>
+      <span class="btn pri">Build a basket</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Bought in October</label><div class="v"><strong>₹1.38 L</strong></div><div class="foot"><b class="delta up">festive slab</b><span>on today's order</span></div></div>
+    <div class="card kpi"><label>Reward points</label><div class="v"><strong>4,820</strong></div><div class="foot"><b class="delta flat">Gold</b><span>600 expire 31 Oct</span></div></div>
+    <div class="card kpi"><label>Out at the counter</label><div class="v"><strong>2 <small>items</small></strong></div><div class="foot"><b class="delta down">IH-220 · SK-22</b><span>reorder below</span></div></div>
+    <div class="card kpi"><label>Due to pay</label><div class="v"><strong>₹84,200</strong></div><div class="foot"><b class="delta flat">15-day credit</b><span>next due 14 Oct</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush ro">
+        <header><h2>Reorder now</h2><span>from what you sold in the last 4 weeks</span><span class="more">All items</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Item</th><th class="r">Sold, 4 weeks</th><th>On the shelf</th><th class="r">Suggested</th><th class="r">Price</th><th></th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b>IH-220 impeller housing</b><small>Navrangpura · 2 today, more on 12 Oct</small></td><td class="r mono">14</td><td><div class="cv"><span class="meter warn"><i style="width:0"></i></span><span class="out">out</span></div></td><td class="r mono">6</td><td class="r mono">₹2,750</td><td><span class="add">Add</span></td></tr>
+              <tr><td><b>SK-22 seal kit, single</b><small>Changodar · pack of 5 in stock instead</small></td><td class="r mono">36</td><td><div class="cv"><span class="meter warn"><i style="width:0"></i></span><span class="out">out</span></div></td><td class="r mono">20</td><td class="r mono">₹490</td><td><span class="add">Add</span></td></tr>
+              <tr><td><b>IH-180 impeller housing</b><small>Navrangpura</small></td><td class="r mono">22</td><td><div class="cv"><span class="meter warn"><i style="width:30%"></i></span><span>5 left</span></div></td><td class="r mono">10</td><td class="r mono">₹2,060</td><td><span class="add">Add</span></td></tr>
+              <tr><td><b>CV-110 valve body</b><small>Navrangpura</small></td><td class="r mono">8</td><td><div class="cv"><span class="meter ok"><i style="width:45%"></i></span><span>3 left</span></div></td><td class="r mono">4</td><td class="r mono">₹2,330</td><td><span class="add">Add</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card flush ro" style="flex:1">
+        <header><h2>Recent orders</h2><span>by distributor</span><span class="more">My orders</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Order</th><th>From</th><th>Placed by</th><th class="r">Value</th><th>Delivery</th><th>Payment</th></tr></thead>
+            <tbody>
+              <tr><td><b class="mono">SO-S-2281</b><small>today · festive slab</small></td><td>Navrangpura</td><td>Meera Kapoor, field rep</td><td class="r mono">₹1,18,000</td><td><span class="chip blue">Approved · 10 Oct</span></td><td><span class="chip">Due 25 Oct</span></td></tr>
+              <tr><td><b class="mono">RO-1187</b><small>2 Oct</small></td><td>Changodar</td><td>You, on the app</td><td class="r mono">₹20,000</td><td><span class="chip ok">Delivered 4 Oct</span></td><td><span class="chip">Due 17 Oct</span></td></tr>
+              <tr><td><b class="mono">RO-1172</b><small>24 Sep</small></td><td>Navrangpura</td><td>You, on the app</td><td class="r mono">₹64,200</td><td><span class="chip ok">Delivered 26 Sep</span></td><td><span class="chip warn">Due 14 Oct</span></td></tr>
+              <tr><td><b class="mono">RO-1160</b><small>16 Sep</small></td><td>Changodar</td><td>You, on the app</td><td class="r mono">₹18,400</td><td><span class="chip ok">Delivered 18 Sep</span></td><td><span class="chip ok">Paid 1 Oct</span></td></tr>
+              <tr><td><b class="mono">RO-1151</b><small>9 Sep</small></td><td>Navrangpura</td><td>Meera Kapoor, field rep</td><td class="r mono">₹71,600</td><td><span class="chip ok">Delivered 11 Sep</span></td><td><span class="chip ok">Paid 24 Sep</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Rewards</h2><span>points on every purchase</span></header>
+        <div class="body">
+          <div class="tier"><i>G</i><p><b>Gold · 4,820 points</b><small>worth ₹2,410 on your next order</small></p></div>
+          <div class="prog"><span class="meter warn"><i style="width:80%"></i></span><p><span>Gold</span><span>Platinum at 6,000</span></p></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Offers for you</h2><span>applied for you when you order</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>Festive slab</b><small>2% on orders over ₹1 L, to 31 Oct</small></p><span class="chip ok">Applied today</span></li>
+            <li><p><b>Counter display</b><small>₹3,000 a month after the photo audit</small></p><span class="chip ok">Sep paid</span></li>
+            <li><p><b>Monsoon pump-set slab</b><small>settled · 1,240 bonus points</small></p><span class="chip">30 Sep</span></li>
+            <li><p><b>Points expiring</b><small>600 points on 31 Oct</small></p><span class="chip warn">Use them</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

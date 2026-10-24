@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Dealer Portal · Secondary offtake and stock</title>
+<!--
+  Scenario (Dealer Portal, shared by every screen; agrees with Sales Force Automation, the Distributor Portal and
+  Scheme and Rebate): Northfield Precision, Ahmedabad territory, 8 Oct, 14:02. Field sales manager Deepak Rao; trade
+  marketing manager Ritu Malhotra. 18 dealers buy from three distributors (Navrangpura Distributors, Changodar
+  Industrial, Saurashtra Distributors) and upload their billing to retailers on the portal. Offtake (dealer sales to
+  retailers): September ₹1.12 Cr, October to date ₹29.6 L. Retailers billed in the last 30 days: 271 of 312 (86.9%,
+  92% in the cycle before). Dealers shown (Sep / Oct / retailers billed / cover days / out of stock): Ambica Pumps,
+  Vatva ₹9.4 L / ₹2.6 L / 24 of 27 / 16 / IH-220; Bavla Pumps ₹7.8 L / ₹2.1 L / 19 of 21 / 23; Visnagar Pumps ₹6.9 L
+  / ₹1.4 L / 14 of 20 / 31 (coverage down from 19); Nikol Spares ₹6.1 L / ₹1.7 L / 18 of 19 / 12 / IH-220, CV-110;
+  Vasna Spares ₹5.4 L / ₹1.5 L / 16 of 18 / 20 / IH-220; Isanpur Hardware ₹4.8 L / ₹1.2 L / 15 of 17 / 26 (SK-22
+  near expiry); Ellisbridge Hardware ₹4.2 L / ₹1.1 L / 12 of 14 / 18 / IH-220; Ganesh Hardware ₹3.6 L / ₹0.8 L / 9 of
+  12 / 22; 10 more ₹63.8 L / ₹17.2 L / 144 of 164 (the screen shows seven and folds Ganesh Hardware into "11 more"). IH-220 is out at 5 dealers (the Ahmedabad depot holds 90; more
+  from Pune on 12 Oct). SK-22 batch B0602 is near expiry at 2 dealers (26 kits), so their SK-22 reorders wait.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .dl td { padding-top: 6px; padding-bottom: 6px; }
+  .cv { display: flex; align-items: center; gap: 8px; }
+  .cv .meter { width: 56px; min-width: 56px; position: relative; overflow: visible; }
+  .cv .meter::after { content: ''; position: absolute; left: 70%; top: -3px; bottom: -3px; width: 1.5px; background: var(--ink); opacity: .5; }
+  .cv span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .cov { font: 12px var(--mono); }
+  .cov.lo { color: var(--bad); font-weight: 600; }
+  tr.total td { background: var(--surface-2); font-weight: 600; }
+  .lst li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 6px 0; }
+  .lst li + li { border-top: 1px solid var(--line); }
+  .lst b { font-weight: 550; }
+  .lst small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .note { font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .note b { color: var(--ink); }
+</style>
+</head>
+<body data-module="dealer-portal" data-view="Offtake and stock" data-crumb="Portals / Dealer Portal / Offtake and stock"
+      data-org="NP|Northfield Precision|Ahmedabad territory" data-who="Deepak Rao|Field sales manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Secondary offtake and stock</h1>
+      <p>18 dealers in the Ahmedabad territory · billing to retailers uploaded on the portal · stock cover norm 21 days</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Ahmedabad</span><span>Pune rural</span><span>Indore</span><span>All</span></div>
+      <span class="btn pri">Replenishment</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Offtake, September</label><div class="v"><strong>₹1.12 Cr</strong><i data-spark="94,98,101,97,104,109,112"></i></div><div class="foot"><b class="delta flat">₹29.6 L</b><span>October to date</span></div></div>
+    <div class="card kpi"><label>Retailers billed, 30 days</label><div class="v"><strong>271 <small>of 312</small></strong></div><div class="foot"><b class="delta down">86.9%</b><span>92% the cycle before</span></div></div>
+    <div class="card kpi"><label>Dealers out of a SKU</label><div class="v"><strong>5</strong></div><div class="foot"><b class="delta down">IH-220</b><span>depot refill 12 Oct</span></div></div>
+    <div class="card kpi"><label>Near-expiry stock</label><div class="v"><strong>26 <small>kits</small></strong></div><div class="foot"><b class="delta flat">SK-22 B0602</b><span>reorders held</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush dl">
+        <header><h2>Dealers</h2><span>by September offtake</span><span class="more">Secondary sales</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Dealer</th><th class="r">September</th><th class="r">October</th><th class="r">Retailers billed</th><th>Stock cover</th><th>Watch</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b>Ambica Pumps</b><small>Vatva · via Navrangpura</small></td><td class="r mono">₹9.4 L</td><td class="r mono">₹2.6 L</td><td class="r cov">24 of 27</td><td><div class="cv"><span class="meter warn"><i style="width:53%"></i></span><span>16 d</span></div></td><td><span class="chip bad">IH-220 out</span></td></tr>
+              <tr><td><b>Bavla Pumps</b><small>Bavla · via Changodar</small></td><td class="r mono">₹7.8 L</td><td class="r mono">₹2.1 L</td><td class="r cov">19 of 21</td><td><div class="cv"><span class="meter ok"><i style="width:77%"></i></span><span>23 d</span></div></td><td><span class="dim">—</span></td></tr>
+              <tr><td><b>Visnagar Pumps</b><small>Visnagar · via Saurashtra</small></td><td class="r mono">₹6.9 L</td><td class="r mono">₹1.4 L</td><td class="r cov lo">14 of 20</td><td><div class="cv"><span class="meter ok"><i style="width:100%"></i></span><span>31 d</span></div></td><td><span class="chip warn">Coverage down</span></td></tr>
+              <tr><td><b>Nikol Spares</b><small>Nikol · via Navrangpura</small></td><td class="r mono">₹6.1 L</td><td class="r mono">₹1.7 L</td><td class="r cov">18 of 19</td><td><div class="cv"><span class="meter warn"><i style="width:40%"></i></span><span>12 d</span></div></td><td><span class="chip bad">2 SKUs out</span></td></tr>
+              <tr><td><b>Vasna Spares</b><small>Vasna · via Navrangpura</small></td><td class="r mono">₹5.4 L</td><td class="r mono">₹1.5 L</td><td class="r cov">16 of 18</td><td><div class="cv"><span class="meter ok"><i style="width:67%"></i></span><span>20 d</span></div></td><td><span class="chip bad">IH-220 out</span></td></tr>
+              <tr><td><b>Isanpur Hardware</b><small>Isanpur · via Changodar</small></td><td class="r mono">₹4.8 L</td><td class="r mono">₹1.2 L</td><td class="r cov">15 of 17</td><td><div class="cv"><span class="meter ok"><i style="width:87%"></i></span><span>26 d</span></div></td><td><span class="chip warn">SK-22 near expiry</span></td></tr>
+              <tr><td><b>Ellisbridge Hardware</b><small>Ellisbridge · via Navrangpura</small></td><td class="r mono">₹4.2 L</td><td class="r mono">₹1.1 L</td><td class="r cov">12 of 14</td><td><div class="cv"><span class="meter ok"><i style="width:60%"></i></span><span>18 d</span></div></td><td><span class="chip bad">IH-220 out</span></td></tr>
+              <tr class="total"><td>18 dealers <small>11 more not shown</small></td><td class="r mono">₹1.12 Cr</td><td class="r mono">₹29.6 L</td><td class="r cov">271 of 312</td><td><span class="dim">median 19 d</span></td><td>5 out · 2 expiry</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <header><h2>Secondary offtake against primary dispatch</h2><span>₹ lakh a week, territory</span><div class="legend"><span>Offtake to retailers</span><span style="--c:#c9cfdb">Dispatched to distributors</span></div></header>
+        <div class="body chart-c" data-bars="25,27,26,29,30,28,27,26|31,22,35,24,33,26,38,19" data-max="40" data-labels="W34,W35,W36,W37,W38,W39,W40,W41"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>IH-220 out of stock</h2><span>5 dealers</span></header>
+        <div class="body" style="padding-top:8px">
+          <p class="note"><b>Depot holds 90; 30 more from Pune on 12 Oct.</b> Navrangpura's order NPO-3318 takes 120, so the five dealers' suggested orders are split to arrive after the refill.</p>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Coverage dropped</h2><span>Visnagar Pumps</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>14 of 20 retailers billed</b><small>19 in the cycle before</small></p><span class="chip warn">−5</span></li>
+            <li><p><b>Mehsana Irrigation and 4 more</b><small>not billed for 30 days</small></p><span class="chip">Beat visit</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Near expiry</h2><span>checked before reorder</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>Isanpur Hardware</b><small>SK-22 batch B0602 · 18 kits</small></p><span class="chip warn">Reorder held</span></li>
+            <li><p><b>Nikol Spares</b><small>SK-22 batch B0602 · 8 kits</small></p><span class="chip warn">Reorder held</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

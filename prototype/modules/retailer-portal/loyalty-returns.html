@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Retailer Portal · Loyalty and returns queue (retailer's view)</title>
+<!-- Scenario: see home.html. Ahmedabad Pump Mart's points since 1 April: opening 1,000 (600 of them expire 31 Oct),
+     earned on purchases 4,180 (1 point a ₹200, ₹8.36 L bought), monsoon pump-set slab bonus 1,240 (30 Sep),
+     redeemed 1,600 (₹800 off RO-1151 and RO-1104) = 4,820, Gold; Platinum at 6,000; a point is worth ₹0.50.
+     Returns: RT-0094 two IH-180 cracked on arrival in RO-1172 (photos), ₹4,120 credit approved, on the next bill;
+     RT-0096 six single SK-22 kits from batch B0602 near expiry, back to Changodar for fresh ones, pickup 10 Oct;
+     RT-0097 one CV-110 sent instead of an IH-180 in RO-1172, exchange waiting for Navrangpura. Credits this year ₹9,860
+     (RT-0094 ₹4,120, RT-0081 ₹3,540, RT-0072 ₹2,200). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .q td { padding-top: 11px; padding-bottom: 11px; }
+  .ty { display: inline-block; padding: 0 6px; margin-right: 6px; border-radius: 5px; background: var(--surface-2); border: 1px solid var(--line); font: 600 10.5px/18px var(--sans); color: var(--ink-2); vertical-align: 1px; }
+  .pf span { padding: 1px 6px; border-radius: 5px; background: var(--accent-soft); color: var(--accent-ink); font: 550 11px var(--sans); }
+  .led td { padding-top: 8px; padding-bottom: 8px; }
+  .led td.p { font: 600 12.5px var(--mono); }
+  .led td.p.m { color: var(--bad); }
+  .led td.p.g { color: var(--ok); }
+  tr.bal td { background: var(--surface-2); font-weight: 650; }
+  .red { display: grid; gap: 8px; }
+  .red div { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 10px; font-size: 12.5px; }
+  .red div.on { background: var(--accent-soft); border-color: #d9e0ff; box-shadow: inset 0 0 0 1px #c9d4ff; }
+  .red b { font-weight: 600; }
+  .red small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .red em { font: 600 12.5px var(--mono); font-style: normal; }
+</style>
+</head>
+<body data-module="retailer-portal" data-chrome="partner" data-view="Loyalty and returns"
+      data-menu="Store home:home|Basket builder:cart|Loyalty and returns:gift|My orders:supply|Offers:bell|Payments:coin|Reports:data"
+      data-host="Northfield Precision|Retailer app" data-org="AM|Ahmedabad Pump Mart|Kankaria · Gold tier"
+      data-crumb="Retailer app / Loyalty and returns" data-search="Search items, orders, offers"
+      data-who="Harsh Mehta|Owner, Ahmedabad Pump Mart">
+<main>
+  <div class="head">
+    <div>
+      <h1>Loyalty and returns</h1>
+      <p>Points, redemptions and returns in one place · damaged, near-expiry and wrong items credited or replaced</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Points statement</span>
+      <span class="btn pri">Return an item</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Points</label><div class="v"><strong>4,820</strong></div><div class="foot"><b class="delta flat">Gold</b><span>worth ₹2,410</span></div></div>
+    <div class="card kpi"><label>Expiring 31 Oct</label><div class="v"><strong>600</strong></div><div class="foot"><b class="delta down">₹300</b><span>use on your next order</span></div></div>
+    <div class="card kpi"><label>Returns open</label><div class="v"><strong>3</strong></div><div class="foot"><b class="delta up">1 approved</b><span>2 with distributors</span></div></div>
+    <div class="card kpi"><label>Credited this year</label><div class="v"><strong>₹9,860</strong></div><div class="foot"><b class="delta flat">3 returns</b><span>on your bills</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush q">
+        <header><h2>Returns</h2><span>3 open</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Return</th><th>Items</th><th>Order</th><th>Proof</th><th class="r">Value</th><th>Outcome</th></tr></thead>
+            <tbody>
+              <tr><td><span class="ty">Damage</span><b class="mono">RT-0094</b></td><td>IH-180 × 2<small>cracked on arrival</small></td><td class="mono">RO-1172</td><td class="pf"><span>Photos</span></td><td class="r mono">₹4,120</td><td><span class="chip ok">Credit on next bill</span></td></tr>
+              <tr class="hl"><td><span class="ty">Expiry</span><b class="mono">RT-0096</b></td><td>SK-22 × 6<small>batch B0602, near expiry</small></td><td class="mono">RO-1160</td><td class="pf"><span>Batch label</span></td><td class="r mono">₹2,940</td><td><span class="chip blue">Fresh kits · pickup 10 Oct</span></td></tr>
+              <tr><td><span class="ty">Wrong item</span><b class="mono">RT-0097</b></td><td>CV-110 × 1<small>ordered IH-180</small></td><td class="mono">RO-1172</td><td class="pf"><span>Photo</span></td><td class="r mono">₹2,330</td><td><span class="chip">Exchange · Navrangpura</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card flush led" style="flex:1">
+        <header><h2>Points since 1 April</h2><span>1 point for every ₹200 you buy</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Date</th><th>What</th><th class="r">Points</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">1 Apr</td><td>Brought forward<small>600 of these expire 31 Oct</small></td><td class="r p">1,000</td></tr>
+              <tr><td class="mono">Apr – Oct</td><td>Earned on purchases<small>₹8.36 L bought</small></td><td class="r p g">+4,180</td></tr>
+              <tr><td class="mono">30 Sep</td><td>Monsoon pump-set slab bonus<small>settled scheme</small></td><td class="r p g">+1,240</td></tr>
+              <tr><td class="mono">9 Sep</td><td>Redeemed on RO-1151</td><td class="r p m">−1,000</td></tr>
+              <tr><td class="mono">12 Jun</td><td>Redeemed on RO-1104</td><td class="r p m">−600</td></tr>
+              <tr class="bal"><td></td><td>Balance · Gold</td><td class="r p">4,820</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Use your points</h2><span>1 point = ₹0.50</span></header>
+        <div class="body" style="padding-top:10px">
+          <div class="red">
+            <div class="on"><p><b>Expiring points first</b><small>600 points on today's basket</small></p><em>₹300</em></div>
+            <div><p><b>All points</b><small>4,820 on your next order</small></p><em>₹2,410</em></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Tiers</h2><span>by points held</span></header>
+        <div class="body" style="padding-top:6px">
+          <dl class="kv">
+            <dt>Silver</dt><dd>from 2,000</dd>
+            <dt>Gold · you</dt><dd>from 4,000</dd>
+            <dt>Platinum</dt><dd>from 6,000 · 1,180 to go</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

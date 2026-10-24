@@ -75,7 +75,7 @@ For each module in the phase:
 | 10 | Modules: HRMS and Payroll, Roster Ledger, Rest Hours Log | 3 pages | **Done 2026-10-24** |
 | 11 | Modules: Project Management, Data Analytics | 2 pages | **Done 2026-10-24** |
 | 12 | Portals: Vendor Portal, Distributor / B2B Portal | 2 pages | **Done 2026-10-24** |
-| 13 | Portals: Dealer Portal, Retailer Portal | 2 pages | To do |
+| 13 | Portals: Dealer Portal, Retailer Portal | 2 pages | **Done 2026-10-24** |
 | 14 | Premium: Transportation Management, Fleet Management, Warehouse Management | 3 pages | To do |
 | 15 | Premium: Scheme and Rebate, Ecommerce Integration, Subscription Management | 3 pages | To do |
 | 16 | Premium: PPDS, Shop Floor Control, FSC Portal | 3 pages | To do |
