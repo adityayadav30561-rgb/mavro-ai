@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · mVLens Vendor Audit · Audit approver</title>
+<!-- Scenario: see auditor-dashboard.html. Anil Bhosale (QA head) has three reports to approve: AUD-0413 Bharat Heat
+     Treaters (third-party audit by an external agency, 26 Sep; checklist "Heat treatment process audit v2", 40
+     clauses; 1 critical, 2 major, 1 minor → Not acceptable), AUD-0414 Precision Tooling Co. (30 Sep, 1 minor →
+     Acceptable), AUD-0415 Shree Ganesh Packaging (2 Oct, 1 major, 2 minor → Observations). Approving AUD-0413 puts
+     the vendor on supply hold (no new job-work orders; JW-0142 and JW-0145 for EN8 shafts stay open, their output
+     100% checked on receipt), raises four CAPAs with due dates and keeps QAG-0038 on hold. Site results of the 14 audits closed this year:
+     9 Acceptable, 4 Observations, 1 Not acceptable. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols3 { grid-template-columns: 262px minmax(0, 1fr) 300px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .qlist li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 8px; padding: 11px 16px; border-top: 1px solid var(--line); }
+  .qlist li.on { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+  .qlist b { font-weight: 600; }
+  .qlist small { color: var(--ink-3); font-size: 11.5px; }
+  .qlist .mono { color: var(--ink-2); font-size: 11.5px; }
+  .qlist .chip { grid-column: 1 / -1; justify-self: start; margin-top: 4px; }
+  .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .facts label { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .facts b { font-weight: 550; display: block; margin-top: 2px; }
+  .facts small { color: var(--ink-3); font-size: 11.5px; }
+  .verdict { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 14px; align-items: center; margin: 14px 0 6px; padding: 12px 14px; border-radius: 10px; background: var(--bad-soft); border: 1px solid #f8cfca; }
+  .verdict strong { font: 650 17px var(--sans); color: var(--bad); letter-spacing: -0.01em; }
+  .verdict p { color: #8c2a22; font-size: 12px; grid-column: 1; }
+  .verdict .tally { grid-column: 2; grid-row: 1 / span 2; }
+  .rules li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; padding: 8px 0; }
+  .rules li > b { grid-column: 2; grid-row: 1 / span 2; align-self: center; font: 620 18px var(--sans); }
+  .rules small { grid-column: 1; }
+  .yrnote { margin-top: 10px; color: var(--ink-3); font-size: 11.5px; }
+  .ev { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+  .ev span { height: 118px; border-radius: 8px; background: repeating-linear-gradient(135deg, #eef0f4 0 6px, #f6f7f9 6px 12px); border: 1px solid var(--line); display: grid; place-items: end start; padding: 5px 7px; font: 10.5px var(--sans); color: var(--ink-2); }
+  .evh { display: flex; justify-content: space-between; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .evh b { font-weight: 600; font-size: 13px; }
+  .evh span { color: var(--ink-3); font-size: 12px; }
+  .rules li + li { border-top: 1px solid var(--line); }
+  .rules li .chip { justify-self: start; }
+  .rules small { color: var(--ink-2); font-size: 12px; }
+
+  .tally { display: flex; gap: 6px; }
+  .tally span { display: grid; place-items: center; min-width: 54px; padding: 4px 8px; border-radius: 8px; background: #fff; border: 1px solid #f8cfca; font-size: 11px; color: var(--ink-2); }
+  .tally b { font: 650 15px var(--sans); color: var(--ink); }
+  .fx td { padding-top: 8px; padding-bottom: 8px; white-space: normal; vertical-align: top; }
+  .fx td b { display: block; }
+  .fx .cl { font: 11.5px var(--mono); color: var(--ink-3); white-space: nowrap; }
+  .fx .sev { white-space: nowrap; }
+  .fx .due { white-space: nowrap; font: 12px var(--mono); }
+  .then li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; padding: 6px 0; font-size: 12.5px; }
+  .then li::before { content: ''; width: 7px; height: 7px; margin: 6px 0 0 5px; border-radius: 50%; background: var(--ink-2); }
+  .then small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .two { display: grid; grid-template-columns: 1fr 1.25fr; gap: 8px; margin-top: 12px; }
+  .two .btn { justify-content: center; }
+</style>
+</head>
+<body data-module="mvlens-vendor-audit" data-view="Approvals" data-crumb="Make / mVLens Vendor Audit / Approvals / AUD-0413" data-who="Anil Bhosale|QA head">
+<main>
+  <div class="head">
+    <div>
+      <h1>Audit approver</h1>
+      <p>Classified reports waiting for your decision before they go to the vendor</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Waiting · 3</span><span>Sent back</span><span>Approved</span></div>
+      <span class="btn">Classification rules</span>
+    </div>
+  </div>
+
+  <div class="grid cols3">
+    <div class="stack">
+    <div class="card flush">
+      <header><h2>Reports</h2><span>oldest first</span></header>
+      <div class="body">
+        <ul class="qlist">
+          <li class="on"><b>Bharat Heat Treaters</b><span class="mono">AUD-0413</span><small>Third-party · 26 Sep</small><span class="chip bad">Not acceptable</span></li>
+          <li><b>Precision Tooling Co.</b><span class="mono">AUD-0414</span><small>Periodic · 30 Sep</small><span class="chip ok">Acceptable</span></li>
+          <li><b>Shree Ganesh Packaging</b><span class="mono">AUD-0415</span><small>Periodic · 2 Oct</small><span class="chip warn">Observations</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="flex:1">
+      <header><h2>Classification rules</h2></header>
+      <div class="body" style="padding-top:4px">
+        <ul class="rules">
+          <li><span class="chip bad">Not acceptable</span><b>1</b><small>Any critical finding</small></li>
+          <li><span class="chip warn">Observations</span><b>4</b><small>Any major, or more than three minor</small></li>
+          <li><span class="chip ok">Acceptable</span><b>9</b><small>Minor findings and observations only</small></li>
+        </ul>
+        <p class="yrnote">Counts: the 14 audits closed this year. A site result is set by these rules, never typed in.</p>
+      </div>
+    </div>
+    </div>
+
+    <div class="card">
+      <header><h2>AUD-0413 · Bharat Heat Treaters</h2><span>Bhosari · heat treatment job work</span><span class="more">Full report</span></header>
+      <div class="body">
+        <div class="facts">
+          <div><label>Audit</label><b>Third-party</b><small>external agency</small></div>
+          <div><label>On site</label><b>26 Sep</b><small>1 day</small></div>
+          <div><label>Checklist</label><b>Heat treatment v2</b><small>40 of 40 clauses</small></div>
+          <div><label>Reviewed by</label><b>Neha Kulkarni</b><small>1 Oct</small></div>
+        </div>
+        <div class="verdict">
+          <strong>Not acceptable</strong>
+          <p>Classified by rule: one critical finding is enough.</p>
+          <div class="tally"><span><b>1</b>critical</span><span><b>2</b>major</span><span><b>1</b>minor</span></div>
+        </div>
+        <table class="fx">
+          <thead><tr><th>Severity</th><th>Clause</th><th>Finding and evidence</th><th>CAPA due</th></tr></thead>
+          <tbody>
+            <tr><td class="sev"><span class="chip bad">Critical</span></td><td class="cl">4.3</td><td><b>Furnace temperature survey four months overdue</b><small>No survey record since May · 2 photos, logbook scan</small></td><td class="due">15 Oct</td></tr>
+            <tr><td class="sev"><span class="chip bad plain">Major</span></td><td class="cl">6.2</td><td><b>Hardness records missing for 3 of 12 sampled batches</b><small>Batch cards and register compared · 3 scans</small></td><td class="due">25 Oct</td></tr>
+            <tr><td class="sev"><span class="chip bad plain">Major</span></td><td class="cl">5.5</td><td><b>Quench oil condition not checked on schedule</b><small>Last test 11 weeks ago against a 4-week plan</small></td><td class="due">25 Oct</td></tr>
+            <tr><td class="sev"><span class="chip warn">Minor</span></td><td class="cl">8.1</td><td><b>Batch tags handwritten and partly illegible</b><small>1 photo</small></td><td class="due">8 Nov</td></tr>
+          </tbody>
+        </table>
+        <div class="evh"><b>Evidence</b><span>9 files from the agency · previous audit AUD-0352, Observations</span></div>
+        <div class="ev"><span>Furnace log</span><span>Survey label</span><span>Hardness register</span><span>Batch card</span><span>Quench tank</span><span>Batch tag</span></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>When you approve</h2></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="then">
+            <li><span><b>Vendor on supply hold</b><small>No new job-work orders until the critical CAPA is verified</small></span></li>
+            <li><span><b>2 open job-work orders stay</b><small>JW-0142, JW-0145 · output checked 100% on receipt</small></span></li>
+            <li><span><b>4 CAPAs raised with due dates</b><small>The vendor answers in the vendor portal</small></span></li>
+            <li><span><b>QAG-0038 stays on hold</b><small>Quality agreement signs after closure</small></span></li>
+          </ul>
+          <div class="two"><span class="btn">Send back</span><span class="btn pri">Approve report</span></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Audit trail</h2><span>kept for inspections</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="feed">
+            <li><i class="blue">QA</i><p><b>With QA head</b><small>Sent by Neha Kulkarni</small></p><time>1 Oct</time></li>
+            <li><i>CL</i><p><b>Findings classified</b><small>Not acceptable, by rule</small></p><time>30 Sep</time></li>
+            <li><i>RP</i><p><b>Agency report uploaded</b><small>40 clauses · 9 evidence files</small></p><time>29 Sep</time></li>
+            <li><i class="ok">ON</i><p><b>Audit on site</b><small>Agency lead auditor · 1 day</small></p><time>26 Sep</time></li>
+            <li><i>PL</i><p><b>Planned and assigned</b><small>Neha Kulkarni · vendor notified</small></p><time>4 Sep</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -1,12 +1,15 @@
 import type { ModuleContent } from '../schema';
 import type { ModuleSlug } from '../slugs';
 import { content as accounting } from './accounting';
+import { content as assetManagement } from './asset-management';
 import { content as crm } from './crm';
 import { content as customerService } from './customer-service';
 import { content as gateEntry } from './gate-entry';
 import { content as inventoryManagement } from './inventory-management';
+import { content as mvlensVendorAudit } from './mvlens-vendor-audit';
 import { content as orderToCash } from './order-to-cash';
 import { content as procureToPay } from './procure-to-pay';
+import { content as productionManagement } from './production-management';
 import { content as salesForceAutomation } from './sales-force-automation';
 import { content as travelAndExpense } from './travel-and-expense';
 import { content as vendorInvoiceManagement } from './vendor-invoice-management';
@@ -24,12 +27,15 @@ type Registry = { [S in ModuleSlug]?: ModuleContent<S> };
 
 export const moduleContent: Registry = {
   accounting,
+  'asset-management': assetManagement,
   crm,
   'customer-service': customerService,
   'gate-entry': gateEntry,
   'inventory-management': inventoryManagement,
+  'mvlens-vendor-audit': mvlensVendorAudit,
   'order-to-cash': orderToCash,
   'procure-to-pay': procureToPay,
+  'production-management': productionManagement,
   'sales-force-automation': salesForceAutomation,
   'travel-and-expense': travelAndExpense,
   'vendor-invoice-management': vendorInvoiceManagement,

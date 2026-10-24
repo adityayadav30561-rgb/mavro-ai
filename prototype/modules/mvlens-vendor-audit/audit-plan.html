@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · mVLens Vendor Audit · Create audit plan</title>
+<!-- Scenario: see auditor-dashboard.html. Neha Kulkarni (supplier quality manager) plans AUD-0424: the qualification
+     audit of Konkan Foundry (Ratnagiri), the second source in trial for the CV-110 valve body casting, which only
+     Aravali Castings supplies today (6 weeks of cover, as on the Procure to Pay dashboard). Trial lot TR-07: 60
+     castings, 58 passed incoming X-ray. Programme this year: 24 planned (Apr 2, May 2, Jun 3, Jul 3, Aug 2, Sep 4,
+     Oct 4, Nov 1, Dec 1, Jan 1, Feb 1, Mar 0); 17 done (Oct: AUD-0415), AUD-0418 on site, 6 to come. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 336px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .form { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 18px; }
+  .f label { display: block; color: var(--ink-3); font-size: 11.5px; margin-bottom: 5px; }
+  .f .in { display: flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 11px; border: 1px solid var(--line-2); border-radius: 9px; background: #fff; font-weight: 500; }
+  .f .in small { color: var(--ink-3); font-weight: 400; margin-left: auto; font-size: 11.5px; white-space: nowrap; }
+  .f .in .av { width: 22px; height: 22px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--line); display: grid; place-items: center; font: 600 9.5px var(--sans); color: var(--ink-2); flex: none; }
+  .f.wide { grid-column: span 2; }
+  .f.full { grid-column: 1 / -1; }
+  .f .in.multi { min-height: 0; padding: 8px 11px; flex-wrap: wrap; gap: 6px; }
+  .f .seg { display: flex; width: 100%; }
+  .f .seg span { flex: 1; text-align: center; }
+  .steps td { padding-top: 6px; padding-bottom: 6px; }
+  .n { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--line); font: 600 11px var(--mono); color: var(--ink-2); }
+  .risk li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 7px 0; }
+  .risk li + li { border-top: 1px solid var(--line); }
+  .risk b { font-weight: 550; }
+  .risk small { color: var(--ink-3); font-size: 11.5px; grid-column: 1; }
+  .risk .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .aud li { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 6px 0; }
+  .aud li + li { border-top: 1px solid var(--line); }
+  .aud .av { width: 28px; height: 28px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--line); display: grid; place-items: center; font: 600 10.5px var(--sans); color: var(--ink-2); }
+  .aud b { font-weight: 550; display: block; }
+  .aud small { color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="mvlens-vendor-audit" data-view="Audit plans" data-crumb="Make / mVLens Vendor Audit / Audit plans / New plan" data-who="Neha Kulkarni|Supplier quality manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>New audit plan · AUD-0424 &nbsp;<span class="chip" style="vertical-align:4px">Draft</span></h1>
+      <p>Qualification audit · Konkan Foundry, Ratnagiri · second source for the CV-110 valve body casting</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Save draft</span>
+      <span class="btn">Preview checklist</span>
+      <span class="btn pri">Assign and notify vendor</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card">
+        <header><h2>Audit details</h2><span>the vendor sees the scope, dates and questionnaire</span></header>
+        <div class="body">
+          <div class="form">
+            <div class="f"><label>Vendor</label><div class="in">Konkan Foundry<small>new · in trial</small></div></div>
+            <div class="f wide"><label>Audit type</label><div class="seg"><span class="on">Qualification</span><span>Periodic</span><span>For-cause</span><span>Third-party</span></div></div>
+            <div class="f full"><label>Scope</label><div class="in multi"><span class="chip plain">Melting and pouring</span><span class="chip plain">Heat treatment</span><span class="chip plain">X-ray and pressure test</span><span class="chip plain">Machining allowance</span><span class="chip plain">Traceability</span><span class="chip plain">Packing and dispatch</span></div></div>
+            <div class="f wide"><label>Checklist template</label><div class="in">Foundry process audit · v3<small>64 clauses · 9 sections</small></div></div>
+            <div class="f"><label>Dates</label><div class="in">21–22 Oct<small>on site</small></div></div>
+            <div class="f"><label>Lead auditor</label><div class="in"><span class="av">RD</span>Rahul Deshmukh</div></div>
+            <div class="f"><label>Co-auditor</label><div class="in"><span class="av">AK</span>Asha Khan<small>21 Oct</small></div></div>
+            <div class="f"><label>Approver</label><div class="in"><span class="av">AB</span>Anil Bhosale<small>QA head</small></div></div>
+            <div class="f"><label>Pre-audit questionnaire</label><div class="in">Sent 10 Oct<small>due 17 Oct</small></div></div>
+            <div class="f"><label>Vendor coordinator</label><div class="in">S. Gawde<small>quality, Konkan</small></div></div>
+            <div class="f"><label>Quality agreement</label><div class="in"><span class="mono">QAG-0039</span><small>draft · castings v5</small></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card flush" style="flex:1">
+        <header><h2>Lifecycle and owners</h2><span>8 steps from plan to approved report</span></header>
+        <div class="body">
+          <table class="steps">
+            <thead><tr><th>Step</th><th>What happens</th><th>Owner</th><th>Due</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><span class="n">1</span></td><td><b>Plan</b><span class="dim"> · Scope, template, dates and team</span></td><td>Neha Kulkarni</td><td class="mono">today</td></tr>
+              <tr><td><span class="n">2</span></td><td><b>Assign</b><span class="dim"> · Auditors accept; calendars blocked</span></td><td>Rahul Deshmukh, Asha Khan</td><td class="mono">9 Oct</td></tr>
+              <tr><td><span class="n">3</span></td><td><b>Notify vendor</b><span class="dim"> · Agenda and documents requested</span></td><td>mVLens, to S. Gawde</td><td class="mono">10 Oct</td></tr>
+              <tr><td><span class="n">4</span></td><td><b>Questionnaire</b><span class="dim"> · Vendor answers; auditor reviews before the visit</span></td><td>Konkan Foundry</td><td class="mono">17 Oct</td></tr>
+              <tr><td><span class="n">5</span></td><td><b>On site</b><span class="dim"> · Checklist on the phone, evidence per clause</span></td><td>Rahul Deshmukh</td><td class="mono">21–22 Oct</td></tr>
+              <tr><td><span class="n">6</span></td><td><b>Findings</b><span class="dim"> · Classified critical, major, minor or observation</span></td><td>Rahul Deshmukh</td><td class="mono">24 Oct</td></tr>
+              <tr><td><span class="n">7</span></td><td><b>Approval</b><span class="dim"> · Report and site result reviewed</span></td><td>Anil Bhosale</td><td class="mono">28 Oct</td></tr>
+              <tr><td><span class="n">8</span></td><td><b>Report and CAPA</b><span class="dim"> · Vendor approved, or CAPAs with due dates</span></td><td>Neha Kulkarni</td><td class="mono">30 Oct</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Why this audit</h2><span>CV-110 valve body casting</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="risk">
+            <li><b>Single source today</b><small>Aravali Castings · 6 weeks of cover</small><span class="chip warn">Critical item</span></li>
+            <li><b>Trial lot TR-07</b><small>58 of 60 passed incoming X-ray</small><span class="chip ok">Passed</span></li>
+            <li><b>Approval to supply</b><small>needs an Acceptable site result</small><span class="chip">After audit</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Auditors, 21–22 Oct</h2></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="aud">
+            <li><span class="av">RD</span><p><b>Rahul Deshmukh</b><small>3 audits this month</small></p><span class="chip ok">Free</span></li>
+            <li><span class="av">AK</span><p><b>Asha Khan</b><small>quality inspector</small></p><span class="chip warn">21 Oct only</span></li>
+            <li><span class="av">EA</span><p><b>External agency</b><small>for third-party audits</small></p><span class="chip">On request</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Programme</h2><span>audits a month</span><div class="legend"><span style="--c:#c9cfdb">Planned</span><span>Done</span></div></header>
+        <div class="body chart-c" data-bars="2,2,3,3,2,4,4,1,1,1,1,0|2,2,3,3,2,4,1,0,0,0,0,0" data-max="6" data-labels="A,M,J,J,A,S,O,N,D,J,F,M" data-colors="#c9cfdb,#0a48fd"></div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

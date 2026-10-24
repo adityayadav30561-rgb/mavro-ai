@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Asset Management · Asset CNC-03</title>
+<!-- Scenario: see uptime-value.html. CNC-03 turning centre, tag NP-P1-MC-0142, Plant 1 machining bay, in service
+     6 yr 7 mo. Cost ₹68.4 L, straight line over 15 years to a 5% residual: ₹4.33 L a year, ₹36,100 a month;
+     79 months charged = ₹28.5 L; book value ₹39.9 L. October: 3 breakdowns, 6 h 05 m, uptime 94.2% of 105
+     planned hours. Last 90 days: 5 breakdowns (also MO-0371 18 Aug 1 h 40 m, MO-0360 22 Jul 1 h 35 m), MTBF
+     192 h, MTTR 1 h 52 m. Quarterly spindle check PM-2207 due 3 Oct, overdue; bearing change in the 19 Oct shutdown
+     with SB-7014 (0 in stock, PR-0463 due 17 Oct), then the annual accuracy test and a first-off before release,
+     as after today's repair (lot L-0935). Insured for ₹52 L; verified by QR scan 16 Sep. Technician: S. Pawar. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 336px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .mh td { padding-top: 7px; padding-bottom: 7px; }
+  .typ { display: inline-block; padding: 1px 7px; border-radius: 6px; font-size: 11.5px; font-weight: 550; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); }
+  .typ.bd { background: var(--bad-soft); border-color: #f8cfca; color: var(--bad); }
+  .typ.pm { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+  .dur { font-size: 12px; white-space: nowrap; }
+  .trace li { display: grid; grid-template-columns: 14px 1fr auto; gap: 12px; padding-bottom: 13px; position: relative; }
+  .trace li::before { content: ''; width: 10px; height: 10px; margin-top: 4px; border-radius: 50%; border: 2px solid var(--accent); background: #fff; z-index: 1; }
+  .trace li.next::before { border-color: var(--warn); border-style: dashed; }
+  .trace li:not(:last-child)::after { content: ''; position: absolute; left: 6px; top: 14px; bottom: -4px; width: 2px; background: #dfe3ec; }
+  .trace b { font-weight: 550; display: block; }
+  .trace small { color: var(--ink-3); font-size: 11.5px; }
+  .trace time { font-size: 11.5px; color: var(--ink-3); white-space: nowrap; }
+  .life { margin-top: 2px; }
+  .life .meter { height: 8px; border-radius: 4px; }
+  .life .meter i { border-radius: 4px; }
+  .life div { display: flex; justify-content: space-between; margin-top: 6px; font-size: 11.5px; color: var(--ink-3); }
+</style>
+</head>
+<body data-module="asset-management" data-view="Assets" data-crumb="Assets / Asset Management / Assets / NP-P1-MC-0142" data-who="Deepak Rane|Maintenance head">
+<main>
+  <div class="head">
+    <div>
+      <h1>CNC-03 Turning centre &nbsp;<span class="chip warn" style="vertical-align:4px">Bearing change 19 Oct</span></h1>
+      <p>NP-P1-MC-0142 · Plant 1, machining bay · plant and machinery · in service 6 yr 7 mo</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Print QR tag</span>
+      <span class="btn">Transfer</span>
+      <span class="btn pri">Raise maintenance order</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Uptime, October</label><div class="v"><strong style="color:var(--warn)">94.2%</strong></div><div class="foot"><b class="delta down">3 breakdowns</b><span>6 h 05 m of 105 h</span></div></div>
+    <div class="card kpi"><label>Mean time between failures</label><div class="v"><strong>192 <small>h</small></strong><i data-spark="410,380,395,340,300,260,230,192" data-color="#d43a2f"></i></div><div class="foot"><b class="delta down">falling</b><span>5 breakdowns in 90 days</span></div></div>
+    <div class="card kpi"><label>Mean time to repair</label><div class="v"><strong>1 h 52 m</strong></div><div class="foot"><b class="delta flat">internal</b><span>S. Pawar, maintenance</span></div></div>
+    <div class="card kpi"><label>Book value</label><div class="v"><strong>₹39.9 L <small>of ₹68.4 L</small></strong></div><div class="foot"><b class="delta flat">₹36,100 a month</b><span>straight line, 15 years</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Maintenance history</h2><span>last 90 days</span><span class="more">All orders</span></header>
+        <div class="body">
+          <table class="mh">
+            <thead><tr><th>Order</th><th>Type</th><th>What happened</th><th>Done by</th><th class="r">Down</th><th>Date</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b class="mono">MO-0418</b></td><td><span class="typ bd">Breakdown</span></td><td><b>Spindle alarm, over-temperature</b><small>Coolant filter changed; bearing at 71 °C</small></td><td>S. Pawar</td><td class="r dur">2 h 10 m</td><td class="mono">8 Oct</td><td><span class="chip ok">Back 13:46</span></td></tr>
+              <tr><td><b class="mono">MO-0412</b></td><td><span class="typ bd">Breakdown</span></td><td><b>Spindle alarm, over-temperature</b><small>Reset after cooling; vibration noted</small></td><td>S. Pawar</td><td class="r dur">1 h 30 m</td><td class="mono">5 Oct</td><td><span class="chip ok">Closed</span></td></tr>
+              <tr><td><b class="mono">PM-2207</b></td><td><span class="typ pm">Preventive</span></td><td><b>Quarterly spindle vibration check</b><small>Planned for 3 Oct; machine was loaded</small></td><td>Maintenance</td><td class="r dur dim">—</td><td class="mono">3 Oct</td><td><span class="chip bad">Overdue 5 d</span></td></tr>
+              <tr><td><b class="mono">MO-0409</b></td><td><span class="typ bd">Breakdown</span></td><td><b>Spindle alarm, over-temperature</b><small>Cooling fan cleaned</small></td><td>S. Pawar</td><td class="r dur">2 h 25 m</td><td class="mono">2 Oct</td><td><span class="chip ok">Closed</span></td></tr>
+              <tr><td><b class="mono">PM-2195</b></td><td><span class="typ pm">Preventive</span></td><td><b>Monthly lubrication and way-oil</b><small>Checklist of 14 points</small></td><td>Maintenance</td><td class="r dur">45 m</td><td class="mono">12 Sep</td><td><span class="chip ok">Done</span></td></tr>
+              <tr><td><b class="mono">MO-0371</b></td><td><span class="typ bd">Breakdown</span></td><td><b>Hydraulic chuck pressure low</b><small>Seal kit replaced</small></td><td>S. Pawar</td><td class="r dur">1 h 40 m</td><td class="mono">18 Aug</td><td><span class="chip ok">Closed</span></td></tr>
+              <tr><td><b class="mono">MO-0360</b></td><td><span class="typ bd">Breakdown</span></td><td><b>Coolant pump tripped</b><small>Pump motor rewound by vendor</small></td><td>Vendor</td><td class="r dur">1 h 35 m</td><td class="mono">22 Jul</td><td><span class="chip ok">Closed</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card flush" style="flex:1">
+        <header><h2>Preventive plan and calibration</h2><span>what keeps it qualified to run</span></header>
+        <div class="body">
+          <table class="mh">
+            <thead><tr><th>Plan</th><th>Every</th><th>Last done</th><th>Next due</th><th>If missed</th></tr></thead>
+            <tbody>
+              <tr><td><b>Operator checks</b></td><td>Every shift</td><td class="mono">08:10</td><td class="mono">16:00</td><td>Shift cannot start on the machine</td></tr>
+              <tr><td><b>Spindle vibration check</b></td><td>3 months</td><td class="mono">2 Jul</td><td class="mono" style="color:var(--bad)">3 Oct</td><td>Raised to the plant head</td></tr>
+              <tr><td><b>Lubrication and way-oil</b></td><td>1 month</td><td class="mono">12 Sep</td><td class="mono">12 Oct</td><td>Reminder to the shift lead</td></tr>
+              <tr><td><b>Geometric accuracy test</b></td><td>12 months</td><td>Oct, last year</td><td class="mono">19 Oct</td><td>Machine blocked for production</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Value</h2><span>Companies Act book</span></header>
+        <div class="body">
+          <dl class="kv">
+            <dt>Cost</dt><dd class="mono">₹68.4 L</dd>
+            <dt>Depreciation to date</dt><dd class="mono">₹28.5 L</dd>
+            <dt>Book value</dt><dd class="mono" style="font-weight:650">₹39.9 L</dd>
+            <dt>Sum insured</dt><dd class="mono">₹52.0 L</dd>
+          </dl>
+          <div class="rule"></div>
+          <div class="life"><span class="meter"><i style="width:44%"></i></span><div><span>6.6 of 15 years used</span><span>5% residual</span></div></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Life of this asset</h2><span class="more">Documents</span></header>
+        <div class="body" style="padding-top:8px">
+          <ul class="trace">
+            <li><div><b>Bought and capitalised</b><small>PO, invoice and installation on file</small></div><time>6 yr 7 mo</time></li>
+            <li><div><b>Accuracy test on installation</b><small>Within tolerance · certificate attached</small></div><time>6 yr 6 mo</time></li>
+            <li><div><b>Spindle rebuilt</b><small>Vendor overhaul · life kept at 15 years</small></div><time>3 yr 2 mo</time></li>
+            <li><div><b>Verified on site</b><small>QR tag scanned · condition fair</small></div><time>16 Sep</time></li>
+            <li class="next"><div><b>Bearing change, accuracy test</b><small>Shutdown · needs SB-7014, PR-0463 due 17 Oct · first-off before release</small></div><time>19 Oct</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

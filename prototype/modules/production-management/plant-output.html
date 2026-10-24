@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Production Management · Plant output and OEE</title>
+<!--
+  Scenario (Production Management, shared by every screen of the module; agrees with prototype/production.html,
+  prototype/work-order.html, prototype/quality.html and the Inventory Management screens): Northfield Precision,
+  Plant 1 (Pune), 8 Oct, 14:02, shift B (08:00–16:00, 332 planned minutes so far after the break).
+  Seven work centres, OEE = availability × performance × quality: CNC-01 90 × 86 × 99.3 = 76.9% (changeover 34 m,
+  WO-5514 to WO-5521); CNC-02 93 × 91 × 99.5 = 84.2% (waiting 23 m for castings, PO-7714 due 10 Oct); CNC-03
+  61 × 86 × 98.8 = 51.8% (spindle alarm 11:36–13:46, 2 h 10 m, maintenance order MO-0418 in Asset Management;
+  WO-5518 CV-110 resumed after first-off approval of lot L-0935); DB-01 96 × 90 × 100 = 86.4%; PT-01 94 × 92 × 96.0
+  = 83.0% (2 of the 50 pieces of lot L-0932 held); ASM-02 95 × 89 × 99.6 = 84.2%; ASM-03 92 × 90 × 99.8 = 82.6%.
+  Plant OEE 78.4% (mean of the seven), target 80%. Output this shift 1,148 pcs of 1,171 planned to this hour (98%).
+  Downtime 4 h 24 m: breakdown 2 h 10 m, changeover and setup 54 m, minor stops 57 m, waiting for material 23 m.
+  23 work orders released; 2 at risk: WO-5518 (CV-110, SO-24809 Vardhan Hydraulics, due 12 Oct) after the
+  breakdown, WO-5514 (BR-045, SO-24798 Aster Compressors, due 10 Oct) with lot L-0927 out of specification
+  (OOS-0112). WO-5521 (890 IH-220 for SO-24817, Kestrel Pumps) 570 machined, due 15 Oct. Plant head: Prakash Nair;
+  planner: Vikram Desai; quality inspector: Asha Khan; QA head: Anil Bhosale.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .wc td { padding-top: 7px; padding-bottom: 7px; }
+  .oee { display: flex; align-items: center; gap: 8px; }
+  .oee .meter { width: 64px; min-width: 64px; position: relative; overflow: visible; }
+  .oee .meter::after { content: ''; position: absolute; left: 80%; top: -3px; bottom: -3px; width: 1.5px; background: var(--ink); opacity: 0.55; }
+  .oee b { font: 600 12.5px var(--mono); width: 40px; }
+  .oee b.lo { color: var(--bad); }
+  .apq { font: 12px var(--mono); color: var(--ink-2); }
+  .apq.lo { color: var(--bad); font-weight: 600; }
+  .loss { font-size: 12px; color: var(--ink-2); }
+  .loss.bad { color: var(--bad); font-weight: 550; }
+  .made { font: 12px var(--mono); }
+  .made small { display: inline; color: var(--ink-3); font-size: 11.5px; }
+  .why li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; padding: 7px 0; }
+  .why li + li { border-top: 1px solid var(--line); }
+  .why b { font-weight: 550; }
+  .why small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .why em { font: 600 12.5px var(--sans); font-style: normal; text-align: right; white-space: nowrap; }
+  .why .meter { grid-column: 1 / -1; }
+  .why .meter.bad i { background: var(--bad); }
+</style>
+</head>
+<body data-module="production-management" data-view="Plant output" data-crumb="Make / Production Management / Plant output" data-who="Prakash Nair|Plant head">
+<main>
+  <div class="head">
+    <div>
+      <h1>Plant output and OEE</h1>
+      <p>Plant 1 · shift B, 08:00 to 16:00 · 7 work centres · OEE target 80%</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span>Shift A</span><span class="on">Shift B</span><span>Today</span><span>Month</span></div>
+      <span class="btn">Plant 2 · Chennai</span>
+      <span class="btn pri">Production plan</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Plant OEE, this shift</label><div class="v"><strong>78.4%</strong><i data-spark="74,76,75,77,79,76,78,80,77,78.4"></i></div><div class="foot"><b class="delta down">−1.6 pts</b><span>against the 80% target</span></div></div>
+    <div class="card kpi"><label>Output, this shift</label><div class="v"><strong>1,148 <small>of 1,171 pcs</small></strong><i data-spark="60,140,260,390,520,640,790,910,1040,1148" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">98%</b><span>of plan at this hour</span></div></div>
+    <div class="card kpi"><label>Downtime, this shift</label><div class="v"><strong>4 h 24 m</strong></div><div class="foot"><b class="delta down">2 h 10 m</b><span>breakdown on CNC-03</span></div></div>
+    <div class="card kpi"><label>Work orders at risk</label><div class="v"><strong style="color:var(--warn)">2 <small>of 23 released</small></strong></div><div class="foot"><b class="delta flat">WO-5518 · WO-5514</b><span>due 12 and 10 Oct</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Work centres</h2><span>OEE = availability × performance × quality</span><div class="legend"><span style="--c:#090e34">Target 80%</span></div></header>
+        <div class="body">
+          <table class="wc">
+            <thead><tr><th>Work centre</th><th>Running</th><th>OEE</th><th class="r">Avail.</th><th class="r">Perf.</th><th class="r">Quality</th><th class="r">Made · plan</th><th>Main loss</th></tr></thead>
+            <tbody>
+              <tr><td><b class="mono">CNC-01</b><small>5-axis mill</small></td><td><b class="mono">WO-5521</b><small>IH-220 housing</small></td><td><div class="oee"><span class="meter warn"><i style="width:76.9%"></i></span><b class="lo">76.9%</b></div></td><td class="r apq">90%</td><td class="r apq lo">86%</td><td class="r apq">99.3%</td><td class="r made">36 <small>/ 42</small></td><td class="loss">Changeover 34 m</td></tr>
+              <tr><td><b class="mono">CNC-02</b><small>5-axis mill</small></td><td><b class="mono">WO-5521</b><small>IH-220 housing</small></td><td><div class="oee"><span class="meter ok"><i style="width:84.2%"></i></span><b>84.2%</b></div></td><td class="r apq">93%</td><td class="r apq">91%</td><td class="r apq">99.5%</td><td class="r made">41 <small>/ 44</small></td><td class="loss">Castings 23 m</td></tr>
+              <tr class="hl"><td><b class="mono">CNC-03</b><small>Turning centre</small></td><td><b class="mono">WO-5518</b><small>CV-110 valve body</small></td><td><div class="oee"><span class="meter warn"><i style="width:51.8%;background:var(--bad)"></i></span><b class="lo">51.8%</b></div></td><td class="r apq lo">61%</td><td class="r apq">86%</td><td class="r apq">98.8%</td><td class="r made">58 <small>/ 88</small></td><td class="loss bad">Breakdown 2 h 10 m</td></tr>
+              <tr><td><b class="mono">DB-01</b><small>Deburr and wash</small></td><td><b class="mono">WO-5506</b><small>GH-310 housing</small></td><td><div class="oee"><span class="meter ok"><i style="width:86.4%"></i></span><b>86.4%</b></div></td><td class="r apq">96%</td><td class="r apq">90%</td><td class="r apq">100%</td><td class="r made">214 <small>/ 210</small></td><td class="loss">Basket jams 13 m</td></tr>
+              <tr><td><b class="mono">PT-01</b><small>Pressure test</small></td><td><b class="mono">L-0932</b><small>WO-5521</small></td><td><div class="oee"><span class="meter ok"><i style="width:83%"></i></span><b>83.0%</b></div></td><td class="r apq">94%</td><td class="r apq">92%</td><td class="r apq lo">96.0%</td><td class="r made">50 <small>/ 50</small></td><td class="loss">2 pcs held</td></tr>
+              <tr><td><b class="mono">ASM-02</b><small>Assembly cell</small></td><td><b class="mono">WO-5506</b><small>GH-310 housing</small></td><td><div class="oee"><span class="meter ok"><i style="width:84.2%"></i></span><b>84.2%</b></div></td><td class="r apq">95%</td><td class="r apq">89%</td><td class="r apq">99.6%</td><td class="r made">312 <small>/ 318</small></td><td class="loss">Minor stops 17 m</td></tr>
+              <tr><td><b class="mono">ASM-03</b><small>Assembly cell</small></td><td><b class="mono">WO-5512</b><small>PB-120 pump body</small></td><td><div class="oee"><span class="meter ok"><i style="width:82.6%"></i></span><b>82.6%</b></div></td><td class="r apq">92%</td><td class="r apq">90%</td><td class="r apq">99.8%</td><td class="r made">437 <small>/ 419</small></td><td class="loss">Minor stops 27 m</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <header><h2>Planned and actual output</h2><span>Plant 1, thousand pieces a month, rolling year</span><div class="legend"><span>Actual</span><span style="--c:#c9cfdb">Plan</span></div></header>
+        <div class="body chart-c" data-bars="36.2,37.8,33.9,38.4,39.1,41.6,39.8,42.3,40.9,43.7,42.8,44.1|38,39,36,40,40,42,41,43,42,44,44,45" data-max="48" data-labels="Oct,Nov,Dec,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep" data-colors="#0a48fd,#c9cfdb"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Downtime by cause</h2><span>this shift</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="why">
+            <li><p><b>Breakdown</b><small>CNC-03 spindle alarm · MO-0418</small></p><em>2 h 10 m</em><span class="meter bad"><i style="width:100%"></i></span></li>
+            <li><p><b>Minor stops and jams</b><small>ASM-03, ASM-02, DB-01</small></p><em>57 m</em><span class="meter warn"><i style="width:44%"></i></span></li>
+            <li><p><b>Changeover and setup</b><small>CNC-01 to WO-5521, PT-01 fixture</small></p><em>54 m</em><span class="meter warn"><i style="width:42%"></i></span></li>
+            <li><p><b>Waiting for material</b><small>CNC-02 · LM6 castings, PO-7714</small></p><em>23 m</em><span class="meter ink"><i style="width:18%"></i></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Needs attention</h2><span class="more">All alerts</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="feed">
+            <li><i class="warn">MO</i><p><b>CNC-03 back at 13:46</b><small>Third spindle alarm this month; maintenance looks at the bearing</small></p><time>13:46</time></li>
+            <li><i class="blue">QC</i><p><b>First-off passed on L-0935</b><small>WO-5518 resumed; 30 pcs behind, due 12 Oct</small></p><time>13:58</time></li>
+            <li><i class="warn">QC</i><p><b>2 pcs of L-0932 held</b><small>Pressure test · rework on WO-5521 op 45</small></p><time>13:31</time></li>
+            <li><i>OOS</i><p><b>L-0927 out of specification</b><small>WO-5514, 2,400 BR-045 for SO-24798</small></p><time>10:32</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

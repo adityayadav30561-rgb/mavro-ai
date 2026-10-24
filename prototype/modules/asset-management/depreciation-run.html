@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Asset Management · Depreciation run</title>
+<!-- Scenario: see uptime-value.html. October trial run on 8 Oct; posts at the 31 Oct close (Accounting's October
+     close list). Companies Act book, straight line: ₹18.7 L (₹ lakh by class, Pune / Chennai / Exports: plant and
+     machinery 9.6 / 4.3 / 0 = 13.9; buildings 1.4 / 0.7 / 0 = 2.1; tools and dies 0.9 / 0.4 / 0 = 1.3; IT 0.3 / 0.1 /
+     0.4 = 0.8; furniture 0.1 / 0.1 / 0.1 = 0.3; vehicles 0.2 / 0 / 0.1 = 0.3; entities 12.5 / 5.6 / 0.6). September
+     ₹18.6 L (Accounting's financial statements): plant and machinery +0.2 from four October additions (₹38 L),
+     vehicles −0.1 after forklift FL-02 was sold. Income-tax book (written-down value by block): ₹24.1 L. 1,121 of
+     1,146 assets depreciate; 25 are fully depreciated. Audit queue: 9 exceptions, 6 cleared, 3 open (paint booth
+     PB-1 impairment review, ₹4.2 L book value; PRJ-0217 conveyor modules stay in capital work in progress, PO-7688
+     not received; VMC-11 transfer from Pune to Chennai on 22 Sep). Maker: Arun Shetty; checker: Ritu Kapoor. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 352px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .dep td, .dep th { padding-top: 7px; padding-bottom: 7px; }
+  .dep td.r, .dep th.r { width: 96px; }
+  .dep tr.tot td { font-weight: 650; border-top: 1.5px solid var(--ink); }
+  .up { color: var(--accent-ink); }
+  .dn { color: var(--ok); }
+  .jv td { padding-top: 7px; padding-bottom: 7px; }
+  .jv td.r { width: 110px; }
+  .mk { display: flex; align-items: center; gap: 10px; padding: 10px 16px 4px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .mk b { color: var(--ink); font-weight: 550; }
+  .mk .chip { margin-left: auto; }
+  .xq li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 3px 10px; padding: 8px 0; }
+  .xq li + li { border-top: 1px solid var(--line); }
+  .xq .ic { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); background: var(--ok-soft); color: var(--ok); grid-row: span 2; }
+  .xq .ic.o { background: var(--warn-soft); color: var(--warn); }
+  .xq .ic.x { background: var(--bad-soft); color: var(--bad); }
+  .xq b { font-weight: 550; }
+  .xq small { color: var(--ink-3); font-size: 11.5px; }
+  .xh { color: var(--ink-3); font-size: 11.5px; margin: 6px 0 0; }
+</style>
+</head>
+<body data-module="asset-management" data-view="Depreciation" data-crumb="Assets / Asset Management / Depreciation / October" data-org="NP|Northfield Precision|All entities" data-who="Ritu Kapoor|Finance controller">
+<main>
+  <div class="head">
+    <div>
+      <h1>October depreciation run &nbsp;<span class="chip blue" style="vertical-align:4px">Trial · posts 31 Oct</span></h1>
+      <p>1,146 assets in three entities · Companies Act book, straight line · the income-tax book runs alongside</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Companies Act</span><span>Income-tax</span></div>
+      <span class="btn">Asset-wise detail</span>
+      <span class="btn pri">Approve trial</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Depreciation, October</label><div class="v"><strong>₹18.7 L</strong><i data-spark="17.6,17.8,17.9,18.1,18.2,18.4,18.6,18.7" data-color="#8b93a3"></i></div><div class="foot"><b class="delta flat">+₹0.1 L</b><span>on September's ₹18.6 L</span></div></div>
+    <div class="card kpi"><label>Assets in the run</label><div class="v"><strong>1,121 <small>of 1,146</small></strong></div><div class="foot"><b class="delta flat">25 fully depreciated</b><span>held at residual value</span></div></div>
+    <div class="card kpi"><label>Audit queue</label><div class="v"><strong style="color:var(--warn)">3 <small>open of 9</small></strong></div><div class="foot"><b class="delta up">6 cleared</b><span>must be 0 before posting</span></div></div>
+    <div class="card kpi"><label>Income-tax book</label><div class="v"><strong>₹24.1 L</strong></div><div class="foot"><b class="delta flat">written-down value</b><span>at block rates</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>By asset class and entity</h2><span>₹ lakh</span><span class="more">Fixed asset schedule</span></header>
+        <div class="body">
+          <table class="dep">
+            <thead><tr><th>Asset class</th><th>Method · life</th><th class="r">NP Pune</th><th class="r">NP Chennai</th><th class="r">NP Exports</th><th class="r">October</th><th class="r">September</th></tr></thead>
+            <tbody>
+              <tr><td><b>Plant and machinery</b><small>4 additions in October</small></td><td class="sub">Straight line · 15 yr</td><td class="r mono">9.6</td><td class="r mono">4.3</td><td class="r mono dim">—</td><td class="r mono up">13.9</td><td class="r mono">13.7</td></tr>
+              <tr><td><b>Buildings</b></td><td class="sub">Straight line · 30 yr</td><td class="r mono">1.4</td><td class="r mono">0.7</td><td class="r mono dim">—</td><td class="r mono">2.1</td><td class="r mono">2.1</td></tr>
+              <tr><td><b>Tools, dies and fixtures</b></td><td class="sub">Straight line · 8 yr</td><td class="r mono">0.9</td><td class="r mono">0.4</td><td class="r mono dim">—</td><td class="r mono">1.3</td><td class="r mono">1.3</td></tr>
+              <tr><td><b>Computers and IT</b></td><td class="sub">Straight line · 3 yr</td><td class="r mono">0.3</td><td class="r mono">0.1</td><td class="r mono">0.4</td><td class="r mono">0.8</td><td class="r mono">0.8</td></tr>
+              <tr><td><b>Furniture and fittings</b></td><td class="sub">Straight line · 10 yr</td><td class="r mono">0.1</td><td class="r mono">0.1</td><td class="r mono">0.1</td><td class="r mono">0.3</td><td class="r mono">0.3</td></tr>
+              <tr><td><b>Vehicles</b><small>forklift FL-02 sold 30 Sep</small></td><td class="sub">Straight line · 8 yr</td><td class="r mono">0.2</td><td class="r mono dim">—</td><td class="r mono">0.1</td><td class="r mono dn">0.3</td><td class="r mono">0.4</td></tr>
+              <tr class="tot"><td>Total</td><td></td><td class="r mono">12.5</td><td class="r mono">5.6</td><td class="r mono">0.6</td><td class="r mono">18.7</td><td class="r mono">18.6</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card flush" style="flex:1">
+        <header><h2>Journal to post</h2><span>preview · to the general ledger at the October close</span></header>
+        <div class="body" style="display:flex;flex-direction:column">
+          <table class="jv">
+            <thead><tr><th>Account</th><th>Entities</th><th class="r">Debit</th><th class="r">Credit</th></tr></thead>
+            <tbody>
+              <tr><td><b>Depreciation expense</b></td><td class="sub">Pune, Chennai, Exports</td><td class="r mono">₹18.7 L</td><td class="r mono dim">—</td></tr>
+              <tr><td>Accumulated depreciation · plant and machinery</td><td class="sub">Pune, Chennai</td><td class="r mono dim">—</td><td class="r mono">₹13.9 L</td></tr>
+              <tr><td>Accumulated depreciation · buildings</td><td class="sub">Pune, Chennai</td><td class="r mono dim">—</td><td class="r mono">₹2.1 L</td></tr>
+              <tr><td>Accumulated depreciation · four other classes</td><td class="sub">Pune, Chennai, Exports</td><td class="r mono dim">—</td><td class="r mono">₹2.7 L</td></tr>
+            </tbody>
+          </table>
+          <div class="mk" style="margin-top:auto"><span>Maker <b>Arun Shetty</b> · checker <b>Ritu Kapoor</b></span><span class="chip warn">Waits for the audit queue</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <header><h2>Audit queue</h2><span>9 exceptions from the run</span></header>
+      <div class="body" style="padding-top:2px">
+        <p class="xh">Open</p>
+        <ul class="xq">
+          <li><span class="ic x">!</span><b>Paint booth PB-1 idle 7 months</b><small>Impairment review · book value ₹4.2 L · Ritu Kapoor</small></li>
+          <li><span class="ic o">!</span><b>Conveyor modules, PRJ-0217</b><small>PO-7688 not received · stays in capital work in progress, ₹6.8 L</small></li>
+          <li><span class="ic o">!</span><b>VMC-11 moved to Chennai, 22 Sep</b><small>Cost centre still Pune · split the charge by days</small></li>
+        </ul>
+        <p class="xh" style="margin-top:10px">Cleared</p>
+        <ul class="xq">
+          <li><span class="ic">✓</span><b>25 assets fully depreciated</b><small>Held at 5% residual, no charge</small></li>
+          <li><span class="ic">✓</span><b>Forklift FL-02 sold 30 Sep</b><small>Charge stopped · gain of ₹0.6 L posted</small></li>
+          <li><span class="ic">✓</span><b>4 October additions, ₹38 L</b><small>Put-to-use dates confirmed</small></li>
+          <li><span class="ic">✓</span><b>CNC-07 life after overhaul</b><small>15 to 17 years · approved</small></li>
+          <li><span class="ic">✓</span><b>6 assets not found on verification</b><small>Charge continues · listed for the auditor</small></li>
+          <li><span class="ic">✓</span><b>18 laptops retired</b><small>Removed from the register</small></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

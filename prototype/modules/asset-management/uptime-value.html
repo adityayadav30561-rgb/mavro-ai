@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Asset Management · Asset uptime and value</title>
+<!--
+  Scenario (Asset Management, shared by every screen of the module; agrees with the Production Management screens
+  and the Accounting screens): Northfield Precision, all sites, 8 Oct, 14:02. 1,146 tagged assets: Plant 1 Pune 684
+  (gross block ₹15.9 Cr), Chennai plant 402 (₹8.2 Cr), exports office Pune 60 (₹0.7 Cr); gross block ₹24.8 Cr,
+  accumulated depreciation ₹11.2 Cr, book value ₹13.6 Cr. Uptime in October so far: Plant 1 94.8%, Chennai 97.1%,
+  both 95.6% (target 97%). Breakdowns in October: 13, 14 h 20 m lost: CNC-03 turning centre 3 (6 h 05 m: 2 Oct
+  2 h 25 m MO-0409, 5 Oct 1 h 30 m MO-0412, today 11:36–13:46 2 h 10 m MO-0418, the spindle alarm on the plant
+  dashboard), AC-2 air compressor 2 (1 h 50 m), VMC-11 Chennai 2 (2 h 15 m), PT-01 test rig 1 (40 m), five others
+  (3 h 30 m). Preventive maintenance hours fell in August and September (55, 48) while breakdown hours rose (33, 38). CNC-03's quarterly spindle check was due 3 Oct (overdue); its spindle bearing set SB-7014 is out of
+  stock (reorder level 1; PR-0463, due 17 Oct) for the bearing change in the 19 Oct shutdown. Preventive
+  maintenance on time 92%, 4 overdue. 212 instruments under calibration: TW-14 torque wrench expired 6 Oct
+  (blocked), PG-07 pressure gauge on PT-01 due 12 Oct. Physical verification this half: 1,118 of 1,146 (6 not
+  found, 22 pending); 9 tags to replace; 4 October additions (₹38 L) not yet endorsed on the insurance policy.
+  October depreciation (trial 8 Oct, posts 31 Oct): ₹18.7 L (NP Pune 12.5, NP Chennai 5.6, NP Exports 0.6;
+  September ₹18.6 L as in Accounting). Maintenance head: Deepak Rane; technician: S. Pawar; finance controller:
+  Ritu Kapoor; plant head: Prakash Nair.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 336px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .up { display: flex; align-items: center; gap: 8px; }
+  .up .meter { width: 70px; min-width: 70px; }
+  .up b { font: 600 12.5px var(--mono); }
+  .lo { color: var(--bad); }
+  .bk td { padding-top: 7px; padding-bottom: 7px; }
+  .hrs { display: flex; align-items: center; gap: 8px; }
+  .hrs .meter { width: 96px; min-width: 96px; }
+  .hrs .meter.bad i { background: var(--bad); }
+  .hrs span { font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .lst li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; padding: 7px 0; }
+  .lst li + li { border-top: 1px solid var(--line); }
+  .lst b { font-weight: 550; }
+  .lst small { color: var(--ink-3); font-size: 11.5px; grid-column: 1; }
+  .lst .chip { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+</style>
+</head>
+<body data-module="asset-management" data-view="Uptime and value" data-crumb="Assets / Asset Management / Uptime and value" data-org="NP|Northfield Precision|All sites" data-who="Deepak Rane|Maintenance head">
+<main>
+  <div class="head">
+    <div>
+      <h1>Asset uptime and value</h1>
+      <p>1,146 tagged assets on three sites · October to date · book value at last close</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All sites</span><span>Plant 1 · Pune</span><span>Chennai</span><span>Exports office</span></div>
+      <span class="btn pri">Raise maintenance order</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Uptime, October</label><div class="v"><strong>95.6%</strong><i data-spark="97.2,96.8,97.4,96.1,97.0,96.6,97.3,96.9,96.2,95.6"></i></div><div class="foot"><b class="delta down">−1.4 pts</b><span>against the 97% target</span></div></div>
+    <div class="card kpi"><label>Breakdowns, October</label><div class="v"><strong>13 <small>14 h 20 m lost</small></strong></div><div class="foot"><b class="delta down">CNC-03 · 3</b><span>6 h 05 m of it</span></div></div>
+    <div class="card kpi"><label>Gross block</label><div class="v"><strong>₹24.8 Cr</strong></div><div class="foot"><b class="delta flat">book value ₹13.6 Cr</b><span>at last close</span></div></div>
+    <div class="card kpi"><label>Preventive maintenance on time</label><div class="v"><strong>92%</strong><i data-spark="95,94,96,93,95,94,92" data-color="#b7791f"></i></div><div class="foot"><b class="delta down">4 overdue</b><span>CNC-03 spindle check</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Sites</h2><span>October to date</span><span class="more">Asset register</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Site</th><th class="r">Assets</th><th class="r">Gross block</th><th class="r">Book value</th><th>Uptime</th><th class="r">Breakdowns</th><th class="r">PM overdue</th><th class="r">Verified</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b>Plant 1 · Pune</b><small>NP Pune · machining</small></td><td class="r mono">684</td><td class="r mono">₹15.9 Cr</td><td class="r mono">₹8.6 Cr</td><td><div class="up"><span class="meter warn"><i style="width:94.8%"></i></span><b class="lo">94.8%</b></div></td><td class="r mono">9</td><td class="r mono">3</td><td class="r mono">96%</td></tr>
+              <tr><td><b>Chennai plant</b><small>NP Chennai · machining</small></td><td class="r mono">402</td><td class="r mono">₹8.2 Cr</td><td class="r mono">₹4.6 Cr</td><td><div class="up"><span class="meter ok"><i style="width:97.1%"></i></span><b>97.1%</b></div></td><td class="r mono">4</td><td class="r mono">1</td><td class="r mono">100%</td></tr>
+              <tr><td><b>Exports office · Pune</b><small>NP Exports · IT, furniture</small></td><td class="r mono">60</td><td class="r mono">₹0.7 Cr</td><td class="r mono">₹0.4 Cr</td><td class="dim">not tracked</td><td class="r mono dim">—</td><td class="r mono">0</td><td class="r mono">87%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card flush">
+        <header><h2>Breakdown clusters</h2><span>the equipment behind the lost hours, October · 5 others 3 h 30 m</span></header>
+        <div class="body">
+          <table class="bk">
+            <thead><tr><th>Equipment</th><th>Site</th><th class="r">Breakdowns</th><th>Hours lost</th><th>Likely cause</th><th>Next step</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b class="mono">CNC-03</b><small>Turning centre</small></td><td>Plant 1</td><td class="r mono">3</td><td><div class="hrs"><span class="meter bad"><i style="width:100%"></i></span><span>6 h 05 m</span></div></td><td>Spindle bearing heat</td><td><span class="chip warn">New bearings 19 Oct</span></td></tr>
+              <tr><td><b class="mono">VMC-11</b><small>Machining centre</small></td><td>Chennai</td><td class="r mono">2</td><td><div class="hrs"><span class="meter warn"><i style="width:37%"></i></span><span>2 h 15 m</span></div></td><td>Tool changer</td><td><span class="chip">Vendor visit 10 Oct</span></td></tr>
+              <tr><td><b class="mono">AC-2</b><small>Air compressor</small></td><td>Plant 1</td><td class="r mono">2</td><td><div class="hrs"><span class="meter warn"><i style="width:30%"></i></span><span>1 h 50 m</span></div></td><td>Dryer trips</td><td><span class="chip">PM brought forward</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <header><h2>Maintenance hours by month</h2><span>all sites · October to date</span><div class="legend"><span style="--c:#c9cfdb">Preventive</span><span style="--c:#d43a2f">Breakdown</span></div></header>
+        <div class="body chart-c" data-bars="64,62,66,60,63,58,61,60,62,55,48,21|22,26,31,18,24,35,27,29,24,33,38,14" data-max="75" data-labels="Nov,Dec,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct" data-colors="#c9cfdb,#d43a2f"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Critical spares</h2><span>below reorder level</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><b>Spindle bearing set SB-7014</b><small>CNC-03 · 0 in stock · PR-0463 due 17 Oct</small><span class="chip bad">For 19 Oct</span></li>
+            <li><b>Dryer filter kit DF-20</b><small>AC-2 · 1 in stock, reorder at 2</small><span class="chip warn">Ordered</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Calibration</h2><span>212 instruments</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><b>Torque wrench TW-14</b><small>Expired 6 Oct · ASM-02 cannot use it</small><span class="chip bad">Blocked</span></li>
+            <li><b>Pressure gauge PG-07</b><small>PT-01 · due 12 Oct · lab booked</small><span class="chip warn">4 days</span></li>
+            <li><b>CMM-01 measuring machine</b><small>Annual calibration done 2 Sep</small><span class="chip ok">Valid</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Gaps to close</h2><span>this half-year's cycle</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><b>Physical verification</b><small>1,118 of 1,146 · 6 not found, 22 pending</small><span class="chip warn">97.6%</span></li>
+            <li><b>Tags to replace</b><small>QR labels damaged or missing</small><span class="chip">9</span></li>
+            <li><b>Insurance endorsement</b><small>4 October additions, ₹38 L</small><span class="chip warn">Pending</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

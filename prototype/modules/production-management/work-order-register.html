@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Production Management · Work order register</title>
+<!-- Scenario: see plant-output.html. Work orders at Plant 1 due by 24 Oct (11 of the 23 released or planned), by
+     due date. Agrees with the plant dashboard (work centres, WO-5518 and WO-5514 at risk), the QC release queue
+     (L-0927, L-0932, L-0934, L-0935, L-0933, L-0930, L-0928), Inventory Management (WO-5498 into FG-A-11, CV-110 in
+     machining) and Order to Cash (SO-24817, SO-24790, SO-24798, SO-24809, SO-24822, SO-24852, SO-24870).
+     WO-5534 is the MRP-planned IH-180 order that replaces stock held on lot L-0897. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 270px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 7px; padding-bottom: 7px; }
+  .prog { display: flex; flex-direction: column; gap: 4px; width: 112px; }
+  .prog span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .prog .meter { min-width: 0; }
+  .qc { font-size: 12px; font-weight: 550; }
+  .qc small { font-weight: 400; }
+  .qc.ok { color: var(--ok); }
+  .qc.bad { color: var(--bad); }
+  .qc.warn { color: var(--warn); }
+  .qc.none { color: var(--ink-3); font-weight: 400; }
+  td.risk { color: var(--warn); font-weight: 550; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="production-management" data-view="Work order register" data-crumb="Make / Production Management / Work order register" data-who="Vikram Desai|Production planner">
+<main>
+  <div class="head">
+    <div>
+      <h1>Work order register</h1>
+      <p>Scheduled work orders with their line, progress and quality state, by due date</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Open</span><span>Planned</span><span>At risk</span><span>Closed</span></div>
+      <span class="btn">Export</span>
+      <span class="btn pri">New work order</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Plant <b>Plant 1 · Pune</b></span>
+    <span class="filter">Due <b>by 24 Oct</b></span>
+    <span class="filter">Work centre <b>All</b></span>
+    <span class="filter">Order type <b>All</b></span>
+    <span class="filter" style="border-style:dashed;color:var(--ink-3)">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Work order, item, sales order or lot</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Released</label><strong>23 <small>9 running</small></strong></div>
+    <div class="card sm"><label>Due by 15 Oct</label><strong>6 <small>4 on schedule</small></strong></div>
+    <div class="card sm"><label>Waiting for QC release</label><strong>3 <small>2,750 pcs</small></strong></div>
+    <div class="card sm"><label>At risk</label><strong style="color:var(--warn)">2 <small>WO-5514 · WO-5518</small></strong></div>
+    <div class="card sm"><label>Scrap and rework, October</label><strong>0.9% <small>target 1.5%</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Work order</th><th>Item</th><th>For</th><th>Work centre</th><th>Progress</th><th>Due</th><th>Quality</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">WO-5503</b><small>BOM PB-090 rev B</small></td><td><b>PB-090 Pump body</b><small>520 pcs</small></td><td>Stock<small>reorder level</small></td><td class="mono">ASM-03</td><td><span class="prog"><span>520 of 520</span><span class="meter ok"><i style="width:100%"></i></span></span></td><td class="mono">8 Oct</td><td class="qc ok">L-0928 released</td><td><span class="chip ok">Completed</span></td></tr>
+          <tr><td><b class="mono">WO-5498</b><small>BOM IH-180 rev C</small></td><td><b>IH-180 Impeller housing</b><small>800 pcs</small></td><td><b class="mono">SO-24790</b><small>Kestrel Pumps</small></td><td class="mono">CNC-01</td><td><span class="prog"><span>800 of 800</span><span class="meter ok"><i style="width:100%"></i></span></span></td><td class="mono">9 Oct</td><td class="qc ok">L-0930 released</td><td><span class="chip ok">Completed</span></td></tr>
+          <tr class="hl"><td><b class="mono">WO-5514</b><small>BOM BR-045 rev A</small></td><td><b>BR-045 Bearing bracket</b><small>2,400 pcs</small></td><td><b class="mono">SO-24798</b><small>Aster Compressors</small></td><td class="mono">CNC-01</td><td><span class="prog"><span>2,400 of 2,400</span><span class="meter ok"><i style="width:100%"></i></span></span></td><td class="mono risk">10 Oct</td><td class="qc bad">L-0927 · OOS-0112<small>3 of 80 out of spec</small></td><td><span class="chip bad">QC hold</span></td></tr>
+          <tr><td><b class="mono">WO-5518</b><small>BOM CV-110 rev D</small></td><td><b>CV-110 Valve body</b><small>640 pcs</small></td><td><b class="mono">SO-24809</b><small>Vardhan Hydraulics</small></td><td class="mono">CNC-03</td><td><span class="prog"><span>412 of 640</span><span class="meter warn"><i style="width:64%"></i></span></span></td><td class="mono risk">12 Oct</td><td class="qc ok">L-0935 first-off<small>approved 13:58</small></td><td><span class="chip warn">At risk</span></td></tr>
+          <tr><td><b class="mono">WO-5512</b><small>BOM PB-120 rev A</small></td><td><b>PB-120 Pump body</b><small>1,000 pcs</small></td><td>Stock<small>forecast</small></td><td class="mono">ASM-03</td><td><span class="prog"><span>612 of 1,000</span><span class="meter"><i style="width:61%"></i></span></span></td><td class="mono">14 Oct</td><td class="qc ok">L-0933 patrol<small>10 of 10 passed</small></td><td><span class="chip blue">Running</span></td></tr>
+          <tr><td><b class="mono">WO-5521</b><small>BOM IH-220 rev D</small></td><td><b>IH-220 Impeller housing</b><small>890 pcs</small></td><td><b class="mono">SO-24817</b><small>Kestrel Pumps</small></td><td class="mono">CNC-01 · 02</td><td><span class="prog"><span>570 of 890</span><span class="meter"><i style="width:64%"></i></span></span></td><td class="mono">15 Oct</td><td class="qc warn">L-0932 · 48 of 50<small>2 to rework</small></td><td><span class="chip blue">Running</span></td></tr>
+          <tr><td><b class="mono">WO-5511</b><small>BOM PB-090 rev B</small></td><td><b>PB-090 Pump body</b><small>240 pcs</small></td><td><b class="mono">SO-24852</b><small>Varun Hydraulics</small></td><td class="mono">ASM-02</td><td><span class="prog"><span>0 of 240</span><span class="meter"><i style="width:0"></i></span></span></td><td class="mono">16 Oct</td><td class="qc none">On completion</td><td><span class="chip">Released</span></td></tr>
+          <tr><td><b class="mono">WO-5527</b><small>BOM IH-220 rev D</small></td><td><b>IH-220 Impeller housing</b><small>310 pcs</small></td><td><b class="mono">SO-24870</b><small>Kestrel Pumps</small></td><td class="mono">CNC-01</td><td><span class="prog"><span>0 of 310</span><span class="meter"><i style="width:0"></i></span></span></td><td class="mono">18 Oct</td><td class="qc none">On completion</td><td><span class="chip">Released</span></td></tr>
+          <tr><td><b class="mono">WO-5506</b><small>BOM GH-310 rev C</small></td><td><b>GH-310 Gear housing</b><small>300 pcs</small></td><td><b class="mono">SO-24822</b><small>Meridian Agro</small></td><td class="mono">ASM-02</td><td><span class="prog"><span>300 of 300</span><span class="meter ok"><i style="width:100%"></i></span></span></td><td class="mono">20 Oct</td><td class="qc ok">L-0934 · 32 of 32<small>ready to release</small></td><td><span class="chip blue">Final inspection</span></td></tr>
+          <tr><td><b class="mono">WO-5530</b><small>BOM GH-310 rev C</small></td><td><b>GH-310 Gear housing</b><small>400 pcs</small></td><td>Stock<small>forecast</small></td><td class="mono">CNC-02</td><td><span class="prog"><span>0 of 400</span><span class="meter"><i style="width:0"></i></span></span></td><td class="mono">22 Oct</td><td class="qc none">On completion</td><td><span class="chip">Released</span></td></tr>
+          <tr><td><b class="mono">WO-5534</b><small>planned by MRP</small></td><td><b>IH-180 Impeller housing</b><small>600 pcs</small></td><td>Stock<small>replaces lot L-0897</small></td><td class="mono">CNC-01</td><td><span class="prog"><span>not started</span><span class="meter"><i style="width:0"></i></span></span></td><td class="mono">24 Oct</td><td class="qc none">On completion</td><td><span class="chip">Planned</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <span>Showing 11 of 23 work orders at Plant 1 · quantities in pieces</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>3</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

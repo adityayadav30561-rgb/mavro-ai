@@ -1,12 +1,11 @@
 # Status
 
-_Last updated: 2026-10-23. Update this file at the end of every task and before clearing context._
+_Last updated: 2026-10-24. Update this file at the end of every task and before clearing context._
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–8 done (2026-10-23); next: Phase 9, Production Management, mVLens
-Vendor Audit and Asset Management (deck slides 36, 30, 44; reuse the homepage `work-order` and `quality` screens on
-the module shell).** The
+**Stage C (phased implementation). Phases 1–9 done (2026-10-24); next: Phase 10, HRMS and Payroll, Roster Ledger
+and Rest Hours Log (deck slides 32 + HRMS deck, 62, 60; reuse the homepage `payroll` screen on the module shell).** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -37,6 +36,33 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-24, **Phase 9 done: Production Management, mVLens Vendor Audit, Asset Management pages.** On `main`.
+  - **Screens (12 new, 1 moved, 1 phone):** Production `plant-output` (lead: OEE by work centre, A × P × Q, downtime
+    by cause), `work-order` (the homepage `work-order` screen on the module shell; work centres renamed CNC-01/CNC-02/
+    PT-01 to agree with the homepage shop-floor screen, its fixed-height chart now fills its card), `qc-release`,
+    `work-order-register`; mVLens `auditor-dashboard`, `audit-plan`, `quality-agreements`, `approvals` (the deck's
+    four role portals) and the phone `record-finding`; Asset `uptime-value`, `asset-detail` (CNC-03),
+    `depreciation-run`, `asset-register`. Homepage screens untouched. The homepage `quality` screen was not reused:
+    the deck's view is a QC release queue, which is new (lot L-0932 from `quality` is in it, with the same figures).
+  - **Figures made to agree:** plant OEE 78.4% (mean of seven work centres, each A × P × Q), output 1,148 of 1,171,
+    both as on the homepage `production` screen; CNC-03's spindle alarm 11:36–13:46 is MO-0418 in Asset Management
+    and the first-off L-0935 in the QC queue; L-0927 (BR-045, WO-5514, SO-24798) is OOS-0112; L-0897 / QI-0217 as in
+    Customer Service; AUD-0418 at Sharda Bearings is the for-cause audit after the PO-7709 seal mismatch at the gate;
+    Konkan Foundry is the CV-110 alternate in trial on the P2P dashboard; October depreciation ₹18.7 L against
+    September's ₹18.6 L in Accounting (class and entity splits add up); PRJ-0217's conveyor (PO-7688) sits in capital
+    work in progress. New names: QA head Anil Bhosale, supplier quality manager Neha Kulkarni, auditor Rahul
+    Deshmukh, agreement coordinator Pooja Nambiar, maintenance head Deepak Rane, finance controller Ritu Kapoor.
+  - **Content:** `content/production-management.ts` (v2 slides 36–37; batch records and CoA/assay/dissolution kept
+    for pharma), `mvlens-vendor-audit.ts` (slides 30–31), `asset-management.ts` (slides 44–45 plus the AMR L1
+    variant and standard fixed-asset accounting); views for all three in `views.ts`.
+  - Verified: every screen fits its canvas (no `main` overflow, no clipped table); each page at 1440×900, 1366×768
+    and 390×844 (one H1, no overflow, no broken images, no console errors); `qa/measure.html` overflow=none at nine
+    sizes on all three; build passes (16 pages), titles, canonical and JSON-LD (with FAQPage) in the built files, all
+    three in the sitemap; production build hydrates with no errors and no three.js.
+  - **Module pages live:** order-to-cash, accounting, vendor-invoice-management, travel-and-expense, crm,
+    sales-force-automation, customer-service, procure-to-pay, inventory-management, gate-entry,
+    production-management, mvlens-vendor-audit, asset-management.
 
 - 2026-10-23, **Phase 8 done: Procure to Pay, Inventory Management, Gate Entry pages.** On `main`.
   - **Screens (9 new, 4 moved):** P2P `spend-suppliers` (new, lead), `rfq` and `purchase-order` (the homepage
@@ -329,10 +355,10 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 9: Production Management, mVLens Vendor Audit, Asset Management** (slides 36, 30, 44). Move the
-   homepage `work-order` and `quality` screens onto the module shell (as Phase 8 did with `purchase-order`), build
-   the rest, content files, register them. Tie to WO-5521 / SO-24817, lot L-0927 and the QI-0217 porosity case.
-2. Then Phase 10 (HRMS and Payroll, Roster Ledger, Rest Hours Log).
+1. **Phase 10: HRMS and Payroll, Roster Ledger, Rest Hours Log** (slides 32 + HRMS deck, 62, 60). Move the homepage
+   `payroll` screen onto the module shell, build the rest, content files, register them. People already named on
+   other screens (SFA field force, T&E travellers, plant staff) should appear in the employee records.
+2. Then Phase 11 (Project Management, Data Analytics).
 
 ## Open items (need the user or real assets)
 

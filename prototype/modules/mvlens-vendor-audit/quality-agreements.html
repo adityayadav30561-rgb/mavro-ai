@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · mVLens Vendor Audit · Agreement coordinator</title>
+<!-- Scenario: see auditor-dashboard.html. Pooja Nambiar (agreement coordinator) on 8 Oct: 38 signed agreements in the
+     archive, 5 in progress: QAG-0039 Konkan Foundry (draft, castings template v5, signs only after AUD-0424),
+     QAG-0036 Sharda Bearings revision (vendor review: the dispatch-seal clause, raised from AUD-0418), QAG-0035
+     Aravali Castings renewal (legal), QAG-0037 Nova Seals (SR-18 second source, approved by AUD-0416 on 12 Sep;
+     vendor signed 7 Oct 17:22, purchase head S. Iyer 8 Oct 10:05, QA head Anil Bhosale to sign), QAG-0038 Bharat
+     Heat Treaters (on hold until AUD-0413, Not acceptable, is approved). Renewals in the next 60 days: Precision
+     Tooling Co. 2 Nov, Shree Ganesh Packaging 19 Nov, Mehta Alloys 30 Nov, Kaveri Steel Traders 4 Dec. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 352px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .pipe { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+  .pipe div { position: relative; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+  .pipe div:not(:last-child)::after { content: ''; position: absolute; right: -7px; top: 50%; width: 6px; height: 6px; border-top: 1.5px solid var(--line-2); border-right: 1.5px solid var(--line-2); transform: translateY(-50%) rotate(45deg); }
+  .pipe b { display: block; font: 620 20px var(--sans); letter-spacing: -0.02em; }
+  .pipe span { color: var(--ink-2); font-size: 12px; white-space: nowrap; }
+  .pipe .cur { background: var(--accent-soft); border-color: #d9e0ff; }
+  .pipe .cur b { color: var(--accent-ink); }
+  .pipe .arc b { color: var(--ok); }
+  .ag td { padding-top: 8px; padding-bottom: 8px; }
+  .cl li { display: flex; align-items: baseline; gap: 10px; padding: 5px 0; font-size: 12.5px; }
+  .cl li em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-3); width: 26px; flex: none; }
+  .sig li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0; }
+  .sig li + li { border-top: 1px solid var(--line); }
+  .sig .ic { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); background: var(--ok-soft); color: var(--ok); }
+  .sig .ic.p { background: var(--warn-soft); color: var(--warn); }
+  .sig b { font-weight: 550; display: block; }
+  .sig small { color: var(--ink-3); font-size: 11.5px; }
+  .sig time { font: 11.5px var(--mono); color: var(--ink-3); }
+  .ren li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; padding: 6px 0; }
+  .ren li + li { border-top: 1px solid var(--line); }
+  .ren b { font-weight: 550; }
+  .ren small { color: var(--ink-3); font-size: 11.5px; }
+  .ren time { grid-row: 1 / span 2; grid-column: 2; align-self: center; font: 12px var(--mono); color: var(--ink-2); }
+  .sub2 { color: var(--ink-3); font-size: 11.5px; margin: 12px 0 4px; }
+</style>
+</head>
+<body data-module="mvlens-vendor-audit" data-view="Quality agreements" data-crumb="Make / mVLens Vendor Audit / Quality agreements" data-who="Pooja Nambiar|Agreement coordinator">
+<main>
+  <div class="head">
+    <div>
+      <h1>Agreement coordinator</h1>
+      <p>Quality agreements from template to legal review, e-signature and the signed archive</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Templates</span>
+      <span class="btn">Signed archive</span>
+      <span class="btn pri">New agreement</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Signed and in force</label><div class="v"><strong>38</strong></div><div class="foot"><b class="delta up">All approved vendors</b><span>covered</span></div></div>
+    <div class="card kpi"><label>In progress</label><div class="v"><strong>5</strong></div><div class="foot"><b class="delta flat">1 on hold</b><span>waiting for an audit</span></div></div>
+    <div class="card kpi"><label>Waiting for e-signature</label><div class="v"><strong style="color:var(--accent-ink)">1</strong></div><div class="foot"><b class="delta flat">QAG-0037</b><span>2 of 3 signed</span></div></div>
+    <div class="card kpi"><label>Renewals in 60 days</label><div class="v"><strong style="color:var(--warn)">4</strong></div><div class="foot"><b class="delta down">first 2 Nov</b><span>Precision Tooling Co.</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card">
+        <header><h2>Where agreements are</h2><span>no copies on email: every version is kept here</span></header>
+        <div class="body">
+          <div class="pipe">
+            <div><b>1</b><span>Drafting</span></div>
+            <div><b>1</b><span>Vendor review</span></div>
+            <div><b>1</b><span>Legal review</span></div>
+            <div class="cur"><b>1</b><span>E-signature</span></div>
+            <div><b>1</b><span>On hold</span></div>
+            <div class="arc"><b>38</b><span>Signed archive</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card flush" style="flex:1">
+        <header><h2>Agreements in progress</h2><span>5 · by stage</span><span class="more">All agreements</span></header>
+        <div class="body">
+          <table class="ag">
+            <thead><tr><th>Agreement</th><th>Vendor</th><th>Template</th><th>Stage</th><th>Waiting on</th><th>Since</th></tr></thead>
+            <tbody>
+              <tr><td><b class="mono">QAG-0039</b><small>new · v1</small></td><td><b>Konkan Foundry</b><small>Ratnagiri · castings</small></td><td>Castings · v5</td><td><span class="chip">Drafting</span></td><td>AUD-0424<small>signs after approval</small></td><td class="mono">8 Oct</td></tr>
+              <tr><td><b class="mono">QAG-0036</b><small>revision · v4</small></td><td><b>Sharda Bearings</b><small>Pune · bearing sleeves</small></td><td>Bought-out parts · v4</td><td><span class="chip warn">Vendor review</span></td><td>Sharda Bearings<small>dispatch-seal clause</small></td><td class="mono">8 Oct</td></tr>
+              <tr><td><b class="mono">QAG-0035</b><small>renewal · v2</small></td><td><b>Aravali Castings</b><small>Faridabad · castings</small></td><td>Castings · v5</td><td><span class="chip">Legal review</span></td><td>Legal<small>clause 9, liability cap</small></td><td class="mono">29 Sep</td></tr>
+              <tr class="hl"><td><b class="mono">QAG-0037</b><small>new · v3</small></td><td><b>Nova Seals</b><small>Pune · seal ring SR-18</small></td><td>Bought-out parts · v4</td><td><span class="chip blue">E-signature</span></td><td>Anil Bhosale<small>QA head</small></td><td class="mono">7 Oct</td></tr>
+              <tr><td><b class="mono">QAG-0038</b><small>new · v1</small></td><td><b>Bharat Heat Treaters</b><small>Bhosari · heat treatment</small></td><td>Job work · v2</td><td><span class="chip bad">On hold</span></td><td>AUD-0413<small>site Not acceptable</small></td><td class="mono">26 Sep</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Today</h2><span>every step kept on the agreement's trail</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="feed">
+            <li><i class="warn">QAG</i><p><b>QAG-0036 sent to Sharda Bearings</b> with a new clause 7.3: seal numbers recorded per dispatch lot<small>Raised from the major finding on AUD-0418</small></p><time>11:20</time></li>
+            <li><i class="ok">SIG</i><p><b>S. Iyer signed QAG-0037</b><small>Nova Seals · one signature left</small></p><time>10:05</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex:1">
+        <header><h2>QAG-0037 · Nova Seals</h2><span class="chip blue" style="margin-left:auto">2 of 3 signed</span></header>
+        <div class="body" style="padding-top:8px">
+          <ul class="cl">
+            <li><em>3.1</em>Specification: SR-18 drawing rev B</li>
+            <li><em>4.2</em>Certificate of conformance with every lot</li>
+            <li><em>5.4</em>90 days' notice before any process change</li>
+            <li><em>6.1</em>Right to audit, including for-cause visits</li>
+            <li><em>7.3</em>CAPA response within 15 days</li>
+          </ul>
+          <p class="sub2">Signatures</p>
+          <ul class="sig">
+            <li><span class="ic">✓</span><p><b>R. Mane, Nova Seals</b><small>Director</small></p><time>7 Oct 17:22</time></li>
+            <li><span class="ic">✓</span><p><b>S. Iyer</b><small>Purchase head</small></p><time>8 Oct 10:05</time></li>
+            <li><span class="ic p">…</span><p><b>Anil Bhosale</b><small>QA head · reminder at 16:00</small></p><time>pending</time></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Renewals due</h2><span>next 60 days</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="ren">
+            <li><b>Precision Tooling Co.</b><small>QAG-0014 · AUD-0414 with approver</small><time>2 Nov</time></li>
+            <li><b>Shree Ganesh Packaging</b><small>QAG-0017 · AUD-0415 with approver</small><time>19 Nov</time></li>
+            <li><b>Mehta Alloys</b><small>QAG-0019 · CAPA-0087 to verify</small><time>30 Nov</time></li>
+            <li><b>Kaveri Steel Traders</b><small>QAG-0021 · AUD-0421 on 15 Oct</small><time>4 Dec</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

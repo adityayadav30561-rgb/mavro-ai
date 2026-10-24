@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Asset Management · Asset register</title>
+<!-- Scenario: see uptime-value.html. The register filtered to Plant 1 and the Chennai VMC-11, by asset class.
+     Book values at the September close. CNC-03 agrees with asset-detail.html (₹68.4 L, ₹39.9 L); PB-1 (₹4.2 L) and
+     VMC-11 are open in the October depreciation audit queue; PRJ-0217's conveyor modules (PO-7688, ₹6.8 L) sit in
+     capital work in progress; TW-14 is blocked on expired calibration; PT-01's gauge PG-07 is due 12 Oct. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 270px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 7px; padding-bottom: 7px; }
+  .tag { display: inline-flex; align-items: center; gap: 7px; }
+  .tag i { width: 18px; height: 18px; border-radius: 4px; flex: none; background:
+    conic-gradient(from 90deg at 50% 50%, var(--ink) 0 25%, transparent 0 50%, var(--ink) 0 75%, transparent 0) 0 0 / 6px 6px; border: 1.5px solid var(--ink); }
+  .tag i.miss { background: none; border-style: dashed; border-color: var(--ink-3); }
+  .cond { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; }
+  .cond::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
+  .cond.fair::before { background: #e0a030; }
+  .cond.poor::before { background: var(--bad); }
+  .cond.na::before { background: var(--line-2); }
+  .ver { font-size: 12px; }
+  .ver.miss { color: var(--bad); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="asset-management" data-view="Asset register" data-crumb="Assets / Asset Management / Asset register" data-org="NP|Northfield Precision|All sites" data-who="Deepak Rane|Maintenance head">
+<main>
+  <div class="head">
+    <div>
+      <h1>Asset register</h1>
+      <p>Every tagged asset with its site, condition and written-down value · book values at the September close</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All</span><span>In use</span><span>Under maintenance</span><span>Idle</span><span>Disposed</span></div>
+      <span class="btn">Export</span>
+      <span class="btn pri">Add asset</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Site <b>Plant 1 · Pune</b></span>
+    <span class="filter">Class <b>All</b></span>
+    <span class="filter">Condition <b>All</b></span>
+    <span class="filter">Verified <b>This half</b></span>
+    <span class="filter" style="border-style:dashed;color:var(--ink-3)">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Tag, name, serial number or location</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Assets, all sites</label><strong>1,146 <small>Plant 1: 684</small></strong></div>
+    <div class="card sm"><label>Gross block</label><strong>₹24.8 Cr <small>Plant 1: ₹15.9 Cr</small></strong></div>
+    <div class="card sm"><label>Book value</label><strong>₹13.6 Cr <small>Plant 1: ₹8.6 Cr</small></strong></div>
+    <div class="card sm"><label>Not yet verified</label><strong style="color:var(--warn)">28 <small>6 not found</small></strong></div>
+    <div class="card sm"><label>Capital work in progress</label><strong>₹6.8 L <small>PRJ-0217</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Tag</th><th>Asset</th><th>Class</th><th>Location</th><th>Condition</th><th class="r">Cost</th><th class="r">Book value</th><th>Last verified</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag"><i></i><b class="mono">NP-P1-MC-0138</b></span></td><td><b>CNC-01 5-axis mill</b><small>serial M5-22871</small></td><td>Plant and machinery</td><td>Machining bay</td><td><span class="cond">Good</span></td><td class="r mono">₹1.12 Cr</td><td class="r mono">₹71.6 L</td><td class="ver">16 Sep</td><td><span class="chip ok">In use</span></td></tr>
+          <tr><td><span class="tag"><i></i><b class="mono">NP-P1-MC-0139</b></span></td><td><b>CNC-02 5-axis mill</b><small>serial M5-22904</small></td><td>Plant and machinery</td><td>Machining bay</td><td><span class="cond">Good</span></td><td class="r mono">₹1.12 Cr</td><td class="r mono">₹74.2 L</td><td class="ver">16 Sep</td><td><span class="chip ok">In use</span></td></tr>
+          <tr class="hl"><td><span class="tag"><i></i><b class="mono">NP-P1-MC-0142</b></span></td><td><b>CNC-03 Turning centre</b><small>3 breakdowns in October</small></td><td>Plant and machinery</td><td>Machining bay</td><td><span class="cond fair">Fair</span></td><td class="r mono">₹68.4 L</td><td class="r mono">₹39.9 L</td><td class="ver">16 Sep</td><td><span class="chip warn">Bearings 19 Oct</span></td></tr>
+          <tr><td><span class="tag"><i></i><b class="mono">NP-P1-QC-0021</b></span></td><td><b>CMM-01 Measuring machine</b><small>calibrated 2 Sep</small></td><td>Plant and machinery</td><td>Measuring room</td><td><span class="cond">Good</span></td><td class="r mono">₹42.0 L</td><td class="r mono">₹27.3 L</td><td class="ver">16 Sep</td><td><span class="chip ok">In use</span></td></tr>
+          <tr><td><span class="tag"><i></i><b class="mono">NP-P1-TE-0057</b></span></td><td><b>PT-01 Pressure test rig</b><small>gauge PG-07 due 12 Oct</small></td><td>Plant and machinery</td><td>Test bay</td><td><span class="cond">Good</span></td><td class="r mono">₹14.6 L</td><td class="r mono">₹6.1 L</td><td class="ver">17 Sep</td><td><span class="chip ok">In use</span></td></tr>
+          <tr><td><span class="tag"><i></i><b class="mono">NP-P1-UT-0012</b></span></td><td><b>AC-2 Air compressor</b><small>2 breakdowns in October</small></td><td>Plant and machinery</td><td>Utility room</td><td><span class="cond fair">Fair</span></td><td class="r mono">₹9.8 L</td><td class="r mono">₹3.4 L</td><td class="ver">17 Sep</td><td><span class="chip ok">In use</span></td></tr>
+          <tr><td><span class="tag"><i></i><b class="mono">NP-P1-MC-0098</b></span></td><td><b>PB-1 Paint booth</b><small>idle since March</small></td><td>Plant and machinery</td><td>Finishing shed</td><td><span class="cond poor">Poor</span></td><td class="r mono">₹11.2 L</td><td class="r mono">₹4.2 L</td><td class="ver">18 Sep</td><td><span class="chip bad">Impairment</span></td></tr>
+          <tr><td><span class="tag"><i></i><b class="mono">NP-CH-MC-0211</b></span></td><td><b>VMC-11 Machining centre</b><small>moved from Plant 1, 22 Sep</small></td><td>Plant and machinery</td><td>Chennai plant</td><td><span class="cond">Good</span></td><td class="r mono">₹48.5 L</td><td class="r mono">₹30.9 L</td><td class="ver">24 Sep</td><td><span class="chip blue">Transferred</span></td></tr>
+          <tr><td><span class="tag"><i></i><b class="mono">NP-P1-TL-0344</b></span></td><td><b>TW-14 Torque wrench</b><small>calibration expired 6 Oct</small></td><td>Tools and dies</td><td>ASM-02 cell</td><td><span class="cond">Good</span></td><td class="r mono">₹0.4 L</td><td class="r mono">₹0.1 L</td><td class="ver">17 Sep</td><td><span class="chip bad">Blocked</span></td></tr>
+          <tr><td><span class="tag"><i class="miss"></i><b class="mono">NP-P1-FX-0217</b></span></td><td><b>Fixture F-188, drilling</b><small>tag missing</small></td><td>Tools and dies</td><td>Tool crib</td><td><span class="cond na">Unknown</span></td><td class="r mono">₹1.6 L</td><td class="r mono">₹0.7 L</td><td class="ver miss">Not found</td><td><span class="chip warn">Search</span></td></tr>
+          <tr><td><span class="tag"><i class="miss"></i><b class="mono">CWIP-0217</b></span></td><td><b>Conveyor modules, PRJ-0217</b><small>PO-7688 · 2 modules</small></td><td>Capital WIP</td><td>Assembly line 2</td><td><span class="cond na">Not received</span></td><td class="r mono">₹6.8 L</td><td class="r mono dim">—</td><td class="ver dim">—</td><td><span class="chip">Not in use</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <span>Showing 11 of 684 assets at Plant 1, and the Chennai transfer · values in ₹ at cost and written-down value</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>…</span><span>63</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

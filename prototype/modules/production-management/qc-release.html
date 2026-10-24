@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Production Management · QC release queue</title>
+<!-- Scenario: see plant-output.html. The release queue at 14:02. L-0932 (WO-5521, IH-220): 50 sampled, 48 passed,
+     2 held on the pressure test (as on the homepage quality screen), 48 ready to release. L-0934 (WO-5506, GH-310):
+     32 of 300 sampled, all passed. L-0935 (WO-5518, CV-110): first-off of 5 after the CNC-03 repair, signed 13:58.
+     L-0933 (WO-5512, PB-120): patrol check, 10 sampled, passed. GRN-3324 (PO-7719, Kaveri Steel Traders, 6,200 kg
+     EN8 bar unloaded at D2): 3 bars sampled for hardness and the mill certificate. L-0927 (WO-5514, BR-045, 2,400 pcs
+     for SO-24798 Aster Compressors, due 10 Oct): 80 sampled on CMM-01, 3 with bore position 0.06–0.08 mm off
+     (±0.05), held 10:32, OOS-0112, 3 h 30 m of the 48 h hold limit. L-0897 (WO-5462, IH-180): 186 on hold plus 5
+     returned, QA investigation QI-0217 (Customer Service), held 7 Oct 16:05, 22 h of 48 h. Quality inspector:
+     Asha Khan; QA head: Anil Bhosale. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .q td { padding-top: 8px; padding-bottom: 8px; }
+  .stg { display: inline-block; padding: 1px 7px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--line); font-size: 11.5px; color: var(--ink-2); }
+  .res { font-size: 12.5px; }
+  .res.bad { color: var(--bad); font-weight: 550; }
+  .res.warn { color: var(--warn); font-weight: 550; }
+  .hold { display: flex; flex-direction: column; gap: 4px; width: 100px; }
+  .hold span { font-size: 11.5px; color: var(--ink-2); white-space: nowrap; }
+  .hold .meter { min-width: 0; }
+  .steps li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; padding: 7px 0; align-items: start; }
+  .steps li + li { border-top: 1px solid var(--line); }
+  .steps .ic { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); background: var(--ok-soft); color: var(--ok); }
+  .steps .ic.w { background: var(--warn-soft); color: var(--warn); }
+  .steps .ic.n { background: var(--surface-2); color: var(--ink-3); border: 1px solid var(--line); }
+  .steps b { font-weight: 550; }
+  .steps small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .ok-list li { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 12.5px; }
+  .ok-list li::before { content: '✓'; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--ok-soft); color: var(--ok); font: 700 10px var(--sans); flex: none; }
+  .ok-list li.x::before { content: '!'; background: var(--warn-soft); color: var(--warn); }
+  .ok-list em { margin-left: auto; font: 11.5px var(--mono); font-style: normal; color: var(--ink-3); }
+  .gate { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--line); font-size: 12px; color: var(--ink-2); }
+  .gate b { color: var(--ink); font-weight: 550; }
+  .acts2 { display: flex; gap: 8px; margin-top: 12px; }
+  .acts2 .btn { flex: 1; justify-content: center; }
+</style>
+</head>
+<body data-module="production-management" data-view="QC release" data-crumb="Make / Production Management / QC release" data-who="Anil Bhosale|QA head">
+<main>
+  <div class="head">
+    <div>
+      <h1>QC release queue</h1>
+      <p>Plant 1 · incoming, in-process and final lots waiting for a quality decision · oldest first by risk</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Waiting</span><span>On hold</span><span>Released today</span></div>
+      <span class="btn">Inspection plans</span>
+      <span class="btn pri">Record result</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Lots in the queue</label><div class="v"><strong>7</strong></div><div class="foot"><b class="delta flat">3 final · 1 complaint</b><span>incoming, patrol, first-off</span></div></div>
+    <div class="card kpi"><label>Ready to release</label><div class="v"><strong style="color:var(--ok)">2 <small>lots · 348 pcs</small></strong></div><div class="foot"><b class="delta up">L-0932 · L-0934</b><span>certificates drafted</span></div></div>
+    <div class="card kpi"><label>Out of specification</label><div class="v"><strong style="color:var(--bad)">1</strong></div><div class="foot"><b class="delta down">OOS-0112</b><span>2,400 BR-045 blocked</span></div></div>
+    <div class="card kpi"><label>First-pass yield, October</label><div class="v"><strong>96.4%</strong><i data-spark="95,96,95.5,97,96,96.8,95.9,96.2,96.9,96.4" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta flat">1,840 results</b><span>this month</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+    <div class="card flush">
+      <header><h2>Lots waiting for a decision</h2><span>no lot reaches the finished-goods store without release</span><span class="more">Release history</span></header>
+      <div class="body">
+        <table class="q">
+          <thead><tr><th>Lot</th><th>Item</th><th>Stage</th><th class="r">Sample</th><th>Result</th><th>Held · limit</th><th>Decision</th></tr></thead>
+          <tbody>
+            <tr class="hl"><td><b class="mono">L-0927</b><small>WO-5514</small></td><td><b>BR-045 Bearing bracket</b><small>2,400 pcs · SO-24798</small></td><td><span class="stg">Final</span></td><td class="r mono">80</td><td class="res bad">3 out of spec</td><td><span class="hold"><span>3 h 30 m · 48 h</span><span class="meter warn"><i style="width:7%"></i></span></span></td><td><span class="chip bad">OOS-0112</span></td></tr>
+            <tr><td><b class="mono">L-0897</b><small>WO-5462</small></td><td><b>IH-180 Impeller housing</b><small>186 on hold · 5 returned</small></td><td><span class="stg">Complaint</span></td><td class="r mono">7</td><td class="res warn">Porosity</td><td><span class="hold"><span>22 h · 48 h</span><span class="meter warn"><i style="width:46%"></i></span></span></td><td><span class="chip warn">QI-0217</span></td></tr>
+            <tr><td><b class="mono">L-0932</b><small>WO-5521</small></td><td><b>IH-220 Impeller housing</b><small>50 pcs · SO-24817</small></td><td><span class="stg">Final</span></td><td class="r mono">50</td><td class="res">48 pass · 2 held</td><td><span class="hold"><span>31 m · 24 h</span><span class="meter"><i style="width:3%"></i></span></span></td><td><span class="chip blue">Release 48</span></td></tr>
+            <tr><td><b class="mono">L-0934</b><small>WO-5506</small></td><td><b>GH-310 Gear housing</b><small>300 pcs · SO-24822</small></td><td><span class="stg">Final</span></td><td class="r mono">32</td><td class="res">32 pass</td><td><span class="hold"><span>1 h 05 m · 24 h</span><span class="meter"><i style="width:5%"></i></span></span></td><td><span class="chip ok">Ready</span></td></tr>
+            <tr><td><b class="mono">GRN-3324</b><small>PO-7719</small></td><td><b>EN8 round bar</b><small>6,200 kg · Kaveri Steel Traders</small></td><td><span class="stg">Incoming</span></td><td class="r mono">3</td><td class="res">Hardness running</td><td><span class="hold"><span>1 h 21 m · 24 h</span><span class="meter"><i style="width:6%"></i></span></span></td><td><span class="chip">Sampling</span></td></tr>
+            <tr><td><b class="mono">L-0933</b><small>WO-5512</small></td><td><b>PB-120 Pump body</b><small>437 pcs · patrol check</small></td><td><span class="stg">In-process</span></td><td class="r mono">10</td><td class="res">10 pass</td><td><span class="hold"><span>12 m · 4 h</span><span class="meter"><i style="width:5%"></i></span></span></td><td><span class="chip ok">Continue</span></td></tr>
+            <tr><td><b class="mono">L-0935</b><small>WO-5518</small></td><td><b>CV-110 Valve body</b><small>after the CNC-03 repair</small></td><td><span class="stg">First-off</span></td><td class="r mono">5</td><td class="res">5 pass</td><td><span class="hold"><span>signed 13:58</span><span class="meter ok"><i style="width:100%"></i></span></span></td><td><span class="chip ok">Approved</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card flush" style="flex:1">
+      <header><h2>Released today</h2><span>into stores with a signed certificate</span><span class="more">All releases</span></header>
+      <div class="body">
+        <table class="q">
+          <thead><tr><th>Lot</th><th>Item</th><th class="r">Released</th><th>To</th><th>Signed</th></tr></thead>
+          <tbody>
+            <tr><td><b class="mono">L-0930</b><small>WO-5498</small></td><td><b>IH-180 Impeller housing</b><small>SO-24790 · Kestrel Pumps</small></td><td class="r mono">800 pcs</td><td class="mono">FG-A-11</td><td>Asha Khan<small>12:40</small></td></tr>
+            <tr><td><b class="mono">L-0928</b><small>WO-5503</small></td><td><b>PB-090 Pump body</b><small>for stock</small></td><td class="r mono">520 pcs</td><td class="mono">FG-B-01</td><td>Asha Khan<small>10:15</small></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>OOS-0112 · lot L-0927</h2><span class="chip bad" style="margin-left:auto">Blocked</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="steps">
+            <li><span class="ic">✓</span><span><b>Result confirmed</b><small>Re-measured on CMM-01: bore position 0.06–0.08 mm off, limit ±0.05</small></span></li>
+            <li><span class="ic">✓</span><span><b>Lot contained</b><small>2,400 pcs blocked in FG-B-03; nothing shipped</small></span></li>
+            <li><span class="ic w">!</span><span><b>Fixture and gauge check</b><small>Locating pin on fixture F-045 · Asha Khan · by 16:00</small></span></li>
+            <li><span class="ic n">4</span><span><b>Disposition</b><small>Sort 100%, rework or reject · QA head signs</small></span></li>
+          </ul>
+          <div class="gate"><span><b>SO-24798</b> ships 10 Oct only if the lot is released with its certificate.</span></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Release L-0932</h2><span>plan QP-IH-220 rev C</span></header>
+        <div class="body" style="padding-top:6px;display:flex;flex-direction:column">
+          <ul class="ok-list">
+            <li>Bore diameter<em>50 / 50</em></li>
+            <li>Flange flatness<em>50 / 50</em></li>
+            <li>Surface finish<em>50 / 50</em></li>
+            <li class="x">Pressure hold, 16 bar<em>48 / 50</em></li>
+            <li>Certificate of conformance<em>drafted</em></li>
+          </ul>
+          <div class="acts2" style="margin-top:auto"><span class="btn">Rework 2</span><span class="btn pri">Release 48</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
