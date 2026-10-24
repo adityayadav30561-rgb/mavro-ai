@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · HRMS and Payroll · Leave and attendance approvals</title>
+<!-- Scenario: see workforce.html. 34 approvals pending (21 leave, 9 regularisations, 4 on duty and comp-off), 3 past
+     the 48-hour SLA (two at the Chennai plant, whose manager is travelling). The queue shows the oldest and the most
+     urgent. Selected: Asha Khan's earned leave, 20–24 Oct, checked against the Quality shift B roster: Sneha Patil
+     (joins 13 Oct) covers it. P. Shinde's missed out-punch on 6 Oct is matched to the gate exit log (16:14).
+     4 September regularisations arrived after the 30 Sep lock and are paid as October arrears. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .q td { padding-top: 9px; padding-bottom: 9px; }
+  .q td.late { color: var(--bad); font-weight: 600; }
+  tr.past td { background: var(--bad-soft); }
+  tr.past td:first-child { box-shadow: inset 3px 0 0 var(--bad); }
+  .tabs { display: flex; gap: 4px; margin-left: 6px; }
+  .tabs span { padding: 3px 9px; border-radius: 7px; font-size: 12px; color: var(--ink-2); }
+  .tabs .on { background: var(--accent-soft); color: var(--accent-ink); font-weight: 550; }
+  .bal { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .bal div { padding: 8px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface-2); }
+  .bal label { display: block; color: var(--ink-3); font-size: 11px; }
+  .bal strong { font: 600 15px var(--mono); }
+  .bal .on { background: var(--accent-soft); border-color: #d9e0ff; }
+  .bal .on strong { color: var(--accent-ink); }
+  .who2 { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .who2 i { width: 34px; height: 34px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--line); display: grid; place-items: center; font: 600 11.5px var(--sans); font-style: normal; color: var(--ink-2); }
+  .who2 p { line-height: 1.3; }
+  .who2 b { display: block; font-weight: 600; }
+  .who2 small { color: var(--ink-3); font-size: 11.5px; }
+  .days { display: grid; grid-template-columns: 62px repeat(5, minmax(0, 1fr)); gap: 4px; margin-top: 12px; font-size: 11.5px; }
+  .days > span { color: var(--ink-3); align-self: center; }
+  .days em { font-style: normal; text-align: center; color: var(--ink-3); font: 10.5px var(--mono); }
+  .days b { height: 24px; border-radius: 6px; display: grid; place-items: center; font: 600 10.5px var(--mono); background: #eef0f4; color: var(--ink-2); }
+  .days b.lv { background: var(--accent-soft); color: var(--accent-ink); }
+  .days b.cv { background: var(--ok-soft); color: var(--ok); }
+  .chk li { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 12.5px; }
+  .chk li::before { content: ''; width: 14px; height: 14px; flex: none; border-radius: 50%; background: var(--ok-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M4 7.2l2 2 4-4.3' fill='none' stroke='%230c9b6a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 14px no-repeat; }
+  .chk li span { margin-left: auto; color: var(--ink-3); font-size: 11.5px; }
+  .acts2 { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 8px; margin-top: 14px; }
+  .acts2 .btn { justify-content: center; }
+  .late4 li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; padding: 7px 0; }
+  .late4 li + li { border-top: 1px solid var(--line); }
+  .late4 b { font-weight: 550; }
+  .late4 small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .late4 em { font: 12px var(--mono); font-style: normal; color: var(--ink-2); align-self: center; }
+</style>
+</head>
+<body data-module="hrms-and-payroll" data-view="Leave and attendance" data-crumb="People / HRMS and Payroll / Leave and attendance"
+      data-org="NP|Northfield Precision|All units" data-who="Kavita Iyer|HR and payroll lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Leave and attendance approvals</h1>
+      <p>34 pending · approval SLA 48 hours · everything approved here reaches the October payroll, which locks on 31 Oct</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Leave balances</span>
+      <span class="btn">Muster</span>
+      <span class="btn pri">Approve within policy (11)</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Pending approvals</label><div class="v"><strong>34</strong></div><div class="foot"><b class="delta down">3 past SLA</b><span>Chennai plant 2</span></div></div>
+    <div class="card kpi"><label>Approved in October</label><div class="v"><strong>62</strong><i data-spark="7,9,6,11,8,12,9"></i></div><div class="foot"><b class="delta up">9 h</b><span>median time to decide</span></div></div>
+    <div class="card kpi"><label>Loss of pay, October</label><div class="v"><strong>3.5 <small>days</small></strong></div><div class="foot"><b class="delta flat">5 employees</b><span>absent with no leave</span></div></div>
+    <div class="card kpi"><label>Payroll cut-off</label><div class="v"><strong>31 Oct</strong></div><div class="foot"><b class="delta flat">23 days</b><span>late items become arrears</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush q" style="flex:1">
+        <header><h2>Queue</h2><div class="tabs"><span class="on">All 34</span><span>Leave 21</span><span>Regularisation 9</span><span>On duty and comp-off 4</span></div><span class="more">Oldest first</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Employee</th><th>Request</th><th>Dates</th><th>Balance</th><th>Check</th><th class="r">Waiting</th></tr></thead>
+            <tbody>
+              <tr class="past"><td><b>R. Subramani</b><small>Setter · Chennai plant</small></td><td>Earned leave<small><span class="mono">LV-3299</span> · 6 days</small></td><td class="mono">27 Oct–1 Nov</td><td class="mono">EL 9 → 3</td><td><span class="chip warn">Shift C 2 short</span></td><td class="r mono late">61 h</td></tr>
+              <tr class="past"><td><b>M. Selvam</b><small>VMC operator · Chennai plant</small></td><td>Sick leave<small><span class="mono">LV-3302</span> · 2 days · certificate</small></td><td class="mono">6–7 Oct</td><td class="mono">SL 7 → 5</td><td><span class="chip ok">Within policy</span></td><td class="r mono late">58 h</td></tr>
+              <tr class="past"><td><b>K. Murugan</b><small>Operator · Chennai plant</small></td><td>Missed in-punch<small><span class="mono">RG-0905</span> · 3 Oct · shift A</small></td><td class="mono">3 Oct</td><td class="dim">—</td><td><span class="chip ok">Gate log</span></td><td class="r mono late">54 h</td></tr>
+              <tr class="hl"><td><b>Asha Khan</b><small>Quality inspector · Plant 1</small></td><td>Earned leave<small><span class="mono">LV-3318</span> · 5 days</small></td><td class="mono">20–24 Oct</td><td class="mono">EL 14 → 9</td><td><span class="chip ok">Cover rostered</span></td><td class="r mono">26 h</td></tr>
+              <tr><td><b>P. Shinde</b><small>CNC operator · Plant 1</small></td><td>Missed out-punch<small><span class="mono">RG-0912</span> · 6 Oct · claims 16:08</small></td><td class="mono">6 Oct</td><td class="dim">—</td><td><span class="chip ok">Gate exit 16:14</span></td><td class="r mono">30 h</td></tr>
+              <tr><td><b>G. More</b><small>CNC operator · Plant 1</small></td><td>Casual leave<small><span class="mono">LV-3321</span> · 1 day</small></td><td class="mono">13 Oct</td><td class="mono">CL 5 → 4</td><td><span class="chip warn">Shift C 1 short</span></td><td class="r mono">20 h</td></tr>
+              <tr><td><b>Ravi Patel</b><small>Field rep · Ahmedabad</small></td><td>Comp-off<small><span class="mono">CO-0144</span> · for Sunday 5 Oct</small></td><td class="mono">11 Oct</td><td class="mono">CO 1 → 0</td><td><span class="chip ok">Day logged</span></td><td class="r mono">12 h</td></tr>
+              <tr><td><b>Nikhil Joshi</b><small>Accounts · Pune office</small></td><td>Web punch<small><span class="mono">RG-0915</span> · not yet enrolled</small></td><td class="mono">1–3 Oct</td><td class="dim">—</td><td><span class="chip ok">Joining date</span></td><td class="r mono">6 h</td></tr>
+              <tr><td><b>Vikram Desai</b><small>Production planner · Plant 1</small></td><td>On duty<small><span class="mono">OD-0207</span> · Kestrel Pumps visit</small></td><td class="mono">9 Oct</td><td class="dim">—</td><td><span class="chip ok">Within policy</span></td><td class="r mono">2 h</td></tr>
+              <tr><td><b>25 more</b><small>across all units</small></td><td>17 leave · 6 regularisations<small>2 on duty and comp-off</small></td><td class="dim">to 14 Nov</td><td class="dim">—</td><td><span class="chip">4 within policy</span></td><td class="r mono">1–19 h</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>LV-3318</h2><span>earned leave</span><span class="more">Anil Bhosale approves</span></header>
+        <div class="body" style="padding-top:12px">
+          <div class="who2"><i>AK</i><p><b>Asha Khan</b><small>Quality inspector · Plant 1 · shift B</small></p></div>
+          <div class="bal">
+            <div class="on"><label>Earned</label><strong>14 → 9</strong></div>
+            <div><label>Casual</label><strong>5</strong></div>
+            <div><label>Sick</label><strong>6</strong></div>
+          </div>
+          <div class="days">
+            <span></span><em>20</em><em>21</em><em>22</em><em>23</em><em>24</em>
+            <span>Asha Khan</span><b class="lv">EL</b><b class="lv">EL</b><b class="lv">EL</b><b class="lv">EL</b><b class="lv">EL</b>
+            <span>Cover</span><b class="cv">SP</b><b class="cv">SP</b><b class="cv">SP</b><b class="cv">SP</b><b class="cv">SP</b>
+          </div>
+          <ul class="chk" style="margin-top:10px">
+            <li>Balance covers it<span>9 left</span></li>
+            <li>QC shift B stays at 3 of 3<span>Sneha Patil</span></li>
+            <li>No other inspector away<span>Roster Ledger</span></li>
+            <li>Paid leave, no loss of pay<span>October run</span></li>
+          </ul>
+          <div class="acts2"><span class="btn">Hold</span><span class="btn">Reject</span><span class="btn pri">Approve</span></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Late for September</h2><span>paid as October arrears</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="late4">
+            <li><p><b>2 missed punches, Plant 1</b><small>26 and 29 Sep · gate log matches</small></p><em>₹2,840</em></li>
+            <li><p><b>1 on-duty day, sales</b><small>Pune rural · 24 Sep</small></p><em>₹1,610</em></li>
+            <li><p><b>1 half-day, Chennai plant</b><small>30 Sep · shift A</small></p><em>₹690</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Rest Hours Log · Duty hours and rest compliance</title>
+<!--
+  Scenario (Rest Hours Log, shared by every screen of the module; agrees with the Roster Ledger, HRMS and Payroll and
+  Production Management): Northfield Precision, both plants, Wednesday 8 Oct, 14:02. 369 shift workers: Plant 1
+  (Pune) 248, Chennai plant 121; biometric punches reconciled to the published roster. Rules: law, 9 h a day, 48 h
+  a week, 60 h with overtime, spread-over 10 h 30 m, a 30-minute rest after 5 h, a weekly holiday and no more than
+  10 days in a row; plant fatigue rules, 12 h rest between shifts, 6 days and 6 nights in a row, no double shift
+  without the plant head, 60 h of overtime a quarter. Last week (29 Sep–5 Oct): rest score 99.1% of worker-days
+  (Plant 1 99.4%, Chennai 98.6%), 13 violations, all decided. This week: 5 raised (Plant 1 3, Chennai 2), 1 prevented; open 6:
+  waiting for the plant head 4 (Plant 1, Prakash Nair: VIO-0152 spread-over 12 h for Sunil Pawar, Pravin Shinde and
+  Dinesh Patole on 8 Oct, overtime OT-0311 for the CNC-03 recovery; VIO-0151 no 30-minute rest, T. Kadam, Assembly,
+  7 Oct. Chennai, R. Venkatesh: VIO-0149 double shift C + A, V. Prabhu, 6–7 Oct; VIO-0153 62 h in 7 days,
+  A. Raja, 8 Oct) and compensatory rest to give 2 (VIO-0146 Rajesh Kamble, rest gaps of 7 h 53 m and 7 h 52 m
+  around a weekly-off cover on 5 Oct, rest on 15 Oct; VIO-0147 R. Subramani, 7 nights in a row, 23–29 Sep, rest on 9 Oct).
+  Prevented: VIO-0150, Rajesh Kamble's 7th day; his weekly off moved to 9 Oct. September: 14 h of overtime above
+  the quarterly cap for 2 operators held back from payroll and given as compensatory off.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .sites td { padding-top: 9px; padding-bottom: 9px; }
+  .hrs { display: flex; align-items: center; gap: 8px; }
+  .hrs .meter { width: 76px; min-width: 76px; position: relative; overflow: visible; }
+  .hrs .meter::after { content: ''; position: absolute; left: 80%; top: -3px; bottom: -3px; width: 1.5px; background: var(--ink); opacity: 0.5; }
+  .hrs span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .score { font: 600 12.5px var(--mono); }
+  tr.total td { background: var(--surface-2); font-weight: 600; }
+  .lst li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 7px 0; }
+  .lst li + li { border-top: 1px solid var(--line); }
+  .lst b { font-weight: 550; }
+  .lst small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .rules { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .rules div { padding: 9px 11px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+  .rules label { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .rules strong { display: block; margin-top: 1px; font-size: 14px; font-weight: 620; }
+  .rules small { color: var(--ink-2); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="rest-hours-log" data-view="Compliance health" data-crumb="People / Rest Hours Log / Compliance health"
+      data-org="NP|Northfield Precision|All plants" data-who="Prakash Nair|Plant head">
+<main>
+  <div class="head">
+    <div>
+      <h1>Duty hours and rest compliance</h1>
+      <p>369 shift workers on two plants · biometric punches reconciled to the roster · week of 6 Oct</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">This week</span><span>Last week</span><span>Quarter</span></div>
+      <span class="btn">Inspector returns</span>
+      <span class="btn pri">Violations (4)</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Rest score, last week</label><div class="v"><strong>99.1%</strong><i data-spark="98.4,98.7,98.2,98.9,99.0,98.6,99.1" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">13 violations</b><span>all decided</span></div></div>
+    <div class="card kpi"><label>Open violations</label><div class="v"><strong>6</strong></div><div class="foot"><b class="delta down">4 need a plant head</b><span>2 rests to give</span></div></div>
+    <div class="card kpi"><label>Average week</label><div class="v"><strong>48.6 <small>h, with overtime</small></strong></div><div class="foot"><b class="delta flat">limit 60 h</b><span>highest 56 h</span></div></div>
+    <div class="card kpi"><label>Overtime held from payroll</label><div class="v"><strong>0 <small>h in October</small></strong></div><div class="foot"><b class="delta flat">14 h in September</b><span>given as comp off</span></div></div>
+  </div>
+
+  <div class="card">
+    <header><h2>Rules in force</h2><span>the law, and the plant's fatigue rules on top</span><span class="more">Rules</span></header>
+    <div class="body">
+      <div class="rules">
+        <div><label>Daily and weekly</label><strong>9 h · 48 h</strong><small>60 h with overtime</small></div>
+        <div><label>Spread-over and break</label><strong>10 h 30 m</strong><small>30 min rest after 5 h</small></div>
+        <div><label>Between shifts</label><strong>12 h rest</strong><small>no double shift unapproved</small></div>
+        <div><label>In a row</label><strong>6 days · 6 nights</strong><small>law allows 10 days</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush sites">
+        <header><h2>By plant</h2><span>this week to date</span><span class="more">Duty and rest log</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Plant</th><th class="r">Workers</th><th>Average week</th><th class="r">Rest score</th><th class="r">Violations</th><th class="r">Waiting</th><th class="r">Unmatched punches</th></tr></thead>
+            <tbody>
+              <tr><td><b>Plant 1 · Pune</b><small>plant head Prakash Nair</small></td><td class="r mono">248</td><td><div class="hrs"><span class="meter ok"><i style="width:79.7%"></i></span><span>47.8 h · OT 1.4</span></div></td><td class="r score">99.4%</td><td class="r mono">3</td><td class="r mono">2</td><td class="r mono">6</td></tr>
+              <tr class="hl"><td><b>Chennai plant</b><small>plant head R. Venkatesh</small></td><td class="r mono">121</td><td><div class="hrs"><span class="meter warn"><i style="width:83.7%"></i></span><span>50.2 h · OT 3.1</span></div></td><td class="r score">98.6%</td><td class="r mono">2</td><td class="r mono">2</td><td class="r mono">8</td></tr>
+              <tr class="total"><td>Both plants</td><td class="r mono">369</td><td><div class="hrs"><span class="meter ok"><i style="width:81%"></i></span><span>48.6 h · OT 2.0</span></div></td><td class="r score">99.1%</td><td class="r mono">5</td><td class="r mono">4</td><td class="r mono">14</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <header><h2>Violations by rule</h2><span>last four weeks</span><div class="legend"><span>Plant 1</span><span style="--c:#03c8fd">Chennai plant</span></div></header>
+        <div class="body chart-c" data-bars="5,3,0,1,3,1,2|3,2,3,1,1,4,1" data-max="6" data-labels="Rest between shifts,Days in a row,Nights in a row,Weekly hours,Spread-over,Double shift,30-min rest" data-colors="#0a48fd,#03c8fd"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Waiting for a plant head</h2><span>4</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>VIO-0152 · spread-over 12 h</b><small>3 operators · CNC-03 recovery today</small></p><span class="chip warn">Plant 1</span></li>
+            <li><p><b>VIO-0151 · no 30-minute rest</b><small>T. Kadam · Assembly · 7 Oct</small></p><span class="chip warn">Plant 1</span></li>
+            <li><p><b>VIO-0149 · double shift, 16 h</b><small>V. Prabhu · VMC · 6–7 Oct</small></p><span class="chip bad">Chennai</span></li>
+            <li><p><b>VIO-0153 · 62 h in 7 days</b><small>A. Raja · Assembly · today</small></p><span class="chip warn">Chennai</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Rest to give</h2><span>compensatory and moved offs</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>Rajesh Kamble · weekly off</b><small>VIO-0150 prevented · 7th day avoided</small></p><span class="chip ok">9 Oct</span></li>
+            <li><p><b>R. Subramani · rest day</b><small>VIO-0147 · 7 nights in a row</small></p><span class="chip blue">9 Oct</span></li>
+            <li><p><b>Rajesh Kamble · rest day</b><small>VIO-0146 · weekly-off cover, 5 Oct</small></p><span class="chip blue">15 Oct</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

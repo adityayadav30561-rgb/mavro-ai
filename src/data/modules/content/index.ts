@@ -5,11 +5,14 @@ import { content as assetManagement } from './asset-management';
 import { content as crm } from './crm';
 import { content as customerService } from './customer-service';
 import { content as gateEntry } from './gate-entry';
+import { content as hrmsAndPayroll } from './hrms-and-payroll';
 import { content as inventoryManagement } from './inventory-management';
 import { content as mvlensVendorAudit } from './mvlens-vendor-audit';
 import { content as orderToCash } from './order-to-cash';
 import { content as procureToPay } from './procure-to-pay';
 import { content as productionManagement } from './production-management';
+import { content as restHoursLog } from './rest-hours-log';
+import { content as rosterLedger } from './roster-ledger';
 import { content as salesForceAutomation } from './sales-force-automation';
 import { content as travelAndExpense } from './travel-and-expense';
 import { content as vendorInvoiceManagement } from './vendor-invoice-management';
@@ -31,11 +34,14 @@ export const moduleContent: Registry = {
   crm,
   'customer-service': customerService,
   'gate-entry': gateEntry,
+  'hrms-and-payroll': hrmsAndPayroll,
   'inventory-management': inventoryManagement,
   'mvlens-vendor-audit': mvlensVendorAudit,
   'order-to-cash': orderToCash,
   'procure-to-pay': procureToPay,
   'production-management': productionManagement,
+  'rest-hours-log': restHoursLog,
+  'roster-ledger': rosterLedger,
   'sales-force-automation': salesForceAutomation,
   'travel-and-expense': travelAndExpense,
   'vendor-invoice-management': vendorInvoiceManagement,

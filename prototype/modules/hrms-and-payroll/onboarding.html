@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · HRMS and Payroll · Onboarding workflow</title>
+<!-- Scenario: see workforce.html. 12 people in onboarding: 3 offers out (OF-0394, a quality engineer for the Chennai
+     plant, held at ₹7.8 L against the E1 band of ₹5.4–7.2 L), 4 joiners booked (Sneha Patil 13 Oct, S. Karthik
+     15 Oct, Rohit Pawar 20 Oct, Divya Nair 3 Nov) and the 5 who joined in October, in their first 30 days. Sneha
+     Patil, quality inspector, Plant 1, EMP-1494, grade S2, CTC ₹4.2 L (band ₹3.6–4.8 L): 5 of 10 tasks done, each
+     with an owner and an SLA. 2 tasks past SLA, both for Nikhil Joshi (joined 1 Oct): biometric enrolment, which is
+     why he regularises by web punch, and his laptop. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .hire { display: flex; align-items: center; gap: 12px; }
+  .hire i { width: 38px; height: 38px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--line); display: grid; place-items: center; font: 600 12.5px var(--sans); font-style: normal; color: var(--ink-2); }
+  .hire p { line-height: 1.3; }
+  .hire b { display: block; font-size: 14px; font-weight: 600; }
+  .hire small { color: var(--ink-3); font-size: 12px; }
+  .hire dl { margin-left: auto; display: flex; gap: 22px; }
+  .hire dt { color: var(--ink-3); font-size: 11.5px; }
+  .hire dd { font: 600 12.5px var(--mono); }
+  .hire .band { color: var(--ok); }
+  .tasks td { padding-top: 8px; padding-bottom: 8px; }
+  .own { display: flex; align-items: center; gap: 8px; }
+  .own i { width: 22px; height: 22px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--line); display: grid; place-items: center; font: 600 9.5px var(--sans); font-style: normal; color: var(--ink-2); flex: none; }
+  .own small { display: inline; }
+  .pipe h3 { margin: 10px 0 2px; font: 550 11.5px var(--sans); color: var(--ink-3); }
+  .pipe h3:first-child { margin-top: 0; }
+  .pipe li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 6px 0; }
+  .pipe li + li { border-top: 1px solid var(--line); }
+  .pipe b { font-weight: 550; }
+  .pipe small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .pipe li.on { margin: 0 -16px; padding: 6px 16px; background: var(--accent-soft); }
+  .guard p { font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .guard .bar { position: relative; height: 8px; margin: 26px 0 22px; border-radius: 4px; background: #eceef2; }
+  .guard .bar i { position: absolute; top: 0; bottom: 0; left: 0; width: 66.7%; border-radius: 4px; background: var(--ok-soft); box-shadow: inset 0 0 0 1px #c8ecdc; }
+  .guard .bar b { position: absolute; top: -5px; width: 2px; height: 18px; background: var(--bad); left: 88.9%; }
+  .guard .bar span { position: absolute; font: 11px var(--mono); color: var(--ink-3); top: 12px; }
+  .guard .bar em { position: absolute; font: 600 11px var(--mono); font-style: normal; color: var(--bad); top: -20px; left: 88.9%; transform: translateX(-50%); white-space: nowrap; }
+  .acts2 { display: grid; grid-template-columns: 1fr 1.3fr; gap: 8px; margin-top: 12px; }
+  .acts2 .btn { justify-content: center; }
+</style>
+</head>
+<body data-module="hrms-and-payroll" data-view="Onboarding" data-crumb="People / HRMS and Payroll / Onboarding / EMP-1494"
+      data-org="NP|Northfield Precision|All units" data-who="Kavita Iyer|HR and payroll lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Onboarding workflow</h1>
+      <p>12 people from offer to day 30 · 2 tasks past SLA · 1 offer held at entry · every task has an owner and an SLA</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Checklist templates</span>
+      <span class="btn pri">New offer</span>
+    </div>
+  </div>
+
+
+  <div class="card" style="flex:none">
+    <div class="body" style="flex:none">
+      <div class="hire">
+        <i>SP</i>
+        <p><b>Sneha Patil · EMP-1494</b><small>Quality inspector · Plant 1 · shift B · reports to Anil Bhosale · joins Monday 13 Oct</small></p>
+        <dl>
+          <div><dt>Grade</dt><dd>S2</dd></div>
+          <div><dt>CTC</dt><dd>₹4.2 L</dd></div>
+          <div><dt>Band</dt><dd class="band">₹3.6–4.8 L</dd></div>
+          <div><dt>Probation</dt><dd>6 months</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="body" style="flex:none;padding-top:2px">
+      <ol class="flow" style="--n:7;--at:0.5">
+        <li class="done"><i></i><b>Offer accepted</b><span>24 Sep</span></li>
+        <li class="done"><i></i><b>Background check</b><span>clear · 3 Oct</span></li>
+        <li class="done"><i></i><b>Employee record</b><span>6 Oct</span></li>
+        <li class="now"><i></i><b>Kit and access</b><span>2 of 3 ready</span></li>
+        <li class="next"><i></i><b>Day 1</b><span>13 Oct</span></li>
+        <li class="next"><i></i><b>Statutory</b><span>PF · UAN</span></li>
+        <li class="next"><i></i><b>Day 30 review</b><span>12 Nov</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush tasks" style="flex:1">
+        <header><h2>Checklist</h2><span>quality inspector, Plant 1 · 5 of 10 done</span><span class="more">Add task</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Task</th><th>Owner</th><th class="r">Due</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><b>Offer letter signed</b><small>OF-0388 · grade S2, within band</small></td><td><div class="own"><i>KI</i>Kavita Iyer <small class="dim">HR</small></div></td><td class="r mono">24 Sep</td><td><span class="chip ok">Done</span></td></tr>
+              <tr><td><b>Background and reference check</b><small>education, last employer, address</small></td><td><div class="own"><i>RS</i>Ritika Sen <small class="dim">HR</small></div></td><td class="r mono">3 Oct</td><td><span class="chip ok">Done</span></td></tr>
+              <tr><td><b>Employee record, bank and nominee</b><small>EMP-1494 · reporting line set</small></td><td><div class="own"><i>RS</i>Ritika Sen <small class="dim">HR</small></div></td><td class="r mono">6 Oct</td><td><span class="chip ok">Done</span></td></tr>
+              <tr><td><b>Gauges, safety shoes and coat</b><small>issued against her employee code</small></td><td><div class="own"><i>KJ</i>Kavita Joshi <small class="dim">Stores</small></div></td><td class="r mono">10 Oct</td><td><span class="chip ok">Done 8 Oct</span></td></tr>
+              <tr><td><b>Shift B slot from 13 Oct</b><small>QC inspection, Plant 1 roster</small></td><td><div class="own"><i>MJ</i>Mahesh Jagtap <small class="dim">Roster</small></div></td><td class="r mono">10 Oct</td><td><span class="chip ok">Rostered</span></td></tr>
+              <tr class="hl"><td><b>Tablet and QC app access</b><small>inspection plans, lot results</small></td><td><div class="own"><i>MP</i>Manoj Pillai <small class="dim">IT</small></div></td><td class="r mono">10 Oct</td><td><span class="chip blue">In progress</span></td></tr>
+              <tr><td><b>Relieving letter from last employer</b><small>document 7 of 7</small></td><td><div class="own"><i>SP</i>Sneha Patil <small class="dim">Joiner</small></div></td><td class="r mono">13 Oct</td><td><span class="chip warn">Awaited</span></td></tr>
+              <tr><td><b>Biometric enrolment and ID card</b><small>Plant 1 gate and QC lab</small></td><td><div class="own"><i>GP</i>Ganesh Patil <small class="dim">Security</small></div></td><td class="r mono">13 Oct</td><td><span class="chip">Booked 08:30</span></td></tr>
+              <tr><td><b>Safety induction and SOP training</b><small>three sessions, days 1–3</small></td><td><div class="own"><i>AB</i>Anil Bhosale <small class="dim">QA</small></div></td><td class="r mono">15 Oct</td><td><span class="chip">Scheduled</span></td></tr>
+              <tr><td><b>UAN link and PF nomination</b><small>ESI not applicable at this pay</small></td><td><div class="own"><i>KI</i>Kavita Iyer <small class="dim">Payroll</small></div></td><td class="r mono">20 Oct</td><td><span class="chip">Opens on day 1</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Held at entry</h2><span>OF-0394</span><span class="chip bad" style="margin-left:auto">Approval</span></header>
+        <div class="body guard">
+          <p><b>Quality engineer, Chennai plant.</b> Proposed CTC is above the E1 band, so the offer cannot be sent until the plant head and HR head approve it.</p>
+          <div class="bar"><i></i><b></b><em>₹7.8 L</em><span style="left:0">₹5.4 L</span><span style="left:66.7%;transform:translateX(-50%)">₹7.2 L</span></div>
+          <div class="acts2"><span class="btn">Revise offer</span><span class="btn pri">Send for approval</span></div>
+        </div>
+      </div>
+      <div class="card pipe" style="flex:1">
+        <header><h2>In onboarding</h2><span>12 · and 3 offers out</span></header>
+        <div class="body" style="padding-top:10px">
+          <h3>Joining</h3>
+          <ul>
+            <li class="on"><p><b>Sneha Patil</b><small>Quality inspector · Plant 1</small></p><span class="chip blue">13 Oct</span></li>
+            <li><p><b>S. Karthik</b><small>CNC operator · Chennai plant</small></p><span class="chip">15 Oct</span></li>
+            <li><p><b>Rohit Pawar</b><small>Setter · Plant 1</small></p><span class="chip">20 Oct</span></li>
+            <li><p><b>Divya Nair</b><small>Field rep · Ahmedabad</small></p><span class="chip">3 Nov</span></li>
+          </ul>
+          <h3>First 30 days</h3>
+          <ul>
+            <li><p><b>Nikhil Joshi</b><small>Accounts · Pune office · 1 Oct</small></p><span class="chip bad">2 late</span></li>
+            <li><p><b>4 more</b><small>3 at Plant 1, 1 at Chennai · 1–5 Oct</small></p><span class="chip ok">On track</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Roster Ledger · Swap and overtime approval queue</title>
+<!-- Scenario: see coverage.html. 9 requests waiting (6 swaps, 3 overtime). OT-0311: shift B extended 16:00–20:00
+     today for Sunil Pawar, Pravin Shinde and Dinesh Patole (12 h) to recover WO-5518 on CNC-03 after the spindle
+     breakdown; within the weekly 60-hour limit, the plant's 60-hour quarterly OT cap and the budget, with 12 hours'
+     rest before shift B on 9 Oct, but a 12-hour spread-over against 10 h 30 m, so the Rest Hours Log raised VIO-0152
+     for the plant head when it was requested. Rejected this week with the reason shown: 3 swaps (two rest gaps under 12 hours,
+     one 7th day running). Overtime, October: 386 h of 1,500 h; Machining 241 of 820 h. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .q td { padding-top: 8px; padding-bottom: 8px; }
+  .kind { display: inline-block; width: 24px; height: 18px; margin-right: 6px; border-radius: 5px; font: 600 10px/18px var(--mono); text-align: center; vertical-align: 1px; }
+  .kind.ot { background: var(--warn-soft); color: var(--warn); }
+  .kind.sw { background: var(--accent-soft); color: var(--accent-ink); }
+  .rej td { padding-top: 6px; padding-bottom: 6px; }
+  .rej td.why { color: var(--bad); font-weight: 550; white-space: normal; }
+  .ev { width: 100%; }
+  .ev th { padding: 0 6px 6px; font-size: 11px; }
+  .ev td { padding: 6px; font: 12px var(--mono); }
+  .ev th:first-child, .ev td:first-child { padding-left: 0; font-family: var(--sans); }
+  .ev th:last-child, .ev td:last-child { padding-right: 0; }
+  .ev td.x { color: var(--bad); font-weight: 600; }
+  .ev td.ok { color: var(--ok); }
+  .note { margin-top: 10px; padding: 9px 11px; border-radius: 9px; background: var(--warn-soft); border: 1px solid #f5e2b0; font-size: 12px; line-height: 1.4; color: var(--ink-2); }
+  .note b { color: var(--ink); }
+  .acts2 { display: grid; grid-template-columns: 1fr 1.6fr; gap: 8px; margin-top: 12px; }
+  .acts2 .btn { justify-content: center; }
+  .bud li { display: grid; grid-template-columns: 130px minmax(0, 1fr) 84px; gap: 10px; align-items: center; padding: 6px 0; font-size: 12.5px; }
+  .bud em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-2); text-align: right; }
+</style>
+</head>
+<body data-module="roster-ledger" data-view="Swaps and overtime" data-crumb="People / Roster Ledger / Swaps and overtime" data-who="Sachin Wagh|Machining supervisor">
+<main>
+  <div class="head">
+    <div>
+      <h1>Swap and overtime approval queue</h1>
+      <p>Plant 1 · each request is checked against rest rules, hour limits and the overtime budget before it reaches you</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Rules</span>
+      <span class="btn">Overtime budgets</span>
+      <span class="btn pri">Approve within rules (7)</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Waiting</label><div class="v"><strong>9</strong></div><div class="foot"><b class="delta flat">6 swaps · 3 OT</b><span>oldest 19 h</span></div></div>
+    <div class="card kpi"><label>Rejected by the rules</label><div class="v"><strong>3 <small>this week</small></strong></div><div class="foot"><b class="delta down">2 rest gaps</b><span>1 seventh day</span></div></div>
+    <div class="card kpi"><label>Overtime, October</label><div class="v"><strong>386 <small>of 1,500 h</small></strong><i data-spark="40,92,138,188,236,281,334,386" data-color="#b7791f"></i></div><div class="foot"><b class="delta flat">26%</b><span>8 of 31 days</span></div></div>
+    <div class="card kpi"><label>Highest quarterly OT</label><div class="v"><strong>41 <small>of 60 h</small></strong></div><div class="foot"><b class="delta flat">Sunil Pawar</b><span>plant cap per quarter</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush q">
+        <header><h2>Waiting for approval</h2><span>9</span><span class="more">All plants</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Request</th><th>Who</th><th>Change</th><th class="r">Hours</th><th>Rules</th><th class="r">Waiting</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><span class="kind ot">OT</span><b class="mono">OT-0311</b><small>CNC-03 recovery, WO-5518</small></td><td><b>3 operators</b><small>Machining · shift B</small></td><td>Today 16:00–20:00</td><td class="r mono">12</td><td><span class="chip warn">Spread-over</span></td><td class="r mono">0.5 h</td></tr>
+              <tr><td><span class="kind sw">SW</span><b class="mono">SW-0588</b><small>days off traded</small></td><td><b>Kiran Thorat</b><small>with Ajay Chavan · B</small></td><td>Off Thu 16 ↔ off Sun 19</td><td class="r mono">0</td><td><span class="chip ok">Within rules</span></td><td class="r mono">3 h</td></tr>
+              <tr><td><span class="kind ot">OT</span><b class="mono">OT-0312</b><small>lot release before dispatch</small></td><td><b>2 inspectors</b><small>Quality · shift B</small></td><td>Sat 11 16:00–18:00</td><td class="r mono">4</td><td><span class="chip ok">Within rules</span></td><td class="r mono">5 h</td></tr>
+              <tr><td><span class="kind sw">SW</span><b class="mono">SW-0590</b><small>days off traded</small></td><td><b>Amol Sawant</b><small>with Santosh Gaikwad · A</small></td><td>Off Sun 19 ↔ off Tue 14</td><td class="r mono">0</td><td><span class="chip ok">Within rules</span></td><td class="r mono">7 h</td></tr>
+              <tr><td><span class="kind ot">OT</span><b class="mono">OT-0313</b><small>CNC-03 bearing change</small></td><td><b>3 technicians</b><small>Maintenance</small></td><td>Sun 19 08:00–16:00</td><td class="r mono">24</td><td><span class="chip ok">Comp off given</span></td><td class="r mono">11 h</td></tr>
+              <tr><td><span class="kind sw">SW</span><b class="mono">SW-0585</b><small>family function</small></td><td><b>Swapnil Shelar</b><small>with Yogesh Dhumal · setters</small></td><td>Mon 13 off ↔ Tue 14 off</td><td class="r mono">0</td><td><span class="chip warn">Floater moves</span></td><td class="r mono">19 h</td></tr>
+              <tr><td class="dim" colspan="2"><b style="color:var(--ink)">3 more swaps</b><small>Assembly and Quality, week of 13 Oct</small></td><td class="dim">13–17 Oct</td><td class="r mono">0</td><td><span class="chip ok">Within rules</span></td><td class="r mono">1–9 h</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card flush rej" style="flex:1">
+        <header><h2>Rejected by the rules</h2><span>this week · the worker sees the reason on the app</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Request</th><th>Who</th><th>Change</th><th>Reason</th></tr></thead>
+            <tbody>
+              <tr><td><b class="mono">SW-0584</b></td><td><b>Kiran Thorat</b><small>with Santosh Gaikwad</small></td><td>B Mon 13 → A Tue 14</td><td class="why">8 h rest between shifts; 12 h needed</td></tr>
+              <tr><td><b class="mono">SW-0587</b></td><td><b>Dinesh Patole</b><small>with Pravin Shinde</small></td><td>Works off Sat 18 for Pravin</td><td class="why">7th day running; 6 allowed</td></tr>
+              <tr><td><b class="mono">SW-0581</b></td><td><b>Amol Sawant</b><small>with Sunil Pawar</small></td><td>C Sat 11 → B Sun 12</td><td class="why">8 h rest between shifts; 12 h needed</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>OT-0311</h2><span>checked per operator</span></header>
+        <div class="body" style="padding-top:10px">
+          <table class="ev">
+            <thead><tr><th>Operator</th><th class="r">Week</th><th class="r">Quarter</th><th class="r">Rest</th><th class="r">Spread</th></tr></thead>
+            <tbody>
+              <tr><td>Sunil Pawar</td><td class="r">52 h</td><td class="r">41 h</td><td class="r ok">12 h</td><td class="r x">12 h</td></tr>
+              <tr><td>Pravin Shinde</td><td class="r">52 h</td><td class="r">28 h</td><td class="r ok">12 h</td><td class="r x">12 h</td></tr>
+              <tr><td>Dinesh Patole</td><td class="r">52 h</td><td class="r">33 h</td><td class="r ok">12 h</td><td class="r x">12 h</td></tr>
+              <tr><td class="dim">Limit</td><td class="r dim">60 h</td><td class="r dim">60 h</td><td class="r dim">12 h</td><td class="r dim">10.5 h</td></tr>
+            </tbody>
+          </table>
+          <p class="note"><b>Spread-over above 10 h 30 m.</b> VIO-0152 is with Prakash Nair in the Rest Hours Log; the overtime starts once you both approve.</p>
+          <div class="acts2"><span class="btn">Reject</span><span class="btn pri">Approve</span></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Overtime budget</h2><span>October, Plant 1</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="bud">
+            <li><span>Machining</span><span class="meter warn"><i style="width:29%"></i></span><em>241 / 820</em></li>
+            <li><span>Assembly</span><span class="meter"><i style="width:22%"></i></span><em>71 / 320</em></li>
+            <li><span>Pressure test</span><span class="meter"><i style="width:23%"></i></span><em>32 / 140</em></li>
+            <li><span>Quality</span><span class="meter"><i style="width:21%"></i></span><em>26 / 120</em></li>
+            <li><span>Maintenance</span><span class="meter"><i style="width:16%"></i></span><em>16 / 100</em></li>
+            <li><span>Stores</span><span class="meter"><i style="width:0%"></i></span><em>0 / 0</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

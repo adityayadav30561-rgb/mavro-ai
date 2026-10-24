@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · HRMS and Payroll · Workforce dashboard</title>
+<!--
+  Scenario (HRMS and Payroll, shared by every screen of the module; agrees with prototype/payroll.html, Sales Force
+  Automation, Travel and Expense, the Roster Ledger and the Rest Hours Log): Northfield Precision, 8 Oct, 14:02.
+  HR and payroll lead: Kavita Iyer. 489 employees (486 on 30 Sep, as paid in the September run; 5 joined on 1 and
+  5 Oct, 2 left): Plant 1 · Pune 264 (+3 −1), Chennai plant 129 (+1 −1), Pune office and field sales 96 (+1).
+  By department: Production 313, Quality 41, Stores and dispatch 39, Sales 33, Finance and admin 63.
+  Today: 440 expected (489 less 31 on a rotational weekly off and 18 on leave): 362 punched in (334 biometric,
+  24 field reps by geo-fenced mobile punch, 4 on the web), 69 due on shift C (16:00), 9 absent without leave.
+  By unit: Plant 1 236 expected, 184 in, 47 shift C, 5 absent; Chennai 113, 88, 22, 3; office 91, 90, 0, 1.
+  On leave include Arjun Mehta (Sales, Indore, 8–10 Oct), whose beat is covered in Sales Force Automation.
+  Attrition, rolling 12 months: 11.9% (57 exits); Plant 1 9.2%, Chennai 18.6%, office 10.1%. Cluster: Chennai CNC
+  operators, 9 exits in 90 days, 7 in their first year. Open roles 14: Chennai 7 (6 CNC operators, 1 quality
+  engineer), Plant 1 4, office 3 (2 field reps, 1 accounts). 3 offers out, 4 joiners booked (13, 15, 20 Oct, 3 Nov).
+  Leave and attendance: 34 approvals pending (21 leave, 9 regularisations, 4 on duty and comp-off), 3 past the
+  48-hour SLA; 4 September regularisations arrived after the 30 Sep lock and go to October as arrears. October
+  payroll cut-off 31 Oct. Onboarding: Sneha Patil, quality inspector, Plant 1, joins 13 Oct (EMP-1494).
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .units td { padding-top: 8px; padding-bottom: 8px; }
+  .att { display: flex; align-items: center; gap: 8px; }
+  .att .meter { width: 72px; min-width: 72px; }
+  .att span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .moves { font: 11px var(--mono); }
+  .moves .in { color: var(--ok); }
+  .moves .out { color: var(--bad); }
+  .attr { font: 600 12.5px var(--mono); }
+  .attr.hi { color: var(--bad); }
+  tr.total td { background: var(--surface-2); font-weight: 600; }
+  .clus { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .clus div { padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+  .clus label { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .clus strong { display: block; margin-top: 2px; font-size: 15px; font-weight: 620; letter-spacing: -0.01em; }
+  .clus small { display: block; color: var(--ink-2); font-size: 11.5px; margin-top: 2px; }
+  .clus .bad strong { color: var(--bad); }
+  .modes { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .modes .dn { width: 96px; height: 96px; }
+  .modes li { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 12.5px; }
+  .modes li i { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+  .modes li b { margin-left: auto; font: 600 12.5px var(--mono); }
+  .todo li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; align-items: center; padding: 8px 0; }
+  .todo li + li { border-top: 1px solid var(--line); }
+  .todo b { font-weight: 550; }
+  .todo small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="hrms-and-payroll" data-view="Workforce dashboard" data-crumb="People / HRMS and Payroll / Workforce dashboard"
+      data-org="NP|Northfield Precision|All units" data-who="Kavita Iyer|HR and payroll lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Workforce dashboard</h1>
+      <p>489 employees · Plant 1, Chennai plant, Pune office and field sales · attendance live from punches</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Today</span><span>Month</span><span>Quarter</span></div>
+      <span class="btn">Org chart</span>
+      <span class="btn pri">Add employee</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Headcount</label><div class="v"><strong>489</strong><i data-spark="463,466,467,470,473,475,478,480,481,483,486,489"></i></div><div class="foot"><b class="delta up">+5 joined</b><span>2 left in October</span></div></div>
+    <div class="card kpi"><label>Punched in today</label><div class="v"><strong>362 <small>of 440 expected</small></strong></div><div class="foot"><b class="delta flat">69 on shift C</b><span>9 absent without leave</span></div></div>
+    <div class="card kpi"><label>Attrition, last 12 months</label><div class="v"><strong>11.9%</strong><i data-spark="10.4,10.6,10.9,11.0,11.2,11.1,11.3,11.4,11.6,11.8,12.1,11.9" data-color="#d43a2f"></i></div><div class="foot"><b class="delta down">Chennai 18.6%</b><span>57 exits</span></div></div>
+    <div class="card kpi"><label>Open roles</label><div class="v"><strong>14</strong></div><div class="foot"><b class="delta flat">3 offers out</b><span>4 joiners booked</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush units">
+        <header><h2>By unit</h2><span>today · October to date</span><span class="more">Employee register</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Unit</th><th class="r">Headcount</th><th>Punched in</th><th class="r">On leave</th><th class="r">Absent</th><th class="r">Attrition</th><th class="r">Open roles</th></tr></thead>
+            <tbody>
+              <tr><td><b>Plant 1 · Pune</b><small>3 shifts · biometric</small></td><td class="r mono">264<small class="moves"><span class="in">+3</span> <span class="out">−1</span></small></td><td><div class="att"><span class="meter ok"><i style="width:78%"></i></span><span>184 of 236 · 47 on C</span></div></td><td class="r mono">9</td><td class="r mono">5</td><td class="r attr">9.2%</td><td class="r mono">4</td></tr>
+              <tr class="hl"><td><b>Chennai plant</b><small>3 shifts · biometric</small></td><td class="r mono">129<small class="moves"><span class="in">+1</span> <span class="out">−1</span></small></td><td><div class="att"><span class="meter ok"><i style="width:78%"></i></span><span>88 of 113 · 22 on C</span></div></td><td class="r mono">4</td><td class="r mono">3</td><td class="r attr hi">18.6%</td><td class="r mono">7</td></tr>
+              <tr><td><b>Pune office and field sales</b><small>web · geo-fenced mobile</small></td><td class="r mono">96<small class="moves"><span class="in">+1</span></small></td><td><div class="att"><span class="meter ok"><i style="width:99%"></i></span><span>90 of 91</span></div></td><td class="r mono">5</td><td class="r mono">1</td><td class="r attr">10.1%</td><td class="r mono">3</td></tr>
+              <tr class="total"><td>All units</td><td class="r mono">489<small class="moves"><span class="in">+5</span> <span class="out">−2</span></small></td><td><div class="att"><span class="meter ok"><i style="width:82%"></i></span><span>362 of 440 · 69 on C</span></div></td><td class="r mono">18</td><td class="r mono">9</td><td class="r attr">11.9%</td><td class="r mono">14</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <header><h2>Attrition cluster</h2><span>Chennai plant · CNC operators · last 90 days</span><span class="more">Exit interviews</span></header>
+        <div class="body">
+          <div class="clus">
+            <div class="bad"><label>Exits</label><strong>9 of 38</strong><small>7 within their first year</small></div>
+            <div><label>Reasons given</label><strong>Shift pattern 4</strong><small>pay against nearby plants 3, other 2</small></div>
+            <div class="bad"><label>Coverage at risk</label><strong>Shift C from 13 Oct</strong><small>2 short on the VMC line in the roster</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <header><h2>Joiners and exits by month</h2><span>all units · October to date</span><div class="legend"><span>Joined</span><span style="--c:#d43a2f">Left</span></div></header>
+        <div class="body chart-c" data-bars="6,5,4,8,7,9,6,7,8,6,6,5|4,5,3,5,5,6,4,5,5,6,7,2" data-max="12" data-labels="Nov,Dec,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct" data-colors="#0a48fd,#d43a2f"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>How people punched in</h2><span>today · 362</span></header>
+        <div class="body">
+          <div class="modes">
+            <div class="dn" data-donut="334,24,4" data-colors="#0a48fd,#03c8fd,#c9cfdb"></div>
+            <ul>
+              <li><i style="background:#0a48fd"></i>Biometric devices<b>334</b></li>
+              <li><i style="background:#03c8fd"></i>Mobile, geo-fenced<b>24</b></li>
+              <li><i style="background:#c9cfdb"></i>Web<b>4</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Needs attention</h2><span>this month</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="todo">
+            <li><p><b>Leave and attendance</b><small>21 leave · 9 regularisations · 4 comp-off</small></p><span class="chip warn">34 · 3 late</span></li>
+            <li><p><b>September regularisations</b><small>after the 30 Sep lock · paid as arrears</small></p><span class="chip">4</span></li>
+            <li><p><b>Probation reviews due</b><small>3 this week · managers reminded</small></p><span class="chip blue">7</span></li>
+            <li><p><b>Offer OF-0394 held</b><small>Quality engineer · CTC above the grade band</small></p><span class="chip bad">Approval</span></li>
+            <li><p><b>Joining 13 Oct</b><small>Sneha Patil · quality inspector · Plant 1</small></p><span class="chip blue">5 of 10 tasks</span></li>
+            <li><p><b>Fixed-term contracts ending</b><small>Chennai plant · 31 Oct</small></p><span class="chip">2</span></li>
+            <li><p><b>October payroll cut-off</b><small>attendance locks, inputs close</small></p><span class="chip">31 Oct</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

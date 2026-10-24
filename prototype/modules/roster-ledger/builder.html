@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Roster Ledger · Roster builder</title>
+<!-- Scenario: see coverage.html. Week of 13 Oct, CNC cell (CNC-01 to CNC-03) in Machining, Plant 1: the auto-roster
+     run on 7 Oct from the production plan, now in review with supervisor Sachin Wagh. Demand: 4 per shift Monday to
+     Saturday (a setter and a CNC-03 qualified operator on each), 2 per shift on Sunday 19 Oct, when CNC-03 is down
+     for its bearing change (Asset Management). 78 slots required; 13 operators give 77. Teams rotate forward each
+     week (A → B → C): Rajesh Kamble's team, on A this week, moves to B; this week's shift B team (Sunil Pawar,
+     Ganesh More, Pravin Shinde, Dinesh Patole) moves to C; shift C (Swapnil Shelar's team) moves to A. Rajesh's
+     Wednesday is his compensatory rest for VIO-0146 (Rest Hours Log). The one gap: Monday shift C is 3 of 4 if
+     Ganesh More's casual leave (LV-3321) is approved. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .rg th.d { text-align: center; }
+  .rg td { padding-top: 5px; padding-bottom: 5px; text-align: center; }
+  .rg td:first-child { text-align: left; }
+  .rg td small { line-height: 1.3; }
+  tr.sum td small { display: inline; margin-left: 6px; }
+  .s { display: inline-grid; place-items: center; width: 52px; height: 24px; border-radius: 6px; font: 600 11px var(--sans); }
+  .s.a { background: #e4e7f1; color: var(--ink); }
+  .s.b { background: var(--accent-soft); color: var(--accent-ink); }
+  .s.c { background: #e3f7fd; color: #0a7398; }
+  .s.w { background: none; border: 1px dashed var(--line-2); color: var(--ink-3); font-weight: 500; }
+  .s.l { background: var(--warn-soft); color: var(--warn); box-shadow: inset 0 0 0 1px #f5e2b0; }
+  .s.r { background: var(--ok-soft); color: var(--ok); }
+  tr.sum td { background: var(--surface-2); font-size: 12px; font-weight: 600; }
+  tr.sum td.bad { color: var(--bad); background: var(--bad-soft); }
+  tr.sum td small { color: var(--ink-3); font-weight: 400; }
+  .rules li { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 8px; align-items: start; padding: 5px 0; font-size: 12.5px; }
+  .rules li + li { border-top: 1px solid var(--line); }
+  .rules li i { width: 16px; height: 16px; margin-top: 1px; border-radius: 50%; background: var(--ok-soft); display: grid; place-items: center; font: 700 10px var(--sans); font-style: normal; color: var(--ok); }
+  .rules li i.x { background: var(--warn-soft); color: var(--warn); }
+  .rules b { font-weight: 550; }
+  .rules small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .rules em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-2); }
+  .fix p { font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .fix p b { color: var(--ink); }
+  .acts2 { display: grid; grid-template-columns: 1fr 1.3fr; gap: 8px; margin-top: 12px; }
+  .acts2 .btn { justify-content: center; }
+  .key { display: flex; gap: 12px; margin-left: auto; font-size: 11.5px; color: var(--ink-2); }
+  .key span { display: inline-flex; align-items: center; gap: 5px; }
+  .key i { width: 12px; height: 10px; border-radius: 3px; }
+</style>
+</head>
+<body data-module="roster-ledger" data-view="Roster builder" data-crumb="People / Roster Ledger / Roster builder / Week of 13 Oct" data-who="Mahesh Jagtap|Roster planner">
+<main>
+  <div class="head">
+    <div>
+      <h1>Roster builder · CNC cell, week of 13 Oct &nbsp;<span class="chip blue" style="vertical-align:3px">In review</span></h1>
+      <p>Machining, Plant 1 · auto-roster from the production plan, 7 Oct · reviewer Sachin Wagh · publish by Fri 10 Oct</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Re-run auto-roster</span>
+      <span class="btn">Compare with demand</span>
+      <span class="btn pri">Sign off</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush rg" style="flex:1">
+        <header><h2>Roster</h2><span>13 operators · 77 of 78 slots</span><div class="key"><span><i style="background:#e4e7f1"></i>A 00:00</span><span><i style="background:var(--accent-soft)"></i>B 08:00</span><span><i style="background:#e3f7fd"></i>C 16:00</span><span><i style="background:var(--ok-soft)"></i>Comp rest</span></div></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Operator</th><th class="d">Mon 13</th><th class="d">Tue 14</th><th class="d">Wed 15</th><th class="d">Thu 16</th><th class="d">Fri 17</th><th class="d">Sat 18</th><th class="d">Sun 19</th><th class="r">Days</th></tr></thead>
+            <tbody>
+              <tr><td><b>Swapnil Shelar</b><small>Setter</small></td><td><span class="s w">Off</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td class="r mono">6 · 48 h</td></tr>
+              <tr><td><b>Santosh Gaikwad</b><small>Operator</small></td><td><span class="s a">A</span></td><td><span class="s w">Off</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td class="r mono">6 · 48 h</td></tr>
+              <tr><td><b>Amol Sawant</b><small>Operator</small></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s w">Off</span></td><td class="r mono">6 · 48 h</td></tr>
+              <tr><td><b>Nitin Kale</b><small>CNC-03</small></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s w">Off</span></td><td class="r mono">6 · 48 h</td></tr>
+              <tr><td><b>Rajesh Kamble</b><small>Setter</small></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s r">Comp</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td class="r mono">6 · 48 h</td></tr>
+              <tr><td><b>Kiran Thorat</b><small>Operator</small></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s w">Off</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td class="r mono">6 · 48 h</td></tr>
+              <tr><td><b>Ajay Chavan</b><small>Operator</small></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s w">Off</span></td><td class="r mono">6 · 48 h</td></tr>
+              <tr><td><b>Mangesh Lokhande</b><small>CNC-03</small></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s w">Off</span></td><td class="r mono">6 · 48 h</td></tr>
+              <tr><td><b>Sunil Pawar</b><small>Setter</small></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s w">Off</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td class="r mono">6 · 48 h</td></tr>
+              <tr><td><b>Dinesh Patole</b><small>Operator</small></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s w">Off</span></td><td><span class="s c">C</span></td><td class="r mono">6 · 48 h</td></tr>
+              <tr><td><b>Ganesh More</b><small>CNC-03</small></td><td><span class="s l">Leave</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s w">Off</span></td><td class="r mono">5 · 40 h</td></tr>
+              <tr><td><b>Pravin Shinde</b><small>CNC-03</small></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s w">Off</span></td><td class="r mono">6 · 48 h</td></tr>
+              <tr><td><b>Yogesh Dhumal</b><small>Setter · floater</small></td><td><span class="s a">A</span></td><td><span class="s a">A</span></td><td><span class="s b">B</span></td><td><span class="s b">B</span></td><td><span class="s c">C</span></td><td><span class="s c">C</span></td><td><span class="s w">Off</span></td><td class="r mono">6 · 48 h</td></tr>
+              <tr class="sum"><td>Shift A <small>rostered / required</small></td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">2/2</td><td class="r mono">26/26</td></tr>
+              <tr class="sum"><td>Shift B <small>rostered / required</small></td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">2/2</td><td class="r mono">26/26</td></tr>
+              <tr class="sum"><td>Shift C <small>rostered / required</small></td><td class="mono bad">3/4</td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">4/4</td><td class="mono">2/2</td><td class="r mono">25/26</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Rule checks</h2><span>run on every change</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="rules">
+            <li><i>✓</i><p><b>Weekly off for everyone</b><small>Rajesh Kamble's is his comp rest</small></p><em>13/13</em></li>
+            <li><i>✓</i><p><b>Rest gap 12 h or more</b><small>teams rotate forward: A, B, C</small></p><em>0 breaks</em></li>
+            <li><i>✓</i><p><b>No more than 6 days running</b><small>counted from last week's roster</small></p><em>max 6</em></li>
+            <li><i>✓</i><p><b>Setter on every shift</b><small>Yogesh Dhumal covers the days off</small></p><em>21/21</em></li>
+            <li><i>✓</i><p><b>CNC-03 qualified operator</b><small>Mon to Sat; CNC-03 down Sun 19</small></p><em>18/18</em></li>
+            <li><i>✓</i><p><b>No overtime planned</b><small>OT budget left for breakdowns</small></p><em>0 h</em></li>
+            <li><i class="x">!</i><p><b>Demand met</b><small>Mon 13 shift C, if LV-3321 is approved</small></p><em>77/78</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Demand</h2><span>from the production plan</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="rules">
+            <li><i>1</i><p><b>CNC-01 · WO-5521</b><small>finish machining, IH-220 · 3 shifts</small></p><em>Mon–Sun</em></li>
+            <li><i>2</i><p><b>CNC-02 · WO-5521</b><small>rough machining, IH-220 · 3 shifts</small></p><em>Mon–Sun</em></li>
+            <li><i>3</i><p><b>CNC-03 · WO-5518</b><small>CV-110 · down Sun 19 for bearings</small></p><em>Mon–Sat</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card fix">
+        <header><h2>Suggested fix</h2><span>Mon 13 · shift C</span></header>
+        <div class="body">
+          <p><b>Offer the slot to the cover pool.</b> Ganesh More has asked for casual leave on Monday. Six qualified operators are free that shift with 12 hours' rest before it; the first to accept on the app is rostered.</p>
+          <div class="acts2"><span class="btn">Pick someone</span><span class="btn pri">Offer on the app</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

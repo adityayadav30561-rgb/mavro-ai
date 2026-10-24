@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Roster Ledger · Shift roster register</title>
+<!-- Scenario: see coverage.html. Every roster, week by week, from draft to locked. Week of 13 Oct at Plant 1: six
+     rosters, 4 of 6 signed off (Machining and Pressure test wait for Sachin Wagh); Machining is the CNC cell of the
+     roster builder plus the rest of the department. Week of 6 Oct: published 3 Oct, running; Plant 1 98.0%, the
+     Chennai plant 96.2% (VMC line short on shift C). Week of 29 Sep: locked, hours sent to payroll. Seen on the app:
+     shift workers who opened their published roster (Plant 1 248, Chennai 121, as in the Rest Hours Log).
+     * overtime worked so far in October. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 270px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .sums { grid-template-columns: repeat(4, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 7px; padding-bottom: 7px; }
+  .cv { display: flex; align-items: center; gap: 8px; }
+  .cv .meter { width: 60px; min-width: 60px; }
+  .cv b { font: 600 12px var(--mono); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="roster-ledger" data-view="Roster register" data-crumb="People / Roster Ledger / Roster register" data-org="NP|Northfield Precision|All plants" data-who="Mahesh Jagtap|Roster planner">
+<main>
+  <div class="head">
+    <div>
+      <h1>Shift roster register</h1>
+      <p>Every roster by plant, department and week, from draft to locked · locked weeks feed payroll</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All</span><span>Draft</span><span>In review</span><span>Published</span><span>Locked</span></div>
+      <span class="btn">Export</span>
+      <span class="btn pri">New roster</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Plant <b>All</b></span>
+    <span class="filter">Department <b>All</b></span>
+    <span class="filter">Weeks <b>29 Sep to 20 Oct</b></span>
+    <span class="filter" style="border-style:dashed;color:var(--ink-3)">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Roster, department or worker</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Week of 13 Oct</label><strong>4 of 6 <small>signed off at Plant 1</small></strong></div>
+    <div class="card sm"><label>Coverage, this week</label><strong>97.4% <small>Plant 1 98.0% · Chennai 96.2%</small></strong></div>
+    <div class="card sm"><label>Seen on the app</label><strong>353 of 369 <small>shift workers, this week</small></strong></div>
+    <div class="card sm"><label>Hours sent to payroll</label><strong>September <small>locked 30 Sep</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Roster</th><th>Department</th><th>Week of</th><th class="r">Slots</th><th class="r">Filled</th><th>Coverage</th><th class="r">Overtime</th><th>Sign-off</th><th>Published</th><th>Seen on app</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">RL-1058</b></td><td><b>All departments</b><small>Plant 1 · from the production plan</small></td><td class="mono">20 Oct</td><td class="r mono">1,512</td><td class="r mono">1,470</td><td><div class="cv"><span class="meter ok"><i style="width:97.2%"></i></span><b>97.2%</b></div></td><td class="r mono">0 h</td><td>—</td><td class="mono">—</td><td class="mono">—</td><td><span class="chip ">Draft</span></td></tr>
+          <tr class="hl"><td><b class="mono">RL-1052</b></td><td><b>Machining</b><small>Plant 1 · CNC cell, VMC, CNC-03</small></td><td class="mono">13 Oct</td><td class="r mono">582</td><td class="r mono">581</td><td><div class="cv"><span class="meter ok"><i style="width:99.8%"></i></span><b>99.8%</b></div></td><td class="r mono">0 h</td><td>Sachin Wagh</td><td class="mono">—</td><td class="mono">—</td><td><span class="chip blue">In review</span></td></tr>
+          <tr><td><b class="mono">RL-1053</b></td><td><b>Assembly</b><small>Plant 1 · ASM-02, ASM-03</small></td><td class="mono">13 Oct</td><td class="r mono">336</td><td class="r mono">336</td><td><div class="cv"><span class="meter ok"><i style="width:100.0%"></i></span><b>100.0%</b></div></td><td class="r mono">0 h</td><td>Vinod Salunkhe ✓</td><td class="mono">—</td><td class="mono">—</td><td><span class="chip ok">Signed</span></td></tr>
+          <tr><td><b class="mono">RL-1054</b></td><td><b>Pressure test and finishing</b><small>Plant 1 · PT-01, DB-01</small></td><td class="mono">13 Oct</td><td class="r mono">168</td><td class="r mono">167</td><td><div class="cv"><span class="meter ok"><i style="width:99.4%"></i></span><b>99.4%</b></div></td><td class="r mono">0 h</td><td>Sachin Wagh</td><td class="mono">—</td><td class="mono">—</td><td><span class="chip blue">In review</span></td></tr>
+          <tr><td><b class="mono">RL-1055</b></td><td><b>Quality</b><small>Plant 1 · Sneha Patil from 13 Oct</small></td><td class="mono">13 Oct</td><td class="r mono">189</td><td class="r mono">189</td><td><div class="cv"><span class="meter ok"><i style="width:100.0%"></i></span><b>100.0%</b></div></td><td class="r mono">0 h</td><td>Anil Bhosale ✓</td><td class="mono">—</td><td class="mono">—</td><td><span class="chip ok">Signed</span></td></tr>
+          <tr><td><b class="mono">RL-1056</b></td><td><b>Stores and dispatch</b><small>Plant 1 · two shifts</small></td><td class="mono">13 Oct</td><td class="r mono">126</td><td class="r mono">126</td><td><div class="cv"><span class="meter ok"><i style="width:100.0%"></i></span><b>100.0%</b></div></td><td class="r mono">0 h</td><td>Kavita Joshi ✓</td><td class="mono">—</td><td class="mono">—</td><td><span class="chip ok">Signed</span></td></tr>
+          <tr><td><b class="mono">RL-1057</b></td><td><b>Maintenance</b><small>Plant 1 · CNC-03 bearing change</small></td><td class="mono">13 Oct</td><td class="r mono">105</td><td class="r mono">105</td><td><div class="cv"><span class="meter ok"><i style="width:100.0%"></i></span><b>100.0%</b></div></td><td class="r mono">24 h</td><td>Deepak Rane ✓</td><td class="mono">—</td><td class="mono">—</td><td><span class="chip ok">Signed</span></td></tr>
+          <tr><td><b class="mono">RL-1046</b></td><td><b>Plant 1, six rosters</b><small>running now</small></td><td class="mono">6 Oct</td><td class="r mono">1,512</td><td class="r mono">1,482</td><td><div class="cv"><span class="meter ok"><i style="width:98.0%"></i></span><b>98.0%</b></div></td><td class="r mono">386 h*</td><td>6 of 6</td><td class="mono">3 Oct</td><td class="mono">239 of 248</td><td><span class="chip blue">Published</span></td></tr>
+          <tr><td><b class="mono">RL-1040</b></td><td><b>Chennai plant, six rosters</b><small>VMC line · shift C short</small></td><td class="mono">6 Oct</td><td class="r mono">756</td><td class="r mono">727</td><td><div class="cv"><span class="meter warn"><i style="width:96.2%"></i></span><b>96.2%</b></div></td><td class="r mono">148 h*</td><td>6 of 6</td><td class="mono">3 Oct</td><td class="mono">114 of 121</td><td><span class="chip blue">Published</span></td></tr>
+          <tr><td><b class="mono">RL-1034</b></td><td><b>Plant 1, six rosters</b><small>hours sent to payroll</small></td><td class="mono">29 Sep</td><td class="r mono">1,512</td><td class="r mono">1,488</td><td><div class="cv"><span class="meter ok"><i style="width:98.4%"></i></span><b>98.4%</b></div></td><td class="r mono">—</td><td>6 of 6</td><td class="mono">26 Sep</td><td class="mono">244 of 248</td><td><span class="chip ">Locked</span></td></tr>
+          <tr><td><b class="mono">RL-1028</b></td><td><b>Chennai plant, six rosters</b><small>hours sent to payroll</small></td><td class="mono">29 Sep</td><td class="r mono">756</td><td class="r mono">738</td><td><div class="cv"><span class="meter ok"><i style="width:97.6%"></i></span><b>97.6%</b></div></td><td class="r mono">—</td><td>6 of 6</td><td class="mono">26 Sep</td><td class="mono">118 of 121</td><td><span class="chip ">Locked</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <span>Showing 11 of 154 rosters since 1 Jul · * overtime worked so far in October</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>…</span><span>14</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

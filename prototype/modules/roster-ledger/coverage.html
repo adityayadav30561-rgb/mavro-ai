@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Roster Ledger · Shift coverage and roster ledger</title>
+<!--
+  Scenario (Roster Ledger, shared by every screen of the module; agrees with HRMS and Payroll, the Rest Hours Log and
+  Production Management): Northfield Precision, Plant 1 (Pune), Wednesday 8 Oct, 14:02. Shifts: A 00:00–08:00
+  (night), B 08:00–16:00, C 16:00–24:00. Roster planner: Mahesh Jagtap; machining supervisor: Sachin Wagh; plant
+  head: Prakash Nair. Week of 6 Oct (published, running): 1,512 shift slots required, 1,482 filled (98.0%):
+  Machining 588 / 571, Assembly 336 / 332, Pressure test and finishing 168 / 164, Quality 189 / 186, Stores and
+  dispatch 126 / 126, Maintenance 105 / 103. Open slots in the next 72 hours: 11 (Machining 6, Assembly 2, Pressure
+  test 1, Quality 1, Maintenance 1), 7 of them on night shifts. Tonight, shift A on 9 Oct: 58 required, 53 rostered,
+  5 short in Machining (1 resignation, 2 on leave, 1 sick, and Rajesh Kamble given a weekly off by the Rest Hours
+  Log after 6 days in a row); 3 filled from the cover pool, 2 offered to 9 qualified operators on the app.
+  Qualified-operator gaps: CNC-03 setter on shift A 9 Oct (setter Rohit Pawar joins 20 Oct), PT-01 certified tester
+  on shift A 10 Oct. Overtime, October: 386 h of a 1,500 h budget. Week of 13 Oct: under review (4 of 6 supervisors
+  signed off), publish by Friday 10 Oct 18:00. Week of 20 Oct: draft, built from the production plan.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .dept td { padding-top: 8px; padding-bottom: 8px; }
+  .cov { display: flex; align-items: center; gap: 8px; }
+  .cov .meter { width: 80px; min-width: 80px; position: relative; overflow: visible; }
+  .cov .meter::after { content: ''; position: absolute; left: 97%; top: -3px; bottom: -3px; width: 1.5px; background: var(--ink); opacity: 0.5; }
+  .cov b { font: 600 12.5px var(--mono); }
+  .cov b.lo { color: var(--warn); }
+  tr.total td { background: var(--surface-2); font-weight: 600; }
+  .night { color: var(--ink-3); font-size: 11.5px; }
+  .tn { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .tn div { padding: 8px 10px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface-2); }
+  .tn label { display: block; color: var(--ink-3); font-size: 11px; }
+  .tn strong { font: 600 16px var(--mono); }
+  .tn .bad strong { color: var(--bad); }
+  .why li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 6px 0; font-size: 12.5px; }
+  .why li + li { border-top: 1px solid var(--line); }
+  .why b { font-weight: 550; }
+  .why small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .why em { font: 600 12px var(--mono); font-style: normal; }
+  .wk li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 7px 0; }
+  .wk li + li { border-top: 1px solid var(--line); }
+  .wk b { font-weight: 550; }
+  .wk small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="roster-ledger" data-view="Shift coverage" data-crumb="People / Roster Ledger / Shift coverage" data-who="Mahesh Jagtap|Roster planner">
+<main>
+  <div class="head">
+    <div>
+      <h1>Shift coverage and roster ledger</h1>
+      <p>Plant 1 · week of 6 Oct, published · shifts A 00:00, B 08:00, C 16:00 · coverage target 97%</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Plant 1</span><span>Chennai plant</span></div>
+      <span class="btn">Demand plan</span>
+      <span class="btn pri">Open week of 13 Oct</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Coverage, this week</label><div class="v"><strong>98.0%</strong><i data-spark="97.1,98.4,97.6,98.2,96.9,98.4,98.0" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">1,482 of 1,512</b><span>shift slots filled</span></div></div>
+    <div class="card kpi"><label>Open slots, next 72 hours</label><div class="v"><strong>11</strong></div><div class="foot"><b class="delta down">7 on nights</b><span>tonight's shift A 5 short</span></div></div>
+    <div class="card kpi"><label>Qualified-operator gaps</label><div class="v"><strong>2</strong></div><div class="foot"><b class="delta down">CNC-03 · PT-01</b><span>line rules not met</span></div></div>
+    <div class="card kpi"><label>Overtime, October</label><div class="v"><strong>386 <small>of 1,500 h</small></strong><i data-spark="40,92,138,188,236,281,334,386" data-color="#b7791f"></i></div><div class="foot"><b class="delta flat">26% used</b><span>8 of 31 days gone</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush dept">
+        <header><h2>Coverage by department</h2><span>week of 6 Oct · slots across three shifts</span><span class="more">Roster register</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Department</th><th class="r">Required</th><th class="r">Filled</th><th>Coverage</th><th class="r">Open, 72 h</th><th>Skill rule</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b>Machining</b><small>CNC-01 to CNC-03, VMC</small></td><td class="r mono">588</td><td class="r mono">571</td><td><div class="cov"><span class="meter warn"><i style="width:97.1%"></i></span><b class="lo">97.1%</b></div></td><td class="r mono">6 <span class="night">5 night</span></td><td><span class="chip bad">CNC-03 setter</span></td><td><span class="chip warn">Tonight short</span></td></tr>
+              <tr><td><b>Assembly</b><small>ASM-02, ASM-03</small></td><td class="r mono">336</td><td class="r mono">332</td><td><div class="cov"><span class="meter ok"><i style="width:98.8%"></i></span><b>98.8%</b></div></td><td class="r mono">2</td><td><span class="chip ok">Met</span></td><td><span class="chip ok">Covered</span></td></tr>
+              <tr><td><b>Pressure test and finishing</b><small>PT-01, DB-01</small></td><td class="r mono">168</td><td class="r mono">164</td><td><div class="cov"><span class="meter ok"><i style="width:97.6%"></i></span><b>97.6%</b></div></td><td class="r mono">1 <span class="night">1 night</span></td><td><span class="chip bad">PT-01 tester</span></td><td><span class="chip warn">10 Oct night</span></td></tr>
+              <tr><td><b>Quality</b><small>inspection, lab</small></td><td class="r mono">189</td><td class="r mono">186</td><td><div class="cov"><span class="meter ok"><i style="width:98.4%"></i></span><b>98.4%</b></div></td><td class="r mono">1</td><td><span class="chip ok">Met</span></td><td><span class="chip ok">Covered</span></td></tr>
+              <tr><td><b>Stores and dispatch</b><small>two shifts</small></td><td class="r mono">126</td><td class="r mono">126</td><td><div class="cov"><span class="meter ok"><i style="width:100%"></i></span><b>100%</b></div></td><td class="r mono">0</td><td><span class="chip ok">Met</span></td><td><span class="chip ok">Covered</span></td></tr>
+              <tr><td><b>Maintenance</b><small>breakdown cover</small></td><td class="r mono">105</td><td class="r mono">103</td><td><div class="cov"><span class="meter ok"><i style="width:98.1%"></i></span><b>98.1%</b></div></td><td class="r mono">1 <span class="night">1 night</span></td><td><span class="chip ok">Met</span></td><td><span class="chip ok">Covered</span></td></tr>
+              <tr class="total"><td>Plant 1</td><td class="r mono">1,512</td><td class="r mono">1,482</td><td><div class="cov"><span class="meter ok"><i style="width:98%"></i></span><b>98.0%</b></div></td><td class="r mono">11</td><td>2 gaps</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <header><h2>Next 7 days</h2><span>operators rostered against the demand plan, all shifts</span><div class="legend"><span>Rostered</span><span style="--c:#c9cfdb">Required</span></div></header>
+        <div class="body chart-c" data-bars="211,214,198,176,216,219,216|216,216,203,180,216,224,216" data-max="240" data-labels="Thu 9,Fri 10,Sat 11,Sun 12,Mon 13,Tue 14,Wed 15"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Tonight</h2><span>shift A · 9 Oct, 00:00</span><span class="chip warn" style="margin-left:auto">5 short</span></header>
+        <div class="body">
+          <div class="tn">
+            <div><label>Required</label><strong>58</strong></div>
+            <div><label>Rostered</label><strong>53</strong></div>
+            <div class="bad"><label>Machining</label><strong>−5</strong></div>
+          </div>
+          <ul class="why" style="margin-top:8px">
+            <li><p><b>Resigned, 3 Oct</b><small>slot still on the pattern</small></p><em>1</em></li>
+            <li><p><b>Leave and sick</b><small>approved after publishing</small></p><em>3</em></li>
+            <li><p><b>Rajesh Kamble rested</b><small>would be a 7th day running</small></p><em>1</em></li>
+            <li><p><b>Filled from the cover pool</b><small>2 confirmed, 1 waiting</small></p><em class="mono" style="color:var(--ok)">+3</em></li>
+            <li><p><b>Offered on the app</b><small>to 9 qualified operators</small></p><em class="mono" style="color:var(--accent-ink)">2 open</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Roster weeks</h2><span>Plant 1</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="wk">
+            <li><p><b>Week of 20 Oct</b><small>auto-roster from the production plan</small></p><span class="chip">Draft</span></li>
+            <li><p><b>Week of 13 Oct</b><small>4 of 6 supervisors · publish Fri 18:00</small></p><span class="chip blue">In review</span></li>
+            <li><p><b>Week of 6 Oct</b><small>98.0% covered · on the app 3 Oct</small></p><span class="chip ok">Published</span></li>
+            <li><p><b>Week of 29 Sep</b><small>98.4% covered · hours to payroll</small></p><span class="chip">Locked</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

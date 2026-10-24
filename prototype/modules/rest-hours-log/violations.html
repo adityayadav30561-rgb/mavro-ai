@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Rest Hours Log · Violation approval queue</title>
+<!-- Scenario: see compliance.html. This week's violations, with the 4 still waiting for a plant head. Selected:
+     VIO-0152, raised at 13:32 when overtime OT-0311 was requested in the Roster Ledger (it waits for Sachin Wagh there): Sunil Pawar, Pravin
+     Shinde and Dinesh Patole stay on shift B to 20:00 to recover WO-5518 on CNC-03 after its spindle breakdown
+     (11:36–13:46), a spread-over of 12 h against 10 h 30 m. Their next shift starts at 08:00 on 9 Oct, 12 h later.
+     Proposed: approve, with shift B on Friday 10 Oct starting at 12:00 for the three (4 h compensatory rest). The
+     overtime starts only once the plant head approves; it is paid at twice the ordinary rate in the October payroll. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .q td { padding-top: 13px; padding-bottom: 13px; }
+  .q td.m { font: 12px var(--mono); }
+  .q td.m b { color: var(--bad); font-weight: 600; }
+  .q td.m small { font-family: var(--sans); }
+  .pl { display: inline-block; padding: 0 6px; margin-right: 6px; border-radius: 5px; background: var(--surface-2); border: 1px solid var(--line); font: 600 10.5px/18px var(--sans); color: var(--ink-2); vertical-align: 1px; }
+  .ops td { padding: 6px 0; font: 12px var(--mono); border-top: 1px solid var(--line); }
+  .ops th { padding: 0 0 6px; font-size: 11px; }
+  .ops td:first-child, .ops th:first-child { font-family: var(--sans); padding-left: 0; }
+  .ops td:last-child, .ops th:last-child { padding-right: 0; }
+  .ops .x { color: var(--bad); font-weight: 600; }
+  .ops .ok { color: var(--ok); }
+  .kv { font-size: 12.5px; gap: 7px 14px; }
+  .kv dd { font-weight: 550; }
+  .urg { margin-top: 12px; padding: 9px 11px; border-radius: 9px; background: var(--warn-soft); border: 1px solid #f5e2b0; font-size: 12px; line-height: 1.4; color: var(--ink-2); }
+  .urg b { color: var(--ink); }
+  .acts2 { display: grid; grid-template-columns: 1fr 1.7fr; gap: 8px; margin-top: 12px; }
+  .acts2 .btn { justify-content: center; }
+  .who3 li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 6px 0; font-size: 12.5px; }
+  .who3 li + li { border-top: 1px solid var(--line); }
+  .who3 small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="rest-hours-log" data-view="Violations" data-crumb="People / Rest Hours Log / Violations" data-org="NP|Northfield Precision|All plants" data-who="Prakash Nair|Plant head">
+<main>
+  <div class="head">
+    <div>
+      <h1>Violation approval queue</h1>
+      <p>Every breach of the law or the plant's fatigue rules, with its cause and the compensatory rest proposed · week of 6 Oct</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All plants</span><span>Plant 1</span><span>Chennai plant</span></div>
+      <span class="btn">Approval rules</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Waiting for a plant head</label><div class="v"><strong>4</strong></div><div class="foot"><b class="delta down">VIO-0152 urgent</b><span>overtime held</span></div></div>
+    <div class="card kpi"><label>Raised this week</label><div class="v"><strong>5 <small>and 1 prevented</small></strong></div><div class="foot"><b class="delta flat">Plant 1 3 · Chennai 2</b><span>from punches</span></div></div>
+    <div class="card kpi"><label>Compensatory rest due</label><div class="v"><strong>2</strong></div><div class="foot"><b class="delta flat">9 Oct · 15 Oct</b><span>on the roster</span></div></div>
+    <div class="card kpi"><label>Time to decide</label><div class="v"><strong>5.2 <small>h, median</small></strong><i data-spark="9,7,8,6,7,5,6,5.2" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">−1.8 h</b><span>vs September</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush q" style="flex:1">
+        <header><h2>Open and this week</h2><span>7 · newest first</span><span class="more">Last week (13)</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Violation</th><th>Who</th><th>Rule</th><th>Measured</th><th>Proposed rest</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><span class="pl">CH</span><b class="mono">VIO-0153</b><small>8 Oct · cover for leave</small></td><td><b>A. Raja</b><small>Assembly · Chennai</small></td><td>Hours in 7 days</td><td class="m"><b>62 h</b> <small>of 60 h</small></td><td>Off 10 Oct</td><td><span class="chip warn">Chennai head</span></td></tr>
+              <tr class="hl"><td><span class="pl">P1</span><b class="mono">VIO-0152</b><small>8 Oct · OT-0311, CNC-03</small></td><td><b>3 operators</b><small>Machining · Plant 1</small></td><td>Spread-over</td><td class="m"><b>12 h</b> <small>of 10 h 30 m</small></td><td>4 h on 10 Oct</td><td><span class="chip warn">You</span></td></tr>
+              <tr><td><span class="pl">P1</span><b class="mono">VIO-0151</b><small>7 Oct · ASM-02 restart</small></td><td><b>T. Kadam</b><small>Assembly · Plant 1</small></td><td>30-minute rest</td><td class="m"><b>6 h 10 m</b> <small>no break</small></td><td>Brief supervisor</td><td><span class="chip warn">You</span></td></tr>
+              <tr><td><span class="pl">P1</span><b class="mono">VIO-0150</b><small>8 Oct · rule calculator</small></td><td><b>Rajesh Kamble</b><small>Machining · Plant 1</small></td><td>Days in a row</td><td class="m">would be 7</td><td>Off 9 Oct</td><td><span class="chip ok">Prevented</span></td></tr>
+              <tr><td><span class="pl">CH</span><b class="mono">VIO-0149</b><small>6–7 Oct · absent operator</small></td><td><b>V. Prabhu</b><small>VMC line · Chennai</small></td><td>Double shift</td><td class="m"><b>16 h</b> <small>C then A</small></td><td>Rest day 10 Oct</td><td><span class="chip bad">Chennai head</span></td></tr>
+              <tr><td><span class="pl">CH</span><b class="mono">VIO-0147</b><small>23–29 Sep · shift A</small></td><td><b>R. Subramani</b><small>Setter · Chennai</small></td><td>Nights in a row</td><td class="m"><b>7</b> <small>of 6</small></td><td>Rest day 9 Oct</td><td><span class="chip blue">Rest due</span></td></tr>
+              <tr><td><span class="pl">P1</span><b class="mono">VIO-0146</b><small>5–6 Oct · cover on weekly off</small></td><td><b>Rajesh Kamble</b><small>Machining · Plant 1</small></td><td>Rest between shifts</td><td class="m"><b>7 h 52 m</b> <small>of 12 h</small></td><td>Rest day 15 Oct</td><td><span class="chip blue">Rest due</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>VIO-0152</h2><span>raised 13:32</span><span class="chip warn" style="margin-left:auto">Waiting</span></header>
+        <div class="body" style="padding-top:10px">
+          <dl class="kv">
+            <dt>Cause</dt><dd>OT-0311, shift B to 20:00</dd>
+            <dt>Why</dt><dd>WO-5518 behind after CNC-03 stop</dd>
+            <dt>Overtime</dt><dd>Sachin Wagh to approve</dd>
+          </dl>
+          <table class="ops" style="margin-top:12px">
+            <thead><tr><th>Operator</th><th class="r">Spread</th><th class="r">Rest after</th><th class="r">Week</th></tr></thead>
+            <tbody>
+              <tr><td>Sunil Pawar</td><td class="r x">12 h</td><td class="r ok">12 h</td><td class="r">52 h</td></tr>
+              <tr><td>Pravin Shinde</td><td class="r x">12 h</td><td class="r ok">12 h</td><td class="r">52 h</td></tr>
+              <tr><td>Dinesh Patole</td><td class="r x">12 h</td><td class="r ok">12 h</td><td class="r">52 h</td></tr>
+            </tbody>
+          </table>
+          <p class="urg"><b>Decide before 16:00.</b> The overtime starts only once you approve. Proposed: shift B on Friday starts at 12:00 for all three.</p>
+          <div class="acts2"><span class="btn">Reject</span><span class="btn pri">Approve with rest</span></div>
+        </div>
+      </div>
+      <div class="card who3" style="flex:1">
+        <header><h2>Who approves</h2><span>approval rules</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul>
+            <li><p>Any violation<small>the plant head of the worker's plant</small></p><span class="chip">Plant head</span></li>
+            <li><p>Third in a quarter for one worker<small>HR head approves as well</small></p><span class="chip">HR head</span></li>
+            <li><p>Overtime above the quarterly cap<small>held from payroll, paid as comp off</small></p><span class="chip">Payroll</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

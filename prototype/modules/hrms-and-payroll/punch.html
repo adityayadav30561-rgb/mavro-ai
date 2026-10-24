@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · HRMS and Payroll · Attendance (phone)</title>
+<!-- Scenario: see workforce.html. 14:10 in Ahmedabad: Meera Kapoor, field rep, after her call at Ambica Pumps, Vatva
+     (Sales Force Automation, 14:04). She punched in by geo-fenced mobile punch at 09:18 inside the Ahmedabad east
+     zone; one of the 24 field reps punched in by mobile today. Her travel claim ER-2285 (₹22,900, Travel and
+     Expense) is paid in the October payroll run on 31 Oct. -->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  .punch { text-align: center; }
+  .punch label { color: var(--ink-3); font-size: 12px; }
+  .punch strong { display: block; margin: 2px 0 2px; font: 650 34px var(--sans); letter-spacing: -0.03em; }
+  .punch small { color: var(--ink-2); font-size: 12.5px; }
+  .zone { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding: 10px 12px; border-radius: 11px; background: var(--ok-soft); border: 1px solid #c8ecdc; text-align: left; }
+  .zone svg { width: 20px; height: 20px; flex: none; stroke: var(--ok); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .zone p { font-size: 12.5px; line-height: 1.35; color: var(--ink); }
+  .zone small { display: block; color: var(--ok); font-size: 11.5px; }
+  .out { display: grid; place-items: center; height: 46px; margin-top: 12px; border-radius: 12px; background: var(--accent); color: #fff; font: 600 14px var(--sans); }
+  .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; }
+  .week em { font: 10.5px var(--sans); font-style: normal; color: var(--ink-3); }
+  .week b { display: grid; place-items: center; height: 30px; margin-top: 4px; border-radius: 8px; font: 600 11px var(--mono); background: #eef0f4; color: var(--ink-3); }
+  .week b.p { background: var(--ok-soft); color: var(--ok); }
+  .week b.t { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 1.5px var(--accent); }
+  .bals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .bals div { padding: 8px 10px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--line); }
+  .bals label { display: block; color: var(--ink-3); font-size: 11px; }
+  .bals strong { font: 600 17px var(--mono); }
+  .row { display: flex; align-items: center; gap: 10px; }
+  .row p { flex: 1; line-height: 1.35; font-size: 13px; }
+  .row p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .row + .row { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="hrms-and-payroll" data-title="Attendance" data-subtitle="Wednesday 8 Oct"
+      data-time="14:10" data-tab="Attendance" data-tabs="Home:home|Attendance:check|Leave:plan|Pay:coin:1|More:more" data-who="Meera Kapoor|Field rep">
+<main>
+  <div class="card">
+    <div class="body punch">
+      <label>Punched in at 09:18</label>
+      <strong>4 h 52 m</strong>
+      <small>working today · beat Vatva – Narol</small>
+      <div class="zone">
+        <svg viewBox="0 0 20 20"><path d="M10 18s6-5.2 6-10a6 6 0 0 0-12 0c0 4.8 6 10 6 10z"/><circle cx="10" cy="8" r="2.2"/></svg>
+        <p>Inside Ahmedabad east zone<small>Vatva GIDC · location checked at each punch</small></p>
+      </div>
+      <div class="out">Punch out</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Last 7 days</h2><span>hours worked</span></header>
+    <div class="body">
+      <div class="week">
+        <div><em>Thu</em><b>Hol</b></div>
+        <div><em>Fri</em><b class="p">8.9</b></div>
+        <div><em>Sat</em><b class="p">7.5</b></div>
+        <div><em>Sun</em><b>Off</b></div>
+        <div><em>Mon</em><b class="p">9.1</b></div>
+        <div><em>Tue</em><b class="p">8.4</b></div>
+        <div><em>Wed</em><b class="t">4.9</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Leave balance</h2><span class="more">Apply</span></header>
+    <div class="body">
+      <div class="bals">
+        <div><label>Earned</label><strong>11</strong></div>
+        <div><label>Casual</label><strong>4</strong></div>
+        <div><label>Sick</label><strong>6</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row"><p><b>September payslip</b><small>paid 1 Oct · Form 16 on the same tab</small></p><span class="chip blue">New</span></div>
+      <div class="row"><p><b>Claim ER-2285 · ₹22,900</b><small>approved · paid with October salary</small></p><span class="chip">31 Oct</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
