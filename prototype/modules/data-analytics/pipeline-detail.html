@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Data Analytics · Pipeline detail: lineage and quality rules</title>
+<!-- Scenario: see pipeline-health.html. PL-087 brings secondary orders from the Sales Force Automation field app into
+     the sales mart each night at 01:10. Last night 18,412 order lines landed; 38 order IDs came twice after three
+     Ahmedabad reps' phones re-synced offline orders on 7 Oct (Ravi Patel 17, Meera Kapoor 12, Kunal Shah 9), ₹3.9 L
+     counted twice, so the total was 2.1% above the field app's own ₹1.86 Cr month to date. Two blocking rules failed
+     and the gate held publication at 03:58; the secondary sales and scheme accrual dashboards still show the 7 Oct
+     publish. Pipeline owner Farah Siddiqui; metric owner Deepak Rao (field sales manager). Fix: keep the first sync of
+     each order ID, re-run at 14:30, publish by 15:00. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .lin { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 22px; padding: 4px 0 2px; }
+  .st { position: relative; padding: 10px 11px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+  .st + .st::before { content: ''; position: absolute; left: -22px; top: 50%; width: 22px; height: 1.5px; background: var(--line-2); }
+  .st + .st::after { content: ''; position: absolute; left: -7px; top: calc(50% - 3.5px); border: 4px solid transparent; border-left: 5px solid var(--line-2); }
+  .st label { display: block; color: var(--ink-3); font-size: 11px; }
+  .st b { display: block; margin-top: 2px; font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .st small { display: block; margin-top: 3px; color: var(--ink-2); font: 11.5px var(--mono); }
+  .st.ok { border-color: #c8ecdc; background: var(--ok-soft); }
+  .st.bad { border-color: #f3b4ad; background: var(--bad-soft); box-shadow: inset 0 0 0 1px #f3b4ad; }
+  .st.bad small { color: var(--bad); }
+  .st.dim { border-style: dashed; background: #fff; }
+  .st.dim b { color: var(--ink-2); }
+  .qr td { padding-top: 12px; padding-bottom: 12px; }
+  .qr td.res { font: 12px var(--mono); }
+  .qr td.res.x { color: var(--bad); font-weight: 600; }
+  .ic { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 8px; border-radius: 50%; font: 700 10px var(--sans); background: var(--ok-soft); color: var(--ok); vertical-align: -4px; }
+  .ic.x { background: var(--bad-soft); color: var(--bad); }
+  .ic.w { background: var(--warn-soft); color: var(--warn); }
+  .dup li { display: grid; grid-template-columns: minmax(0, 1fr) 90px 26px; gap: 10px; align-items: center; padding: 5px 0; font-size: 12.5px; }
+  .dup em { font: 600 12px var(--mono); font-style: normal; text-align: right; }
+  .cause { font-size: 12.5px; line-height: 1.45; color: var(--ink-2); margin-bottom: 10px; }
+  .kv { font-size: 12.5px; gap: 8px 14px; }
+  .ds li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 7px 0; font-size: 12.5px; }
+  .ds li + li { border-top: 1px solid var(--line); }
+  .ds b { font-weight: 550; }
+  .ds small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="data-analytics" data-view="Lineage" data-crumb="Data / Data Analytics / Lineage / PL-087" data-org="NP|Northfield Precision|All entities" data-who="Farah Siddiqui|Data platform lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>PL-087 · Field app secondary orders &nbsp;<span class="chip bad" style="vertical-align:4px">Held at quality gate</span></h1>
+      <p>Sales Force Automation field app → sales mart · nightly at 01:10 · publish by 06:00 · held since 03:58</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Run history</span>
+      <span class="btn">Quarantine (38)</span>
+      <span class="btn pri">Re-run with fix</span>
+    </div>
+  </div>
+
+  <div class="card" style="flex:none">
+    <header><h2>Lineage</h2><span>last night's run, stage by stage</span></header>
+    <div class="body" style="flex:none">
+      <div class="lin">
+        <div class="st ok"><label>Source</label><b>Field app sync</b><small>26 reps · 7 Oct</small></div>
+        <div class="st ok"><label>1 · Raw</label><b>sfa_orders_raw</b><small>18,412 lines</small></div>
+        <div class="st ok"><label>2 · Cleaned</label><b>sfa_orders_clean</b><small>types and keys ok</small></div>
+        <div class="st bad"><label>Quality gate</label><b>8 rules</b><small>2 blocking failed</small></div>
+        <div class="st dim"><label>3 · Curated</label><b>fact_secondary_sales</b><small>still 7 Oct</small></div>
+        <div class="st dim"><label>4 · Published</label><b>2 dashboards</b><small>stale since 06:00</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush qr" style="flex:1">
+        <header><h2>Quality rules</h2><span>evaluated before anything is published</span><span class="more">Edit rules</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Rule</th><th>Checks</th><th>Expected</th><th>Last night</th><th>If it fails</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><span class="ic x">✕</span><b>Order ID unique</b></td><td>Duplicates</td><td class="mono">0</td><td class="res x">38 order IDs</td><td><span class="chip bad">Hold</span></td></tr>
+              <tr class="hl"><td><span class="ic x">✕</span><b>Total reconciles to the app</b></td><td>Month-to-date value</td><td class="mono">within 0.5%</td><td class="res x">+2.1% · ₹3.9 L</td><td><span class="chip bad">Hold</span></td></tr>
+              <tr><td><span class="ic w">!</span><b>Outlet mapped to a distributor</b></td><td>Completeness</td><td class="mono">100%</td><td class="res">99.96% · 7 lines</td><td><span class="chip warn">Warn</span></td></tr>
+              <tr><td><span class="ic">✓</span><b>Row count in range</b></td><td>Volume vs 7-day average</td><td class="mono">±25%</td><td class="res">18,412 · +2.5%</td><td><span class="chip bad">Hold</span></td></tr>
+              <tr><td><span class="ic">✓</span><b>Outlet exists in the master</b></td><td>Referential</td><td class="mono">100%</td><td class="res">100%</td><td><span class="chip bad">Hold</span></td></tr>
+              <tr><td><span class="ic">✓</span><b>Scheme valid on the order date</b></td><td>Referential</td><td class="mono">100%</td><td class="res">100%</td><td><span class="chip warn">Warn</span></td></tr>
+              <tr><td><span class="ic">✓</span><b>Line value in range</b></td><td>Validity</td><td class="mono">₹0 – ₹10 L</td><td class="res">max ₹2.4 L</td><td><span class="chip bad">Hold</span></td></tr>
+              <tr><td><span class="ic">✓</span><b>Source is fresh</b></td><td>Freshness</td><td class="mono">under 6 h</td><td class="res">1 h 12 m</td><td><span class="chip bad">Hold</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Why it was held</h2><span>38 duplicates</span></header>
+        <div class="body" style="padding-top:10px">
+          <p class="cause">Three Ahmedabad phones re-sent synced orders on 7 Oct.</p>
+          <ul class="dup">
+            <li><span>Ravi Patel</span><span class="meter warn"><i style="width:100%"></i></span><em>17</em></li>
+            <li><span>Meera Kapoor</span><span class="meter warn"><i style="width:71%"></i></span><em>12</em></li>
+            <li><span>Kunal Shah</span><span class="meter warn"><i style="width:53%"></i></span><em>9</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Owners and promise</h2></header>
+        <div class="body" style="padding-top:10px">
+          <dl class="kv">
+            <dt>Pipeline owner</dt><dd>Farah Siddiqui</dd>
+            <dt>Metric owner</dt><dd>Deepak Rao, field sales</dd>
+            <dt>Freshness</dt><dd>published by 06:00 daily</dd>
+            <dt>Fix</dt><dd>keep first sync, re-run 14:30</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="card ds" style="flex:1">
+        <header><h2>Downstream</h2><span>what the hold protects</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul>
+            <li><p><b>Secondary sales</b><small>Deepak Rao · field sales review</small></p><span class="chip warn">7 Oct data</span></li>
+            <li><p><b>Scheme accruals</b><small>Ritu Malhotra · Scheme and Rebate</small></p><span class="chip warn">7 Oct data</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

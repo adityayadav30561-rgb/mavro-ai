@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Project Management · Portfolio health and delivery</title>
+<!--
+  Scenario (Project Management, shared by every screen of the module; agrees with prototype/project.html, Procure to
+  Pay's PO register and Asset Management): Northfield Precision, 8 Oct, 14:02. Capex year April to March; PMO lead
+  Neeraj Bansal; steering committee (plant heads, CFO) meets 15 Oct. 9 active projects, ₹7.16 Cr sanctioned,
+  ₹4.40 Cr spent (61%) against ₹4.71 Cr planned to date. Projects (sanction / spent / complete vs plan / baseline →
+  forecast / health): PRJ-0217 Plant 2 line automation, Chennai, Vikram Desai, ₹2.40 Cr / ₹1.46 Cr / 64 vs 70 /
+  14 Nov → 20 Nov / amber (PO-7688 conveyors late); PRJ-0198 Plant 1 rooftop solar 400 kWp, Prakash Nair, ₹1.85 Cr /
+  ₹1.62 Cr / 92 vs 95 / 20 → 24 Oct / green; PRJ-0226 Chennai effluent treatment upgrade, R. Venkatesh, ₹72 L /
+  ₹31 L / 42 vs 55 / 30 Nov → 21 Dec / red (risk log 24 days old: governance breach); PRJ-0212 Pune depot racking,
+  Kavita Joshi, ₹54 L / ₹47 L / 88 vs 85 / 17 Oct / green; PRJ-0230 IH-260 tooling and fixtures, Sunil Iyer, ₹46 L /
+  ₹8 L / 15 vs 15 / 30 Jan / green; PRJ-0224 CMM room extension, Anil Bhosale, ₹38 L / ₹12 L / 35 vs 40 / 15 → 19 Dec
+  / green; PRJ-0228 Plant 1 LED and VFD retrofit, Deepak Rane, ₹31 L / ₹4 L / 10 vs 10 / 31 Jan / green; PRJ-0215
+  Plant 1 compressed air ring main (AC-2 dryer trips), Deepak Rane, ₹28 L / ₹21 L / 80 vs 75 / 31 → 28 Oct / green;
+  PRJ-0219 Dealer portal rollout, Arvind Rao, ₹22 L / ₹9 L / 40 vs 50 / 30 Nov → 12 Dec / amber (vendor API delay).
+  Portfolios: Capacity ₹3.68 Cr / ₹2.22 Cr; Quality and compliance ₹1.10 Cr / ₹43 L; Sustainability ₹2.16 Cr /
+  ₹1.66 Cr; IT and digital ₹22 L / ₹9 L. Change requests waiting 5 (₹31.3 L): to steering CR-031 (PRJ-0217 robot
+  cell, ₹14.2 L, +5 d, beyond delegation on cost) and CR-034 (PRJ-0226 second clarifier, ₹9.6 L, +14 d, beyond
+  delegation on time); CR-029 (PRJ-0217 guarding, ₹4.3 L), CR-035 (PRJ-0219 retailer screens, ₹3.2 L, +5 d), CR-033
+  (PRJ-0198 net-metering approval, no cost, +4 d). Delegation: plant head and IT head to ₹5 L and 5 days; CFO to
+  ₹10 L and 7 days; steering beyond.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .pj td { padding-top: 10px; padding-bottom: 10px; }
+  .sp { display: flex; align-items: center; gap: 8px; }
+  .sp .meter { width: 58px; min-width: 58px; }
+  .sp span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .cmp { font: 12px var(--mono); }
+  .cmp.lo { color: var(--bad); font-weight: 600; }
+  .dt { font: 12px var(--mono); }
+  .dt s { color: var(--ink-3); }
+  .dt b { color: var(--warn); font-weight: 600; }
+  .dt b.bad { color: var(--bad); }
+  .h { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 550; }
+  .h::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--ok); }
+  .h.a::before { background: #e0a030; }
+  .h.r::before { background: var(--bad); }
+  .pf li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; padding: 6px 0; font-size: 12.5px; }
+  .pf li .meter { grid-column: 1 / -1; height: 7px; }
+  .pf em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-2); }
+  .lst li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 7px 0; }
+  .lst li + li { border-top: 1px solid var(--line); }
+  .lst b { font-weight: 550; }
+  .lst small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="project-management" data-view="Portfolio health" data-crumb="Projects / Project Management / Portfolio health"
+      data-org="NP|Northfield Precision|All sites" data-who="Neeraj Bansal|PMO lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Portfolio health and delivery</h1>
+      <p>9 active capex projects · ₹7.16 Cr sanctioned this year · steering committee meets 15 Oct</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All</span><span>Capacity</span><span>Quality</span><span>Sustainability</span><span>IT</span></div>
+      <span class="btn">Steering pack</span>
+      <span class="btn pri">New project</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Capex spent</label><div class="v"><strong>₹4.40 Cr</strong><i data-spark="38,90,151,221,299,391,440"></i></div><div class="foot"><b class="delta down">₹31 L behind plan</b><span>61% of sanction</span></div></div>
+    <div class="card kpi"><label>Projects at risk</label><div class="v"><strong>3 <small>of 9</small></strong></div><div class="foot"><b class="delta down">1 red</b><span>2 amber</span></div></div>
+    <div class="card kpi"><label>Change requests waiting</label><div class="v"><strong>5 <small>₹31.3 L</small></strong></div><div class="foot"><b class="delta flat">2 to steering</b><span>beyond delegation</span></div></div>
+    <div class="card kpi"><label>Governance breaches</label><div class="v"><strong>1</strong></div><div class="foot"><b class="delta down">PRJ-0226</b><span>risk log 24 days old</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush pj" style="flex:1">
+        <header><h2>Projects</h2><span>against the approved baseline</span><span class="more">Project register</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Project</th><th class="r">Sanction</th><th>Spent</th><th class="r">Complete</th><th>Go-live</th><th>Health</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b class="mono">PRJ-0217</b> Plant 2 line automation<small>Capacity · Chennai plant · Vikram Desai</small></td><td class="r mono">₹2.40 Cr</td><td><div class="sp"><span class="meter"><i style="width:61%"></i></span><span>₹1.46 Cr</span></div></td><td class="r cmp lo">64 / 70%</td><td class="dt"><s>14 Nov</s> <b>20 Nov</b></td><td><span class="h a">Amber</span></td></tr>
+              <tr><td><b class="mono">PRJ-0198</b> Rooftop solar, 400 kWp<small>Sustainability · Plant 1 · Prakash Nair</small></td><td class="r mono">₹1.85 Cr</td><td><div class="sp"><span class="meter"><i style="width:88%"></i></span><span>₹1.62 Cr</span></div></td><td class="r cmp">92 / 95%</td><td class="dt"><s>20 Oct</s> <b>24 Oct</b></td><td><span class="h">Green</span></td></tr>
+              <tr><td><b class="mono">PRJ-0226</b> Effluent treatment upgrade<small>Quality and compliance · Chennai · R. Venkatesh</small></td><td class="r mono">₹72 L</td><td><div class="sp"><span class="meter warn"><i style="width:43%"></i></span><span>₹31 L</span></div></td><td class="r cmp lo">42 / 55%</td><td class="dt"><s>30 Nov</s> <b class="bad">21 Dec</b></td><td><span class="h r">Red</span></td></tr>
+              <tr><td><b class="mono">PRJ-0212</b> Pune depot racking<small>Capacity · Pune depot · Kavita Joshi</small></td><td class="r mono">₹54 L</td><td><div class="sp"><span class="meter"><i style="width:87%"></i></span><span>₹47 L</span></div></td><td class="r cmp">88 / 85%</td><td class="dt">17 Oct</td><td><span class="h">Green</span></td></tr>
+              <tr><td><b class="mono">PRJ-0230</b> IH-260 tooling and fixtures<small>Capacity · Plant 1 · Sunil Iyer</small></td><td class="r mono">₹46 L</td><td><div class="sp"><span class="meter"><i style="width:17%"></i></span><span>₹8 L</span></div></td><td class="r cmp">15 / 15%</td><td class="dt">30 Jan</td><td><span class="h">Green</span></td></tr>
+              <tr><td><b class="mono">PRJ-0224</b> CMM room extension<small>Quality and compliance · Plant 1 · Anil Bhosale</small></td><td class="r mono">₹38 L</td><td><div class="sp"><span class="meter"><i style="width:32%"></i></span><span>₹12 L</span></div></td><td class="r cmp">35 / 40%</td><td class="dt"><s>15 Dec</s> <b>19 Dec</b></td><td><span class="h">Green</span></td></tr>
+              <tr><td><b class="mono">PRJ-0228</b> LED and VFD retrofit<small>Sustainability · Plant 1 · Deepak Rane</small></td><td class="r mono">₹31 L</td><td><div class="sp"><span class="meter"><i style="width:13%"></i></span><span>₹4 L</span></div></td><td class="r cmp">10 / 10%</td><td class="dt">31 Jan</td><td><span class="h">Green</span></td></tr>
+              <tr><td><b class="mono">PRJ-0215</b> Compressed air ring main<small>Capacity · Plant 1 · Deepak Rane</small></td><td class="r mono">₹28 L</td><td><div class="sp"><span class="meter"><i style="width:75%"></i></span><span>₹21 L</span></div></td><td class="r cmp">80 / 75%</td><td class="dt">28 Oct</td><td><span class="h">Green</span></td></tr>
+              <tr><td><b class="mono">PRJ-0219</b> Dealer portal rollout<small>IT and digital · all sites · Arvind Rao</small></td><td class="r mono">₹22 L</td><td><div class="sp"><span class="meter"><i style="width:41%"></i></span><span>₹9 L</span></div></td><td class="r cmp lo">40 / 50%</td><td class="dt"><s>30 Nov</s> <b>12 Dec</b></td><td><span class="h a">Amber</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>By portfolio</h2><span>spent of sanction</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="pf">
+            <li><span>Capacity</span><em>₹2.22 of 3.68 Cr</em><span class="meter"><i style="width:60%"></i></span></li>
+            <li><span>Sustainability</span><em>₹1.66 of 2.16 Cr</em><span class="meter"><i style="width:77%"></i></span></li>
+            <li><span>Quality and compliance</span><em>₹0.43 of 1.10 Cr</em><span class="meter warn"><i style="width:39%"></i></span></li>
+            <li><span>IT and digital</span><em>₹0.09 of 0.22 Cr</em><span class="meter"><i style="width:41%"></i></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>For steering, 15 Oct</h2><span>beyond delegation</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>CR-031 · extra robot cell</b><small>PRJ-0217 · ₹14.2 L, +5 days</small></p><span class="chip warn">Cost</span></li>
+            <li><p><b>CR-034 · second clarifier</b><small>PRJ-0226 · ₹9.6 L, +14 days</small></p><span class="chip warn">Time</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Delivery risks</h2><span>named with the owner</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>PO-7688 conveyors late</b><small>PRJ-0217 · due 6 Oct, now 14 Oct</small></p><span class="chip bad">Rohan Menon</span></li>
+            <li><p><b>Risk log not updated</b><small>PRJ-0226 · last update 14 Sep</small></p><span class="chip bad">R. Venkatesh</span></li>
+            <li><p><b>Portal API from the vendor</b><small>PRJ-0219 · 12 days of slip</small></p><span class="chip warn">Arvind Rao</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

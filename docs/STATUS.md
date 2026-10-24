@@ -4,8 +4,8 @@ _Last updated: 2026-10-24. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–10 done (2026-10-24); next: Phase 11, Project Management and Data
-Analytics (deck slides 50, 58; reuse the homepage `project` screen on the module shell).** The
+**Stage C (phased implementation). Phases 1–11 done (2026-10-24); next: Phase 12, Vendor Portal and Distributor /
+B2B Portal (deck slides 65, 67; portal pages use the chain section).** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,35 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-24, **Phase 11 done: Project Management and Data Analytics pages.** On `main`.
+  - **Screens (7 new, 1 moved):** Project Management `portfolio` (lead), `milestone-plan` (the homepage `project`
+    screen on the module shell, unchanged), `change-requests`, `project-register`; Data Analytics `pipeline-health`
+    (lead, with a timeline of last night's window), `pipeline-detail` (PL-087 lineage and eight quality rules),
+    `alerts`, `pipeline-register` (with forecast models). Homepage screens untouched. No phone screens.
+  - **Scenario, projects:** 9 active capex projects, ₹7.16 Cr sanctioned, ₹6.12 Cr committed, ₹4.40 Cr spent
+    against ₹4.71 Cr planned; PRJ-0217 as on the homepage (₹1.46 Cr of ₹2.40 Cr, 64% vs 70%, go-live 14 → 20 Nov,
+    waiting on PO-7688, CR-031 and CR-029 = ₹18.5 L); PRJ-0226 red with a 24-day-old risk log (governance breach);
+    CR-031 and CR-034 go to steering on 15 Oct; delegation plant head ₹5 L / 5 days, CFO ₹10 L / 7 days.
+    PRJ-0215 (compressed air ring main) answers AC-2's dryer trips in Asset Management; PRJ-0176 brought VMC-11 to
+    Chennai; PRJ-0190 built the gate booths. New names: Neeraj Bansal (PMO lead), Arvind Rao (IT head).
+  - **Scenario, data:** nightly window 00:30–05:30, dashboards by 06:00; last night 45 of 46 pipelines (PL-131
+    GSTR-2B import retried after a GST portal timeout; PL-087 field app orders held at its gate on 38 duplicate
+    order IDs from three Ahmedabad reps' phones, ₹3.9 L, +2.1% on the app's ₹1.86 Cr); window ended 05:52; 41 of 43
+    dashboards fresh. Alerts tie to HRMS (Chennai attrition), Production (CNC-03 downtime, MO-0418) and O2C
+    (MD-07 demand forecast drift after SO-24817). New names: Farah Siddiqui (data platform lead), Kunal Shah (rep).
+  - **AI kept parked:** the deck's "model health" is shown as monitoring of three forecast models; no AI
+    capabilities are claimed (DECISIONS.md, item 7 parked).
+  - **Content:** `content/project-management.ts` (v2 slides 50–51; service providers' client projects as the
+    standard case), `data-analytics.ts` (slides 58–59); views for both in `views.ts`.
+  - Verified: every screen fits its canvas; each page at 1440×900, 1366×768 and 390×844 (one H1, no overflow, no
+    broken images, no console errors); `qa/measure.html` overflow=none at nine sizes on both; build passes, titles,
+    canonical and FAQPage in the built files, both in the sitemap; production build hydrates with no errors and no
+    three.js.
+  - **Module pages live (18):** order-to-cash, accounting, vendor-invoice-management, travel-and-expense, crm,
+    sales-force-automation, customer-service, procure-to-pay, inventory-management, gate-entry,
+    production-management, mvlens-vendor-audit, asset-management, hrms-and-payroll, roster-ledger, rest-hours-log,
+    project-management, data-analytics. Every Base module now has its page.
 
 - 2026-10-24, **Phase 10 done: HRMS and Payroll, Roster Ledger, Rest Hours Log pages.** On `main`.
   - **Screens (12 new, 1 moved, 1 phone):** HRMS `workforce` (lead), `leave-attendance`, `onboarding`, `payroll`
@@ -386,10 +415,10 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 11: Project Management, Data Analytics** (slides 50, 58). Move the homepage `project` screen (PRJ-0217)
-   onto the module shell, build the rest, content files, register them. HRMS time cards against projects and the
-   Rest Hours Log's trends are natural ties.
-2. Then Phase 12 (Vendor Portal, Distributor / B2B Portal).
+1. **Phase 12: Vendor Portal, Distributor / B2B Portal** (slides 65, 67). The first portal pages: portal pages use
+   the chain section instead of the flow strip (SITE-PLAN.md). The vendor side ties to Procure to Pay, VIM and
+   mVLens (Aravali Castings, Sharda Bearings); the distributor side to SFA, O2C and Scheme and Rebate.
+2. Then Phase 13 (Dealer Portal, Retailer Portal; Retailer has a phone screen).
 
 ## Open items (need the user or real assets)
 

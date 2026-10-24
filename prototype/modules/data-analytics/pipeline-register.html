@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Data Analytics · Pipeline and model register</title>
+<!-- Scenario: see pipeline-health.html. 58 pipelines (46 nightly, 12 hourly), each with a pipeline owner (the data
+     platform team, Farah Siddiqui) and a metric owner in the business, a schedule and a freshness promise. Over 30
+     days 97.6% of runs met their promise. Shown: the two from last night's alerts and six that feed other modules'
+     dashboards. Forecast models: MD-03 collection delay risk (Order to Cash invoices, error 7.8% of a 10% limit,
+     Priya Nair), MD-07 demand forecast for IH pump housings (16.4% of 12%, retraining tonight, Vikram Desai), MD-09
+     spares consumption (11.2% of 15%, Deepak Rane). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 270px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .sums { grid-template-columns: repeat(4, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td, .mdl td { padding-top: 7px; padding-bottom: 7px; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="data-analytics" data-view="Pipeline register" data-crumb="Data / Data Analytics / Pipeline register" data-org="NP|Northfield Precision|All entities" data-who="Farah Siddiqui|Data platform lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Pipeline and model register</h1>
+      <p>Source, target, owners, schedule and freshness promise for every pipeline, and each forecast model</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All</span><span>Nightly</span><span>Hourly</span><span>Needs attention</span></div>
+      <span class="btn pri">New pipeline</span>
+    </div>
+  </div>
+
+
+  <div class="sums grid">
+    <div class="card sm"><label>Pipelines</label><strong>58 <small>46 nightly · 12 hourly</small></strong></div>
+    <div class="card sm"><label>Promise met, 30 days</label><strong>97.6% <small>of runs</small></strong></div>
+    <div class="card sm"><label>Every metric owned</label><strong>58 of 58 <small>named owner</small></strong></div>
+    <div class="card sm"><label>Forecast models</label><strong>3 <small>1 drifting</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Pipeline</th><th>Name and route</th><th>Owners</th><th>Schedule</th><th>Promise</th><th>Last run</th><th class="r">30 days</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td><b class="mono">PL-087</b></td><td><b>Field app secondary orders</b><small>Sales Force Automation → sales mart</small></td><td>Farah Siddiqui<small>metric: Deepak Rao</small></td><td>Nightly 01:10</td><td class="mono">06:00</td><td class="mono">held 03:58</td><td class="r mono">29/30</td><td><span class="chip bad">Held</span></td></tr>
+          <tr><td><b class="mono">PL-131</b></td><td><b>GSTR-2B import</b><small>GST portal → ITC reconciliation</small></td><td>Farah Siddiqui<small>metric: Sanjay Kulkarni</small></td><td>Nightly 02:10</td><td class="mono">06:00</td><td class="mono">05:48, retried</td><td class="r mono">27/30</td><td><span class="chip warn">Recovered</span></td></tr>
+          <tr><td><b class="mono">PL-021</b></td><td><b>Orders and invoices</b><small>Order to Cash → revenue mart</small></td><td>Farah Siddiqui<small>metric: Arjun Sethi</small></td><td>Nightly 00:40</td><td class="mono">06:00</td><td class="mono">02:04</td><td class="r mono">30/30</td><td><span class="chip ok">On time</span></td></tr>
+          <tr><td><b class="mono">PL-045</b></td><td><b>Journals and balances</b><small>Accounting → finance mart</small></td><td>Farah Siddiqui<small>metric: Nisha Verma</small></td><td>Nightly 00:50</td><td class="mono">06:00</td><td class="mono">02:16</td><td class="r mono">30/30</td><td><span class="chip ok">On time</span></td></tr>
+          <tr><td><b class="mono">PL-118</b></td><td><b>Work orders and output</b><small>Production Management → production mart</small></td><td>Farah Siddiqui<small>metric: Vikram Desai</small></td><td>Nightly 00:45</td><td class="mono">06:00</td><td class="mono">01:58</td><td class="r mono">30/30</td><td><span class="chip ok">On time</span></td></tr>
+          <tr><td><b class="mono">PL-112</b></td><td><b>Machine events</b><small>Shop floor → OEE mart</small></td><td>Farah Siddiqui<small>metric: Prakash Nair</small></td><td>Hourly</td><td class="mono">15 min</td><td class="mono">14:00</td><td class="r mono">719/720</td><td><span class="chip ok">On time</span></td></tr>
+          <tr><td><b class="mono">PL-063</b></td><td><b>Punches and rosters</b><small>Biometric, Roster Ledger → attendance mart</small></td><td>Farah Siddiqui<small>metric: Kavita Iyer</small></td><td>Hourly</td><td class="mono">30 min</td><td class="mono">14:00</td><td class="r mono">720/720</td><td><span class="chip ok">On time</span></td></tr>
+          <tr><td><b class="mono">PL-071</b></td><td><b>Gate movements</b><small>Gate Entry → logistics mart</small></td><td>Farah Siddiqui<small>metric: Ganesh Patil</small></td><td>Hourly</td><td class="mono">30 min</td><td class="mono">14:00</td><td class="r mono">718/720</td><td><span class="chip ok">On time</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <span>Showing 8 of 58 pipelines · promise: published by this time, or within this delay for hourly runs</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>…</span><span>6</span></div>
+    </div>
+  </div>
+
+  <div class="card flush mdl" style="flex:none">
+    <header><h2>Forecast models</h2><span>error checked weekly against its limit</span></header>
+    <div class="body">
+      <table>
+        <thead><tr><th>Model</th><th>Forecasts</th><th>Trained on</th><th class="r">Error</th><th class="r">Limit</th><th>Owner</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td><b class="mono">MD-07</b></td><td>Demand, IH pump housings</td><td>Order to Cash orders</td><td class="r mono" style="color:var(--bad)">16.4%</td><td class="r mono">12%</td><td>Vikram Desai</td><td><span class="chip warn">Retrain 9 Oct, 01:00</span></td></tr>
+          <tr><td><b class="mono">MD-03</b></td><td>Collection delay risk</td><td>Invoices and receipts</td><td class="r mono">7.8%</td><td class="r mono">10%</td><td>Priya Nair</td><td><span class="chip ok">Stable</span></td></tr>
+          <tr><td><b class="mono">MD-09</b></td><td>Spares consumption</td><td>Maintenance orders</td><td class="r mono">11.2%</td><td class="r mono">15%</td><td>Deepak Rane</td><td><span class="chip ok">Stable</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Project Management · Change request approval queue</title>
+<!-- Scenario: see portfolio.html. 5 change requests waiting, ₹31.3 L: CR-031 and CR-034 go to the steering committee
+     on 15 Oct (beyond delegation on cost and on time), CR-029 and CR-035 sit with the plant head and the IT head,
+     CR-033 (no cost) is for the PMO to note. Selected: CR-031 on PRJ-0217, an extra robot cell, ₹14.2 L and 5 days:
+     sanction would go from ₹2.40 Cr to ₹2.54 Cr and go-live from 20 Nov to 25 Nov; recommended by R. Venkatesh
+     (Chennai plant head), reviewed by Ritu Kapoor (finance controller). Decided this quarter: 7 (5 approved, 1 sent
+     back, 1 rejected). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .q td { padding-top: 9px; padding-bottom: 9px; }
+  .imp { font: 12px var(--mono); }
+  .imp b { font-weight: 600; }
+  .imp .t { color: var(--warn); }
+  .imp .t.hi { color: var(--bad); }
+  .done td { padding-top: 11px; padding-bottom: 11px; }
+  .cmpv { display: grid; grid-template-columns: auto 1fr 1fr; gap: 6px 12px; font-size: 12.5px; align-items: baseline; }
+  .cmpv span { color: var(--ink-3); font-size: 11.5px; }
+  .cmpv b { font: 600 12.5px var(--mono); }
+  .cmpv .n { color: var(--warn); }
+  .why { margin-top: 12px; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .path li { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 8px; align-items: start; padding: 6px 0; font-size: 12.5px; }
+  .path li + li { border-top: 1px solid var(--line); }
+  .path li i { width: 16px; height: 16px; margin-top: 1px; border-radius: 50%; background: var(--ok-soft); display: grid; place-items: center; font: 700 10px var(--sans); font-style: normal; color: var(--ok); }
+  .path li i.n { background: var(--accent-soft); color: var(--accent-ink); }
+  .path b { font-weight: 550; }
+  .path small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .path em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-3); }
+  .acts2 { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 8px; margin-top: 12px; }
+  .acts2 .btn { justify-content: center; }
+  .deleg td { padding: 6px 0; font-size: 12px; border-top: 1px solid var(--line); }
+  .deleg th { padding: 0 0 6px; font-size: 11px; }
+  .deleg td:first-child, .deleg th:first-child { padding-left: 0; }
+  .deleg td:last-child, .deleg th:last-child { padding-right: 0; }
+</style>
+</head>
+<body data-module="project-management" data-view="Change requests" data-crumb="Projects / Project Management / Change requests" data-org="NP|Northfield Precision|All sites" data-who="Neeraj Bansal|PMO lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Change request approval queue</h1>
+      <p>Cost and scope changes with their impact on sanction and go-live, routed by delegation · steering committee 15 Oct</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Delegation rules</span>
+      <span class="btn pri">Steering pack (2)</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Waiting</label><div class="v"><strong>5 <small>₹31.3 L</small></strong></div><div class="foot"><b class="delta flat">4 projects</b><span>oldest 9 days</span></div></div>
+    <div class="card kpi"><label>For steering</label><div class="v"><strong>2 <small>₹23.8 L</small></strong></div><div class="foot"><b class="delta down">+19 days</b><span>schedule at stake</span></div></div>
+    <div class="card kpi"><label>Decided this quarter</label><div class="v"><strong>7</strong></div><div class="foot"><b class="delta up">5 approved</b><span>1 sent back, 1 rejected</span></div></div>
+    <div class="card kpi"><label>Change on sanction, year</label><div class="v"><strong>+3.1%</strong><i data-spark="0.4,0.9,1.2,1.8,2.3,2.7,3.1" data-color="#b7791f"></i></div><div class="foot"><b class="delta flat">₹22.4 L approved</b><span>of ₹7.16 Cr</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush q">
+        <header><h2>Waiting for a decision</h2><span>5 · by impact</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Change</th><th>Project</th><th>Impact</th><th>Raised</th><th>Decides</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b class="mono">CR-031</b> Extra robot cell<small>scope · by Vikram Desai</small></td><td>PRJ-0217<small>Plant 2 line automation</small></td><td class="imp"><b>+₹14.2 L</b> · <span class="t">+5 d</span></td><td class="mono">2 Oct</td><td><span class="chip warn">Steering</span></td></tr>
+              <tr><td><b class="mono">CR-034</b> Second clarifier<small>scope · by R. Venkatesh</small></td><td>PRJ-0226<small>Effluent treatment upgrade</small></td><td class="imp"><b>+₹9.6 L</b> · <span class="t hi">+14 d</span></td><td class="mono">29 Sep</td><td><span class="chip warn">Steering</span></td></tr>
+              <tr><td><b class="mono">CR-029</b> Guarding change<small>safety · by Vikram Desai</small></td><td>PRJ-0217<small>Plant 2 line automation</small></td><td class="imp"><b>+₹4.3 L</b> · no delay</td><td class="mono">30 Sep</td><td><span class="chip blue">Plant head</span></td></tr>
+              <tr><td><b class="mono">CR-035</b> Retailer screens added<small>scope · by Arvind Rao</small></td><td>PRJ-0219<small>Dealer portal rollout</small></td><td class="imp"><b>+₹3.2 L</b> · <span class="t">+5 d</span></td><td class="mono">6 Oct</td><td><span class="chip blue">IT head</span></td></tr>
+              <tr><td><b class="mono">CR-033</b> Net-metering approval<small>external · by Prakash Nair</small></td><td>PRJ-0198<small>Rooftop solar</small></td><td class="imp">no cost · <span class="t">+4 d</span></td><td class="mono">7 Oct</td><td><span class="chip">PMO notes</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card flush done" style="flex:1">
+        <header><h2>Decided this quarter</h2><span>7 · latest 4</span><span class="more">All decisions</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Change</th><th>Project</th><th>Impact</th><th>Decided by</th><th>Outcome</th></tr></thead>
+            <tbody>
+              <tr><td><b class="mono">CR-032</b> Racking beam upgrade</td><td>PRJ-0212</td><td class="imp">+₹6.4 L · no delay</td><td>Ritu Kapoor · 3 Oct</td><td><span class="chip ok">Approved</span></td></tr>
+              <tr><td><b class="mono">CR-030</b> Inverter swap</td><td>PRJ-0198</td><td class="imp">+₹2.1 L · no delay</td><td>Prakash Nair · 29 Sep</td><td><span class="chip ok">Approved</span></td></tr>
+              <tr><td><b class="mono">CR-028</b> Lab layout change</td><td>PRJ-0224</td><td class="imp">+₹3.8 L · +4 d</td><td>Prakash Nair · 24 Sep</td><td><span class="chip ok">Approved</span></td></tr>
+              <tr><td><b class="mono">CR-027</b> Treatment scope cut</td><td>PRJ-0226</td><td class="imp">−₹5.0 L · no delay</td><td>Steering · 17 Sep</td><td><span class="chip warn">Sent back</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>CR-031</h2><span>extra robot cell</span><span class="chip warn" style="margin-left:auto">Steering</span></header>
+        <div class="body" style="padding-top:10px">
+          <div class="cmpv">
+            <span></span><span>Now</span><span>If approved</span>
+            <span>Sanction</span><b>₹2.40 Cr</b><b class="n">₹2.54 Cr</b>
+            <span>Go-live</span><b>20 Nov</b><b class="n">25 Nov</b>
+            <span>Baseline</span><b>14 Nov</b><b>14 Nov</b>
+          </div>
+          <p class="why">A second robot cell on line 3 so the IH-260 family can run there from February, instead of a separate cell later under PRJ-0230.</p>
+          <ul class="path" style="margin-top:8px">
+            <li><i>✓</i><p><b>R. Venkatesh</b><small>Chennai plant head · recommends</small></p><em>3 Oct</em></li>
+            <li><i>✓</i><p><b>Ritu Kapoor</b><small>Finance controller · costs checked</small></p><em>6 Oct</em></li>
+            <li><i class="n">3</i><p><b>Steering committee</b><small>above ₹10 L, so beyond the CFO</small></p><em>15 Oct</em></li>
+          </ul>
+          <div class="acts2"><span class="btn">Send back</span><span class="btn">Defer</span><span class="btn pri">Add to pack</span></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Delegation</h2><span>who decides a change</span></header>
+        <div class="body" style="padding-top:8px">
+          <table class="deleg">
+            <thead><tr><th>Up to</th><th>Cost</th><th>Delay</th></tr></thead>
+            <tbody>
+              <tr><td>Plant head, IT head</td><td class="mono">₹5 L</td><td class="mono">5 days</td></tr>
+              <tr><td>CFO</td><td class="mono">₹10 L</td><td class="mono">7 days</td></tr>
+              <tr><td>Steering committee</td><td class="mono">above</td><td class="mono">above</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

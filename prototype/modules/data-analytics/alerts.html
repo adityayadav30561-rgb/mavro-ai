@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Data Analytics · Anomaly and alert queue</title>
+<!-- Scenario: see pipeline-health.html. Open 5: AN-0418 freshness (secondary sales dashboard 33 h old, PL-087 held)
+     and AN-0417 duplicates (PL-087), both data errors with a fix running; AN-0415 Chennai plant attrition 18.6%, a
+     12-month high, classed as a business shift and sent to HR (Kavita Iyer); AN-0414 freight cost per km on the
+     Ahmedabad lane +18% against its 4-week average, in triage (a new transporter rate card loaded on 3 Oct, or
+     duplicate trips); MD-07 demand forecast for IH pump housings, weekly error 16.4% against a 12% limit after
+     SO-24817 (Kestrel Pumps, 890 IH-220, a one-off) entered the history; retraining tonight at 01:00 with the order
+     flagged as one-off, the new version compared with the current before it takes over. Closed today: AN-0416
+     (CNC-03 downtime, business shift: the breakdown, MO-0418) and AN-0413 (window overrun, PL-131 retry). This month:
+     16 classified, 9 data errors and 7 business shifts. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .q td { padding-top: 15px; padding-bottom: 15px; }
+  .q td.m { font: 12px var(--mono); }
+  .q td.m b { color: var(--bad); font-weight: 600; }
+  .ty { display: inline-block; padding: 0 6px; margin-right: 6px; border-radius: 5px; background: var(--surface-2); border: 1px solid var(--line); font: 600 10.5px/18px var(--sans); color: var(--ink-2); vertical-align: 1px; }
+  .cls { font-size: 12px; font-weight: 550; }
+  .cls.d { color: var(--bad); }
+  .cls.b { color: var(--accent-ink); }
+  .cls.t { color: var(--warn); }
+  tr.closed td { color: var(--ink-3); }
+  tr.closed td b { color: var(--ink-2); }
+  .kv { font-size: 12.5px; gap: 8px 14px; }
+  .note { font-size: 12.5px; line-height: 1.45; color: var(--ink-2); margin: 10px 0 0; }
+  .acts2 { display: grid; grid-template-columns: 1fr 1.4fr; gap: 8px; margin-top: 12px; }
+  .acts2 .btn { justify-content: center; }
+</style>
+</head>
+<body data-module="data-analytics" data-view="Alerts" data-crumb="Data / Data Analytics / Alerts" data-org="NP|Northfield Precision|All entities" data-who="Farah Siddiqui|Data platform lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Anomaly and alert queue</h1>
+      <p>Freshness, quality rules, metric anomalies and model drift · each classed as a data error or a business shift</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Open</span><span>Today</span><span>Month</span></div>
+      <span class="btn pri">Alert rules</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Open alerts</label><div class="v"><strong>5</strong></div><div class="foot"><b class="delta flat">1 in triage</b><span>2 closed today</span></div></div>
+    <div class="card kpi"><label>Classified this month</label><div class="v"><strong>16</strong></div><div class="foot"><b class="delta down">9 data errors</b><span>7 business shifts</span></div></div>
+    <div class="card kpi"><label>Freshness breaches, month</label><div class="v"><strong>3</strong><i data-spark="1,0,2,1,0,1,3" data-color="#d43a2f"></i></div><div class="foot"><b class="delta flat">2 dashboards now</b><span>past 06:00</span></div></div>
+    <div class="card kpi"><label>Forecast models watched</label><div class="v"><strong>3</strong></div><div class="foot"><b class="delta down">1 drifting</b><span>retrain tonight</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush q" style="flex:1">
+        <header><h2>Alerts</h2><span>open first, then closed today</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Alert</th><th>What</th><th>Measured</th><th>Class</th><th>Owner</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><span class="ty">Fresh</span><b class="mono">AN-0418</b></td><td><b>Secondary sales dashboard</b><small>last publish 7 Oct, 05:20</small></td><td class="m"><b>33 h</b> old</td><td><span class="cls d">Data error</span></td><td>Farah Siddiqui</td><td><span class="chip blue">Fix running</span></td></tr>
+              <tr><td><span class="ty">Rule</span><b class="mono">AN-0417</b></td><td><b>Duplicate order IDs</b><small>PL-087 · field app</small></td><td class="m"><b>38</b> of 18,412</td><td><span class="cls d">Data error</span></td><td>Farah Siddiqui</td><td><span class="chip blue">Fix running</span></td></tr>
+              <tr class="hl"><td><span class="ty">Model</span><b class="mono">MD-07</b></td><td><b>Demand forecast drift</b><small>IH pump housings</small></td><td class="m"><b>16.4%</b> error</td><td><span class="cls b">Business shift</span></td><td>Farah Siddiqui</td><td><span class="chip warn">Retrain 01:00</span></td></tr>
+              <tr><td><span class="ty">Metric</span><b class="mono">AN-0415</b></td><td><b>Attrition, Chennai plant</b><small>12-month high</small></td><td class="m"><b>18.6%</b> vs 13.2%</td><td><span class="cls b">Business shift</span></td><td>Kavita Iyer, HR</td><td><span class="chip">With HR</span></td></tr>
+              <tr><td><span class="ty">Metric</span><b class="mono">AN-0414</b></td><td><b>Freight cost per km</b><small>Ahmedabad lane</small></td><td class="m"><b>+18%</b> on 4 weeks</td><td><span class="cls t">In triage</span></td><td>Farah Siddiqui</td><td><span class="chip warn">Checking</span></td></tr>
+              <tr class="closed"><td><span class="ty">Metric</span><b class="mono">AN-0416</b></td><td><b>Downtime, CNC-03</b><small>2 h 10 m today · MO-0418</small></td><td class="m">3.4× normal</td><td><span class="cls b">Business shift</span></td><td>Prakash Nair</td><td><span class="chip ok">Closed</span></td></tr>
+              <tr class="closed"><td><span class="ty">Run</span><b class="mono">AN-0413</b></td><td><b>Nightly window overrun</b><small>PL-131 · GST portal</small></td><td class="m">+22 min</td><td><span class="cls d">Data error</span></td><td>Farah Siddiqui</td><td><span class="chip ok">Closed</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>MD-07</h2><span>demand forecast, IH pump housings</span></header>
+        <div class="body" style="padding-top:8px">
+          <dl class="kv">
+            <dt>Weekly error</dt><dd style="color:var(--bad)">16.4% · limit 12%</dd>
+            <dt>Cause</dt><dd>SO-24817, a one-off order</dd>
+            <dt>Used by</dt><dd>Vikram Desai, planning</dd>
+          </dl>
+          <p class="note">Kestrel Pumps' 890 IH-220 order entered the history as normal demand. Tonight's retraining flags it as one-off; the new version takes over only if it beats the current one.</p>
+          <div class="acts2"><span class="btn">Hold retrain</span><span class="btn pri">Retrain at 01:00</span></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Error by week</h2><span>%</span><div class="legend"><span>Error</span><span style="--c:#c9cfdb">Limit</span></div></header>
+        <div class="body chart-c" data-bars="9.4,9.8,10.1,9.6,10.4,12.9,15.1,16.4|12,12,12,12,12,12,12,12" data-max="20" data-labels="W34,W35,W36,W37,W38,W39,W40,W41" data-colors="#0a48fd,#c9cfdb"></div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

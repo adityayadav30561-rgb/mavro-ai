@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Project Management · Project register</title>
+<!-- Scenario: see portfolio.html. Every project with owner, stage, sanction, committed (orders placed) and spent, the
+     baseline and forecast go-live, when its risk log was last updated (a log older than 21 days is a governance
+     breach: PRJ-0226) and health. Active: 9, ₹7.16 Cr sanctioned, ₹6.12 Cr committed, ₹4.40 Cr spent. Closed this
+     year: PRJ-0176 (VMC line at the Chennai plant, ₹5 L and 12 days over; VMC-11 came from Plant 1 under it) and
+     PRJ-0190 (gate automation at Plant 1, the Gate Entry booths), with 1 closed earlier on page 2. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 270px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .sums { grid-template-columns: repeat(4, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 7px; padding-bottom: 7px; }
+  .reg td.bad { color: var(--bad); font-weight: 600; }
+  .reg tr.cl td { color: var(--ink-2); }
+  .dt { font: 12px var(--mono); }
+  .dt s { color: var(--ink-3); }
+  .dt b { color: var(--warn); font-weight: 600; }
+  .h { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 550; }
+  .h::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--ok); }
+  .h.a::before { background: #e0a030; }
+  .h.r::before { background: var(--bad); }
+  .h.c::before { background: var(--line-2); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="project-management" data-view="Project register" data-crumb="Projects / Project Management / Project register" data-org="NP|Northfield Precision|All sites" data-who="Neeraj Bansal|PMO lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Project register</h1>
+      <p>Owner, stage, money and health for every project · the source of the steering pack</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All</span><span>Active</span><span>At risk</span><span>Closed</span></div>
+      <span class="btn">Export</span>
+      <span class="btn pri">New project</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Portfolio <b>All</b></span>
+    <span class="filter">Site <b>All</b></span>
+    <span class="filter">Year <b>April to March</b></span>
+    <span class="filter" style="border-style:dashed;color:var(--ink-3)">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Project, owner or purchase order</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Active projects</label><strong>9 <small>₹7.16 Cr sanctioned</small></strong></div>
+    <div class="card sm"><label>Committed</label><strong>₹6.12 Cr <small>orders placed</small></strong></div>
+    <div class="card sm"><label>Spent</label><strong>₹4.40 Cr <small>61% of sanction</small></strong></div>
+    <div class="card sm"><label>Risk logs out of date</label><strong style="color:var(--bad)">1 <small>older than 21 days</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Project</th><th>Name and owner</th><th>Stage</th><th class="r">Sanction</th><th class="r">Committed</th><th class="r">Spent</th><th>Go-live</th><th>Risk log</th><th>Health</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td><b class="mono">PRJ-0217</b><small>Capacity · Chennai</small></td><td><b>Plant 2 line automation</b><small>Vikram Desai</small></td><td>Installation</td><td class="r mono">₹2.40 Cr</td><td class="r mono">₹2.18 Cr</td><td class="r mono">₹1.46 Cr</td><td class="dt"><s>14 Nov</s> <b>20 Nov</b></td><td class="mono">6 Oct</td><td><span class="h a">Amber</span></td></tr>
+          <tr><td><b class="mono">PRJ-0198</b><small>Sustainability · Plant 1</small></td><td><b>Rooftop solar, 400 kWp</b><small>Prakash Nair</small></td><td>Commissioning</td><td class="r mono">₹1.85 Cr</td><td class="r mono">₹1.81 Cr</td><td class="r mono">₹1.62 Cr</td><td class="dt"><s>20 Oct</s> <b>24 Oct</b></td><td class="mono">3 Oct</td><td><span class="h">Green</span></td></tr>
+          <tr><td><b class="mono">PRJ-0226</b><small>Quality · Chennai</small></td><td><b>Effluent treatment upgrade</b><small>R. Venkatesh</small></td><td>Civil works</td><td class="r mono">₹72 L</td><td class="r mono">₹58 L</td><td class="r mono">₹31 L</td><td class="dt"><s>30 Nov</s> <b>21 Dec</b></td><td class="mono bad">14 Sep · 24 d</td><td><span class="h r">Red</span></td></tr>
+          <tr><td><b class="mono">PRJ-0212</b><small>Capacity · Pune depot</small></td><td><b>Pune depot racking</b><small>Kavita Joshi</small></td><td>Installation</td><td class="r mono">₹54 L</td><td class="r mono">₹54 L</td><td class="r mono">₹47 L</td><td class="dt">17 Oct</td><td class="mono">1 Oct</td><td><span class="h">Green</span></td></tr>
+          <tr><td><b class="mono">PRJ-0230</b><small>Capacity · Plant 1</small></td><td><b>IH-260 tooling and fixtures</b><small>Sunil Iyer</small></td><td>Design</td><td class="r mono">₹46 L</td><td class="r mono">₹12 L</td><td class="r mono">₹8 L</td><td class="dt">30 Jan</td><td class="mono">30 Sep</td><td><span class="h">Green</span></td></tr>
+          <tr><td><b class="mono">PRJ-0224</b><small>Quality · Plant 1</small></td><td><b>CMM room extension</b><small>Anil Bhosale</small></td><td>Civil works</td><td class="r mono">₹38 L</td><td class="r mono">₹31 L</td><td class="r mono">₹12 L</td><td class="dt"><s>15 Dec</s> <b>19 Dec</b></td><td class="mono">2 Oct</td><td><span class="h">Green</span></td></tr>
+          <tr><td><b class="mono">PRJ-0228</b><small>Sustainability · Plant 1</small></td><td><b>LED and VFD retrofit</b><small>Deepak Rane</small></td><td>Procurement</td><td class="r mono">₹31 L</td><td class="r mono">₹17 L</td><td class="r mono">₹4 L</td><td class="dt">31 Jan</td><td class="mono">29 Sep</td><td><span class="h">Green</span></td></tr>
+          <tr><td><b class="mono">PRJ-0215</b><small>Capacity · Plant 1</small></td><td><b>Compressed air ring main</b><small>Deepak Rane</small></td><td>Installation</td><td class="r mono">₹28 L</td><td class="r mono">₹26 L</td><td class="r mono">₹21 L</td><td class="dt"><s>31 Oct</s> 28 Oct</td><td class="mono">4 Oct</td><td><span class="h">Green</span></td></tr>
+          <tr><td><b class="mono">PRJ-0219</b><small>IT and digital · all sites</small></td><td><b>Dealer portal rollout</b><small>Arvind Rao</small></td><td>Build</td><td class="r mono">₹22 L</td><td class="r mono">₹15 L</td><td class="r mono">₹9 L</td><td class="dt"><s>30 Nov</s> <b>12 Dec</b></td><td class="mono">7 Oct</td><td><span class="h a">Amber</span></td></tr>
+          <tr class="cl"><td><b class="mono">PRJ-0190</b><small>Capacity · Plant 1</small></td><td><b>Gate automation, Plant 1</b><small>Prakash Nair</small></td><td>Closed</td><td class="r mono">₹34 L</td><td class="r mono">₹33 L</td><td class="r mono">₹33 L</td><td class="dt"><s>31 Aug</s> 29 Aug</td><td class="mono">closed</td><td><span class="h c">Closed</span></td></tr>
+          <tr class="cl"><td><b class="mono">PRJ-0176</b><small>Capacity · Chennai</small></td><td><b>VMC line, Chennai</b><small>R. Venkatesh</small></td><td>Closed</td><td class="r mono">₹1.92 Cr</td><td class="r mono">₹1.97 Cr</td><td class="r mono">₹1.97 Cr</td><td class="dt"><s>30 Jun</s> 12 Jul</td><td class="mono">closed</td><td><span class="h c">Closed</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <span>Showing 11 of 12 projects this year · go-live: baseline struck through where the forecast differs</span>
+      <div class="pages"><span class="on">1</span><span>2</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

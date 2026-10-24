@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Data Analytics · Pipeline health and insight delivery</title>
+<!--
+  Scenario (Data Analytics, shared by every screen of the module; ties to Sales Force Automation, Vendor Invoice
+  Management, HRMS, Production and Order to Cash): Northfield Precision, 8 Oct, 14:02. Data platform lead: Farah
+  Siddiqui. Nightly window 00:30–05:30, dashboards promised by 06:00. Last night: 46 pipelines (MAVRO modules 28, shop
+  floor 6, field app 4, portals 3, biometric devices 2, external 3): 44 succeeded first time, 1 recovered on retry
+  (PL-131, GSTR-2B import: the GST portal timed out at 02:10, retried 05:20, done 05:48), 1 held at its quality gate
+  (PL-087, field app secondary orders: 38 duplicate order IDs from an offline re-sync in Ahmedabad, ₹3.9 L counted
+  twice). Run success 45 of 46. Window ended 05:52, 22 minutes over. 3.62 M rows landed, 4,120 quarantined in
+  cleaning. 41 of 43 dashboards refreshed by 06:00; the two downstream of PL-087 (secondary sales, scheme accruals)
+  still show the 7 Oct publish. Intraday: 12 hourly pipelines, all green at 14:00. Open alerts 5: AN-0418 freshness
+  and AN-0417 duplicates (PL-087), AN-0415 Chennai attrition (business shift, sent to HR), AN-0414 freight cost per
+  km (in triage), MD-07 demand forecast drift (retraining tonight). Closed today: AN-0416 CNC-03 downtime (business
+  shift: the breakdown), AN-0413 window overrun (PL-131).
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .ly td { padding-top: 9px; padding-bottom: 9px; }
+  .ly .n { display: inline-grid; place-items: center; width: 20px; height: 20px; margin-right: 8px; border-radius: 6px; background: var(--accent-soft); color: var(--accent-ink); font: 600 11px var(--mono); }
+  tr.total td { background: var(--surface-2); font-weight: 600; }
+  .tlw { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding-top: 22px; }
+  .tl { display: grid; grid-template-columns: 110px minmax(0, 1fr); align-items: center; font-size: 12.5px; color: var(--ink-2); }
+  .trk2 { position: relative; height: 22px; border-radius: 6px; background: repeating-linear-gradient(90deg, #f3f4f7 0 calc(100% / 12 - 1px), #e7e9ee calc(100% / 12 - 1px) calc(100% / 12)); }
+  .seg2 { position: absolute; top: 4px; bottom: 4px; border-radius: 4px; background: var(--accent); }
+  .seg2.re { background: #e0a030; }
+  .mk { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--ink); font-style: normal; }
+  .mk.bad { background: var(--bad); }
+  .mk em { position: absolute; bottom: 100%; left: 4px; margin-bottom: 2px; white-space: nowrap; font: 600 10.5px var(--sans); font-style: normal; color: var(--ink-2); }
+  .mk.bad em { color: var(--bad); }
+  .mk.end em { left: auto; right: 4px; }
+  .trk2.ax { height: 14px; background: none; }
+  .trk2.ax span { position: absolute; transform: translateX(-50%); font: 10.5px var(--mono); color: var(--ink-3); }
+  .trk2:not(.ax)::after { content: ''; position: absolute; top: -7px; bottom: -7px; left: 83.33%; border-left: 1.5px dashed var(--bad); }
+  .src li { display: grid; grid-template-columns: minmax(0, 1fr) 70px 28px; gap: 10px; align-items: center; padding: 5px 0; font-size: 12.5px; }
+  .src em { font: 12px var(--mono); font-style: normal; text-align: right; color: var(--ink-2); }
+  .src .meter { height: 6px; }
+  .aud li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 6px 0; font-size: 12.5px; }
+  .aud li + li { border-top: 1px solid var(--line); }
+  .aud small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .aud em { font: 600 12px var(--mono); font-style: normal; }
+</style>
+</head>
+<body data-module="data-analytics" data-view="Platform health" data-crumb="Data / Data Analytics / Platform health"
+      data-org="NP|Northfield Precision|All entities" data-who="Farah Siddiqui|Data platform lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Pipeline health and insight delivery</h1>
+      <p>Last night's run, 00:30 to 05:52 · 46 pipelines from six kinds of source · dashboards promised by 06:00</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Last night</span><span>Intraday</span><span>30 days</span></div>
+      <span class="btn">Lineage</span>
+      <span class="btn pri">Alerts (5)</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Run success</label><div class="v"><strong>45 <small>of 46</small></strong><i data-spark="46,46,45,46,46,46,44,46,46,45,46,46,46,45" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta flat">1 retried</b><span>1 held at a gate</span></div></div>
+    <div class="card kpi"><label>Window finished</label><div class="v"><strong>05:52</strong></div><div class="foot"><b class="delta down">+22 min</b><span>target 05:30</span></div></div>
+    <div class="card kpi"><label>Dashboards fresh by 06:00</label><div class="v"><strong>41 <small>of 43</small></strong></div><div class="foot"><b class="delta down">2 stale</b><span>secondary sales</span></div></div>
+    <div class="card kpi"><label>Open alerts</label><div class="v"><strong>5</strong></div><div class="foot"><b class="delta flat">2 closed today</b><span>1 model retraining</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush ly">
+        <header><h2>By layer</h2><span>last night</span><span class="more">Pipeline register</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Layer</th><th class="r">Pipelines</th><th class="r">Rows</th><th class="r">Failed</th><th class="r">Held</th><th class="r">Duration</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><span class="n">1</span><b>Raw landing</b><small style="margin-left:28px">as extracted from the source</small></td><td class="r mono">46</td><td class="r mono">3.62 M</td><td class="r mono">1 → 0</td><td class="r mono">0</td><td class="r mono">1 h 52 m</td><td><span class="chip warn">GST portal retry</span></td></tr>
+              <tr><td><span class="n">2</span><b>Cleaned and validated</b><small style="margin-left:28px">types, keys, duplicates</small></td><td class="r mono">46</td><td class="r mono">3.61 M</td><td class="r mono">0</td><td class="r mono">0</td><td class="r mono">1 h 10 m</td><td><span class="chip">4,120 quarantined</span></td></tr>
+              <tr class="hl"><td><span class="n">3</span><b>Curated model</b><small style="margin-left:28px">facts and dimensions</small></td><td class="r mono">46</td><td class="r mono">—</td><td class="r mono">0</td><td class="r mono">1</td><td class="r mono">1 h 34 m</td><td><span class="chip bad">PL-087 gate</span></td></tr>
+              <tr><td><span class="n">4</span><b>Published</b><small style="margin-left:28px">marts and dashboards</small></td><td class="r mono">45</td><td class="r mono">—</td><td class="r mono">0</td><td class="r mono">—</td><td class="r mono">46 m</td><td><span class="chip ok">41 of 43 refreshed</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <header><h2>Last night's window</h2><span>layers in sequence · retry and gate marked</span><div class="legend"><span>Layer run</span><span style="--c:#e0a030">Retry</span><span style="--c:#d43a2f">Target 05:30</span></div></header>
+        <div class="body tlw">
+          <div class="tl"><span>Raw landing</span><div class="trk2"><span class="seg2" style="left:0.0%;width:31.1%"></span><i class="mk bad" style="left:27.8%"><em>02:10 GST portal timeout</em></i><span class="seg2 re" style="left:80.6%;width:7.8%"></span></div></div>
+          <div class="tl"><span>Cleaned</span><div class="trk2"><span class="seg2" style="left:31.1%;width:19.4%"></span></div></div>
+          <div class="tl"><span>Curated</span><div class="trk2"><span class="seg2" style="left:50.6%;width:26.1%"></span><i class="mk bad" style="left:57.8%"><em>03:58 PL-087 held</em></i></div></div>
+          <div class="tl"><span>Published</span><div class="trk2"><span class="seg2" style="left:76.7%;width:12.8%"></span><i class="mk end" style="left:88.3%"><em>05:48 GSTR-2B in</em></i></div></div>
+          <div class="tl ax"><span></span><div class="trk2 ax"><span style="left:0.0%">00:30</span><span style="left:25.0%">02:00</span><span style="left:58.3%">04:00</span><span style="left:91.7%">06:00</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Sources</h2><span>pipelines last night</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="src">
+            <li><span>MAVRO modules</span><span class="meter"><i style="width:100%"></i></span><em>28</em></li>
+            <li><span>Shop floor events</span><span class="meter"><i style="width:21%"></i></span><em>6</em></li>
+            <li><span>Field app</span><span class="meter warn"><i style="width:14%"></i></span><em>4</em></li>
+            <li><span>Portals</span><span class="meter"><i style="width:11%"></i></span><em>3</em></li>
+            <li><span>External (GST, banks)</span><span class="meter"><i style="width:11%"></i></span><em>3</em></li>
+            <li><span>Biometric devices</span><span class="meter"><i style="width:7%"></i></span><em>2</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Insight delivery</h2><span>dashboards fresh by 06:00</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="aud">
+            <li><p>Operations<small>OEE, output, downtime</small></p><em>12/12</em></li>
+            <li><p>Sales and channel<small>secondary sales, scheme accruals stale</small></p><em style="color:var(--bad)">7/9</em></li>
+            <li><p>Finance<small>revenue, cash, GST, payables</small></p><em>8/8</em></li>
+            <li><p>Leadership<small>the morning review</small></p><em>6/6</em></li>
+            <li><p>People<small>attendance, attrition</small></p><em>5/5</em></li>
+            <li><p>Supply chain<small>stock, gate, freight</small></p><em>3/3</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
