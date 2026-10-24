@@ -18,7 +18,7 @@ reintroduce anything under "Rejected". Add new entries as soon as the user state
 | Fit the screen | Sections should take about one screen on laptops and large monitors alike (rem scaling, see README "Responsive sizing"). |
 | Fully responsive | Every screen size and device type: phones, tablets, laptops, 27" monitors. |
 | No invented claims | Stats, testimonials, certifications, customer results only when supplied and verified. Client logos are supplied (clientele slide). |
-| Git: `main` only | All work is committed and pushed to `main`; no feature or session branches (user, 2026-10-23). |
+| Git: `main` only | All work is committed and pushed to `main`; no feature or session branches (user, 2026-10-23). Repeated firmly on 2026-10-24 after Phase 14 was pushed to a session branch: "I don't want to see that you are working on other branch". Applies even when a cloud session is told to use a `claude/...` branch; if a push to `main` is blocked, ask the user instead of using another branch. |
 | Content from the decks | Module names, portals, packages and ERP Connect come from the user's decks (docs/PRODUCT.md). |
 | Missing deck content | Where a deck says nothing about a module (or part of one), use standard information for that kind of module, kept to the modules MAVRO offers (user, 2026-10-23: "just know the modules we are offering, and if something is missing for any module, use standard info"). Still no invented figures, customer results or certifications. Accounting is the first case. |
 

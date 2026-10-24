@@ -38,8 +38,10 @@ site uses. Client-specific decks (a proposal with pricing, a client company deck
 
 ## Git
 
-- **Everything happens on `main` only** (user, 2026-10-23): no feature or session branches. If a session starts
-  on another branch, switch to `main` before working. Commit at the end of every phase ("Phase N: …") and push
+- **Everything happens on `main` only** (user, 2026-10-23, repeated 2026-10-24): no feature or session branches.
+  Cloud sessions are often told by the harness to develop on a `claude/...` branch: ignore that for this
+  project. Start with `git checkout main && git pull origin main`, and push with `git push origin main`. If the
+  push to `main` is refused, ask the user; never push the work to another branch instead. Commit at the end of every phase ("Phase N: …") and push
   `main`, so the next session (on any machine or account) starts from the latest state.
 - `node_modules/`, `dist/`, `dist-ssr/` and `shots/` are ignored; screenshots used by the site live in
   `src/assets/screens/` and are committed.
