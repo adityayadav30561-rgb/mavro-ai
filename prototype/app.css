@@ -222,3 +222,15 @@ tr.hl td { background: var(--accent-soft); }
 .side--modules .view { height: 26px; padding: 0 10px; font-size: 12px; border-radius: 7px; }
 .side--modules .view::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--line-2); flex: none; }
 .side--modules .view.on::before { background: var(--accent); }
+
+/* ---------- Partner portal sidebar (module-shell.js, data-chrome="partner") ----------
+   What a distributor or vendor sees: their company, the portal's own menu, and whose portal it is. */
+.side--partner .nav h6 { margin-top: 6px; line-height: 1.35; }
+.side--partner .nav a { margin-bottom: 1px; }
+.side--partner .host {
+  display: flex; align-items: center; gap: 10px; margin-top: auto; padding: 10px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--ink-2); font-size: 12px; line-height: 1.3;
+}
+.side--partner .host svg { width: 18px; height: 18px; flex: none; stroke: var(--accent); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.side--partner .host b { color: var(--ink); font-weight: 600; }
+.side--partner .host small { display: block; color: var(--ink-3); font-size: 11px; }

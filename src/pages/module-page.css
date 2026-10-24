@@ -21,3 +21,18 @@
     max-width: 9rem;
   }
 }
+
+/* Portal pages: the supply-to-retail chain (ChainDiagram) beside the flow of modules the portal exchanges records with. */
+.mp__portal {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: center;
+}
+
+@media (max-width: 1023px) {
+  .mp__portal {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+}

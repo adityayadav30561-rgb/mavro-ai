@@ -32,7 +32,7 @@ and the shared headings in `src/data/modules/template.ts`. Ten sections, tones a
 | 2 | Capabilities | CapabilityTiles in the tier colour, figures from the screens | white | soft |
 | 3 | Screens | ScreenTour, the module's 3–4 screens, then "Also in <module>": its other views (views.ts) | paper | mark |
 | 4 | What it does / why it matters | WhatWhy | white | grad |
-| 5 | Where it sits (`flow`) | FlowStrip: feeds it / module / it feeds, each node with what passes | paper | soft |
+| 5 | Where it sits (`flow`) | FlowStrip: feeds it / module / it feeds, each node with what passes. Portal pages: the ChainDiagram (portal lit) beside the FlowStrip (`.mp__portal`), stacked under 1024px | paper | soft |
 | 6 | Who uses it (`audience`) | Audience: industry cards with a coloured band, who it is and what the module does there; the people who work in it with an avatar, their task and the view they work in | white | mark |
 | 7 | Built on the platform | PlatformStrip with `module`: the module stands on the platform, a hairline rail into all eight features | paper | grad |
 | 8 | Related modules | ModuleCards (four: one row on desktops), each with that module's lead screen (its content's first screen, else `leads.ts`), cropped past the sidebar | white | soft |

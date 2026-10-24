@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Vendor Portal · Onboarding workflow (vendor's view)</title>
+<!-- Scenario: see dashboard.html. What the applicant sees: Deccan Forge Works (Kolhapur, closed-die forgings),
+     invited on 2 Oct by Rohan Menon (buyer, Plant 1) for the IH-260 forgings; registration VR-0188 started 3 Oct.
+     Steps 1–3 done: company and contacts; GSTIN and PAN verified automatically on 3 Oct (active, legal name matches,
+     PAN not already in Northfield's vendor master); bank account checked by penny drop (name returned matches).
+     Udyam registration: small enterprise, so payment terms of 45 days at most. Step 4, documents: 5 of 6 uploaded;
+     the factory licence expires 30 Nov, inside 90 days, so the portal asks for the renewal. Then step 5, approvals
+     (Rohan Menon for category and rates, Neha Kulkarni for supplier quality, finance for bank and tax) and step 6,
+     the ERP vendor code. The applicant is Sunil Patwardhan, partner. All identifiers are illustrative. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .ver td { padding-top: 8px; padding-bottom: 8px; }
+  .ver td.v { font: 12px var(--mono); }
+  .docs td { padding-top: 8px; padding-bottom: 8px; }
+  .file { display: inline-flex; align-items: center; gap: 7px; font: 12px var(--mono); color: var(--ink-2); }
+  .file::before { content: ''; width: 14px; height: 17px; border-radius: 3px; border: 1.4px solid var(--ink-3); background: linear-gradient(135deg, transparent 70%, var(--line-2) 70%); }
+  .file.none { color: var(--ink-3); font-family: var(--sans); }
+  .file.none::before { border-style: dashed; background: none; }
+  .ap li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 8px; align-items: start; padding: 7px 0; font-size: 12.5px; }
+  .ap li + li { border-top: 1px solid var(--line); }
+  .ap li i { width: 20px; height: 20px; border-radius: 6px; display: grid; place-items: center; font: 600 10.5px var(--mono); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .ap b { font-weight: 550; }
+  .ap small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .note { padding: 10px 12px; border-radius: 10px; background: var(--warn-soft); border: 1px solid #f5e2b0; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .note b { color: var(--ink); }
+  .contact { display: flex; align-items: center; gap: 10px; }
+  .contact i { width: 34px; height: 34px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--line); display: grid; place-items: center; font: 600 11.5px var(--sans); font-style: normal; color: var(--ink-2); }
+  .contact p { line-height: 1.3; font-size: 12.5px; }
+  .contact b { display: block; font-weight: 600; }
+  .contact small { color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="vendor-portal" data-chrome="partner" data-view="Application"
+      data-menu="Application:doc|Documents:doc|Purchase orders:supply|Invoices:coin|Payments:finance|Profile:user"
+      data-host="Northfield Precision|Supplier portal" data-org="DF|Deccan Forge Works|Kolhapur · applicant"
+      data-crumb="Supplier portal / Registration / VR-0188" data-search="Search orders, invoices, payments"
+      data-who="Sunil Patwardhan|Partner, Deccan Forge Works">
+<main>
+  <div class="head">
+    <div>
+      <h1>Supplier registration · VR-0188 &nbsp;<span class="chip blue" style="vertical-align:4px">Step 4 of 6</span></h1>
+      <p>Invited by Rohan Menon, buyer, Plant 1 · closed-die forgings · started 3 Oct · your answers save as you go</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Save and exit</span>
+      <span class="btn pri">Submit documents</span>
+    </div>
+  </div>
+
+  <div class="card" style="flex:none">
+    <div class="body" style="flex:none;padding:16px 8px 14px">
+      <ol class="flow" style="--n:6;--at:0.6">
+        <li class="done"><i></i><b>Company and contacts</b><span>3 Oct</span></li>
+        <li class="done"><i></i><b>GSTIN and PAN</b><span>verified 3 Oct</span></li>
+        <li class="done"><i></i><b>Bank account</b><span>penny drop 3 Oct</span></li>
+        <li class="now"><i></i><b>Documents</b><span>5 of 6</span></li>
+        <li class="next"><i></i><b>Approvals</b><span>buyer · quality · finance</span></li>
+        <li class="next"><i></i><b>Vendor code</b><span>then POs</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush ver">
+        <header><h2>Checked automatically</h2><span>no copies to send for these</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Check</th><th>What you gave</th><th>Result</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><b>GSTIN</b><small>on the GST portal</small></td><td class="v">27AAKFD4417M1Z3</td><td>Active · legal name matches</td><td><span class="chip ok">Verified</span></td></tr>
+              <tr><td><b>PAN</b><small>matched to the GSTIN</small></td><td class="v">AAKFD4417M</td><td>Valid · firm</td><td><span class="chip ok">Verified</span></td></tr>
+              <tr><td><b>Not already registered</b><small>Northfield's vendor master</small></td><td class="v">by PAN</td><td>No existing vendor</td><td><span class="chip ok">Clear</span></td></tr>
+              <tr><td><b>Bank account</b><small>₹1 penny drop</small></td><td class="v">ending 4417</td><td>Name returned: DECCAN FORGE WORKS</td><td><span class="chip ok">Matched</span></td></tr>
+              <tr><td><b>Udyam registration</b><small>MSME</small></td><td class="v">UDYAM-MH-19-0048213</td><td>Small enterprise · paid within 45 days</td><td><span class="chip ok">Verified</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card flush docs" style="flex:1">
+        <header><h2>Documents</h2><span>5 of 6 uploaded · expiry dates tracked</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Document</th><th>File</th><th>Valid till</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><b>GST registration certificate</b></td><td><span class="file">gst-reg.pdf</span></td><td class="mono">—</td><td><span class="chip ok">Accepted</span></td></tr>
+              <tr><td><b>Cancelled cheque</b></td><td><span class="file">cheque.jpg</span></td><td class="mono">—</td><td><span class="chip ok">Accepted</span></td></tr>
+              <tr><td><b>Udyam certificate</b></td><td><span class="file">udyam.pdf</span></td><td class="mono">—</td><td><span class="chip ok">Accepted</span></td></tr>
+              <tr class="hl"><td><b>Factory licence</b></td><td><span class="file">factory-licence.pdf</span></td><td class="mono">30 Nov</td><td><span class="chip warn">Expires in 53 days</span></td></tr>
+              <tr><td><b>Press and capacity statement</b></td><td><span class="file">capacity.xlsx</span></td><td class="mono">—</td><td><span class="chip ok">Accepted</span></td></tr>
+              <tr><td><b>Quality procedure or certificate</b><small>asked for by supplier quality</small></td><td><span class="file none">Not uploaded</span></td><td class="mono">—</td><td><span class="chip">Needed</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Before you submit</h2></header>
+        <div class="body" style="padding-top:10px">
+          <p class="note"><b>Your factory licence expires on 30 Nov.</b> You can submit with it, and upload the renewal here when it is issued. Without it, new orders stop on 1 Dec.</p>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>What happens next</h2><span>usually 2 working days</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="ap">
+            <li><i>5</i><p><b>Buyer</b><small>Rohan Menon · category, rates</small></p><span class="chip">Next</span></li>
+            <li><i>5</i><p><b>Supplier quality</b><small>Neha Kulkarni · may audit</small></p><span class="chip">Next</span></li>
+            <li><i>5</i><p><b>Finance</b><small>bank and tax details</small></p><span class="chip">Next</span></li>
+            <li><i>6</i><p><b>Vendor code issued</b><small>then purchase orders</small></p><span class="chip">Last</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Your contact</h2></header>
+        <div class="body">
+          <div class="contact"><i>RM</i><p><b>Rohan Menon</b><small>Buyer, Plant 1 · Northfield Precision</small></p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

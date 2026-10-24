@@ -11,6 +11,11 @@
  * an app bar and a tab bar instead. Charts are drawn afterwards by shell.js, once the layout is final.
  *
  * Optional: data-org="NP|Northfield Precision|Plant 1 · Pune" (the tenant), data-live="Live · 8 Oct, 14:02".
+ *
+ * Portal screens seen by the partner (a distributor, a vendor) use data-chrome="partner": the sidebar shows the
+ * partner's company (data-org) and only the portal's own menu, under data-host ("Northfield Precision · Distributor
+ * portal"). The menu is the module's views (views.ts), or data-menu="Label:icon|Label:icon" when the partner sees a
+ * different menu (a vendor applying through the Vendor Portal); data-view must be one of its labels.
  */
 import { areaOrder, areas, catalogue } from '/src/data/modules/catalogue.ts';
 import { moduleViews } from '/src/data/modules/views.ts';
@@ -33,6 +38,9 @@ const ICON = {
   more: '<circle cx="3.5" cy="8" r="1.1"/><circle cx="8" cy="8" r="1.1"/><circle cx="12.5" cy="8" r="1.1"/>',
   bell: '<path d="M4 11.5V7.5a4 4 0 0 1 8 0v4l1.2 1.3H2.8zM6.6 14h2.8"/>',
   plan: '<rect x="2.5" y="3" width="11" height="10.5" rx="1.5"/><path d="M2.5 6.2h11M5.5 1.8v2.4M10.5 1.8v2.4"/>',
+  doc: '<path d="M4 1.8h5.5L12.5 5v9.2H4z"/><path d="M9.3 1.8V5h3.2M6 8h4.5M6 10.6h4.5"/>',
+  gift: '<rect x="2.5" y="6" width="11" height="7.5" rx="1"/><path d="M1.8 6h12.4M8 6v7.5M8 6S6.8 2.5 5 3.2 6 6 8 6zm0 0s1.2-3.5 3-2.8S10 6 8 6z"/>',
+  user: '<circle cx="8" cy="5.5" r="2.6"/><path d="M3 13.5c.5-2.7 2.5-4.2 5-4.2s4.5 1.5 5 4.2"/>',
 };
 // The business areas, short enough for the sidebar.
 const SHORT = { finance: 'Finance', sales: 'Sales and channel', supply: 'Supply chain', make: 'Manufacturing', people: 'People', data: 'Data and projects' };
@@ -46,13 +54,14 @@ if (!entry) throw new Error(`module-shell: unknown module "${d.module}" (see src
 const area = entry.area ?? 'portal';
 // The module's full menu (src/data/modules/views.ts); the screen's own view must be one of them.
 const views = moduleViews[entry.slug] ?? [];
-if (d.view && d.device !== 'phone' && !views.includes(d.view))
+if (d.view && d.device !== 'phone' && d.chrome !== 'partner' && !views.includes(d.view))
   throw new Error(`module-shell: view "${d.view}" is not in moduleViews['${entry.slug}'] (src/data/modules/views.ts)`);
 const [orgMark, orgName, orgSub] = (d.org || 'NP|Northfield Precision|Plant 1 · Pune').split('|');
 const [whoName, whoRole] = (d.who || 'Meera Rao|Operations head').split('|');
 const live = d.live || 'Live · 8 Oct, 14:02';
 
 if (d.device === 'phone') phone();
+else if (d.chrome === 'partner') partner();
 else desktop();
 
 // Charts last: shell.js measures the finished layout. It skips its own chrome on module screens.
@@ -90,6 +99,38 @@ function desktop() {
   top.innerHTML =
     `<div class="crumb">${crumb.map((c, i) => (i === crumb.length - 1 ? `<b>${c}</b>` : `<span>${c}</span><span>/</span>`)).join('')}</div>` +
     `<div class="search">${svg('search')}<span>Search orders, items, documents</span><kbd>Ctrl K</kbd></div>` +
+    `<span class="live">${live}</span>` +
+    `<div class="who"><i>${initials(whoName)}</i><span>${whoName}<small>${whoRole}</small></span></div>`;
+
+  body.prepend(side, top);
+}
+
+function partner() {
+  // The portal's menu: its own (data-menu) or the module's views, with an icon each.
+  const menu = d.menu
+    ? d.menu.split('|').map((m) => m.split(':'))
+    : views.map((v, i) => [v, ['home', 'cart', 'supply', 'coin', 'gift', 'doc', 'user', 'data'][i] ?? 'doc']);
+  if (d.view && !menu.some(([label]) => label === d.view))
+    throw new Error(`module-shell: view "${d.view}" is not in the partner menu of ${entry.slug}`);
+  const [hostName, hostSub] = (d.host || `Northfield Precision|${entry.name}`).split('|');
+  const items = menu
+    .map(([label, icon, count]) => `<a class="${label === d.view ? 'on' : ''}">${svg(icon)}${label}${count ? `<em>${count}</em>` : ''}</a>`)
+    .join('');
+
+  const side = document.createElement('aside');
+  side.className = 'side side--partner';
+  side.innerHTML =
+    `<div class="brand"><img src="/src/assets/brand/logo-480.webp" alt="MAVRO.AI" height="22" width="118"></div>` +
+    `<div class="org"><i>${orgMark}</i><div><span>${orgName}</span><small>${orgSub}</small></div></div>` +
+    `<nav class="nav"><h6>${hostName} · ${hostSub}</h6>${items}</nav>` +
+    `<div class="host">${svg('portal')}<span>Portal of <b>${hostName}</b><small>on MAVRO</small></span></div>`;
+
+  const crumb = (d.crumb || `${hostSub} / ${d.view || ''}`).split('/').map((s) => s.trim()).filter(Boolean);
+  const top = document.createElement('header');
+  top.className = 'top';
+  top.innerHTML =
+    `<div class="crumb">${crumb.map((c, i) => (i === crumb.length - 1 ? `<b>${c}</b>` : `<span>${c}</span><span>/</span>`)).join('')}</div>` +
+    `<div class="search">${svg('search')}<span>${d.search || 'Search orders, invoices, claims'}</span><kbd>Ctrl K</kbd></div>` +
     `<span class="live">${live}</span>` +
     `<div class="who"><i>${initials(whoName)}</i><span>${whoName}<small>${whoRole}</small></span></div>`;
 

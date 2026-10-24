@@ -229,6 +229,28 @@ export const moduleViews: Partial<Record<ModuleSlug, readonly string[]>> = {
     'Sources',
     'Reports',
   ],
+  'vendor-portal': [
+    'Vendor dashboard',
+    'Vendor register',
+    'Onboarding',
+    'Vendor 360',
+    'Compliance vault',
+    'Approvals',
+    'Blocked vendors',
+    'Duplicate check',
+    'Reports',
+  ],
+  // The distributor's own menu: every Distributor Portal screen is what the distributor sees.
+  'distributor-portal': [
+    'Home',
+    'Order builder',
+    'Primary orders',
+    'Claims and credit notes',
+    'Schemes',
+    'Ledger',
+    'Ship-to addresses',
+    'Reports',
+  ],
   'scheme-and-rebate': [
     'Schemes',
     'Scheme register',

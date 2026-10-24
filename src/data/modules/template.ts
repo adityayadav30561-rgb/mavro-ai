@@ -29,6 +29,8 @@ export const moduleTemplate = {
     title: 'Where {name}',
     rest: 'sits in the flow.',
     lead: 'What feeds it and what it feeds. Each link passes the same record on, never a re-keyed copy.',
+    /** Portal pages: the chain is drawn beside the flow (SITE-PLAN.md section 3.1). */
+    portalLead: 'Its place in the chain goods move along, and the modules it hands the same records to.',
     from: 'Feeds it',
     to: 'It feeds',
   },

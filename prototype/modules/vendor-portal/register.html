@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Vendor Portal · Vendor register</title>
+<!-- Scenario: see dashboard.html. The vendor master: one record per vendor, deduplicated by PAN, with the plants it
+     supplies, GSTIN status, documents in the vault (valid and expiring), Udyam category and on-time-in-full over
+     12 months. The vendors already on other screens keep their figures: Aravali Castings 94% on time (Procure to
+     Pay), Kaveri Steel 86%, Mehta Alloys with invoice VIM-2224 held, Precision Tooling's GSTIN difference, Sharda
+     Bearings under for-cause audit AUD-0418, Konkan Foundry in trial with its qualification audit on 21–22 Oct,
+     Vertex Conveyors' late PO-7688, Shree Ganga Packers blocked, Deccan Forge Works onboarding. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 270px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .sums { grid-template-columns: repeat(4, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 7px; padding-bottom: 7px; }
+  .reg td.w { color: var(--warn); font-weight: 550; }
+  .reg td.x { color: var(--bad); font-weight: 600; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="vendor-portal" data-view="Vendor register" data-crumb="Portals / Vendor Portal / Vendor register" data-org="NP|Northfield Precision|All plants" data-who="Rohan Menon|Buyer">
+<main>
+  <div class="head">
+    <div>
+      <h1>Vendor register</h1>
+      <p>One golden record per vendor, deduplicated by PAN, with its documents and delivery record</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All</span><span>Active</span><span>Onboarding</span><span>Blocked</span></div>
+      <span class="btn">Export</span>
+      <span class="btn pri">Invite a vendor</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Plant <b>All</b></span>
+    <span class="filter">Category <b>All</b></span>
+    <span class="filter">Documents <b>All</b></span>
+    <span class="filter" style="border-style:dashed;color:var(--ink-3)">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Vendor, code, GSTIN or PAN</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Vendors</label><strong>412 <small>active · 9 onboarding</small></strong></div>
+    <div class="card sm"><label>Udyam registered</label><strong>148 <small>paid within 45 days</small></strong></div>
+    <div class="card sm"><label>Documents in the vault</label><strong>2,236 <small>17 expiring in 90 days</small></strong></div>
+    <div class="card sm"><label>Duplicates stopped</label><strong>6 <small>this year, by PAN</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Code</th><th>Vendor</th><th>Category</th><th>Plants</th><th>GSTIN</th><th>Documents</th><th>Udyam</th><th class="r">On time</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td><b class="mono">V-10021</b></td><td><b>Aravali Castings</b><small>Faridabad</small></td><td>Castings</td><td>Plant 1, Chennai</td><td><span class="chip ok plain">Active</span></td><td class="w">6 of 6 · 1 due 31 Oct</td><td>Small</td><td class="r mono">94%</td><td><span class="chip ok">Active</span></td></tr>
+          <tr><td><b class="mono">V-10044</b></td><td><b>Kaveri Steel Traders</b><small>Chennai</small></td><td>Bar stock</td><td>Plant 1, Chennai</td><td><span class="chip ok plain">Active</span></td><td>5 of 5</td><td>—</td><td class="r mono">86%</td><td><span class="chip ok">Active</span></td></tr>
+          <tr><td><b class="mono">V-10052</b></td><td><b>Mehta Alloys</b><small>Pune</small></td><td>Bar stock</td><td>Plant 1</td><td><span class="chip ok plain">Active</span></td><td>5 of 5</td><td>Micro</td><td class="r mono">92%</td><td><span class="chip warn">Invoice held</span></td></tr>
+          <tr><td><b class="mono">V-10063</b></td><td><b>Precision Tooling Co.</b><small>Chakan</small></td><td>Tooling</td><td>Plant 1</td><td><span class="chip ok plain">Active</span></td><td>5 of 5</td><td>Small</td><td class="r mono">97%</td><td><span class="chip warn">GSTIN on invoices differs</span></td></tr>
+          <tr><td><b class="mono">V-10078</b></td><td><b>Sharda Bearings</b><small>Pune</small></td><td>Bought-out parts</td><td>Plant 1</td><td><span class="chip ok plain">Active</span></td><td>6 of 6</td><td>Small</td><td class="r mono">88%</td><td><span class="chip warn">Audit AUD-0418</span></td></tr>
+          <tr><td><b class="mono">V-10091</b></td><td><b>Nova Seals</b><small>Nashik</small></td><td>Bought-out parts</td><td>Plant 1, Chennai</td><td><span class="chip ok plain">Active</span></td><td>6 of 6</td><td>Micro</td><td class="r mono">97%</td><td><span class="chip ok">Active</span></td></tr>
+          <tr><td><b class="mono">V-10102</b></td><td><b>Vertex Conveyors</b><small>Pune</small></td><td>Capital equipment</td><td>Chennai</td><td><span class="chip ok plain">Active</span></td><td>5 of 5</td><td>—</td><td class="r mono">—</td><td><span class="chip warn">PO-7688 late</span></td></tr>
+          <tr><td><b class="mono">V-10115</b></td><td><b>Ganesh Packaging</b><small>Pune</small></td><td>Packaging</td><td>Plant 1, depot</td><td><span class="chip ok plain">Active</span></td><td class="w">5 of 5 · 1 due 19 Nov</td><td>Micro</td><td class="r mono">95%</td><td><span class="chip ok">Active</span></td></tr>
+          <tr><td><b class="mono">V-10433</b></td><td><b>Konkan Foundry</b><small>Ratnagiri</small></td><td>Castings</td><td>Plant 1</td><td><span class="chip ok plain">Active</span></td><td>6 of 6</td><td>Small</td><td class="r mono">—</td><td><span class="chip blue">Trial · audit 21 Oct</span></td></tr>
+          <tr><td><b class="mono">V-10288</b></td><td><b>Shree Ganga Packers</b><small>Pune</small></td><td>Packaging</td><td>Depot</td><td><span class="chip ok plain">Active</span></td><td class="x">4 of 5 · 1 expired</td><td>Micro</td><td class="r mono">91%</td><td><span class="chip bad">Blocked</span></td></tr>
+          <tr><td><b class="mono">VR-0188</b></td><td><b>Deccan Forge Works</b><small>Kolhapur</small></td><td>Forgings</td><td>Plant 1</td><td><span class="chip ok plain">Verified</span></td><td class="w">5 of 6 · 1 due 30 Nov</td><td>Small</td><td class="r mono">—</td><td><span class="chip blue">Onboarding, step 4</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <span>Showing 11 of 421 vendors · on time: deliveries in full and on the promised date, last 12 months</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>…</span><span>39</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

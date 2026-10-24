@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Vendor Portal · Vendor 360° detail</title>
+<!-- Scenario: see dashboard.html. Aravali Castings (V-10021, Faridabad, LM6 aluminium castings), Udyam small
+     enterprise, Net 45; supplies Plant 1 and the Chennai plant. Spend April to October ₹96.4 L (12.1, 13.4, 14.0,
+     13.2, 14.6, 14.3, 14.8); October ₹14.8 L, 94% on time, 0.6% rejected, as on the Procure to Pay dashboard. Paid in
+     38 days on average. Open: PO-7714 (2 Oct, 400 kg, ₹1,02,400, in transit, due 10 Oct) with invoice VIM-2207
+     (₹1,20,832) waiting for its goods receipt. Last closed: PO-7698 → GRN-3302 → VIM-2196 (₹2,46,800, sent through
+     the portal) → paid PR-0187 / PAY-1402 on 6 Oct. Next payment run: 2 invoices, ₹4,86,200 less early-payment
+     discount ₹9,724 and TDS ₹4,862 = ₹4,71,614. Quality: audit 21 Aug acceptable (mVLens); the only source for the
+     CV-110 casting today, Konkan Foundry in trial; quality agreement renewal with legal, due 31 Oct. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .doc td { padding-top: 8px; padding-bottom: 8px; }
+  .trail { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
+  .trail div { position: relative; padding: 9px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+  .trail div + div::before { content: ''; position: absolute; left: -18px; top: 50%; width: 18px; height: 1.5px; background: var(--line-2); }
+  .trail label { display: block; color: var(--ink-3); font-size: 11px; }
+  .trail b { display: block; font: 600 12.5px var(--mono); margin-top: 1px; }
+  .trail small { display: block; color: var(--ink-2); font-size: 11.5px; margin-top: 2px; }
+  .trail .ok { border-color: #c8ecdc; background: var(--ok-soft); }
+  .trail .wait { border-style: dashed; background: #fff; }
+  .row2 + .row2 { margin-top: 14px; }
+  .row2 h3 { font: 550 12px var(--sans); color: var(--ink-2); margin-bottom: 8px; }
+  .lst li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 6px 0; }
+  .lst li + li { border-top: 1px solid var(--line); }
+  .lst b { font-weight: 550; }
+  .lst small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="vendor-portal" data-view="Vendor 360" data-crumb="Portals / Vendor Portal / Vendor 360 / V-10021" data-org="NP|Northfield Precision|All plants" data-who="Rohan Menon|Buyer">
+<main>
+  <div class="head">
+    <div>
+      <h1>Aravali Castings · V-10021 &nbsp;<span class="chip ok" style="vertical-align:4px">Active</span></h1>
+      <p>Faridabad · LM6 aluminium castings · supplies Plant 1 and the Chennai plant · Udyam small enterprise, Net 45</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Compliance vault</span>
+      <span class="btn">Raise PO</span>
+      <span class="btn pri">Scorecard</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Spend, April to October</label><div class="v"><strong>₹96.4 L</strong><i data-spark="12.1,13.4,14.0,13.2,14.6,14.3,14.8"></i></div><div class="foot"><b class="delta flat">₹14.8 L</b><span>in October</span></div></div>
+    <div class="card kpi"><label>On time in full</label><div class="v"><strong>94%</strong><i data-spark="91,92,95,93,94,96,94" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">12 months</b><span>Plant 1 and Chennai</span></div></div>
+    <div class="card kpi"><label>Rejected at inspection</label><div class="v"><strong>0.6%</strong></div><div class="foot"><b class="delta up">audit 21 Aug</b><span>acceptable</span></div></div>
+    <div class="card kpi"><label>Paid in</label><div class="v"><strong>38 <small>days, average</small></strong></div><div class="foot"><b class="delta up">inside 45</b><span>Udyam limit</span></div></div>
+  </div>
+
+  <div class="card" style="flex:none">
+    <header><h2>PO-7714 from order to payment</h2><span>400 kg LM6 castings for WO-5521</span></header>
+    <div class="body" style="flex:none">
+      <div class="trail">
+        <div class="ok"><label>Purchase order</label><b>PO-7714</b><small>2 Oct · ₹1,02,400</small></div>
+        <div class="ok"><label>Invoice, via portal</label><b>VIM-2207</b><small>3 Oct · ₹1,20,832</small></div>
+        <div><label>Dispatch</label><b>in transit</b><small>due at Plant 1 10 Oct</small></div>
+        <div class="wait"><label>Goods receipt</label><b>awaited</b><small>then the 3-way match</small></div>
+        <div class="wait"><label>Payment</label><b>due by 17 Nov</b><small>45 days from invoice</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card" style="flex:1">
+        <header><h2>Spend by month</h2><span>₹ lakh</span></header>
+        <div class="body chart-c" data-bars="12.1,13.4,14.0,13.2,14.6,14.3,14.8" data-max="16" data-labels="Apr,May,Jun,Jul,Aug,Sep,Oct"></div>
+      </div>
+      <div class="card">
+        <header><h2>Payments</h2><span>last and next</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>PR-0187 · ₹2,46,800</b><small>VIM-2196 for PO-7698 · paid 6 Oct</small></p><span class="chip ok">Paid</span></li>
+            <li><p><b>Next run · ₹4,71,614</b><small>2 invoices, after ₹9,724 discount and ₹4,862 TDS</small></p><span class="chip blue">Verified</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card flush doc">
+        <header><h2>Compliance vault</h2><span>checked nightly</span></header>
+        <div class="body">
+          <table>
+            <tbody>
+              <tr><td>GST registration</td><td class="mono">Active</td><td><span class="chip ok">Valid</span></td></tr>
+              <tr><td>Udyam, small</td><td class="mono">—</td><td><span class="chip ok">Valid</span></td></tr>
+              <tr><td>Bank, penny drop</td><td class="mono">matched</td><td><span class="chip ok">Valid</span></td></tr>
+              <tr><td>Factory licence</td><td class="mono">31 Mar</td><td><span class="chip ok">Valid</span></td></tr>
+              <tr class="hl"><td>Quality agreement</td><td class="mono">31 Oct</td><td><span class="chip warn">With legal</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Supply risk</h2></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>Only source for CV-110</b><small>Konkan Foundry in trial · audit 21 Oct</small></p><span class="chip warn">Single</span></li>
+            <li><p><b>LM6 castings cover</b><small>as on the Procure to Pay dashboard</small></p><span class="chip">6 weeks</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

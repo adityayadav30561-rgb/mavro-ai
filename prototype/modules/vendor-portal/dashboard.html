@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Vendor Portal · Vendor dashboard</title>
+<!--
+  Scenario (Vendor Portal, shared by every screen of the portal; agrees with Procure to Pay, Vendor Invoice
+  Management and mVLens Vendor Audit): Northfield Precision, 8 Oct, 14:02. Purchase head: S. Iyer; buyer: Rohan
+  Menon; supplier quality manager: Neha Kulkarni. 412 active vendors: Plant 1 268, Chennai plant 121, Pune depot 23.
+  By category (vendors · fully compliant · expiring in 90 days · blocked): castings and forgings 38 · 37 · 2 · 0;
+  bar stock and metals 44 · 42 · 3 · 0; bought-out parts 71 · 69 · 3 · 0; tooling 29 · 28 · 1 · 0; packaging 18 · 17 ·
+  1 · 1; consumables 96 · 92 · 3 · 1; services and contractors 82 · 78 · 3 · 1; capital equipment 34 · 33 · 1 · 0.
+  Fully compliant 396 (96.1%); 17 documents expire within 90 days; 3 vendors blocked from new POs (Shree Ganga
+  Packers, factory licence expired 30 Sep; Om Sai Facility Services, GST registration cancelled; Bharat Chem
+  Supplies, pollution consent expired). Onboarding: 9 in progress (5 documents, 2 approvals, 2 waiting for the ERP
+  code), 4.2 days on average over the last 90 days; Deccan Forge Works (Kolhapur, forgings, VR-0188) is at
+  documents. 6 duplicate registrations stopped this year at the PAN check. Aravali Castings (V-10021) is the
+  castings vendor on PO-7714.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .cat td { padding-top: 10px; padding-bottom: 10px; }
+  .cp { display: flex; align-items: center; gap: 8px; }
+  .cp .meter { width: 70px; min-width: 70px; }
+  .cp span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .pl { font: 11.5px var(--mono); color: var(--ink-2); }
+  tr.total td { background: var(--surface-2); font-weight: 600; }
+  td.bad { color: var(--bad); font-weight: 600; }
+  .funnel li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 5px 0; font-size: 12.5px; }
+  .funnel li i { width: 20px; height: 20px; border-radius: 6px; display: grid; place-items: center; font: 600 10.5px var(--mono); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .funnel li.on i { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+  .funnel em { font: 600 12px var(--mono); font-style: normal; }
+  .funnel li.done { color: var(--ink-3); }
+  .lst li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 6px 0; }
+  .lst li + li { border-top: 1px solid var(--line); }
+  .lst b { font-weight: 550; }
+  .lst small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="vendor-portal" data-view="Vendor dashboard" data-crumb="Portals / Vendor Portal / Vendor dashboard"
+      data-org="NP|Northfield Precision|All plants" data-who="S. Iyer|Purchase head">
+<main>
+  <div class="head">
+    <div>
+      <h1>Vendor dashboard</h1>
+      <p>One vendor master for Plant 1, the Chennai plant and the Pune depot · documents checked for expiry every night</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All plants</span><span>Plant 1</span><span>Chennai</span><span>Depot</span></div>
+      <span class="btn pri">Invite a vendor</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Active vendors</label><div class="v"><strong>412</strong><i data-spark="389,392,396,398,401,404,407,409,412"></i></div><div class="foot"><b class="delta up">96.1%</b><span>fully compliant</span></div></div>
+    <div class="card kpi"><label>Onboarding</label><div class="v"><strong>9 <small>in progress</small></strong></div><div class="foot"><b class="delta up">4.2 days</b><span>average, last 90 days</span></div></div>
+    <div class="card kpi"><label>Expiring in 90 days</label><div class="v"><strong>17 <small>documents</small></strong></div><div class="foot"><b class="delta flat">vendors told</b><span>at 90, 30 and 7 days</span></div></div>
+    <div class="card kpi"><label>Blocked from new POs</label><div class="v"><strong>3</strong></div><div class="foot"><b class="delta down">auto-blocked</b><span>when a document lapses</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush cat" style="flex:1">
+        <header><h2>Vendor base by category</h2><span>for the leadership review</span><span class="more">Vendor register</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Category</th><th class="r">Vendors</th><th>Plant 1 · Chennai · Depot</th><th>Fully compliant</th><th class="r">Expiring</th><th class="r">Blocked</th></tr></thead>
+            <tbody>
+              <tr><td><b>Castings and forgings</b><small>Aravali Castings, Konkan Foundry</small></td><td class="r mono">38</td><td class="pl">26 · 12 · 0</td><td><div class="cp"><span class="meter ok"><i style="width:97%"></i></span><span>37</span></div></td><td class="r mono">2</td><td class="r mono">0</td></tr>
+              <tr><td><b>Bar stock and metals</b><small>Kaveri Steel, Mehta Alloys</small></td><td class="r mono">44</td><td class="pl">29 · 15 · 0</td><td><div class="cp"><span class="meter ok"><i style="width:95%"></i></span><span>42</span></div></td><td class="r mono">3</td><td class="r mono">0</td></tr>
+              <tr><td><b>Bought-out parts</b><small>Sharda Bearings, Nova Seals</small></td><td class="r mono">71</td><td class="pl">48 · 23 · 0</td><td><div class="cp"><span class="meter ok"><i style="width:97%"></i></span><span>69</span></div></td><td class="r mono">3</td><td class="r mono">0</td></tr>
+              <tr><td><b>Tooling</b><small>Precision Tooling Co.</small></td><td class="r mono">29</td><td class="pl">21 · 8 · 0</td><td><div class="cp"><span class="meter ok"><i style="width:97%"></i></span><span>28</span></div></td><td class="r mono">1</td><td class="r mono">0</td></tr>
+              <tr><td><b>Packaging</b><small>Ganesh Packaging</small></td><td class="r mono">18</td><td class="pl">10 · 4 · 4</td><td><div class="cp"><span class="meter warn"><i style="width:94%"></i></span><span>17</span></div></td><td class="r mono">1</td><td class="r bad">1</td></tr>
+              <tr><td><b>Consumables</b><small>oils, gases, abrasives</small></td><td class="r mono">96</td><td class="pl">62 · 26 · 8</td><td><div class="cp"><span class="meter ok"><i style="width:96%"></i></span><span>92</span></div></td><td class="r mono">3</td><td class="r bad">1</td></tr>
+              <tr><td><b>Services and contractors</b><small>housekeeping, transport, labour</small></td><td class="r mono">82</td><td class="pl">50 · 21 · 11</td><td><div class="cp"><span class="meter warn"><i style="width:95%"></i></span><span>78</span></div></td><td class="r mono">3</td><td class="r bad">1</td></tr>
+              <tr><td><b>Capital equipment</b><small>Vertex Conveyors</small></td><td class="r mono">34</td><td class="pl">22 · 12 · 0</td><td><div class="cp"><span class="meter ok"><i style="width:97%"></i></span><span>33</span></div></td><td class="r mono">1</td><td class="r mono">0</td></tr>
+              <tr class="total"><td>All categories</td><td class="r mono">412</td><td class="pl">268 · 121 · 23</td><td><div class="cp"><span class="meter ok"><i style="width:96%"></i></span><span>396</span></div></td><td class="r mono">17</td><td class="r mono">3</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Onboarding</h2><span>9 waiting, by step</span><span class="more">All</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="funnel">
+            <li class="done"><i>1</i>Company and contacts<em>0</em></li>
+            <li class="done"><i>2</i>GSTIN and PAN, verified<em>0</em></li>
+            <li class="done"><i>3</i>Bank account, penny drop<em>0</em></li>
+            <li class="on"><i>4</i>Documents<em>5</em></li>
+            <li class="on"><i>5</i>Plant and quality approval<em>2</em></li>
+            <li class="on"><i>6</i>ERP vendor code<em>2</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Blocked from new POs</h2><span>3</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>Shree Ganga Packers</b><small>factory licence expired 30 Sep</small></p><span class="chip bad">Blocked</span></li>
+            <li><p><b>Om Sai Facility Services</b><small>GST registration cancelled</small></p><span class="chip bad">Blocked</span></li>
+            <li><p><b>Bharat Chem Supplies</b><small>pollution consent expired 2 Oct</small></p><span class="chip bad">Blocked</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Expiring next</h2><span>17 in 90 days</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>Aravali Castings</b><small>quality agreement · renewal with legal</small></p><span class="chip warn">31 Oct</span></li>
+            <li><p><b>Ganesh Packaging</b><small>quality agreement</small></p><span class="chip">19 Nov</span></li>
+            <li><p><b>Deccan Forge Works</b><small>factory licence · applicant</small></p><span class="chip">30 Nov</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

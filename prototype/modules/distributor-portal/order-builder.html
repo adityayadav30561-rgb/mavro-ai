@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Distributor / B2B Portal · Order builder (distributor's view)</title>
+<!-- Scenario: see home.html. Jignesh Patel builds NPO-3318 for the Navrangpura godown, from the Ahmedabad depot, at
+     the rate list of 1 Sep: IH-180 × 200 at ₹1,720 = ₹3,44,000 (depot stock 640); IH-220 × 120 at ₹2,290 = ₹2,74,800
+     (depot has 90; 30 come from Plant 1, Pune, 3 days later); CV-110 × 60 at ₹1,940 = ₹1,16,400 (stock 210); SK-22
+     seal kit × 300 at ₹410 = ₹1,23,000 (needs 18 months of shelf life at dispatch: batch B0731 has 14, so B0819 with
+     22 is allocated). Subtotal ₹8,58,200; the order lifts festive-slab purchases from ₹51.8 L to ₹60.4 L, so 4%
+     applies: −₹34,328; taxable ₹8,23,872; GST 18% ₹1,48,297; total ₹9,72,169. Credit: available ₹11.4 L, ₹1.68 L
+     left after it; INV-8841 is 33 days overdue (orders hold at 45). Ship-to GSTIN active. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .cart td { padding-top: 13px; padding-bottom: 13px; }
+  .qty { display: inline-flex; align-items: center; border: 1px solid var(--line-2); border-radius: 8px; overflow: hidden; }
+  .qty span { width: 26px; text-align: center; color: var(--ink-3); background: var(--surface-2); font-weight: 600; line-height: 26px; }
+  .qty b { min-width: 46px; text-align: center; font: 600 12.5px var(--mono); line-height: 26px; border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+  .st { font-size: 12px; }
+  .st small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .add td { color: var(--ink-3); }
+  .add .find { display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 10px; border: 1px dashed var(--line-2); border-radius: 8px; color: var(--ink-3); font-size: 12.5px; }
+  .tot { display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; font-size: 13px; }
+  .tot dt { color: var(--ink-2); }
+  .tot dd { text-align: right; font: 500 13px var(--mono); }
+  .tot .disc { color: var(--ok); }
+  .tot .grand { padding-top: 10px; border-top: 1px solid var(--line); font-weight: 650; color: var(--ink); }
+  .tot dd.grand { font: 700 16px var(--mono); }
+  .chk li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; padding: 7px 0; font-size: 12.5px; }
+  .chk li + li { border-top: 1px solid var(--line); }
+  .chk li i { width: 16px; height: 16px; margin-top: 1px; border-radius: 50%; background: var(--ok-soft); display: grid; place-items: center; font: 700 10px var(--sans); font-style: normal; color: var(--ok); }
+  .chk li i.w { background: var(--warn-soft); color: var(--warn); }
+  .chk b { font-weight: 550; }
+  .chk small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .cr .body { display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+  .bar3 { display: flex; height: 16px; border-radius: 6px; overflow: hidden; background: #eceef2; }
+  .bar3 i { display: block; height: 100%; }
+  .leg3 { display: flex; gap: 22px; font-size: 12.5px; color: var(--ink-2); }
+  .leg3 i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .leg3 b { font: 600 12.5px var(--mono); color: var(--ink); margin-left: 4px; }
+  .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+</style>
+</head>
+<body data-module="distributor-portal" data-chrome="partner" data-view="Order builder"
+      data-host="Northfield Precision|Distributor portal" data-org="ND|Navrangpura Distributors|DST-0412 · Ahmedabad"
+      data-crumb="Distributor portal / Order builder / NPO-3318" data-who="Jignesh Patel|Owner, Navrangpura Distributors">
+<main>
+  <div class="head">
+    <div>
+      <h1>Order builder · NPO-3318 &nbsp;<span class="chip" style="vertical-align:4px">Draft</span></h1>
+      <p>Ship to the Navrangpura godown · from the Ahmedabad depot · rate list of 1 Sep · every line checked as you add it</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Save draft</span>
+      <span class="btn">Repeat a past order</span>
+      <span class="btn pri">Submit order</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush cart">
+        <header><h2>Cart</h2><span>4 lines · 680 pieces</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Item</th><th>Quantity</th><th class="r">Rate</th><th class="r">Value</th><th>Stock and life</th><th>Check</th></tr></thead>
+            <tbody>
+              <tr><td><b>IH-180 impeller housing</b><small>Impeller housings</small></td><td><span class="qty"><span>−</span><b>200</b><span>+</span></span></td><td class="r mono">₹1,720</td><td class="r mono">₹3,44,000</td><td class="st">640 at the depot<small>ships 9 Oct</small></td><td><span class="chip ok">Ready</span></td></tr>
+              <tr class="hl"><td><b>IH-220 impeller housing</b><small>Impeller housings</small></td><td><span class="qty"><span>−</span><b>120</b><span>+</span></span></td><td class="r mono">₹2,290</td><td class="r mono">₹2,74,800</td><td class="st">90 at the depot<small>30 from Pune, 12 Oct</small></td><td><span class="chip warn">Split delivery</span></td></tr>
+              <tr><td><b>CV-110 valve body</b><small>Valve bodies</small></td><td><span class="qty"><span>−</span><b>60</b><span>+</span></span></td><td class="r mono">₹1,940</td><td class="r mono">₹1,16,400</td><td class="st">210 at the depot<small>ships 9 Oct</small></td><td><span class="chip ok">Ready</span></td></tr>
+              <tr><td><b>SK-22 seal kit</b><small>Seal and service kits</small></td><td><span class="qty"><span>−</span><b>300</b><span>+</span></span></td><td class="r mono">₹410</td><td class="r mono">₹1,23,000</td><td class="st">batch B0819 · 22 months<small>B0731 skipped, 14 months</small></td><td><span class="chip ok">Life checked</span></td></tr>
+              <tr class="add"><td colspan="6"><div class="find">+ Add an item by code or name · or scan the box label</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="card">
+          <header><h2>Delivery</h2></header>
+          <div class="body" style="padding-top:8px">
+            <dl class="kv">
+              <dt>Ship to</dt><dd>Navrangpura godown</dd>
+              <dt>From</dt><dd>Ahmedabad depot</dd>
+              <dt>First lot</dt><dd>9 Oct · 650 pieces</dd>
+              <dt>Second lot</dt><dd>12 Oct · 30 IH-220</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="card">
+          <header><h2>Order value</h2></header>
+          <div class="body" style="padding-top:8px">
+            <dl class="tot">
+              <dt>Lines</dt><dd>₹8,58,200</dd>
+              <dt>Festive slab, 4%</dt><dd class="disc">−₹34,328</dd>
+              <dt>GST 18%</dt><dd>₹1,48,297</dd>
+              <dt class="grand">To pay</dt><dd class="grand">₹9,72,169</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="card cr" style="flex:1">
+        <header><h2>Credit after this order</h2><span>limit ₹40.0 L</span></header>
+        <div class="body">
+          <div class="bar3"><i style="width:71.5%;background:#aab1bf"></i><i style="width:24.3%;background:var(--accent)"></i><i style="width:4.2%;background:var(--ok-soft)"></i></div>
+          <div class="leg3"><span><i style="background:#aab1bf"></i>Outstanding <b>₹28.6 L</b></span><span><i style="background:var(--accent)"></i>This order <b>₹9.72 L</b></span><span><i style="background:var(--ok-soft);box-shadow:inset 0 0 0 1px #c8ecdc"></i>Left <b>₹1.68 L</b></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex:1">
+        <header><h2>Checked before you submit</h2></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="chk">
+            <li><i>✓</i><p><b>Scheme applied</b><small>this order takes the festive slab to ₹60.4 L, so 4% instead of 3%</small></p></li>
+            <li><i>✓</i><p><b>Credit</b><small>₹9.72 L of ₹11.4 L available · ₹1.68 L left</small></p></li>
+            <li><i class="w">!</i><p><b>Overdue invoice</b><small>INV-8841, ₹3.2 L, 33 days over · orders hold at 45 days</small></p></li>
+            <li><i class="w">!</i><p><b>Stock</b><small>IH-220: 90 now, 30 from Pune three days later</small></p></li>
+            <li><i>✓</i><p><b>Shelf life</b><small>seal kits from a batch with 22 months left; 18 needed</small></p></li>
+            <li><i>✓</i><p><b>Ship-to GSTIN</b><small>active · e-way bill details complete</small></p></li>
+            <li><i>✓</i><p><b>Rates</b><small>rate list of 1 Sep, your distributor price</small></p></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

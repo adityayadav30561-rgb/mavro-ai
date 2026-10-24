@@ -4,8 +4,8 @@ _Last updated: 2026-10-24. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–11 done (2026-10-24); next: Phase 12, Vendor Portal and Distributor /
-B2B Portal (deck slides 65, 67; portal pages use the chain section).** The
+**Stage C (phased implementation). Phases 1–12 done (2026-10-24); next: Phase 13, Dealer Portal and Retailer Portal
+(deck slides 69, 71; the Retailer Portal has a phone screen).** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -37,6 +37,36 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-10-24, **Phase 12 done: Vendor Portal and Distributor / B2B Portal pages; portal page variant.** On `main`.
+  - **Portal page variant:** on portal pages the "where it sits" section shows the supply-to-retail chain
+    (`ChainDiagram`, the portal lit) beside the FlowStrip (`.mp__portal` in module-page.css; stacked below 1024px),
+    as SITE-PLAN.md 3.1 planned; lead copy `flow.portalLead` in template.ts. 0.84 screens at 1440×900.
+  - **Partner chrome** (`data-chrome="partner"` in `prototype/module-shell.js`, styles in app.css): what a
+    distributor or vendor sees: their company, only the portal's menu (the module's views, or `data-menu`) under
+    "Northfield Precision · <portal>", and a "Portal of Northfield Precision on MAVRO" card. VERIFY.md has the check.
+  - **Screens (8 new):** Vendor Portal `dashboard` (lead), `register`, `vendor-360` (buyer's views) and `onboarding`
+    (the applying vendor's view, partner chrome); Distributor Portal `home` (lead), `order-builder`, `claims`,
+    `orders`, all as Navrangpura Distributors sees them.
+  - **Scenario, vendors:** 412 active vendors (Plant 1 268, Chennai 121, Pune depot 23; category splits add up),
+    396 fully compliant, 17 documents expiring in 90 days, 3 blocked from new POs, 9 onboarding at 4.2 days.
+    Existing vendors keep their figures (Aravali Castings 94% on time, ₹14.8 L in October, PO-7714 / VIM-2207,
+    VIM-2196 paid by PR-0187; Kaveri Steel; Mehta Alloys' held invoice; Sharda Bearings' audit; Konkan Foundry in
+    trial; Vertex Conveyors' late PO-7688). New: Deccan Forge Works (VR-0188, Kolhapur, forgings for IH-260),
+    applicant Sunil Patwardhan; Shree Ganga Packers, Om Sai Facility Services, Bharat Chem Supplies (blocked).
+  - **Scenario, distributor:** Navrangpura Distributors (DST-0412, A-class, Ahmedabad; on Ravi Patel's beat, Sat
+    18 Oct), owner Jignesh Patel. Credit ₹40 L, outstanding ₹28.6 L, available ₹11.4 L; festive slab ₹51.8 L of
+    ₹60 L (= Sep–Oct orders ₹61.1 L with GST); draft NPO-3318 ₹9,72,169 crosses into 4%; prices IH-180 ₹1,720,
+    IH-220 ₹2,290, CV-110 ₹1,940, SK-22 ₹410; claims ₹1,16,000, three verified for Scheme and Rebate's 9 Oct run.
+  - **Fix:** the third Ahmedabad rep in the Data Analytics PL-087 screen is Farhan Ali (already in SFA), not a new
+    name; screen recaptured.
+  - **Content:** `content/vendor-portal.ts` (v2 slides 65–66), `distributor-portal.ts` (slides 67–68); views for
+    both in `views.ts` (the distributor's list is the distributor's own menu).
+  - Verified: every screen fits its canvas; each page at 1440×900, 1366×768 and 390×844 (one H1, no overflow, no
+    broken images, no console errors); `qa/measure.html` overflow=none at nine sizes on both and on Order to Cash
+    (template change); build passes, titles, canonical and FAQPage in the built files, both in the sitemap;
+    production build hydrates with no errors and no three.js.
+  - **Module pages live (20):** all 18 Base modules, vendor-portal, distributor-portal.
+
 - 2026-10-24, **Phase 11 done: Project Management and Data Analytics pages.** On `main`.
   - **Screens (7 new, 1 moved):** Project Management `portfolio` (lead), `milestone-plan` (the homepage `project`
     screen on the module shell, unchanged), `change-requests`, `project-register`; Data Analytics `pipeline-health`
@@ -52,7 +82,7 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
     GSTR-2B import retried after a GST portal timeout; PL-087 field app orders held at its gate on 38 duplicate
     order IDs from three Ahmedabad reps' phones, ₹3.9 L, +2.1% on the app's ₹1.86 Cr); window ended 05:52; 41 of 43
     dashboards fresh. Alerts tie to HRMS (Chennai attrition), Production (CNC-03 downtime, MO-0418) and O2C
-    (MD-07 demand forecast drift after SO-24817). New names: Farah Siddiqui (data platform lead), Kunal Shah (rep).
+    (MD-07 demand forecast drift after SO-24817). New names: Farah Siddiqui (data platform lead), Farhan Ali (rep, already in SFA).
   - **AI kept parked:** the deck's "model health" is shown as monitoring of three forecast models; no AI
     capabilities are claimed (DECISIONS.md, item 7 parked).
   - **Content:** `content/project-management.ts` (v2 slides 50–51; service providers' client projects as the
@@ -415,10 +445,10 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 12: Vendor Portal, Distributor / B2B Portal** (slides 65, 67). The first portal pages: portal pages use
-   the chain section instead of the flow strip (SITE-PLAN.md). The vendor side ties to Procure to Pay, VIM and
-   mVLens (Aravali Castings, Sharda Bearings); the distributor side to SFA, O2C and Scheme and Rebate.
-2. Then Phase 13 (Dealer Portal, Retailer Portal; Retailer has a phone screen).
+1. **Phase 13: Dealer Portal, Retailer Portal** (slides 69, 71). Partner chrome for the dealer's screens; the
+   Retailer Portal needs a phone screen (phone chrome with the retailer's tabs). Dealers buy from distributors such
+   as Navrangpura Distributors (secondary sales); retailers such as Ahmedabad Pump Mart (SFA) buy from dealers.
+2. Then Phase 14 (Transportation, Fleet and Warehouse Management).
 
 ## Open items (need the user or real assets)
 

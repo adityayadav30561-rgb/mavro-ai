@@ -74,6 +74,9 @@ Before a screen is captured, open it on the dev server (`/prototype/modules/<slu
 - [ ] **Sidebar:** `data-module` is the right slug and `data-view` is one of the module's views in
       `src/data/modules/views.ts` (the shell throws on either mistake). The module's full menu lives there, not in
       the page.
+- [ ] **Partner screens:** a portal screen seen by the partner (distributor, vendor) uses `data-chrome="partner"`
+      with `data-org` (the partner), `data-host` ("Northfield Precision|Distributor portal") and either the module's
+      views or `data-menu`; `data-view` must be in that menu. No MAVRO module list appears on a partner's screen.
 - [ ] **No invented claims:** sample data only; no client names, no certifications, no results, no real brands
       (airlines, hotels chains) and no years in dates.
 - [ ] **Class names:** a page's own classes must not reuse the prototype's (`app.css`): brand, btn, card, chart,

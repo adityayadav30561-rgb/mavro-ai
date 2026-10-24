@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Distributor / B2B Portal · Distributor home (distributor's view)</title>
+<!--
+  Scenario (Distributor / B2B Portal, shared by every screen; agrees with Sales Force Automation, Scheme and Rebate
+  and Order to Cash): what Navrangpura Distributors sees on Northfield Precision's distributor portal, 8 Oct, 14:02.
+  DST-0412, A-class, Ahmedabad; ship-to Navrangpura godown and Mehsana branch; served from Northfield's Ahmedabad
+  depot. Owner Jignesh Patel; Northfield's field rep Ravi Patel (beat visit Sat 18 Oct), field sales manager Deepak Rao. Credit limit
+  ₹40.0 L, outstanding ₹28.6 L (₹3.2 L over 30 days, invoice INV-8841), available ₹11.4 L. Purchases April to
+  October ₹2.84 Cr: impeller housings ₹1.36 Cr, seal and service kits ₹65 L, valve bodies ₹52 L, brackets ₹31 L.
+  Prices to the distributor: IH-180 ₹1,720, IH-220 ₹2,290, CV-110 ₹1,940, SK-22 seal kit ₹410 (rate list of 1 Sep).
+  Festive volume slab (1 Sep–31 Oct): 3% from ₹40 L, 4% from ₹60 L; bought so far ₹51.8 L. Open orders 2
+  (₹8.4 L): NPO-3312 in transit, NPO-3315 packed. Draft NPO-3318 (₹9.72 L with GST) is in the order builder.
+  Claims pending 4, ₹1,16,000: CLM-0868 September target incentive ₹92,740; CLM-0874 transit damage, 6 IH-180,
+  ₹10,320; CLM-0877 rate difference on INV-8902, 120 IH-220 × ₹60 = ₹7,200; CLM-0879 expired seal kits, 14 SK-22,
+  ₹5,740. Verified claims settle in Scheme and Rebate's bulk run on 9 Oct.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .cat li { display: grid; grid-template-columns: 170px minmax(0, 1fr) 80px; gap: 12px; align-items: center; padding: 7px 0; font-size: 12.5px; }
+  .cat .meter { height: 8px; }
+  .cat em { font: 600 12px var(--mono); font-style: normal; text-align: right; }
+  .ord td { padding-top: 11px; padding-bottom: 11px; }
+  .slab .track { position: relative; height: 10px; margin: 30px 0 26px; border-radius: 5px; background: #eceef2; }
+  .slab .track i { position: absolute; inset: 0 auto 0 0; width: 62.3%; border-radius: 5px; background: var(--accent); }
+  .slab .track b { position: absolute; top: -5px; width: 2px; height: 20px; background: var(--ink); opacity: .5; }
+  .slab .track span { position: absolute; top: 16px; transform: translateX(-50%); font: 11px var(--mono); color: var(--ink-3); white-space: nowrap; }
+  .slab .track em { position: absolute; top: -21px; transform: translateX(-50%); font: 600 11px var(--mono); font-style: normal; color: var(--accent-ink); white-space: nowrap; }
+  .slab p { font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .slab p b { color: var(--ink); }
+  .lst li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 6px 0; }
+  .lst li + li { border-top: 1px solid var(--line); }
+  .lst b { font-weight: 550; }
+  .lst small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .ct { margin: 16px 0 4px; font: 600 13px var(--sans); }
+  .lst em { font: 600 12px var(--mono); font-style: normal; }
+</style>
+</head>
+<body data-module="distributor-portal" data-chrome="partner" data-view="Home"
+      data-host="Northfield Precision|Distributor portal" data-org="ND|Navrangpura Distributors|DST-0412 · Ahmedabad"
+      data-crumb="Distributor portal / Home" data-who="Jignesh Patel|Owner, Navrangpura Distributors">
+<main>
+  <div class="head">
+    <div>
+      <h1>Orders and credit</h1>
+      <p>A-class distributor · ship to Navrangpura and Mehsana · served from the Ahmedabad depot · your field rep: Ravi Patel</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Statement</span>
+      <span class="btn pri">New order</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Credit available</label><div class="v"><strong>₹11.4 L</strong></div><div class="foot"><b class="delta flat">of ₹40.0 L</b><span>limit</span></div></div>
+    <div class="card kpi"><label>Outstanding</label><div class="v"><strong>₹28.6 L</strong></div><div class="foot"><b class="delta down">₹3.2 L over 30 days</b><span>INV-8841</span></div></div>
+    <div class="card kpi"><label>Open orders</label><div class="v"><strong>2 <small>₹8.4 L</small></strong></div><div class="foot"><b class="delta flat">1 in transit</b><span>1 packed</span></div></div>
+    <div class="card kpi"><label>Claims pending</label><div class="v"><strong>4 <small>₹1.16 L</small></strong></div><div class="foot"><b class="delta up">settle 9 Oct</b><span>when verified</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card">
+        <header><h2>What you have bought</h2><span>April to October · ₹2.84 Cr</span></header>
+        <div class="body" style="padding-top:6px">
+          <ul class="cat">
+            <li><span>Impeller housings</span><span class="meter"><i style="width:100%"></i></span><em>₹1.36 Cr</em></li>
+            <li><span>Seal and service kits</span><span class="meter"><i style="width:48%"></i></span><em>₹65 L</em></li>
+            <li><span>Valve bodies</span><span class="meter"><i style="width:38%"></i></span><em>₹52 L</em></li>
+            <li><span>Brackets</span><span class="meter"><i style="width:23%"></i></span><em>₹31 L</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card flush ord" style="flex:1">
+        <header><h2>Recent orders</h2><span>from the Ahmedabad depot</span><span class="more">Primary orders</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Order</th><th>Placed</th><th>Ship to</th><th class="r">Value</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b class="mono">NPO-3318</b><small>draft · 4 lines</small></td><td class="mono">today</td><td>Navrangpura</td><td class="r mono">₹9,72,169</td><td><span class="chip">In the order builder</span></td></tr>
+              <tr><td><b class="mono">NPO-3315</b><small>3 lines</small></td><td class="mono">6 Oct</td><td>Mehsana</td><td class="r mono">₹2,86,320</td><td><span class="chip blue">Packed · ships 9 Oct</span></td></tr>
+              <tr><td><b class="mono">NPO-3312</b><small>5 lines</small></td><td class="mono">3 Oct</td><td>Navrangpura</td><td class="r mono">₹5,53,680</td><td><span class="chip blue">In transit · 9 Oct</span></td></tr>
+              <tr><td><b class="mono">NPO-3306</b><small>4 lines</small></td><td class="mono">26 Sep</td><td>Navrangpura</td><td class="r mono">₹7,41,240</td><td><span class="chip ok">Delivered 29 Sep</span></td></tr>
+              <tr><td><b class="mono">NPO-3301</b><small>2 lines</small></td><td class="mono">19 Sep</td><td>Mehsana</td><td class="r mono">₹3,12,900</td><td><span class="chip ok">Delivered 22 Sep</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card slab">
+        <header><h2>Festive volume slab</h2><span>1 Sep to 31 Oct</span></header>
+        <div class="body">
+          <div class="track"><i></i><b style="left:28.6%"></b><b style="left:85.7%"></b><em style="left:62.3%">₹51.8 L bought</em><span style="left:28.6%">₹40 L · 3%</span><span style="left:85.7%">₹60 L · 4%</span></div>
+          <p><b>₹8.2 L more takes you to 4%</b> on every order in the scheme. The order in your cart does it.</p>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Due to pay</h2><span>₹28.6 L outstanding</span><span class="more">Ledger</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="lst">
+            <li><p><b>INV-8841</b><small>due 5 Sep · 33 days over</small></p><em style="color:var(--bad)">₹3.2 L</em></li>
+            <li><p><b>INV-8902 and 2 more</b><small>due this week</small></p><em>₹9.1 L</em></li>
+            <li><p><b>5 invoices</b><small>due by 31 Oct</small></p><em>₹16.3 L</em></li>
+          </ul>
+          <h3 class="ct">Your contacts at Northfield</h3>
+          <ul class="lst">
+            <li><p><b>Ravi Patel</b><small>field rep · next visit Sat 18 Oct</small></p><span class="chip">Call</span></li>
+            <li><p><b>Deepak Rao</b><small>field sales manager</small></p><span class="chip">Call</span></li>
+            <li><p><b>Ahmedabad depot</b><small>dispatch desk</small></p><span class="chip">Call</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Distributor / B2B Portal · Claims and credit note queue (distributor's view)</title>
+<!-- Scenario: see home.html. Navrangpura Distributors' 4 open claims, ₹1,16,000: three verified and in Scheme and
+     Rebate's bulk settlement on 9 Oct (CLM-0868 September target incentive ₹92,740; CLM-0874 transit damage on
+     NPO-3306, 6 IH-180 at ₹1,720 = ₹10,320, photos and the transporter's remark on the LR; CLM-0877 rate difference
+     on INV-8902, 120 IH-220 billed at ₹2,350 against ₹2,290 from 1 Sep = ₹7,200) and one submitted yesterday
+     (CLM-0879, 14 SK-22 seal kits of batch B0602 past their shelf life, ₹5,740, collected by the field rep on his
+     18 Oct visit). Credit notes since April: 6, ₹4,38,900, settled in 8 days on average. CLM-0851 was rejected in
+     August as a duplicate of CLM-0842 (same invoice, same damage). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .card > header h2 { white-space: nowrap; }
+  .q td { padding-top: 10px; padding-bottom: 10px; }
+  .ty { display: inline-block; padding: 0 6px; margin-right: 6px; border-radius: 5px; background: var(--surface-2); border: 1px solid var(--line); font: 600 10.5px/18px var(--sans); color: var(--ink-2); vertical-align: 1px; }
+  .pf { display: inline-flex; gap: 4px; }
+  .pf span { padding: 1px 6px; border-radius: 5px; background: var(--accent-soft); color: var(--accent-ink); font: 550 11px var(--sans); }
+  .cn td { padding-top: 7px; padding-bottom: 7px; }
+  tr.rej td { color: var(--ink-3); }
+  .types { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .types span { display: grid; place-items: center; height: 36px; border-radius: 9px; border: 1px solid var(--line-2); background: #fff; font-weight: 550; font-size: 12.5px; color: var(--ink-2); }
+  .types .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); box-shadow: inset 0 0 0 1px #c9d4ff; }
+  .fld { margin-top: 12px; }
+  .fld label { display: block; color: var(--ink-3); font-size: 11.5px; margin-bottom: 5px; }
+  .fld div { display: flex; align-items: center; height: 34px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 9px; font-size: 12.5px; }
+  .fld .drop { height: 54px; justify-content: center; border-style: dashed; color: var(--ink-3); }
+  .rule li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; padding: 6px 0; font-size: 12.5px; }
+  .rule li + li { border-top: 1px solid var(--line); }
+  .rule li i { width: 16px; height: 16px; margin-top: 1px; border-radius: 50%; background: var(--ok-soft); display: grid; place-items: center; font: 700 10px var(--sans); font-style: normal; color: var(--ok); }
+  .rule small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="distributor-portal" data-chrome="partner" data-view="Claims and credit notes"
+      data-host="Northfield Precision|Distributor portal" data-org="ND|Navrangpura Distributors|DST-0412 · Ahmedabad"
+      data-crumb="Distributor portal / Claims and credit notes" data-who="Jignesh Patel|Owner, Navrangpura Distributors">
+<main>
+  <div class="head">
+    <div>
+      <h1>Claims and credit notes</h1>
+      <p>Scheme, damage, expiry and rate-difference claims with their proof · verified claims are credited in the next settlement</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Download credit notes</span>
+      <span class="btn pri">Raise a claim</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Open claims</label><div class="v"><strong>4 <small>₹1,16,000</small></strong></div><div class="foot"><b class="delta up">3 verified</b><span>1 submitted yesterday</span></div></div>
+    <div class="card kpi"><label>Next settlement</label><div class="v"><strong>9 Oct</strong></div><div class="foot"><b class="delta up">₹1,10,260</b><span>as credit notes</span></div></div>
+    <div class="card kpi"><label>Credited since April</label><div class="v"><strong>₹4.39 L</strong><i data-spark="0,18,38,151,262,439,439" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta flat">6 credit notes</b><span>against your ledger</span></div></div>
+    <div class="card kpi"><label>Time to credit</label><div class="v"><strong>8 <small>days, average</small></strong></div><div class="foot"><b class="delta flat">1 rejected</b><span>duplicate, August</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush q">
+        <header><h2>Open claims</h2><span>4</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Claim</th><th>Against</th><th>Proof</th><th class="r">Amount</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><span class="ty">Expiry</span><b class="mono">CLM-0879</b><small>14 SK-22 seal kits, batch B0602</small></td><td class="mono">INV-8655</td><td><span class="pf"><span>Photos</span><span>Labels</span></span></td><td class="r mono">₹5,740</td><td><span class="chip">Pickup 18 Oct</span></td></tr>
+              <tr><td><span class="ty">Rate</span><b class="mono">CLM-0877</b><small>120 IH-220 at ₹2,350, not ₹2,290</small></td><td class="mono">INV-8902</td><td><span class="pf"><span>Rate list</span></span></td><td class="r mono">₹7,200</td><td><span class="chip ok">Verified · 9 Oct</span></td></tr>
+              <tr><td><span class="ty">Damage</span><b class="mono">CLM-0874</b><small>6 IH-180 cracked in transit</small></td><td class="mono">NPO-3306</td><td><span class="pf"><span>Photos</span><span>LR remark</span></span></td><td class="r mono">₹10,320</td><td><span class="chip ok">Verified · 9 Oct</span></td></tr>
+              <tr class="hl"><td><span class="ty">Scheme</span><b class="mono">CLM-0868</b><small>September target incentive</small></td><td class="mono">Sep purchases</td><td><span class="pf"><span>Statement</span></span></td><td class="r mono">₹92,740</td><td><span class="chip ok">Verified · 9 Oct</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card flush cn" style="flex:1">
+        <header><h2>Credit notes since April</h2><span>₹4,38,900</span><span class="more">Ledger</span></header>
+        <div class="body">
+          <table>
+            <thead><tr><th>Credit note</th><th>For</th><th>Claim</th><th class="r">Amount</th><th>Credited</th></tr></thead>
+            <tbody>
+              <tr><td><b class="mono">CN-1207</b></td><td>August target incentive</td><td class="mono">CLM-0855</td><td class="r mono">₹1,76,500</td><td class="mono">15 Sep</td></tr>
+              <tr><td><b class="mono">CN-1195</b></td><td>July target incentive</td><td class="mono">CLM-0846</td><td class="r mono">₹1,04,300</td><td class="mono">14 Aug</td></tr>
+              <tr><td><b class="mono">CN-1183</b></td><td>Transit damage, 4 CV-110</td><td class="mono">CLM-0842</td><td class="r mono">₹7,760</td><td class="mono">6 Aug</td></tr>
+              <tr class="rej"><td><b class="mono">—</b></td><td>Same damage claimed again</td><td class="mono">CLM-0851</td><td class="r mono">₹7,760</td><td>Rejected, duplicate</td></tr>
+              <tr><td><b class="mono">CN-1171</b></td><td>Q1 display scheme</td><td class="mono">CLM-0831</td><td class="r mono">₹1,12,600</td><td class="mono">12 Jul</td></tr>
+              <tr><td class="dim">+2</td><td>Rate difference and expiry</td><td class="dim">—</td><td class="r mono">₹37,740</td><td class="dim">May, June</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Raise a claim</h2></header>
+        <div class="body" style="padding-top:10px">
+          <div class="types"><span class="on">Scheme</span><span>Damage</span><span>Expiry</span><span>Rate difference</span></div>
+          <div class="fld"><label>Invoice or order</label><div>Search your invoices</div></div>
+          <div class="fld"><label>Proof</label><div class="drop">Drop photos, labels or documents</div></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>How claims are checked</h2></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="rule">
+            <li><i>✓</i><p>Against the scheme and your purchases<small>no need to work out the amount</small></p></li>
+            <li><i>✓</i><p>Against earlier claims<small>the same invoice and loss cannot be claimed twice</small></p></li>
+            <li><i>✓</i><p>Proof required by type<small>photos for damage, batch labels for expiry</small></p></li>
+            <li><i>✓</i><p>Credited to your ledger<small>a GST credit note for every claim paid</small></p></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

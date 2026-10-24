@@ -1,6 +1,7 @@
 import { Audience } from '../blocks/Audience';
 import { ClientBand } from '../blocks/ClientBand';
 import { CapabilityTiles } from '../blocks/CapabilityTiles';
+import { ChainDiagram } from '../blocks/ChainDiagram';
 import { CtaBand } from '../blocks/CtaBand';
 import { FaqBlock } from '../blocks/FaqBlock';
 import { FlowStrip, type FlowNode } from '../blocks/FlowStrip';
@@ -102,6 +103,17 @@ export function Page() {
     };
   });
 
+  // Where it sits: what feeds it and what it feeds. Portal pages draw the supply-to-retail chain beside it.
+  const flow = (
+    <FlowStrip
+      stages={[
+        { label: t.flow.from, nodes: content.flow.from.map(node) },
+        { nodes: [{ name, icon: iconOf(entry), kind: 'current' }] },
+        { label: t.flow.to, nodes: content.flow.to.map(node) },
+      ]}
+    />
+  );
+
   return (
     <>
       <PageHero
@@ -165,15 +177,22 @@ export function Page() {
         title={fill(t.flow.title, name)}
         rest={t.flow.rest}
         treatment="soft"
-        lead={t.flow.lead}
+        lead={entry.kind === 'portal' ? t.flow.portalLead : t.flow.lead}
       >
-        <FlowStrip
-          stages={[
-            { label: t.flow.from, nodes: content.flow.from.map(node) },
-            { nodes: [{ name, icon: iconOf(entry), kind: 'current' }] },
-            { label: t.flow.to, nodes: content.flow.to.map(node) },
-          ]}
-        />
+        {entry.kind === 'portal' ? (
+          <div className="mp__portal">
+            <ChainDiagram
+              title={explore.chainTitle}
+              nodes={explore.chain}
+              core="company"
+              active={entry.item.id}
+              badge={explore.chainBadge}
+            />
+            {flow}
+          </div>
+        ) : (
+          flow
+        )}
       </Section>
 
       <Section

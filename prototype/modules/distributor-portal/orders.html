@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Distributor / B2B Portal · Primary order register (distributor's view)</title>
+<!-- Scenario: see home.html. Every primary order Navrangpura Distributors has placed, by depot and ship-to, with the
+     invoice and where it is. 23 orders since April. September and October so far: 8 orders, ₹61.1 L with GST (₹51.8 L
+     before GST, the festive-slab figure on the home screen): NPO-3288 ₹10,14,500, NPO-3292 ₹9,84,200, NPO-3295
+     ₹8,72,400, NPO-3298 ₹12,46,800, NPO-3301 ₹3,12,900, NPO-3306 ₹7,41,240, NPO-3312 ₹5,53,680, NPO-3315 ₹2,86,320.
+     NPO-3306 carries CLM-0874 (damage) and CLM-0877 (rate on INV-8902); NPO-3288's 40 CV-110 followed on 9 Sep;
+     INV-8841 (NPO-3262) still has ₹3.2 L unpaid. 20 of the 21 delivered came by the promised date. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 270px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .sums { grid-template-columns: repeat(4, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 7px; padding-bottom: 7px; }
+  .nt { font-size: 12px; color: var(--ink-2); }
+  .nt.bad { color: var(--bad); font-weight: 600; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="distributor-portal" data-chrome="partner" data-view="Primary orders"
+      data-host="Northfield Precision|Distributor portal" data-org="ND|Navrangpura Distributors|DST-0412 · Ahmedabad"
+      data-crumb="Distributor portal / Primary orders" data-who="Jignesh Patel|Owner, Navrangpura Distributors">
+<main>
+  <div class="head">
+    <div>
+      <h1>Primary orders</h1>
+      <p>Every order you have placed, with its invoice and delivery · no need to call the depot for status</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All</span><span>Open</span><span>Delivered</span></div>
+      <span class="btn">Export</span>
+      <span class="btn pri">New order</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Ship to <b>All</b></span>
+    <span class="filter">Depot <b>All</b></span>
+    <span class="filter">Placed <b>Since 1 Apr</b></span>
+    <span class="filter" style="border-style:dashed;color:var(--ink-3)">+ Filter</span>
+    <span class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Order, invoice or item</span>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Orders since April</label><strong>23 <small>₹2.84 Cr before GST</small></strong></div>
+    <div class="card sm"><label>September and October</label><strong>₹61.1 L <small>8 orders, with GST</small></strong></div>
+    <div class="card sm"><label>Delivered on the promised date</label><strong>20 of 21 <small>1 line followed later</small></strong></div>
+    <div class="card sm"><label>Open now</label><strong>2 <small>₹8.4 L · and a draft</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Order</th><th>Placed</th><th>Ship to</th><th>From</th><th>Invoice</th><th class="r">Value</th><th>Delivery</th><th>Status</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td><b class="mono">NPO-3318</b><small>4 lines · 680 pcs</small></td><td class="mono">8 Oct</td><td>Navrangpura</td><td>Ahmedabad depot</td><td class="mono">—</td><td class="r mono">₹9,72,169</td><td class="mono">—</td><td><span class="chip ">Draft</span></td><td><span class="dim">—</span></td></tr>
+          <tr><td><b class="mono">NPO-3315</b><small>3 lines</small></td><td class="mono">6 Oct</td><td>Mehsana</td><td>Ahmedabad depot</td><td class="mono">to invoice</td><td class="r mono">₹2,86,320</td><td class="mono">ships 9 Oct</td><td><span class="chip blue">Packed</span></td><td><span class="dim">—</span></td></tr>
+          <tr><td><b class="mono">NPO-3312</b><small>5 lines</small></td><td class="mono">3 Oct</td><td>Navrangpura</td><td>Ahmedabad depot</td><td class="mono">INV-8947</td><td class="r mono">₹5,53,680</td><td class="mono">due 9 Oct</td><td><span class="chip blue">In transit</span></td><td><span class="dim">—</span></td></tr>
+          <tr><td><b class="mono">NPO-3306</b><small>4 lines</small></td><td class="mono">26 Sep</td><td>Navrangpura</td><td>Ahmedabad depot</td><td class="mono">INV-8902</td><td class="r mono">₹7,41,240</td><td class="mono">29 Sep</td><td><span class="chip ok">Delivered</span></td><td><span class="nt">2 claims</span></td></tr>
+          <tr><td><b class="mono">NPO-3301</b><small>2 lines</small></td><td class="mono">19 Sep</td><td>Mehsana</td><td>Ahmedabad depot</td><td class="mono">INV-8881</td><td class="r mono">₹3,12,900</td><td class="mono">22 Sep</td><td><span class="chip ok">Delivered</span></td><td><span class="dim">—</span></td></tr>
+          <tr><td><b class="mono">NPO-3298</b><small>6 lines</small></td><td class="mono">16 Sep</td><td>Navrangpura</td><td>Ahmedabad depot</td><td class="mono">INV-8874</td><td class="r mono">₹12,46,800</td><td class="mono">19 Sep</td><td><span class="chip ok">Delivered</span></td><td><span class="dim">—</span></td></tr>
+          <tr><td><b class="mono">NPO-3295</b><small>4 lines</small></td><td class="mono">12 Sep</td><td>Navrangpura</td><td>Ahmedabad depot</td><td class="mono">INV-8866</td><td class="r mono">₹8,72,400</td><td class="mono">15 Sep</td><td><span class="chip ok">Delivered</span></td><td><span class="dim">—</span></td></tr>
+          <tr><td><b class="mono">NPO-3292</b><small>5 lines</small></td><td class="mono">9 Sep</td><td>Mehsana</td><td>Ahmedabad depot</td><td class="mono">INV-8860</td><td class="r mono">₹9,84,200</td><td class="mono">12 Sep</td><td><span class="chip ok">Delivered</span></td><td><span class="dim">—</span></td></tr>
+          <tr><td><b class="mono">NPO-3288</b><small>5 lines</small></td><td class="mono">2 Sep</td><td>Navrangpura</td><td>Ahmedabad depot</td><td class="mono">INV-8853</td><td class="r mono">₹10,14,500</td><td class="mono">5 and 9 Sep</td><td><span class="chip ok">Delivered</span></td><td><span class="nt">40 CV-110 later</span></td></tr>
+          <tr><td><b class="mono">NPO-3281</b><small>3 lines</small></td><td class="mono">22 Aug</td><td>Mehsana</td><td>Ahmedabad depot</td><td class="mono">INV-8846</td><td class="r mono">₹2,40,700</td><td class="mono">25 Aug</td><td><span class="chip ok">Delivered</span></td><td><span class="dim">—</span></td></tr>
+          <tr><td><b class="mono">NPO-3262</b><small>5 lines</small></td><td class="mono">5 Aug</td><td>Navrangpura</td><td>Ahmedabad depot</td><td class="mono">INV-8841</td><td class="r mono">₹6,02,300</td><td class="mono">8 Aug</td><td><span class="chip ok">Delivered</span></td><td><span class="nt bad">₹3.2 L unpaid</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <span>Showing 11 of 24 orders, with today's draft · values include GST</span>
+      <div class="pages"><span class="on">1</span><span>2</span><span>3</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
