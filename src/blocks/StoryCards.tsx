@@ -1,4 +1,5 @@
 import { Icon } from '../components/Icon';
+import { hasPage } from '../links';
 import { vars } from '../motion/hooks';
 import { useHref } from '../routing';
 import './story-cards.css';
@@ -13,8 +14,9 @@ export interface Story {
   challenge: string;
   built: string;
   points: string[];
-  /** Related modules: on the homepage a `module` link opens that module in Explore the platform. */
-  links: { label: string; href: string; module?: string }[];
+  /** Related modules: a link goes to its `page` once that page exists (src/routes.ts), until then to `href`, where on
+   *  the homepage a `module` link opens that module in Explore the platform. */
+  links: { label: string; href: string; page?: string; module?: string }[];
 }
 
 /**
@@ -65,12 +67,15 @@ export function StoryCards({ stories }: { stories: readonly Story[] }) {
             </ul>
 
             <div className="proof__links">
-              {story.links.map((link) => (
-                <a key={link.label} href={href(link.href)} data-module={link.module}>
-                  {link.label}
-                  <Icon name="arrow" size={14} />
-                </a>
-              ))}
+              {story.links.map((link) => {
+                const page = link.page && hasPage(link.page) ? link.page : null;
+                return (
+                  <a key={link.label} href={href(page ?? link.href)} data-module={page ? undefined : link.module}>
+                    {link.label}
+                    <Icon name="arrow" size={14} />
+                  </a>
+                );
+              })}
             </div>
           </article>
         </li>

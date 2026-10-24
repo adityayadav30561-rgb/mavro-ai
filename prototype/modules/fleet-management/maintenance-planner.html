@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Fleet Management · Maintenance planner</title>
+<!-- Scenario: see fleet-dashboard.html. Plant 1 workshop, week of Mon 6 – Sat 11 Oct, three bays (Bay 1 mechanical,
+     Bay 2 service, Bay 3 tyres and electrical); Chennai vehicles go to an authorised garage. Done: JC-0727 V-04 tyre
+     rotation, JC-0728 V-06 brake adjustment, JC-0729 V-01 10,000 km service, JC-0730 V-13 service. In the workshop
+     now: JC-0731 V-03 clutch overhaul (Tue–Thu, clutch kit CK-24 not in stock, PO-7724 due 9 Oct), JC-0734 V-16
+     20,000 km service (ready 17:00), JC-0735 V-14 rear leaf spring after the 7 Oct breakdown. Planned: JC-0738 V-11
+     battery and service (6 days overdue) Thu, JC-0739 V-15 tyres and alignment Fri, JC-0740 V-09 brake liners Fri,
+     JC-0737 V-12 fitness pre-inspection Sat (fitness expires 1 Nov), JC-0742 V-17 oil change Sat (380 km overdue).
+     Chennai: V-29 PUC re-test 9 Oct, V-30 service (1,240 km overdue) 10 Oct. Preventive on time 88% (30 days).
+     Maintenance spend, ₹ lakh, preventive / breakdown: May 3.1 / 2.4, Jun 3.0 / 2.2, Jul 3.3 / 1.9, Aug 3.6 / 1.5,
+     Sep 3.8 / 1.3, October to date 1.02 / 0.36 (= the ₹1.38 L on the dashboard). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .wk { display: grid; grid-template-columns: 116px repeat(6, minmax(0, 1fr)); }
+  .wk .dh { padding: 0 8px 8px; font: 500 11.5px var(--sans); color: var(--ink-3); }
+  .wk .dh b { display: block; color: var(--ink); font-weight: 600; font-size: 12.5px; }
+  .wk .dh.today b { color: var(--accent-ink); }
+  .wk .bay { padding: 12px 10px 12px 0; border-top: 1px solid var(--line); line-height: 1.3; }
+  .wk .bay b { display: block; font-weight: 600; }
+  .wk .bay small { color: var(--ink-3); font-size: 11.5px; }
+  .row { grid-column: 2 / -1; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0 6px; border-top: 1px solid var(--line); padding: 8px 0; position: relative; min-height: 104px; align-content: start; align-items: start; }
+  .row::before { content: ''; position: absolute; top: 0; bottom: 0; left: calc((100% + 6px) / 6 * 2 - 3px); width: calc((100% + 6px) / 6 - 6px); background: var(--accent-soft); opacity: 0.55; z-index: 0; border-radius: 6px; }
+  .job { position: relative; z-index: 1; padding: 7px 9px; border-radius: 8px; border: 1px solid var(--line); background: #fff; line-height: 1.3; font-size: 12px; box-shadow: var(--shadow); }
+  .job b { display: block; font-weight: 600; }
+  .job small { display: block; color: var(--ink-3); font-size: 11px; }
+  .job em { display: block; margin-top: 3px; font: 600 10.5px var(--mono); font-style: normal; }
+  .job.done { background: var(--surface-2); color: var(--ink-3); box-shadow: none; }
+  .job.done b { color: var(--ink-2); }
+  .job.done em { color: var(--ok); }
+  .job.now { border-color: #9fb6ff; box-shadow: 0 0 0 3px var(--accent-soft); }
+  .job.now em { color: var(--accent-ink); }
+  .job.wait { border-color: #f5e2b0; background: var(--warn-soft); }
+  .job.wait em { color: var(--warn); }
+  .job.plan em { color: var(--ink-3); }
+  .job.ins { border-color: #c8ecdc; }
+  .od li { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; }
+  .od li + li { border-top: 1px solid var(--line); }
+  .od b.v2 { font: 650 11.5px var(--mono); padding: 4px 0; text-align: center; border-radius: 7px; background: var(--warn-soft); color: var(--warn); }
+  .od p { line-height: 1.3; }
+  .od p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .od em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-2); }
+  .parts li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0; }
+  .parts li + li { border-top: 1px solid var(--line); }
+  .parts p { line-height: 1.3; }
+  .parts p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 12px 16px 10px; width: calc(100% - 32px); height: calc(100% - 22px); }
+</style>
+</head>
+<body data-module="fleet-management" data-view="Maintenance planner" data-crumb="Supply chain / Fleet / Maintenance planner" data-who="Raju Gavade|Workshop supervisor">
+<main>
+  <div class="head">
+    <div>
+      <h1>Maintenance planner</h1>
+      <p>Plant 1 workshop · week of 6 Oct · bay-wise plan, parts and overdue jobs</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span>Last week</span><span class="on">This week</span><span>Next week</span></div>
+      <span class="btn pri">New job card</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Preventive on time · 30 days</label><div class="v"><strong>88%</strong><i data-spark="79,81,84,83,86,88" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">+9 pts since May</b><span>target 90%</span></div></div>
+    <div class="card kpi"><label>Jobs this week</label><div class="v"><strong>13</strong></div><div class="foot"><b class="delta flat">4 done · 3 in bays</b><span>6 planned</span></div></div>
+    <div class="card kpi"><label>Overdue</label><div class="v"><strong style="color:var(--warn)">3 <small>vehicles</small></strong></div><div class="foot"><b class="delta down">All now booked</b><span>by km or days</span></div></div>
+    <div class="card kpi"><label>Breakdowns · October</label><div class="v"><strong>2</strong></div><div class="foot"><b class="delta up">5 in May</b><span>V-14 spring, V-03 clutch</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card" style="flex:1">
+        <header><h2>Bay plan</h2><span>Plant 1 workshop</span><div class="legend"><span>In bay</span><span style="--c:#e0a030">Waiting for parts</span><span style="--c:#d9dce3">Done</span></div></header>
+        <div class="body">
+          <div class="wk">
+            <div></div>
+            <div class="dh"><b>Mon 6</b></div><div class="dh"><b>Tue 7</b></div><div class="dh today"><b>Wed 8 · today</b></div><div class="dh"><b>Thu 9</b></div><div class="dh"><b>Fri 10</b></div><div class="dh"><b>Sat 11</b></div>
+
+            <div class="bay"><b>Bay 1</b><small>Mechanical</small></div>
+            <div class="row">
+              <div class="job done"><b>V-06 brakes</b><small>JC-0728</small><em>Done</em></div>
+              <div class="job wait" style="grid-column:2 / span 3"><b>V-03 clutch overhaul</b><small>JC-0731 · clutch kit CK-24 on PO-7724, due Thu</small><em>Waiting for parts · back on the road Thu evening</em></div>
+              <div class="job plan"><b>V-09 brake liners</b><small>JC-0740</small><em>08:30</em></div>
+              <div class="job plan"><b>V-17 oil change</b><small>JC-0742 · 380 km over</small><em>09:00</em></div>
+            </div>
+
+            <div class="bay"><b>Bay 2</b><small>Service</small></div>
+            <div class="row">
+              <div class="job done"><b>V-01 10,000 km</b><small>JC-0729</small><em>Done</em></div>
+              <div class="job done"><b>V-13 service</b><small>JC-0730</small><em>Done</em></div>
+              <div class="job now"><b>V-16 20,000 km</b><small>JC-0734</small><em>Ready 17:00</em></div>
+              <div class="job plan"><b>V-11 battery, service</b><small>JC-0738 · 6 d over</small><em>08:00</em></div>
+              <div></div>
+              <div class="job plan ins"><b>V-12 fitness check</b><small>JC-0737 · expires 1 Nov</small><em>Brakes, lights, governor</em></div>
+            </div>
+
+            <div class="bay"><b>Bay 3</b><small>Tyres, electrical</small></div>
+            <div class="row">
+              <div class="job done"><b>V-04 tyre rotation</b><small>JC-0727</small><em>Done</em></div>
+              <div class="job now" style="grid-column:2 / span 2"><b>V-14 rear leaf spring</b><small>JC-0735 · broke down 7 Oct, Chakan road</small><em>Spring set issued · ready 18:30</em></div>
+              <div></div>
+              <div class="job plan"><b>V-15 tyres, alignment</b><small>JC-0739 · 4 tyres</small><em>10:00</em></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="height:226px">
+        <header><h2>Preventive and breakdown spend</h2><span>₹ lakh a month</span><div class="legend"><span>Preventive</span><span style="--c:#d43a2f">Breakdown</span></div></header>
+        <div class="body chart-c" data-bars="3.1,3.0,3.3,3.6,3.8,1.02|2.4,2.2,1.9,1.5,1.3,0.36" data-max="4.5" data-labels="May,Jun,Jul,Aug,Sep,Oct to date" data-colors="#0a48fd,#d43a2f"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Overdue</h2><span>by km or days</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="od">
+            <li><b class="v2">V-30</b><p><b>Service, 1,240 km over</b><small>Chennai garage · booked Fri 10</small></p><em>Booked</em></li>
+            <li><b class="v2">V-11</b><p><b>Battery check, 6 days over</b><small>Bay 2 · Thu 9, 08:00</small></p><em>Booked</em></li>
+            <li><b class="v2">V-17</b><p><b>Oil change, 380 km over</b><small>Bay 1 · Sat 11, 09:00</small></p><em>Booked</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Parts for this week</h2><span>from stores</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="parts">
+            <li><p><b>CK-24 clutch kit</b><small>V-03 · 0 in stock · PO-7724 due Thu</small></p><span class="chip warn">Awaited</span></li>
+            <li><p><b>LS-19 rear spring set</b><small>V-14 · issued 07:40</small></p><span class="chip ok">Issued</span></li>
+            <li><p><b>10.00 R20 tyres × 4</b><small>V-15 · 6 in stock</small></p><span class="chip ok">Reserved</span></li>
+            <li><p><b>12 V 150 Ah battery</b><small>V-11 · 2 in stock</small></p><span class="chip ok">Reserved</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Chennai garage</h2><span>authorised workshop</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="parts">
+            <li><p><b>V-29 PUC re-test</b><small>Thu 9 · injector cleaned · blocked until it passes</small></p><span class="chip bad">Blocked</span></li>
+            <li><p><b>V-30 service</b><small>Fri 10 · estimate ₹14,200</small></p><span class="chip blue">Booked</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

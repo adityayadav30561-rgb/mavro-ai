@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Warehouse Management · RF pick (phone)</title>
+<!-- Scenario: see wms-dashboard.html. 14:01: picker Amit Waghmare on wave W-0318, task 14 of 22, picks SK-22 seal kits
+     for SO-24855 (Vishwamitri Pumps, LD-0927 drop 1) from C-07. FEFO allocated batch B0644 (expiry Mar 27) ahead of
+     B0731 (Dec 27) and B0819 (Aug 28); the customer has no minimum shelf-life rule. Bin, item and batch scanned;
+     200 kits confirmed (C-07 keeps 140). Next task: C-09 for STO-0396. -->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  .task { display: flex; align-items: center; gap: 12px; }
+  .binbig { display: grid; place-items: center; width: 82px; height: 64px; border-radius: 12px; background: var(--ink); color: #fff; font: 700 22px var(--mono); }
+  .task p { flex: 1; line-height: 1.35; }
+  .task p b { display: block; font-size: 15px; font-weight: 650; }
+  .task p small { color: var(--ink-3); font-size: 12px; }
+  .fefo { display: grid; gap: 6px; }
+  .fefo div { display: grid; grid-template-columns: 58px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 8px 10px; border-radius: 9px; border: 1px solid var(--line); font-size: 12.5px; }
+  .fefo div.on { border-color: #9fb6ff; background: var(--accent-soft); }
+  .fefo b { font: 650 12.5px var(--mono); }
+  .fefo em { font: 12px var(--mono); font-style: normal; color: var(--ink-2); }
+  .fefo small { color: var(--ink-3); font-size: 11.5px; }
+  .scan li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; font-size: 13px; }
+  .scan li + li { border-top: 1px solid var(--line); }
+  .scan i { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--ok-soft); color: var(--ok); font: 700 12px var(--sans); font-style: normal; }
+  .scan em { font: 12px var(--mono); font-style: normal; color: var(--ink-2); }
+  .qty { display: flex; align-items: center; justify-content: space-between; }
+  .qty strong { font: 650 28px var(--mono); letter-spacing: -0.02em; }
+  .qty small { display: block; color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="warehouse-management" data-title="Pick · C-07" data-subtitle="W-0318 · task 14 of 22"
+      data-time="14:01" data-tab="Pick" data-tabs="Tasks:home:8|Pick:cart|Putaway:supply|Count:check|More:more" data-who="Amit Waghmare|Picker">
+<main>
+  <div class="card">
+    <div class="body">
+      <div class="task">
+        <span class="binbig">C-07</span>
+        <p><b>SK-22 Seal kit</b><small>SO-24855 · Vishwamitri Pumps · LD-0927 drop 1</small></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Batch to pick</h2><span>nearest expiry first</span></header>
+    <div class="body" style="padding-top:10px">
+      <div class="fefo">
+        <div class="on"><b>B0644</b><small>this bin · 340 kits</small><em>Mar 27</em></div>
+        <div><b>B0731</b><small>C-08 · picked after</small><em>Dec 27</em></div>
+        <div><b>B0819</b><small>C-09 · picked last</small><em>Aug 28</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Scanned</h2></header>
+    <div class="body" style="padding-top:2px">
+      <ul class="scan">
+        <li><i>✓</i><span>Bin label</span><em>C-07</em></li>
+        <li><i>✓</i><span>Item barcode</span><em>SK-22</em></li>
+        <li><i>✓</i><span>Batch on the carton</span><em>B0644</em></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="qty"><span><small>Quantity picked</small><strong>200</strong></span><span class="chip ok">Matches the task</span></div>
+    </div>
+  </div>
+
+  <div class="ph-actions">
+    <span class="btn">Short pick</span>
+    <span class="btn pri">Confirm · next C-09</span>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

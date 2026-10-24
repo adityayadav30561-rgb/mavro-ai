@@ -4,8 +4,8 @@ _Last updated: 2026-10-24. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–13 done (2026-10-24); next: Phase 14, Transportation Management, Fleet
-Management and Warehouse Management (deck slides 76 + TMS deck, 94, 96 + WMS deck; the TMS customer story links here).** The
+**Stage C (phased implementation). Phases 1–14 done (2026-10-24); next: Phase 15, Scheme and Rebate, Ecommerce
+Integration and Subscription Management (deck slides 86, 82, 102).** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,51 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-24, **Phase 14 done: Transportation Management, Fleet Management and Warehouse Management pages.** The
+  first Premium modules. On `main`.
+  - **Screens (12 new, 2 phones):** Transportation `control-tower` (lead, a lane map of shipments in motion),
+    `shipment-register`, `load-builder`, `shipment-tracking` and the phone `epod` (the driver's proof of delivery);
+    Fleet `fleet-dashboard` (lead), `vehicle-register`, `maintenance-planner`, `vehicle-360`; Warehouse
+    `wms-dashboard` (lead, a zone floor plan), `stock-register` (bin level), `inbound-putaway`, `pick-dispatch` and
+    the phone `rf-pick` (handheld pick by scan, FEFO).
+  - **Scenario, transport (8 Oct, 14:02, all sites):** 31 shipments in motion, 22 dispatched today, OTIF 93.6%,
+    3 at risk; October freight ₹13.1 L of ₹48.0 L. Transporters Om Sai Transport (already in Gate Entry, VIM and GST
+    returns), Shivneri Roadlines, Gujarat Freight Carriers, Southern Cargo Movers, Coromandel Roadways, plus the own
+    fleet. SHP-6127 carries SO-24781 (640 GH-280, out through Gate Entry's GP-3171 at 09:05) to Meridian Compressors,
+    Coimbatore (1,180 km): a 52 m halt near Satara moves the ETA past the receiving cut-off, the consignee is told.
+    SHP-6114 (Orion Agro, Indore) has an e-way bill lapsing tonight, extension queued for when the window opens.
+    SHP-6128 at Kestrel Pumps: 1 CV-110 damaged on the ePOD, claim TCL-0118. The Pune → Ahmedabad lane is 18% dearer
+    since Om Sai's rate card of 3 Oct (Data Analytics alert AN-0414), so load LD-0927 for 9 Oct (three drops:
+    Vishwamitri Pumps Vadodara, Patel Irrigation, STO-0396 to the Ahmedabad depot; 8,948 kg, 89%; ₹33,600 against
+    ₹50,200 separately) ranks Gujarat Freight Carriers first; SO-24873 (Anand Engineering, credit hold) stays out.
+  - **Scenario, fleet:** 32 own vehicles (Plant 1 V-01–V-18, Ahmedabad V-19–V-24, Chennai V-25–V-32), 21 on trip,
+    3 in the Plant 1 workshop, V-29 blocked on a lapsed PUC; ₹27.4 a km in October (41,860 km, ₹11.47 L). V-12 (32
+    ft, 2017) carries STO-0393 to the depot and costs ₹47.9 a km against ₹42.5 for its class: replacement review.
+  - **Scenario, warehouse:** Plant 1 finished-goods warehouse, ₹61.0 L (Inventory Management's FG figure), 1,010
+    bins at 80% (zone A 93%). Wave W-0318 (86 lines, cut-off 16:30) picks SO-24832 and the 9 Oct loads; the short
+    pick at A-09 is filled from overflow F-03. SK-22 seal kits in three batches (B0644 Mar 27, B0731 Dec 27, B0819
+    Aug 28; B0731 and B0819 agree with the Distributor Portal's 18-month rule): FEFO picks B0644, the depot transfer
+    takes B0819. GRN-5516 (Nova Seals, 1,200 SK-22) in QC sampling; IH-220 for SO-24817 in A-14 and A-15 (lot L-0932).
+  - **New names:** Tushar Joglekar (logistics manager), Lata Kamath (transport planner), Yusuf Khatri (fleet
+    manager), Raju Gavade (workshop supervisor), Sunita Ghorpade (warehouse manager), Amit Waghmare (picker), drivers
+    K. Murthy, Vitthal Mane, Harpreet Singh and others; customers Vishwamitri Pumps (Vadodara) and Aquaflow
+    Engineering (Thane).
+  - **Homepage Explore mocks** (catalogue.ts) now match the screens: the WMS pick list shows the SK-22 batches, the
+    fleet register V-12's fitness date (1 Nov, 24 days) and running costs.
+  - **Customer story links** (`StoryCards`): a link may name its `page`; it goes there once the page exists, else to
+    its homepage fallback. The TMS story now links to /modules/transportation-management, the VIM story to the Vendor
+    Portal and Procure to Pay pages; FSC Portal and ERP Connect switch over when their pages land.
+  - **Prototype:** `shell.js` area charts take an optional `data-min` (used for V-12's cost per km); other charts
+    unchanged.
+  - **Content:** `content/transportation-management.ts` (v2 slides 76–77 + TMS deck), `fleet-management.ts` (slides
+    94–95), `warehouse-management.ts` (slides 96–97 + WMS deck); views for all three in `views.ts`. Industries:
+    manufacturing, distribution, pharma (cold chain and GDP kept from the decks for pharma).
+  - Verified: every screen fits its canvas; each page at 1440×900, 1366×768 and 390×844 (one H1, no overflow, no
+    broken images, no console errors); `qa/measure.html` overflow=none at nine sizes on all three; build passes,
+    titles, canonical and FAQPage in the built files, all three in the sitemap.
+  - **Module pages live (25):** all 18 Base modules, all 4 portals, transportation-, fleet- and
+    warehouse-management.
 
 - 2026-10-24, **Phase 13 done: Dealer Portal and Retailer Portal pages.** On `main`. All four portals now have pages.
   - **Screens (7 new, 1 phone):** Dealer Portal `offtake` (lead) and `claims` (Northfield's channel views) with
@@ -470,10 +515,10 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 14: Transportation Management, Fleet Management, Warehouse Management** (v2 slides 76, 94, 96; the TMS
-   and WMS decks in docs/source). The first Premium modules; the customer story "TMS alongside SAP S/4HANA" links
-   to the Transportation page. Ties: the dispatches already on Gate Entry and Inventory, the Ahmedabad depot.
-2. Then Phase 15 (Scheme and Rebate, Ecommerce Integration, Subscription Management).
+1. **Phase 15: Scheme and Rebate, Ecommerce Integration, Subscription Management** (v2 slides 86, 82, 102). Scheme
+   and Rebate already has its lead screen (`scheme-and-rebate/schemes`, leads.ts) and is referenced by the dealer and
+   distributor claims (bulk settlement on 9 Oct, the festive slab, the 2% early-payment offer): keep those figures.
+2. Then Phase 16 (PPDS, Shop Floor Control, FSC Portal).
 
 ## Open items (need the user or real assets)
 

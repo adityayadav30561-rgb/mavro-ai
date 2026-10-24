@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Transportation Management · Shipment register</title>
+<!-- Scenario: see control-tower.html. Shipments in motion or closed today, newest first (12 of 37: 31 in motion and
+     6 delivered today). SHP-6132 SO-24832 Deccan Fluid Systems (Om Sai, placed 13:41, next on D1 at 14:15);
+     SHP-6131 SO-24829 Aquaflow Engineering, Thane (Om Sai, loading at D1 since 13:10); SHP-6130 SO-24826 Sundaram
+     Valves' own vehicle at D4 (ex-works, no freight); SHP-6128 SO-24812 Kestrel Pumps delivered 12:31, 1 CV-110
+     damaged (TCL-0118); SHP-6127 SO-24781 at risk; SHP-6125 STO-0393 on V-12; SHP-6123 NPO-3312 / INV-8947 due 9 Oct;
+     SHP-6122 SO-24846 to Rajkot; SHP-6120 SO-24835 re-allocated after IND-2294; SHP-6118 SO-24838 Nilgiri Pumps;
+     SHP-6114 SO-24824 Orion Agro with the e-way bill extension; SHP-6109 SO-24808 Varun Hydraulics delivered 10:42.
+     E-way bill validity is 1 day per 200 km. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg td { padding-top: 7px; padding-bottom: 7px; }
+  .pl { display: inline-block; padding: 1px 6px; border-radius: 5px; border: 1.5px solid var(--ink-2); font: 600 11px var(--mono); color: var(--ink); background: #fff; }
+  .ty { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); }
+  .ty.pri { background: #eef0f6; border-color: #d9dce3; color: var(--ink); }
+  .ty.own { background: var(--ok-soft); border-color: #c8ecdc; color: var(--ok); }
+  .rt { display: flex; align-items: center; gap: 6px; }
+  .rt span { color: var(--ink-3); }
+  td.late { color: var(--bad); }
+  td .was { color: var(--ink-3); text-decoration: line-through; margin-right: 4px; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="transportation-management" data-view="Shipment register" data-crumb="Supply chain / Transportation / Shipment register" data-who="Lata Kamath|Transport planner" data-org="NP|Northfield Precision|All sites">
+<main>
+  <div class="head">
+    <div>
+      <h1>Shipment register</h1>
+      <p>Every consignment with its order, lane, transporter, vehicle, documents and where it is now</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">New shipment</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Status <b>In motion, today</b></span>
+    <span class="filter">Site <b>All</b></span>
+    <span class="filter">Type <b>All</b></span>
+    <span class="filter">Transporter <b>All</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Shipment, order, LR, vehicle or e-way bill</div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>In motion</label><strong>31 <small>shipments</small></strong></div>
+    <div class="card sm"><label>Delivered today</label><strong>6 <small>· 5 clean ePODs</small></strong></div>
+    <div class="card sm"><label>Weight on the road</label><strong>142.6 <small>tonnes</small></strong></div>
+    <div class="card sm"><label>Freight accrued, in motion</label><strong>₹6.84 L</strong></div>
+    <div class="card sm"><label>E-way bills expiring &lt; 12 h</label><strong style="color:var(--bad)">1 <small>extension queued</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Shipment</th><th>Order</th><th>Lane</th><th>Transporter · vehicle</th><th>Left</th><th>ETA</th><th>E-way bill</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">SHP-6132</b><small>LR pending</small></td><td><b class="mono">SO-24832</b><small>Deccan Fluid Systems</small></td><td><div class="rt"><b>Plant 1</b><span>→</span><b>Hyderabad</b></div><small>560 km · 6,120 kg</small></td><td>Om Sai Transport<small><span class="pl">MH 04 LQ 2286</span></small></td><td class="mono dim">—</td><td class="mono">10 Oct 08:00</td><td class="dim">At gate-out</td><td><span class="chip blue">Placed · D1 14:15</span></td></tr>
+          <tr><td><b class="mono">SHP-6131</b><small>OST/24/7716</small></td><td><b class="mono">SO-24829</b><small>Aquaflow Engineering</small></td><td><div class="rt"><b>Plant 1</b><span>→</span><b>Thane</b></div><small>150 km · 3,480 kg</small></td><td>Om Sai Transport<small><span class="pl">MH 04 KF 8812</span></small></td><td class="mono dim">—</td><td class="mono">8 Oct 19:30</td><td class="dim">At gate-out</td><td><span class="chip blue">Loading · D1</span></td></tr>
+          <tr><td><b class="mono">SHP-6128</b><small>SRL/5521</small></td><td><b class="mono">SO-24812</b><small>Kestrel Pumps</small></td><td><div class="rt"><b>Plant 1</b><span>→</span><b>Bhosari</b></div><small>28 km · 1,336 kg</small></td><td>Shivneri Roadlines<small><span class="pl">MH 14 HG 2207</span></small></td><td class="mono">11:20</td><td class="mono">12:31 ✓</td><td class="dim">Closed</td><td><span class="chip warn">1 damaged · TCL-0118</span></td></tr>
+          <tr class="hl"><td><b class="mono">SHP-6127</b><small>SCM/24418</small></td><td><b class="mono">SO-24781</b><small>Meridian Compressors</small></td><td><div class="rt"><b>Plant 1</b><span>→</span><b>Coimbatore</b></div><small>1,180 km · 5,760 kg</small></td><td>Southern Cargo Movers<small><span class="pl">TN 38 CK 5521</span></small></td><td class="mono">09:05</td><td class="mono late"><span class="was">12:30</span>10 Oct 14:20</td><td class="mono">14 Oct</td><td><span class="chip warn">At risk · cut-off</span></td></tr>
+          <tr><td><b class="mono">SHP-6125</b><small>TRP-0421</small></td><td><b class="mono">STO-0393</b><small>Stock transfer</small></td><td><div class="rt"><b>Plant 1</b><span>→</span><b>Ahmedabad depot</b></div><small>662 km · 13,840 kg</small></td><td>Own fleet · V-12<small><span class="pl">MH 12 QW 4418</span></small></td><td class="mono">06:10</td><td class="mono">8 Oct 18:40</td><td class="mono">11 Oct</td><td><span class="chip ok">On time</span></td></tr>
+          <tr><td><b class="mono">SHP-6123</b><small>GFC/8842</small></td><td><b class="mono">NPO-3312</b><small>Navrangpura Distr.</small></td><td><div class="rt"><b>Ahmedabad depot</b><span>→</span><b>Navrangpura</b></div><small>18 km · 1,684 kg</small></td><td>Gujarat Freight Carriers<small><span class="pl">GJ 01 DV 7702</span></small></td><td class="mono">13:30</td><td class="mono">9 Oct 10:00</td><td class="mono">9 Oct</td><td><span class="chip ok">On time</span></td></tr>
+          <tr><td><b class="mono">SHP-6122</b><small>GFC/8839</small></td><td><b class="mono">SO-24846</b><small>Saurashtra Distr.</small></td><td><div class="rt"><b>Ahmedabad depot</b><span>→</span><b>Rajkot</b></div><small>215 km · 3,920 kg</small></td><td>Gujarat Freight Carriers<small><span class="pl">GJ 01 DV 7710</span></small></td><td class="mono">10:30</td><td class="mono">8 Oct 16:10</td><td class="mono">9 Oct</td><td><span class="chip ok">On time</span></td></tr>
+          <tr><td><b class="mono">SHP-6120</b><small>IND-2294</small></td><td><b class="mono">SO-24835</b><small>Sundaram Valves</small></td><td><div class="rt"><b>Chennai plant</b><span>→</span><b>Ambattur</b></div><small>34 km · 2,240 kg</small></td><td>Southern Cargo Movers<small><span class="pl">TN 05 BK 6271</span></small></td><td class="mono dim">—</td><td class="mono">8 Oct 17:30</td><td class="dim">At gate-out</td><td><span class="chip warn">Re-allocated</span></td></tr>
+          <tr><td><b class="mono">SHP-6118</b><small>CRW/3390</small></td><td><b class="mono">SO-24838</b><small>Nilgiri Pumps</small></td><td><div class="rt"><b>Chennai plant</b><span>→</span><b>Coimbatore</b></div><small>505 km · 4,410 kg</small></td><td>Coromandel Roadways<small><span class="pl">TN 09 BX 3302</span></small></td><td class="mono">09:30</td><td class="mono">8 Oct 17:45</td><td class="mono">10 Oct</td><td><span class="chip ok">On time</span></td></tr>
+          <tr><td><b class="mono">SHP-6114</b><small>SRL/5498</small></td><td><b class="mono">SO-24824</b><small>Orion Agro Equipment</small></td><td><div class="rt"><b>Plant 1</b><span>→</span><b>Indore</b></div><small>590 km · 7,350 kg</small></td><td>Shivneri Roadlines<small><span class="pl">MH 12 TR 6640</span></small></td><td class="mono">5 Oct</td><td class="mono late">9 Oct 09:00</td><td class="mono late">Tonight</td><td><span class="chip bad">Breakdown · EWB</span></td></tr>
+          <tr><td><b class="mono">SHP-6109</b><small>TRP-0412</small></td><td><b class="mono">SO-24808</b><small>Varun Hydraulics</small></td><td><div class="rt"><b>Plant 1</b><span>→</span><b>Chakan</b></div><small>22 km · 2,050 kg</small></td><td>Own fleet · V-07<small><span class="pl">MH 14 GU 3307</span></small></td><td class="mono">09:40</td><td class="mono">10:42 ✓</td><td class="dim">Closed</td><td><span class="chip ok">Delivered · clean</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 11 of 37 · 31 in motion, 6 delivered today</span><div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>4</span></div></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

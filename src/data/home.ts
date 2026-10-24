@@ -514,7 +514,7 @@ export const proof = {
         'Offline, mobile-first harvest logging',
         'EUDR due-diligence statements generated automatically',
       ],
-      links: [{ label: 'FSC Portal', href: '#premium', module: 'fsc' }],
+      links: [{ label: 'FSC Portal', href: '#premium', page: '/modules/fsc-portal', module: 'fsc' }],
     },
     {
       sector: 'Multi-plant logistics',
@@ -530,8 +530,8 @@ export const proof = {
         'Debit notes and GL reconciliation automated',
       ],
       links: [
-        { label: 'Transportation Management', href: '#premium', module: 'tms' },
-        { label: 'ERP Connect', href: '#connect' },
+        { label: 'Transportation Management', href: '#premium', page: '/modules/transportation-management', module: 'tms' },
+        { label: 'ERP Connect', href: '#connect', page: '/erp-connect' },
       ],
     },
     {
@@ -547,8 +547,8 @@ export const proof = {
         'Vendor compliance scorecards',
       ],
       links: [
-        { label: 'Vendor Portal', href: '#portals', module: 'vendor' },
-        { label: 'Procure to Pay', href: '#modules', module: 'p2p' },
+        { label: 'Vendor Portal', href: '#portals', page: '/modules/vendor-portal', module: 'vendor' },
+        { label: 'Procure to Pay', href: '#modules', page: '/modules/procure-to-pay', module: 'p2p' },
       ],
     },
   ] satisfies Story[],

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Warehouse Management · Pick and dispatch</title>
+<!-- Scenario: see wms-dashboard.html. Wave W-0318, released 10:30, cut-off 16:30: 86 pick lines across 8 orders, 61
+     picked. SO-24832 Deccan Fluid Systems 22 lines, staged in S1 (4 pallets, 6,120 kg, for Om Sai's MH 04 LQ 2286 at
+     D1 at 14:15, invoice INV-6121); SO-24863 Aquaflow 6 staged in S3 (LD-0928); SO-24862 Varun Hydraulics 8 on the
+     scale (860 kg against 858); SO-24860 Kestrel Pumps 10 and SO-24857 Patel Irrigation 6 packing; SO-24855
+     Vishwamitri Pumps 3 of 6, STO-0396 2 of 12 (LD-0927) and SO-24858 Deccan Fluid Systems 4 of 16 (LD-0929) picking.
+     Short picks today, all resolved before loading: A-09 IH-180 −40 for SO-24857 → F-03; B-07 CV-110 −6 for SO-24860 →
+     B-09; C-03 BR-045 −20 for SO-24862 → C-12. W-0317 went out as SO-24829 (Om Sai at D1, loading since 13:10) and
+     SO-24826 (Sundaram Valves' own vehicle at D4). LD-0927 is staged in S2 last drop first. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 312px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .wave { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 18px; align-items: center; }
+  .wave .t b { display: block; font: 650 16px var(--mono); }
+  .wave .t small { color: var(--ink-3); font-size: 12px; }
+  .seg2 { display: flex; height: 12px; border-radius: 6px; overflow: hidden; background: #eceef2; }
+  .seg2 span { height: 100%; }
+  .wl { display: flex; gap: 16px; margin-top: 7px; font-size: 11.5px; color: var(--ink-2); }
+  .wl span::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; background: var(--c); }
+  .wave .cut { text-align: right; }
+  .wave .cut strong { display: block; font: 650 18px var(--sans); letter-spacing: -0.02em; }
+  .wave .cut small { color: var(--ink-3); font-size: 12px; }
+  .board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; flex: 1; min-height: 0; }
+  .col { display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: 12px; background: #eef0f4; min-height: 0; }
+  .col h3 { display: flex; justify-content: space-between; font: 600 12px var(--sans); color: var(--ink-2); padding: 0 2px 2px; }
+  .col h3 em { font: 600 11px var(--mono); font-style: normal; color: var(--ink-3); }
+  .oc { padding: 9px 10px; border-radius: 9px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow); line-height: 1.3; font-size: 12px; }
+  .oc b { display: block; font: 650 12px var(--mono); }
+  .oc .n { font-weight: 550; font-size: 12.5px; }
+  .oc small { display: block; color: var(--ink-3); font-size: 11px; margin-top: 2px; }
+  .oc .meter { margin-top: 7px; height: 5px; }
+  .oc .tag { display: inline-block; margin-top: 6px; padding: 1px 6px; border-radius: 5px; font-size: 10.5px; font-weight: 550; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .oc .tag.w { background: var(--warn-soft); border-color: #f5e2b0; color: var(--warn); }
+  .oc .tag.b { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+  .oc .tag.g { background: var(--ok-soft); border-color: #c8ecdc; color: var(--ok); }
+  .oc.sel { border-color: #9fb6ff; box-shadow: 0 0 0 3px var(--accent-soft); }
+  .sp li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0; }
+  .sp li + li { border-top: 1px solid var(--line); }
+  .sp p { line-height: 1.3; font-size: 12.5px; }
+  .sp p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .lanes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .lanes div { padding: 8px 6px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); text-align: center; line-height: 1.25; }
+  .lanes b { display: block; font: 650 12px var(--mono); }
+  .lanes small { font-size: 10.5px; color: var(--ink-3); }
+  .lanes .on { background: var(--accent-soft); border-color: #d9e0ff; }
+  .chk li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 9px; padding: 6px 0; font-size: 12.5px; line-height: 1.32; }
+  .chk li + li { border-top: 1px solid var(--line); }
+  .chk i { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .chk small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="warehouse-management" data-view="Pick and dispatch" data-crumb="Supply chain / Warehouse / Pick and dispatch" data-who="Sunita Ghorpade|Warehouse manager" data-org="NP|Northfield Precision|Plant 1 · FG warehouse">
+<main>
+  <div class="head">
+    <div>
+      <h1>Pick and dispatch</h1>
+      <p>Wave W-0318 from pick to packing, QC, staging and the vehicle · every pick confirmed by scan</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">W-0318</span><span>W-0317</span><span>Next wave</span></div>
+      <span class="btn pri">Release W-0319</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="wave">
+        <div class="t"><b>W-0318</b><small>8 orders · 86 pick lines · released 10:30</small></div>
+        <div>
+          <div class="seg2"><span style="width:41.9%;background:#0c9b6a"></span><span style="width:18.6%;background:#3d4366"></span><span style="width:10.5%;background:#0a48fd"></span><span style="width:29.1%;background:#d9dce3"></span></div>
+          <div class="wl"><span style="--c:#0c9b6a">Staged or at QC · 36</span><span style="--c:#3d4366">Packing · 16</span><span style="--c:#0a48fd">Picked · 9</span><span style="--c:#d9dce3">To pick · 25</span></div>
+        </div>
+        <div class="cut"><strong>16:30</strong><small>cut-off · on pace at 46 lines an hour</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="board">
+      <div class="col">
+        <h3>Picking <em>3</em></h3>
+        <div class="oc sel"><b>SO-24855</b><span class="n">Vishwamitri Pumps</span><small>LD-0927 · drop 1 · 3 of 6 lines</small><span class="meter"><i style="width:50%"></i></span><span class="tag b">SK-22 · B0644 · FEFO</span></div>
+        <div class="oc"><b>STO-0396</b><span class="n">Ahmedabad depot</span><small>LD-0927 · drop 3 · 2 of 12 lines</small><span class="meter"><i style="width:17%"></i></span><span class="tag">SK-22 · B0819 · 18-month rule</span></div>
+        <div class="oc"><b>SO-24858</b><span class="n">Deccan Fluid Systems</span><small>LD-0929 · 4 of 16 lines</small><span class="meter"><i style="width:25%"></i></span></div>
+      </div>
+      <div class="col">
+        <h3>Packing <em>2</em></h3>
+        <div class="oc"><b>SO-24857</b><span class="n">Patel Irrigation</span><small>LD-0927 · drop 2 · 3 pallets</small><span class="tag w">40 short at A-09 · from F-03</span></div>
+        <div class="oc"><b>SO-24860</b><span class="n">Kestrel Pumps</span><small>LD-0928 · 6 cartons</small><span class="tag w">6 short at B-07 · from B-09</span></div>
+      </div>
+      <div class="col">
+        <h3>QC and weigh <em>1</em></h3>
+        <div class="oc"><b>SO-24862</b><span class="n">Varun Hydraulics</span><small>LD-0928 · 860 kg against 858</small><span class="tag g">Weight within tolerance</span></div>
+      </div>
+      <div class="col">
+        <h3>Staged <em>2</em></h3>
+        <div class="oc"><b>SO-24832</b><span class="n">Deccan Fluid Systems</span><small>S1 · 4 pallets · SSCC</small><span class="tag b">Om Sai · D1 at 14:15</span></div>
+        <div class="oc"><b>SO-24863</b><span class="n">Aquaflow Engineering</span><small>S3 · LD-0928 part load</small></div>
+      </div>
+      <div class="col">
+        <h3>Loading <em>2</em></h3>
+        <div class="oc"><b>SO-24829</b><span class="n">Aquaflow Engineering</span><small>W-0317 · Om Sai at D1 · 52 m</small><span class="meter"><i style="width:70%"></i></span></div>
+        <div class="oc"><b>SO-24826</b><span class="n">Sundaram Valves</span><small>W-0317 · own vehicle at D4</small><span class="meter"><i style="width:30%"></i></span></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Short picks today</h2><span>3 · all resolved</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="sp">
+            <li><p><b>A-09 · IH-180 · −40</b><small>SO-24857 · overflow F-03 · A-09 recount</small></p><span class="chip ok">Resolved</span></li>
+            <li><p><b>B-07 · CV-110 · −6</b><small>SO-24860 · overflow B-09</small></p><span class="chip ok">Resolved</span></li>
+            <li><p><b>C-03 · BR-045 · −20</b><small>SO-24862 · from C-12</small></p><span class="chip ok">Resolved</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Staging lanes</h2><span>loaded in drop order</span></header>
+        <div class="body">
+          <div class="lanes">
+            <div class="on"><b>S1</b><small>SO-24832 · Om Sai</small></div>
+            <div class="on"><b>S2</b><small>LD-0927 · building</small></div>
+            <div class="on"><b>S3</b><small>LD-0928 · own fleet</small></div>
+            <div><b>S4</b><small>free</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Dispatch clearance</h2><span>SO-24832</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="chk">
+            <li><i>✓</i><span>Pallet weights 6,120 kg<small>within the load plan and axle limit</small></span></li>
+            <li><i>✓</i><span>SSCC labels on 4 pallets<small>checked against the despatch</small></span></li>
+            <li><i>✓</i><span>Lots bound to cartons<small>traceability kept through packing</small></span></li>
+            <li><i>✓</i><span>INV-6121 and e-way bill<small>value and distance validated</small></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

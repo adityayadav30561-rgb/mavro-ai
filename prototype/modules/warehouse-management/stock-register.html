@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Warehouse Management · Stock register</title>
+<!-- Scenario: see wms-dashboard.html. Bin-level stock with live allocation, filtered to the bins wave W-0318 and
+     today's receipts touch (12 of 808 occupied bins). LD-0927 takes 1,720 IH-180 (A-09 260 for SO-24857 after the
+     short pick, A-10 420 for SO-24855, F-03 1,040 = STO-0396's 1,000 + the 40 short for SO-24857), 380 CV-110 from B-04
+     and SK-22 by FEFO and the depot rule (200 of B0644 for SO-24855, 1,600 of B0819 for STO-0396). A-14 and A-15 hold
+     IH-220 for SO-24817 (310 from stock, 48 of lot L-0932 from WO-5521). B-12's 950 GB-310 wait for SO-24861's
+     credit release. C-08 counted 774 against 780 on 6 Oct, so it is recounted. Quality hold and returns hold no
+     available stock. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 5px; padding-bottom: 5px; }
+  .bin { display: inline-block; padding: 1px 7px; border-radius: 5px; font: 650 11.5px var(--mono); background: var(--surface-2); border: 1px solid var(--line); }
+  .bin.q { background: var(--warn-soft); border-color: #f5e2b0; }
+  .al { display: flex; align-items: center; gap: 8px; }
+  .al .meter { width: 54px; min-width: 54px; }
+  .x { color: var(--warn); font-weight: 600; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="warehouse-management" data-view="Stock register" data-crumb="Supply chain / Warehouse / Stock register" data-who="Sunita Ghorpade|Warehouse manager" data-org="NP|Northfield Precision|Plant 1 · FG warehouse">
+<main>
+  <div class="head">
+    <div>
+      <h1>Stock register · bin level</h1>
+      <p>Every batch in every bin, with what is allocated to which order and what is free</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Bin map</span>
+      <span class="btn">Export</span>
+      <span class="btn pri">Move stock</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Bins <b>Touched by W-0318 and today’s receipts</b></span>
+    <span class="filter">Zone <b>All</b></span>
+    <span class="filter">Status <b>All</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Bin, item, batch or order</div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Stock value</label><strong>₹61.0 L <small>· 214 items</small></strong></div>
+    <div class="card sm"><label>Bins occupied</label><strong>808 <small>of 1,010</small></strong></div>
+    <div class="card sm"><label>Allocated to orders</label><strong>₹39.5 L <small>at cost</small></strong></div>
+    <div class="card sm"><label>On hold or in returns</label><strong style="color:var(--warn)">2,405 <small>pieces</small></strong></div>
+    <div class="card sm"><label>Inventory accuracy</label><strong>99.2% <small>cycle counts</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Bin</th><th>Item</th><th>Batch / lot</th><th>Expiry</th><th class="r">On hand</th><th>Allocated</th><th class="r">Free</th><th>Status</th><th>Last count</th></tr></thead>
+        <tbody>
+          <tr><td><span class="bin a">A-09</span></td><td><b>IH-180</b><small>Impeller housing</small></td><td class="mono">L-0921</td><td class="dim">—</td><td class="r mono">260</td><td><div class="al"><span class="meter warn"><i style="width:100%"></i></span><span class="mono">260 · SO-24857</span></div></td><td class="r mono">0</td><td><span class="chip bad">Short 40 · recount</span></td><td class="mono x">Today</td></tr>
+          <tr><td><span class="bin a">A-10</span></td><td><b>IH-180</b><small>Impeller housing</small></td><td class="mono">L-0924</td><td class="dim">—</td><td class="r mono">600</td><td><div class="al"><span class="meter"><i style="width:70%"></i></span><span class="mono">420 · SO-24855</span></div></td><td class="r mono">180</td><td><span class="chip blue">Picking</span></td><td class="mono">29 Sep</td></tr>
+          <tr class="hl"><td><span class="bin a">A-14</span></td><td><b>IH-220</b><small>Impeller housing</small></td><td class="mono">L-0911</td><td class="dim">—</td><td class="r mono">310</td><td><div class="al"><span class="meter"><i style="width:100%"></i></span><span class="mono">310 · SO-24817</span></div></td><td class="r mono">0</td><td><span class="chip">Reserved</span></td><td class="mono">1 Oct</td></tr>
+          <tr><td><span class="bin a">A-15</span></td><td><b>IH-220</b><small>Impeller housing</small></td><td class="mono">L-0932</td><td class="dim">—</td><td class="r mono">48</td><td><div class="al"><span class="meter"><i style="width:100%"></i></span><span class="mono">48 · SO-24817</span></div></td><td class="r mono">0</td><td><span class="chip ok">Put away 13:20</span></td><td class="dim">New</td></tr>
+          <tr><td><span class="bin">B-04</span></td><td><b>CV-110</b><small>Valve body</small></td><td class="mono">L-0918</td><td class="dim">—</td><td class="r mono">520</td><td><div class="al"><span class="meter"><i style="width:73%"></i></span><span class="mono">380 · LD-0927</span></div></td><td class="r mono">140</td><td><span class="chip blue">Picking</span></td><td class="mono">24 Sep</td></tr>
+          <tr><td><span class="bin">B-12</span></td><td><b>GB-310</b><small>Gearbox casing</small></td><td class="mono">L-0928</td><td class="dim">—</td><td class="r mono">950</td><td><div class="al"><span class="meter ink"><i style="width:100%"></i></span><span class="mono">950 · SO-24861</span></div></td><td class="r mono">0</td><td><span class="chip warn">Held · credit</span></td><td class="dim">New</td></tr>
+          <tr><td><span class="bin">C-07</span></td><td><b>SK-22</b><small>Seal kit</small></td><td class="mono">B0644</td><td class="mono x">Mar 27</td><td class="r mono">340</td><td><div class="al"><span class="meter"><i style="width:59%"></i></span><span class="mono">200 · SO-24855</span></div></td><td class="r mono">140</td><td><span class="chip blue">FEFO · first out</span></td><td class="mono">6 Oct</td></tr>
+          <tr><td><span class="bin">C-08</span></td><td><b>SK-22</b><small>Seal kit</small></td><td class="mono">B0731</td><td class="mono">Dec 27</td><td class="r mono">780</td><td class="dim">—</td><td class="r mono">780</td><td><span class="chip warn">Counted 774 · recount</span></td><td class="mono x">6 Oct</td></tr>
+          <tr><td><span class="bin">C-09</span></td><td><b>SK-22</b><small>Seal kit</small></td><td class="mono">B0819</td><td class="mono">Aug 28</td><td class="r mono">2,400</td><td><div class="al"><span class="meter"><i style="width:67%"></i></span><span class="mono">1,600 · STO-0396</span></div></td><td class="r mono">800</td><td><span class="chip">18-month rule</span></td><td class="mono">6 Oct</td></tr>
+          <tr><td><span class="bin">F-03</span></td><td><b>IH-180</b><small>Impeller housing · overflow</small></td><td class="mono">L-0924</td><td class="dim">—</td><td class="r mono">1,200</td><td><div class="al"><span class="meter"><i style="width:87%"></i></span><span class="mono">1,040 · LD-0927</span></div></td><td class="r mono">160</td><td><span class="chip blue">Picking</span></td><td class="mono">29 Sep</td></tr>
+          <tr><td><span class="bin q">Q-02</span></td><td><b>BR-045</b><small>Bracket</small></td><td class="mono">L-0927</td><td class="dim">—</td><td class="r mono">2,400</td><td class="dim">—</td><td class="r mono">0</td><td><span class="chip warn">Quality hold</span></td><td class="dim">—</td></tr>
+          <tr><td><span class="bin q">R-01</span></td><td><b>IH-180</b><small>Customer return</small></td><td class="mono">L-0897</td><td class="dim">—</td><td class="r mono">5</td><td class="dim">—</td><td class="r mono">0</td><td><span class="chip warn">QA disposition</span></td><td class="dim">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 12 of 808 occupied bins</span><div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>…</span><span>68</span></div></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

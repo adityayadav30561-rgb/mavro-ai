@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Fleet Management · Vehicle 360</title>
+<!-- Scenario: see fleet-dashboard.html. V-12, MH 12 QW 4418, 32 ft multi-axle, 15 t payload, Plant 1, in service
+     since March 2017, odometer 6,12,480 km. Now on TRP-0421 (SHP-6125, STO-0393, 13,840 kg to the Ahmedabad depot):
+     left 06:10, 414 of 662 km near Surat at 14:02, ETA 18:40; FASTag tolls today ₹3,240. October to date 3 trips,
+     1,986 km. Cost per km, ₹: May 39.8, Jun 41.2, Jul 42.6, Aug 44.9, Sep 46.3, Oct 47.9 against the MXL class
+     at 42.1–42.6; October 47.9 = diesel 25.1 (3.6 km/l against a 4.0 norm, diesel ₹90.5) + driver 7.9 + maintenance
+     8.6 + tolls 5.4 + tyres 0.9. Maintenance in 12 months ₹3.86 L against ₹1.92 L for the class average. Documents:
+     fitness 1 Nov (24 days; pre-inspection JC-0737 Sat 11 Oct), insurance 14 Feb 27, national permit 30 Jun 27, PUC
+     20 Dec 26, road tax to 31 Mar 27. Driver Harpreet Singh: HGV licence to 2028, safety score 91 (2 harsh-braking
+     events in 30 days). A replacement review goes to Asset Management, where V-12 is a fixed asset. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 356px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .plate { display: inline-block; padding: 2px 8px; border-radius: 6px; border: 2px solid var(--ink); font: 700 15px var(--mono); vertical-align: 3px; background: #fff; }
+  .trip { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: center; }
+  .trip .line { position: relative; height: 8px; border-radius: 4px; background: #eceef2; margin: 26px 0 8px; }
+  .trip .line .run { position: absolute; left: 0; top: 0; bottom: 0; width: 62.5%; border-radius: 4px; background: var(--accent); }
+  .trip .line .pt { position: absolute; top: -4px; left: 62.5%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: var(--accent); border: 3px solid #fff; box-shadow: 0 0 0 4px rgb(10 72 253 / 0.18); }
+  .trip .line .lb { position: absolute; top: -28px; left: 62.5%; transform: translateX(-50%); padding: 2px 8px; border-radius: 6px; background: var(--ink); color: #fff; font: 600 11px var(--mono); white-space: nowrap; }
+  .ends { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-2); }
+  .ends b { color: var(--ink); font-weight: 600; }
+  .tfacts { display: grid; grid-template-columns: repeat(2, auto); gap: 4px 18px; font-size: 12px; color: var(--ink-2); }
+  .tfacts b { color: var(--ink); font: 600 12px var(--mono); }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 12px 16px 10px; width: calc(100% - 32px); height: calc(100% - 22px); }
+  .split { display: flex; height: 26px; border-radius: 7px; overflow: hidden; margin-top: 4px; }
+  .split span { display: grid; place-items: center; color: #fff; font: 600 11px var(--mono); }
+  .keys { display: grid; grid-template-columns: repeat(5, auto); justify-content: space-between; margin-top: 8px; font-size: 11.5px; color: var(--ink-2); }
+  .keys span::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; background: var(--c); }
+  .docs li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0; }
+  .docs li + li { border-top: 1px solid var(--line); }
+  .docs p { line-height: 1.3; }
+  .docs p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .rev { padding: 12px 13px; border-radius: 10px; background: var(--warn-soft); border: 1px solid #f5e2b0; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .rev b { color: var(--ink); }
+  .rev ul { margin-top: 6px; }
+  .rev li { padding-left: 12px; position: relative; }
+  .rev li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--warn); }
+  .jobs td { padding-top: 7px; padding-bottom: 7px; }
+</style>
+</head>
+<body data-module="fleet-management" data-view="Vehicle 360" data-crumb="Supply chain / Fleet / Vehicles / V-12" data-who="Yusuf Khatri|Fleet manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>V-12 &nbsp;<span class="plate">MH 12 QW 4418</span> &nbsp;<span class="chip blue" style="vertical-align:4px">On trip · TRP-0421</span></h1>
+      <p>32 ft multi-axle · 15 t payload · Plant 1 · in service since March 2017 · 6,12,480 km</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Job card</span>
+      <span class="btn">Trip history</span>
+      <span class="btn pri">Raise replacement review</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Running cost · October</label><div class="v"><strong style="color:var(--bad)">₹47.9 <small>a km</small></strong></div><div class="foot"><b class="delta down">+13% on its class</b><span>MXL average ₹42.5</span></div></div>
+    <div class="card kpi"><label>Fuel economy</label><div class="v"><strong>3.6 <small>km a litre</small></strong></div><div class="foot"><b class="delta down">−10% on norm</b><span>norm 4.0</span></div></div>
+    <div class="card kpi"><label>Maintenance · 12 months</label><div class="v"><strong>₹3.86 L</strong></div><div class="foot"><b class="delta down">2.0× class average</b><span>₹1.92 L</span></div></div>
+    <div class="card kpi"><label>Use · October to date</label><div class="v"><strong>1,986 <small>km</small></strong></div><div class="foot"><b class="delta flat">3 trips</b><span>on the Ahmedabad lane</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card">
+        <header><h2>Live trip</h2><span>TRP-0421 · SHP-6125 · STO-0393 · 13,840 kg</span><span class="more">Open shipment</span></header>
+        <div class="body">
+          <div class="trip">
+            <div>
+              <div class="line"><i class="run"></i><span class="pt"></span><span class="lb">Near Surat · 14:02</span></div>
+              <div class="ends"><span><b>Plant 1, Pune</b> · left 06:10</span><span><b>Ahmedabad depot</b> · ETA 18:40</span></div>
+            </div>
+            <div class="tfacts"><span>Run</span><b>414 / 662 km</b><span>Speed</span><b>54 km/h</b><span>FASTag today</span><b>₹3,240</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <header><h2>Cost per km</h2><span>₹, last 6 months</span><div class="legend"><span>V-12</span><span style="--c:#aab1bf">MXL class average</span></div></header>
+        <div class="body chart-c" data-area="39.8,41.2,42.6,44.9,46.3,47.9|42.1,42.3,42.0,42.4,42.6,42.5" data-min="36" data-max="52" data-labels="May,Jun,Jul,Aug,Sep,Oct"></div>
+      </div>
+
+      <div class="card">
+        <header><h2>Where October’s ₹47.9 a km goes</h2><span>from fuel, FASTag, payroll and job cards</span></header>
+        <div class="body">
+          <div class="split">
+            <span style="flex:25.1;background:#0a48fd">25.1</span><span style="flex:7.9;background:#3d4366">7.9</span><span style="flex:8.6;background:#d43a2f">8.6</span><span style="flex:5.4;background:#8b93a3">5.4</span><span style="flex:0.9;background:#c3c8d3"></span>
+          </div>
+          <div class="keys"><span style="--c:#0a48fd">Diesel</span><span style="--c:#3d4366">Driver</span><span style="--c:#d43a2f">Maintenance</span><span style="--c:#8b93a3">Tolls</span><span style="--c:#c3c8d3">Tyres 0.9</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Documents</h2><span>checked before every trip</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="docs">
+            <li><p><b>Fitness certificate</b><small>Pre-inspection JC-0737, Sat 11 Oct</small></p><span class="chip warn">1 Nov · 24 d</span></li>
+            <li><p><b>Insurance</b><small>Comprehensive · goods carrier</small></p><span class="chip ok">14 Feb 27</span></li>
+            <li><p><b>National permit</b><small>All-India goods</small></p><span class="chip ok">30 Jun 27</span></li>
+            <li><p><b>PUC</b><small>BS-IV</small></p><span class="chip ok">20 Dec 26</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Driver</h2><span>Harpreet Singh</span></header>
+        <div class="body">
+          <dl class="kv">
+            <dt>Licence</dt><dd>HGV · to 2028</dd>
+            <dt>Safety score</dt><dd style="color:var(--ok)">91 of 100</dd>
+            <dt>Last 30 days</dt><dd>2 harsh-braking events</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Replace or keep?</h2><span>this vehicle against its class</span></header>
+        <div class="body" style="padding-top:10px">
+          <div class="rev"><b>Cost per km has risen six months running.</b>
+            <ul>
+              <li>₹47.9 a km, 13% above the MXL average</li>
+              <li>Maintenance twice the class average in 12 months</li>
+              <li>Fuel economy 10% under its norm</li>
+              <li>On the Ahmedabad lane a market truck costs less per load</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

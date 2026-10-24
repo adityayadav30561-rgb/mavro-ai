@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Transportation Management · Load builder</title>
+<!-- Scenario: see control-tower.html. Lata Kamath plans Thursday 9 Oct from Plant 1. Orders released for dispatch are
+     grouped into loads. LD-0927, Pune → Vadodara → Ahmedabad, 24 ft closed body (10,000 kg, 40 m³, GVW 16.2 t):
+     drop 1 SO-24855 Vishwamitri Pumps, Vadodara (IH-180 420, SK-22 200: 1,498 kg, 4.9 m³, window 08:00–18:00, ETA
+     9 Oct 16:40); drop 2 SO-24857 Patel Irrigation, Naroda (IH-180 300, CV-110 80: 1,540 kg, 4.6 m³, ETA 10 Oct
+     09:30); drop 3 STO-0396 Ahmedabad depot (IH-180 1,000, CV-110 300, SK-22 1,600: 5,910 kg, 18.2 m³, ETA 10 Oct
+     11:00). Packed weights: IH-180 3.4 kg, CV-110 6.5 kg, SK-22 0.35 kg. Load 8,948 kg (89%), 27.7 m³ (69%), 14
+     pallets, gross 15.7 t of 16.2 t. Shipped separately: FTL to the depot ₹32,100 + PTL Vadodara ₹8,900 + PTL Ahmedabad
+     ₹9,200 = ₹50,200; as one load ₹32,100 + one extra drop ₹1,500 = ₹33,600, saving ₹16,600 (33%). Ranking on the
+     lane's rate contracts: Gujarat Freight Carriers ₹33,600 (return leg to Ahmedabad), placement 96%, on time 94%,
+     score 92; Shivneri Roadlines ₹34,900, 93%, 95%, 88; Om Sai Transport ₹38,700 (base ₹37,200 since its 3 Oct
+     rate card, was ₹31,500: +18%), 98%, 91%, 81. SO-24873 Anand Engineering Works (Rajkot) is on credit hold in
+     Order to Cash, so it stays out. Picking for these loads is wave W-0318 in Warehouse Management (cut-off 16:30). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: 300px minmax(0, 1fr) 318px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .pool h3 { margin: 6px 0 2px; font: 600 11.5px var(--sans); color: var(--ink-3); display: flex; justify-content: space-between; }
+  .pool h3:first-child { margin-top: 0; }
+  .pool li { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 9px; align-items: center; padding: 6px 0; }
+  .pool li + li { border-top: 1px solid var(--line); }
+  .pool .cb { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--line-2); background: #fff; }
+  .pool .cb.on { background: var(--accent); border-color: var(--accent); position: relative; }
+  .pool .cb.on::after { content: ''; position: absolute; left: 4px; top: 1.5px; width: 4px; height: 8px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+  .pool .cb.no { background: var(--bad-soft); border-color: #f8cfca; }
+  .pool p { line-height: 1.3; min-width: 0; }
+  .pool p small { display: block; color: var(--ink-3); font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pool em { font: 600 11.5px var(--mono); font-style: normal; color: var(--ink-2); }
+  .pool li.off p b { color: var(--ink-3); }
+  .ldh { display: flex; align-items: baseline; gap: 10px; }
+  .ldh b { font: 650 15px var(--mono); }
+  .truck { display: grid; grid-template-columns: minmax(0, 1fr) 54px; gap: 0; height: 74px; margin: 12px 0 6px; }
+  .bed { position: relative; display: flex; gap: 3px; padding: 6px; border: 2px solid var(--ink); border-right: 0; border-radius: 8px 0 0 8px; background: #fff; }
+  .bed span { display: grid; place-items: center; border-radius: 4px; font: 600 10.5px var(--mono); color: #fff; }
+  .bed .d3 { background: #090e34; } .bed .d2 { background: #3d4366; } .bed .d1 { background: var(--accent); }
+  .bed .free { background: repeating-linear-gradient(135deg, #eef0f4 0 5px, #f8f9fb 5px 10px); color: var(--ink-3); border: 1px dashed var(--line-2); }
+  .cab { border: 2px solid var(--ink); border-radius: 0 14px 8px 0; background: var(--surface-2); position: relative; }
+  .cab::after { content: ''; position: absolute; top: 10px; right: 8px; width: 22px; height: 18px; border-radius: 3px 8px 3px 3px; background: #dfe4ee; }
+  .fills { display: grid; gap: 10px; margin-top: 12px; }
+  .fill label { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-2); }
+  .fill label b { font: 600 12px var(--mono); color: var(--ink); }
+  .fill .meter { margin-top: 6px; height: 8px; }
+  .drops li { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 8px 0; }
+  .drops li + li { border-top: 1px solid var(--line); }
+  .drops i { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font: 650 11.5px var(--mono); font-style: normal; color: #fff; }
+  .drops p { line-height: 1.32; }
+  .drops p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .drops em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-2); text-align: right; }
+  .drops em small { display: block; color: var(--ink-3); }
+  .save { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .save div { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); }
+  .save label { display: block; font-size: 11.5px; color: var(--ink-2); }
+  .save strong { display: block; margin-top: 3px; font: 620 17px var(--sans); letter-spacing: -0.02em; }
+  .save .g { background: var(--ok-soft); border-color: #c8ecdc; }
+  .save .g strong { color: var(--ok); }
+  .save .was { text-decoration: line-through; color: var(--ink-3); }
+  .rank li { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; align-items: start; }
+  .rank li + li { border-top: 1px solid var(--line); }
+  .rank b.n { display: grid; place-items: center; height: 24px; border-radius: 7px; background: var(--surface-2); border: 1px solid var(--line); font: 650 11.5px var(--mono); }
+  .rank li.top b.n { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .rank p { line-height: 1.32; }
+  .rank p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .rank .sc { text-align: right; font: 650 15px var(--mono); }
+  .rank .sc small { display: block; font: 500 11px var(--sans); color: var(--ink-3); }
+  .rank .tags { display: flex; gap: 5px; margin-top: 5px; flex-wrap: wrap; }
+  .rank .tags span { padding: 1px 6px; border-radius: 5px; border: 1px solid var(--line); background: var(--surface-2); font-size: 11px; color: var(--ink-2); }
+  .rank .tags .up { color: var(--bad); border-color: #f8cfca; background: var(--bad-soft); }
+  .gr li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 9px; padding: 6px 0; font-size: 12.5px; line-height: 1.32; }
+  .gr li + li { border-top: 1px solid var(--line); }
+  .gr i { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .gr i.x { background: var(--bad-soft); color: var(--bad); }
+  .gr small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .ll td:nth-child(2) { white-space: normal; }
+</style>
+</head>
+<body data-module="transportation-management" data-view="Load builder" data-crumb="Supply chain / Transportation / Load builder" data-who="Lata Kamath|Transport planner">
+<main>
+  <div class="head">
+    <div>
+      <h1>Load builder</h1>
+      <p>Thursday 9 Oct · Plant 1 · orders released for dispatch, grouped into costed loads</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span>Wed 8</span><span class="on">Thu 9</span><span>Fri 10</span></div>
+      <span class="btn">Optimise all</span>
+      <span class="btn pri">Confirm LD-0927 and raise indent</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card">
+      <header><h2>Ready to ship</h2><span>9 orders · 3 loads</span></header>
+      <div class="body pool">
+        <h3><span>Gujarat · LD-0927</span><span>4</span></h3>
+        <ul>
+          <li><span class="cb on"></span><p><b>SO-24855 · Vishwamitri Pumps</b><small>Vadodara · IH-180, SK-22</small></p><em>1,498 kg</em></li>
+          <li><span class="cb on"></span><p><b>SO-24857 · Patel Irrigation</b><small>Naroda, Ahmedabad · IH-180, CV-110</small></p><em>1,540 kg</em></li>
+          <li><span class="cb on"></span><p><b>STO-0396 · Ahmedabad depot</b><small>Replenishment · 3 items</small></p><em>5,910 kg</em></li>
+          <li class="off"><span class="cb no"></span><p><b>SO-24873 · Anand Engineering</b><small>Rajkot · credit hold in Order to Cash</small></p><em>2,260 kg</em></li>
+        </ul>
+        <h3><span>Pune local · LD-0928</span><span>3</span></h3>
+        <ul>
+          <li><span class="cb"></span><p><b>SO-24860 · Kestrel Pumps</b><small>Bhosari · own fleet V-07</small></p><em>1,180 kg</em></li>
+          <li><span class="cb"></span><p><b>SO-24862 · Varun Hydraulics</b><small>Chakan · own fleet V-07</small></p><em>860 kg</em></li>
+          <li><span class="cb"></span><p><b>SO-24863 · Aquaflow Engineering</b><small>Thane · part load</small></p><em>640 kg</em></li>
+        </ul>
+        <h3><span>South · LD-0929</span><span>2</span></h3>
+        <ul>
+          <li><span class="cb"></span><p><b>SO-24858 · Deccan Fluid Systems</b><small>Hyderabad · part load</small></p><em>2,940 kg</em></li>
+          <li><span class="cb"></span><p><b>SO-24859 · Nilgiri Pumps</b><small>Coimbatore · part load</small></p><em>1,720 kg</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>LD-0927 · Pune → Vadodara → Ahmedabad</h2><span>24 ft closed body · 700 km</span></header>
+        <div class="body" style="padding-top:6px">
+          <div class="truck">
+            <div class="bed">
+              <span class="d3" style="flex:9">Drop 3 · depot · 9 pallets</span>
+              <span class="d2" style="flex:2.4">Drop 2</span>
+              <span class="d1" style="flex:2.2">Drop 1</span>
+              <span class="free" style="flex:1.6">free</span>
+            </div>
+            <div class="cab"></div>
+          </div>
+          <div class="fills">
+            <div class="fill"><label>Weight <b>8,948 of 10,000 kg · 89%</b></label><span class="meter ok"><i style="width:89%"></i></span></div>
+            <div class="fill"><label>Volume <b>27.7 of 40 m³ · 69%</b></label><span class="meter"><i style="width:69%"></i></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Drop sequence</h2><span>loaded last drop first</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="drops">
+            <li><i style="background:var(--accent)">1</i><p><b>Vishwamitri Pumps, Vadodara</b><small>SO-24855 · 420 IH-180, 200 SK-22 · 2 pallets · window 08:00–18:00</small></p><em>9 Oct 16:40<small>560 km</small></em></li>
+            <li><i style="background:#3d4366">2</i><p><b>Patel Irrigation, Naroda</b><small>SO-24857 · 300 IH-180, 80 CV-110 · 3 pallets · night halt before</small></p><em>10 Oct 09:30<small>+115 km</small></em></li>
+            <li><i style="background:#090e34">3</i><p><b>Ahmedabad depot, Aslali</b><small>STO-0396 · 1,000 IH-180, 300 CV-110, 1,600 SK-22 · 9 pallets</small></p><em>10 Oct 11:00<small>+25 km</small></em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card flush" style="flex:1">
+        <header><h2>Loading list</h2><span>14 pallets · SSCC at packing</span></header>
+        <div class="body">
+          <table class="ll">
+            <thead><tr><th>Drop</th><th>Items</th><th class="r">Pallets</th><th class="r">kg</th><th class="r">m³</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">3</td><td><b>1,000 IH-180 · 300 CV-110 · 1,600 SK&#8209;22</b></td><td class="r mono">9</td><td class="r mono">5,910</td><td class="r mono">18.2</td></tr>
+              <tr><td class="mono">2</td><td><b>300 IH-180 · 80 CV-110</b></td><td class="r mono">3</td><td class="r mono">1,540</td><td class="r mono">4.6</td></tr>
+              <tr><td class="mono">1</td><td><b>420 IH-180 · 200 SK&#8209;22</b></td><td class="r mono">2</td><td class="r mono">1,498</td><td class="r mono">4.9</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <div class="save">
+            <div><label>Shipped separately</label><strong class="was">₹50,200</strong></div>
+            <div><label>As one load</label><strong>₹33,600</strong></div>
+            <div class="g"><label>Saved</label><strong>₹16,600 <small style="font-size:12px;font-weight:550">· 33%</small></strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Transporter ranking</h2><span>lane rate contracts</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="rank">
+            <li class="top"><b class="n">1</b><p><b>Gujarat Freight Carriers</b><small>₹33,600 · return leg to Ahmedabad</small><span class="tags"><span>Placement 96%</span><span>On time 94%</span></span></p><span class="sc">92<small>score</small></span></li>
+            <li><b class="n">2</b><p><b>Shivneri Roadlines</b><small>₹34,900 · contract to Mar 27</small><span class="tags"><span>Placement 93%</span><span>On time 95%</span></span></p><span class="sc">88<small>score</small></span></li>
+            <li><b class="n">3</b><p><b>Om Sai Transport</b><small>₹38,700 · rate card of 3 Oct</small><span class="tags"><span class="up">+18% on the lane</span><span>On time 91%</span></span></p><span class="sc">81<small>score</small></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Planning guardrails</h2><span>checked before the indent</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="gr">
+            <li><i>✓</i><span>Gross 15.7 t within 16.2 t<small>Axle load checked for the 24 ft body</small></span></li>
+            <li><i>✓</i><span>Delivery windows met<small>Vadodara by 18:00 with a 05:30 start</small></span></li>
+            <li><i>✓</i><span>Transporter GSTIN and RCM declaration<small>Gujarat Freight · declaration valid to 31 Mar</small></span></li>
+            <li><i>✓</i><span>3 e-way bills ready for gate-out<small>Two invoices and the stock transfer</small></span></li>
+            <li><i class="x">✕</i><span>SO-24873 left out<small>Anand Engineering on credit hold · ₹3.4 L over 90 days</small></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

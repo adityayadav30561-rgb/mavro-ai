@@ -81,15 +81,15 @@
     el.innerHTML = `<svg viewBox="0 0 96 30" width="84" height="30" preserveAspectRatio="none"><path d="M${pts.join('L')}L93,30L3,30Z" fill="${c}" opacity=".09"/><path d="M${pts.join('L')}" fill="none" stroke="${c}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${pts.at(-1).split(',')[0]}" cy="${pts.at(-1).split(',')[1]}" r="2.4" fill="${c}"/></svg>`;
   });
 
-  // Area/line chart: data-area="a|b" (series), data-labels="W1,W2", data-max
+  // Area/line chart: data-area="a|b" (series), data-labels="W1,W2", data-max [data-min, default 0]
   document.querySelectorAll('[data-area]').forEach((el) => {
     const series = el.dataset.area.split('|').map(nums), labels = el.dataset.labels.split(',');
-    const W = el.clientWidth || 760, H = el.clientHeight || 250, L = 34, R = 14, T = 10, B = 24, max = Number(el.dataset.max);
-    const x = (i) => L + (i * (W - L - R)) / (series[0].length - 1), y = (v) => T + (1 - v / max) * (H - T - B);
+    const W = el.clientWidth || 760, H = el.clientHeight || 250, L = 34, R = 14, T = 10, B = 24, max = Number(el.dataset.max), min = Number(el.dataset.min ?? 0);
+    const x = (i) => L + (i * (W - L - R)) / (series[0].length - 1), y = (v) => T + (1 - (v - min) / (max - min)) * (H - T - B);
     let g = '';
     for (let k = 0; k <= 4; k++) {
       const yy = T + (k * (H - T - B)) / 4;
-      g += `<line x1="${L}" x2="${W - R}" y1="${yy}" y2="${yy}" stroke="#eceef2" vector-effect="non-scaling-stroke"/><text x="${L - 8}" y="${yy + 3.5}" text-anchor="end">${Math.round(max - (k * max) / 4)}</text>`;
+      g += `<line x1="${L}" x2="${W - R}" y1="${yy}" y2="${yy}" stroke="#eceef2" vector-effect="non-scaling-stroke"/><text x="${L - 8}" y="${yy + 3.5}" text-anchor="end">${Math.round(max - (k * (max - min)) / 4)}</text>`;
     }
     labels.forEach((l, i) => { if (l) g += `<text x="${x(i)}" y="${H - 6}" text-anchor="middle">${l}</text>`; });
     const colors = ['#0a48fd', '#9aa3b5'];

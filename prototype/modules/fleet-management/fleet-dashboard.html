@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Fleet Management · Fleet dashboard</title>
+<!--
+  Scenario (Fleet Management, shared by every screen of the module; agrees with the Transportation Management
+  screens and the homepage Explore panel): Northfield Precision's own fleet, 8 Oct, 14:02. 32 vehicles: Plant 1 Pune
+  V-01–V-18, Ahmedabad depot V-19–V-24, Chennai plant V-25–V-32. Types: 32 ft multi-axle (MXL) V-10–V-13; 24 ft
+  V-01, V-04–V-07, V-19, V-25–V-27; 19 ft LCV V-02, V-03, V-08, V-09, V-14, V-15, V-20, V-21, V-28–V-30; pickups
+  V-16–V-18, V-22–V-24, V-31, V-32. Now: 21 on trip (9 shipments in Transportation Management, 7 vendor milk runs, 5
+  job-work and inter-plant moves), 3 in the Plant 1 workshop (V-03 clutch overhaul, V-14 rear leaf spring after the
+  7 Oct breakdown, V-16 20,000 km service), 8 at base (V-02, V-08, V-18, V-23, V-24, V-29 blocked on its PUC expired
+  6 Oct, V-31, V-32). Trips today 34 (13 completed). October to date: 41,860 km, ₹11.47 L (diesel ₹6.42 L, drivers
+  ₹2.31 L, maintenance ₹1.38 L, FASTag tolls ₹0.98 L, tyres ₹0.38 L) = ₹27.4 a km (September ₹28.1). By class: MXL
+  9,800 km at ₹42.5, 24 ft 13,200 at ₹30.2, 19 ft 11,400 at ₹21.0, pickups 7,460 at ₹12.4. Documents due in 30
+  days: V-09 insurance 19 Oct, V-15 national permit 28 Oct, V-12 fitness 1 Nov, V-21 fitness 4 Nov. 41 drivers,
+  average safety score 86; coaching flags: V-05 overspeed 4 times on NH48, V-27 harsh braking, V-10 5 h 10 m
+  continuous driving. V-12 (MH 12 QW 4418, TRP-0421 = SHP-6125, STO-0393 to the Ahmedabad depot) runs at ₹47.9 a
+  km. Fleet manager: Yusuf Khatri; workshop supervisor: Raju Gavade.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 360px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .bases { display: grid; grid-template-columns: 18fr 6fr 8fr; gap: 14px; }
+  .bases h3 { font: 600 11.5px var(--sans); color: var(--ink-3); margin-bottom: 7px; display: flex; justify-content: space-between; }
+  .vs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+  .bases > div:nth-child(2) .vs { grid-template-columns: repeat(2, 1fr); }
+  .bases > div:nth-child(3) .vs { grid-template-columns: repeat(3, 1fr); }
+  .vt { height: 46px; border-radius: 8px; padding: 5px 7px; display: flex; flex-direction: column; justify-content: space-between; font: 600 11px var(--mono); border: 1px solid transparent; }
+  .vt small { font: 500 10px var(--sans); opacity: 0.8; }
+  .vt.trip { background: var(--accent-soft); border-color: #cdd8ff; color: var(--accent-ink); }
+  .vt.base { background: #fff; border-color: var(--line-2); color: var(--ink-2); }
+  .vt.shop { background: var(--warn-soft); border-color: #f5e2b0; color: var(--warn); }
+  .vt.block { background: var(--bad-soft); border-color: #f8cfca; color: var(--bad); }
+  .vt.flag { box-shadow: inset 0 0 0 2px #f2c46b; }
+  .trips td { padding-top: 7px; padding-bottom: 7px; }
+  .trips th, .trips td { padding-left: 7px; padding-right: 7px; }
+  .pl { display: inline-block; padding: 0 5px; border-radius: 4px; border: 1.5px solid var(--ink-2); font: 600 10.5px var(--mono); background: #fff; }
+  .prog { display: flex; align-items: center; gap: 8px; }
+  .prog .meter { width: 46px; min-width: 46px; }
+  .prog span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .watch li { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; }
+  .watch li + li { border-top: 1px solid var(--line); }
+  .watch b.v2 { font: 650 11.5px var(--mono); padding: 4px 0; text-align: center; border-radius: 7px; background: var(--surface-2); border: 1px solid var(--line); }
+  .watch p { line-height: 1.3; }
+  .watch p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .watch em { font: 600 11.5px var(--mono); font-style: normal; color: var(--warn); }
+  .watch em.bad { color: var(--bad); }
+  .cls li { display: grid; grid-template-columns: 82px minmax(0, 1fr) 46px; gap: 10px; align-items: center; padding: 5px 0; font-size: 12.5px; }
+  .cls .meter { height: 8px; }
+  .cls b { font: 600 12px var(--mono); text-align: right; }
+  .lane li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 7px 0; font-size: 12.5px; }
+  .lane li + li { border-top: 1px solid var(--line); }
+  .lane small { color: var(--ink-3); font-size: 11.5px; font-family: var(--mono); }
+</style>
+</head>
+<body data-module="fleet-management" data-view="Fleet dashboard" data-crumb="Supply chain / Fleet / Fleet dashboard" data-who="Yusuf Khatri|Fleet manager" data-org="NP|Northfield Precision|All sites">
+<main>
+  <div class="head">
+    <div>
+      <h1>Fleet dashboard</h1>
+      <p>32 own vehicles at Plant 1, the Ahmedabad depot and the Chennai plant · live trips, documents and running cost</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All bases</span><span>Plant 1</span><span>Ahmedabad</span><span>Chennai</span></div>
+      <span class="btn pri">Assign vehicle</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Vehicles on trip</label><div class="v"><strong>21 <small>of 32</small></strong><i data-spark="18,20,19,22,21,23,20,21" data-color="#8b93a3"></i></div><div class="foot"><b class="delta flat">3 in workshop</b><span>8 at base</span></div></div>
+    <div class="card kpi"><label>Trips today</label><div class="v"><strong>34</strong></div><div class="foot"><b class="delta up">13 completed</b><span>21 live on GPS</span></div></div>
+    <div class="card kpi"><label>Running cost · October</label><div class="v"><strong>₹27.4 <small>a km</small></strong><i data-spark="28.9,28.6,28.4,28.3,28.1,27.4" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">−₹0.7 vs Sep</b><span>41,860 km · ₹11.47 L</span></div></div>
+    <div class="card kpi"><label>Document watch</label><div class="v"><strong style="color:var(--bad)">1 <small>blocked</small></strong></div><div class="foot"><b class="delta down">4 due in 30 days</b><span>renewals planned</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card">
+        <header><h2>Fleet now</h2><span>by base</span><div class="legend"><span>On trip</span><span style="--c:#e0a030">Workshop</span><span style="--c:#d9dce3">At base</span><span style="--c:#d43a2f">Blocked</span></div></header>
+        <div class="body">
+          <div class="bases">
+            <div><h3><span>Plant 1 · Pune</span><span>18</span></h3>
+              <div class="vs">
+                <span class="vt trip">V-01<small>24 ft</small></span><span class="vt base">V-02<small>19 ft</small></span><span class="vt shop">V-03<small>clutch</small></span><span class="vt trip">V-04<small>24 ft</small></span><span class="vt trip flag">V-05<small>24 ft</small></span><span class="vt trip">V-06<small>24 ft</small></span>
+                <span class="vt trip">V-07<small>24 ft</small></span><span class="vt base">V-08<small>19 ft</small></span><span class="vt trip">V-09<small>19 ft</small></span><span class="vt trip flag">V-10<small>MXL</small></span><span class="vt trip">V-11<small>MXL</small></span><span class="vt trip">V-12<small>MXL</small></span>
+                <span class="vt trip">V-13<small>MXL</small></span><span class="vt shop">V-14<small>spring</small></span><span class="vt trip">V-15<small>19 ft</small></span><span class="vt shop">V-16<small>service</small></span><span class="vt trip">V-17<small>pickup</small></span><span class="vt base">V-18<small>pickup</small></span>
+              </div></div>
+            <div><h3><span>Ahmedabad</span><span>6</span></h3>
+              <div class="vs">
+                <span class="vt trip">V-19<small>24 ft</small></span><span class="vt trip">V-20<small>19 ft</small></span><span class="vt trip">V-21<small>19 ft</small></span><span class="vt trip">V-22<small>pickup</small></span><span class="vt base">V-23<small>pickup</small></span><span class="vt base">V-24<small>pickup</small></span>
+              </div></div>
+            <div><h3><span>Chennai</span><span>8</span></h3>
+              <div class="vs">
+                <span class="vt trip">V-25<small>24 ft</small></span><span class="vt trip">V-26<small>24 ft</small></span><span class="vt trip flag">V-27<small>24 ft</small></span><span class="vt trip">V-28<small>19 ft</small></span><span class="vt block">V-29<small>PUC</small></span><span class="vt trip">V-30<small>19 ft</small></span>
+                <span class="vt base">V-31<small>pickup</small></span><span class="vt base">V-32<small>pickup</small></span>
+              </div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card flush" style="flex:1">
+        <header><h2>Live trips</h2><span>21 on GPS · 6 shown</span><span class="more">All trips</span></header>
+        <div class="body">
+          <table class="trips">
+            <thead><tr><th>Trip</th><th>Vehicle</th><th>Purpose</th><th>Progress</th><th>ETA</th><th>Flag</th></tr></thead>
+            <tbody>
+              <tr><td><b class="mono">TRP-0421</b><small>SHP-6125</small></td><td><span class="pl">MH 12 QW 4418</span><small>V-12 · MXL</small></td><td>STO-0393 · Ahmedabad depot<small>Harpreet Singh</small></td><td><div class="prog"><span class="meter"><i style="width:63%"></i></span><span>414 / 662 km</span></div></td><td class="mono">18:40</td><td><span class="chip warn">₹/km high</span></td></tr>
+              <tr><td><b class="mono">TRP-0420</b><small>Inter-plant</small></td><td><span class="pl">MH 12 RT 2290</span><small>V-10 · MXL</small></td><td>Bodies to Chennai plant<small>Ashok Yadav</small></td><td><div class="prog"><span class="meter"><i style="width:31%"></i></span><span>372 / 1,190 km</span></div></td><td class="mono">10 Oct</td><td><span class="chip bad">5 h 10 m non-stop</span></td></tr>
+              <tr><td><b class="mono">TRP-0419</b><small>Milk run</small></td><td><span class="pl">MH 14 KD 7731</span><small>V-05 · 24 ft</small></td><td>Vendor pickups, Nashik<small>Ganpat Shelke</small></td><td><div class="prog"><span class="meter"><i style="width:72%"></i></span><span>152 / 210 km</span></div></td><td class="mono">15:20</td><td><span class="chip warn">Overspeed ×4</span></td></tr>
+              <tr><td><b class="mono">TRP-0418</b><small>Milk run</small></td><td><span class="pl">MH 14 GU 3307</span><small>V-07 · 24 ft</small></td><td>Chakan vendors, castings<small>Sunil Bhor</small></td><td><div class="prog"><span class="meter"><i style="width:40%"></i></span><span>18 / 46 km</span></div></td><td class="mono">15:05</td><td class="dim">—</td></tr>
+              <tr><td><b class="mono">TRP-0415</b><small>Secondary</small></td><td><span class="pl">GJ 01 KT 4471</span><small>V-19 · 24 ft</small></td><td>Changodar Industrial<small>Dinesh Solanki</small></td><td><div class="prog"><span class="meter ok"><i style="width:88%"></i></span><span>28 / 32 km</span></div></td><td class="mono">14:20</td><td class="dim">—</td></tr>
+              <tr><td><b class="mono">TRP-0417</b><small>Job work</small></td><td><span class="pl">TN 05 CJ 1186</span><small>V-27 · 24 ft</small></td><td>Castings to Sriperumbudur<small>R. Selvam</small></td><td><div class="prog"><span class="meter"><i style="width:55%"></i></span><span>22 / 40 km</span></div></td><td class="mono">14:35</td><td><span class="chip warn">Harsh braking</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Document watch</h2><span>4 due in 30 days</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="watch">
+            <li><b class="v2">V-29</b><p><b>PUC expired 6 Oct</b><small>Blocked from trips · re-test booked 9 Oct</small></p><em class="bad">Blocked</em></li>
+            <li><b class="v2">V-09</b><p><b>Insurance renews 19 Oct</b><small>Quote received · ₹48,600</small></p><em>11 d</em></li>
+            <li><b class="v2">V-12</b><p><b>Fitness 1 Nov</b><small>Pre-inspection in Bay 2 on 11 Oct</small></p><em>24 d</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Cost per km by class</h2><span>October</span></header>
+        <div class="body" style="padding-top:8px">
+          <ul class="cls">
+            <li><span>32 ft MXL</span><span class="meter ink"><i style="width:100%"></i></span><b>42.5</b></li>
+            <li><span>24 ft</span><span class="meter ink"><i style="width:71%"></i></span><b>30.2</b></li>
+            <li><span>19 ft LCV</span><span class="meter ink"><i style="width:49%"></i></span><b>21.0</b></li>
+            <li><span>Pickup</span><span class="meter ink"><i style="width:29%"></i></span><b>12.4</b></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Own fleet or market</h2><span>₹ per delivered load</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="lane">
+            <li><b>Pune local · 19 ft</b><span class="chip ok">Own</span><small>own 2,480 · market 3,600</small></li>
+            <li><b>Ahmedabad depot → distributors</b><span class="chip ok">Own</span><small>own 1,850 · market 2,700</small></li>
+            <li><b>Pune → Ahmedabad · 24 ft</b><span class="chip blue">Market</span><small>own 39,900 with empty return · market 33,600</small></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

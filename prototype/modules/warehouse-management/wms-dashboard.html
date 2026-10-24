@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Warehouse Management · WMS dashboard</title>
+<!--
+  Scenario (Warehouse Management, shared by every screen of the module; agrees with Inventory Management, Gate
+  Entry, Order to Cash, the Transportation Management load builder and the homepage Explore panel): Northfield
+  Precision, Plant 1 finished-goods warehouse (FG store), 8 Oct, 14:02. Stock ₹61.0 L (the FG figure in Inventory
+  Management), 214 items, 1,010 bins: A housings 320 bins 93% full, B bodies and casings 260 at 78%, C kits and small
+  parts 240 at 66% (shelf-life controlled), F bulk floor 120 positions at 88%, Q quarantine 40 at 72%, R returns 30
+  at 40% (80% overall); staging lanes S1–S4; dispatch docks D1, D4, receipts at D5 and the production bay W1.
+  Receipts today: GRN-5509 L-0928 950 GB-310 (stocked in 1 h 45 m), GRN-5512 L-0930 1,800 BR-045 (2 h 30 m), GRN-5514
+  L-0932 48 IH-220 for SO-24817 (2 h 05 m): dock-to-stock 2 h 07 m on average (target 4 h); GRN-5516 Nova Seals
+  (PO-7726, ASN-1184, 1,200 SK-22 seal kits, batch B0907, expiry Sep 28) in QC sampling; RET-0388 the 5 returned IH-180
+  of lot L-0897 in R-01 for QA. Wave W-0318, cut-off 16:30: 86 lines, 61 picked, for SO-24832 (Om Sai, D1 at 14:15),
+  LD-0927 for 9 Oct (SO-24855, SO-24857, STO-0396) and LD-0928, LD-0929. Short pick: A-09 had 260 IH-180 of 300 for
+  SO-24857; the 40 come from overflow F-03 and A-09 goes to a recount. SK-22 batches: B0644 (Mar 27) in C-07, B0731
+  (Dec 27) in C-08, B0819 (Aug 28) in C-09; FEFO picks B0644 first; the depot transfer takes B0819 under its 18-month
+  rule. Lot L-0927 (2,400 BR-045) is on quality hold in Q-02. Pick accuracy 99.6% over 30 days; inventory accuracy
+  99.2% from cycle counts. Warehouse manager: Sunita Ghorpade; picker: Amit Waghmare.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 364px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .plan { display: grid; grid-template-columns: 1.25fr 1.05fr 1fr 0.8fr; grid-template-rows: 1fr 1fr 46px; gap: 8px; height: 100%; min-height: 0; }
+  .z { position: relative; border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); overflow: hidden; background: #fff; }
+  .z::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: var(--u); background: var(--c, #e4eaff); z-index: 0; }
+  .z > * { position: relative; z-index: 1; }
+  .z b { font-weight: 650; font-size: 13px; }
+  .z small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .z strong { font: 650 20px var(--sans); letter-spacing: -0.02em; }
+  .z.hot { border-color: #f1c2bd; --c: #fbe0dd; }
+  .z.hot strong { color: var(--bad); }
+  .z.q { --c: #fdefd2; }
+  .z.lo { --c: #eef1f7; }
+  .z.tall { grid-row: span 2; }
+  .dk { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+  .dk span { display: grid; place-items: center; border-radius: 8px; border: 1px dashed var(--line-2); font: 600 11.5px var(--mono); color: var(--ink-2); background: var(--surface-2); }
+  .dk span.on { border-style: solid; border-color: #cdd8ff; background: var(--accent-soft); color: var(--accent-ink); }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 12px 16px 10px; width: calc(100% - 32px); height: calc(100% - 22px); }
+  .ex li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; padding: 9px 0; }
+  .ex li + li { border-top: 1px solid var(--line); }
+  .ex b.n { display: grid; place-items: center; height: 28px; border-radius: 8px; font: 650 10.5px var(--mono); background: var(--warn-soft); color: var(--warn); }
+  .ex b.n.bad { background: var(--bad-soft); color: var(--bad); }
+  .ex b.n.blue { background: var(--accent-soft); color: var(--accent-ink); }
+  .ex p { line-height: 1.32; }
+  .ex p small { display: block; color: var(--ink-3); font-size: 11.5px; margin-top: 1px; }
+  .ex p em { display: block; margin-top: 3px; font-style: normal; font-size: 11.5px; color: var(--accent-ink); font-weight: 550; }
+  .xp li { display: grid; grid-template-columns: 58px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0; font-size: 12.5px; }
+  .xp li + li { border-top: 1px solid var(--line); }
+  .xp b { font: 600 12px var(--mono); }
+  .xp small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .xp em { font: 11.5px var(--mono); font-style: normal; }
+</style>
+</head>
+<body data-module="warehouse-management" data-view="WMS dashboard" data-crumb="Supply chain / Warehouse / WMS dashboard" data-who="Sunita Ghorpade|Warehouse manager" data-org="NP|Northfield Precision|Plant 1 · FG warehouse">
+<main>
+  <div class="head">
+    <div>
+      <h1>WMS dashboard</h1>
+      <p>Plant 1 finished-goods warehouse · is the shift on target, which zone is choking, what needs a decision this hour</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">FG warehouse</span><span>Ahmedabad depot</span></div>
+      <span class="btn">Release wave</span>
+      <span class="btn pri">New task</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Wave W-0318 · cut-off 16:30</label><div class="v"><strong>61 <small>of 86 lines</small></strong><i data-spark="0,9,18,27,35,44,52,61" data-color="#0a48fd"></i></div><div class="foot"><b class="delta up">On pace</b><span>46 lines an hour</span></div></div>
+    <div class="card kpi"><label>Dock to stock · today</label><div class="v"><strong>2 h 07 m</strong><i data-spark="3.6,3.4,3.1,2.9,2.6,2.4,2.2,2.1" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">Target 4 h</b><span>3 receipts stocked</span></div></div>
+    <div class="card kpi"><label>Pick accuracy · 30 days</label><div class="v"><strong>99.6%</strong></div><div class="foot"><b class="delta flat">every pick scanned</b><span>3 short picks today</span></div></div>
+    <div class="card kpi"><label>Bin occupancy</label><div class="v"><strong>80%</strong></div><div class="foot"><b class="delta down">Zone A 93%</b><span>1,010 bins · ₹61.0 L</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card" style="flex:1.2">
+        <header><h2>Zones now</h2><span>fill shows occupancy</span><div class="legend"><span style="--c:#e4eaff">Occupied</span><span style="--c:#fbe0dd">Over 90%</span><span style="--c:#fdefd2">Held stock</span></div></header>
+        <div class="body">
+          <div class="plan">
+            <div class="z hot tall" style="--u:93%"><div><b>A · Housings</b><small>320 bins · IH-180, IH-220</small></div><div><strong>93%</strong><small>2 putaways sent to F today</small></div></div>
+            <div class="z tall" style="--u:78%"><div><b>B · Bodies, casings</b><small>260 bins · CV, GB, GH</small></div><div><strong>78%</strong><small>950 GB-310 held for credit</small></div></div>
+            <div class="z" style="--u:66%"><div><b>C · Kits, small parts</b><small>240 bins · shelf-life zone</small></div><strong>66%</strong></div>
+            <div class="z q" style="--u:72%"><div><b>Q · Quarantine</b><small>40 bins</small></div><strong>72%</strong></div>
+            <div class="z" style="--u:88%"><div><b>F · Bulk floor</b><small>120 pallet spots</small></div><strong>88%</strong></div>
+            <div class="z lo" style="--u:40%"><div><b>R · Returns</b><small>30 bins</small></div><strong>40%</strong></div>
+            <div class="dk"><span class="on">S1 · SO-24832</span><span class="on">S2 · LD-0927</span><span>S3</span><span>S4</span><span class="on">D1 · loading</span><span class="on">D4 · loading</span><span class="on">D5 · receipts</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:0.8">
+        <header><h2>Received and shipped</h2><span>pallets a month</span><div class="legend"><span>Received</span><span style="--c:#090e34">Shipped</span></div></header>
+        <div class="body chart-c" data-bars="1820,1910,2040,2110,2260,590|1760,1880,1990,2160,2190,540" data-max="2500" data-labels="May,Jun,Jul,Aug,Sep,Oct to date" data-colors="#0a48fd,#090e34"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex:1">
+        <header><h2>Needs a decision this hour</h2><span>5</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="ex">
+            <li><b class="n bad">−40</b><p><b>Short pick at A-09 · IH-180</b><small>260 found of 300 for SO-24857 on W-0318</small><em>Overflow F-03 suggested · A-09 sent to recount</em></p></li>
+            <li><b class="n">QC</b><p><b>GRN-5516 · Nova Seals SK-22</b><small>1,200 kits, batch B0907 · 20 of 32 samples checked</small><em>Putaway to C-10 once sampling passes</em></p></li>
+            <li><b class="n">93%</b><p><b>Zone A is choking</b><small>2 of today’s putaways went to the bulk floor</small><em>Re-slot slow IH-180 lots to F · proposal ready</em></p></li>
+            <li><b class="n bad">Q</b><p><b>L-0927 · 2,400 BR-045 in Q-02</b><small>Quality hold today · OOS-0112 under review</small><em>Waiting for QA disposition</em></p></li>
+            <li><b class="n blue">S1</b><p><b>SO-24832 staged for Om Sai</b><small>4 pallets, SSCC labelled · e-way bill ready</small><em>Load at D1 at 14:15</em></p></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Expiry watch</h2><span>SK-22 seal kits · FEFO</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="xp">
+            <li><b>B0644</b><span>C-07 · 340 kits<small>picked first, nearest expiry</small></span><em style="color:var(--warn)">Mar 27</em></li>
+            <li><b>B0731</b><span>C-08 · 780 kits<small>14 months left</small></span><em>Dec 27</em></li>
+            <li><b>B0819</b><span>C-09 · 2,400 kits<small>for the depot’s 18-month rule</small></span><em>Aug 28</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

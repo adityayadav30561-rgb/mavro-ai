@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Transportation Management · Control tower</title>
+<!--
+  Scenario (Transportation Management, shared by every screen of the module; agrees with Gate Entry, Order to Cash,
+  Inventory Management, the Distributor Portal, Data Analytics and the Fleet and Warehouse Management screens):
+  Northfield Precision ships from Plant 1 (Pune), the Chennai plant and the Ahmedabad depot. 8 Oct, 14:02.
+  31 shipments in motion (Plant 1 14, Chennai 9, Ahmedabad depot 8; primary 6, customer 17, secondary 8); 22
+  dispatched today (Plant 1 9, Chennai 6, Ahmedabad 7). OTIF over 30 days 93.6% (target 95%). 3 at risk. October
+  freight ₹13.1 L of a ₹48.0 L budget (27.3% of budget at 25.8% of the month). Transporters: Om Sai Transport
+  (Bhiwandi), Shivneri Roadlines (Pune), Gujarat Freight Carriers (Ahmedabad), Southern Cargo Movers (Chennai),
+  Coromandel Roadways (Chennai), plus the own fleet of 32 vehicles (Fleet Management).
+  - SHP-6127: SO-24781, 640 GH-280 gear housings (5,760 kg) for Meridian Compressors, Coimbatore; Southern Cargo
+    Movers TN 38 CK 5521, driver K. Murthy; gate-out 09:05 (GP-3171 in Gate Entry); 1,180 km; unplanned halt
+    10:58–11:50 near Satara; ETA 10 Oct 12:30 → 14:20, after Meridian's 14:00 receiving cut-off; consignee told
+    13:12, Meridian holds receiving to 16:00.
+  - SHP-6114: SO-24824 for Orion Agro Equipment, Indore (590 km), Shivneri Roadlines MH 12 TR 6640, left 5 Oct
+    16:00; broke down near Dhule 6 Oct, resumed 13:20 today, delivery 9 Oct 09:00; e-way bill (3 days) lapses 8 Oct
+    23:59, extension window opens 15:59, auto-extension queued.
+  - IND-2294: SO-24835 Sundaram Valves, Chennai; Coromandel Roadways placed 3 h 20 m late: SLA breach logged,
+    re-allocated to Southern Cargo Movers, placed 13:50 (SHP-6120).
+  - SHP-6128: SO-24812 Kestrel Pumps, Bhosari (Pune), Shivneri Roadlines MH 14 HG 2207, driver Vitthal Mane;
+    delivered 12:31, ePOD with 1 CV-110 damaged: claim TCL-0118 against Shivneri Roadlines.
+  - Lane Pune → Ahmedabad: Om Sai's rate card of 3 Oct raised its 24 ft rate ₹31,500 → ₹37,200 (+18%, Data
+    Analytics alert AN-0414); allocation now ranks Gujarat Freight Carriers first (LD-0927, load builder).
+  - Others in motion: SHP-6125 STO-0393 Plant 1 → Ahmedabad depot on own vehicle V-12 (TRP-0421); SHP-6122
+    SO-24846 Ahmedabad depot → Saurashtra Distributors, Rajkot; SHP-6118 SO-24838 Chennai → Nilgiri Pumps,
+    Coimbatore; SHP-6123 NPO-3312 (INV-8947) to Navrangpura Distributors, due 9 Oct; SHP-6131 SO-24829 loading at
+    D1 (Om Sai), SHP-6132 SO-24832 placed at the gate (Om Sai), SHP-6130 SO-24826 Sundaram Valves' own vehicle at D4.
+  Logistics manager: Tushar Joglekar; transport planner: Lata Kamath.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 372px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .net { display: grid; grid-template-columns: minmax(0, 1fr) 184px; gap: 14px; flex: 1; min-height: 0; }
+  .map { position: relative; border-radius: 10px; border: 1px solid var(--line); background:
+    radial-gradient(circle, #e3e7ef 1px, transparent 1.2px) 0 0 / 14px 14px, var(--surface-2); min-height: 0; }
+  .map svg { position: absolute; inset: 8px; width: calc(100% - 16px); height: calc(100% - 16px); }
+  .map .lane { fill: none; stroke: #c9cfdb; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .map .lane.hot { stroke: #e7b35c; }
+  .map .site { fill: var(--ink); }
+  .map .cust { fill: #fff; stroke: #8b93a3; stroke-width: 1.5; }
+  .map text { font: 600 12px var(--sans); fill: var(--ink-2); }
+  .map text.s { font-weight: 700; fill: var(--ink); }
+  .map .trk { stroke: #fff; stroke-width: 2; }
+  .map .tag { font: 650 11px var(--mono); }
+  .side-l { display: flex; flex-direction: column; gap: 10px; }
+  .mix li { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 7px 0; font-size: 12.5px; }
+  .mix li + li { border-top: 1px solid var(--line); }
+  .mix i { width: 10px; height: 10px; border-radius: 50%; }
+  .mix b { font: 600 12.5px var(--mono); }
+  .note { padding: 10px 12px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--line); font-size: 12px; color: var(--ink-2); line-height: 1.4; }
+  .note b { color: var(--ink); font-weight: 600; }
+  .lanes td { padding-top: 7px; padding-bottom: 7px; }
+  .lanes .up { color: var(--bad); font-weight: 600; }
+  .ex li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; padding: 9px 0; }
+  .ex li + li { border-top: 1px solid var(--line); }
+  .ex b.n { display: grid; place-items: center; height: 28px; border-radius: 8px; font: 650 10.5px var(--mono); background: var(--warn-soft); color: var(--warn); }
+  .ex b.n.bad { background: var(--bad-soft); color: var(--bad); }
+  .ex b.n.blue { background: var(--accent-soft); color: var(--accent-ink); }
+  .ex p { line-height: 1.32; }
+  .ex p small { display: block; color: var(--ink-3); font-size: 11.5px; margin-top: 1px; }
+  .ex p em { display: block; margin-top: 3px; font-style: normal; font-size: 11.5px; color: var(--accent-ink); font-weight: 550; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 12px 16px 10px; width: calc(100% - 32px); height: calc(100% - 22px); }
+</style>
+</head>
+<body data-module="transportation-management" data-view="Control tower" data-crumb="Supply chain / Transportation / Control tower" data-who="Tushar Joglekar|Logistics manager" data-org="NP|Northfield Precision|All sites">
+<main>
+  <div class="head">
+    <div>
+      <h1>Control tower</h1>
+      <p>Every shipment from Plant 1, Chennai and the Ahmedabad depot, and the few that need action</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All sites</span><span>Plant 1</span><span>Chennai</span><span>Ahmedabad depot</span></div>
+      <span class="btn">Load builder</span>
+      <span class="btn pri">New indent</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Shipments in motion</label><div class="v"><strong>31</strong><i data-spark="24,27,29,26,30,28,33,31" data-color="#8b93a3"></i></div><div class="foot"><b class="delta flat">22 dispatched today</b><span>across 3 sites</span></div></div>
+    <div class="card kpi"><label>On time, in full · 30 days</label><div class="v"><strong>93.6%</strong><i data-spark="95.1,94.8,94.2,93.0,92.6,93.1,93.4,93.6" data-color="#b7791f"></i></div><div class="foot"><b class="delta down">Target 95%</b><span>412 deliveries</span></div></div>
+    <div class="card kpi"><label>At risk now</label><div class="v"><strong style="color:var(--warn)">3 <small>shipments</small></strong></div><div class="foot"><b class="delta down">1 after a cut-off</b><span>consignees told</span></div></div>
+    <div class="card kpi"><label>Freight · October to date</label><div class="v"><strong>₹13.1 L <small>of ₹48.0 L</small></strong></div><div class="foot"><b class="delta down">27.3% of budget</b><span>at 25.8% of the month</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card" style="flex:1.25">
+        <header><h2>Shipments in motion</h2><span>live GPS · 14:02</span><div class="legend"><span>On time</span><span style="--c:#e0a030">At risk</span><span style="--c:#090e34">Site</span></div></header>
+        <div class="body net">
+          <div class="map">
+            <svg viewBox="0 0 520 380" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <path class="lane" d="M199 157 L158 138 L167 54 L140 35"/>
+              <path class="lane" d="M140 35 L59 54"/>
+              <path class="lane" d="M199 157 L240 92 L289 43"/>
+              <path class="lane" d="M199 157 L407 187"/>
+              <path class="lane hot" d="M199 157 L204 179 L213 206 L366 307 L339 361"/>
+              <path class="lane" d="M488 304 L339 361"/>
+              <path class="lane" d="M488 304 L366 307 L213 206 L199 157" stroke-dasharray="3 5"/>
+              <rect class="site" x="192" y="150" width="14" height="14" rx="3"/>
+              <rect class="site" x="481" y="297" width="14" height="14" rx="3"/>
+              <rect class="site" x="133" y="28" width="14" height="14" rx="3"/>
+              <circle class="cust" cx="59" cy="54" r="5"/><circle class="cust" cx="167" cy="54" r="5"/>
+              <circle class="cust" cx="289" cy="43" r="5"/><circle class="cust" cx="158" cy="138" r="5"/>
+              <circle class="cust" cx="407" cy="187" r="5"/><circle class="cust" cx="339" cy="361" r="5"/>
+              <circle class="cust" cx="366" cy="307" r="4"/>
+              <text class="s" x="214" y="161">Plant 1 · Pune</text>
+              <text class="s" x="420" y="290">Chennai plant</text>
+              <text class="s" x="154" y="24">Ahmedabad depot</text>
+              <text x="34" y="76">Rajkot</text><text x="176" y="58">Vadodara</text><text x="298" y="47">Indore</text>
+              <text x="112" y="142">Thane</text><text x="416" y="191">Hyderabad</text><text x="352" y="365">Coimbatore</text>
+              <text x="310" y="322">Bengaluru</text>
+              <circle class="trk" cx="216" cy="211" r="7" fill="#e0a030"/><text class="tag" x="226" y="215" fill="#b7791f">SHP-6127</text>
+              <circle class="trk" cx="262" cy="70" r="7" fill="#d43a2f"/><text class="tag" x="272" y="78" fill="#d43a2f">SHP-6114</text>
+              <circle class="trk" cx="163" cy="94" r="7" fill="#0a48fd"/><text class="tag" x="96" y="98" fill="#0838d6">SHP-6125</text>
+              <circle class="trk" cx="101" cy="44" r="6" fill="#0a48fd"/>
+              <circle class="trk" cx="417" cy="331" r="6" fill="#0a48fd"/>
+              <circle class="trk" cx="300" cy="172" r="6" fill="#0a48fd"/>
+              <circle class="trk" cx="390" cy="238" r="6" fill="#0a48fd"/>
+              <circle class="trk" cx="178" cy="148" r="6" fill="#0a48fd"/>
+            </svg>
+          </div>
+          <div class="side-l">
+            <ul class="mix">
+              <li><i style="background:#0a48fd"></i><span>Customer, contracted</span><b>17</b></li>
+              <li><i style="background:#090e34"></i><span>Primary to depot / plant</span><b>6</b></li>
+              <li><i style="background:#8b93a3"></i><span>Secondary from depot</span><b>8</b></li>
+              <li><i style="background:#0c9b6a"></i><span>On own fleet</span><b>9</b></li>
+            </ul>
+            <div class="note"><b>31 e-way bills live.</b> 1 lapses tonight; its extension is queued for 15:59, when the window opens.</div>
+            <div class="note"><b>Consignees are told by the system</b> when an ETA moves past their receiving window.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card flush">
+        <header><h2>Lane performance</h2><span>last 30 days</span><span class="more">Lane analytics</span></header>
+        <div class="body">
+          <table class="lanes">
+            <thead><tr><th>Lane</th><th class="r">Shipments</th><th class="r">OTIF</th><th class="r">Transit (plan)</th><th class="r">₹ / kg</th><th class="r">vs 4 weeks before</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b>Pune → Ahmedabad depot</b><small>Om Sai rate card of 3 Oct · AN-0414</small></td><td class="r mono">22</td><td class="r mono">91%</td><td class="r mono">1.3 d (1.1)</td><td class="r mono">3.86</td><td class="r mono up">+18%</td></tr>
+              <tr><td><b>Pune → Coimbatore</b></td><td class="r mono">9</td><td class="r mono">89%</td><td class="r mono">2.4 d (2.2)</td><td class="r mono">8.10</td><td class="r mono">+1%</td></tr>
+              <tr><td><b>Pune → Indore</b></td><td class="r mono">11</td><td class="r mono">91%</td><td class="r mono">1.4 d (1.2)</td><td class="r mono">3.40</td><td class="r mono">0%</td></tr>
+              <tr><td><b>Chennai → Coimbatore</b></td><td class="r mono">12</td><td class="r mono">100%</td><td class="r mono">0.5 d (0.5)</td><td class="r mono">2.20</td><td class="r mono">−2%</td></tr>
+              <tr><td><b>Ahmedabad depot → distributors</b></td><td class="r mono">38</td><td class="r mono">97%</td><td class="r mono">0.3 d (0.3)</td><td class="r mono">1.40</td><td class="r mono">0%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex:1">
+        <header><h2>Needs action today</h2><span>5 · each with its reason</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="ex">
+            <li><b class="n">ETA</b><p><b>SHP-6127 · Meridian Compressors</b><small>52 m unplanned halt near Satara · ETA 10 Oct 14:20, after the 14:00 cut-off</small><em>Consignee told 13:12 · receiving held to 16:00</em></p></li>
+            <li><b class="n bad">EWB</b><p><b>SHP-6114 · e-way bill lapses 23:59</b><small>Breakdown near Dhule · delivery to Orion Agro 9 Oct 09:00</small><em>Auto-extension queued for 15:59</em></p></li>
+            <li><b class="n bad">SLA</b><p><b>IND-2294 · placed 3 h 20 m late</b><small>Coromandel Roadways · breach logged on its scorecard</small><em>Re-allocated to Southern Cargo Movers, placed 13:50</em></p></li>
+            <li><b class="n">POD</b><p><b>SHP-6128 · 1 CV-110 damaged</b><small>Kestrel Pumps · ePOD photo and line at 12:31</small><em>Claim TCL-0118 raised on Shivneri Roadlines</em></p></li>
+            <li><b class="n blue">₹/kg</b><p><b>Pune → Ahmedabad up 18%</b><small>Om Sai Transport rate card of 3 Oct</small><em>Allocation now ranks Gujarat Freight first</em></p></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="height:250px">
+        <header><h2>Freight vs budget</h2><span>₹ lakh a month</span><div class="legend"><span>Actual</span><span style="--c:#d9dce3">Budget</span></div></header>
+        <div class="body chart-c" data-bars="44.2,45.8,47.1,49.6,51.2,50.8|46,46,46,48,48,48" data-max="56" data-labels="May,Jun,Jul,Aug,Sep,Oct proj." data-colors="#0a48fd,#d9dce3"></div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

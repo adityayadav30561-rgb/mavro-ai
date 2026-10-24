@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Transportation Management · Shipment tracking</title>
+<!-- Scenario: see control-tower.html. SHP-6127 at 14:02: SO-24781, 640 GH-280 gear housings in 20 crates, 5,760 kg,
+     invoice INV-6117 (IRN generated 08:44), for Meridian Compressors, Coimbatore. Indent IND-2281 allocated to
+     Southern Cargo Movers (rank 1 on the lane), 24 ft TN 38 CK 5521 placed 07:40, LR SCM/24418, seal 40917, e-way bill
+     2810 4471 6602 generated 08:50 for 1,180 km (6 days, valid to 14 Oct 23:59), gate-out 09:05 (GP-3171). Route
+     Pune → Satara 110 km → Kolhapur 232 → Belagavi 340 → Hubballi 440 → Bengaluru 835 (night halt) → Salem 1,020 →
+     Coimbatore 1,180. Unplanned halt 10:58–11:50 near Satara (outside planned stops, alert at 11:02); slow traffic
+     through Karad. Now near Kolhapur, 232 km run (20%). Driver K. Murthy: 4 h 05 m driving today, 2 h 12 m continuous
+     since 11:50, rest prompted at 4 h 30 m. ETA 10 Oct 12:30 → 14:20; Meridian receives 09:00–14:00, so the
+     consignee was told at 13:12 and held receiving to 16:00 at 13:31. Freight ₹46,800 contract (₹8.13 a kg),
+     accrued to Sales – South at dispatch. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .flowcard .body { padding: 18px 18px 16px; }
+  .cols { grid-template-columns: minmax(0, 1fr) 352px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .route { position: relative; padding: 10px 6px 0; }
+  .route .line { position: relative; height: 8px; border-radius: 4px; background: #eceef2; margin: 34px 8px 0; }
+  .route .line .run { position: absolute; left: 0; top: 0; bottom: 0; width: 19.7%; border-radius: 4px; background: var(--accent); }
+  .route .halt { position: absolute; top: -3px; left: 9.3%; width: 14px; height: 14px; border-radius: 50%; background: var(--warn); border: 3px solid #fff; box-shadow: 0 0 0 1px #e8c98a; }
+  .route .now { position: absolute; top: -32px; left: 19.7%; transform: translateX(-50%); display: grid; justify-items: center; gap: 3px; }
+  .route .now b { padding: 2px 8px; border-radius: 6px; background: var(--ink); color: #fff; font: 600 11px var(--mono); white-space: nowrap; }
+  .route .now i { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 3px solid #fff; box-shadow: 0 0 0 4px rgb(10 72 253 / 0.18); }
+  .stops { position: relative; height: 54px; margin: 0 8px; }
+  .stops li { position: absolute; top: 8px; transform: translateX(-50%); text-align: center; line-height: 1.25; white-space: nowrap; }
+  .stops li::before { content: ''; display: block; width: 2px; height: 8px; margin: -12px auto 4px; background: var(--line-2); }
+  .stops b { font-size: 12px; font-weight: 600; }
+  .stops small { display: block; font: 10.5px var(--mono); color: var(--ink-3); }
+  .stops li.end { transform: translateX(-100%); text-align: right; }
+  .stops li.end::before { margin-right: 0; }
+  .stops li:first-child { transform: none; text-align: left; }
+  .stops li:first-child::before { margin-left: 0; }
+  .eta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 4px; }
+  .eta div { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); }
+  .eta label { display: block; font-size: 11.5px; color: var(--ink-2); }
+  .eta strong { display: block; margin-top: 3px; font: 620 16px var(--sans); letter-spacing: -0.015em; white-space: nowrap; }
+  .eta .bad { background: var(--warn-soft); border-color: #f5e2b0; }
+  .eta .bad strong { color: var(--warn); }
+  .eta s { color: var(--ink-3); font-weight: 450; font-size: 12.5px; margin-right: 4px; }
+  .drv { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .hrs label { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-2); }
+  .hrs label b { font: 600 12px var(--mono); color: var(--ink); }
+  .hrs .meter { margin-top: 6px; height: 7px; }
+  .hrs small { display: block; margin-top: 5px; color: var(--ink-3); font-size: 11.5px; }
+  .docs li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0; }
+  .docs li + li { border-top: 1px solid var(--line); }
+  .docs p { line-height: 1.3; }
+  .docs p small { display: block; color: var(--ink-3); font-size: 11.5px; font-family: var(--mono); }
+  .msg { padding: 11px 12px; border-radius: 10px; background: var(--accent-soft); border: 1px solid #d9e0ff; font-size: 12.5px; line-height: 1.4; color: var(--ink-2); }
+  .msg b { color: var(--ink); }
+  .msg + .msg { margin-top: 8px; background: var(--ok-soft); border-color: #c8ecdc; }
+</style>
+</head>
+<body data-module="transportation-management" data-view="Shipment tracking" data-crumb="Supply chain / Transportation / Shipments / SHP-6127" data-who="Lata Kamath|Transport planner">
+<main>
+  <div class="head">
+    <div>
+      <h1>SHP-6127 &nbsp;<span class="chip warn" style="vertical-align:4px">At risk · after cut-off</span></h1>
+      <p>SO-24781 · Meridian Compressors, Coimbatore · 640 GH-280 gear housings · 20 crates · 5,760 kg</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Call driver</span>
+      <span class="btn">Share live link</span>
+      <span class="btn pri">Update consignee</span>
+    </div>
+  </div>
+
+  <div class="card flowcard">
+    <div class="body">
+      <ol class="flow" style="--n:8;--at:0.571">
+        <li class="done"><i></i><b>Indent</b><span>IND-2281</span></li>
+        <li class="done"><i></i><b>Placed</b><span>07:40</span></li>
+        <li class="done"><i></i><b>LR and e-way bill</b><span>SCM/24418</span></li>
+        <li class="done"><i></i><b>Gate-out</b><span>09:05 · GP-3171</span></li>
+        <li class="now"><i></i><b>In transit</b><span>232 of 1,180 km</span></li>
+        <li class="next"><i></i><b>Delivery</b><span>10 Oct</span></li>
+        <li class="next"><i></i><b>ePOD</b><span>at the drop</span></li>
+        <li class="next"><i></i><b>Freight bill</b><span>vs contract</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card">
+        <header><h2>Route and ETA</h2><span>live GPS · recalculated 14:00</span><div class="legend"><span>Run</span><span style="--c:#e0a030">Unplanned halt</span></div></header>
+        <div class="body">
+          <div class="route">
+            <div class="line"><i class="run"></i><span class="halt"></span><span class="now"><b>Near Kolhapur · 14:02</b><i></i></span></div>
+            <ol class="stops">
+              <li style="left:0"><b>Pune</b><small>09:05</small></li>
+              <li style="left:9.3%"><b>Satara</b><small>52 m halt</small></li>
+              <li style="left:28.8%"><b>Belagavi</b><small>16:10</small></li>
+              <li style="left:37.3%"><b>Hubballi</b><small>18:20</small></li>
+              <li style="left:70.8%"><b>Bengaluru</b><small>night halt</small></li>
+              <li style="left:86.4%"><b>Salem</b><small>10 Oct 10:40</small></li>
+              <li class="end" style="left:100%"><b>Coimbatore</b><small>14:20</small></li>
+            </ol>
+          </div>
+          <div class="eta">
+            <div><label>Run so far</label><strong>232 km <small style="font-size:12px;color:var(--ink-3)">· 20%</small></strong></div>
+            <div><label>Average speed</label><strong>56 km/h</strong></div>
+            <div class="bad"><label>ETA at Meridian</label><strong><s>12:30</s>10 Oct 14:20</strong></div>
+            <div><label>Receiving window</label><strong>09:00–14:00</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <header><h2>Trip events and alerts</h2><span>from GPS, the gate and the driver app</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="feed">
+            <li><i class="blue">ETA</i><p><b>Consignee held receiving to 16:00</b><small>P. Senthil, Meridian stores, replied to the delay notice</small></p><time>13:31</time></li>
+            <li><i class="warn">!</i><p><b>ETA moved past the receiving window</b><small>Meridian told by SMS and email · planner Lata Kamath copied</small></p><time>13:12</time></li>
+            <li><i class="warn">GPS</i><p><b>Unplanned halt near Satara, 52 m</b><small>Outside the planned stops · driver logged “tyre pressure check”</small></p><time>10:58</time></li>
+            <li><i class="ok">OUT</i><p><b>Gate-out at Plant 1</b><small>Weighbridge 5,760 kg net · seal 40917 · gate pass GP-3171</small></p><time>09:05</time></li>
+            <li><i class="ok">EWB</i><p><b>E-way bill and LR issued</b><small>IRN on INV-6117 checked before the LR printed</small></p><time>08:50</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Consignee</h2><span>notified automatically</span></header>
+        <div class="body" style="padding-top:10px">
+          <div class="msg"><b>13:12 · ETA changed.</b> SHP-6127 for PO MC/2207 now reaches you on 10 Oct at about 14:20, after your 14:00 receiving cut-off.</div>
+          <div class="msg"><b>13:31 · Meridian replied.</b> Receiving held open to 16:00 on 10 Oct.</div>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Driver and vehicle</h2><span>K. Murthy · TN 38 CK 5521</span></header>
+        <div class="body">
+          <div class="hrs"><label>Driving today <b>4 h 05 m</b></label><span class="meter"><i style="width:45%"></i></span></div>
+          <div class="hrs" style="margin-top:10px"><label>Continuous since 11:50 <b>2 h 12 m of 4 h 30 m</b></label><span class="meter warn"><i style="width:49%"></i></span><small>Rest break prompted on the driver app at 4 h 30 m</small></div>
+          <div class="rule"></div>
+          <dl class="kv">
+            <dt>Licence</dt><dd>HGV · to 2029</dd>
+            <dt>Fitness, permit, insurance</dt><dd style="color:var(--ok)">All valid</dd>
+            <dt>Freight</dt><dd class="mono">₹46,800 · ₹8.13 / kg</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Documents</h2><span>checked before gate-out</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="docs">
+            <li><p><b>Invoice INV-6117</b><small>IRN 9c41…e2a7 · 08:44</small></p><span class="chip ok">Valid</span></li>
+            <li><p><b>Consignment note</b><small>SCM/24418 · all particulars</small></p><span class="chip ok">Issued</span></li>
+            <li><p><b>E-way bill 2810 4471 6602</b><small>valid to 14 Oct 23:59</small></p><span class="chip ok">Valid</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
