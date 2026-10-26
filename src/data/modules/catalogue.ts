@@ -73,7 +73,7 @@ export const modules: Module[] = [
   { id: 'tms', name: 'Transportation Management', slug: 'transportation-management', summary: 'Shipments, loads and lanes', icon: 'transport', pack: 'premium', area: 'supply' },
   { id: 'flt', name: 'Fleet Management', slug: 'fleet-management', summary: 'Vehicles, trips and fuel', icon: 'dispatch', pack: 'premium', area: 'supply' },
   { id: 'auc', name: 'Auction and Bidding', slug: 'auction-and-bidding', summary: 'Reverse auctions and sealed bids', icon: 'auction', pack: 'premium', area: 'supply' },
-  { id: 'fsc', name: 'FSC Portal', slug: 'fsc-portal', summary: 'Consignment stock and custody', icon: 'distribution', pack: 'premium', area: 'supply' },
+  { id: 'fsc', name: 'FSC Portal', slug: 'fsc-portal', summary: 'Plot mapping, chain of custody, EUDR', icon: 'pin', pack: 'premium', area: 'supply' },
 
   // Manufacturing and quality
   { id: 'prd', name: 'Production Management', slug: 'production-management', summary: 'Work orders, BOM and routing', icon: 'production', pack: 'base', area: 'make' },
@@ -266,9 +266,9 @@ export interface PremiumFeature {
 }
 
 export const premiumGroups: { name: string; ids: string[] }[] = [
-  { name: 'Logistics and warehousing', ids: ['tms', 'wms', 'flt', 'fsc'] },
+  { name: 'Logistics and warehousing', ids: ['tms', 'wms', 'flt'] },
   { name: 'Sales and trade', ids: ['snr', 'ecm', 'sub'] },
-  { name: 'Sourcing, finance and risk', ids: ['auc', 'cfo', 'aud', 'ins', 'res'] },
+  { name: 'Sourcing, finance and risk', ids: ['auc', 'fsc', 'cfo', 'aud', 'ins', 'res'] },
   { name: 'Manufacturing', ids: ['ppds', 'sfc'] },
   { name: 'Workforce', ids: ['lms', 'cls', 'clp'] },
   { name: 'Data and documents', ids: ['baa', 'mdm', 'dms'] },
@@ -319,19 +319,19 @@ export const premiumFeatures: PremiumFeature[] = [
   },
   {
     id: 'fsc',
-    kicker: 'Forwarding and stocking centres',
-    title: 'Consignment stock, under custody.',
-    body: 'Zone-wise stock including cold chain and quarantine, inward, despatch and returns against transporter records, cycle counts and damage claims.',
-    points: ['Stock and despatch', 'Consignments', 'Book vs physical reconciliation', 'Damage claims'],
+    kicker: 'Forest certification',
+    title: 'Every shipment traced to its plot.',
+    body: 'GPS-mapped plots checked for deforestation, harvest logged offline in the field, chain of custody from parcel to container, and an EUDR due-diligence statement assembled for each shipment.',
+    points: ['GPS plot registry', 'Offline harvest logs', 'Chain of custody', 'EUDR statements'],
     visual: {
-      kicker: 'Stocking centre · Nagpur',
-      title: 'Cycle count reconciliation',
-      chip: ['Count in progress', 'live'],
-      meta: [['Stock value', '₹1.42 Cr'], ['Despatch TAT', '1.6 days'], ['Open claims', '2']],
-      cols: ['Zone', 'Book', 'Physical', 'Variance'],
-      rows: [['Ambient A', '4,120', '4,118', '−2'], ['Ambient B', '2,860', '2,860', '0'], ['Cold chain', '640', '628', '−12'], ['Quarantine', '85', '85', '0']],
-      on: 2,
-      note: ['Variance beyond tolerance', 'Needs company approval before it posts'],
+      kicker: 'Container MWE-0412 · Rotterdam',
+      title: 'Due-diligence statement',
+      chip: ['1 document pending', 'warn'],
+      meta: [['Plots', '212'], ['Deforestation-free', '212'], ['Volume', '38.6 m³']],
+      cols: ['Lot', 'Species', 'Plots', 'Check'],
+      rows: [['RW-2291', 'Rubberwood', '86', 'Clear'], ['RW-2294', 'Rubberwood', '71', 'Clear'], ['TK-0418', 'Teak', '38', 'Clear'], ['TK-0421', 'Teak', '17', 'Permit due']],
+      on: 3,
+      note: ['One felling permit not uploaded', 'The statement is filed once it is on record'],
     },
   },
   {

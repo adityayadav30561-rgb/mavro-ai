@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · FSC Portal · Harvest log (phone)</title>
+<!-- Scenario: see plot-registry.html. 13:20 on 8 Oct, no signal: field officer Biju Thomas logs harvest HL-30562 at plot
+     KL-ER-0927 (Joy Paul, smallholder, Ernakulam, 2.6 ha, rubberwood replanting, in the group certificate). The phone's
+     GPS point falls inside the plot's polygon. 42 trees felled, 118 logs, about 9.6 m³; four photos; the grower signs
+     the supplier declaration on the phone. Saved offline with two earlier logs; all three sync when the phone has
+     signal, and the logs then wait at the collection point for their transit pass. -->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  .ph-sys svg { opacity: 0.2; }
+  .off { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: 10px; background: var(--warn-soft); border: 1px solid #f5e2b0; color: var(--warn); font-size: 12.5px; font-weight: 550; }
+  .off i { width: 8px; height: 8px; border-radius: 50%; background: var(--warn); }
+  .pl { display: flex; align-items: center; gap: 12px; }
+  .pl svg { width: 64px; height: 52px; flex: none; border-radius: 8px; background: #f6faf7; border: 1px solid var(--line); }
+  .pl p { flex: 1; line-height: 1.35; }
+  .pl p b { display: block; font: 650 14px var(--mono); }
+  .pl p small { color: var(--ink-3); font-size: 12px; }
+  .nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
+  .nums div { padding: 9px 4px; border-radius: 9px; background: var(--surface-2); border: 1px solid var(--line); }
+  .nums label { display: block; font-size: 11px; color: var(--ink-3); }
+  .nums b { font: 650 16px var(--mono); }
+  .ck li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; font-size: 13px; }
+  .ck li + li { border-top: 1px solid var(--line); }
+  .ck i { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--ok-soft); color: var(--ok); font: 700 12px var(--sans); font-style: normal; }
+  .ck small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .ck em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-2); }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="fsc-portal" data-title="Harvest log" data-subtitle="HL-30562 · KL-ER-0927"
+      data-time="13:20" data-tab="Log" data-tabs="Plots:home|Log:doc|Map:supply|Sync:check:3|More:more" data-who="Biju Thomas|Field officer">
+<main>
+  <div class="off"><i></i>No signal · saved on the phone · 3 logs to sync</div>
+
+  <div class="card">
+    <div class="body">
+      <div class="pl">
+        <svg viewBox="0 0 64 52" aria-hidden="true"><polygon points="12,10 46,6 56,30 40,46 14,40" fill="#bfe3cf" stroke="#0c9b6a" stroke-width="1.5"/><circle cx="33" cy="26" r="4" fill="#0a48fd" stroke="#fff" stroke-width="1.5"/></svg>
+        <p><b>KL-ER-0927</b><small>Joy Paul · Ernakulam · 2.6 ha · rubberwood</small></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Harvest</h2><span>today</span></header>
+    <div class="body">
+      <div class="nums">
+        <div><label>Trees felled</label><b>42</b></div>
+        <div><label>Logs</label><b>118</b></div>
+        <div><label>About</label><b>9.6 m³</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Checks</h2><span>done on the phone</span></header>
+    <div class="body" style="padding-top:2px">
+      <ul class="ck">
+        <li><i>✓</i><span>GPS point inside the plot<small>accuracy 4 m</small></span><em>Inside</em></li>
+        <li><i>✓</i><span>Plot clear of the 2020 cut-off<small>checked when it was registered</small></span><em>Clear</em></li>
+        <li><i>✓</i><span>Four photos<small>stumps, stack, plot edge, grower</small></span><em>4</em></li>
+        <li><i>✓</i><span>Grower’s declaration signed<small>Joy Paul, 13:18</small></span><em>Signed</em></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ph-actions">
+    <span class="btn">Add photo</span>
+    <span class="btn pri">Save log</span>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

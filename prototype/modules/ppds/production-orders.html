@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · PPDS · Production orders</title>
+<!-- Scenario: see planning-dashboard.html. Production orders by MPS week (12 of 46 in the 8-week plan: 23 released, 9
+     firm, 14 planned). WO-5521 890 IH-220 for SO-24817 (64% machined, due 15 Oct); WO-5518 400 CV-110 for SO-24809
+     (Vardhan Hydraulics, 12 Oct) recovering on OT-0311; WO-5514 2,400 BR-045 for SO-24798 (Aster Compressors, 10 Oct)
+     held on lot L-0927; WO-5524 240 CV-110 to stock (lot L-0936, into the warehouse at 15:00); WO-5529 80 IM-180
+     impellers for online sales (10 Oct); WO-5532 120 IH-220 for the Ahmedabad depot (STO, 10 Oct); WO-5527, WO-5530,
+     WO-5533 to stock; WO-5534 600 IH-180 replaces stock held on lot L-0897; WO-5537 300 CV-110 for the depot (14 Oct);
+     WO-5538 400 GB-310 for export order EXP-0388 (Halvorsen Pumps AS), week 43, asked into the frozen week 42. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 6px; padding-bottom: 6px; }
+  .wk { display: inline-block; padding: 1px 6px; border-radius: 5px; font: 600 11px var(--mono); background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .wk.fz { background: #eef0f6; border-color: #c9cede; color: var(--ink); }
+  .pr { display: flex; align-items: center; gap: 8px; }
+  .pr .meter { width: 56px; min-width: 56px; }
+  .pr span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .mat { font-size: 12px; }
+  .mat.w { color: var(--warn); font-weight: 550; }
+  .mat.ok { color: var(--ok); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body data-module="ppds" data-view="Production orders" data-crumb="Make / PPDS / Production orders" data-who="Vikram Desai|Production planner">
+<main>
+  <div class="head">
+    <div>
+      <h1>Production orders</h1>
+      <p>Every order in the 8-week plan with what it is for, its week, material, progress and status</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">Firm planned orders</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Weeks <b>41–48</b></span>
+    <span class="filter">Status <b>All</b></span>
+    <span class="filter">Demand <b>All</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Order, item or sales order</div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Orders in the plan</label><strong>46 <small>· 8 weeks</small></strong></div>
+    <div class="card sm"><label>Released</label><strong>23</strong></div>
+    <div class="card sm"><label>Firm · planned</label><strong>9 <small>· 14</small></strong></div>
+    <div class="card sm"><label>Waiting for material</label><strong style="color:var(--warn)">2 <small>castings</small></strong></div>
+    <div class="card sm"><label>Frozen-week changes asked</label><strong style="color:var(--warn)">1 <small>EXP-0388</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Order</th><th>Item</th><th class="r">Quantity</th><th>For</th><th>Week</th><th>Start – finish</th><th>Material</th><th>Progress</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td><b class="mono">WO-5521</b></td><td>IH-220<small>Impeller housing</small></td><td class="r mono">890</td><td>SO-24817<small>Kestrel Pumps</small></td><td><span class="wk fz">41</span></td><td class="mono">1 Oct – 15 Oct</td><td class="mat w">400 kg castings · 10 Oct</td><td><div class="pr"><span class="meter"><i style="width:64%"></i></span><span>570</span></div></td><td><span class="chip blue">Released</span></td></tr>
+          <tr><td><b class="mono">WO-5518</b></td><td>CV-110<small>Valve body</small></td><td class="r mono">400</td><td>SO-24809<small>Vardhan Hydraulics</small></td><td><span class="wk fz">41</span></td><td class="mono">6 Oct – 12 Oct</td><td class="mat ok">Issued</td><td><div class="pr"><span class="meter warn"><i style="width:48%"></i></span><span>192</span></div></td><td><span class="chip warn">Recovering · OT-0311</span></td></tr>
+          <tr><td><b class="mono">WO-5514</b></td><td>BR-045<small>Bracket</small></td><td class="r mono">2,400</td><td>SO-24798<small>Aster Compressors</small></td><td><span class="wk fz">41</span></td><td class="mono">29 Sep – 10 Oct</td><td class="mat ok">Issued</td><td><div class="pr"><span class="meter warn"><i style="width:100%"></i></span><span>QA</span></div></td><td><span class="chip bad">Lot L-0927 held</span></td></tr>
+          <tr><td><b class="mono">WO-5524</b></td><td>CV-110<small>Valve body</small></td><td class="r mono">240</td><td>Stock<small>lot L-0936</small></td><td><span class="wk fz">41</span></td><td class="mono">3 Oct – 8 Oct</td><td class="mat ok">Issued</td><td><div class="pr"><span class="meter ok"><i style="width:100%"></i></span><span>240</span></div></td><td><span class="chip ok">To warehouse 15:00</span></td></tr>
+          <tr><td><b class="mono">WO-5529</b></td><td>IM-180<small>Impeller</small></td><td class="r mono">80</td><td>Online sales<small>Northfield Spares</small></td><td><span class="wk fz">41</span></td><td class="mono">7 Oct – 10 Oct</td><td class="mat ok">Issued</td><td><div class="pr"><span class="meter"><i style="width:55%"></i></span><span>44</span></div></td><td><span class="chip blue">Released</span></td></tr>
+          <tr><td><b class="mono">WO-5532</b></td><td>IH-220<small>Impeller housing</small></td><td class="r mono">120</td><td>STO<small>Ahmedabad depot</small></td><td><span class="wk fz">41</span></td><td class="mono">9 Oct – 10 Oct</td><td class="mat ok">Reserved</td><td><div class="pr"><span class="meter"><i style="width:0%"></i></span><span>0</span></div></td><td><span class="chip">Firm</span></td></tr>
+          <tr><td><b class="mono">WO-5530</b></td><td>GH-310<small>Gear housing</small></td><td class="r mono">240</td><td>Stock</td><td><span class="wk fz">41</span></td><td class="mono">8 Oct – 9 Oct</td><td class="mat ok">Reserved</td><td><div class="pr"><span class="meter"><i style="width:0%"></i></span><span>0</span></div></td><td><span class="chip">Firm</span></td></tr>
+          <tr><td><b class="mono">WO-5523</b></td><td>IH-180<small>Impeller housing</small></td><td class="r mono">900</td><td>Stock<small>safety stock</small></td><td><span class="wk fz">41</span></td><td class="mono">10 Oct – 13 Oct</td><td class="mat w">Castings PO-7714 · 10 Oct</td><td><div class="pr"><span class="meter"><i style="width:0%"></i></span><span>0</span></div></td><td><span class="chip warn">Waiting material</span></td></tr>
+          <tr><td><b class="mono">WO-5537</b></td><td>CV-110<small>Valve body</small></td><td class="r mono">300</td><td>STO<small>Ahmedabad depot</small></td><td><span class="wk fz">42</span></td><td class="mono">10 Oct – 14 Oct</td><td class="mat ok">In stock</td><td><div class="pr"><span class="meter"><i style="width:0%"></i></span><span>0</span></div></td><td><span class="chip">Firm</span></td></tr>
+          <tr><td><b class="mono">WO-5534</b></td><td>IH-180<small>Impeller housing</small></td><td class="r mono">600</td><td>Stock<small>replaces L-0897 hold</small></td><td><span class="wk fz">42</span></td><td class="mono">13 Oct – 15 Oct</td><td class="mat">MRP covered</td><td><div class="pr"><span class="meter"><i style="width:0%"></i></span><span>0</span></div></td><td><span class="chip">Firm</span></td></tr>
+          <tr><td><b class="mono">WO-5538</b></td><td>GB-310<small>Gearbox casing</small></td><td class="r mono">400</td><td>EXP-0388<small>Halvorsen Pumps AS</small></td><td><span class="wk">43</span> → <span class="wk fz">42</span></td><td class="mono">20 Oct – 24 Oct</td><td class="mat w">LM6 castings short wk 43</td><td><div class="pr"><span class="meter"><i style="width:0%"></i></span><span>0</span></div></td><td><span class="chip warn">Frozen change · plant head</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 11 of 46 · weeks 41 and 42 are frozen: changes need the plant head</span><span>Released 23 · firm 9 · planned 14</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

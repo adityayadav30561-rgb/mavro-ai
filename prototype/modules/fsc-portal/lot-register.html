@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · FSC Portal · Lots</title>
+<!-- Scenario: see plot-registry.html. Sawmill lots since 24 Sep (9 of 11 shown), each with its plots, log volume in,
+     sawn volume, certified share of the input, the FSC claim it can carry, the cut-off check and the shipment.
+     Certified input in container MWE-0412's lots: RW-2291 88% of 46.2 m³ (40.7), RW-2294 85% of 37.8 (32.1), TK-0418
+     84% of 19.6 (16.5), TK-0421 100% of 8.8 = 98.1 of 112.4 m³ (87%). RW-2293 is held: KL-ID-0241, one of its 49
+     plots, showed tree-cover loss in the latest satellite pass and is under review, so the lot cannot be allocated.
+     MWE-0410 shipped on 2 Oct; MWE-0414 is planned for 28 Oct. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 13px; padding-bottom: 13px; }
+  .cs { display: flex; align-items: center; gap: 8px; }
+  .cs .meter { width: 60px; min-width: 60px; }
+  .cs span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .claim { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; font-weight: 550; border: 1px solid #c8ecdc; background: var(--ok-soft); color: var(--ok); }
+  .claim.mix { border-color: #d9e0ff; background: var(--accent-soft); color: var(--accent-ink); }
+  .ok2 { color: var(--ok); font-weight: 600; font-size: 12px; }
+  .bad2 { color: var(--bad); font-weight: 600; font-size: 12px; }
+  tr.held td { background: #fff7f6; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body data-module="fsc-portal" data-view="Lots" data-crumb="Supply chain / FSC Portal / Lots" data-who="Anjana Varghese|Traceability manager" data-org="MW|Malabar Woodcraft|Exports · Kochi">
+<main>
+  <div class="head">
+    <div>
+      <h1>Lot register</h1>
+      <p>Every sawmill lot with the plots behind it, volumes, certified share, the claim it carries and where it ships</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">New lot</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Sawn <b>Since 24 Sep</b></span>
+    <span class="filter">Species <b>All</b></span>
+    <span class="filter">Claim <b>All</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Lot, plot or container</div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Lots since 24 Sep</label><strong>11</strong></div>
+    <div class="card sm"><label>Logs in</label><strong>268.4 <small>m³</small></strong></div>
+    <div class="card sm"><label>Certified input</label><strong>89%</strong></div>
+    <div class="card sm"><label>Held</label><strong style="color:var(--bad)">1 <small>plot under review</small></strong></div>
+    <div class="card sm"><label>Documents incomplete</label><strong style="color:var(--warn)">1 <small>TK-0421</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Lot</th><th>Species</th><th>Sawn</th><th class="r">Plots</th><th class="r">Logs in</th><th class="r">Sawn m³</th><th>Certified input</th><th>Claim</th><th>Cut-off check</th><th>Shipment</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">RW-2296</b></td><td>Rubberwood</td><td class="mono">7 Oct</td><td class="r mono">64</td><td class="r mono">36.1</td><td class="r mono">19.9</td><td><div class="cs"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="claim">FSC 100%</span></td><td class="ok2">Clear</td><td class="dim">Not allocated</td></tr>
+          <tr><td><b class="mono">RW-2295</b></td><td>Rubberwood</td><td class="mono">5 Oct</td><td class="r mono">58</td><td class="r mono">31.4</td><td class="r mono">17.3</td><td><div class="cs"><span class="meter ok"><i style="width:91%"></i></span><span>91%</span></div></td><td><span class="claim mix">FSC Mix</span></td><td class="ok2">Clear</td><td class="mono">MWE-0414<small>28 Oct</small></td></tr>
+          <tr class="hl"><td><b class="mono">RW-2294</b></td><td>Rubberwood</td><td class="mono">3 Oct</td><td class="r mono">71</td><td class="r mono">37.8</td><td class="r mono">20.8</td><td><div class="cs"><span class="meter ok"><i style="width:85%"></i></span><span>85%</span></div></td><td><span class="claim mix">FSC Mix</span></td><td class="ok2">Clear</td><td class="mono">MWE-0412<small>14 Oct</small></td></tr>
+          <tr class="held"><td><b class="mono">RW-2293</b></td><td>Rubberwood</td><td class="mono">1 Oct</td><td class="r mono">49</td><td class="r mono">27.5</td><td class="r mono">15.2</td><td><div class="cs"><span class="meter ok"><i style="width:82%"></i></span><span>82%</span></div></td><td><span class="claim mix">FSC Mix</span></td><td class="bad2">1 plot under review</td><td><span class="chip bad">Held</span></td></tr>
+          <tr class="hl"><td><b class="mono">TK-0421</b></td><td>Plantation teak</td><td class="mono">30 Sep</td><td class="r mono">17</td><td class="r mono">8.8</td><td class="r mono">5.0</td><td><div class="cs"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="claim">FSC 100%</span></td><td class="ok2">Clear</td><td class="mono">MWE-0412<small style="color:var(--warn)">permit due</small></td></tr>
+          <tr><td><b class="mono">RW-2292</b></td><td>Rubberwood</td><td class="mono">29 Sep</td><td class="r mono">52</td><td class="r mono">29.6</td><td class="r mono">16.3</td><td><div class="cs"><span class="meter ok"><i style="width:78%"></i></span><span>78%</span></div></td><td><span class="claim mix">FSC Mix</span></td><td class="ok2">Clear</td><td class="mono">MWE-0410<small>shipped 2 Oct</small></td></tr>
+          <tr class="hl"><td><b class="mono">RW-2291</b></td><td>Rubberwood</td><td class="mono">27 Sep</td><td class="r mono">86</td><td class="r mono">46.2</td><td class="r mono">25.4</td><td><div class="cs"><span class="meter ok"><i style="width:88%"></i></span><span>88%</span></div></td><td><span class="claim mix">FSC Mix</span></td><td class="ok2">Clear</td><td class="mono">MWE-0412<small>14 Oct</small></td></tr>
+          <tr><td><b class="mono">TK-0420</b></td><td>Plantation teak</td><td class="mono">26 Sep</td><td class="r mono">22</td><td class="r mono">11.2</td><td class="r mono">6.1</td><td><div class="cs"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="claim">FSC 100%</span></td><td class="ok2">Clear</td><td class="mono">MWE-0410<small>shipped 2 Oct</small></td></tr>
+          <tr class="hl"><td><b class="mono">TK-0418</b></td><td>Plantation teak</td><td class="mono">24 Sep</td><td class="r mono">38</td><td class="r mono">19.6</td><td class="r mono">10.6</td><td><div class="cs"><span class="meter ok"><i style="width:84%"></i></span><span>84%</span></div></td><td><span class="claim mix">FSC Mix</span></td><td class="ok2">Clear</td><td class="mono">MWE-0412<small>14 Oct</small></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 9 of 11 lots · a lot with a plot under review cannot be allocated to a shipment</span><span>Highlighted: container MWE-0412</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

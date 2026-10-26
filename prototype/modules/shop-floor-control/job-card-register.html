@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Shop Floor Control · Job card register</title>
+<!-- Scenario: see live-board.html. Shift B job cards (12 of 18 shown): operation, work centre, operator with their
+     certification for the work centre, quantity good and rejected, standard against actual hours (breakdown time is
+     booked as downtime, not on the job card). Shift B so far: 18 cards, 7 closed, 9 running, 1 waiting for sign-off,
+     1 blocked; 48.6 standard hours earned in 52.1 actual (93%). JC-8846 (WO-5530 setting on CNC-02, shift C) could
+     not be assigned to Yogesh Dhumal, whose 5-axis certification lapsed on 30 Sep; it goes to Swapnil Shelar. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 6px; padding-bottom: 6px; }
+  .op { display: flex; align-items: center; gap: 7px; }
+  .op i { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; font: 700 10px var(--sans); font-style: normal; background: var(--ok-soft); color: var(--ok); flex: none; }
+  .op i.x { background: var(--bad-soft); color: var(--bad); }
+  .eff { font: 600 12px var(--mono); }
+  .eff.lo { color: var(--warn); }
+  tr.blk td { background: #fff7f6; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body data-module="shop-floor-control" data-view="Job cards" data-crumb="Make / Shop Floor Control / Job cards" data-who="Kishor Mhatre|Shift supervisor">
+<main>
+  <div class="head">
+    <div>
+      <h1>Job card register</h1>
+      <p>Every operation booked: operator and certification, quantity, and standard hours against actual</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">Issue job card</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Shift <b>B · 8 Oct</b></span>
+    <span class="filter">Work centre <b>All</b></span>
+    <span class="filter">Status <b>All</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Job card, work order or operator</div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Job cards this shift</label><strong>18 <small>· 7 closed, 9 running</small></strong></div>
+    <div class="card sm"><label>Standard hours earned</label><strong>48.6 <small>in 52.1 actual</small></strong></div>
+    <div class="card sm"><label>Labour efficiency</label><strong>93%</strong></div>
+    <div class="card sm"><label>Good · rejected</label><strong>1,148 <small>· 4 rejected</small></strong></div>
+    <div class="card sm"><label>Blocked on certification</label><strong style="color:var(--bad)">1 <small>reassigned</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Job card</th><th>Work order · operation</th><th>Work centre</th><th>Operator</th><th class="r">Good</th><th class="r">Rejected</th><th class="r">Std h</th><th class="r">Actual h</th><th class="r">Efficiency</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="blk"><td><b class="mono">JC-8846</b></td><td>WO-5530 · 10 setting<small>GH-310 · shift C</small></td><td>CNC-02</td><td><div class="op"><i class="x">!</i>Yogesh Dhumal<small>&nbsp;lapsed 30 Sep</small></div></td><td class="r mono dim">—</td><td class="r mono dim">—</td><td class="r mono">1.0</td><td class="r mono dim">—</td><td class="r dim">—</td><td><span class="chip bad">To Swapnil Shelar</span></td></tr>
+          <tr><td><b class="mono">JC-8842</b></td><td>L-0932 · 50 pressure test<small>IH-220 · WO-5521</small></td><td>PT-01</td><td><div class="op"><i>✓</i>Rakesh Bhoir</div></td><td class="r mono">48</td><td class="r mono">2</td><td class="r mono">1.2</td><td class="r mono">1.3</td><td class="r eff">92%</td><td><span class="chip warn">Sign-off · 2 held</span></td></tr>
+          <tr><td><b class="mono">JC-8841</b></td><td>WO-5521 · 30 rough mill<small>IH-220</small></td><td>CNC-02</td><td><div class="op"><i>✓</i>Ganesh More</div></td><td class="r mono">186</td><td class="r mono">0</td><td class="r mono">5.6</td><td class="r mono">5.9</td><td class="r eff">95%</td><td><span class="chip blue">Running</span></td></tr>
+          <tr><td><b class="mono">JC-8839</b></td><td>WO-5521 · 40 deburr, wash<small>IH-220</small></td><td>DB-01</td><td><div class="op"><i>✓</i>Dinesh Patole</div></td><td class="r mono">320</td><td class="r mono">0</td><td class="r mono">3.2</td><td class="r mono">3.4</td><td class="r eff">94%</td><td><span class="chip blue">Running</span></td></tr>
+          <tr><td><b class="mono">JC-8838</b></td><td>WO-5521 · 30 finish mill<small>IH-220</small></td><td>CNC-01</td><td><div class="op"><i>✓</i>Sunil Pawar</div></td><td class="r mono">142</td><td class="r mono">1</td><td class="r mono">4.3</td><td class="r mono">4.6</td><td class="r eff">93%</td><td><span class="chip blue">Running</span></td></tr>
+          <tr><td><b class="mono">JC-8836</b></td><td>WO-5518 · 20 turning<small>CV-110 · after the breakdown</small></td><td>CNC-03</td><td><div class="op"><i>✓</i>Pravin Shinde</div></td><td class="r mono">96</td><td class="r mono">1</td><td class="r mono">2.9</td><td class="r mono">3.6</td><td class="r eff lo">81%</td><td><span class="chip blue">Running · OT-0311</span></td></tr>
+          <tr><td><b class="mono">JC-8843</b></td><td>WO-5506 · 20 assembly<small>GH-310</small></td><td>ASM-02</td><td><div class="op"><i>✓</i>Meena Gaikwad</div></td><td class="r mono">118</td><td class="r mono">0</td><td class="r mono">4.1</td><td class="r mono">4.2</td><td class="r eff">98%</td><td><span class="chip blue">Running</span></td></tr>
+          <tr><td><b class="mono">JC-8845</b></td><td>WO-5512 · 20 assembly<small>PB-120</small></td><td>ASM-03</td><td><div class="op"><i>✓</i>Arjun Kadam</div></td><td class="r mono">74</td><td class="r mono">0</td><td class="r mono">2.8</td><td class="r mono">3.1</td><td class="r eff">90%</td><td><span class="chip blue">Running</span></td></tr>
+          <tr><td><b class="mono">JC-8840</b></td><td>SO-24798 · packing<small>BR-045 · lot L-0930</small></td><td>PK-01</td><td><div class="op"><i>✓</i>Lalita Kshirsagar</div></td><td class="r mono">1,200</td><td class="r mono">0</td><td class="r mono">2.0</td><td class="r mono">2.1</td><td class="r eff">95%</td><td><span class="chip blue">Running</span></td></tr>
+          <tr><td><b class="mono">JC-8834</b></td><td>WO-5514 · 30 finish mill<small>BR-045</small></td><td>CNC-01</td><td><div class="op"><i>✓</i>Sunil Pawar</div></td><td class="r mono">210</td><td class="r mono">0</td><td class="r mono">1.6</td><td class="r mono">1.9</td><td class="r eff lo">84%</td><td><span class="chip ok">Closed 08:52</span></td></tr>
+          <tr><td><b class="mono">JC-8829</b></td><td>WO-5509 · 30 rough mill<small>IH-180</small></td><td>CNC-02</td><td><div class="op"><i>✓</i>Ganesh More</div></td><td class="r mono">164</td><td class="r mono">0</td><td class="r mono">2.1</td><td class="r mono">2.0</td><td class="r eff">105%</td><td><span class="chip ok">Closed 09:41</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 11 of 18 job cards · operators are checked against their certification before a card is issued</span><span>Std h · standard hours</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

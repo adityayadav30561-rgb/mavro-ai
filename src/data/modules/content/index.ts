@@ -9,11 +9,13 @@ import { content as dealerPortal } from './dealer-portal';
 import { content as distributorPortal } from './distributor-portal';
 import { content as ecommerceIntegration } from './ecommerce-integration';
 import { content as fleetManagement } from './fleet-management';
+import { content as fscPortal } from './fsc-portal';
 import { content as gateEntry } from './gate-entry';
 import { content as hrmsAndPayroll } from './hrms-and-payroll';
 import { content as inventoryManagement } from './inventory-management';
 import { content as mvlensVendorAudit } from './mvlens-vendor-audit';
 import { content as orderToCash } from './order-to-cash';
+import { content as ppds } from './ppds';
 import { content as procureToPay } from './procure-to-pay';
 import { content as productionManagement } from './production-management';
 import { content as projectManagement } from './project-management';
@@ -22,6 +24,7 @@ import { content as retailerPortal } from './retailer-portal';
 import { content as rosterLedger } from './roster-ledger';
 import { content as salesForceAutomation } from './sales-force-automation';
 import { content as schemeAndRebate } from './scheme-and-rebate';
+import { content as shopFloorControl } from './shop-floor-control';
 import { content as subscriptionManagement } from './subscription-management';
 import { content as transportationManagement } from './transportation-management';
 import { content as travelAndExpense } from './travel-and-expense';
@@ -50,11 +53,13 @@ export const moduleContent: Registry = {
   'distributor-portal': distributorPortal,
   'ecommerce-integration': ecommerceIntegration,
   'fleet-management': fleetManagement,
+  'fsc-portal': fscPortal,
   'gate-entry': gateEntry,
   'hrms-and-payroll': hrmsAndPayroll,
   'inventory-management': inventoryManagement,
   'mvlens-vendor-audit': mvlensVendorAudit,
   'order-to-cash': orderToCash,
+  ppds,
   'procure-to-pay': procureToPay,
   'production-management': productionManagement,
   'project-management': projectManagement,
@@ -63,6 +68,7 @@ export const moduleContent: Registry = {
   'roster-ledger': rosterLedger,
   'sales-force-automation': salesForceAutomation,
   'scheme-and-rebate': schemeAndRebate,
+  'shop-floor-control': shopFloorControl,
   'subscription-management': subscriptionManagement,
   'transportation-management': transportationManagement,
   'travel-and-expense': travelAndExpense,

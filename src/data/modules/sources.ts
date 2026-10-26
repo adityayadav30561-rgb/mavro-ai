@@ -97,7 +97,17 @@ export const moduleSources: Record<ModuleSlug, ModuleSource> = {
   },
   'fleet-management': { appendix: v2(94) },
   'auction-and-bidding': { appendix: v2(78) },
-  'fsc-portal': { appendix: v2(84) },
+  // The deck uses the name twice: slide 10 (and the slide 23 customer story) describes forest certification (GPS plot
+  // mapping, chain of custody, EUDR due diligence); the slide 84 appendix describes a forwarding and stocking centre
+  // portal. The user chose forest certification (2026-10-26), so slide 84 is not used.
+  'fsc-portal': {
+    appendix: null,
+    extra: [
+      { deck: 'product-deck-v2', where: 'slide 10 (FSC Portal: GPS plot mapping, chain of custody, EUDR statements)' },
+      { deck: 'product-deck-v2', where: 'slide 23 (FSC + EUDR compliance portal: plot registry, offline harvest logging)' },
+    ],
+    gap: 'No detail slide: tiles, why-it-matters and screens use standard forest-certification and EUDR practice.',
+  },
   ppds: { appendix: v2(110) },
   'shop-floor-control': { appendix: v2(98) },
   'learning-management': { appendix: v2(92) },

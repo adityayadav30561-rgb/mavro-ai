@@ -191,6 +191,12 @@ least important, with full design effort. The ordered list lives in [STATUS.md](
 | Industries | Service providers (IT companies) instead of Exporters, site-wide |
 | Plan approval | SITE-PLAN.md draft 3 approved (2026-10-23); IMPLEMENTATION-PLAN.md derived from it, one phase per session, module template reviewed by the user after Phase 5 before the module phases |
 
+## FSC Portal (Phase 16, 2026-10-26)
+
+| Decision | Choice | Why |
+|---|---|---|
+| What FSC Portal is | **Forest certification (FSC + EUDR)**: GPS plot registry, offline harvest logging, chain of custody from parcel to container, EUDR due-diligence statements. The slide 84 appendix (forwarding and stocking centre: consignment stock, cycle counts, damage claims) is not used | The deck contradicts itself (slide 10 and the slide 23 story against slide 84); the user chose forest certification. The FSC customer story links to the page; the homepage Explore panel and menu summary changed to match |
+
 ## Rejected (do not bring back)
 
 - Coloured gradient bands, multi-colour avatars and glowing accents on cards ("looks like AI slop", 2026-10-23).

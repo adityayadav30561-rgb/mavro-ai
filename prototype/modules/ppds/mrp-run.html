@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · PPDS · MRP run</title>
+<!-- Scenario: see planning-dashboard.html. MRP ran at 02:00 on 8 Oct over 8 weeks (41–48): 1,284 items planned, 312
+     with requirements, 6 shortages. Proposals: LM6 castings 1,800 kg in week 43 at ₹256 = ₹4,60,800, over the ₹2 L
+     auction threshold, so a reverse auction draft AUC-0091 to three approved foundries (Aravali Castings among them);
+     EN8 round bar 6,000 kg in week 44 at ₹82 = ₹4,92,000 under Kaveri Steel's rate contract (PR-0468); SR-18 seal rings
+     2,000 at ₹42 = ₹84,000 (Nova Seals, PR-0469); export cartons 1,200 at ₹48 = ₹57,600 (Shree Ganesh Packaging,
+     PR-0470). Proposals ₹10,94,400. Already covered: BS-07 bearing sleeves 1,000 by PR-0461; LM6 castings 400 kg by
+     PO-7714 (10 Oct). The week-43 casting need is pegged to WO-5538 (GB-310 for EXP-0388) 1,000 kg, WO-5534 (IH-180)
+     650 kg and safety stock 150 kg. Projected LM6 balance without action (kg): 600, 950, −850, −600, −1,300, −900,
+     −1,500, −1,200; with the auction quantity received in week 43: 600, 950, 950, 1,200, 500, 900, 300, 600. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 360px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .sh td { padding-top: 18px; padding-bottom: 18px; }
+  .sh th, .sh td { padding-left: 9px; padding-right: 9px; }
+  .act { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; font-weight: 550; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); }
+  .act.auc { background: #f3ecff; border-color: #ddcdfd; color: #5b25c9; }
+  .act.pr { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+  .act.cov { background: var(--ok-soft); border-color: #c8ecdc; color: var(--ok); }
+  tr.covered td { color: var(--ink-3); }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 12px 16px 10px; width: calc(100% - 32px); height: calc(100% - 22px); }
+  .peg li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 7px 0; font-size: 12.5px; }
+  .peg li + li { border-top: 1px solid var(--line); }
+  .peg small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .peg b.q { font: 600 12px var(--mono); }
+</style>
+</head>
+<body data-module="ppds" data-view="MRP run" data-crumb="Make / PPDS / MRP run / 8 Oct 02:00" data-who="Vikram Desai|Production planner">
+<main>
+  <div class="head">
+    <div>
+      <h1>MRP run · shortages and proposals</h1>
+      <p>Run at 02:00 today · 8-week explosion of the MPS through bills of materials · every shortage has an action attached</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Run again</span>
+      <span class="btn pri">Send 4 proposals</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Items planned</label><div class="v"><strong>1,284</strong></div><div class="foot"><b class="delta flat">312 with requirements</b><span>weeks 41–48</span></div></div>
+    <div class="card kpi"><label>Shortages found</label><div class="v"><strong style="color:var(--warn)">6</strong></div><div class="foot"><b class="delta up">2 already covered</b><span>PR-0461, PO-7714</span></div></div>
+    <div class="card kpi"><label>Purchase proposals</label><div class="v"><strong>4 <small>· ₹10.94 L</small></strong></div><div class="foot"><b class="delta flat">1 as an auction</b><span>3 as requisitions</span></div></div>
+    <div class="card kpi"><label>Run time</label><div class="v"><strong>6 m 40 s</strong></div><div class="foot"><b class="delta flat">nightly 02:00</b><span>or on demand</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Shortages</h2><span>by the week they bite</span></header>
+      <div class="body">
+        <table class="sh">
+          <thead><tr><th>Item</th><th>Week</th><th class="r">Short by</th><th>Source</th><th class="r">Value</th><th>Action proposed</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr class="hl"><td><b>LM6 castings</b><small>aluminium, kg</small></td><td class="mono">43</td><td class="r mono">1,800</td><td>3 approved foundries</td><td class="r mono">4,60,800</td><td><span class="act auc">Reverse auction</span></td><td><span class="chip blue">AUC-0091 draft</span></td></tr>
+            <tr><td><b>EN8 round bar</b><small>kg</small></td><td class="mono">44</td><td class="r mono">6,000</td><td>Kaveri Steel · contract</td><td class="r mono">4,92,000</td><td><span class="act pr">Requisition</span></td><td><span class="chip blue">PR-0468 draft</span></td></tr>
+            <tr><td><b>SR-18 seal ring</b></td><td class="mono">43</td><td class="r mono">2,000</td><td>Nova Seals</td><td class="r mono">84,000</td><td><span class="act pr">Requisition</span></td><td><span class="chip blue">PR-0469 draft</span></td></tr>
+            <tr><td><b>Export cartons</b></td><td class="mono">42</td><td class="r mono">1,200</td><td>Shree Ganesh Packaging</td><td class="r mono">57,600</td><td><span class="act pr">Requisition</span></td><td><span class="chip blue">PR-0470 draft</span></td></tr>
+            <tr class="covered"><td><b>BS-07 bearing sleeve</b></td><td class="mono">42</td><td class="r mono">1,000</td><td>Open requisition</td><td class="r mono">1,85,000</td><td><span class="act cov">Covered</span></td><td>PR-0461</td></tr>
+            <tr class="covered"><td><b>LM6 castings</b><small>aluminium, kg</small></td><td class="mono">41</td><td class="r mono">400</td><td>Aravali Castings</td><td class="r mono">1,02,400</td><td><span class="act cov">Covered</span></td><td>PO-7714 · 10 Oct</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>LM6 castings, kg</h2><span>projected</span><div class="legend"><span>With the auction</span><span style="--c:#9aa3b5">Without</span></div></header>
+        <div class="body chart-c" data-area="600,950,950,1200,500,900,300,600|600,950,-850,-600,-1300,-900,-1500,-1200" data-min="-1600" data-max="1600" data-labels="41,42,43,44,45,46,47,48"></div>
+      </div>
+      <div class="card">
+        <header><h2>Week 43 need for castings</h2><span>pegged to orders</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="peg">
+            <li><span>WO-5538 · GB-310<small>EXP-0388 · Halvorsen Pumps AS</small></span><b class="q">1,000 kg</b></li>
+            <li><span>WO-5534 · IH-180<small>stock, replaces L-0897 hold</small></span><b class="q">650 kg</b></li>
+            <li><span>Safety stock<small>castings store</small></span><b class="q">150 kg</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

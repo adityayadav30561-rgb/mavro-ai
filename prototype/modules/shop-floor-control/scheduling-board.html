@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Shop Floor Control · Scheduling board</title>
+<!-- Scenario: see live-board.html. Finite scheduling of the next four shifts (shift C tonight, shifts A, B and C on
+     9 Oct) against 7.5 machine-hours a shift, the operators qualified for each work centre and the material on hand.
+     Load as a share of capacity. CNC-03 is overloaded tonight (WO-5518's recovery after the breakdown, 9.2 h on
+     7.5 h): overtime OT-0311 (Sunil Pawar, Pravin Shinde, Dinesh Patole, 16:00–20:00) takes the first 4 h and shift C
+     the rest, and WO-5533 (GH-310 boring, 1.6 h) moves to 9 Oct shift C, where CNC-03 is at 64%. Blocked: WO-5523
+     (IH-180 rough machining on CNC-02) waits for LM6 castings on PO-7714, due 10 Oct (buyer Rohan Menon); WO-5530
+     (GH-310 on CNC-02, shift C tonight) needs a setter certified on the 5-axis program, and Yogesh Dhumal's
+     certification lapsed on 30 Sep (re-certification 10 Oct), so Swapnil Shelar sets it instead. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .sb { width: 100%; }
+  .sb th { text-align: left; }
+  .sb td { padding-top: 20px; padding-bottom: 20px; }
+  .sb th.s { width: 18%; }
+  .cell { display: grid; gap: 4px; }
+  .cell .lv { position: relative; height: 22px; border-radius: 6px; background: #eef0f4; overflow: hidden; }
+  .cell .lv i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 6px; background: #c9d4ff; }
+  .cell .lv i.hi { background: #f3b7b0; }
+  .cell .lv i.mid { background: #f5d79a; }
+  .cell .lv span { position: absolute; left: 8px; top: 3px; font: 600 11px var(--mono); color: var(--ink); }
+  .cell .lv::after { content: ''; position: absolute; top: 0; bottom: 0; left: calc(100% / 1.25); width: 1.5px; background: var(--ink-3); opacity: 0.5; }
+  .cell small { font-size: 11px; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cell small.w { color: var(--bad); font-weight: 550; }
+  .wc b { display: block; font-weight: 600; }
+  .wc small { color: var(--ink-3); font-size: 11.5px; }
+  .blk li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 10px; padding: 9px 0; }
+  .blk li + li { border-top: 1px solid var(--line); }
+  .blk b.n { display: grid; place-items: center; height: 28px; border-radius: 8px; font: 650 10.5px var(--mono); background: var(--bad-soft); color: var(--bad); }
+  .blk b.n.w { background: var(--warn-soft); color: var(--warn); }
+  .blk p { line-height: 1.32; font-size: 12.5px; }
+  .blk p small { display: block; color: var(--ink-3); font-size: 11.5px; margin-top: 1px; }
+  .blk p em { display: block; margin-top: 3px; font-style: normal; font-size: 11.5px; color: var(--accent-ink); font-weight: 550; }
+  .mv { padding: 12px 13px; border-radius: 10px; background: var(--accent-soft); border: 1px solid #d9e0ff; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .mv b { color: var(--ink); }
+</style>
+</head>
+<body data-module="shop-floor-control" data-view="Scheduling board" data-crumb="Make / Shop Floor Control / Scheduling board" data-who="Sunil Iyer|Production planner">
+<main>
+  <div class="head">
+    <div>
+      <h1>Scheduling board · capacity against load</h1>
+      <p>The next four shifts, finite: machine hours, qualified operators and material on hand, before the schedule is committed</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Next 4 shifts</span><span>Week</span></div>
+      <span class="btn">Rebalance</span>
+      <span class="btn pri">Commit schedule</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Load by work centre and shift</h2><span>7.5 machine-hours a shift · line marks 100%</span><div class="legend"><span style="--c:#c9d4ff">Within capacity</span><span style="--c:#f5d79a">Over 90%</span><span style="--c:#f3b7b0">Overloaded</span></div></header>
+      <div class="body">
+        <table class="sb">
+          <thead><tr><th>Work centre</th><th class="s">Tonight · C</th><th class="s">9 Oct · A</th><th class="s">9 Oct · B</th><th class="s">9 Oct · C</th></tr></thead>
+          <tbody>
+            <tr><td class="wc"><b>CNC-01</b><small>5-axis mill</small></td><td><div class="cell"><span class="lv"><i style="width:68%"></i><span>85%</span></span><small>WO-5527 · IH-180</small></div></td><td><div class="cell"><span class="lv"><i style="width:72%"></i><span>90%</span></span><small>WO-5521 · IH-220</small></div></td><td><div class="cell"><span class="lv"><i style="width:60%"></i><span>75%</span></span><small>WO-5521</small></div></td><td><div class="cell"><span class="lv"><i style="width:44%"></i><span>55%</span></span><small>WO-5532 · IH-220</small></div></td></tr>
+            <tr><td class="wc"><b>CNC-02</b><small>5-axis mill</small></td><td><div class="cell"><span class="lv"><i class="mid" style="width:74%"></i><span>93%</span></span><small class="w">Setter swapped</small></div></td><td><div class="cell"><span class="lv"><i style="width:30%"></i><span>38%</span></span><small class="w">No castings</small></div></td><td><div class="cell"><span class="lv"><i style="width:63%"></i><span>79%</span></span><small>WO-5521</small></div></td><td><div class="cell"><span class="lv"><i style="width:58%"></i><span>72%</span></span><small>WO-5530</small></div></td></tr>
+            <tr class="hl"><td class="wc"><b>CNC-03</b><small>Turning centre</small></td><td><div class="cell"><span class="lv"><i class="hi" style="width:98%"></i><span>123%</span></span><small class="w">Recovery · OT-0311</small></div></td><td><div class="cell"><span class="lv"><i class="mid" style="width:76%"></i><span>95%</span></span><small>WO-5518 · CV-110</small></div></td><td><div class="cell"><span class="lv"><i style="width:66%"></i><span>82%</span></span><small>WO-5527</small></div></td><td><div class="cell"><span class="lv"><i style="width:68%"></i><span>85%</span></span><small>+ WO-5533 moved</small></div></td></tr>
+            <tr><td class="wc"><b>DB-01</b><small>Deburr and wash</small></td><td><div class="cell"><span class="lv"><i style="width:56%"></i><span>70%</span></span><small>WO-5521</small></div></td><td><div class="cell"><span class="lv"><i style="width:64%"></i><span>80%</span></span><small>WO-5521</small></div></td><td><div class="cell"><span class="lv"><i style="width:52%"></i><span>65%</span></span><small>WO-5518</small></div></td><td><div class="cell"><span class="lv"><i style="width:40%"></i><span>50%</span></span><small>WO-5527</small></div></td></tr>
+            <tr><td class="wc"><b>PT-01</b><small>Pressure test</small></td><td><div class="cell"><span class="lv"><i style="width:48%"></i><span>60%</span></span><small>L-0932 batch 2</small></div></td><td><div class="cell"><span class="lv"><i style="width:68%"></i><span>85%</span></span><small>WO-5521</small></div></td><td><div class="cell"><span class="lv"><i style="width:56%"></i><span>70%</span></span><small>WO-5518</small></div></td><td><div class="cell"><span class="lv"><i style="width:36%"></i><span>45%</span></span><small>WO-5527</small></div></td></tr>
+            <tr><td class="wc"><b>ASM-02</b><small>Assembly cell</small></td><td><div class="cell"><span class="lv"><i style="width:62%"></i><span>78%</span></span><small>WO-5511 · GH-310</small></div></td><td><div class="cell"><span class="lv"><i style="width:66%"></i><span>83%</span></span><small>WO-5511</small></div></td><td><div class="cell"><span class="lv"><i style="width:54%"></i><span>68%</span></span><small>WO-5506</small></div></td><td><div class="cell"><span class="lv"><i style="width:0%"></i><span>0%</span></span><small>no shift C</small></div></td></tr>
+            <tr><td class="wc"><b>ASM-03</b><small>Assembly cell</small></td><td><div class="cell"><span class="lv"><i style="width:58%"></i><span>73%</span></span><small>WO-5512 · PB-120</small></div></td><td><div class="cell"><span class="lv"><i style="width:64%"></i><span>80%</span></span><small>WO-5515</small></div></td><td><div class="cell"><span class="lv"><i style="width:60%"></i><span>75%</span></span><small>WO-5515</small></div></td><td><div class="cell"><span class="lv"><i style="width:0%"></i><span>0%</span></span><small>no shift C</small></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Rebalance</h2><span>CNC-03 at 123% tonight</span></header>
+        <div class="body" style="padding-top:8px">
+          <div class="mv"><b>WO-5518 recovery: 9.2 h on 7.5 h.</b> OT-0311 covers 16:00–20:00 with three operators; move <b>WO-5533</b> (GH-310 boring, 1.6 h) to 9 Oct shift C, where CNC-03 has room.</div>
+          <div style="display:flex;gap:8px;margin-top:12px"><span class="btn">Keep as is</span><span class="btn pri">Move WO-5533</span></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Blocked jobs</h2><span>each blocker owned</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="blk">
+            <li><b class="n">MAT</b><p><b>WO-5523 · IH-180 on CNC-02</b><small>LM6 castings on PO-7714, due 10 Oct</small><em>Owner: Rohan Menon, buyer</em></p></li>
+            <li><b class="n w">SKL</b><p><b>WO-5530 · GH-310 setting tonight</b><small>Yogesh Dhumal’s 5-axis certification lapsed 30 Sep</small><em>Swapnil Shelar sets it · re-certification 10 Oct</em></p></li>
+            <li><b class="n w">QA</b><p><b>WO-5514 · BR-045 rework</b><small>Lot L-0927 held on OOS-0112</small><em>Owner: Anil Bhosale, QA head</em></p></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -78,7 +78,7 @@ For each module in the phase:
 | 13 | Portals: Dealer Portal, Retailer Portal | 2 pages | **Done 2026-10-24** |
 | 14 | Premium: Transportation Management, Fleet Management, Warehouse Management | 3 pages | **Done 2026-10-24** |
 | 15 | Premium: Scheme and Rebate, Ecommerce Integration, Subscription Management | 3 pages | **Done 2026-10-26** |
-| 16 | Premium: PPDS, Shop Floor Control, FSC Portal | 3 pages | To do |
+| 16 | Premium: PPDS, Shop Floor Control, FSC Portal | 3 pages | **Done 2026-10-26** |
 | 17 | Premium: Cost Forecasting, Audit Management, Insurance Management | 3 pages | To do |
 | 18 | Premium: Auction and Bidding, Real Estate Management, Learning Management | 3 pages | To do |
 | 19 | Premium: Contract Labour Supply, Contract Labour Purchase | 2 pages | To do |
@@ -182,7 +182,7 @@ has its 3–4 bespoke screens, and its links (menu, related modules, package dat
 | 13 | Dealer Portal, Retailer Portal | 69, 71 | Retailer has a phone screen |
 | 14 | Transportation Management, Fleet Management, Warehouse Management | 76 (+ TMS deck), 94, 96 (+ WMS deck) | The TMS customer story links here |
 | 15 | Scheme and Rebate, Ecommerce Integration, Subscription Management | 86, 82, 102 | |
-| 16 | PPDS, Shop Floor Control, FSC Portal | 110, 98, 84 | Reuse `production` for Shop Floor Control; FSC story links here |
+| 16 | PPDS, Shop Floor Control, FSC Portal | 110, 98; FSC: 10 and 23 (not 84, user's choice) | Reuse `production` for Shop Floor Control; FSC story links here |
 | 17 | Cost Forecasting, Audit Management, Insurance Management | 74, 80, 100 | |
 | 18 | Auction and Bidding, Real Estate Management, Learning Management | 78, 104, 92 | Each in its own scenario (property portfolio, e-sourcing event, courses) |
 | 19 | Contract Labour Supply, Contract Labour Purchase | 106, 108 | CLRA, PF, ESIC compliance |

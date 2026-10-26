@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · PPDS · Planning dashboard</title>
+<!--
+  Scenario (PPDS, shared by every screen of the module; agrees with Production Management, Shop Floor Control,
+  Warehouse Management, Inventory Management and Procure to Pay): Northfield Precision, Plant 1, 8 Oct, 14:02, week
+  41. The MPS is frozen for two weeks (to 19 Oct) and firm to 2 Nov. Schedule adherence this week 91% (target 95%),
+  plant OEE this week 79.1%. Weeks of stock against safety stock (finished goods free to promise ÷ weekly demand):
+  IH-220 0.3 against 2.0 (90 free at the Ahmedabad depot; all 358 at Plant 1 are reserved for SO-24817; WO-5532, 120 for the depot,
+  finishes 10 Oct); IH-180 4.1 against 2.0 (1,980 free at Plant 1, the depot and on STO-0396); CV-110 1.7 against 2.0
+  (350: 140 at Plant 1 after LD-0927, 210 at the depot; WO-5524 adds 240 today); GH-310
+  1.1 against 1.5; BR-045 1.0 against 1.5 (2,400 more on hold, L-0927); GB-310 0 free against 1.0 (950 held for
+  SO-24861's credit release). Plan exceptions: CNC-03 breakdown put SO-24809 (12 Oct) at risk, recovered by OT-0311;
+  L-0927 on OOS-0112 puts SO-24798 (10 Oct) at risk; export order EXP-0388 (Halvorsen Pumps AS, 400 GB-310) asks to
+  move from week 43 into the frozen week 42, which needs the plant head; sequencing saved 3 h 40 m of changeover this
+  week. MRP ran at 02:00: 6 shortages, 4 purchase proposals, 2 already covered. Planner: Vikram Desai; plant head:
+  Prakash Nair.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 356px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .cov td { padding-top: 9px; padding-bottom: 9px; }
+  .cov th, .cov td { padding-left: 8px; padding-right: 8px; }
+  .wk { display: block; position: relative; height: 12px; border-radius: 4px; background: #eef0f4; min-width: 140px; }
+  .wk i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; background: var(--ok); }
+  .wk i.w { background: #e0a030; }
+  .wk i.b { background: var(--bad); }
+  .wk em { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--ink); }
+  .ex li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; padding: 9px 0; }
+  .ex li + li { border-top: 1px solid var(--line); }
+  .ex b.n { display: grid; place-items: center; height: 28px; border-radius: 8px; font: 650 10.5px var(--mono); background: var(--warn-soft); color: var(--warn); }
+  .ex b.n.bad { background: var(--bad-soft); color: var(--bad); }
+  .ex b.n.ok { background: var(--ok-soft); color: var(--ok); }
+  .ex b.n.blue { background: var(--accent-soft); color: var(--accent-ink); }
+  .ex p { line-height: 1.32; font-size: 12.5px; }
+  .ex p small { display: block; color: var(--ink-3); font-size: 11.5px; margin-top: 1px; }
+  .ex p em { display: block; margin-top: 3px; font-style: normal; font-size: 11.5px; color: var(--accent-ink); font-weight: 550; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 12px 16px 10px; width: calc(100% - 32px); height: calc(100% - 22px); }
+</style>
+</head>
+<body data-module="ppds" data-view="Planning dashboard" data-crumb="Make / PPDS / Planning dashboard" data-who="Vikram Desai|Production planner">
+<main>
+  <div class="head">
+    <div>
+      <h1>Planning dashboard</h1>
+      <p>Plant 1 · week 41 · MPS frozen to 19 Oct, firm to 2 Nov · coverage, exceptions and the last MRP run</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Week 41</span><span>Week 42</span><span>8 weeks</span></div>
+      <span class="btn">Run MRP</span>
+      <span class="btn pri">Line schedule</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Schedule adherence · this week</label><div class="v"><strong>91%</strong><i data-spark="88,90,93,92,91" data-color="#b7791f"></i></div><div class="foot"><b class="delta down">Target 95%</b><span>CNC-03 breakdown</span></div></div>
+    <div class="card kpi"><label>Plant OEE · this week</label><div class="v"><strong>79.1%</strong><i data-spark="76.2,77.0,78.4,77.8,79.1" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">+0.9 pts</b><span>on week 40</span></div></div>
+    <div class="card kpi"><label>Dispatch commitments at risk</label><div class="v"><strong style="color:var(--warn)">1 <small>of 2 recovered</small></strong></div><div class="foot"><b class="delta down">SO-24798 · 10 Oct</b><span>lot on hold</span></div></div>
+    <div class="card kpi"><label>MRP · 02:00 today</label><div class="v"><strong>6 <small>shortages</small></strong></div><div class="foot"><b class="delta flat">4 proposals drafted</b><span>2 already covered</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Demand coverage</h2><span>weeks of free stock against safety stock</span><div class="legend"><span style="--c:#0c9b6a">Covered</span><span style="--c:#e0a030">Under safety</span><span style="--c:#d43a2f">Critical</span><span style="--c:#090e34">Safety</span></div></header>
+        <div class="body">
+          <table class="cov">
+            <thead><tr><th>Item</th><th class="r">Demand a week</th><th class="r">Free, all sites</th><th>Weeks of stock · 0 to 4</th><th class="r">Weeks</th><th>Next production</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b>IH-220</b><small>Impeller housing</small></td><td class="r mono">360</td><td class="r mono">90 <small>358 reserved</small></td><td><span class="wk"><i class="b" style="width:7.5%"></i><em style="left:50%"></em></span></td><td class="r mono">0.3 / 2.0</td><td>WO-5532 · 120<small>10 Oct · Ahmedabad depot</small></td></tr>
+              <tr><td><b>IH-180</b><small>Impeller housing</small></td><td class="r mono">480</td><td class="r mono">1,980</td><td><span class="wk"><i style="width:100%"></i><em style="left:50%"></em></span></td><td class="r mono">4.1 / 2.0</td><td>WO-5534 · 600<small>15 Oct</small></td></tr>
+              <tr><td><b>CV-110</b><small>Valve body</small></td><td class="r mono">210</td><td class="r mono">350</td><td><span class="wk"><i class="w" style="width:42.5%"></i><em style="left:50%"></em></span></td><td class="r mono">1.7 / 2.0</td><td>WO-5524 · 240<small>today 15:00</small></td></tr>
+              <tr><td><b>GH-310</b><small>Gear housing</small></td><td class="r mono">140</td><td class="r mono">154</td><td><span class="wk"><i class="w" style="width:27.5%"></i><em style="left:37.5%"></em></span></td><td class="r mono">1.1 / 1.5</td><td>WO-5506 · 220<small>running · ASM-02</small></td></tr>
+              <tr><td><b>BR-045</b><small>Bracket</small></td><td class="r mono">600</td><td class="r mono">600 <small>+2,400 on hold</small></td><td><span class="wk"><i class="w" style="width:25%"></i><em style="left:37.5%"></em></span></td><td class="r mono">1.0 / 1.5</td><td>QA decision<small>L-0927 · OOS-0112</small></td></tr>
+              <tr><td><b>GB-310</b><small>Gearbox casing</small></td><td class="r mono">80</td><td class="r mono">0 <small>950 held, credit</small></td><td><span class="wk"><i class="b" style="width:0%"></i><em style="left:25%"></em></span></td><td class="r mono">0 / 1.0</td><td>WO-5538 · 400<small>week 43 · EXP-0388</small></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Schedule adherence and OEE</h2><span>by week</span><div class="legend"><span>Adherence</span><span style="--c:#9aa3b5">OEE</span></div></header>
+        <div class="body chart-c" data-bars="88,90,93,92,91|76.2,77.0,78.4,77.8,79.1" data-max="100" data-labels="Week 37,Week 38,Week 39,Week 40,Week 41" data-colors="#0a48fd,#c3c8d3"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <header><h2>Plan exceptions</h2><span>5 · with what is being done</span></header>
+      <div class="body" style="padding-top:2px">
+        <ul class="ex">
+          <li><b class="n bad">QA</b><p><b>SO-24798 due 10 Oct at risk</b><small>Aster Compressors · lot L-0927 BR-045 on OOS-0112</small><em>Rework decision due today · 1,200 from L-0930 packing</em></p></li>
+          <li><b class="n ok">OT</b><p><b>SO-24809 recovered</b><small>CNC-03 down 2 h 10 m · WO-5518 behind</small><em>OT-0311 tonight brings it back to 12 Oct</em></p></li>
+          <li><b class="n">MPS</b><p><b>EXP-0388 wants into the frozen week</b><small>Halvorsen Pumps AS · 400 GB-310 · week 43 → 42</small><em>Plant head to approve · WO-5538 resequenced</em></p></li>
+          <li><b class="n bad">0.3</b><p><b>IH-220 under safety stock</b><small>All stock reserved for SO-24817 · depot short</small><em>WO-5532 finishes 10 Oct for the 11 Oct transfer</em></p></li>
+          <li><b class="n blue">CO</b><p><b>3 h 40 m of changeover saved</b><small>IH-180 and IH-220 grouped on CNC-01 and CNC-02</small><em>One more grouping proposed on CNC-03</em></p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

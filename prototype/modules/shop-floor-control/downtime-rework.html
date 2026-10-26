@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Shop Floor Control · Downtime and rework</title>
+<!-- Scenario: see live-board.html. Shift B downtime, 4 h 24 m (the plant dashboard's split): DT-2281 CNC-03 spindle
+     alarm 11:36–13:46, 2 h 10 m (MO-0418 in Asset Management; the third CNC-03 breakdown in October, 6 h 05 m in all);
+     DT-2276 CNC-01 changeover WO-5514 → WO-5521 34 m against a 25 m standard; DT-2278 CNC-02 waiting for castings
+     23 m (PO-7714); DT-2284 ASM-02 setup 20 m; 14 minor stops 57 m, 3 without a reason code. Rework: RW-0211 lot
+     L-0932, 2 IH-220 that leaked at PT-01 (16 bar, 60 s), held for QA (Asha Khan); RW-0209 lot L-0927, 2,400 BR-045 on
+     OOS-0112, rework proposed, QA head Anil Bhosale to decide; RW-0212 lot L-0935 CV-110 first-off after the CNC-03
+     repair, released 13:58. The shift closes at 16:00 once every event is coded and approved. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .dt td { padding-top: 8px; padding-bottom: 8px; }
+  .dt th, .dt td { padding-left: 8px; padding-right: 8px; }
+  .code { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); }
+  .code.bd { background: var(--bad-soft); border-color: #f8cfca; color: var(--bad); }
+  .code.no { background: #fff; border-style: dashed; color: var(--bad); }
+  .rep { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 5px; font: 650 10.5px var(--mono); background: var(--bad); color: #fff; vertical-align: 1px; }
+  .over { color: var(--warn); font-weight: 600; }
+  .par li { display: grid; grid-template-columns: 110px minmax(0, 1fr) 48px; gap: 10px; align-items: center; padding: 6px 0; font-size: 12.5px; }
+  .par b { font: 600 12px var(--mono); text-align: right; }
+  .par .meter { height: 8px; }
+  .cl li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 9px; align-items: center; padding: 7px 0; font-size: 12.5px; }
+  .cl li + li { border-top: 1px solid var(--line); }
+  .cl i { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .cl i.o { background: var(--surface-2); color: var(--ink-3); border: 1px solid var(--line); }
+  .cl em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-3); }
+</style>
+</head>
+<body data-module="shop-floor-control" data-view="Downtime and rework" data-crumb="Make / Shop Floor Control / Downtime and rework" data-who="Kishor Mhatre|Shift supervisor">
+<main>
+  <div class="head">
+    <div>
+      <h1>Downtime and rework approval</h1>
+      <p>Shift B · every stoppage reason-coded and every rework lot dispositioned before the shift closes at 16:00</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span>Shift A</span><span class="on">Shift B</span></div>
+      <span class="btn pri">Approve coded events</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Downtime this shift</label><div class="v"><strong>4 h 24 m</strong></div><div class="foot"><b class="delta down">Breakdown 2 h 10 m</b><span>CNC-03</span></div></div>
+    <div class="card kpi"><label>Events not yet approved</label><div class="v"><strong style="color:var(--warn)">5 <small>of 6</small></strong></div><div class="foot"><b class="delta flat">1 approved</b><span>before 16:00</span></div></div>
+    <div class="card kpi"><label>Minor stops without a reason</label><div class="v"><strong style="color:var(--bad)">3 <small>of 14</small></strong></div><div class="foot"><b class="delta down">operator to code</b><span>shift cannot close</span></div></div>
+    <div class="card kpi"><label>Rework lots waiting QA</label><div class="v"><strong>2</strong></div><div class="foot"><b class="delta flat">2,402 pieces held</b><span>none merged back</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Downtime events</h2><span>shift B · 4 h 24 m</span></header>
+        <div class="body">
+          <table class="dt">
+            <thead><tr><th>Event</th><th>Work centre</th><th>From – to</th><th class="r">Lost</th><th>Reason code</th><th>Linked to</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b class="mono">DT-2281</b></td><td>CNC-03 <span class="rep">3rd in Oct</span></td><td class="mono">11:36 – 13:46</td><td class="r mono">2 h 10 m</td><td><span class="code bd">Breakdown</span></td><td class="mono">MO-0418</td><td><span class="chip warn">To approve</span></td></tr>
+              <tr><td><b class="mono">DT-2276</b></td><td>CNC-01</td><td class="mono">08:52 – 09:26</td><td class="r mono">34 m <small class="over">std 25 m</small></td><td><span class="code">Changeover</span></td><td class="mono">WO-5521</td><td><span class="chip warn">To approve</span></td></tr>
+              <tr><td><b class="mono">DT-2278</b></td><td>CNC-02</td><td class="mono">09:41 – 10:04</td><td class="r mono">23 m</td><td><span class="code">Material</span></td><td class="mono">PO-7714</td><td><span class="chip ok">Approved</span></td></tr>
+              <tr><td><b class="mono">DT-2284</b></td><td>ASM-02</td><td class="mono">10:30 – 10:50</td><td class="r mono">20 m</td><td><span class="code">Setup</span></td><td class="mono">WO-5506</td><td><span class="chip warn">To approve</span></td></tr>
+              <tr><td><b class="mono">DT-2290</b></td><td>11 minor stops</td><td class="mono">all shift</td><td class="r mono">44 m</td><td><span class="code">Tool, jam, gauge</span></td><td class="dim">—</td><td><span class="chip warn">To approve</span></td></tr>
+              <tr><td><b class="mono">DT-2291</b></td><td>3 minor stops</td><td class="mono">CNC-01, DB-01</td><td class="r mono">13 m</td><td><span class="code no">No reason given</span></td><td class="dim">—</td><td><span class="chip bad">To code</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card flush" style="flex:1 1 auto">
+        <header><h2>Rework lots</h2><span>held until QA decides · never merged back silently</span></header>
+        <div class="body">
+          <table class="dt">
+            <thead><tr><th>Rework</th><th>Lot</th><th class="r">Pieces</th><th>Found at</th><th>Proposal</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><b class="mono">RW-0211</b></td><td class="mono">L-0932<small>IH-220</small></td><td class="r mono">2</td><td>PT-01 leak, 16 bar</td><td>Impregnate, retest<small>Asha Khan</small></td><td><span class="chip warn">Waiting QA</span></td></tr>
+              <tr><td><b class="mono">RW-0209</b></td><td class="mono">L-0927<small>BR-045</small></td><td class="r mono">2,400</td><td>OOS-0112</td><td>Re-ream hole<small>Anil Bhosale</small></td><td><span class="chip warn">Waiting QA</span></td></tr>
+              <tr><td><b class="mono">RW-0212</b></td><td class="mono">L-0935<small>CV-110</small></td><td class="r mono">1</td><td>First-off after repair</td><td>Release<small>Asha Khan</small></td><td><span class="chip ok">Released 13:58</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Downtime by cause</h2><span>shift B, minutes</span></header>
+        <div class="body" style="padding-top:8px">
+          <ul class="par">
+            <li><span>Breakdown</span><span class="meter" style="--x:1"><i style="width:100%;background:var(--bad)"></i></span><b>130</b></li>
+            <li><span>Minor stops</span><span class="meter"><i style="width:44%"></i></span><b>57</b></li>
+            <li><span>Changeover, setup</span><span class="meter"><i style="width:42%"></i></span><b>54</b></li>
+            <li><span>Waiting material</span><span class="meter warn"><i style="width:18%"></i></span><b>23</b></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Shift close</h2><span>shift B · 16:00</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="cl">
+            <li><i>✓</i><span>Output booked against job cards</span><em>1,148</em></li>
+            <li><i>✓</i><span>Scrap and rejects recorded</span><em>4 pcs</em></li>
+            <li><i class="o">3</i><span>Every stoppage reason-coded</span><em>11 of 14</em></li>
+            <li><i class="o">5</i><span>Downtime approved by supervisor</span><em>1 of 6</em></li>
+            <li><i class="o">2</i><span>Rework lots dispositioned</span><em>1 of 3</em></li>
+            <li><i>✓</i><span>Handover note for shift C</span><em>OT-0311</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

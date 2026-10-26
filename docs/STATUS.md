@@ -4,8 +4,8 @@ _Last updated: 2026-10-24. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–15 done (2026-10-26); next: Phase 16, PPDS, Shop Floor Control and
-FSC Portal (deck slides 110, 98, 84; reuse `production` for Shop Floor Control; the FSC customer story links here).** The
+**Stage C (phased implementation). Phases 1–16 done (2026-10-26); next: Phase 17, Cost Forecasting, Audit
+Management and Insurance Management (deck slides 74, 80, 100).** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,38 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-26, **Phase 16 done: PPDS, Shop Floor Control and FSC Portal pages.** On `main`.
+  - **FSC Portal decided by the user:** the deck uses the name twice (slide 10 and the slide 23 story: forest
+    certification, GPS plot mapping, chain of custody, EUDR; slide 84 appendix: a forwarding and stocking centre
+    portal). The user chose **forest certification** (DECISIONS.md, "FSC Portal"). The catalogue summary, the
+    homepage Explore panel (now an EUDR statement mock, in the "Sourcing, finance and risk" group) and `sources.ts`
+    changed to match; the FSC customer story now links to /modules/fsc-portal.
+  - **Screens (12 new, 1 moved, 1 phone):** Shop Floor Control `live-board` (the homepage `production` screen on the
+    module shell, as the plan asked; one cramped table loosened), `scheduling-board`, `downtime-rework`,
+    `job-card-register`; PPDS `planning-dashboard` (lead), `line-schedule`, `production-orders`, `mrp-run`; FSC
+    `plot-registry` (lead, plot map), `chain-of-custody`, `eudr-statement`, `lot-register` and the phone `harvest-log`
+    (offline harvest logging).
+  - **Scenario, shop floor and planning (Northfield, Plant 1, shift B, 8 Oct):** the Production Management figures
+    (OEE 78.4%, CNC-03 spindle alarm 2 h 10 m, downtime 4 h 24 m). Shift B machining team and overtime OT-0311 from
+    Roster Ledger; CNC-03 at 123% tonight, WO-5533 moved; Yogesh Dhumal's lapsed 5-axis certification blocks him
+    from tonight's setting. PPDS: week 41, MPS frozen to 19 Oct; IH-220 at 0.3 weeks of stock (all Plant 1 stock for
+    SO-24817; WO-5532 refills the depot, matching the 11–12 Oct depot refill in the portals); export order EXP-0388
+    (Halvorsen Pumps AS, 400 GB-310) asks into the frozen week; CNC-03 resequence saves 50 min; MRP: 6 shortages, 4
+    proposals ₹10.94 L incl. a reverse auction AUC-0091 for 1,800 kg of castings (ties to Auction and Bidding,
+    Phase 18). New WOs: WO-5523, 5527, 5529 (IM-180 for online sales), 5530, 5532–5540.
+  - **Scenario, FSC: its own company**, Malabar Woodcraft Exports, Kochi (rubberwood and plantation-teak furniture
+    components for EU buyers): 1,426 plots, 7 flagged against the 31 Dec 2020 cut-off; container MWE-0412 for
+    Lindqvist Interiors BV traced to 212 plots, 87% certified input, FSC Mix; the due-diligence package waits for one
+    felling permit. The customer story's results (4 weeks → 2 hours) are not used in the screens.
+  - **New names:** Kishor Mhatre (shift supervisor), Rakesh Bhoir, Meena Gaikwad, Arjun Kadam, Lalita Kshirsagar
+    (operators); at Malabar: Anjana Varghese, Biju Thomas, Joseph Kurian.
+  - **Content:** `content/ppds.ts` (v2 slides 110–111, pharma terms kept for pharma), `shop-floor-control.ts` (98–99),
+    `fsc-portal.ts` (slide 10 and 23, standard practice for the rest); views for all three in `views.ts`.
+  - Verified: every screen fits its canvas; each page at 1440×900, 1366×768 and 390×844 (one H1, no overflow, no
+    broken images, no console errors); `qa/measure.html` overflow=none at nine sizes on all three; homepage clean
+    after the catalogue change; build passes, titles, canonical and FAQPage in the built files, all in the sitemap.
+  - **Module pages live (31):** all 18 Base modules, all 4 portals and 9 Premium modules.
 
 - 2026-10-26, **Phase 15 done: Scheme and Rebate, Ecommerce Integration and Subscription Management pages.** On `main`.
   - **Screens (11 new, 1 updated):** Scheme and Rebate `schemes` (the existing lead, its festive-slab row now matches
@@ -548,10 +580,11 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 16: PPDS, Shop Floor Control, FSC Portal** (v2 slides 110, 98, 84). Shop Floor Control reuses the homepage
-   `production` screen where it is genuinely its view; PPDS ties to WO-5521 / SO-24817 and CNC-03; the FSC customer
-   story (homepage, `page: '/modules/fsc-portal'` already set) switches to the page once it exists.
-2. Then Phase 17 (Cost Forecasting, Audit Management, Insurance Management).
+1. **Phase 17: Cost Forecasting, Audit Management, Insurance Management** (v2 slides 74, 80, 100). Ties already on
+   the site: Asset Management's insurance (₹52 L cover on CNC-03, 4 October additions not yet endorsed), mVLens audits
+   (Audit Management is internal/compliance audit, keep them distinct), Accounting's budgets.
+2. Then Phase 18 (Auction and Bidding, Real Estate Management, Learning Management): AUC-0091 (castings) is the MRP
+   auction drafted in PPDS; Yogesh Dhumal's 5-axis re-certification on 10 Oct belongs to Learning Management.
 
 ## Open items (need the user or real assets)
 

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · FSC Portal · Chain of custody</title>
+<!-- Scenario: see plot-registry.html. Container MWE-0412 (invoice MWE/EX/0412, Lindqvist Interiors BV, Rotterdam,
+     ships 14 Oct) traced back to its plots: 212 plots → 624 harvest logs → 41 truckloads received at the sawmill
+     (112.4 m³ of logs) → 4 sawmill lots (61.8 m³ sawn) → 18 component batches (38.6 m³) → the container. Per lot, logs
+     → sawn → components (m³): RW-2291 46.2 → 25.4 → 15.9; RW-2294 37.8 → 20.8 → 13.0; TK-0418 19.6 → 10.6 → 6.4;
+     TK-0421 8.8 → 5.0 → 3.3. Inputs: FSC certified 98.1 m³ (87%), controlled wood 14.3 m³; the invoice claim is FSC
+     Mix. Every harvest log's GPS point falls inside its plot; no flagged plot supplied a lot; 41 of 41 transit passes on
+     record; the felling permit for TK-0421's 17 plots is missing. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; position: relative; }
+  .chain .st { position: relative; padding: 12px 12px 12px; margin-right: 18px; border-radius: 10px; border: 1px solid var(--line); background: #fff; }
+  .chain .st:last-child { margin-right: 0; background: var(--ink); border-color: var(--ink); color: #fff; }
+  .chain .st:last-child small, .chain .st:last-child label { color: rgb(255 255 255 / 0.7); }
+  .chain .st:not(:last-child)::after { content: ''; position: absolute; right: -15px; top: 50%; width: 12px; height: 2px; background: var(--line-2); }
+  .chain .st:not(:last-child)::before { content: ''; position: absolute; right: -16px; top: calc(50% - 4px); border: 5px solid transparent; border-left-color: var(--line-2); }
+  .chain label { display: block; font-size: 11.5px; color: var(--ink-3); }
+  .chain strong { display: block; margin-top: 4px; font: 620 22px var(--sans); letter-spacing: -0.02em; }
+  .chain small { display: block; font-size: 11.5px; color: var(--ink-2); margin-top: 2px; }
+  .chain i { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; font: 600 11px var(--sans); font-style: normal; color: var(--ok); }
+  .chain i.w { color: var(--warn); }
+  .mb td { padding-top: 20px; padding-bottom: 20px; }
+  .yl { font: 11.5px var(--mono); color: var(--ink-3); }
+  .mix { display: flex; height: 26px; border-radius: 7px; overflow: hidden; margin-top: 4px; }
+  .mix span { display: grid; place-items: center; color: #fff; font: 600 11px var(--mono); }
+  .keys { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: var(--ink-2); }
+  .keys span::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; background: var(--c); }
+  .chk li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 9px; align-items: center; padding: 7px 0; font-size: 12.5px; line-height: 1.32; }
+  .chk li + li { border-top: 1px solid var(--line); }
+  .chk i { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .chk i.x { background: var(--bad-soft); color: var(--bad); }
+  .chk em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-3); }
+</style>
+</head>
+<body data-module="fsc-portal" data-view="Chain of custody" data-crumb="Supply chain / FSC Portal / Chain of custody / MWE-0412" data-who="Anjana Varghese|Traceability manager" data-org="MW|Malabar Woodcraft|Exports · Kochi">
+<main>
+  <div class="head">
+    <div>
+      <h1>Chain of custody · container MWE-0412 &nbsp;<span class="chip ok" style="vertical-align:4px">Unbroken</span></h1>
+      <p>Lindqvist Interiors BV, Rotterdam · ships 14 Oct · 38.6 m³ of rubberwood and teak components, traced to every plot</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Download trace</span>
+      <span class="btn pri">Open due-diligence statement</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>From plot to container</h2><span>every step joined to the one before it</span></header>
+    <div class="body">
+      <div class="chain">
+        <div class="st"><label>Plots</label><strong>212</strong><small>Kerala and Kodagu</small><i>✓ All clear of the cut-off</i></div>
+        <div class="st"><label>Harvest logs</label><strong>624</strong><small>from the field app</small><i>✓ GPS inside the plot</i></div>
+        <div class="st"><label>Log receipts</label><strong>41</strong><small>truckloads · 112.4 m³</small><i>✓ Transit passes 41 / 41</i></div>
+        <div class="st"><label>Sawmill lots</label><strong>4</strong><small>61.8 m³ sawn</small><i class="w">! 1 permit missing</i></div>
+        <div class="st"><label>Component batches</label><strong>18</strong><small>38.6 m³</small><i>✓ Lots bound to cartons</i></div>
+        <div class="st"><label>Container</label><strong>MWE-0412</strong><small>invoice MWE/EX/0412</small><i style="color:#7fe0b6">✓ FSC Mix claim</i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Volume balance by lot</h2><span>m³ in, m³ out, within the conversion tolerance</span></header>
+      <div class="body">
+        <table class="mb">
+          <thead><tr><th>Lot</th><th>Species</th><th class="r">Plots</th><th class="r">Logs in</th><th class="r">Sawn</th><th class="r">Components</th><th class="r">Yield</th><th>Documents</th></tr></thead>
+          <tbody>
+            <tr><td><b class="mono">RW-2291</b></td><td>Rubberwood</td><td class="r mono">86</td><td class="r mono">46.2</td><td class="r mono">25.4</td><td class="r mono">15.9</td><td class="r yl">34%</td><td><span class="chip ok">Complete</span></td></tr>
+            <tr><td><b class="mono">RW-2294</b></td><td>Rubberwood</td><td class="r mono">71</td><td class="r mono">37.8</td><td class="r mono">20.8</td><td class="r mono">13.0</td><td class="r yl">34%</td><td><span class="chip ok">Complete</span></td></tr>
+            <tr><td><b class="mono">TK-0418</b></td><td>Plantation teak</td><td class="r mono">38</td><td class="r mono">19.6</td><td class="r mono">10.6</td><td class="r mono">6.4</td><td class="r yl">33%</td><td><span class="chip ok">Complete</span></td></tr>
+            <tr class="hl"><td><b class="mono">TK-0421</b></td><td>Plantation teak</td><td class="r mono">17</td><td class="r mono">8.8</td><td class="r mono">5.0</td><td class="r mono">3.3</td><td class="r yl">38%</td><td><span class="chip warn">Felling permit due</span></td></tr>
+            <tr style="font-weight:600"><td>Container</td><td></td><td class="r mono">212</td><td class="r mono">112.4</td><td class="r mono">61.8</td><td class="r mono">38.6</td><td class="r yl">34%</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Certified input</h2><span>logs into these lots</span></header>
+        <div class="body">
+          <div class="mix"><span style="flex:98.1;background:#0c9b6a">98.1 m³ · 87%</span><span style="flex:14.3;background:#8b93a3">14.3</span></div>
+          <div class="keys"><span style="--c:#0c9b6a">FSC certified</span><span style="--c:#8b93a3">Controlled wood</span></div>
+          <div class="rule"></div>
+          <dl class="kv"><dt>Claim on the invoice</dt><dd>FSC Mix</dd><dt>Group certificate</dt><dd>Valid to Mar 2028</dd></dl>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Custody checks</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="chk">
+            <li><i>✓</i><span>Every log receipt matched to harvest logs</span><em>41 / 41</em></li>
+            <li><i>✓</i><span>Every harvest point inside its plot</span><em>624 / 624</em></li>
+            <li><i>✓</i><span>No flagged plot in any lot</span><em>0 of 7</em></li>
+            <li><i>✓</i><span>Volumes within tolerance</span><em>3 stages</em></li>
+            <li><i class="x">!</i><span>Felling permit for TK-0421</span><em>17 plots</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

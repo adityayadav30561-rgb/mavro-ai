@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · PPDS · Line schedule</title>
+<!-- Scenario: see planning-dashboard.html. Detailed schedule for 9–11 Oct, nine shifts, by work centre, with
+     changeovers from the matrix (minutes, from family → to family): IH → IH 15, IH → CV 55, CV → IH 50, IH → GH 70,
+     GH → IH 65, CV → CV 10, CV → GH 60, GH → CV 60, GH → GH 15, any → BR 40. CNC-03 as sequenced: WO-5518 CV-110 →
+     WO-5527 IH-180 → WO-5533 GH-310 → WO-5537 CV-110 = 50 + 70 + 60 = 180 minutes of changeover. Proposed: WO-5518 →
+     WO-5537 (both CV-110) → WO-5527 → WO-5533 = 10 + 50 + 70 = 130 minutes, 50 minutes saved; WO-5537's castings are
+     in stock and its due date (14 Oct) still holds; WO-5533 (no customer date, stock) finishes 10 Oct instead of 9
+     Oct. CNC-02 waits for castings (PO-7714) until 10 Oct, so WO-5523 starts then. Released orders are firm; later
+     ones are planned. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .g { display: grid; grid-template-columns: 104px minmax(0, 1fr); }
+  .g .days { grid-column: 2; display: grid; grid-template-columns: repeat(3, 1fr); font: 600 12px var(--sans); color: var(--ink); }
+  .g .days span { padding: 0 0 2px 6px; border-left: 1px solid var(--line-2); }
+  .g .sh { grid-column: 2; display: grid; grid-template-columns: repeat(9, 1fr); font: 11px var(--mono); color: var(--ink-3); padding-bottom: 8px; }
+  .g .sh span { padding-left: 6px; }
+  .g .m { padding: 20px 0; border-top: 1px solid var(--line); line-height: 1.25; }
+  .g .m b { display: block; font-weight: 600; }
+  .g .m small { color: var(--ink-3); font-size: 11.5px; }
+  .g .lane { position: relative; border-top: 1px solid var(--line); background: repeating-linear-gradient(to right, transparent 0 calc(11.111% - 1px), #eef0f4 calc(11.111% - 1px) 11.111%); min-height: 92px; }
+  .g .lane span { position: absolute; top: 14px; bottom: 14px; border-radius: 7px; padding: 0 8px; display: flex; flex-direction: column; justify-content: center; font: 600 11px var(--sans); white-space: nowrap; overflow: hidden; line-height: 1.2; background: var(--accent); color: #fff; }
+  .g .lane span small { font: 500 10px var(--sans); opacity: 0.85; }
+  .g .lane span.pl { background: var(--accent-soft); color: var(--accent-ink); border: 1px solid #d3dbff; }
+  .g .lane span.co { padding: 0; background: repeating-linear-gradient(135deg, #f5d79a 0 4px, #fbecc9 4px 8px); border: 0; }
+  .g .lane span.wait { background: repeating-linear-gradient(135deg, #fdecea 0 6px, #fbdcd8 6px 12px); color: var(--bad); border: 1px solid #f8cfca; }
+  .g .lane span.sug { background: #fff; color: var(--accent-ink); border: 1.5px dashed var(--accent); }
+  tr.sel td { background: var(--accent-soft); }
+  .mx { width: 100%; border-collapse: collapse; }
+  .mx th, .mx td { padding: 6px 4px; text-align: center; font: 12px var(--mono); border: 1px solid var(--line); white-space: nowrap; }
+  .mx th { font: 600 11px var(--sans); color: var(--ink-2); background: var(--surface-2); }
+  .mx td.d { background: var(--ok-soft); color: var(--ok); font-weight: 600; }
+  .mx td.h { background: var(--bad-soft); color: var(--bad); }
+  .sug-c { padding: 12px 13px; border-radius: 10px; background: var(--accent-soft); border: 1px solid #d9e0ff; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .sug-c b { color: var(--ink); }
+  .seq { display: grid; gap: 6px; margin-top: 10px; }
+  .seq div { display: flex; align-items: center; gap: 6px; font: 11.5px var(--mono); color: var(--ink-2); flex-wrap: wrap; }
+  .seq div i { font-style: normal; padding: 1px 6px; border-radius: 5px; background: #fff; border: 1px solid var(--line); }
+  .seq div em { font-style: normal; color: var(--warn); }
+  .seq label { font: 600 11px var(--sans); color: var(--ink-3); width: 100%; }
+</style>
+</head>
+<body data-module="ppds" data-view="Line schedule" data-crumb="Make / PPDS / Line schedule" data-who="Vikram Desai|Production planner">
+<main>
+  <div class="head">
+    <div>
+      <h1>Line schedule</h1>
+      <p>Plant 1 · 9–11 Oct by shift · drag to resequence; changeovers come from the matrix</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span>Day</span><span class="on">3 days</span><span>Week</span></div>
+      <span class="btn">Optimise sequence</span>
+      <span class="btn pri">Publish to shop floor</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card">
+      <header><h2>Work centres</h2><span>firm orders solid, planned orders light</span><div class="legend"><span>Firm</span><span style="--c:#d3dbff">Planned</span><span style="--c:#f5d79a">Changeover</span><span style="--c:#f3b7b0">Waiting</span></div></header>
+      <div class="body">
+        <div class="g">
+          <div></div><div class="days"><span>Thu 9 Oct</span><span>Fri 10 Oct</span><span>Sat 11 Oct</span></div>
+          <div></div><div class="sh"><span>A</span><span>B</span><span>C</span><span>A</span><span>B</span><span>C</span><span>A</span><span>B</span><span>C</span></div>
+
+          <div class="m"><b>CNC-01</b><small>5-axis mill</small></div>
+          <div class="lane"><span style="left:0%;width:22.2%">WO-5521<small>IH-220 · 320</small></span><span style="left:22.2%;width:11.1%">WO-5532<small>IH-220 · 120</small></span><span class="co" style="left:33.3%;width:0.5%"></span><span class="pl" style="left:33.8%;width:20%">WO-5535<small>IH-180 · 600</small></span><span class="co" style="left:53.8%;width:1.6%"></span><span class="pl" style="left:55.4%;width:27%">WO-5536<small>GH-310 · 240</small></span></div>
+
+          <div class="m"><b>CNC-02</b><small>5-axis mill</small></div>
+          <div class="lane"><span class="wait" style="left:0%;width:11.1%">Castings<small>PO-7714 · 10 Oct</small></span><span style="left:11.1%;width:11.1%">WO-5521<small>IH-220</small></span><span class="co" style="left:22.2%;width:1.6%"></span><span style="left:23.8%;width:11.1%">WO-5530<small>GH-310</small></span><span class="co" style="left:34.9%;width:1.5%"></span><span class="pl" style="left:36.4%;width:33%">WO-5523<small>IH-180 · 900</small></span><span class="co" style="left:69.4%;width:0.5%"></span><span class="pl" style="left:69.9%;width:22%">WO-5534<small>IH-180</small></span></div>
+
+          <div class="m"><b>CNC-03</b><small>Turning centre</small></div>
+          <div class="lane"><span style="left:0%;width:11.1%">WO-5518<small>CV-110</small></span><span class="co" style="left:11.1%;width:1.2%"></span><span style="left:12.3%;width:13%">WO-5527<small>IH-180</small></span><span class="co" style="left:25.3%;width:1.6%"></span><span class="pl" style="left:26.9%;width:9.3%">WO-5533<small>GH-310</small></span><span class="co" style="left:36.2%;width:1.4%"></span><span class="pl" style="left:37.6%;width:22%">WO-5537<small>CV-110 · 300</small></span><span class="sug" style="left:62%;width:30%">Proposed sequence<small>CV-110 together · saves 50 min</small></span></div>
+
+          <div class="m"><b>DB-01</b><small>Deburr and wash</small></div>
+          <div class="lane"><span style="left:0;width:33%">WO-5521<small>IH-220 · 570 to 890</small></span><span class="pl" style="left:33.3%;width:22%">WO-5518<small>CV-110</small></span><span class="pl" style="left:56%;width:30%">WO-5535<small>IH-180</small></span></div>
+
+          <div class="m"><b>PT-01</b><small>Pressure test</small></div>
+          <div class="lane"><span style="left:0;width:22%">WO-5521<small>IH-220 · next lots</small></span><span class="pl" style="left:22.2%;width:11%">WO-5532<small>IH-220</small></span><span class="pl" style="left:44.4%;width:22%">WO-5518<small>CV-110</small></span><span class="pl" style="left:66.7%;width:22%">WO-5535</span></div>
+
+          <div class="m"><b>ASM-02</b><small>Assembly cell</small></div>
+          <div class="lane"><span style="left:0;width:22%">WO-5511<small>GH-310</small></span><span class="pl" style="left:33.3%;width:22%">WO-5506<small>GH-310 · 220</small></span><span class="pl" style="left:66.7%;width:22%">WO-5536</span></div>
+
+          <div class="m"><b>ASM-03</b><small>Assembly cell</small></div>
+          <div class="lane"><span style="left:0;width:22%">WO-5515<small>PB-120</small></span><span class="pl" style="left:33.3%;width:22%">WO-5539<small>PB-090</small></span><span class="pl" style="left:66.7%;width:11%">WO-5540</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Resequence CNC-03</h2><span>50 minutes saved</span></header>
+        <div class="body" style="padding-top:8px">
+          <div class="sug-c"><b>Run both CV-110 orders back to back.</b> WO-5537’s castings are in stock and its 14 Oct date still holds; WO-5533 is for stock and finishes a day later.</div>
+          <div class="seq">
+            <div><label>As sequenced · 180 min</label><i>5518 CV</i><em>50</em><i>5527 IH</i><em>70</em><i>5533 GH</i><em>60</em><i>5537 CV</i></div>
+            <div><label>Proposed · 130 min</label><i>5518 CV</i><em>10</em><i>5537 CV</i><em>50</em><i>5527 IH</i><em>70</em><i>5533 GH</i></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px"><span class="btn">Keep</span><span class="btn pri">Apply</span></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Changeover matrix</h2><span>minutes, from → to</span></header>
+        <div class="body">
+          <table class="mx">
+            <thead><tr><th>From \ to</th><th>IH</th><th>CV</th><th>GH</th><th>BR</th></tr></thead>
+            <tbody>
+              <tr><th>IH</th><td class="d">15</td><td>55</td><td class="h">70</td><td>40</td></tr>
+              <tr><th>CV</th><td>50</td><td class="d">10</td><td>60</td><td>40</td></tr>
+              <tr><th>GH</th><td class="h">65</td><td>60</td><td class="d">15</td><td>40</td></tr>
+              <tr><th>BR</th><td>40</td><td>40</td><td>40</td><td class="d">10</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top:10px;font-size:11.5px;color:var(--ink-3);line-height:1.4">IH impeller housings · CV valve bodies · GH gear housings · BR brackets. Same family shares a fixture.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
