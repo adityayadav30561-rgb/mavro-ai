@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Ecommerce Integration · Listings and inventory sync</title>
+<!-- Scenario: see channel-dashboard.html. Free stock comes from Warehouse Management across the three fulfilment
+     centres and is pushed every 10 minutes, less a run-rate buffer: Marketplaces A and B hold back 3 days of sales, the
+     B2B marketplace 2 days, the D2C store 1 day. A listing pauses when free stock is at or below its buffer and resumes
+     by itself. SK-22 retail pack: free 1,740, 38 a day → A/B 1,626, B2B 1,664, D2C 1,702. MS-25: free 38, 20 a day →
+     buffers 60 / 40 / 20: paused on A, B, B2B, D2C 18 (PO-7731 from Nova Seals due 11 Oct). IM-180: 22 free, 8 a day →
+     paused on A and B, D2C 14, not listed on B2B (WO-5529 due 10 Oct). SV-220: 60 free, 22 a day → paused on A and B,
+     B2B 16, D2C 38 (120 kits from kitting on 9 Oct). Marketplace B has taken no push since 12:30 (API 503 from 12:40);
+     the latest snapshot is sent when it recovers. MAP: SK-22 ₹549; three sellers on Marketplace A at ₹479, ₹499, ₹519. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .ls th, .ls td { padding-left: 7px; padding-right: 7px; }
+  .ls td { padding-top: 14px; padding-bottom: 14px; }
+  .ls th.c, .ls td.c { text-align: center; }
+  .q { display: inline-block; min-width: 50px; padding: 2px 6px; border-radius: 6px; font: 600 11.5px var(--mono); background: var(--ok-soft); color: var(--ok); }
+  .q.p { background: var(--warn-soft); color: var(--warn); }
+  .q.n { background: var(--surface-2); color: var(--ink-3); font-weight: 450; }
+  .q.st { background: #eef0f6; color: var(--ink-2); }
+  .bf { font: 11px var(--mono); color: var(--ink-3); display: block; margin-top: 2px; }
+  .map { color: var(--bad); font-weight: 600; font-size: 11.5px; }
+  .rules li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 7px 0; font-size: 12.5px; }
+  .rules li + li { border-top: 1px solid var(--line); }
+  .rules b { font: 600 12px var(--mono); }
+  .log li { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 8px; padding: 7px 0; font-size: 12.5px; align-items: center; }
+  .log li + li { border-top: 1px solid var(--line); }
+  .log time { font: 11.5px var(--mono); color: var(--ink-3); }
+  .log small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .sel li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 7px 0; font-size: 12.5px; }
+  .sel li + li { border-top: 1px solid var(--line); }
+  .sel em { font: 600 12px var(--mono); font-style: normal; color: var(--bad); }
+</style>
+</head>
+<body data-module="ecommerce-integration" data-view="Listings and sync" data-crumb="Sell / Ecommerce / Listings and sync" data-who="Nikhil Oberoi|Ecommerce manager" data-org="NP|Northfield Precision|Northfield Spares online">
+<main>
+  <div class="head">
+    <div>
+      <h1>Listings and inventory sync</h1>
+      <p>Free stock from the warehouses, less each channel’s run-rate buffer, pushed every 10 minutes</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All 64 items</span><span>Paused</span><span>Price issues</span></div>
+      <span class="btn">Push now</span>
+      <span class="btn pri">Edit buffers</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Items and what each channel shows</h2><span>last push 14:00</span><div class="legend"><span style="--c:#0c9b6a">Live, quantity shown</span><span style="--c:#e0a030">Paused at buffer</span></div></header>
+      <div class="body">
+        <table class="ls">
+          <thead><tr><th>Item</th><th class="r">Free stock</th><th class="r">A day</th><th class="c">Mkt A</th><th class="c">Mkt B</th><th class="c">B2B</th><th class="c">D2C</th><th class="r">Price</th><th>Next stock</th></tr></thead>
+          <tbody>
+            <tr><td><b>SK-22</b><small>Seal kit, retail pack</small></td><td class="r mono">1,740</td><td class="r mono">38</td><td class="c"><span class="q">1,626</span></td><td class="c"><span class="q st">1,626</span><span class="bf">sent 12:30</span></td><td class="c"><span class="q">1,664</span></td><td class="c"><span class="q">1,702</span></td><td class="r mono">549<span class="bf map">3 under MAP</span></td><td class="dim">In stock</td></tr>
+            <tr class="hl"><td><b>MS-25</b><small>Mechanical seal</small></td><td class="r mono">38</td><td class="r mono">20</td><td class="c"><span class="q p">Paused</span><span class="bf">buffer 60</span></td><td class="c"><span class="q p">Paused</span><span class="bf">buffer 60</span></td><td class="c"><span class="q p">Paused</span><span class="bf">buffer 40</span></td><td class="c"><span class="q">18</span></td><td class="r mono">1,290</td><td>PO-7731<small>Nova Seals · 11 Oct</small></td></tr>
+            <tr><td><b>IM-180</b><small>Impeller</small></td><td class="r mono">22</td><td class="r mono">8</td><td class="c"><span class="q p">Paused</span><span class="bf">buffer 24</span></td><td class="c"><span class="q p">Paused</span><span class="bf">buffer 24</span></td><td class="c"><span class="q n">Not listed</span></td><td class="c"><span class="q">14</span></td><td class="r mono">2,450</td><td>WO-5529<small>10 Oct</small></td></tr>
+            <tr><td><b>SV-220</b><small>Service kit</small></td><td class="r mono">60</td><td class="r mono">22</td><td class="c"><span class="q p">Paused</span><span class="bf">buffer 66</span></td><td class="c"><span class="q p">Paused</span><span class="bf">buffer 66</span></td><td class="c"><span class="q">16</span></td><td class="c"><span class="q">38</span></td><td class="r mono">1,890</td><td>Kitting<small>120 on 9 Oct</small></td></tr>
+            <tr><td><b>SK-18</b><small>Seal kit, retail pack</small></td><td class="r mono">620</td><td class="r mono">14</td><td class="c"><span class="q">578</span></td><td class="c"><span class="q st">584</span><span class="bf">sent 12:30</span></td><td class="c"><span class="q">592</span></td><td class="c"><span class="q">606</span></td><td class="r mono">459</td><td class="dim">In stock</td></tr>
+            <tr><td><b>GS-40</b><small>Gasket set</small></td><td class="r mono">880</td><td class="r mono">30</td><td class="c"><span class="q">790</span></td><td class="c"><span class="q st">796</span><span class="bf">sent 12:30</span></td><td class="c"><span class="q">820</span></td><td class="c"><span class="q">850</span></td><td class="r mono">320</td><td class="dim">In stock</td></tr>
+            <tr><td><b>BR-045</b><small>Bracket, pack of 4</small></td><td class="r mono">450</td><td class="r mono">9</td><td class="c"><span class="q">423</span></td><td class="c"><span class="q st">423</span><span class="bf">sent 12:30</span></td><td class="c"><span class="q">432</span></td><td class="c"><span class="q n">Not listed</span></td><td class="r mono">680</td><td class="dim">In stock</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Buffer rules</h2><span>held back from each channel</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="rules">
+            <li><span>Marketplace A and B</span><b>3 days of sales</b></li>
+            <li><span>B2B marketplace</span><b>2 days</b></li>
+            <li><span>D2C store</span><b>1 day</b></li>
+            <li><span>Paused listings resume</span><b>by themselves</b></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Sync log</h2><span>every 10 minutes</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="log">
+            <li><time>14:00</time><span>Marketplace A<small>64 listings · 3 paused</small></span><span class="chip ok">Sent</span></li>
+            <li><time>14:00</time><span>Marketplace B<small>503 · latest snapshot held</small></span><span class="chip bad">Failed</span></li>
+            <li><time>14:00</time><span>B2B and D2C<small>84 listings · 1 paused</small></span><span class="chip ok">Sent</span></li>
+            <li><time>12:30</time><span>Marketplace B<small>last good push</small></span><span class="chip ok">Sent</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Under MAP</h2><span>SK-22 · MAP ₹549 · Marketplace A</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="sel">
+            <li><span>Shree Spares Mart</span><em>₹479</em></li>
+            <li><span>PumpKart Store</span><em>₹499</em></li>
+            <li><span>Agro Tools Hub</span><em>₹519</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

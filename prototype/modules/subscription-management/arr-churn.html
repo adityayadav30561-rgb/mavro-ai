@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Subscription Management · ARR and churn</title>
+<!--
+  Scenario (Subscription Management, shared by every screen of the module; its own company, as the module serves
+  businesses that sell subscriptions; agrees with the homepage Explore panel): Arcwise Software, Bengaluru, an IT
+  company selling Arcwise FieldOps, a field-service app, on three plans. 8 Oct, 14:02. 2,140 subscribers: Basic 1,210
+  at ₹799 a month billed monthly (MRR ₹9.7 L), Professional 760 at ₹2,399 billed annually (₹18.2 L), Enterprise 170
+  from ₹6,299 with 50 users, ₹99 a further user, billed annually (₹10.7 L). MRR ₹38.6 L, ARR ₹4.63 Cr. MRR by month
+  (₹ L): Apr 31.2, May 32.4, Jun 33.6, Jul 34.9, Aug 36.1, Sep 38.6. September: new +2.4, expansion +1.1, contraction
+  −0.3, churn −0.7, net +2.5. Monthly logo churn 1.8% (Basic 2.6%, Professional 0.9%, Enterprise 0.6%); net revenue
+  retention 108%; trial conversion 22% (40 of 182 September trials). Renewals due in 30 days: 12 (7 Enterprise, 5
+  Professional), ₹8.9 L of ARR; 10 quoted, 2 without a quote. 46 Basic cards expire in October: 19 already updated.
+  Failed payments on the 1 Oct Basic run: 38, ₹30,362. Revenue operations manager: Divya Krishnan; commercial head:
+  Ananya Bose.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 352px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .two { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; flex: 1; min-height: 0; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 12px 16px 10px; width: calc(100% - 32px); height: calc(100% - 22px); }
+  .mv li { display: grid; grid-template-columns: minmax(0, 1fr) 90px 52px; gap: 10px; align-items: center; padding: 8px 0; font-size: 12.5px; }
+  .mv li + li { border-top: 1px solid var(--line); }
+  .mv .bar { height: 10px; border-radius: 3px; }
+  .mv b { font: 600 12px var(--mono); text-align: right; }
+  .mv li.tot { font-weight: 600; }
+  .pl td { padding-top: 10px; padding-bottom: 10px; }
+  .ch { font: 600 12px var(--mono); }
+  .ch.bad { color: var(--bad); }
+  .rn li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 8px 0; }
+  .rn li + li { border-top: 1px solid var(--line); }
+  .rn p { line-height: 1.3; font-size: 12.5px; }
+  .rn p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .rn em { font: 600 12px var(--mono); font-style: normal; text-align: right; }
+  .rn em small { display: block; font: 500 11px var(--sans); color: var(--ink-3); }
+  .wave { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: center; }
+  .wave strong { font: 620 24px var(--sans); letter-spacing: -0.02em; }
+  .wave p { font-size: 12.5px; color: var(--ink-2); line-height: 1.4; }
+</style>
+</head>
+<body data-module="subscription-management" data-view="ARR and churn" data-crumb="Sell / Subscriptions / ARR and churn" data-who="Divya Krishnan|Revenue operations" data-org="AS|Arcwise Software|Bengaluru">
+<main>
+  <div class="head">
+    <div>
+      <h1>ARR, renewals and churn</h1>
+      <p>Arcwise FieldOps · recurring revenue by plan, what moved it last month and what renews next</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Monthly</span><span>Quarterly</span></div>
+      <span class="btn pri">Renewals due</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>MRR · end of September</label><div class="v"><strong>₹38.6 L</strong><i data-spark="31.2,32.4,33.6,34.9,36.1,38.6" data-color="#0a48fd"></i></div><div class="foot"><b class="delta up">+₹2.5 L net</b><span>ARR ₹4.63 Cr</span></div></div>
+    <div class="card kpi"><label>Subscribers</label><div class="v"><strong>2,140</strong></div><div class="foot"><b class="delta up">40 trials converted</b><span>22% of 182</span></div></div>
+    <div class="card kpi"><label>Logo churn · monthly</label><div class="v"><strong>1.8%</strong><i data-spark="2.3,2.2,2.0,2.1,1.9,1.8" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta down">Basic 2.6%</b><span>the weak plan</span></div></div>
+    <div class="card kpi"><label>Net revenue retention</label><div class="v"><strong>108%</strong></div><div class="foot"><b class="delta up">expansion beats churn</b><span>12 months</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="two">
+        <div class="card">
+          <header><h2>MRR</h2><span>₹ lakh, end of month</span></header>
+          <div class="body chart-c" data-area="31.2,32.4,33.6,34.9,36.1,38.6" data-min="28" data-max="40" data-labels="Apr,May,Jun,Jul,Aug,Sep"></div>
+        </div>
+        <div class="card">
+          <header><h2>What moved MRR</h2><span>September, ₹ lakh</span></header>
+          <div class="body" style="padding-top:4px">
+            <ul class="mv">
+              <li><span>New subscriptions</span><span class="bar" style="width:100%;background:#0a48fd"></span><b>+2.4</b></li>
+              <li><span>Upgrades, more users</span><span class="bar" style="width:46%;background:#5f86fe"></span><b>+1.1</b></li>
+              <li><span>Downgrades</span><span class="bar" style="width:13%;background:#e0a030"></span><b>−0.3</b></li>
+              <li><span>Cancelled</span><span class="bar" style="width:29%;background:#d43a2f"></span><b>−0.7</b></li>
+              <li class="tot"><span>Net</span><span></span><b>+2.5</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card flush">
+        <header><h2>Plans</h2><span>churn read plan by plan</span><span class="more">Plan builder</span></header>
+        <div class="body">
+          <table class="pl">
+            <thead><tr><th>Plan</th><th>Price</th><th>Billing</th><th class="r">Subscribers</th><th class="r">MRR</th><th class="r">Churn a month</th><th class="r">Trial conversion</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b>Basic</b><small>up to 10 field users</small></td><td class="mono">₹799 a month</td><td>Monthly</td><td class="r mono">1,210</td><td class="r mono">₹9.7 L</td><td class="r ch bad">2.6%</td><td class="r mono">18%</td></tr>
+              <tr><td><b>Professional</b><small>up to 40 field users</small></td><td class="mono">₹2,399 a month</td><td>Annual</td><td class="r mono">760</td><td class="r mono">₹18.2 L</td><td class="r ch">0.9%</td><td class="r mono">27%</td></tr>
+              <tr><td><b>Enterprise</b><small>50 users, ₹99 a further user</small></td><td class="mono">from ₹6,299</td><td>Annual</td><td class="r mono">170</td><td class="r mono">₹10.7 L</td><td class="r ch">0.6%</td><td class="r mono">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Renewals due · 30 days</h2><span>12 · ₹8.9 L ARR · 7 shown</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="rn">
+            <li><p><b>Coastal Lift Services</b><small>Enterprise · 1 Nov · Vikas Hegde</small></p><em>₹1.17 L<small>discount to approve</small></em></li>
+            <li><p><b>Apex Elevator Care</b><small>Enterprise · 4 Nov · Vikas Hegde</small></p><em>₹1.35 L<small>quoted</small></em></li>
+            <li><p><b>Zenith Medical Equipment Service</b><small>Enterprise · 6 Nov · Meghna Pai</small></p><em>₹87,468<small>quoted</small></em></li>
+            <li><p><b>Polar Air HVAC</b><small>Enterprise · 8 Nov · Meghna Pai</small></p><em>₹1.05 L<small>quoted</small></em></li>
+            <li><p><b>TrueFix Home Repairs</b><small>Professional · 3 Nov · Vikas Hegde</small></p><em>₹28,788<small>quoted</small></em></li>
+            <li><p><b>Nirmal Solar Services</b><small>Professional · 2 Nov · no owner</small></p><em style="color:var(--bad)">₹28,788<small>no quote yet</small></em></li>
+            <li><p><b>BlueDrop RO Care</b><small>Professional · 5 Nov · no owner</small></p><em style="color:var(--bad)">₹28,788<small>no quote yet</small></em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Card expiry wave</h2><span>Basic, October</span></header>
+        <div class="body">
+          <div class="wave"><strong>46</strong><p>cards expire this month. Update requests went out on 1 Oct; <b>19 are updated</b>, 27 reminded again today.</p></div>
+          <span class="meter ok" style="margin-top:10px"><i style="width:41%"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Subscription Management · Plan builder</title>
+<!-- Scenario: see arr-churn.html. Renewal quote for Coastal Lift Services (Chennai), Enterprise, renews 1 Nov, owner
+     Vikas Hegde. Today: base ₹6,299 with 50 users + 35 further users at ₹99 = ₹9,764 a month (₹1.17 L a year), 85
+     users. Active users now 92 (64 a year ago). This year's list: base ₹6,899, further user ₹109. Their contract caps
+     the renewal uplift at 7% (clause 9.2): base ₹6,740, user ₹106. Quote: ₹6,740 + 42 × ₹106 = ₹11,192 a month.
+     Requested: 15% off for a 2-year term → ₹9,513, 2.6% below today with 7 more users (₹103 a user against ₹115).
+     Delegation: account manager up to 10%, commercial head (Ananya Bose) to 20%, CFO above; policy gives 5% for a
+     2-year term. Enterprise floor ₹90 a user. Suggested: 10% for 2 years → ₹10,073 a month (+3.2%), ₹1,20,876 a year. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 360px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .pb td { padding-top: 10px; padding-bottom: 10px; }
+  .pb s { color: var(--ink-3); margin-right: 6px; }
+  .pb tr.sub td { border-top: 1.5px solid var(--line-2); font-weight: 600; }
+  .pb tr.disc td { color: var(--warn); }
+  .pb tr.net td { background: var(--surface-2); font-weight: 650; font-size: 13.5px; }
+  .two { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px; flex: 1; min-height: 0; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 12px 16px 10px; width: calc(100% - 32px); height: calc(100% - 22px); }
+  .terms li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: center; padding: 9px 10px; border-radius: 9px; border: 1px solid var(--line); font-size: 12.5px; }
+  .terms li + li { margin-top: 6px; }
+  .terms li.on { border-color: #9fb6ff; background: var(--accent-soft); }
+  .terms b { font: 600 12px var(--mono); }
+  .terms em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-3); }
+  .chk li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 9px; padding: 7px 0; font-size: 12.5px; line-height: 1.32; }
+  .chk li + li { border-top: 1px solid var(--line); }
+  .chk i { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .chk i.x { background: var(--bad-soft); color: var(--bad); }
+  .chk i.w { background: var(--warn-soft); color: var(--warn); }
+  .chk small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .ladder { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; }
+  .ladder div { padding: 8px; border-radius: 8px; border: 1px solid var(--line); text-align: center; font-size: 11.5px; line-height: 1.3; color: var(--ink-2); }
+  .ladder div b { display: block; font: 650 12.5px var(--mono); color: var(--ink); }
+  .ladder div.on { border-color: #f5e2b0; background: var(--warn-soft); }
+  .rec { padding: 12px 13px; border-radius: 10px; background: var(--accent-soft); border: 1px solid #d9e0ff; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .rec b { color: var(--ink); }
+  .rec strong { display: block; margin: 4px 0 2px; font: 620 20px var(--sans); color: var(--ink); letter-spacing: -0.02em; }
+</style>
+</head>
+<body data-module="subscription-management" data-view="Plan builder" data-crumb="Sell / Subscriptions / Plan builder / Coastal Lift Services" data-who="Vikas Hegde|Account manager" data-org="AS|Arcwise Software|Bengaluru">
+<main>
+  <div class="head">
+    <div>
+      <h1>Renewal quote · Coastal Lift Services &nbsp;<span class="chip warn" style="vertical-align:4px">Needs the commercial head</span></h1>
+      <p>Enterprise · renews 1 Nov · priced from this year’s list, the contract’s uplift cap and their usage</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Save quote</span>
+      <span class="btn pri">Send for approval</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Price build-up</h2><span>a month, before GST</span></header>
+        <div class="body">
+          <table class="pb">
+            <thead><tr><th>Line</th><th class="r">Today</th><th class="r">This year’s list</th><th class="r">Capped at 7%</th><th class="r">Quantity</th><th class="r">Amount</th></tr></thead>
+            <tbody>
+              <tr><td><b>Enterprise base</b><small>includes 50 field users</small></td><td class="r mono">6,299</td><td class="r mono"><s>6,899</s></td><td class="r mono">6,740</td><td class="r mono">1</td><td class="r mono">6,740</td></tr>
+              <tr><td><b>Further field users</b><small>92 active, 50 included</small></td><td class="r mono">99 × 35</td><td class="r mono"><s>109</s></td><td class="r mono">106</td><td class="r mono">42</td><td class="r mono">4,452</td></tr>
+              <tr class="sub"><td>Before discount</td><td class="r mono">9,764</td><td class="r mono">11,477</td><td></td><td></td><td class="r mono">11,192</td></tr>
+              <tr class="disc"><td>Discount requested · 15% for 2 years</td><td></td><td></td><td></td><td></td><td class="r mono">−1,679</td></tr>
+              <tr class="net"><td>Quoted a month</td><td class="r mono">9,764</td><td></td><td></td><td></td><td class="r mono">9,513 <small style="display:inline;color:var(--bad);font-weight:600">−2.6%</small></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="two">
+        <div class="card">
+          <header><h2>Active field users</h2><span>last 12 months</span></header>
+          <div class="body chart-c" data-area="64,66,68,71,73,75,78,80,83,85,88,92" data-min="50" data-max="100" data-labels="Oct,,,Jan,,,Apr,,,Jul,,Sep"></div>
+        </div>
+        <div class="card">
+          <header><h2>Term</h2><span>policy discount</span></header>
+          <div class="body" style="padding-top:8px">
+            <ul class="terms">
+              <li><span>1 year</span><em>0%</em><b>11,192</b></li>
+              <li class="on"><span>2 years</span><em>5%</em><b>10,632</b></li>
+              <li><span>3 years</span><em>8%</em><b>10,297</b></li>
+            </ul>
+            <p style="margin-top:10px;font-size:11.5px;color:var(--ink-3);line-height:1.4">Monthly price after the term discount alone; anything beyond it counts against the approver’s limit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Policy checks</h2><span>on this quote</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="chk">
+            <li><i>✓</i><span>Uplift capped at 7%<small>Contract clause 9.2 · list rises 9.5%</small></span></li>
+            <li><i class="x">!</i><span>15% is above your 10% limit<small>Goes to the commercial head</small></span></li>
+            <li><i class="w">!</i><span>Price per user falls 10%<small>₹103 against ₹115 today, with 7 more users</small></span></li>
+            <li><i>✓</i><span>Above the Enterprise floor<small>₹90 a user</small></span></li>
+          </ul>
+          <div class="ladder">
+            <div><b>≤ 10%</b>Account manager</div>
+            <div class="on"><b>≤ 20%</b>Commercial head</div>
+            <div><b>&gt; 20%</b>CFO</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Suggested</h2></header>
+        <div class="body" style="padding-top:8px">
+          <div class="rec"><b>10% for a 2-year term</b>, within your own limit:<strong>₹10,073 a month</strong>+3.2% on today for 7 more users · ₹1,20,876 a year</div>
+          <div style="display:flex;gap:8px;margin-top:12px"><span class="btn">Keep 15%</span><span class="btn pri">Use 10%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

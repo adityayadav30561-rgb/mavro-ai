@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Subscription Management · Billing and dunning</title>
+<!-- Scenario: see arr-churn.html. Basic plan run of 1 Oct: 1,210 invoices at ₹799 (₹9,66,790); 1,172 paid on the
+     first attempt; 38 failed (₹30,362): insufficient funds 16, card expired 11, bank declined 7, UPI mandate paused 4.
+     One policy for every plan: retry day 1, day 3 with email, day 7 with SMS and a call, final notice day 10, read-only
+     on day 14 (15 Oct), cancelled on day 30. Now (day 7): 21 recovered (₹16,779), 11 in retry (₹8,789), 6 due a final
+     notice on 11 Oct (₹4,794); collected 1,193 of 1,210 (98.6%). Annual invoices past their 30 days: 3 Professional at
+     ₹28,788 and 1 Enterprise at ₹99,600 = ₹1,85,964. 46 Basic cards expire in October: 19 already updated. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .ladder { display: grid; grid-template-columns: repeat(6, 1fr); position: relative; }
+  .ladder::before { content: ''; position: absolute; top: 13px; left: 8%; right: 8%; height: 2px; background: #e3e6ec; }
+  .ladder::after { content: ''; position: absolute; top: 13px; left: 8%; width: 50%; height: 2px; background: var(--accent); }
+  .ladder li { position: relative; z-index: 1; display: grid; justify-items: center; gap: 3px; text-align: center; font-size: 12px; }
+  .ladder li i { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font: 650 10.5px var(--mono); font-style: normal; background: #fff; border: 2px solid #d5d9e2; color: var(--ink-2); }
+  .ladder li.done i { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .ladder li.now i { border-color: var(--accent); color: var(--accent-ink); box-shadow: 0 0 0 4px var(--accent-soft); }
+  .ladder li b { font-weight: 600; font-size: 12px; }
+  .ladder li small { color: var(--ink-3); font-size: 11px; }
+  .dq th, .dq td { padding-left: 9px; padding-right: 9px; }
+  .dq td { padding-top: 11px; padding-bottom: 11px; }
+  .rs { display: inline-block; padding: 1px 6px; border-radius: 5px; font-size: 11px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); }
+  .tries { display: flex; gap: 3px; }
+  .tries span { width: 16px; height: 6px; border-radius: 3px; background: #eceef2; }
+  .tries span.f { background: var(--bad); }
+  .tries span.ok { background: var(--ok); }
+  .why li { display: grid; grid-template-columns: minmax(0, 1fr) 90px 28px; gap: 10px; align-items: center; padding: 7px 0; font-size: 12.5px; }
+  .why li + li { border-top: 1px solid var(--line); }
+  .why b { font: 600 12px var(--mono); text-align: right; }
+  .ov li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 7px 0; }
+  .ov li + li { border-top: 1px solid var(--line); }
+  .ov p { font-size: 12.5px; line-height: 1.3; }
+  .ov p small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .ov em { font: 600 12px var(--mono); font-style: normal; }
+</style>
+</head>
+<body data-module="subscription-management" data-view="Billing and dunning" data-crumb="Sell / Subscriptions / Billing and dunning" data-who="Divya Krishnan|Revenue operations" data-org="AS|Arcwise Software|Bengaluru">
+<main>
+  <div class="head">
+    <div>
+      <h1>Billing and dunning queue</h1>
+      <p>Failed payments retried on one policy for every plan, before any account is suspended</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Basic · 1 Oct run</span><span>Annual invoices</span></div>
+      <span class="btn pri">Retry now</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Collected · 1 Oct run</label><div class="v"><strong>98.6%</strong></div><div class="foot"><b class="delta up">1,193 of 1,210</b><span>₹9.67 L billed</span></div></div>
+    <div class="card kpi"><label>Failed first time</label><div class="v"><strong>38 <small>· ₹30,362</small></strong></div><div class="foot"><b class="delta up">21 recovered</b><span>₹16,779</span></div></div>
+    <div class="card kpi"><label>Still in dunning</label><div class="v"><strong style="color:var(--warn)">17 <small>· ₹13,583</small></strong></div><div class="foot"><b class="delta down">6 final notices 11 Oct</b><span>read-only 15 Oct</span></div></div>
+    <div class="card kpi"><label>Annual invoices overdue</label><div class="v"><strong>₹1.86 L</strong></div><div class="foot"><b class="delta flat">4 accounts</b><span>past 30 days</span></div></div>
+  </div>
+
+  <div class="card">
+    <header><h2>Dunning policy</h2><span>the same for every plan · today is day 7 of the 1 Oct run</span></header>
+    <div class="body">
+      <ol class="ladder">
+        <li class="done"><i>D1</i><b>Retry</b><small>card or mandate</small></li>
+        <li class="done"><i>D3</i><b>Retry and email</b><small>update link</small></li>
+        <li class="now"><i>D7</i><b>Retry, SMS, call</b><small>today</small></li>
+        <li><i>D10</i><b>Final notice</b><small>11 Oct</small></li>
+        <li><i>D14</i><b>Read-only</b><small>15 Oct</small></li>
+        <li><i>D30</i><b>Cancelled</b><small>31 Oct</small></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>In dunning</h2><span>17 still open, and the latest recovered · Basic, ₹799 each</span></header>
+      <div class="body">
+        <table class="dq">
+          <thead><tr><th>Account</th><th>City</th><th>Reason</th><th>Tries</th><th>Next</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b>Shine Pest Control</b></td><td>Lucknow</td><td><span class="rs">Card expired</span></td><td><div class="tries"><span class="f"></span><span class="f"></span><span class="f"></span></div></td><td class="mono">11 Oct</td><td><span class="chip bad">Final notice next</span></td></tr>
+            <tr><td><b>Quickfix Plumbing</b></td><td>Gurugram</td><td><span class="rs">Insufficient funds</span></td><td><div class="tries"><span class="f"></span><span class="f"></span><span class="f"></span></div></td><td class="mono">11 Oct</td><td><span class="chip bad">Final notice next</span></td></tr>
+            <tr><td><b>Hometech Appliance Care</b></td><td>Pune</td><td><span class="rs">Bank declined</span></td><td><div class="tries"><span class="f"></span><span class="f"></span><span></span></div></td><td class="mono">Today 16:00</td><td><span class="chip warn">Call booked</span></td></tr>
+            <tr><td><b>Kaveri RO Services</b></td><td>Mysuru</td><td><span class="rs">UPI mandate paused</span></td><td><div class="tries"><span class="f"></span><span class="f"></span><span></span></div></td><td class="mono">Today 16:00</td><td><span class="chip warn">In retry</span></td></tr>
+            <tr><td><b>Sri Sai Cooling Services</b></td><td>Vijayawada</td><td><span class="rs">Insufficient funds</span></td><td><div class="tries"><span class="f"></span><span class="f"></span><span></span></div></td><td class="mono">Today 16:00</td><td><span class="chip warn">In retry</span></td></tr>
+            <tr><td><b>Doon Security Systems</b></td><td>Dehradun</td><td><span class="rs">Card expired</span></td><td><div class="tries"><span class="f"></span><span class="ok"></span></div></td><td class="dim">—</td><td><span class="chip ok">Card updated · paid</span></td></tr>
+            <tr><td><b>Coolwave Appliances Service</b></td><td>Kochi</td><td><span class="rs">Insufficient funds</span></td><td><div class="tries"><span class="f"></span><span class="f"></span><span class="ok"></span></div></td><td class="dim">—</td><td><span class="chip ok">Recovered day 3</span></td></tr>
+            <tr><td><b>Ganga Lift Services</b></td><td>Patna</td><td><span class="rs">Bank declined</span></td><td><div class="tries"><span class="f"></span><span class="ok"></span></div></td><td class="dim">—</td><td><span class="chip ok">Recovered day 1</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Why payments failed</h2><span>38 on 1 Oct</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="why">
+            <li><span>Insufficient funds</span><span class="meter"><i style="width:100%"></i></span><b>16</b></li>
+            <li><span>Card expired</span><span class="meter warn"><i style="width:69%"></i></span><b>11</b></li>
+            <li><span>Bank declined</span><span class="meter"><i style="width:44%"></i></span><b>7</b></li>
+            <li><span>UPI mandate paused</span><span class="meter"><i style="width:25%"></i></span><b>4</b></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Annual invoices overdue</h2><span>₹1,85,964</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="ov">
+            <li><p><b>SafeHome Security Systems</b><small>Enterprise · Delhi · 41 days</small></p><em>₹99,600</em></li>
+            <li><p><b>GreenLeaf Pest Control</b><small>Professional · Bengaluru · 36 days</small></p><em>₹28,788</em></li>
+            <li><p><b>Krishna Agro Equipment Service</b><small>Professional · Nagpur · 33 days</small></p><em>₹28,788</em></li>
+            <li><p><b>TrueCool HVAC</b><small>Professional · Indore · 31 days</small></p><em>₹28,788</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

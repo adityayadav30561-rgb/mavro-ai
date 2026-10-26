@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Scheme and Rebate · Slab builder</title>
+<!-- Scenario: see schemes.html. Draft SCH-0419, rabi season dealer slab: 64 dealers in the West region, value slabs on
+     their purchases from distributors (recorded on the Dealer Portal), 1 Nov – 31 Jan, budget cap ₹8.0 L, alert at 85%,
+     approval by the sales head (up to ₹10 L). Simulation on last year's Nov–Jan purchases with a 10% lift, ₹ lakh:
+     below ₹3 L 20 dealers ₹38.0; slab 1 ₹3–5 L at 1.5%: 22 dealers ₹88.0 → 1.32; slab 2 ₹5–8 L at 2.5%: 13 dealers
+     ₹83.2 → 2.08; slab 3 from ₹8 L at 3.5%: 9 dealers ₹117.0 → 4.10. Draft payout ₹7.50 L, 94% of budget, 2.3% of
+     ₹3.26 Cr. 7 of the 9 slab-3 dealers bought over ₹8 L last year without a scheme. Suggested: slab 3 from ₹10 L at
+     3.0%: 6 dealers ₹87.0 → 2.61; the other 3 (₹26.0) join slab 2: 16 dealers ₹109.2 → 2.73; payout ₹6.66 L, 83%. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: 300px minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .fld { display: grid; gap: 4px; padding: 8px 0; }
+  .fld + .fld { border-top: 1px solid var(--line); }
+  .fld label { font-size: 11.5px; color: var(--ink-3); }
+  .fld span { font-weight: 550; }
+  .fld small { color: var(--ink-3); font-size: 11.5px; }
+  .slabs { width: 100%; }
+  .slabs td { padding-top: 11px; padding-bottom: 11px; }
+  .inp { display: inline-flex; align-items: center; height: 30px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line-2); background: #fff; font: 600 12.5px var(--mono); }
+  .inp.warn { border-color: #e8c98a; background: var(--warn-soft); color: var(--warn); }
+  .bars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; flex: 1; min-height: 0; padding: 0 6px; }
+  .bars div { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 6px; justify-items: center; min-height: 0; }
+  .bars span { position: relative; width: 100%; max-width: 74px; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; }
+  .bars i { display: block; width: 100%; max-width: 74px; border-radius: 6px 6px 2px 2px; background: #c9d4ff; }
+  .bars i.s3 { background: #e0a030; }
+  .bars b { font: 650 13px var(--mono); }
+  .bars small { font-size: 11px; color: var(--ink-3); text-align: center; line-height: 1.25; }
+  .warnbox { padding: 12px 13px; border-radius: 10px; background: var(--warn-soft); border: 1px solid #f5e2b0; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .warnbox b { color: var(--ink); }
+  .cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cmp div { padding: 11px 12px; border-radius: 10px; border: 1px solid var(--line); }
+  .cmp div.sel { border-color: #9fb6ff; background: var(--accent-soft); }
+  .cmp label { display: block; font-size: 11.5px; color: var(--ink-2); }
+  .cmp strong { display: block; margin-top: 3px; font: 620 19px var(--sans); letter-spacing: -0.02em; }
+  .cmp small { display: block; font-size: 11.5px; color: var(--ink-3); margin-top: 2px; }
+  .cmp .meter { margin-top: 8px; position: relative; overflow: visible; }
+  .cmp .meter::after { content: ''; position: absolute; left: 85%; top: -3px; bottom: -3px; width: 1.5px; background: var(--ink-3); opacity: 0.6; }
+  .gr li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 9px; padding: 6px 0; font-size: 12.5px; line-height: 1.32; }
+  .gr li + li { border-top: 1px solid var(--line); }
+  .gr i { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .gr small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="scheme-and-rebate" data-view="Slab builder" data-crumb="Sell / Scheme and Rebate / Slab builder / SCH-0419" data-who="Ritu Malhotra|Trade marketing manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>SCH-0419 · Rabi season dealer slab &nbsp;<span class="chip blue" style="vertical-align:3px">Draft</span></h1>
+      <p>Design the slabs, simulate the payout on last season’s purchases, then send for approval</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Save draft</span>
+      <span class="btn">Run simulation</span>
+      <span class="btn pri">Send to sales head</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card">
+      <header><h2>Scheme</h2><span>who, what, when</span></header>
+      <div class="body" style="padding-top:4px">
+        <div class="fld"><label>Audience</label><span>Dealers · West region</span><small>64 dealers</small></div>
+        <div class="fld"><label>Basis</label><span>Purchase value from distributors</span><small>From bills on the Dealer Portal</small></div>
+        <div class="fld"><label>Period</label><span class="mono">1 Nov – 31 Jan</span><small>Rabi sowing season</small></div>
+        <div class="fld"><label>Budget cap</label><span class="mono">₹8.0 L</span><small>Accruals stop at the cap · alert at 85%</small></div>
+        <div class="fld"><label>Settled as</label><span>Credit note through the distributor</span><small>Bulk run after the period closes</small></div>
+        <div class="fld"><label>Items</label><span>Pump-set spares and kits</span><small>IH-300 excluded: it has its own launch scheme</small></div>
+        <div class="fld"><label>Claim checks</label><span>Bills matched, duplicates blocked</span><small>Same rules as SCH-0405</small></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Slabs</h2><span>value bought in the period</span><span class="more">Add slab</span></header>
+        <div class="body">
+          <table class="slabs">
+            <thead><tr><th>Slab</th><th>From</th><th>To</th><th>Payout</th><th class="r">Dealers</th><th class="r">Projected</th></tr></thead>
+            <tbody>
+              <tr><td><b>Slab 1</b></td><td><span class="inp">₹3.0 L</span></td><td><span class="inp">₹5.0 L</span></td><td><span class="inp">1.5%</span></td><td class="r mono">22</td><td class="r mono">₹1.32 L</td></tr>
+              <tr><td><b>Slab 2</b></td><td><span class="inp">₹5.0 L</span></td><td><span class="inp">₹8.0 L</span></td><td><span class="inp">2.5%</span></td><td class="r mono">13</td><td class="r mono">₹2.08 L</td></tr>
+              <tr class="hl"><td><b>Slab 3</b></td><td><span class="inp warn">₹8.0 L</span></td><td class="dim">and above</td><td><span class="inp warn">3.5%</span></td><td class="r mono">9</td><td class="r mono"><b>₹4.10 L</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Dealers by slab</h2><span>last Nov–Jan with a 10% lift · 64 dealers · ₹3.26 Cr</span></header>
+        <div class="body" style="display:flex;flex-direction:column">
+          <div class="bars">
+            <div><span><b>20</b><i style="height:91%"></i></span><small>Below ₹3 L<br>no payout</small></div>
+            <div><span><b>22</b><i style="height:100%"></i></span><small>Slab 1<br>₹88.0 L</small></div>
+            <div><span><b>13</b><i style="height:59%"></i></span><small>Slab 2<br>₹83.2 L</small></div>
+            <div><span><b>9</b><i class="s3" style="height:41%"></i></span><small>Slab 3<br>₹117.0 L</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Simulation</h2><span>projected payout against the cap</span></header>
+        <div class="body">
+          <div class="cmp">
+            <div><label>As drafted</label><strong style="color:var(--warn)">₹7.50 L</strong><small>94% of budget</small><span class="meter warn"><i style="width:94%"></i></span></div>
+            <div class="sel"><label>Suggested</label><strong>₹6.66 L</strong><small>83% of budget</small><span class="meter"><i style="width:83%"></i></span></div>
+          </div>
+          <div class="warnbox" style="margin-top:12px"><b>Slab 3 pays for sales that happen anyway.</b> 7 of its 9 dealers bought over ₹8 L last season with no scheme. Start slab 3 at ₹10 L and pay 3.0%: 6 dealers stay in it, 3 move to slab 2.</div>
+          <div style="display:flex;gap:8px;margin-top:12px"><span class="btn">Keep draft</span><span class="btn pri">Apply suggestion</span></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Guardrails</h2><span>set before it goes live</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="gr">
+            <li><i>✓</i><span>Auto-cap at ₹8.0 L<small>Alert to trade marketing at 85%</small></span></li>
+            <li><i>✓</i><span>Approval by the sales head<small>Budgets over ₹10 L go to the CFO</small></span></li>
+            <li><i>✓</i><span>Applied at order entry<small>Dealers see their slab on the Dealer Portal</small></span></li>
+            <li><i>✓</i><span>Accrued monthly to the ledger<small>Settled by credit note after 31 Jan</small></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

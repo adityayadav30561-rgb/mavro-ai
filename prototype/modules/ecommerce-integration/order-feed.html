@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Ecommerce Integration · Order feed</title>
+<!-- Scenario: see channel-dashboard.html. Today's 312 orders in one queue, newest first: 34 new or allocated, 74 in
+     picking, 41 packed, 156 shipped, 7 cancelled; 23 Marketplace B orders arrived by webhook but their acknowledgements
+     are queued while its API fails (they are picked and shipped as normal). Retail prices: SK-22 ₹549 (MAP), SK-18
+     ₹459, MS-25 ₹1,290, IM-180 ₹2,450, SV-220 ₹1,890, GS-40 ₹320; on the B2B marketplace SK-22 ₹494 and SV-220 ₹1,890.
+     Each order goes to the nearest fulfilment centre with free stock: Plant 1 FG warehouse (Pune), Ahmedabad depot or
+     the Chennai plant. COD orders to pincodes with RTO over 20% are confirmed by a call before they are packed. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .flowst { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; }
+  .flowst div { padding: 12px 16px; border-right: 1px solid var(--line); }
+  .flowst div:last-child { border-right: 0; }
+  .flowst label { display: block; font-size: 12px; color: var(--ink-2); }
+  .flowst strong { display: block; margin-top: 3px; font: 620 20px var(--sans); letter-spacing: -0.02em; }
+  .flowst small { font-size: 11.5px; color: var(--ink-3); }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 6px; padding-bottom: 6px; }
+  .chn { display: inline-grid; place-items: center; width: 24px; height: 22px; border-radius: 6px; font: 700 10px var(--mono); color: #fff; margin-right: 7px; vertical-align: middle; }
+  .pay { display: inline-block; padding: 1px 6px; border-radius: 5px; font-size: 11px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); }
+  .pay.cod { background: var(--warn-soft); border-color: #f5e2b0; color: var(--warn); }
+  tr.cxl td { color: var(--ink-3); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .pages { display: flex; gap: 4px; }
+  .pages span { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink-2); font: 500 11.5px var(--mono); }
+  .pages .on { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="ecommerce-integration" data-view="Order feed" data-crumb="Sell / Ecommerce / Order feed" data-who="Nikhil Oberoi|Ecommerce manager" data-org="NP|Northfield Precision|Northfield Spares online">
+<main>
+  <div class="head">
+    <div>
+      <h1>Unified order feed</h1>
+      <p>Every online order in one queue, routed to the nearest fulfilment centre with stock</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">Release to picking</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Placed <b>Today</b></span>
+    <span class="filter">Channel <b>All 4</b></span>
+    <span class="filter">Fulfilment centre <b>All</b></span>
+    <span class="filter">Payment <b>All</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Order, channel order, pincode or AWB</div>
+  </div>
+
+  <div class="card">
+    <div class="flowst">
+      <div><label>New or allocated</label><strong>34</strong><small>waiting for the next wave</small></div>
+      <div><label>In picking</label><strong>74</strong><small>W-0318 and W-0319</small></div>
+      <div><label>Packed</label><strong>41</strong><small>handover at 16:00</small></div>
+      <div><label>Shipped</label><strong>156</strong><small>with AWB</small></div>
+      <div><label>Cancelled</label><strong>7</strong><small>before packing</small></div>
+      <div style="background:var(--warn-soft)"><label>Acknowledgement queued</label><strong style="color:var(--warn)">23</strong><small>Marketplace B, API down</small></div>
+    </div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Order</th><th>Channel order</th><th>Placed</th><th>Ship to</th><th>Items</th><th class="r">Value</th><th>Payment</th><th>Fulfil from</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">EC-55912</b></td><td><span class="chn" style="background:#0a48fd">MA</span><span class="mono">402-8871-3310</span></td><td class="mono">14:01</td><td>Nashik<small>422003</small></td><td>SK-22 seal kit × 2</td><td class="r mono">1,098</td><td><span class="pay">Prepaid</span></td><td>Plant 1<small>210 km</small></td><td><span class="chip">New</span></td></tr>
+          <tr class="hl"><td><b class="mono">EC-55911</b></td><td><span class="chn" style="background:#3d4366">MB</span><span class="mono">77120394</span></td><td class="mono">13:58</td><td>Surat<small>395007</small></td><td>SK-18 seal kit × 1</td><td class="r mono">459</td><td><span class="pay">Prepaid</span></td><td>Ahmedabad<small>265 km</small></td><td><span class="chip warn">Ack queued</span></td></tr>
+          <tr><td><b class="mono">EC-55909</b></td><td><span class="chn" style="background:#0c9b6a">B2</span><span class="mono">PO-3381</span></td><td class="mono">13:54</td><td>Coimbatore<small>641021</small></td><td>SV-220 service kit × 10</td><td class="r mono">18,900</td><td><span class="pay">30 days credit</span></td><td>Chennai<small>505 km</small></td><td><span class="chip blue">Allocated</span></td></tr>
+          <tr><td><b class="mono">EC-55906</b></td><td><span class="chn" style="background:#090e34">D2</span><span class="mono">10482</span></td><td class="mono">13:49</td><td>Indore<small>452010</small></td><td>IM-180 impeller × 1</td><td class="r mono">2,450</td><td><span class="pay">Prepaid</span></td><td>Plant 1<small>Ahmedabad has none</small></td><td><span class="chip blue">Picking</span></td></tr>
+          <tr><td><b class="mono">EC-55903</b></td><td><span class="chn" style="background:#0a48fd">MA</span><span class="mono">402-8869-1052</span></td><td class="mono">13:40</td><td>Jaipur<small>302012</small></td><td>GS-40 gasket set × 3</td><td class="r mono">960</td><td><span class="pay cod">COD</span></td><td>Ahmedabad<small>660 km</small></td><td><span class="chip warn">Call to confirm COD</span></td></tr>
+          <tr><td><b class="mono">EC-55899</b></td><td><span class="chn" style="background:#3d4366">MB</span><span class="mono">77119856</span></td><td class="mono">13:31</td><td>Ahmedabad<small>380009</small></td><td>SK-22 seal kit × 1</td><td class="r mono">549</td><td><span class="pay">Prepaid</span></td><td>Ahmedabad<small>8 km</small></td><td><span class="chip warn">Ack queued</span></td></tr>
+          <tr><td><b class="mono">EC-55894</b></td><td><span class="chn" style="background:#0a48fd">MA</span><span class="mono">402-8866-7204</span></td><td class="mono">13:20</td><td>Pune<small>411033</small></td><td>SK-18 seal kit × 2</td><td class="r mono">918</td><td><span class="pay">Prepaid</span></td><td>Plant 1<small>24 km</small></td><td><span class="chip ok">Packed</span></td></tr>
+          <tr><td><b class="mono">EC-55880</b></td><td><span class="chn" style="background:#0c9b6a">B2</span><span class="mono">PO-3377</span></td><td class="mono">12:55</td><td>Rajkot<small>360004</small></td><td>SK-22 seal kit × 40</td><td class="r mono">19,760</td><td><span class="pay">30 days credit</span></td><td>Ahmedabad<small>215 km</small></td><td><span class="chip ok">Packed</span></td></tr>
+          <tr><td><b class="mono">EC-55861</b></td><td><span class="chn" style="background:#0a48fd">MA</span><span class="mono">402-8858-4417</span></td><td class="mono">12:10</td><td>Hyderabad<small>500032</small></td><td>IM-180 impeller × 2</td><td class="r mono">4,900</td><td><span class="pay">Prepaid</span></td><td>Plant 1<small>560 km</small></td><td><span class="chip ok">Shipped</span></td></tr>
+          <tr><td><b class="mono">EC-55842</b></td><td><span class="chn" style="background:#3d4366">MB</span><span class="mono">77117302</span></td><td class="mono">11:30</td><td>Mumbai<small>400072</small></td><td>MS-25 mech. seal × 2</td><td class="r mono">2,580</td><td><span class="pay cod">COD</span></td><td>Plant 1<small>150 km</small></td><td><span class="chip ok">Shipped</span></td></tr>
+          <tr><td><b class="mono">EC-55833</b></td><td><span class="chn" style="background:#0a48fd">MA</span><span class="mono">402-8851-0938</span></td><td class="mono">11:02</td><td>Chennai<small>600058</small></td><td>SV-220 service kit × 1</td><td class="r mono">1,890</td><td><span class="pay">Prepaid</span></td><td>Chennai<small>18 km</small></td><td><span class="chip ok">Shipped</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 11 of 312 orders today</span><div class="pages"><span class="on">1</span><span>2</span><span>3</span><span>…</span><span>26</span></div></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

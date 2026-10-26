@@ -4,8 +4,8 @@ _Last updated: 2026-10-24. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–14 done (2026-10-24); next: Phase 15, Scheme and Rebate, Ecommerce
-Integration and Subscription Management (deck slides 86, 82, 102).** The
+**Stage C (phased implementation). Phases 1–15 done (2026-10-26); next: Phase 16, PPDS, Shop Floor Control and
+FSC Portal (deck slides 110, 98, 84; reuse `production` for Shop Floor Control; the FSC customer story links here).** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,39 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-26, **Phase 15 done: Scheme and Rebate, Ecommerce Integration and Subscription Management pages.** On `main`.
+  - **Screens (11 new, 1 updated):** Scheme and Rebate `schemes` (the existing lead, its festive-slab row now matches
+    the Distributor Portal: 1 Sep – 31 Oct, 3% from ₹40 L, 4% from ₹60 L), `scheme-register`, `slab-builder`,
+    `claims-queue`; Ecommerce `channel-dashboard` (lead), `order-feed`, `listings-sync`, `connector-detail`;
+    Subscription `arr-churn` (lead), `plan-builder`, `billing-dunning`, `subscription-register`. No phone screens.
+  - **Scenario, schemes (Northfield):** seven schemes SCH-0401–0412, ₹42.6 L of ₹60 L used, ₹11.8 L accrued, ₹30.8 L
+    settled. The 23 claims (₹6.4 L) are the dealer and distributor claims of Phases 12–13 plus others: 14 verified
+    ₹3.9 L (Navrangpura ₹1,10,260, Ahmedabad dealers ₹1,06,640, 7 more ₹1,73,100), 5 waiting for an audit, 4
+    duplicates (DCL-0419's bills were paid in DCL-0408). Draft SCH-0419 rabi season dealer slab: ₹7.50 L projected
+    against an ₹8 L cap; the simulation shows slab 3 paying for sales that happen anyway and suggests ₹6.66 L.
+  - **Scenario, ecommerce (Northfield Spares online):** 312 orders today on Marketplace A, Marketplace B, a B2B
+    marketplace and the D2C store, routed to Plant 1, the Ahmedabad depot and Chennai (the Phase 14 warehouses);
+    run-rate buffers (3 / 2 / 1 days) pause 7 listings; Marketplace B's API fails from 12:40 and 23 acknowledgements
+    wait in the retry queue; a ₹6,982 payout shortfall; three sellers under the SK-22 MAP of ₹549. Quick commerce is
+    named in the copy (deck) but not used by this seller.
+  - **Scenario, subscriptions: its own company** (the module serves businesses that sell subscriptions, which
+    Northfield does not): Arcwise Software, Bengaluru, an IT company selling the Arcwise FieldOps app. Figures match
+    the homepage Explore panel (2,140 subscribers, MRR ₹38.6 L, churn 1.8%). Coastal Lift Services' renewal asks 15%
+    off, above the 10% delegation: routed to the commercial head, 10% suggested. Basic run of 1 Oct: 38 failed, 21
+    recovered, 17 in dunning on one policy (retry D1/D3/D7, final notice D10, read-only D14, cancel D30).
+  - **New names:** Nikhil Oberoi (ecommerce manager); at Arcwise: Divya Krishnan (revenue operations), Ananya Bose
+    (commercial head), Vikas Hegde and Meghna Pai (account managers); customers Coastal Lift Services, Apex
+    Elevator Care, Polar Air HVAC, Zenith Medical Equipment Service and others.
+  - **Homepage Explore mock** for Ecommerce now matches the screens (four channels, buffers in days, one channel
+    queued). `leads.ts` no longer lists Scheme and Rebate (its content file supplies the lead screen).
+  - **Content:** `content/scheme-and-rebate.ts` (v2 slides 86–87), `ecommerce-integration.ts` (82–83),
+    `subscription-management.ts` (102–103); views for Ecommerce and Subscription in `views.ts`.
+  - Verified: every screen fits its canvas; each page at 1440×900, 1366×768 and 390×844 (one H1, no overflow, no
+    broken images, no console errors); `qa/measure.html` overflow=none at nine sizes on all three; build passes,
+    titles, canonical and FAQPage in the built files, all three in the sitemap.
+  - **Module pages live (28):** all 18 Base modules, all 4 portals, and 6 Premium modules (transportation, fleet,
+    warehouse, scheme and rebate, ecommerce integration, subscription management).
 
 - 2026-10-24, **Phase 14 done: Transportation Management, Fleet Management and Warehouse Management pages.** The
   first Premium modules. On `main`.
@@ -515,10 +548,10 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 15: Scheme and Rebate, Ecommerce Integration, Subscription Management** (v2 slides 86, 82, 102). Scheme
-   and Rebate already has its lead screen (`scheme-and-rebate/schemes`, leads.ts) and is referenced by the dealer and
-   distributor claims (bulk settlement on 9 Oct, the festive slab, the 2% early-payment offer): keep those figures.
-2. Then Phase 16 (PPDS, Shop Floor Control, FSC Portal).
+1. **Phase 16: PPDS, Shop Floor Control, FSC Portal** (v2 slides 110, 98, 84). Shop Floor Control reuses the homepage
+   `production` screen where it is genuinely its view; PPDS ties to WO-5521 / SO-24817 and CNC-03; the FSC customer
+   story (homepage, `page: '/modules/fsc-portal'` already set) switches to the page once it exists.
+2. Then Phase 17 (Cost Forecasting, Audit Management, Insurance Management).
 
 ## Open items (need the user or real assets)
 

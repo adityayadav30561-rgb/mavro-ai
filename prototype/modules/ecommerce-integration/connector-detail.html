@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Ecommerce Integration · Connector detail</title>
+<!-- Scenario: see channel-dashboard.html. Marketplace B's API has returned 503 on most calls since 12:40 (the
+     marketplace reported a partial outage at 12:52). Orders still arrive by webhook (92 today, last at 13:58), but
+     calls back fail: 23 order acknowledgements queued (oldest 12:41; the marketplace wants them within 4 h, so 16:41),
+     6 shipment confirmations queued, and one inventory snapshot held (only the latest is sent; the last good push was
+     12:30). Calls by hour, successful / failed: 08–09 118 / 0, 09–10 124 / 0, 10–11 131 / 1, 11–12 129 / 0, 12–13
+     82 / 18, 13–14 41 / 25 (62% success). Retries back off 1, 2, 4, 8 minutes up to 30; if acknowledgements are still
+     queued at 15:40 the ecommerce manager and the marketplace's seller support are alerted. Token valid to 21 Oct. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 12px 16px 10px; width: calc(100% - 32px); height: calc(100% - 22px); }
+  .qs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .qs div { padding: 11px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); }
+  .qs div.w { background: var(--warn-soft); border-color: #f5e2b0; }
+  .qs label { display: block; font-size: 11.5px; color: var(--ink-2); }
+  .qs strong { display: block; margin-top: 3px; font: 620 20px var(--sans); letter-spacing: -0.02em; }
+  .qs small { display: block; font-size: 11px; color: var(--ink-3); }
+  .log td { padding-top: 7px; padding-bottom: 7px; }
+  .code { display: inline-block; padding: 1px 6px; border-radius: 5px; font: 600 11px var(--mono); background: var(--bad-soft); color: var(--bad); }
+  .code.w { background: var(--warn-soft); color: var(--warn); }
+  .code.ok { background: var(--ok-soft); color: var(--ok); }
+  .steps li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 9px; padding: 7px 0; font-size: 12.5px; line-height: 1.35; }
+  .steps li + li { border-top: 1px solid var(--line); }
+  .steps i { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 650 11px var(--mono); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .steps small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="ecommerce-integration" data-view="Connectors" data-crumb="Sell / Ecommerce / Connectors / Marketplace B" data-who="Nikhil Oberoi|Ecommerce manager" data-org="NP|Northfield Precision|Northfield Spares online">
+<main>
+  <div class="head">
+    <div>
+      <h1>Marketplace B connector &nbsp;<span class="chip warn" style="vertical-align:4px">Degraded since 12:40</span></h1>
+      <p>Orders by webhook, acknowledgements, stock, prices and shipments by API · the marketplace reported a partial outage at 12:52</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Test connection</span>
+      <span class="btn pri">Retry queue now</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>API success · last hour</label><div class="v"><strong style="color:var(--warn)">62%</strong><i data-spark="100,100,99,100,82,62" data-color="#b7791f"></i></div><div class="foot"><b class="delta down">503 errors</b><span>99.6% over 30 days</span></div></div>
+    <div class="card kpi"><label>Orders received today</label><div class="v"><strong>92</strong></div><div class="foot"><b class="delta up">Webhook working</b><span>last at 13:58</span></div></div>
+    <div class="card kpi"><label>Acknowledgements queued</label><div class="v"><strong style="color:var(--warn)">23</strong></div><div class="foot"><b class="delta down">Oldest due 16:41</b><span>4 h rule</span></div></div>
+    <div class="card kpi"><label>Last good stock push</label><div class="v"><strong>12:30</strong></div><div class="foot"><b class="delta flat">latest snapshot held</b><span>sent on recovery</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>API calls by hour</h2><span>today</span><div class="legend"><span>Succeeded</span><span style="--c:#d43a2f">Failed</span></div></header>
+        <div class="body chart-c" data-bars="118,124,131,129,82,41|0,0,1,0,18,25" data-max="140" data-labels="08–09,09–10,10–11,11–12,12–13,13–14" data-colors="#0a48fd,#d43a2f"></div>
+      </div>
+      <div class="card">
+        <header><h2>Queued, not lost</h2><span>sent in order when the API answers</span></header>
+        <div class="body">
+          <div class="qs">
+            <div class="w"><label>Order acknowledgements</label><strong>23</strong><small>oldest 12:41</small></div>
+            <div><label>Shipment confirmations</label><strong>6</strong><small>AWBs for shipped orders</small></div>
+            <div><label>Stock snapshot</label><strong>1</strong><small>latest only, 14:00</small></div>
+            <div><label>Price updates</label><strong>0</strong><small>none pending</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="card flush">
+        <header><h2>Error log</h2><span>newest first</span></header>
+        <div class="body">
+          <table class="log">
+            <thead><tr><th>Time</th><th>Call</th><th>Record</th><th>Response</th><th>Next try</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">14:00</td><td>Stock push</td><td class="mono">64 listings</td><td><span class="code">503</span> Service unavailable</td><td class="mono">14:10</td></tr>
+              <tr><td class="mono">13:58</td><td>Order acknowledgement</td><td class="mono">EC-55911</td><td><span class="code">503</span> Service unavailable</td><td class="mono">14:06</td></tr>
+              <tr><td class="mono">13:02</td><td>Shipment confirmation</td><td class="mono">EC-55842</td><td><span class="code w">429</span> Too many requests</td><td class="mono">backing off</td></tr>
+              <tr><td class="mono">12:40</td><td>Order acknowledgement</td><td class="mono">EC-55804</td><td><span class="code">503</span> First failure</td><td class="mono">queued</td></tr>
+              <tr><td class="mono">12:30</td><td>Stock push</td><td class="mono">64 listings</td><td><span class="code ok">200</span> Accepted</td><td class="dim">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Connection</h2></header>
+        <div class="body">
+          <dl class="kv">
+            <dt>Orders in</dt><dd>Webhook · pull every 5 min</dd>
+            <dt>Stock out</dt><dd>Every 10 min</dd>
+            <dt>Prices out</dt><dd>On change</dd>
+            <dt>Sign-in token</dt><dd>Valid to 21 Oct</dd>
+            <dt>Seller account</dt><dd>Northfield Spares</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>What happens next</h2><span>retry policy</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="steps">
+            <li><i>1</i><span>Retry with back-off<small>1, 2, 4, 8 minutes, then every 30</small></span></li>
+            <li><i>2</i><span>Picking carries on<small>Queued orders are packed and shipped as normal</small></span></li>
+            <li><i>3</i><span>Alert at 15:40 if still down<small>To the ecommerce manager and seller support, an hour before the 4 h rule</small></span></li>
+            <li><i>4</i><span>On recovery, send in order<small>Acknowledgements first, then shipments, then the latest stock</small></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

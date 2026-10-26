@@ -7,6 +7,7 @@ import { content as customerService } from './customer-service';
 import { content as dataAnalytics } from './data-analytics';
 import { content as dealerPortal } from './dealer-portal';
 import { content as distributorPortal } from './distributor-portal';
+import { content as ecommerceIntegration } from './ecommerce-integration';
 import { content as fleetManagement } from './fleet-management';
 import { content as gateEntry } from './gate-entry';
 import { content as hrmsAndPayroll } from './hrms-and-payroll';
@@ -20,6 +21,8 @@ import { content as restHoursLog } from './rest-hours-log';
 import { content as retailerPortal } from './retailer-portal';
 import { content as rosterLedger } from './roster-ledger';
 import { content as salesForceAutomation } from './sales-force-automation';
+import { content as schemeAndRebate } from './scheme-and-rebate';
+import { content as subscriptionManagement } from './subscription-management';
 import { content as transportationManagement } from './transportation-management';
 import { content as travelAndExpense } from './travel-and-expense';
 import { content as vendorInvoiceManagement } from './vendor-invoice-management';
@@ -45,6 +48,7 @@ export const moduleContent: Registry = {
   'data-analytics': dataAnalytics,
   'dealer-portal': dealerPortal,
   'distributor-portal': distributorPortal,
+  'ecommerce-integration': ecommerceIntegration,
   'fleet-management': fleetManagement,
   'gate-entry': gateEntry,
   'hrms-and-payroll': hrmsAndPayroll,
@@ -58,6 +62,8 @@ export const moduleContent: Registry = {
   'retailer-portal': retailerPortal,
   'roster-ledger': rosterLedger,
   'sales-force-automation': salesForceAutomation,
+  'scheme-and-rebate': schemeAndRebate,
+  'subscription-management': subscriptionManagement,
   'transportation-management': transportationManagement,
   'travel-and-expense': travelAndExpense,
   'vendor-invoice-management': vendorInvoiceManagement,

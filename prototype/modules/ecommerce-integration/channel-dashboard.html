@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Ecommerce Integration · Channel dashboard</title>
+<!--
+  Scenario (Ecommerce Integration, shared by every screen of the module; agrees with Warehouse Management and Order to
+  Cash): Northfield Precision sells pump spares and kits online as Northfield Spares, 8 Oct, 14:02. Four channels:
+  Marketplace A (146 orders today, ₹2.18 L, 64 listings, 3 paused), Marketplace B (92, ₹1.31 L, 64, 3 paused), a B2B
+  marketplace (48, ₹1.02 L, 52, 1 paused) and the D2C store (26, ₹0.35 L, 32 listings): 312 orders, ₹4.86 L, 212
+  listings, 205 live. Orders go to the nearest fulfilment centre: Plant 1 FG warehouse 188, Ahmedabad depot 96, Chennai
+  plant 28. Inventory is pushed every 10 minutes with run-rate buffers (3 days of sales); 7 listings are paused at
+  their buffer (MS-25 on A, B and B2B; IM-180 and SV-220 on A and B). Marketplace B's API has returned 503 since 12:40:
+  23 order acknowledgements are queued, none lost. Marketplace A's payout of 7 Oct, ₹6,84,120 for 1,046 orders: 1,031
+  matched; ₹6,982 disputed (commission at 12% instead of 10% on 9 orders ₹1,842, 4 returns deducted but not received
+  ₹3,960, 2 orders missing ₹1,180). RTO over 30 days 10.2% (GS-40 gasket set 19%, wrong size). Three sellers list the
+  SK-22 retail pack under its ₹549 MAP on Marketplace A. Ecommerce manager: Nikhil Oberoi.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .ch td { padding-top: 10px; padding-bottom: 10px; }
+  .ch .lg { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; font: 700 11px var(--mono); color: #fff; margin-right: 9px; vertical-align: middle; }
+  .ch .nm { display: inline-block; vertical-align: middle; line-height: 1.25; }
+  .ch .nm small { display: block; }
+  .hl2 { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; }
+  .hl2::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+  .hl2.w::before { background: #e0a030; }
+  .hl2.w { color: var(--warn); font-weight: 600; }
+  .fc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .fc div { padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); }
+  .fc label { display: block; font-size: 12px; color: var(--ink-2); }
+  .fc strong { display: block; margin-top: 4px; font: 620 22px var(--sans); letter-spacing: -0.02em; }
+  .fc small { color: var(--ink-3); font-size: 11.5px; }
+  .fc .meter { margin-top: 8px; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 12px 16px 10px; width: calc(100% - 32px); height: calc(100% - 22px); }
+  .ex li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; padding: 9px 0; }
+  .ex li + li { border-top: 1px solid var(--line); }
+  .ex b.n { display: grid; place-items: center; height: 28px; border-radius: 8px; font: 650 10.5px var(--mono); background: var(--warn-soft); color: var(--warn); }
+  .ex b.n.bad { background: var(--bad-soft); color: var(--bad); }
+  .ex b.n.blue { background: var(--accent-soft); color: var(--accent-ink); }
+  .ex p { line-height: 1.32; }
+  .ex p small { display: block; color: var(--ink-3); font-size: 11.5px; margin-top: 1px; }
+  .ex p em { display: block; margin-top: 3px; font-style: normal; font-size: 11.5px; color: var(--accent-ink); font-weight: 550; }
+</style>
+</head>
+<body data-module="ecommerce-integration" data-view="Channel dashboard" data-crumb="Sell / Ecommerce / Channel dashboard" data-who="Nikhil Oberoi|Ecommerce manager" data-org="NP|Northfield Precision|Northfield Spares online">
+<main>
+  <div class="head">
+    <div>
+      <h1>Channel dashboard</h1>
+      <p>Northfield Spares on four online channels · one order feed, buffered stock, connectors and payouts</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Today</span><span>7 days</span><span>30 days</span></div>
+      <span class="btn pri">Channel rules</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Orders today</label><div class="v"><strong>312 <small>· ₹4.86 L</small></strong><i data-spark="12,31,58,96,141,188,246,312" data-color="#0a48fd"></i></div><div class="foot"><b class="delta up">+14% on last Wednesday</b><span>4 channels</span></div></div>
+    <div class="card kpi"><label>Listings live</label><div class="v"><strong>205 <small>of 212</small></strong></div><div class="foot"><b class="delta flat">7 paused at buffer</b><span>no oversells</span></div></div>
+    <div class="card kpi"><label>Inventory sync</label><div class="v"><strong>14:00 <small>last push</small></strong></div><div class="foot"><b class="delta down">1 channel failing</b><span>every 10 minutes</span></div></div>
+    <div class="card kpi"><label>Payouts reconciled</label><div class="v"><strong>98.6%</strong></div><div class="foot"><b class="delta down">₹6,982 disputed</b><span>Marketplace A, 7 Oct</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Channels</h2><span>today, and returns over 30 days</span><span class="more">Connectors</span></header>
+        <div class="body">
+          <table class="ch">
+            <thead><tr><th>Channel</th><th class="r">Orders</th><th class="r">Value</th><th>Listings live</th><th>Connector</th><th class="r">RTO · 30 d</th><th>Last payout</th></tr></thead>
+            <tbody>
+              <tr><td><span class="lg" style="background:#0a48fd">MA</span><span class="nm"><b>Marketplace A</b><small>Retail marketplace</small></span></td><td class="r mono">146</td><td class="r mono">₹2.18 L</td><td>61 · 3 paused</td><td><span class="hl2">Healthy</span></td><td class="r mono">9.8%</td><td class="mono">7 Oct · ₹6.84 L</td></tr>
+              <tr class="hl"><td><span class="lg" style="background:#3d4366">MB</span><span class="nm"><b>Marketplace B</b><small>Retail marketplace</small></span></td><td class="r mono">92</td><td class="r mono">₹1.31 L</td><td>61 · 3 paused</td><td><span class="hl2 w">API errors</span></td><td class="r mono">13.6%</td><td class="mono">5 Oct · ₹4.12 L</td></tr>
+              <tr><td><span class="lg" style="background:#0c9b6a">B2</span><span class="nm"><b>B2B marketplace</b><small>Workshops and dealers</small></span></td><td class="r mono">48</td><td class="r mono">₹1.02 L</td><td>51 · 1 paused</td><td><span class="hl2">Healthy</span></td><td class="r mono">2.1%</td><td class="mono">Weekly · ₹6.90 L</td></tr>
+              <tr><td><span class="lg" style="background:#090e34">D2</span><span class="nm"><b>D2C store</b><small>Own web store</small></span></td><td class="r mono">26</td><td class="r mono">₹0.35 L</td><td>32</td><td><span class="hl2">Healthy</span></td><td class="r mono">6.4%</td><td class="mono">Gateway · T+2</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Routed to the nearest fulfilment centre</h2><span>today’s 312 orders</span></header>
+        <div class="body">
+          <div class="fc">
+            <div><label>Plant 1 FG warehouse, Pune</label><strong>188</strong><small>picked in the next wave</small><span class="meter"><i style="width:60%"></i></span></div>
+            <div><label>Ahmedabad depot</label><strong>96</strong><small>Gujarat and Rajasthan</small><span class="meter"><i style="width:31%"></i></span></div>
+            <div><label>Chennai plant</label><strong>28</strong><small>South</small><span class="meter"><i style="width:9%"></i></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <header><h2>Orders by hour</h2><span>all channels</span><div class="legend"><span>Today</span><span style="--c:#d9dce3">Last Wednesday</span></div></header>
+        <div class="body chart-c" data-bars="12,19,27,38,45,47,58,66|10,17,24,33,40,42,50,57" data-max="80" data-labels="Before 07,07–08,08–09,09–10,10–11,11–12,12–13,13–14" data-colors="#0a48fd,#d9dce3"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <header><h2>Needs attention</h2><span>5</span></header>
+      <div class="body" style="padding-top:2px">
+        <ul class="ex">
+          <li><b class="n bad">503</b><p><b>Marketplace B API failing since 12:40</b><small>23 order acknowledgements and 2 stock pushes queued</small><em>Retrying with back-off · no order lost</em></p></li>
+          <li><b class="n">7</b><p><b>7 listings paused at their buffer</b><small>MS-25 on 3 channels · IM-180, SV-220 on 2</small><em>Resume when WMS stock clears the buffer</em></p></li>
+          <li><b class="n bad">MAP</b><p><b>SK-22 retail pack under MAP</b><small>3 sellers on Marketplace A at ₹479–519 · MAP ₹549</small><em>Raised with the marketplace</em></p></li>
+          <li><b class="n">₹</b><p><b>₹6,982 short on Marketplace A’s payout</b><small>Commission at 12% on 9 orders · 4 returns not received · 2 orders missing</small><em>Dispute filed with the evidence</em></p></li>
+          <li><b class="n blue">RTO</b><p><b>GS-40 gasket set: 19% returned</b><small>Most returns say wrong size</small><em>Fitment chart added to the listing</em></p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

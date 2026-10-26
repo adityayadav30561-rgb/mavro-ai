@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Scheme and Rebate · Scheme register</title>
+<!-- Scenario: see schemes.html. This year's schemes, ₹ lakh (budget / used / accrued not settled / open claims):
+     SCH-0411 festive volume slab 14.0 / 12.4 / 6.9 / 5; SCH-0405 monsoon pump-set slab 6.0 / 5.6 / 1.2 / 5; SCH-0407
+     Q2 target rebate 12.0 / 9.8 / 2.1 / 4; SCH-0401 early payment discount 10.0 / 6.2 / 0 / 0; SCH-0412 IH-300
+     launch 8.0 / 4.1 / 1.1 / 2; SCH-0410 counter display 4.0 / 2.3 / 0.3 / 4; SCH-0403 workshop loyalty 6.0 / 2.2 /
+     0.2 / 0. Totals 60.0 / 42.6 / 11.8 / 20; the other 3 of the 23 open claims are transit damage, rate difference
+     and expiry claims (CLM-0874, CLM-0877, CLM-0879). Draft SCH-0419 rabi season dealer slab (₹8.0 L, Nov–Jan) is in
+     the slab builder. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 12px; padding-bottom: 12px; }
+  .aud { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); }
+  .used { display: grid; gap: 4px; min-width: 120px; }
+  .used span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .used .meter { position: relative; overflow: visible; }
+  .used .meter::after { content: ''; position: absolute; left: 85%; top: -3px; bottom: -3px; width: 1.5px; background: var(--ink-3); opacity: 0.5; }
+  .meter.bad i { background: var(--bad); }
+  tr.draft td { color: var(--ink-2); background: var(--surface-2); }
+  tr.closed td { color: var(--ink-3); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body data-module="scheme-and-rebate" data-view="Scheme register" data-crumb="Sell / Scheme and Rebate / Scheme register" data-who="Ritu Malhotra|Trade marketing manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Scheme register</h1>
+      <p>Every scheme with its audience, basis, period, budget, accrual and open claims</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">Create scheme</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Year <b>2026–27</b></span>
+    <span class="filter">Audience <b>All</b></span>
+    <span class="filter">Status <b>All</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Scheme, partner or claim</div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Budget this year</label><strong>₹60.0 L <small>· 7 schemes</small></strong></div>
+    <div class="card sm"><label>Used</label><strong>₹42.6 L <small>· 71%</small></strong></div>
+    <div class="card sm"><label>Accrued, not settled</label><strong>₹11.8 L</strong></div>
+    <div class="card sm"><label>Settled by credit note</label><strong>₹30.8 L <small>· 168 notes</small></strong></div>
+    <div class="card sm"><label>Average claim cycle</label><strong>8 <small>days to credit note</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Scheme</th><th>Audience</th><th>Basis</th><th>Period</th><th>Budget used</th><th class="r">Accrued</th><th class="r">Open claims</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="draft"><td><b class="mono">SCH-0419</b><small>Rabi season dealer slab</small></td><td><span class="aud">Dealers</span></td><td>Value slabs, 3 tiers</td><td class="mono">1 Nov – 31 Jan</td><td><div class="used"><span class="meter ink"><i style="width:0%"></i></span><span>₹8.0 L budget</span></div></td><td class="r mono dim">—</td><td class="r mono dim">—</td><td><span class="chip blue">Draft · simulating</span></td></tr>
+          <tr><td><b class="mono">SCH-0412</b><small>IH-300 series launch</small></td><td><span class="aud">Distributors, dealers</span></td><td>₹120 a piece</td><td class="mono">15 Sep – 31 Dec</td><td><div class="used"><span class="meter"><i style="width:51%"></i></span><span>₹4.1 L of ₹8.0 L</span></div></td><td class="r mono">1.1 L</td><td class="r mono">2</td><td><span class="chip ok">Live</span></td></tr>
+          <tr><td><b class="mono">SCH-0411</b><small>Festive volume slab</small></td><td><span class="aud">Distributors</span></td><td>3% from ₹40 L, 4% from ₹60 L</td><td class="mono">1 Sep – 31 Oct</td><td><div class="used"><span class="meter bad"><i style="width:89%"></i></span><span>₹12.4 L of ₹14.0 L</span></div></td><td class="r mono">6.9 L</td><td class="r mono">5</td><td><span class="chip bad">Over 85%</span></td></tr>
+          <tr><td><b class="mono">SCH-0410</b><small>Counter display</small></td><td><span class="aud">Retailers</span></td><td>₹6,000 on POP audit</td><td class="mono">1 Sep – 31 Oct</td><td><div class="used"><span class="meter"><i style="width:58%"></i></span><span>₹2.3 L of ₹4.0 L</span></div></td><td class="r mono">0.3 L</td><td class="r mono">4</td><td><span class="chip ok">Live</span></td></tr>
+          <tr><td><b class="mono">SCH-0407</b><small>Quarterly target rebate</small></td><td><span class="aud">Dealers</span></td><td>2.5% on target achieved</td><td class="mono">1 Jul – 30 Sep</td><td><div class="used"><span class="meter"><i style="width:82%"></i></span><span>₹9.8 L of ₹12.0 L</span></div></td><td class="r mono">2.1 L</td><td class="r mono">4</td><td><span class="chip">Settling</span></td></tr>
+          <tr><td><b class="mono">SCH-0405</b><small>Monsoon pump-set slab</small></td><td><span class="aud">Dealers, retailers</span></td><td>Value slabs on retailer bills</td><td class="mono">1 Jun – 30 Sep</td><td><div class="used"><span class="meter warn"><i style="width:93%"></i></span><span>₹5.6 L of ₹6.0 L</span></div></td><td class="r mono">1.2 L</td><td class="r mono">5</td><td><span class="chip">Settling</span></td></tr>
+          <tr><td><b class="mono">SCH-0403</b><small>Workshop loyalty points</small></td><td><span class="aud">Workshops</span></td><td>1 point per ₹200</td><td class="mono">1 Apr – 31 Mar</td><td><div class="used"><span class="meter"><i style="width:37%"></i></span><span>₹2.2 L of ₹6.0 L</span></div></td><td class="r mono">0.2 L</td><td class="r mono">0</td><td><span class="chip ok">Live</span></td></tr>
+          <tr><td><b class="mono">SCH-0401</b><small>Early payment discount</small></td><td><span class="aud">All customers</span></td><td>2% if paid in 10 days</td><td class="mono">1 Apr – 31 Mar</td><td><div class="used"><span class="meter"><i style="width:62%"></i></span><span>₹6.2 L of ₹10.0 L</span></div></td><td class="r mono">0</td><td class="r mono">0</td><td><span class="chip ok">Live</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>7 schemes this year and 1 draft · 20 open claims here; 3 more are damage, rate and expiry claims</span><span>Budgets over ₹10 L need the CFO</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

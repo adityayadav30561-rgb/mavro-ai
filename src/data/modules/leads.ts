@@ -19,8 +19,4 @@ export const leadScreens: Partial<Record<ModuleSlug, { screen: ScreenName; alt: 
     screen: 'customer-service/ticket-load',
     alt: 'MAVRO Customer Service ticket load: 74 open tickets, 94% first response within SLA, tickets by channel with SLA health, a complaint cluster on lot L-0897 raised to QA, and tickets about to breach (illustrative data).',
   },
-  'scheme-and-rebate': {
-    screen: 'scheme-and-rebate/schemes',
-    alt: 'MAVRO Scheme and Rebate dashboard: ₹42.6 L of a ₹60 L trade budget used, the festive volume slab over its 85% alert, scheme performance with sales lift, accruals against settlements and 23 claims waiting with 4 duplicates caught (illustrative data).',
-  },
 };
