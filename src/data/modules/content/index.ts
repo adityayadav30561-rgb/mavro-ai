@@ -2,6 +2,8 @@ import type { ModuleContent } from '../schema';
 import type { ModuleSlug } from '../slugs';
 import { content as accounting } from './accounting';
 import { content as assetManagement } from './asset-management';
+import { content as auditManagement } from './audit-management';
+import { content as costForecasting } from './cost-forecasting';
 import { content as crm } from './crm';
 import { content as customerService } from './customer-service';
 import { content as dataAnalytics } from './data-analytics';
@@ -12,6 +14,7 @@ import { content as fleetManagement } from './fleet-management';
 import { content as fscPortal } from './fsc-portal';
 import { content as gateEntry } from './gate-entry';
 import { content as hrmsAndPayroll } from './hrms-and-payroll';
+import { content as insuranceManagement } from './insurance-management';
 import { content as inventoryManagement } from './inventory-management';
 import { content as mvlensVendorAudit } from './mvlens-vendor-audit';
 import { content as orderToCash } from './order-to-cash';
@@ -46,6 +49,8 @@ type Registry = { [S in ModuleSlug]?: ModuleContent<S> };
 export const moduleContent: Registry = {
   accounting,
   'asset-management': assetManagement,
+  'audit-management': auditManagement,
+  'cost-forecasting': costForecasting,
   crm,
   'customer-service': customerService,
   'data-analytics': dataAnalytics,
@@ -56,6 +61,7 @@ export const moduleContent: Registry = {
   'fsc-portal': fscPortal,
   'gate-entry': gateEntry,
   'hrms-and-payroll': hrmsAndPayroll,
+  'insurance-management': insuranceManagement,
   'inventory-management': inventoryManagement,
   'mvlens-vendor-audit': mvlensVendorAudit,
   'order-to-cash': orderToCash,

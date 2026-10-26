@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Cost Forecasting · Forecast wizard</title>
+<!-- Scenario: see budget-dashboard.html. The H2 reforecast FC-2026-H2, step 3 of 5 (drivers), opened 6 Oct by
+     Meenakshi Bhat. Actuals Apr–Sep are locked; Oct–Mar are forecast from five drivers, each with an assumption per
+     scenario and its effect on the full-year cost (₹ lakh): sales volume +6% / +9% / +2%: 38 / 55 / 12; USD/INR 84.5 /
+     83.8 / 86.5: +6 / −3 / +22; power tariff +4% / +2% / +7%: 9 / 4.5 / 16; wage DA +3.5% / +3.0% / +4.5%: 20 / 17 /
+     26; freight rates +6% / +3% / +12%: 16 / 8 / 32. Drivers total 89 / 81.5 / 108. Known adjustment: the Plant 1
+     repairs run-rate +44 in base and stress, +32 in optimistic (PM catch-up done by November). Full year: base 4,507
+     (+133, +3.0%), optimistic 4,487.5 (+113.5, +2.6%), stress 4,526 (+152, +3.5%) against the 4,374 budget. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .flowcard .body { padding: 16px 18px 14px; }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .drv td { padding-top: 17px; padding-bottom: 17px; }
+  .ft { display: flex; justify-content: space-between; gap: 12px; padding: 12px 16px 2px; margin-top: auto; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .ft b { color: var(--ink-2); font-weight: 550; }
+  .drv th.sc { text-align: center; }
+  .drv td.sc { text-align: center; }
+  .drv td.sc b { display: block; font: 600 12.5px var(--mono); }
+  .drv td.sc span { font: 11.5px var(--mono); color: var(--ink-3); }
+  .drv td.base { background: var(--accent-soft); }
+  .drv th.base { color: var(--accent-ink); }
+  .src { font-size: 11.5px; color: var(--ink-3); }
+  .neg { color: var(--ok) !important; }
+  tr.adj td { background: var(--surface-2); }
+  tr.tot td { font-weight: 600; border-top: 2px solid var(--line-2); }
+  tr.tot td.sc b { font-size: 14px; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 12px 16px 10px; width: calc(100% - 32px); height: calc(100% - 22px); }
+  .appr li { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 8px 0; }
+  .appr li + li { border-top: 1px solid var(--line); }
+  .appr i { grid-row: 1 / span 2; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font: 600 10px var(--sans); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .appr b { font-weight: 550; }
+  .appr small { grid-column: 2; color: var(--ink-3); font-size: 11.5px; }
+  .appr .chip { grid-row: 1 / span 2; grid-column: 3; }
+</style>
+</head>
+<body data-module="cost-forecasting" data-view="Forecast wizard" data-crumb="Finance / Cost Forecasting / Forecast wizard / FC-2026-H2" data-org="NP|Northfield Precision|All sites" data-who="Meenakshi Bhat|FP&amp;A manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>H2 reforecast · FC-2026-H2 &nbsp;<span class="chip blue" style="vertical-align:4px">Draft</span></h1>
+      <p>Actuals April to September locked · October to March forecast from five drivers · three scenarios side by side</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Back</span>
+      <span class="btn">Save draft</span>
+      <span class="btn pri">Next: review by cost centre</span>
+    </div>
+  </div>
+
+  <div class="card flowcard">
+    <div class="body">
+      <ol class="flow" style="--n:5;--at:0.5">
+        <li class="done"><i></i><b>Base period</b><span>Apr–Sep actuals</span></li>
+        <li class="done"><i></i><b>Known adjustments</b><span>1 run-rate</span></li>
+        <li class="now"><i></i><b>Drivers and scenarios</b><span>5 drivers · 3 scenarios</span></li>
+        <li class="next"><i></i><b>Review by cost centre</b><span>owners comment</span></li>
+        <li class="next"><i></i><b>Approve and publish</b><span>to Accounting budgets</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Drivers</h2><span>assumption and effect on full-year cost, ₹ lakh</span><span class="more">Add driver</span></header>
+      <div class="body">
+        <table class="drv">
+          <thead><tr><th>Driver</th><th>Drives</th><th class="sc">Optimistic</th><th class="sc base">Base</th><th class="sc">Stress</th></tr></thead>
+          <tbody>
+            <tr><td><b>Sales volume</b><small>H2 against H1</small></td><td class="src">Overheads, consumables, power</td><td class="sc"><b>+9%</b><span>+55.0</span></td><td class="sc base"><b>+6%</b><span>+38.0</span></td><td class="sc"><b>+2%</b><span>+12.0</span></td></tr>
+            <tr><td><b>USD/INR</b><small>imported spares and software</small></td><td class="src">Repairs, IT</td><td class="sc"><b>83.8</b><span class="neg">−3.0</span></td><td class="sc base"><b>84.5</b><span>+6.0</span></td><td class="sc"><b>86.5</b><span>+22.0</span></td></tr>
+            <tr><td><b>Power tariff</b><small>state revision in November</small></td><td class="src">Power and fuel, both plants</td><td class="sc"><b>+2%</b><span>+4.5</span></td><td class="sc base"><b>+4%</b><span>+9.0</span></td><td class="sc"><b>+7%</b><span>+16.0</span></td></tr>
+            <tr><td><b>Wage DA</b><small>October revision</small></td><td class="src">Employee costs</td><td class="sc"><b>+3.0%</b><span>+17.0</span></td><td class="sc base"><b>+3.5%</b><span>+20.0</span></td><td class="sc"><b>+4.5%</b><span>+26.0</span></td></tr>
+            <tr><td><b>Freight rates</b><small>diesel and contract rates</small></td><td class="src">Logistics freight</td><td class="sc"><b>+3%</b><span>+8.0</span></td><td class="sc base"><b>+6%</b><span>+16.0</span></td><td class="sc"><b>+12%</b><span>+32.0</span></td></tr>
+            <tr class="adj"><td><b>Plant 1 repairs run-rate</b><small>from the variance review</small></td><td class="src">Repairs and maintenance</td><td class="sc"><b>PM fixed</b><span>+32.0</span></td><td class="sc base"><b>Run-rate</b><span>+44.0</span></td><td class="sc"><b>Run-rate</b><span>+44.0</span></td></tr>
+            <tr class="tot"><td>Full-year cost</td><td class="src">budget ₹4,374 L</td><td class="sc"><b>4,487.5</b><span>+2.6%</span></td><td class="sc base"><b>4,507.0</b><span>+3.0%</span></td><td class="sc"><b>4,526.0</b><span>+3.5%</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ft"><span>Widest swings, optimistic to stress: <b>freight ₹24 L</b>, <b>USD/INR ₹25 L</b>, <b>volume ₹43 L</b></span><span>Assumptions saved with the version</span></div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Monthly cost</h2><span>₹ lakh</span><div class="legend"><span>Base</span><span style="--c:#c9cfdb">Budget</span></div></header>
+        <div class="body chart-c" data-area="352,361,370,368,381,391,378,382,380,378,376,390|364.5,364.5,364.5,364.5,364.5,364.5,364.5,364.5,364.5,364.5,364.5,364.5" data-min="320" data-max="400" data-labels="Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar"></div>
+      </div>
+      <div class="card">
+        <header><h2>Approval route</h2><span>after review</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="appr">
+            <li><i>PN</i><b>Prakash Nair</b><small>Plant head · Plant 1</small><span class="chip plain">Next</span></li>
+            <li><i>RS</i><b>R. Subramanian</b><small>Plant head · Chennai</small><span class="chip plain">Next</span></li>
+            <li><i>AR</i><b>Ashok Rathi</b><small>CFO · approves the plan</small><span class="chip plain">Then</span></li>
+            <li><i>AC</i><b>Accounting budgets</b><small>published on approval</small><span class="chip plain">Last</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

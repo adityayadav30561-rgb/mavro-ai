@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Cost Forecasting · Budget dashboard</title>
+<!--
+  Scenario (Cost Forecasting, shared by every screen of the module; agrees with the Asset Management, Production and
+  Insurance screens): Northfield Precision, FY 2026-27, 8 Oct, 14:02, 52% of the year gone. Operating cost budget
+  ₹43.74 Cr (₹ lakh, annual / actual to date): Plant 1 production overheads 1,240 / 642; Plant 1 repairs and
+  maintenance 140 / 127 (91%: the variance alert at 90% of the annual budget fired on 6 Oct, owner Prakash Nair, plant
+  head); Chennai production overheads 610 / 301; Chennai power 168 / 102.5 (61%, on watch: summer tariff peak);
+  logistics freight 560 / 305; trade schemes 60 / 42.6 (71%, phased to the festive season); sales and marketing
+  other 180 / 84; employee costs 1,180 / 572; IT 96 / 51; administration 140 / 66 (insurance premiums inside it are
+  paid upfront and phased, so their alert is suppressed). Actual to date ₹22.93 Cr (52.4%). Monthly actual Apr–Sep
+  352, 361, 370, 368, 381, 391, October to date 70; budget ₹364.5 L a month. The H2 reforecast (draft, base
+  scenario): ₹45.07 Cr, +₹1.33 Cr (+3.0%): drivers +89 (volume +38, USD/INR +6, power tariff +9, wage DA +20,
+  freight +16; by cost centre P1 overheads +22, Chennai overheads +6, Chennai power +9, freight +16, employee +20, sales, IT and admin +16) and the Plant 1 repairs run-rate +44 (full year 184 against 140; 172 with the PM catch-up fix).
+  Optimistic ₹44.88 Cr, stress ₹45.26 Cr. Approvals: plant heads, then the CFO Ashok Rathi, then the plan publishes
+  to the Accounting budgets. FP&A manager: Meenakshi Bhat. Forecast accuracy of the last six monthly forecasts: 97.1%.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 336px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .cc td { padding-top: 7px; padding-bottom: 7px; }
+  .use { display: flex; align-items: center; gap: 8px; }
+  .use .meter { position: relative; width: 110px; min-width: 110px; overflow: visible; }
+  .use .meter i { border-radius: 3px; }
+  .use .meter::after { content: ''; position: absolute; left: 52%; top: -3px; width: 2px; height: 12px; background: var(--ink); opacity: 0.55; }
+  .use .meter.bad i { background: var(--bad); }
+  .use span { font: 11.5px var(--mono); color: var(--ink-2); width: 34px; }
+  tr.al td { background: #fff7f6; }
+  tr.tot td { font-weight: 600; background: var(--surface-2); }
+  .alr li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; }
+  .alr li + li { border-top: 1px solid var(--line); }
+  .alr b { font-weight: 550; }
+  .alr small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .alr em { grid-row: 1 / span 2; grid-column: 2; align-self: center; font: 600 12.5px var(--mono); font-style: normal; }
+  .fc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .fc div { padding: 9px 10px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface-2); }
+  .fc div.on { background: var(--accent-soft); border-color: #d9e0ff; }
+  .fc label { display: block; font-size: 11.5px; color: var(--ink-3); }
+  .fc b { display: block; margin-top: 2px; font: 620 15px var(--sans); letter-spacing: -0.01em; }
+  .fc small { font: 11px var(--mono); color: var(--ink-2); }
+  .note { margin-top: 10px; font-size: 12px; color: var(--ink-2); line-height: 1.45; }
+</style>
+</head>
+<body data-module="cost-forecasting" data-view="Budget dashboard" data-crumb="Finance / Cost Forecasting / Budget dashboard" data-org="NP|Northfield Precision|All sites" data-who="Meenakshi Bhat|FP&amp;A manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Budget against actual</h1>
+      <p>FY 2026-27 operating costs · 52% of the year gone · actuals posted in Accounting</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All sites</span><span>Plant 1 · Pune</span><span>Chennai</span><span>Corporate</span></div>
+      <span class="btn pri">Start H2 reforecast</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Spent against budget</label><div class="v"><strong>₹22.93 Cr <small>of ₹43.74 Cr</small></strong></div><div class="foot" style="display:flex;align-items:center;gap:8px"><span class="meter" style="flex:1"><i style="width:52.4%"></i></span><span>52.4% · year 52%</span></div></div>
+    <div class="card kpi"><label>Full-year forecast</label><div class="v"><strong>₹45.07 Cr</strong></div><div class="foot"><b class="delta down">+₹1.33 Cr</b><span>+3.0% · H2 draft, base</span></div></div>
+    <div class="card kpi"><label>Variance alerts</label><div class="v"><strong>1 <small>at 90% of budget</small></strong></div><div class="foot"><b class="delta down">Plant 1 repairs</b><span>2 more on watch</span></div></div>
+    <div class="card kpi"><label>Forecast accuracy</label><div class="v"><strong>97.1%</strong><i data-spark="93.8,94.6,95.9,96.4,96.8,97.1" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">last 6 forecasts</b><span>against actuals</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Cost centres</h2><span>₹ lakh · marker at 52%, the share of the year gone</span><span class="more">Budget lines</span></header>
+        <div class="body">
+          <table class="cc">
+            <thead><tr><th>Cost centre</th><th class="r">Budget</th><th class="r">Actual</th><th>Used</th><th class="r">Forecast</th><th class="r">Variance</th></tr></thead>
+            <tbody>
+              <tr><td><b>Plant 1 production overheads</b></td><td class="r mono">1,240</td><td class="r mono">642.0</td><td><div class="use"><span class="meter"><i style="width:51.8%"></i></span><span>52%</span></div></td><td class="r mono">1,262</td><td class="r mono">+22</td></tr>
+              <tr class="al"><td><b>Plant 1 repairs and maintenance</b> <span class="chip bad" style="margin-left:6px">Alert</span></td><td class="r mono">140</td><td class="r mono">127.0</td><td><div class="use"><span class="meter bad"><i style="width:90.7%"></i></span><span>91%</span></div></td><td class="r mono">184</td><td class="r mono" style="color:var(--bad)">+44</td></tr>
+              <tr><td><b>Chennai production overheads</b></td><td class="r mono">610</td><td class="r mono">301.0</td><td><div class="use"><span class="meter"><i style="width:49.3%"></i></span><span>49%</span></div></td><td class="r mono">616</td><td class="r mono">+6</td></tr>
+              <tr><td><b>Chennai power</b> <span class="chip warn" style="margin-left:6px">Watch</span></td><td class="r mono">168</td><td class="r mono">102.5</td><td><div class="use"><span class="meter warn"><i style="width:61%"></i></span><span>61%</span></div></td><td class="r mono">177</td><td class="r mono">+9</td></tr>
+              <tr><td><b>Logistics freight</b></td><td class="r mono">560</td><td class="r mono">305.0</td><td><div class="use"><span class="meter"><i style="width:54.5%"></i></span><span>54%</span></div></td><td class="r mono">576</td><td class="r mono">+16</td></tr>
+              <tr><td><b>Trade schemes</b> <span class="chip warn" style="margin-left:6px">Watch</span></td><td class="r mono">60</td><td class="r mono">42.6</td><td><div class="use"><span class="meter warn"><i style="width:71%"></i></span><span>71%</span></div></td><td class="r mono">60</td><td class="r mono dim">0</td></tr>
+              <tr><td><b>Employee costs</b></td><td class="r mono">1,180</td><td class="r mono">572.0</td><td><div class="use"><span class="meter"><i style="width:48.5%"></i></span><span>48%</span></div></td><td class="r mono">1,200</td><td class="r mono">+20</td></tr>
+              <tr><td><b>Sales, IT and administration</b><small>three cost centres</small></td><td class="r mono">416</td><td class="r mono">201.0</td><td><div class="use"><span class="meter"><i style="width:48.3%"></i></span><span>48%</span></div></td><td class="r mono">432</td><td class="r mono">+16</td></tr>
+              <tr class="tot"><td>All cost centres</td><td class="r mono">4,374</td><td class="r mono">2,293.1</td><td><div class="use"><span class="meter"><i style="width:52.4%"></i></span><span>52%</span></div></td><td class="r mono">4,507</td><td class="r mono">+133</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Monthly spend</h2><span>₹ lakh · actual against the monthly budget</span><div class="legend"><span>Actual</span><span style="--c:#c9cfdb">Budget</span></div></header>
+        <div class="body chart-c" data-bars="352,361,370,368,381,391|364.5,364.5,364.5,364.5,364.5,364.5" data-max="420" data-labels="Apr,May,Jun,Jul,Aug,Sep" data-colors="#0a48fd,#c9cfdb"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Alerts and watch list</h2><span>checked every night</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="alr">
+            <li><b>Plant 1 repairs and maintenance</b><small>Over 90% of the annual budget · fired 6 Oct · in review</small><em style="color:var(--bad)">91%</em></li>
+            <li><b>Trade schemes</b><small>Phased to the festive season · within the phasing</small><em style="color:var(--warn)">71%</em></li>
+            <li><b>Chennai power</b><small>Summer tariff peak · ahead of pace</small><em style="color:var(--warn)">61%</em></li>
+            <li><b>Insurance premiums</b><small>Paid upfront in April · phased, alert suppressed</small><em class="dim">95%</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>H2 reforecast</h2><span>draft · three scenarios</span><span class="more">Open</span></header>
+        <div class="body">
+          <div class="fc">
+            <div><label>Optimistic</label><b>₹44.88 Cr</b><small>+2.6%</small></div>
+            <div class="on"><label>Base</label><b>₹45.07 Cr</b><small>+3.0%</small></div>
+            <div><label>Stress</label><b>₹45.26 Cr</b><small>+3.5%</small></div>
+          </div>
+          <div class="rule"></div>
+          <dl class="kv"><dt>Drivers</dt><dd>+₹89 L</dd><dt>Plant 1 repairs run-rate</dt><dd>+₹44 L</dd><dt>Approval</dt><dd>Plant heads, then CFO</dd></dl>
+          <p class="note">Volume, USD/INR, power tariff, wage DA and freight rates. Once approved, the plan publishes to the Accounting budgets.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

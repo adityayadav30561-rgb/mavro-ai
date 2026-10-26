@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Insurance Management · Policy register</title>
+<!-- Scenario: see risk-dashboard.html. The policy register: all 10 active policies with insurer, what they cover,
+     sum insured, premium, excess, period and renewal state. Policy numbers are illustrative. Machinery breakdown
+     covers the ₹24.8 Cr gross block from the asset register, with an endorsement pending for the four assets added
+     on 4 Oct (₹38 L); CNC-03 is on it at ₹52 L. Motor fleet: 32 vehicles on one fleet policy with staggered expiries,
+     V-09 next on 19 Oct. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 9px; padding-bottom: 9px; }
+  .days { display: flex; align-items: center; gap: 7px; }
+  .days .meter { width: 54px; min-width: 54px; }
+  .days .meter.bad i { background: var(--bad); }
+  .days span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body data-module="insurance-management" data-view="Policy register" data-crumb="Finance / Insurance Management / Policy register" data-org="NP|Northfield Precision|All sites" data-who="Gopal Shenoy|Corporate risk manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Policy register</h1>
+      <p>Every policy in the group with its cover, sum insured, premium, excess and renewal, documents in one vault</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">Add policy</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Status <b>Active</b></span>
+    <span class="filter">Insurer <b>All</b></span>
+    <span class="filter">Cover <b>All</b></span>
+    <span class="filter">Site <b>All</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Policy, asset or vehicle</div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Active policies</label><strong>10 <small>2 insurers</small></strong></div>
+    <div class="card sm"><label>Property and machinery</label><strong>₹84.8 Cr</strong></div>
+    <div class="card sm"><label>Premium, this year</label><strong>₹36.2 L</strong></div>
+    <div class="card sm"><label>Renewals in 90 days</label><strong style="color:var(--warn)">4</strong></div>
+    <div class="card sm"><label>Endorsements pending</label><strong style="color:var(--warn)">1 <small>₹38 L of assets</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Policy</th><th>Insurer</th><th>Covers</th><th class="r">Sum insured</th><th class="r">Premium</th><th class="r">Excess</th><th>Renews</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b>Motor fleet</b><small class="mono">SGI/MF/26/0441</small></td><td>Saptarishi General</td><td>32 vehicles<small>staggered expiries</small></td><td class="r mono">₹3.1 Cr</td><td class="r mono">₹1.8 L</td><td class="r mono">₹5,000</td><td><div class="days"><span class="meter bad"><i style="width:3%"></i></span><span>V-09 · 19 Oct</span></div></td><td><span class="chip bad">Quote in</span></td></tr>
+          <tr><td><b>Fire and special perils</b><small class="mono">SGI/FP/26/1182</small></td><td>Saptarishi General</td><td>Plant 1 · Pune<small>building, plant, stock</small></td><td class="r mono">₹38.6 Cr</td><td class="r mono">₹6.8 L</td><td class="r mono">₹1 L</td><td><div class="days"><span class="meter warn"><i style="width:15%"></i></span><span>30 Nov</span></div></td><td><span class="chip warn">Quote asked</span></td></tr>
+          <tr><td><b>Fire and special perils</b><small class="mono">SGI/FP/26/1183</small></td><td>Saptarishi General</td><td>Chennai plant<small>building, plant, stock</small></td><td class="r mono">₹21.4 Cr</td><td class="r mono">₹3.9 L</td><td class="r mono">₹1 L</td><td><div class="days"><span class="meter warn"><i style="width:15%"></i></span><span>30 Nov</span></div></td><td><span class="chip warn">Quote asked</span></td></tr>
+          <tr><td><b>Marine inland transit</b><small class="mono">MGI/MT/26/0275 · open</small></td><td>Meghdoot General</td><td>All dispatches<small>₹50 L per consignment</small></td><td class="r mono">declared</td><td class="r mono">₹2.9 L</td><td class="r mono">₹25,000</td><td><div class="days"><span class="meter"><i style="width:19%"></i></span><span>15 Dec</span></div></td><td><span class="chip plain">90-day watch</span></td></tr>
+          <tr class="hl"><td><b>Machinery breakdown</b><small class="mono">MGI/MB/26/0612</small></td><td>Meghdoot General</td><td>1,142 assets<small>CNC-03 at ₹52 L</small></td><td class="r mono">₹24.8 Cr</td><td class="r mono">₹4.6 L</td><td class="r mono">₹50,000</td><td><div class="days"><span class="meter ok"><i style="width:48%"></i></span><span>31 Mar</span></div></td><td><span class="chip warn">Endorse ₹38 L</span></td></tr>
+          <tr><td><b>Group mediclaim</b><small class="mono">MGI/GM/26/0098</small></td><td>Meghdoot General</td><td>489 employees<small>and families</small></td><td class="r mono">₹3 L each</td><td class="r mono">₹12.4 L</td><td class="r mono dim">—</td><td><div class="days"><span class="meter ok"><i style="width:48%"></i></span><span>31 Mar</span></div></td><td><span class="chip ok">Active</span></td></tr>
+          <tr><td><b>Public and product liability</b><small class="mono">SGI/PL/26/0057</small></td><td>Saptarishi General</td><td>Group<small>incl. exports</small></td><td class="r mono">₹10 Cr</td><td class="r mono">₹2.2 L</td><td class="r mono">₹1 L</td><td><div class="days"><span class="meter ok"><i style="width:48%"></i></span><span>31 Mar</span></div></td><td><span class="chip ok">Active</span></td></tr>
+          <tr><td><b>Employees’ compensation</b><small class="mono">SGI/EC/26/0213</small></td><td>Saptarishi General</td><td>Both plants<small>contract workers too</small></td><td class="r mono">statutory</td><td class="r mono">₹0.9 L</td><td class="r mono dim">—</td><td><div class="days"><span class="meter ok"><i style="width:48%"></i></span><span>31 Mar</span></div></td><td><span class="chip ok">Active</span></td></tr>
+          <tr><td><b>Group personal accident</b><small class="mono">MGI/PA/26/0101</small></td><td>Meghdoot General</td><td>489 employees</td><td class="r mono">₹10 L each</td><td class="r mono">₹0.5 L</td><td class="r mono dim">—</td><td><div class="days"><span class="meter ok"><i style="width:48%"></i></span><span>31 Mar</span></div></td><td><span class="chip ok">Active</span></td></tr>
+          <tr><td><b>Burglary and money</b><small class="mono">SGI/BM/26/0388</small></td><td>Saptarishi General</td><td>Both plants<small>stock and cash</small></td><td class="r mono">₹2 Cr</td><td class="r mono">₹0.2 L</td><td class="r mono">₹10,000</td><td><div class="days"><span class="meter ok"><i style="width:48%"></i></span><span>31 Mar</span></div></td><td><span class="chip ok">Active</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>10 active policies · insurers and policy numbers illustrative · broker Kavach Insurance Brokers</span><span>Bar: time left in the policy year</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

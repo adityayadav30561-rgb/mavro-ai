@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Cost Forecasting · Variance review</title>
+<!-- Scenario: see budget-dashboard.html. Variance review VR-0031 on P1-MNT, Plant 1 repairs and maintenance (owner
+     Prakash Nair, plant head; maintenance head Deepak Rane). The alert fired on 6 Oct at 90% of the annual ₹140 L.
+     Bridge, phased budget to date ₹70 L → actual ₹127 L (₹ lakh): breakdown repairs +31.2 (AC-2 air compressor
+     overhaul, HMC-01 ballscrew, CNC-03 coolant pump and others), preventive maintenance catch-up +14.6 (PM hours fell
+     in Aug and Sep; outside contractor to clear the backlog), spares price +6.8 (imported bearings and seals at a
+     weaker rupee), outsourced repairs +4.4. Committed ₹9.4 L: spindle bearing set PR-0463 and the 19 Oct shutdown.
+     Not in actuals yet: today's CNC-03 spindle breakdown (MO-0418), to be claimed on the machinery breakdown policy.
+     Full-year forecast ₹184 L on the run-rate; ₹172 L if PM is back on time by November. Trail: alert 6 Oct, owner's
+     comment 7 Oct, FP&A review 8 Oct (Meenakshi Bhat); the CFO decides whether to transfer budget or carry the
+     overrun into the H2 reforecast. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .br { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; height: 220px; align-items: end; padding: 6px 4px 0; border-bottom: 1px solid var(--line-2); }
+  .br div { position: relative; height: 100%; }
+  .br span { position: absolute; left: 0; right: 0; border-radius: 4px 4px 0 0; }
+  .br .tot span { background: var(--ink); }
+  .br .bud span { background: #c9cfdb; }
+  .br .up span { background: var(--bad); opacity: 0.85; border-radius: 3px; }
+  .br em { position: absolute; left: 0; right: 0; text-align: center; font: 600 12px var(--mono); font-style: normal; color: var(--ink); transform: translateY(-20px); }
+  .bl { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; padding: 8px 4px 0; }
+  .bl span { text-align: center; font-size: 11.5px; color: var(--ink-2); line-height: 1.3; }
+  .tx td { padding-top: 8px; padding-bottom: 8px; }
+  .cm { padding: 11px 12px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--line); font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .cm b { color: var(--ink); display: block; margin-bottom: 3px; font-weight: 600; }
+  .cm small { display: block; margin-top: 5px; color: var(--ink-3); font-size: 11.5px; }
+  .tr li { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 6px 0; font-size: 12.5px; }
+  .tr li::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--line-2); transform: translateY(-1px); }
+  .tr li.done::before { background: var(--ok); }
+  .tr li.now::before { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .tr time { font: 11.5px var(--mono); color: var(--ink-3); }
+  .fy { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .fy div { padding: 9px 11px; border-radius: 9px; border: 1px solid var(--line); }
+  .fy label { display: block; font-size: 11.5px; color: var(--ink-3); }
+  .fy b { font: 620 17px var(--sans); }
+</style>
+</head>
+<body data-module="cost-forecasting" data-view="Variance review" data-crumb="Finance / Cost Forecasting / Variance review / VR-0031" data-org="NP|Northfield Precision|All sites" data-who="Meenakshi Bhat|FP&amp;A manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Variance review · Plant 1 repairs and maintenance &nbsp;<span class="chip bad" style="vertical-align:4px">Over 90%</span></h1>
+      <p>P1-MNT · owner Prakash Nair · alert fired 6 Oct · ₹ lakh, April to date against the phased budget</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Open budget line</span>
+      <span class="btn">Carry into reforecast</span>
+      <span class="btn pri">Send to CFO</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Actual to date</label><div class="v"><strong>₹127.0 L <small>of ₹140 L</small></strong></div><div class="foot"><b class="delta down">91% used</b><span>52% of the year gone</span></div></div>
+    <div class="card kpi"><label>Against phased budget</label><div class="v"><strong>+₹57.0 L</strong></div><div class="foot"><b class="delta down">+81%</b><span>phased ₹70 L to date</span></div></div>
+    <div class="card kpi"><label>Committed</label><div class="v"><strong>₹9.4 L</strong></div><div class="foot"><b class="delta flat">2 open orders</b><span>₹3.6 L left</span></div></div>
+    <div class="card kpi"><label>Full-year forecast</label><div class="v"><strong>₹184 L</strong></div><div class="foot"><b class="delta down">+₹44 L</b><span>₹172 L with the PM fix</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card">
+        <header><h2>Variance bridge</h2><span>phased budget to actual, by cause</span></header>
+        <div class="body" style="padding-top:30px">
+          <div class="br">
+            <div class="bud"><span style="bottom:0;height:55.1%"></span><em style="bottom:55.1%">70.0</em></div>
+            <div class="up"><span style="bottom:55.1%;height:24.6%"></span><em style="bottom:79.7%">+31.2</em></div>
+            <div class="up"><span style="bottom:79.7%;height:11.5%"></span><em style="bottom:91.2%">+14.6</em></div>
+            <div class="up"><span style="bottom:91.2%;height:5.4%"></span><em style="bottom:96.6%">+6.8</em></div>
+            <div class="up"><span style="bottom:96.6%;height:3.4%"></span><em style="bottom:100%">+4.4</em></div>
+            <div class="tot"><span style="bottom:0;height:100%"></span><em style="bottom:100%">127.0</em></div>
+          </div>
+          <div class="bl"><span>Phased budget</span><span>Breakdown repairs</span><span>PM catch-up</span><span>Spares price</span><span>Outsourced repairs</span><span>Actual</span></div>
+        </div>
+      </div>
+      <div class="card flush" style="flex:1 1 auto">
+        <header><h2>Largest postings</h2><span>behind the variance</span><span class="more">All 214</span></header>
+        <div class="body">
+          <table class="tx">
+            <thead><tr><th>Date</th><th>Document</th><th>Asset</th><th>Cause</th><th class="r">₹ lakh</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">18 Jul</td><td class="mono">MO-0362</td><td>AC-2 air compressor<small>overhaul after failure</small></td><td>Breakdown repairs</td><td class="r mono">8.6</td></tr>
+              <tr><td class="mono">22 Aug</td><td class="mono">MO-0381</td><td>HMC-01 machining centre<small>ballscrew replacement</small></td><td>Breakdown repairs</td><td class="r mono">7.4</td></tr>
+              <tr><td class="mono">12 Sep</td><td class="mono">PO-24410</td><td>PM backlog contract<small>outside contractor, 2 shifts</small></td><td>PM catch-up</td><td class="r mono">6.2</td></tr>
+              <tr><td class="mono">27 Sep</td><td class="mono">MO-0398</td><td>CNC-03 turning centre<small>coolant pump</small></td><td>Breakdown repairs</td><td class="r mono">3.1</td></tr>
+              <tr><td class="mono">4 Oct</td><td class="mono">PO-24452</td><td>Bearings and seals<small>imported, priced at ₹84.6 to the dollar</small></td><td>Spares price</td><td class="r mono">2.4</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Owner’s comment</h2><span>7 Oct</span></header>
+        <div class="body" style="padding-top:6px">
+          <div class="cm"><b>Prakash Nair, plant head</b>Breakdowns rose as PM slipped in August and September. A contractor is clearing the backlog; PM back on time by November. Today’s CNC-03 spindle failure is not in actuals yet and goes to the insurer.<small>Asks for a ₹30 L transfer from Plant 1 production overheads.</small></div>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Full year</h2></header>
+        <div class="body" style="padding-top:6px">
+          <div class="fy">
+            <div><label>On the run-rate</label><b style="color:var(--bad)">₹184 L</b></div>
+            <div><label>With the PM fix</label><b>₹172 L</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Review trail</h2></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="tr">
+            <li class="done"><span>Alert at 90% of the annual budget</span><time>6 Oct</time></li>
+            <li class="done"><span>Owner notified, comment added</span><time>7 Oct</time></li>
+            <li class="done"><span>FP&amp;A review, bridge confirmed</span><time>8 Oct</time></li>
+            <li class="now"><span>CFO: transfer or carry into reforecast</span><time>due 10 Oct</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

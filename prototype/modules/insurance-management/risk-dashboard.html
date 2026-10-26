@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Insurance Management · Risk dashboard</title>
+<!--
+  Scenario (Insurance Management, shared by every screen of the module; agrees with Asset Management, Cost
+  Forecasting and Transportation): Northfield Precision, 8 Oct, 14:02. Insurers (fictional): Saptarishi General
+  Insurance and Meghdoot General Insurance; broker Kavach Insurance Brokers. Corporate risk manager: Gopal Shenoy.
+  10 active policies: fire and special perils Plant 1 (₹38.6 Cr) and Chennai (₹21.4 Cr), both renew 30 Nov;
+  machinery breakdown ₹24.8 Cr (the gross block; the 4 Oct additions of ₹38 L await an endorsement), renews 31 Mar;
+  marine inland transit open policy, renews 15 Dec; motor fleet, 32 vehicles, V-09 renews 19 Oct (quote ₹48,600);
+  group mediclaim, 489 employees; group personal accident; employees' compensation; public and product liability;
+  burglary and money. Sum insured on property and machinery ₹84.8 Cr. Premiums this year ₹36.2 L (the ADM-INS budget
+  line, ₹38 L): mediclaim 12.4, fire 10.7, machinery 4.6, marine 2.9, liability 2.2, motor 1.8, others 1.6.
+  Settled this year: CLM-INS-0063 VMC-11 gearbox ₹5.7 L (48 days), CLM-INS-0066 Plant 1 panel room ₹8.9 L (44 days) = ₹14.6 L paid. Claims: CLM-INS-0068 Chennai water ingress 18 Aug (fire policy), ₹6.4 L claimed, ₹5.1 L assessed, settlement
+  offered, day 51; CLM-INS-0070 motor, V-14 accident 21 Sep, surveyed; CLM-INS-0072 draft, CNC-03 spindle breakdown
+  today 11:36 (machinery breakdown), intimation due by 10 Oct 11:36. Transit damage NPO-3306 ₹10,320 is below the
+  ₹25,000 excess: recovered from the transporter, no claim. Average settlement this year: 46 days.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .radar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .radar > div { padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); }
+  .radar > div.hot { background: var(--bad-soft); border-color: #f8cfca; }
+  .radar > div.w { background: var(--warn-soft); border-color: #f5e2b0; }
+  .radar h3 { display: flex; justify-content: space-between; font: 600 12px var(--sans); color: var(--ink-2); }
+  .radar h3 b { font: 650 18px var(--sans); color: var(--ink); }
+  .radar ul { margin-top: 8px; }
+  .radar li { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; font-size: 12.5px; }
+  .radar li + li { border-top: 1px solid rgb(0 0 0 / 0.06); }
+  .radar li span { font: 11.5px var(--mono); color: var(--ink-2); white-space: nowrap; }
+  .cl td { padding-top: 10px; padding-bottom: 10px; }
+  .prem { display: flex; height: 14px; border-radius: 4px; overflow: hidden; gap: 2px; }
+  .prem i { display: block; }
+  .pk { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; margin-top: 12px; font-size: 12px; color: var(--ink-2); }
+  .pk span { display: flex; align-items: center; gap: 6px; }
+  .pk span::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: var(--c); }
+  .pk b { margin-left: auto; font: 600 11.5px var(--mono); color: var(--ink); }
+  .gp li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; }
+  .gp li + li { border-top: 1px solid var(--line); }
+  .gp b { font-weight: 550; }
+  .gp small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .gp .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+</style>
+</head>
+<body data-module="insurance-management" data-view="Risk dashboard" data-crumb="Finance / Insurance Management / Risk dashboard" data-org="NP|Northfield Precision|All sites" data-who="Gopal Shenoy|Corporate risk manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Risk and insurance</h1>
+      <p>10 policies across the group · renewals, claims and coverage on one screen · broker Kavach Insurance Brokers</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Policy register</span>
+      <span class="btn pri">File a claim</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Sum insured, property and machinery</label><div class="v"><strong>₹84.8 Cr</strong></div><div class="foot"><b class="delta flat">10 active policies</b><span>2 insurers</span></div></div>
+    <div class="card kpi"><label>Renewals in 90 days</label><div class="v"><strong>4</strong></div><div class="foot"><b class="delta down">1 in 30 days</b><span>V-09 motor, 19 Oct</span></div></div>
+    <div class="card kpi"><label>Open claims</label><div class="v"><strong>3 <small>1 being filed</small></strong></div><div class="foot"><b class="delta down">intimate by 10 Oct</b><span>CNC-03 breakdown</span></div></div>
+    <div class="card kpi"><label>Average settlement</label><div class="v"><strong>46 <small>days</small></strong><i data-spark="71,66,62,58,55,51,46" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">−25 days</b><span>against last year</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card">
+        <header><h2>Renewal radar</h2><span>quotes requested through the broker at 90 days</span></header>
+        <div class="body">
+          <div class="radar">
+            <div class="hot"><h3>Within 30 days <b>1</b></h3><ul><li>Motor · V-09<span>19 Oct</span></li></ul></div>
+            <div class="w"><h3>31 to 60 days <b>2</b></h3><ul><li>Fire · Plant 1<span>30 Nov</span></li><li>Fire · Chennai<span>30 Nov</span></li></ul></div>
+            <div><h3>61 to 90 days <b>1</b></h3><ul><li>Marine transit, open<span>15 Dec</span></li></ul></div>
+          </div>
+        </div>
+      </div>
+      <div class="card flush" style="flex:1 1 auto">
+        <header><h2>Claims</h2><span>open, recent settlements and plant incidents</span><span class="more">All claims</span></header>
+        <div class="body">
+          <table class="cl">
+            <thead><tr><th>Claim</th><th>Policy</th><th>Incident</th><th class="r">Claimed</th><th>Stage</th><th class="r">Day</th></tr></thead>
+            <tbody>
+              <tr class="hl"><td><b class="mono">CLM-INS-0072</b><small>draft</small></td><td>Machinery breakdown</td><td>CNC-03 spindle failure<small>Plant 1 · today 11:36</small></td><td class="r mono dim">estimating</td><td><span class="chip warn">Intimate by 10 Oct</span></td><td class="r mono">0</td></tr>
+              <tr><td><b class="mono">CLM-INS-0070</b></td><td>Motor fleet</td><td>V-14 accident, Nashik road<small>21 Sep</small></td><td class="r mono">₹1.38 L</td><td><span class="chip blue">Surveyed</span></td><td class="r mono">17</td></tr>
+              <tr><td><b class="mono">CLM-INS-0068</b></td><td>Fire · Chennai</td><td>Water ingress, stores<small>18 Aug</small></td><td class="r mono">₹6.40 L</td><td><span class="chip ok">Settlement offered</span></td><td class="r mono">51</td></tr>
+              <tr><td><b class="mono">NPO-3306</b><small>no claim</small></td><td>Marine transit</td><td>Cartons damaged in transit<small>4 Oct</small></td><td class="r mono">₹10,320</td><td><span class="chip plain">Below excess</span></td><td class="r mono dim">—</td></tr>
+              <tr><td><b class="mono">CLM-INS-0066</b></td><td>Fire · Plant 1</td><td>Short circuit, panel room<small>30 Jul</small></td><td class="r mono">₹9.60 L</td><td><span class="chip ok">Settled ₹8.9 L</span></td><td class="r mono">44</td></tr>
+              <tr><td><b class="mono">CLM-INS-0063</b></td><td>Machinery breakdown</td><td>VMC-11 gearbox, Chennai<small>3 May</small></td><td class="r mono">₹6.20 L</td><td><span class="chip ok">Settled ₹5.7 L</span></td><td class="r mono">48</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Coverage check</h2><span>checked nightly</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="gp">
+            <li><b>4 assets added 4 Oct, ₹38 L</b><small>Not yet endorsed on machinery breakdown</small><span class="chip warn">Endorse</span></li>
+            <li><b>CNC-03 spindle check overdue</b><small>Insurer may question maintenance</small><span class="chip warn">Risk</span></li>
+            <li><b>Marine declaration, September</b><small>Dispatch values sent to the insurer</small><span class="chip ok">Sent</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Renewal quotes</h2><span>through the broker</span></header>
+        <div class="body" style="padding-top:2px">
+          <dl class="kv"><dt>Motor · V-09</dt><dd>₹48,600 <span class="dim">+5.9%</span></dd><dt>Fire · Plant 1</dt><dd>due 25 Oct</dd><dt>Fire · Chennai</dt><dd>due 25 Oct</dd></dl>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Premium this year</h2><span>₹36.2 L of ₹38 L budget</span></header>
+        <div class="body">
+          <div class="prem"><i style="flex:12.4;background:#0a48fd"></i><i style="flex:10.7;background:#4a73ff"></i><i style="flex:4.6;background:#8497ff"></i><i style="flex:2.9;background:#0c9b6a"></i><i style="flex:2.2;background:#b7791f"></i><i style="flex:1.8;background:#8b93a3"></i><i style="flex:1.6;background:#c9cfdb"></i></div>
+          <div class="pk">
+            <span style="--c:#0a48fd">Mediclaim <b>12.4</b></span>
+            <span style="--c:#4a73ff">Fire <b>10.7</b></span>
+            <span style="--c:#8497ff">Machinery <b>4.6</b></span>
+            <span style="--c:#0c9b6a">Marine <b>2.9</b></span>
+            <span style="--c:#b7791f">Liability <b>2.2</b></span>
+            <span style="--c:#8b93a3">Motor <b>1.8</b></span>
+            <span style="--c:#c9cfdb">Others <b>1.6</b></span>
+          </div>
+          <div class="rule"></div>
+          <dl class="kv"><dt>Claims paid this year</dt><dd>₹14.6 L</dd><dt>Claims to premium</dt><dd>40%</dd></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

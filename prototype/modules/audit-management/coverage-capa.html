@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Audit Management · Coverage and CAPA</title>
+<!--
+  Scenario (Audit Management, shared by every screen of the module; agrees with mVLens Vendor Audit, Asset Management
+  and HRMS): Northfield Precision, FY 2026-27, 8 Oct, 14:02. Audit plan: 64 audits. Internal 22 (11 due, 9 done),
+  regulatory 6 (3 / 3), customer 8 (3 / 3), certification 4 (2 / 2), vendor 24 (15 / 14, run in mVLens as AUD-04xx).
+  34 due to date, 31 done (91%); the two internal audits behind are IA-0216 stores (moved to 14 Oct) and IA-0217 HR
+  records (auditor on leave). Open findings 27: critical 1 (AUD-0413 Bharat Heat Treaters), major 7 (vendor 3,
+  internal 3, customer 1), minor 19 (vendor 4, internal 9, regulatory 2, customer 3, certification 1). CAPAs open 21
+  (vendor 8, internal 9, customer 3, regulatory 1), 3 overdue: CAPA-0079 Deccan Tooling (6 days), CAPA-0081 stores 5S
+  (4 days), CAPA-0076 Kestrel Pumps packing (2 days). CAPA-0088, the calibration recall raised after IA-0198 in March,
+  failed its effectiveness check today: torque wrench TW-14, blocked since its calibration expired on 6 Oct, was
+  found in use at ASM-02 during IA-0219. Repeat observations 2: the lapsed operator certification (IA-0198 → IA-0219)
+  and uncoded minor stops (IA-0201 → IA-0219). Coming up: Kestrel Pumps customer audit 17 Oct, Aster Compressors
+  complaint-driven audit about 20 Oct, factory inspection response (inspection 24 Sep, 2 observations) due 24 Oct,
+  ISO 9001 surveillance audit 18 Nov. Internal audit head: Rajesh Gokhale; QA head: Anil Bhosale.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .pl td { padding-top: 8px; padding-bottom: 8px; }
+  .adh { display: flex; align-items: center; gap: 8px; }
+  .adh .meter { width: 80px; min-width: 80px; }
+  .adh span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .sev { display: inline-flex; gap: 4px; }
+  .sev i { min-width: 22px; padding: 1px 5px; border-radius: 5px; text-align: center; font: 600 11.5px var(--mono); font-style: normal; background: var(--surface-2); color: var(--ink-3); }
+  .sev i.c { background: var(--bad); color: #fff; }
+  .sev i.M { background: var(--bad-soft); color: var(--bad); }
+  .sev i.m { background: var(--warn-soft); color: var(--warn); }
+  tr.tot td { font-weight: 600; background: var(--surface-2); }
+  .att li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; }
+  .att li + li { border-top: 1px solid var(--line); }
+  .att b { font-weight: 550; }
+  .att small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .att .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .up li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 1px 10px; padding: 7px 0; }
+  .up li + li { border-top: 1px solid var(--line); }
+  .up time { grid-row: 1 / span 2; font: 600 12px var(--mono); color: var(--ink-2); padding-top: 1px; }
+  .up b { font-weight: 550; }
+  .up small { color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="audit-management" data-view="Coverage and CAPA" data-crumb="Finance / Audit Management / Coverage and CAPA" data-org="NP|Northfield Precision|All sites" data-who="Rajesh Gokhale|Internal audit head">
+<main>
+  <div class="head">
+    <div>
+      <h1>Audit coverage and CAPA health</h1>
+      <p>FY 2026-27 plan · internal, regulatory, customer, certification and vendor audits on one trail</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All sites</span><span>Plant 1 · Pune</span><span>Chennai</span><span>Vendors</span></div>
+      <span class="btn pri">Schedule audit</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Plan adherence</label><div class="v"><strong>91% <small>31 of 34 due</small></strong></div><div class="foot" style="display:flex;align-items:center;gap:8px"><span class="meter" style="flex:1"><i style="width:48.4%"></i></span><span>31 of 64 this year</span></div></div>
+    <div class="card kpi"><label>Open findings</label><div class="v"><strong>27</strong></div><div class="foot"><b class="delta down">1 critical</b><span>7 major · 19 minor</span></div></div>
+    <div class="card kpi"><label>CAPAs open</label><div class="v"><strong>21</strong><i data-spark="26,25,27,24,23,22,21" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta down">3 overdue</b><span>1 reopened today</span></div></div>
+    <div class="card kpi"><label>Repeat observations</label><div class="v"><strong>2</strong></div><div class="foot"><b class="delta down">same finding again</b><span>flagged on IA-0219</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Plan by audit type</h2><span>due to date and open findings: critical, major, minor</span><span class="more">Audit plan</span></header>
+        <div class="body">
+          <table class="pl">
+            <thead><tr><th>Type</th><th class="r">Planned</th><th class="r">Due</th><th class="r">Done</th><th>Adherence</th><th>Open findings</th><th class="r">CAPAs</th></tr></thead>
+            <tbody>
+              <tr><td><b>Internal</b><small>process, system and site audits</small></td><td class="r mono">22</td><td class="r mono">11</td><td class="r mono">9</td><td><div class="adh"><span class="meter warn"><i style="width:82%"></i></span><span>82%</span></div></td><td><span class="sev"><i>0</i><i class="M">3</i><i class="m">9</i></span></td><td class="r mono">9</td></tr>
+              <tr><td><b>Vendor</b><small>run in mVLens</small></td><td class="r mono">24</td><td class="r mono">15</td><td class="r mono">14</td><td><div class="adh"><span class="meter ok"><i style="width:93%"></i></span><span>93%</span></div></td><td><span class="sev"><i class="c">1</i><i class="M">3</i><i class="m">4</i></span></td><td class="r mono">8</td></tr>
+              <tr><td><b>Customer</b><small>second-party audits by buyers</small></td><td class="r mono">8</td><td class="r mono">3</td><td class="r mono">3</td><td><div class="adh"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="sev"><i>0</i><i class="M">1</i><i class="m">3</i></span></td><td class="r mono">3</td></tr>
+              <tr><td><b>Regulatory</b><small>factory, pollution, fire</small></td><td class="r mono">6</td><td class="r mono">3</td><td class="r mono">3</td><td><div class="adh"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="sev"><i>0</i><i>0</i><i class="m">2</i></span></td><td class="r mono">1</td></tr>
+              <tr><td><b>Certification</b><small>ISO 9001, IATF 16949</small></td><td class="r mono">4</td><td class="r mono">2</td><td class="r mono">2</td><td><div class="adh"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td><span class="sev"><i>0</i><i>0</i><i class="m">1</i></span></td><td class="r mono">0</td></tr>
+              <tr class="tot"><td>All audits</td><td class="r mono">64</td><td class="r mono">34</td><td class="r mono">31</td><td><div class="adh"><span class="meter"><i style="width:91%"></i></span><span>91%</span></div></td><td><span class="sev"><i class="c">1</i><i class="M">7</i><i class="m">19</i></span></td><td class="r mono">21</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>CAPAs by month</h2><span>raised and closed with effectiveness verified</span><div class="legend"><span style="--c:#c9cfdb">Raised</span><span style="--c:#0c9b6a">Closed</span></div></header>
+        <div class="body chart-c" data-bars="6,5,9,7,8,6|4,6,8,10,10,7" data-max="10" data-labels="Apr,May,Jun,Jul,Aug,Sep" data-colors="#c9cfdb,#0c9b6a"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Needs attention</h2><span class="more">All</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="att">
+            <li><b>AUD-0413 · Bharat Heat Treaters</b><small>Critical finding · vendor on supply hold</small><span class="chip bad">Critical</span></li>
+            <li><b>CAPA-0088 · calibration recall</b><small>Effectiveness check failed · TW-14 in use</small><span class="chip bad">Reopened</span></li>
+            <li><b>3 CAPAs overdue</b><small>Deccan Tooling, stores 5S, Kestrel packing</small><span class="chip warn">2–6 days</span></li>
+            <li><b>2 repeat observations</b><small>Operator certification, minor stops</small><span class="chip warn">Repeat</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Coming up</h2><span>next six weeks</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="up">
+            <li><time>14 Oct</time><b>IA-0216 · Stores</b><small>internal · moved from 30 Sep</small></li>
+            <li><time>17 Oct</time><b>Kestrel Pumps</b><small>customer audit · Plant 1</small></li>
+            <li><time>20 Oct</time><b>Aster Compressors</b><small>customer audit after a complaint</small></li>
+            <li><time>24 Oct</time><b>Factory inspection response</b><small>regulatory · 2 observations</small></li>
+            <li><time>18 Nov</time><b>ISO 9001 surveillance</b><small>certification · both plants</small></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -1,11 +1,11 @@
 # Status
 
-_Last updated: 2026-10-24. Update this file at the end of every task and before clearing context._
+_Last updated: 2026-10-26. Update this file at the end of every task and before clearing context._
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–16 done (2026-10-26); next: Phase 17, Cost Forecasting, Audit
-Management and Insurance Management (deck slides 74, 80, 100).** The
+**Stage C (phased implementation). Phases 1–17 done (2026-10-26); next: Phase 18, Auction and Bidding, Real
+Estate Management and Learning Management.** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,31 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-26, **Phase 17 done: Cost Forecasting, Audit Management and Insurance Management pages.** On `main`.
+  - **Screens (12 new, no phone):** Cost Forecasting `budget-dashboard` (lead), `budget-lines`, `forecast-wizard`,
+    `variance-review`; Audit Management `coverage-capa` (lead), `audit-execution`, `capa-closure`, `audit-register`;
+    Insurance `risk-dashboard` (lead), `policy-register`, `file-claim`, `claim-tracking`. Crumbs under "Finance".
+    Content files from deck v2 slides 74, 80, 100; the three premium spotlight mocks in catalogue.ts now match.
+  - **Scenario, cost (Northfield, FY 2026-27, 8 Oct, 52% of the year):** budget ₹43.74 Cr, spent ₹22.93 Cr; Plant 1
+    repairs and maintenance (P1-MNT, owner Prakash Nair) at 91% of ₹140 L, alert 6 Oct, variance review VR-0031:
+    phased ₹70 L → ₹127 L (breakdowns +31.2, PM catch-up +14.6, spares price +6.8, outsourced +4.4); full year ₹184 L,
+    ₹172 L with the PM fix. H2 reforecast FC-2026-H2: drivers +89 (volume, USD/INR, power, wage DA, freight) plus
+    the repairs run-rate +44 = base ₹45.07 Cr; optimistic ₹44.88 Cr, stress ₹45.26 Cr. FP&A Meenakshi Bhat, CFO Ashok
+    Rathi. Insurance premiums line ADM-INS ₹38 L, ₹36.2 L paid upfront, alert suppressed.
+  - **Scenario, audit:** plan 64 audits (31 of 34 due done); 27 open findings (1 critical AUD-0413, 7 major, 19
+    minor); 21 CAPAs, 3 overdue (CAPA-0079 Deccan Tooling, CAPA-0081 stores 5S, CAPA-0076 Kestrel packing). IA-0219
+    (machining, Plant 1, auditor Rekha Iyengar from Chennai QA): blocked TW-14 found in use at ASM-02 (major), which
+    reopens CAPA-0088 (calibration recall from IA-0198); repeats: Yogesh Dhumal's lapsed certification, uncoded minor
+    stops. Shares the CAPA-00xx series with mVLens. Internal audit head Rajesh Gokhale; QA head Anil Bhosale.
+    Coming up: IA-0216 stores 14 Oct, Kestrel CA-0013 17 Oct, Aster ~20 Oct, factory inspection reply RG-0024 24 Oct,
+    ISO 9001 surveillance 18 Nov.
+  - **Scenario, insurance (fictional insurers Saptarishi General and Meghdoot General, broker Kavach; risk manager
+    Gopal Shenoy):** 10 policies, ₹84.8 Cr property and machinery; machinery breakdown ₹24.8 Cr on 1,142 assets
+    (₹38 L of 4 Oct additions to endorse); renewals: V-09 motor 19 Oct, both fire policies 30 Nov, marine 15 Dec.
+    New claim CLM-INS-0072 drafted from MO-0418 (CNC-03 spindle, ~₹3.4 L after the ₹50,000 excess, intimate by 10 Oct
+    11:36, PM-2207 overdue warning). CLM-INS-0068 Chennai water ingress: ₹6.40 L claimed, ₹5.10 L offered, day 51.
+    NPO-3306 transit damage below excess, recovered from the transporter.
 
 - 2026-10-26, **Phase 16 done: PPDS, Shop Floor Control and FSC Portal pages.** On `main`.
   - **FSC Portal decided by the user:** the deck uses the name twice (slide 10 and the slide 23 story: forest
@@ -580,11 +605,9 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 17: Cost Forecasting, Audit Management, Insurance Management** (v2 slides 74, 80, 100). Ties already on
-   the site: Asset Management's insurance (₹52 L cover on CNC-03, 4 October additions not yet endorsed), mVLens audits
-   (Audit Management is internal/compliance audit, keep them distinct), Accounting's budgets.
-2. Then Phase 18 (Auction and Bidding, Real Estate Management, Learning Management): AUC-0091 (castings) is the MRP
-   auction drafted in PPDS; Yogesh Dhumal's 5-axis re-certification on 10 Oct belongs to Learning Management.
+1. **Phase 18: Auction and Bidding, Real Estate Management, Learning Management.** AUC-0091 (castings) is the MRP
+   auction drafted in PPDS; Yogesh Dhumal's 5-axis re-certification on 10 Oct and the repeat audit finding on it
+   (IA-0219, CAPA-0086) belong to Learning Management.
 
 ## Open items (need the user or real assets)
 

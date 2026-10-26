@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Audit Management · Audit register</title>
+<!-- Scenario: see coverage-capa.html. The audit register since 1 Sep (11 of 19 shown): internal, vendor (from
+     mVLens), customer, regulatory and certification audits with auditee, auditor, checklist, findings by severity,
+     result and status. Includes IA-0219 (today, in progress), AUD-0413 Bharat Heat Treaters (critical, report
+     awaiting approval in mVLens), the factory inspection RG-0024 on 24 Sep (2 observations, response due 24 Oct),
+     the upcoming Kestrel Pumps audit CA-0013 (17 Oct) and IA-0216 stores moved to 14 Oct. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 12px; padding-bottom: 12px; }
+  .ty { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; font-weight: 550; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .sev { display: inline-flex; gap: 4px; }
+  .sev i { min-width: 22px; padding: 1px 5px; border-radius: 5px; text-align: center; font: 600 11.5px var(--mono); font-style: normal; background: var(--surface-2); color: var(--ink-3); }
+  .sev i.c { background: var(--bad); color: #fff; }
+  .sev i.M { background: var(--bad-soft); color: var(--bad); }
+  .sev i.m { background: var(--warn-soft); color: var(--warn); }
+  .res { font-size: 12px; font-weight: 600; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body data-module="audit-management" data-view="Audit register" data-crumb="Finance / Audit Management / Audit register" data-org="NP|Northfield Precision|All sites" data-who="Rajesh Gokhale|Internal audit head">
+<main>
+  <div class="head">
+    <div>
+      <h1>Audit register</h1>
+      <p>Every audit across sites, vendors and functions, with its checklist, findings, result and evidence trail</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">Schedule audit</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Date <b>Since 1 Sep</b></span>
+    <span class="filter">Type <b>All</b></span>
+    <span class="filter">Site <b>All</b></span>
+    <span class="filter">Status <b>All</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Audit, auditee or auditor</div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Audits since 1 Sep</label><strong>19 <small>5 types</small></strong></div>
+    <div class="card sm"><label>Closed</label><strong>11</strong></div>
+    <div class="card sm"><label>Reports to approve</label><strong style="color:var(--warn)">3 <small>vendor</small></strong></div>
+    <div class="card sm"><label>In progress or scheduled</label><strong>5</strong></div>
+    <div class="card sm"><label>Findings raised</label><strong>23 <small>1 critical · 6 major</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Audit</th><th>Type</th><th>Auditee</th><th>Auditor</th><th>Date</th><th>Checklist</th><th>Findings</th><th>Result</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">CA-0013</b></td><td><span class="ty">Customer</span></td><td>Plant 1 · Pune</td><td>Kestrel Pumps</td><td class="mono">17 Oct</td><td>Customer checklist</td><td class="dim">—</td><td class="dim">—</td><td><span class="chip plain">Scheduled</span></td></tr>
+          <tr><td><b class="mono">IA-0216</b></td><td><span class="ty">Internal</span></td><td>Stores · Plant 1</td><td>Meera Joshi</td><td class="mono">14 Oct<small>moved from 30 Sep</small></td><td>Stores and inventory v2</td><td class="dim">—</td><td class="dim">—</td><td><span class="chip warn">Rescheduled</span></td></tr>
+          <tr class="hl"><td><b class="mono">IA-0219</b></td><td><span class="ty">Internal</span></td><td>Machining · Plant 1</td><td>Rekha Iyengar<small>QA Chennai</small></td><td class="mono">8 Oct</td><td>ISO 9001 · Production v3</td><td><span class="sev"><i>0</i><i class="M">1</i><i class="m">2</i></span></td><td class="dim">open</td><td><span class="chip blue">In progress</span></td></tr>
+          <tr><td><b class="mono">AUD-0415</b></td><td><span class="ty">Vendor</span></td><td>Shree Ganesh Packaging</td><td>Neha Kulkarni</td><td class="mono">2 Oct</td><td>Packaging supplier v1</td><td><span class="sev"><i>0</i><i class="M">1</i><i class="m">2</i></span></td><td class="res" style="color:var(--warn)">Observations</td><td><span class="chip warn">To approve</span></td></tr>
+          <tr><td><b class="mono">AUD-0414</b></td><td><span class="ty">Vendor</span></td><td>Precision Tooling Co.</td><td>Neha Kulkarni</td><td class="mono">30 Sep</td><td>Tooling supplier v2</td><td><span class="sev"><i>0</i><i>0</i><i class="m">1</i></span></td><td class="res" style="color:var(--ok)">Acceptable</td><td><span class="chip warn">To approve</span></td></tr>
+          <tr><td><b class="mono">AUD-0413</b></td><td><span class="ty">Vendor</span></td><td>Bharat Heat Treaters</td><td>External agency</td><td class="mono">26 Sep</td><td>Heat treatment process v2</td><td><span class="sev"><i class="c">1</i><i class="M">2</i><i class="m">1</i></span></td><td class="res" style="color:var(--bad)">Not acceptable</td><td><span class="chip warn">To approve</span></td></tr>
+          <tr><td><b class="mono">RG-0024</b></td><td><span class="ty">Regulatory</span></td><td>Chennai plant</td><td>Factory inspector</td><td class="mono">24 Sep</td><td>Factories Act inspection</td><td><span class="sev"><i>0</i><i>0</i><i class="m">2</i></span></td><td class="res" style="color:var(--warn)">2 observations</td><td><span class="chip warn">Reply 24 Oct</span></td></tr>
+          <tr><td><b class="mono">IA-0214</b></td><td><span class="ty">Internal</span></td><td>Dispatch · Plant 1</td><td>Rekha Iyengar</td><td class="mono">19 Sep</td><td>Dispatch and packing v2</td><td><span class="sev"><i>0</i><i>0</i><i class="m">1</i></span></td><td class="res" style="color:var(--ok)">Conforms</td><td><span class="chip ok">Closed</span></td></tr>
+          <tr><td><b class="mono">CA-0012</b></td><td><span class="ty">Customer</span></td><td>Plant 1 · Pune</td><td>Aster Compressors</td><td class="mono">11 Sep</td><td>Customer checklist</td><td><span class="sev"><i>0</i><i class="M">1</i><i class="m">1</i></span></td><td class="res" style="color:var(--warn)">With actions</td><td><span class="chip blue">CAPA open</span></td></tr>
+          <tr><td><b class="mono">CB-0007</b></td><td><span class="ty">Certification</span></td><td>Both plants</td><td>Certification body</td><td class="mono">4 Sep</td><td>IATF 16949 surveillance</td><td><span class="sev"><i>0</i><i>0</i><i class="m">1</i></span></td><td class="res" style="color:var(--ok)">Retained</td><td><span class="chip ok">Closed</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 10 of 19 audits since 1 Sep · vendor audits come from mVLens</span><span>Auditors never audit their own area</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

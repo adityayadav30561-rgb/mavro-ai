@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Audit Management · CAPA closure</title>
+<!-- Scenario: see coverage-capa.html. The CAPA closure queue: 21 open CAPAs, 9 shown. A CAPA moves through root cause,
+     action, evidence and an effectiveness check before it closes; closure needs effectiveness evidence, not just the
+     action done. CAPA-0088 (calibration recall, from IA-0198 in March, owner Anil Bhosale, QA head): action done in
+     May (instruments past due blocked in Asset Management, a weekly recall list to each line), evidence on record; the
+     effectiveness check today failed because TW-14, blocked since 6 Oct, was found in use at ASM-02 during IA-0219.
+     Reopened at root cause: blocking the record does not take the tool off the station. Proposed: physical quarantine
+     tag on expiry, the line supervisor confirms withdrawal in the app, and the gauge crib issues tools against a scan
+     that refuses blocked ones. Overdue: CAPA-0079 Deccan Tooling 6 days, CAPA-0081 stores 5S 4 days, CAPA-0076
+     Kestrel Pumps packing 2 days. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 360px; flex: 1; }
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 260px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .q td { padding-top: 11px; padding-bottom: 11px; }
+  .stg { display: flex; gap: 3px; }
+  .stg i { width: 20px; height: 6px; border-radius: 3px; background: #e3e6ec; }
+  .stg i.d { background: var(--ok); }
+  .stg i.n { background: var(--accent); }
+  .stg i.x { background: var(--bad); }
+  .stl { display: block; margin-top: 4px; font-size: 11.5px; color: var(--ink-3); }
+  .od { color: var(--bad); font-weight: 600; }
+  tr.sel td { background: var(--accent-soft); }
+  tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+  .det .body { display: flex; flex-direction: column; gap: 12px; }
+  .chk li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 2px 10px; padding: 8px 0; font-size: 12.5px; line-height: 1.35; }
+  .chk li + li { border-top: 1px solid var(--line); }
+  .chk i { grid-row: 1 / span 2; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .chk i.x { background: var(--bad-soft); color: var(--bad); }
+  .chk i.n { background: var(--accent-soft); color: var(--accent-ink); }
+  .chk small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .why { padding: 10px 12px; border-radius: 10px; background: var(--bad-soft); border: 1px solid #f8cfca; font-size: 12.5px; color: #8c2a22; line-height: 1.45; }
+  .why b { color: var(--bad); }
+  .act li { display: flex; gap: 8px; padding: 4px 0; font-size: 12.5px; line-height: 1.4; color: var(--ink-2); }
+  .act li::before { content: ''; flex: none; width: 6px; height: 6px; margin-top: 6px; border-radius: 50%; background: var(--accent); }
+  .foot { display: flex; justify-content: space-between; margin-top: auto; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .lbl { font-size: 11.5px; color: var(--ink-3); }
+  .bt { display: flex; gap: 8px; margin-top: auto; }
+  .bt .btn { flex: 1; justify-content: center; }
+</style>
+</head>
+<body data-module="audit-management" data-view="CAPA closure" data-crumb="Finance / Audit Management / CAPA closure" data-org="NP|Northfield Precision|All sites" data-who="Anil Bhosale|QA head">
+<main>
+  <div class="head">
+    <div>
+      <h1>CAPA closure queue</h1>
+      <p>21 open corrective and preventive actions · a CAPA closes only when its effectiveness is verified</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">Raise CAPA</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Status <b>Open</b></span>
+    <span class="filter">Source <b>All audits</b></span>
+    <span class="filter">Owner <b>All</b></span>
+    <span class="filter">Sort <b>Due date</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>CAPA, finding or owner</div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Open CAPAs</h2><span>root cause · action · evidence · effectiveness</span></header>
+      <div class="body">
+        <table class="q">
+          <thead><tr><th>CAPA</th><th>From</th><th>Owner</th><th>Stage</th><th>Due</th></tr></thead>
+          <tbody>
+            <tr><td><b class="mono">CAPA-0079</b><small>Returnable fixtures not tracked</small></td><td class="mono">AUD-0402<small>vendor</small></td><td>Deccan Tooling</td><td><span class="stg"><i class="d"></i><i class="n"></i><i></i><i></i></span><span class="stl">Action · vendor response</span></td><td class="mono od">2 Oct<small>6 days over</small></td></tr>
+            <tr><td><b class="mono">CAPA-0081</b><small>Stores 5S and bin labels</small></td><td class="mono">IA-0207<small>internal</small></td><td>Sachin Kale</td><td><span class="stg"><i class="d"></i><i class="d"></i><i class="n"></i><i></i></span><span class="stl">Evidence</span></td><td class="mono od">4 Oct<small>4 days over</small></td></tr>
+            <tr><td><b class="mono">CAPA-0076</b><small>Packing damage on export cartons</small></td><td class="mono">CA-0011<small>Kestrel Pumps</small></td><td>Farhan Shaikh</td><td><span class="stg"><i class="d"></i><i class="d"></i><i class="n"></i><i></i></span><span class="stl">Evidence</span></td><td class="mono od">6 Oct<small>2 days over</small></td></tr>
+            <tr class="sel"><td><b class="mono">CAPA-0088</b><small>Calibration recall</small></td><td class="mono">IA-0198<small>internal</small></td><td>Anil Bhosale</td><td><span class="stg"><i class="d"></i><i class="d"></i><i class="d"></i><i class="x"></i></span><span class="stl" style="color:var(--bad)">Effectiveness failed</span></td><td class="mono">Reopened<small>today</small></td></tr>
+            <tr><td><b class="mono">CAPA-0084</b><small>Die maintenance log per die</small></td><td class="mono">AUD-0406<small>vendor</small></td><td>Aravali Castings</td><td><span class="stg"><i class="d"></i><i class="d"></i><i class="d"></i><i class="n"></i></span><span class="stl">Effectiveness · to verify</span></td><td class="mono">12 Oct</td></tr>
+            <tr><td><b class="mono">CAPA-0087</b><small>Mill certificate per bundle</small></td><td class="mono">AUD-0408<small>vendor</small></td><td>Mehta Alloys</td><td><span class="stg"><i class="d"></i><i class="d"></i><i class="d"></i><i class="n"></i></span><span class="stl">Effectiveness · to verify</span></td><td class="mono">15 Oct</td></tr>
+            <tr><td><b class="mono">CAPA-0089</b><small>Fire exit kept clear, Chennai</small></td><td class="mono">RG-0024<small>factory inspection</small></td><td>R. Subramanian</td><td><span class="stg"><i class="d"></i><i class="d"></i><i class="n"></i><i></i></span><span class="stl">Evidence</span></td><td class="mono">20 Oct</td></tr>
+            <tr><td><b class="mono">CAPA-0090</b><small>Packing label shows cure date</small></td><td class="mono">AUD-0410<small>vendor</small></td><td>Nova Seals</td><td><span class="stg"><i class="d"></i><i class="d"></i><i class="d"></i><i class="n"></i></span><span class="stl">Effectiveness · to verify</span></td><td class="mono">22 Oct</td></tr>
+            <tr><td><b class="mono">CAPA-0086</b><small>Operator certification renewals</small></td><td class="mono">IA-0198<small>internal</small></td><td>Kavita Joshi</td><td><span class="stg"><i class="d"></i><i class="n"></i><i></i><i></i></span><span class="stl">Action · repeat finding</span></td><td class="mono">31 Oct</td></tr>
+            <tr><td><b class="mono">CAPA-0091</b><small>Torque values on the router card</small></td><td class="mono">CA-0012<small>Aster Compressors</small></td><td>Prakash Nair</td><td><span class="stg"><i class="n"></i><i></i><i></i><i></i></span><span class="stl">Root cause</span></td><td class="mono">5 Nov</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="foot"><span>Showing 10 of 21 · 45 closed and verified since April</span><span>Overdue CAPAs escalate to the plant head after 7 days</span></div>
+    </div>
+
+    <div class="card det">
+      <header><h2>CAPA-0088</h2><span>calibration recall</span><span class="chip bad" style="margin-left:auto">Reopened</span></header>
+      <div class="body" style="padding-top:2px">
+        <ul class="chk">
+          <li><i>✓</i><span>Root cause<small>No recall list; expired tools stayed on the lines</small></span></li>
+          <li><i>✓</i><span>Action done, May<small>Expired instruments blocked; weekly recall list to each line</small></span></li>
+          <li><i>✓</i><span>Evidence on record<small>Recall lists May–Sep · 212 instruments</small></span></li>
+          <li><i class="x">✕</i><span>Effectiveness check, 8 Oct<small>Failed during IA-0219</small></span></li>
+        </ul>
+        <div class="why"><b>TW-14</b>, blocked since its calibration expired on 6 Oct, was in use at ASM-02. Blocking the record does not take the tool off the station.</div>
+        <div>
+          <span class="lbl">Proposed actions</span>
+          <ul class="act">
+            <li>Quarantine tag on the tool the day it expires</li>
+            <li>Line supervisor confirms withdrawal in the app</li>
+            <li>Gauge crib issues tools by scan and refuses blocked ones</li>
+          </ul>
+        </div>
+        <dl class="kv"><dt>Owner</dt><dd>Anil Bhosale</dd><dt>New due date</dt><dd>31 Oct</dd><dt>Effectiveness check</dt><dd>Next audit, Dec</dd></dl>
+        <div class="bt"><span class="btn">Reassign</span><span class="btn pri">Restart at root cause</span></div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

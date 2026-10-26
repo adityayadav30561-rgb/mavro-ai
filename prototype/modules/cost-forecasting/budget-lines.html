@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Cost Forecasting · Budget lines</title>
+<!-- Scenario: see budget-dashboard.html. The budget lines register: 64 lines (cost centre × GL account) for FY 2026-27,
+     10 shown, filtered to lines over 45% used. Per line (₹ lakh): annual budget, phasing, actual to date, committed
+     (open purchase and work orders), available = budget − actual − committed, used = (actual + committed) / budget.
+     P1-MNT repairs and maintenance: 140, actual 127, committed 9.4 (spindle bearing set PR-0463 and the 19 Oct
+     shutdown contract), available 3.6, 97% with commitments: alert. Insurance premiums (ADM-INS): 38, paid upfront
+     36.2, phased, alert suppressed. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 10px; padding-bottom: 10px; }
+  .use { display: flex; align-items: center; gap: 7px; }
+  .use .meter { display: flex; width: 70px; min-width: 70px; }
+  .use .meter i { border-radius: 0; }
+  .use .meter i + i { background: #8497ff; }
+  .use .meter.bad i:first-child { background: var(--bad); }
+  .use span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .ph { font-size: 11.5px; color: var(--ink-2); }
+  tr.al td { background: #fff7f6; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+  .foot i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin: 0 5px 0 12px; background: var(--accent); }
+  .foot i.c { background: #8497ff; }
+</style>
+</head>
+<body data-module="cost-forecasting" data-view="Budget lines" data-crumb="Finance / Cost Forecasting / Budget lines" data-org="NP|Northfield Precision|All sites" data-who="Meenakshi Bhat|FP&amp;A manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Budget lines</h1>
+      <p>FY 2026-27 · every cost centre and account with its phasing, actuals, commitments and what is left</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Import from sheet</span>
+      <span class="btn">Export</span>
+      <span class="btn pri">Transfer budget</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Year <b>FY 2026-27</b></span>
+    <span class="filter">Site <b>All</b></span>
+    <span class="filter">Used <b>Over 45%</b></span>
+    <span class="filter">Status <b>All</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Cost centre, account or owner</div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Budget lines</label><strong>64 <small>on 10 cost centres</small></strong></div>
+    <div class="card sm"><label>Annual budget</label><strong>₹43.74 Cr</strong></div>
+    <div class="card sm"><label>Actual to date</label><strong>₹22.93 Cr <small>52.4%</small></strong></div>
+    <div class="card sm"><label>Committed</label><strong>₹1.84 Cr <small>open orders</small></strong></div>
+    <div class="card sm"><label>Alerts</label><strong style="color:var(--bad)">1 <small>1 suppressed</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Cost centre</th><th>Account</th><th>Owner</th><th>Phasing</th><th class="r">Budget</th><th class="r">Actual</th><th class="r">Committed</th><th class="r">Available</th><th>Used</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="al"><td><b class="mono">P1-MNT</b><small>Plant 1 maintenance</small></td><td>Repairs, plant and machinery</td><td>Prakash Nair</td><td class="ph">Even</td><td class="r mono">140.0</td><td class="r mono">127.0</td><td class="r mono">9.4</td><td class="r mono" style="color:var(--bad)">3.6</td><td><div class="use"><span class="meter bad"><i style="width:90.7%"></i><i style="width:6.7%"></i></span><span>97%</span></div></td><td><span class="chip bad">Alert</span></td></tr>
+          <tr><td><b class="mono">ADM-INS</b><small>Corporate risk</small></td><td>Insurance premiums</td><td>Gopal Shenoy</td><td class="ph">Upfront, April</td><td class="r mono">38.0</td><td class="r mono">36.2</td><td class="r mono">—</td><td class="r mono">1.8</td><td><div class="use"><span class="meter"><i style="width:95%"></i></span><span>95%</span></div></td><td><span class="chip plain">Phased</span></td></tr>
+          <tr><td><b class="mono">SM-SCH</b><small>Trade schemes</small></td><td>Schemes and rebates</td><td>Vikram Shah</td><td class="ph">Festive, Sep–Nov</td><td class="r mono">60.0</td><td class="r mono">42.6</td><td class="r mono">6.4</td><td class="r mono">11.0</td><td><div class="use"><span class="meter warn"><i style="width:71%"></i><i style="width:10.7%"></i></span><span>82%</span></div></td><td><span class="chip warn">Watch</span></td></tr>
+          <tr><td><b class="mono">CH-PWR</b><small>Chennai plant</small></td><td>Power and fuel</td><td>R. Subramanian</td><td class="ph">Seasonal</td><td class="r mono">168.0</td><td class="r mono">102.5</td><td class="r mono">—</td><td class="r mono">65.5</td><td><div class="use"><span class="meter warn"><i style="width:61%"></i></span><span>61%</span></div></td><td><span class="chip warn">Watch</span></td></tr>
+          <tr><td><b class="mono">LOG-OUT</b><small>Logistics</small></td><td>Outbound freight</td><td>Farhan Shaikh</td><td class="ph">By volume</td><td class="r mono">520.0</td><td class="r mono">284.0</td><td class="r mono">18.6</td><td class="r mono">217.4</td><td><div class="use"><span class="meter"><i style="width:54.6%"></i><i style="width:3.6%"></i></span><span>58%</span></div></td><td><span class="chip ok">On plan</span></td></tr>
+          <tr><td><b class="mono">P1-PRD</b><small>Plant 1 production</small></td><td>Consumables and tooling</td><td>Prakash Nair</td><td class="ph">By volume</td><td class="r mono">186.0</td><td class="r mono">101.2</td><td class="r mono">12.8</td><td class="r mono">72.0</td><td><div class="use"><span class="meter"><i style="width:54.4%"></i><i style="width:6.9%"></i></span><span>61%</span></div></td><td><span class="chip ok">On plan</span></td></tr>
+          <tr><td><b class="mono">IT-SW</b><small>Information technology</small></td><td>Software subscriptions</td><td>Harish Menon</td><td class="ph">Even</td><td class="r mono">54.0</td><td class="r mono">31.4</td><td class="r mono">2.2</td><td class="r mono">20.4</td><td><div class="use"><span class="meter"><i style="width:58.1%"></i><i style="width:4.1%"></i></span><span>62%</span></div></td><td><span class="chip ok">On plan</span></td></tr>
+          <tr><td><b class="mono">P1-PRD</b><small>Plant 1 production</small></td><td>Power and fuel</td><td>Prakash Nair</td><td class="ph">Seasonal</td><td class="r mono">420.0</td><td class="r mono">214.6</td><td class="r mono">—</td><td class="r mono">205.4</td><td><div class="use"><span class="meter"><i style="width:51.1%"></i></span><span>51%</span></div></td><td><span class="chip ok">On plan</span></td></tr>
+          <tr><td><b class="mono">HR-PLT</b><small>Employee costs</small></td><td>Wages, plant staff</td><td>Kavita Joshi</td><td class="ph">Even</td><td class="r mono">640.0</td><td class="r mono">318.4</td><td class="r mono">—</td><td class="r mono">321.6</td><td><div class="use"><span class="meter"><i style="width:49.8%"></i></span><span>50%</span></div></td><td><span class="chip ok">On plan</span></td></tr>
+          <tr><td><b class="mono">P1-QA</b><small>Plant 1 quality</small></td><td>Calibration and testing</td><td>Anil Bhosale</td><td class="ph">Even</td><td class="r mono">18.0</td><td class="r mono">8.9</td><td class="r mono">1.2</td><td class="r mono">7.9</td><td><div class="use"><span class="meter"><i style="width:49.4%"></i><i style="width:6.7%"></i></span><span>56%</span></div></td><td><span class="chip ok">On plan</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 10 of 38 lines over 45% used · alerts at 90% of the annual budget, or of the phased budget to date</span><span><i></i>Actual<i class="c"></i>Committed</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

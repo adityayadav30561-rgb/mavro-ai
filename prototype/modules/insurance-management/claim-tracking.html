@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Insurance Management · Claim tracking</title>
+<!-- Scenario: see risk-dashboard.html. CLM-INS-0068: rainwater entered the Chennai plant stores on 18 Aug, under
+     fire and special perils SGI/FP/26/1183 (Saptarishi General; inundation is a named peril). Intimated the same
+     day at 19:20; surveyor appointed 19 Aug (Ramesh Kumar, licensed surveyor), visit 20 Aug; documents complete
+     2 Sep; survey report 24 Sep; settlement offered 7 Oct. Claimed ₹6.40 L (packing material 2.10, finished goods
+     3.05, racking and repairs 1.25). Assessed ₹5.10 L: salvage −0.20 (wet cartons sold for scrap), depreciation on
+     racking −0.10, policy excess −1.00. Today is day 51. Next: the discharge voucher is signed and the money comes by
+     NEFT, usually within 7 days. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols3 { grid-template-columns: 300px minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .tl { position: relative; }
+  .tl li { position: relative; display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; }
+  .tl li::after { content: ''; position: absolute; left: 6px; top: 26px; bottom: -9px; width: 2px; background: var(--line); }
+  .tl li:last-child::after { display: none; }
+  .tl i { grid-row: 1 / span 2; width: 14px; height: 14px; margin-top: 2px; border-radius: 50%; background: var(--ok); z-index: 1; }
+  .tl i.n { background: #fff; border: 3px solid var(--accent); }
+  .tl i.o { background: #fff; border: 2px solid #d5d9e2; }
+  .tl b { font-weight: 550; font-size: 12.5px; }
+  .tl small { grid-column: 2; color: var(--ink-3); font-size: 11.5px; }
+  .tl time { grid-row: 1; grid-column: 3; font: 11.5px var(--mono); color: var(--ink-2); }
+  .tl li.next b { color: var(--ink-3); font-weight: 500; }
+  .br td { padding-top: 13px; padding-bottom: 13px; }
+  .br .neg { color: var(--bad); }
+  tr.sub td { background: var(--surface-2); font-weight: 600; }
+  tr.fin td { font-weight: 650; font-size: 14px; border-top: 2px solid var(--line-2); }
+  .bars { margin-top: 4px; }
+  .bars div { display: grid; grid-template-columns: 76px minmax(0, 1fr) 52px; gap: 10px; align-items: center; padding: 6px 0; font-size: 12px; color: var(--ink-2); }
+  .bars span.b { height: 12px; border-radius: 3px; background: var(--accent); }
+  .bars span.b.g { background: #c9cfdb; }
+  .bars span.b.o { background: var(--ok); }
+  .bars em { font: 600 11.5px var(--mono); font-style: normal; color: var(--ink); text-align: right; }
+  .docs li { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0; font-size: 12.5px; }
+  .docs li + li { border-top: 1px solid var(--line); }
+  .docs i { height: 30px; border-radius: 7px; display: grid; place-items: center; font: 650 9.5px var(--mono); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .docs small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .docs time { font: 11.5px var(--mono); color: var(--ink-3); }
+  .nx { padding: 11px 12px; border-radius: 10px; background: var(--ok-soft); border: 1px solid #c8ecdc; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+  .nx b { color: var(--ok); }
+</style>
+</head>
+<body data-module="insurance-management" data-view="Claims" data-crumb="Finance / Insurance Management / Claims / CLM-INS-0068" data-org="NP|Northfield Precision|Chennai plant" data-who="Gopal Shenoy|Corporate risk manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>CLM-INS-0068 · water ingress, Chennai stores &nbsp;<span class="chip ok" style="vertical-align:4px">Settlement offered</span></h1>
+      <p>Fire and special perils SGI/FP/26/1183 · Saptarishi General · inundation · through Kavach Insurance Brokers</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Raise a query</span>
+      <span class="btn pri">Accept and sign discharge</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Claimed</label><div class="v"><strong>₹6.40 L</strong></div><div class="foot"><b class="delta flat">3 heads of loss</b><span>stock and racking</span></div></div>
+    <div class="card kpi"><label>Assessed by the surveyor</label><div class="v"><strong>₹5.10 L</strong></div><div class="foot"><b class="delta flat">80% of claimed</b><span>after the ₹1 L excess</span></div></div>
+    <div class="card kpi"><label>Days open</label><div class="v"><strong>51</strong></div><div class="foot"><b class="delta flat">average 46</b><span>for settled claims</span></div></div>
+    <div class="card kpi"><label>Intimated</label><div class="v"><strong>Same day</strong></div><div class="foot"><b class="delta up">within 24 h</b><span>18 Aug, 19:20</span></div></div>
+  </div>
+
+  <div class="grid cols3">
+    <div class="card">
+      <header><h2>Progress</h2><span>intimation to settlement</span></header>
+      <div class="body" style="padding-top:2px">
+        <ul class="tl">
+          <li><i></i><b>Incident</b><small>Rain enters the stores</small><time>18 Aug</time></li>
+          <li><i></i><b>Intimated to insurer</b><small>through the broker, 19:20</small><time>18 Aug</time></li>
+          <li><i></i><b>Surveyor appointed</b><small>Ramesh Kumar, licensed</small><time>19 Aug</time></li>
+          <li><i></i><b>Survey visit</b><small>stores and stock inspected</small><time>20 Aug</time></li>
+          <li><i></i><b>Documents complete</b><small>11 documents</small><time>2 Sep</time></li>
+          <li><i></i><b>Survey report</b><small>loss assessed at ₹5.10 L</small><time>24 Sep</time></li>
+          <li><i class="n"></i><b>Settlement offered</b><small>discharge voucher to sign</small><time>7 Oct</time></li>
+          <li class="next"><i class="o"></i><b>Paid by NEFT</b><small>usually within 7 days</small><time></time></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Claimed to assessed</h2><span>₹ lakh, from the survey report</span></header>
+        <div class="body">
+          <table class="br">
+            <thead><tr><th>Item</th><th>Basis</th><th class="r">₹ lakh</th></tr></thead>
+            <tbody>
+              <tr><td><b>Packing material</b></td><td class="dim">cartons and pallets, at cost</td><td class="r mono">2.10</td></tr>
+              <tr><td><b>Finished goods</b></td><td class="dim">312 units, at cost</td><td class="r mono">3.05</td></tr>
+              <tr><td><b>Racking and repairs</b></td><td class="dim">two bays, flooring</td><td class="r mono">1.25</td></tr>
+              <tr class="sub"><td>Claimed</td><td></td><td class="r mono">6.40</td></tr>
+              <tr><td><b>Salvage</b></td><td class="dim">wet cartons sold for scrap</td><td class="r mono neg">−0.20</td></tr>
+              <tr><td><b>Depreciation</b></td><td class="dim">on the racking</td><td class="r mono neg">−0.10</td></tr>
+              <tr><td><b>Policy excess</b></td><td class="dim">per claim, fire and perils</td><td class="r mono neg">−1.00</td></tr>
+              <tr class="fin"><td>Assessed and offered</td><td></td><td class="r mono">5.10</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Where the time went</h2><span>days</span></header>
+        <div class="body" style="padding-top:4px">
+          <div class="bars">
+            <div><span>Survey</span><span class="b g" style="width:4%"></span><em>2</em></div>
+            <div><span>Documents</span><span class="b" style="width:26%"></span><em>13</em></div>
+            <div><span>Report</span><span class="b" style="width:44%"></span><em>22</em></div>
+            <div><span>Offer</span><span class="b o" style="width:26%"></span><em>13</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Next step</h2></header>
+        <div class="body" style="padding-top:6px">
+          <div class="nx"><b>Accept ₹5.10 L.</b> The assessment follows the policy: excess, salvage and depreciation as agreed. Sign the discharge voucher and the insurer pays by NEFT.</div>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Documents</h2><span>11 on the claim</span><span class="more">All</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="docs">
+            <li><i>PDF</i><span>Settlement offer<small>Saptarishi General</small></span><time>7 Oct</time></li>
+            <li><i>PDF</i><span>Survey report<small>Ramesh Kumar</small></span><time>24 Sep</time></li>
+            <li><i>XLS</i><span>Stock statement<small>from Inventory, 17 Aug</small></span><time>2 Sep</time></li>
+            <li><i>IMG</i><span>Photos of the stores<small>14 photos</small></span><time>18 Aug</time></li>
+            <li><i>PDF</i><span>Rainfall record<small>weather bulletin</small></span><time>2 Sep</time></li>
+            <li><i>PDF</i><span>Claim form and intimation<small>through Kavach</small></span><time>18 Aug</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

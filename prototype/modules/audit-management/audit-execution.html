@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Audit Management · Audit execution</title>
+<!-- Scenario: see coverage-capa.html. IA-0219, internal process audit of machining at Plant 1, 8 Oct, auditor Rekha
+     Iyengar (QA, Chennai plant: independent of Plant 1), auditee Kishor Mhatre (shift supervisor). Checklist "ISO
+     9001:2015 process audit · Production v3", 36 clauses: 7.1.5 measuring resources 5/5, 7.2 competence 4/4, 8.5.1
+     control of production 8/10, 8.5.2 traceability 6/6, 8.7 nonconforming outputs 5/6, 10.2 corrective action 0/5;
+     28 done. Open clause 8.5.1 b (suitable monitoring and measuring resources): torque wrench TW-14, blocked in Asset
+     Management since its calibration expired on 6 Oct, found in use at assembly station ASM-02 at 13:10: major
+     nonconformity, two photos, the asset record attached; it fails the effectiveness check of CAPA-0088 (calibration
+     recall, raised after IA-0198 in March). Other findings: work-instruction revision missing at CNC-03 after the
+     2 Oct repair (minor); Yogesh Dhumal running the 5-axis cell with his certification lapsed on 30 Sep (minor,
+     repeat of IA-0198); 3 minor stops on CNC-03 without a reason code (observation, repeat of IA-0201). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols3 { grid-template-columns: 270px minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .facts { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+  .facts label { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .facts b { font-weight: 550; display: block; margin-top: 2px; }
+  .facts small { color: var(--ink-3); font-size: 11.5px; }
+  .sec li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 5px 8px; padding: 10px 16px; border-top: 1px solid var(--line); }
+  .sec li.on { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+  .sec b { font-weight: 550; font-size: 12.5px; }
+  .sec b span { font: 600 11.5px var(--mono); color: var(--ink-3); margin-right: 6px; }
+  .sec em { font: 11.5px var(--mono); font-style: normal; color: var(--ink-2); }
+  .sec .meter { grid-column: 1 / -1; }
+  .sub { padding: 2px 16px 8px 30px; background: var(--accent-soft); }
+  .sub li { display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 4px 0; font-size: 12px; color: var(--ink-2); }
+  .sub li i { width: 14px; height: 14px; border-radius: 50%; background: var(--ok); }
+  .sub li i.n { background: #fff; border: 2px solid var(--accent); }
+  .sub li i.o { background: #fff; border: 2px solid #d5d9e2; }
+  .sub li i.w { background: var(--warn); }
+  .sub li i.x { background: var(--bad); }
+  .sub li em { font: 11px var(--mono); font-style: normal; color: var(--ink-3); }
+  .sub li.on { color: var(--ink); font-weight: 600; box-shadow: none; background: none; }
+  .sec .sub li { border-top: 0; }
+  .cl { display: flex; align-items: baseline; gap: 10px; }
+  .cl span { font: 650 13px var(--mono); color: var(--accent-ink); }
+  .cl p { font-size: 13.5px; font-weight: 550; line-height: 1.4; }
+  .lbl { display: block; margin: 16px 0 7px; font-size: 11.5px; color: var(--ink-3); }
+  .res { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .res span { padding: 7px 4px; border-radius: 8px; border: 1px solid var(--line-2); text-align: center; font-size: 12px; color: var(--ink-2); }
+  .res span.on { background: var(--bad); border-color: var(--bad); color: #fff; font-weight: 600; }
+  .txt { padding: 10px 12px; border-radius: 9px; border: 1px solid var(--line-2); font-size: 12.5px; line-height: 1.5; color: var(--ink); }
+  .ev { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 10px; }
+  .ev div { height: 116px; border-radius: 9px; border: 1px solid var(--line); background: linear-gradient(135deg, #e9edf3, #d7dde7); position: relative; overflow: hidden; }
+  .ev div small { position: absolute; left: 8px; bottom: 6px; font: 600 10.5px var(--mono); color: var(--ink-2); background: rgb(255 255 255 / 0.85); padding: 1px 5px; border-radius: 4px; }
+  .ev div.doc { background: var(--surface-2); padding: 10px 12px; }
+  .ev div.doc b { display: block; font: 600 12.5px var(--mono); }
+  .ev div.doc span { display: block; margin-top: 3px; font-size: 11.5px; color: var(--bad); }
+  .link { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; background: var(--bad-soft); border: 1px solid #f8cfca; font-size: 12.5px; color: #8c2a22; line-height: 1.4; }
+  .link b { color: var(--bad); }
+  .bt { display: flex; justify-content: flex-end; gap: 8px; margin-top: auto; padding-top: 14px; }
+  .fd li { padding: 10px 0; }
+  .fd li + li { border-top: 1px solid var(--line); }
+  .fd li div { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+  .fd b { font-weight: 550; font-size: 12.5px; line-height: 1.35; display: block; }
+  .fd small { display: block; margin-top: 2px; color: var(--ink-3); font-size: 11.5px; }
+  .fd .mono { font-size: 11.5px; color: var(--ink-3); margin-left: auto; }
+  .chip.M { background: var(--bad-soft); color: var(--bad); }
+  .ind { display: flex; gap: 10px; align-items: center; font-size: 12px; color: var(--ink-2); line-height: 1.4; }
+  .ind i { width: 26px; height: 26px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--ok-soft); color: var(--ok); font: 700 12px var(--sans); font-style: normal; }
+</style>
+</head>
+<body data-module="audit-management" data-view="Audit execution" data-crumb="Finance / Audit Management / Audit execution / IA-0219" data-org="NP|Northfield Precision|Plant 1 · Pune" data-who="Rekha Iyengar|Auditor · QA Chennai">
+<main>
+  <div class="head">
+    <div>
+      <h1>IA-0219 · Machining process audit &nbsp;<span class="chip blue" style="vertical-align:4px">In progress</span></h1>
+      <p>ISO 9001:2015 process audit · Production v3 · 28 of 36 clauses done · evidence recorded clause by clause</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Save and pause</span>
+      <span class="btn pri">Close audit</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="facts">
+        <div><label>Area</label><b>Machining · Plant 1</b><small>CNC cells and assembly</small></div>
+        <div><label>Auditee</label><b>Kishor Mhatre</b><small>shift supervisor</small></div>
+        <div><label>Auditor</label><b>Rekha Iyengar</b><small>QA · Chennai plant</small></div>
+        <div><label>Date</label><b>8 Oct</b><small>opened 10:30</small></div>
+        <div><label>Last audit here</label><b>IA-0198</b><small>March · 5 findings</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols3">
+    <div class="card flush">
+      <header><h2>Checklist</h2><span>28 / 36</span></header>
+      <div class="body">
+        <ul class="sec">
+          <li><b><span>7.1.5</span>Measuring resources</b><em>5 / 5</em><span class="meter ok"><i style="width:100%"></i></span></li>
+          <li><b><span>7.2</span>Competence</b><em>4 / 4</em><span class="meter ok"><i style="width:100%"></i></span></li>
+          <li class="on"><b><span>8.5.1</span>Control of production</b><em>8 / 10</em><span class="meter"><i style="width:80%"></i></span></li>
+          <li class="sub" style="border-top:0;display:block"><ul>
+            <li><i class="w"></i><span>a · Documented information</span><em>Minor</em></li>
+            <li class="on"><i class="n"></i><span>b · Measuring resources</span><em>Open</em></li>
+            <li><i class="w"></i><span>c · Monitoring at each stage</span><em>Obs.</em></li>
+            <li><i></i><span>d · Infrastructure</span><em>OK</em></li>
+            <li><i></i><span>e · Competent persons</span><em>OK</em></li>
+            <li><i class="o"></i><span>f–j · 5 more</span><em>4 done</em></li>
+          </ul></li>
+          <li><b><span>8.5.2</span>Traceability</b><em>6 / 6</em><span class="meter ok"><i style="width:100%"></i></span></li>
+          <li><b><span>8.7</span>Nonconforming outputs</b><em>5 / 6</em><span class="meter"><i style="width:83%"></i></span></li>
+          <li><b><span>10.2</span>Corrective action</b><em>0 / 5</em><span class="meter"><i style="width:0%"></i></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <header><h2>Clause 8.5.1 b</h2><span>control of production and service provision</span></header>
+      <div class="body" style="display:flex;flex-direction:column">
+        <div class="cl"><p>Suitable monitoring and measuring resources are available and in use at each stage.</p></div>
+        <span class="lbl">Result</span>
+        <div class="res"><span>Conforms</span><span>Observation</span><span>Minor</span><span class="on">Major</span><span>Not applicable</span></div>
+        <span class="lbl">Finding</span>
+        <div class="txt">Torque wrench TW-14 found in use at assembly station ASM-02 at 13:10. Its calibration expired on 6 Oct and it is blocked in the asset register; it was not withdrawn from the station.</div>
+        <span class="lbl">Evidence</span>
+        <div class="ev">
+          <div><small>ASM-02 · 13:10</small></div>
+          <div><small>TW-14 tag</small></div>
+          <div class="doc"><b>TW-14 · asset record</b><span>Calibration expired 6 Oct · blocked</span></div>
+        </div>
+        <span class="lbl">Linked</span>
+        <div class="link"><span><b>CAPA-0088</b>, the calibration recall raised after IA-0198, fails its effectiveness check and is reopened.</span></div>
+        <div class="bt"><span class="btn">Previous clause</span><span class="btn pri">Save and next clause</span></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Findings</h2><span>4 so far</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="fd">
+            <li><div><span class="chip bad">Major</span><span class="mono">8.5.1 b</span></div><b>Blocked torque wrench TW-14 in use at ASM-02</b><small>CAPA-0088 reopened</small></li>
+            <li><div><span class="chip warn">Minor</span><span class="chip plain">Repeat</span><span class="mono">7.2</span></div><b>Operator on the 5-axis cell with certification lapsed 30 Sep</b><small>same as IA-0198 in March</small></li>
+            <li><div><span class="chip warn">Minor</span><span class="mono">8.5.1 a</span></div><b>Work instruction at CNC-03 not at the revision issued after the 2 Oct repair</b></li>
+            <li><div><span class="chip plain">Observation</span><span class="chip plain">Repeat</span><span class="mono">8.5.1 c</span></div><b>3 minor stops on CNC-03 without a reason code</b><small>same as IA-0201 in June</small></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <div class="ind"><i>✓</i><span>Rekha has no reporting line into Plant 1, so the audit counts as independent.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

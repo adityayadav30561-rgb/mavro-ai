@@ -79,7 +79,7 @@ For each module in the phase:
 | 14 | Premium: Transportation Management, Fleet Management, Warehouse Management | 3 pages | **Done 2026-10-24** |
 | 15 | Premium: Scheme and Rebate, Ecommerce Integration, Subscription Management | 3 pages | **Done 2026-10-26** |
 | 16 | Premium: PPDS, Shop Floor Control, FSC Portal | 3 pages | **Done 2026-10-26** |
-| 17 | Premium: Cost Forecasting, Audit Management, Insurance Management | 3 pages | To do |
+| 17 | Premium: Cost Forecasting, Audit Management, Insurance Management | 3 pages | **Done 2026-10-26** |
 | 18 | Premium: Auction and Bidding, Real Estate Management, Learning Management | 3 pages | To do |
 | 19 | Premium: Contract Labour Supply, Contract Labour Purchase | 2 pages | To do |
 | 20 | Premium: Business Analyst App, Master Data Management, Document Management | 3 pages | To do |
