@@ -72,11 +72,12 @@ section (src/links.ts), so a module page never links to a missing page.
 | `HeroScreens` | HeroScreens.tsx | `lead` {screen, alt}, `behind?`, `phone?`, `note`. A package or platform hero's visual for PageHero `variant="module"`: the lead screen bleeding off the edge, a second module's screen standing behind it (hidden under 1024px), a phone in front | Package pages, platform |
 | `PortalLayers` | PortalLayers.tsx | `portals` [{name, layer, who, body, points, href, screen?, alt?}], `more`. One row per portal beside the ChainDiagram | Portals package page |
 | `PackagePlate` | PackagePlate.tsx | optional `tier` (base, portal, premium): the platform diagram's isometric plates (geometry in `blocks/plates.ts`, shared with the homepage `PlatformIntro`) with that tier lifted and the rest faded; none lifts nothing. Decorative | Package hero, platform hero |
-| `PackageLinks` | PackageLinks.tsx | `packages` [{tier, name, blurb, count, icon, href or null}], `current` (marked, not linked), `here` (its label) | Package pages (how packages combine), platform |
+| `PackageStack` | PackageStack.tsx | `tiers` [{tier, name, blurb, count, icon, tiles, href or null}] (`packageTiers()` in pages/module-card.ts), `foundation` {name, body}, optional `current` + `here`, `go`: the platform plates with each package's card level with its plate, a leader line between; pointing lifts the plate; current tier lifted and marked. Stacks below 1024px | Package pages (how packages combine), platform |
+| `IntegrationHub` | IntegrationHub.tsx | `data` {sides [interfaces, connectors], hub {name, note, points}}, optional `callout` node: two columns of cards wired into a gradient platform card, packets on the wires while on screen; stacks below 1024px | Platform (integrations) |
 | `PremiumSpotlight` | PremiumSpotlight.tsx | `groups` [{name, modules [{id, name, icon, href}]}], `features` (by module id, from `premiumFeatures`), `seeLabel`. Grouped list left, panel right, arrow keys; no kicker, no "Premium" tag. Night band | Premium package page |
 | `PhoneRow` | PhoneRow.tsx | `shots` [{screen, alt, title, caption}] (phone screens, `platform/<name>`), `note` | Platform (mobile app) |
 | `ConnectBoard` | ArchitectureDiagram.tsx | `data` (the ERP Connect board: systems, broker, app, users, rule). Dark band only | Homepage, ERP Connect |
-| `LayeredArchitecture` | ArchitectureDiagram.tsx | `data` {layers, security} (deck slide 11, `data/platform.ts`) | Platform, security |
+| `LayeredArchitecture` | ArchitectureDiagram.tsx | `data` {layers (icon, name, note, items, packages?), security} (deck slide 11, `data/platform.ts`), optional `packages` (tier pills for the layer marked `packages`): numbered layers inside a security perimeter, controls on a navy foot | Platform, security |
 | `Timeline` | Timeline.tsx | `data` {label, span, milestones, phases, after, ongoing} | Homepage, implementation, ERP Connect |
 | `StoryCards` | StoryCards.tsx | `stories` (type `Story`). Dark band only | Homepage, customers, industry |
 | `TrustPanel` | TrustPanel.tsx | `data` (compliance + security), `variant` (card with tabs / expanded), `id` | Homepage Why MAVRO (card); security, platform (expanded) |
@@ -107,8 +108,8 @@ change. New blocks: `ph` (page hero), `crumbs`, `sframe`, `tour`, `cap`, `ww`, `
 
 | Page | Sections (tone / treatment) |
 |---|---|
-| Package | Hero `module` with `HeroScreens` and the client band → jump bar and every module as `ModuleCards` under a header row per business area (Portals: `ChainDiagram` beside `PortalLayers`) (white / soft) → package-specific: Base `FlowStrip` one record, Portals `ChainDiagram` with every portal lit, Premium `PremiumSpotlight` (paper, paper, night / mark, mark, grad) → `PackagePlate` beside `PackageLinks`, current tier lifted (white / grad) → FAQ (paper / mark) → CTA |
-| Platform | Hero `module` with `HeroScreens` → `LayeredArchitecture` (paper / soft) → `PlatformStrip` (white / mark) → `PackagePlate` beside `PackageLinks` (paper / grad) → `PhoneRow` (white / soft) → integrations `CapabilityTiles` (`columns={3}`) + links to ERP Connect and Security (paper / mark) → FAQ (white / grad) → CTA |
+| Package | Hero `module` with `HeroScreens` and the client band → every module as `ModuleCards` under a header row per business area (Portals: `ChainDiagram` beside `PortalLayers`) (white / soft) → package-specific: Base `FlowStrip` one record, Portals `ChainDiagram` with every portal lit, Premium `PremiumSpotlight` (paper, paper, night / mark, mark, grad) → `PackageStack`, current tier lifted (white / grad) → FAQ (paper / mark) → CTA |
+| Platform | Hero `module` with `HeroScreens` → `LayeredArchitecture` (paper / soft) → `PlatformStrip` (white / mark) → `PackageStack` (paper / grad) → `PhoneRow` (white / soft) → integrations `IntegrationHub` with an ERP Connect callout (paper / mark) → FAQ (white / grad) → CTA |
 
 Module cards come from `pages/module-card.ts` (`cardFor`), shared with the module page's related modules; a package
 page stops the build if a card has no page.

@@ -4,6 +4,7 @@
  * modules/catalogue.ts, never typed here; product facts from the decks (docs/PRODUCT.md). Shared headings sit in
  * `packageTemplate`.
  */
+import type { IntegrationHubData } from '../blocks/IntegrationHub';
 import type { IconName } from '../components/Icon';
 import { catalogue, packs, type ModuleSlug, type Pack } from './modules';
 
@@ -16,8 +17,6 @@ const nPremium = count('premium');
 export const packageTemplate = {
   demo: 'Request a demo',
   seeModules: 'See the modules',
-  /** The jump bar over the module cards. */
-  jump: 'Jump to',
   combine: {
     title: 'Three packages,',
     rest: 'one platform.',
@@ -233,16 +232,37 @@ export const platformPage = {
   integrations: {
     title: 'Connects to',
     rest: 'what you already run.',
-    lead: 'REST APIs, webhooks and batch interfaces, with connectors for SAP and e-commerce channels. For SAP, Oracle, Tally or a legacy ERP you keep, MAVRO can run beside it.',
-    items: [
-      { icon: 'link', title: 'REST APIs', body: 'Read and write records from your own systems.' },
-      { icon: 'bell', title: 'Webhooks', body: 'Events pushed to other systems as they happen.' },
-      { icon: 'database', title: 'Batch interfaces', body: 'Scheduled loads and extracts for bulk data.' },
-      { icon: 'workflow', title: 'SAP BAPI', body: 'Standard SAP interfaces for ERP data.' },
-      { icon: 'layers', title: 'SAP Business One', body: 'Flows for Business One customers.' },
-      { icon: 'sales', title: 'E-commerce', body: 'Marketplace and storefront orders and returns.' },
-    ] satisfies { icon: IconName; title: string; body: string }[],
-    erp: 'Running SAP, Oracle or Tally? See ERP Connect',
+    lead: 'Open interfaces for your own systems, ready connectors for SAP and e-commerce, and ERP Connect when you keep the ERP you have.',
+    hub: {
+      sides: [
+        {
+          label: 'Interfaces your systems use',
+          items: [
+            { icon: 'link', title: 'REST APIs', body: 'Read and write records from your own systems.' },
+            { icon: 'bell', title: 'Webhooks', body: 'Events pushed to other systems as they happen.' },
+            { icon: 'database', title: 'Batch interfaces', body: 'Scheduled loads and extracts for bulk data.' },
+          ],
+        },
+        {
+          label: 'Connectors MAVRO ships',
+          items: [
+            { icon: 'workflow', title: 'SAP BAPI', body: 'Standard SAP interfaces for ERP data.' },
+            { icon: 'layers', title: 'SAP Business One', body: 'Flows for Business One customers.' },
+            { icon: 'sales', title: 'E-commerce', body: 'Marketplace and storefront orders and returns.' },
+          ],
+        },
+      ],
+      hub: {
+        name: 'MAVRO platform',
+        note: 'One set of records behind every call',
+        points: ['API gateway, OAuth 2.0 + JWT', 'HTTPS / TLS in transit', 'Every change in the audit log'],
+      },
+    } satisfies IntegrationHubData,
+    erp: {
+      title: 'Keep SAP, Oracle or Tally.',
+      body: 'With ERP Connect, every ERP syncs two ways with the MAVRO Database. Your ERP stays the system of record; people work in MAVRO screens on web and mobile.',
+      label: 'See ERP Connect',
+    },
     security: 'How MAVRO protects your data',
   },
   faq: [

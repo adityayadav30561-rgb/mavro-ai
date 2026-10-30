@@ -5,14 +5,13 @@ import { FaqBlock } from '../blocks/FaqBlock';
 import { FlowStrip, type FlowNode } from '../blocks/FlowStrip';
 import { HeroScreens } from '../blocks/HeroScreens';
 import { ModuleCards } from '../blocks/ModuleCards';
-import { PackageLinks, type PackageLink } from '../blocks/PackageLinks';
-import { PackagePlate } from '../blocks/PackagePlate';
+import { PackageStack } from '../blocks/PackageStack';
 import { PageHero } from '../blocks/PageHero';
 import { PortalLayers } from '../blocks/PortalLayers';
 import { PremiumSpotlight, type SpotlightGroup } from '../blocks/PremiumSpotlight';
 import { Section } from '../blocks/Section';
 import { Icon } from '../components/Icon';
-import { explore } from '../data/home';
+import { explore, intro } from '../data/home';
 import {
   areaOrder,
   areas,
@@ -29,7 +28,7 @@ import {
 import { areaMeta, baseFlow, baseFlowNote, packageContent, packageTemplate as t } from '../data/packages';
 import { hasPage } from '../links';
 import { usePath } from '../routing';
-import { cardFor, iconOf, pageOf, thumbnail } from './module-card';
+import { cardFor, iconOf, packageTiers, pageOf, thumbnail } from './module-card';
 import './package-page.css';
 
 const order: Pack[] = ['base', 'portal', 'premium'];
@@ -47,9 +46,9 @@ function phoneShot(slug: ModuleSlug) {
 /**
  * The package page template (SITE-PLAN.md section 3.2), one page for Base modules, Portals and Premium modules.
  * The hero is the module hero: the package's lead screen bleeding off the edge, a second module behind it and a phone
- * in front, over the client band. Then every module as a card by business area under a jump bar (Portals: the chain
+ * in front, over the client band. Then every module as a card by business area (Portals: the chain
  * beside four rich portal rows), a package-specific section (Base: one record from order to ledger; Portals: the
- * records they share with the Base modules; Premium: the list and panel), how the packages combine with the plate,
+ * records they share with the Base modules; Premium: the list and panel), how the packages combine (the package stack),
  * FAQ and CTA. Content: src/data/packages.ts.
  */
 export function Page() {
@@ -67,15 +66,6 @@ export function Page() {
   const groups = areaOrder
     .map((area) => ({ area, name: areas[area], entries: entries.filter((entry) => entry.area === area) }))
     .filter((group) => group.entries.length > 0);
-
-  const links: PackageLink[] = order.map((key) => ({
-    tier: key,
-    name: packs[key].name,
-    blurb: packs[key].blurb,
-    count: `${catalogue.filter((entry) => entry.pack === key).length} ${key === 'portal' ? 'portals' : 'modules'}`,
-    icon: packageContent[key].icon,
-    href: hasPage(packs[key].page) ? packs[key].page : null,
-  }));
 
   const spotlight: SpotlightGroup[] = premiumGroups.map((group) => ({
     name: group.name,
@@ -140,16 +130,6 @@ export function Page() {
           </div>
         ) : (
           <>
-            <nav className="pk__jump" aria-label="Business areas">
-              <span>{t.jump}</span>
-              {groups.map((group) => (
-                <a key={group.area} href={`#area-${group.area}`}>
-                  <Icon name={areaMeta[group.area!].icon} size={16} />
-                  {group.name}
-                  <b className="num">{group.entries.length}</b>
-                </a>
-              ))}
-            </nav>
             <div className="pk__groups">
               {groups.map((group) => (
                 <div key={group.area} id={`area-${group.area}`} className="pk__group">
@@ -203,10 +183,7 @@ export function Page() {
       )}
 
       <Section id="combine" title={t.combine.title} rest={t.combine.rest} treatment="grad" lead={t.combine.lead}>
-        <div className="pk__combine">
-          <PackagePlate tier={pack} />
-          <PackageLinks packages={links} current={pack} here={t.combine.here} go={t.combine.go} stack />
-        </div>
+        <PackageStack tiers={packageTiers()} foundation={intro.foundation} current={pack} here={t.combine.here} go={t.combine.go} />
       </Section>
 
       <FaqBlock

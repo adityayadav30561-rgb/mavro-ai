@@ -9,7 +9,8 @@ import { FaqBlock } from '../blocks/FaqBlock';
 import { FlowStrip } from '../blocks/FlowStrip';
 import { InlineCta } from '../blocks/InlineCta';
 import { ModuleCards } from '../blocks/ModuleCards';
-import { PackageLinks } from '../blocks/PackageLinks';
+import { IntegrationHub } from '../blocks/IntegrationHub';
+import { PackageStack } from '../blocks/PackageStack';
 import { PackagePlate } from '../blocks/PackagePlate';
 import { PageHero } from '../blocks/PageHero';
 import { PhoneRow } from '../blocks/PhoneRow';
@@ -23,7 +24,8 @@ import { Timeline } from '../blocks/Timeline';
 import { TrustPanel } from '../blocks/TrustPanel';
 import { WhatWhy } from '../blocks/WhatWhy';
 import { Screen } from '../components/Screen';
-import { connect, explore, faq, implementation, industries, inlineCtas, proof, why } from '../data/home';
+import { connect, explore, faq, implementation, industries, inlineCtas, intro, proof, why } from '../data/home';
+import { packageTiers } from '../pages/module-card';
 import { catalogue, premiumById, premiumGroups } from '../data/modules';
 import { platformPage } from '../data/packages';
 import { architecture, platformFeatures } from '../data/platform';
@@ -192,16 +194,11 @@ export function Page() {
             <PackagePlate tier="premium" />
           </div>
         </Entry>
-        <Entry name="PackageLinks" file="blocks/PackageLinks.tsx" use="Package pages, platform">
-          <PackageLinks
-            current="base"
-            here="You are here"
-            packages={[
-              { tier: 'base', name: 'Base modules', blurb: 'Core ERP, HR and operations.', count: '18 modules', icon: 'layers', href: '/platform/base' },
-              { tier: 'portal', name: 'Portals', blurb: 'Self-service for vendors and the channel.', count: '4 portals', icon: 'distribution', href: '/platform/portals' },
-              { tier: 'premium', name: 'Premium modules', blurb: 'Niche and industry-specific capability.', count: '20 modules', icon: 'rocket', href: '/platform/premium' },
-            ]}
-          />
+        <Entry name="PackageStack" file="blocks/PackageStack.tsx" use="Package pages, platform">
+          <PackageStack tiers={packageTiers()} foundation={intro.foundation} current="base" here="You are here" go="See" />
+        </Entry>
+        <Entry name="IntegrationHub" file="blocks/IntegrationHub.tsx" use="Platform (integrations)">
+          <IntegrationHub data={platformPage.integrations.hub} />
         </Entry>
         <Entry name="PhoneRow" file="blocks/PhoneRow.tsx" use="Platform (mobile app)">
           <PhoneRow
@@ -231,7 +228,10 @@ export function Page() {
 
       <Section id="lib-c" title={architecture.title} rest="and trust." treatment="grad" lead={architecture.lead}>
         <Entry name="LayeredArchitecture" file="blocks/ArchitectureDiagram.tsx" use="Platform, security">
-          <LayeredArchitecture data={architecture} />
+          <LayeredArchitecture
+            data={architecture}
+            packages={packageTiers().map((tier) => ({ label: tier.name, count: tier.count, tier: tier.tier, href: tier.href }))}
+          />
         </Entry>
         <Entry name="TrustPanel (card)" file="blocks/TrustPanel.tsx" use="Homepage Why MAVRO">
           <div className="lib__narrow">

@@ -1,0 +1,195 @@
+/* Package stack (blocks/PackageStack.tsx): the platform plates with each package's card level with its plate. */
+.pstack {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: stretch;
+}
+
+.pstack__svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.pstack .intro__plate {
+  cursor: default;
+}
+
+.pstack__leader {
+  stroke: var(--line-2);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  transition: stroke var(--d-2) var(--ease);
+}
+
+.pstack__leader[data-hot] {
+  stroke: var(--blue);
+  stroke-dasharray: none;
+}
+
+.pstack__cards {
+  position: relative;
+}
+
+/* Each card is centred on its plate's height (--y, a share of the drawing's height). */
+.pstack__card {
+  --tier: var(--blue);
+  --tier-soft: var(--blue-50);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--y);
+  transform: translateY(-50%);
+}
+
+.pstack__card[data-tier='portal'] {
+  --tier: var(--cyan-600);
+  --tier-soft: var(--cyan-50);
+}
+
+.pstack__card[data-tier='premium'] {
+  --tier: var(--violet);
+  --tier-soft: var(--violet-50);
+}
+
+.pstack__card > a,
+.pstack__card > div {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'icon name go'
+    'icon blurb go';
+  gap: .125rem 1rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-radius: var(--r-3);
+  background: var(--surface);
+  box-shadow: inset 3px 0 0 var(--tier), 0 0 0 1px var(--line), var(--shadow-2);
+  transition:
+    transform var(--d-2) var(--ease),
+    box-shadow var(--d-2) var(--ease);
+}
+
+.pstack__card[data-hot] > a,
+.pstack__card[data-hot] > div {
+  transform: translateX(.375rem);
+  box-shadow: inset 3px 0 0 var(--tier), 0 0 0 1px color-mix(in srgb, var(--tier) 35%, transparent), var(--shadow-float);
+}
+
+.pstack__card[data-here] > div {
+  background: var(--tier-soft);
+}
+
+.pstack__icon {
+  grid-area: icon;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--r-2);
+  background: var(--tier-soft);
+  color: var(--tier);
+}
+
+.pstack__card[data-here] .pstack__icon {
+  background: var(--surface);
+}
+
+.pstack__name {
+  grid-area: name;
+  display: flex;
+  align-items: baseline;
+  gap: .625rem;
+  font-size: var(--t-h3);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.pstack__count {
+  color: var(--tier);
+  font-size: var(--t-small);
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+.pstack__blurb {
+  grid-area: blurb;
+  color: var(--fg-2);
+  font-size: var(--t-small);
+}
+
+.pstack__go {
+  grid-area: go;
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  color: var(--tier);
+  font-size: var(--t-small);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* The shared foundation: the brand sweep, as on its plate. */
+.pstack__card--data > div {
+  grid-template-areas:
+    'icon name'
+    'icon blurb';
+  grid-template-columns: auto minmax(0, 1fr);
+  background: var(--grad-brand);
+  box-shadow: var(--shadow-2);
+  color: var(--white);
+}
+
+.pstack__card--data .pstack__icon {
+  background: rgb(255 255 255 / 0.18);
+  color: var(--white);
+}
+
+.pstack__card--data .pstack__blurb {
+  color: rgb(255 255 255 / 0.85);
+}
+
+@media (max-width: 1023px) {
+  .pstack {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .pstack__svg {
+    width: min(100%, 22rem);
+    justify-self: center;
+  }
+
+  .pstack__leader {
+    display: none;
+  }
+
+  .pstack__cards {
+    display: grid;
+    gap: .75rem;
+  }
+
+  .pstack__card {
+    position: static;
+    transform: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .pstack__card > a,
+  .pstack__card > div {
+    grid-template-areas:
+      'icon name'
+      'icon blurb'
+      'icon go';
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pstack__card > a,
+  .pstack__card > div {
+    transition: none;
+  }
+}

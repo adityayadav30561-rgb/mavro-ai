@@ -1,6 +1,6 @@
 # Status
 
-_Last updated: 2026-10-26. Update this file at the end of every task and before clearing context._
+_Last updated: 2026-10-30. Update this file at the end of every task and before clearing context._
 
 ## Where we are
 
@@ -36,6 +36,12 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-30, **Phase 21 second follow-up (user feedback with screenshots): architecture, packages and integrations redrawn; jump bar removed.** On `main`.
+  - **Architecture (`LayeredArchitecture`):** security drawn as a perimeter around the five layers (a tab on the frame, its six controls on a navy foot); numbered layers with a one-line note each; the Core modules row shows the three packages as tier pills with their counts (optional `packages` prop).
+  - **"Three packages" (new `PackageStack`, replaces `PackagePlate` + `PackageLinks` on the pages):** each package card sits level with its own plate, joined by a leader line, the Shared platform card on the gradient foundation; pointing at a card lifts its plate; on a package page that package is lifted and marked "You are here". Below 1024px the drawing sits above the cards. `PackageLinks` deleted; `PackagePlate` stays for the `package` hero variant. Tiers built by `packageTiers()` in `pages/module-card.ts`.
+  - **Integrations (new `IntegrationHub`):** interfaces your systems use (REST, webhooks, batch) on the left and connectors MAVRO ships (SAP BAPI, SAP Business One, e-commerce) on the right, wired into a gradient MAVRO platform card with its gateway facts; packets run the wires while on screen. Under it an ERP Connect callout (SAP, Oracle, Tally, any legacy ERP, from the homepage `connect` data) with the ERP Connect link (Security link appears once that page exists).
+  - **Jump bar removed** from the Base and Premium module lists (user asked); the area header rows stay.
 
 - 2026-10-30, **Phase 21 follow-up (user feedback): `/platform` reachable, package and platform heroes and sections raised to module-page level.** On `main`.
   - **Reachability:** the URL already loaded (dev, preview, build) but nothing in the header led there. The Platform mega-menu now has a "Platform overview" link under its rail and the mobile drawer one at the top of its Platform accordion (checked by Playwright: header menu and drawer both land on the page; the rail's Base, Portals and Premium links go to `/platform/*`).

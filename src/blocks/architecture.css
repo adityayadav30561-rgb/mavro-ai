@@ -406,32 +406,70 @@
   }
 }
 
-/* ---------- Layered architecture (LayeredArchitecture): light, for white and paper sections ---------- */
+/* ---------- Layered architecture (LayeredArchitecture): light, for white and paper sections ----------
+   The five layers sit inside one frame, the security perimeter: a tab names it at the top, its controls run along
+   the navy foot. Each layer is numbered, its edge takes a colour along the brand sweep, top to bottom. */
 
 .arch {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.34fr);
-  gap: 1rem;
+  position: relative;
   margin: 0;
+  padding: 2.25rem clamp(.75rem, 1.5vw, 1.25rem) 0;
+  border-radius: var(--r-4);
+  background:
+    linear-gradient(var(--paper), var(--paper)) padding-box,
+    linear-gradient(160deg, var(--violet), var(--blue) 55%, var(--cyan)) border-box;
+  border: 1.5px dashed transparent;
+  box-shadow: var(--shadow-2);
+  overflow: hidden;
+}
+
+.section--paper .arch {
+  background:
+    linear-gradient(var(--white), var(--white)) padding-box,
+    linear-gradient(160deg, var(--violet), var(--blue) 55%, var(--cyan)) border-box;
+}
+
+.arch__tab {
+  position: absolute;
+  top: 0;
+  left: clamp(1rem, 2.5vw, 2rem);
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .375rem .875rem;
+  border-radius: 0 0 var(--r-2) var(--r-2);
+  background: var(--navy);
+  color: var(--white);
+  font-size: var(--t-small);
+  font-weight: 650;
+}
+
+.arch__tab .icon {
+  color: var(--cyan);
+}
+
+.arch__tab span {
+  font-weight: 450;
+  color: var(--night-ink-2);
 }
 
 .arch__layers {
   display: grid;
-  gap: .75rem;
+  gap: .625rem;
+  padding-bottom: clamp(1rem, 2vw, 1.5rem);
 }
 
-/* Each layer is a plate; its left edge takes a colour along the brand sweep, top to bottom. */
 .arch__layer {
   --edge: var(--violet);
   position: relative;
   display: grid;
-  grid-template-columns: auto minmax(11rem, 0.42fr) minmax(0, 1fr);
+  grid-template-columns: 2rem auto minmax(12rem, 0.38fr) minmax(0, 1fr);
   align-items: center;
   gap: .5rem 1rem;
-  padding: .875rem 1.125rem;
+  padding: .875rem 1.125rem .875rem .875rem;
   border-radius: var(--r-3);
   background: var(--surface);
-  box-shadow: inset 4px 0 0 var(--edge), var(--shadow-2);
+  box-shadow: inset 4px 0 0 var(--edge), 0 0 0 1px var(--line), 0 .5rem 1.25rem -1rem rgb(9 14 52 / 0.25);
   transition:
     transform var(--d-2) var(--ease),
     box-shadow var(--d-2) var(--ease);
@@ -453,22 +491,32 @@
   --edge: var(--cyan);
 }
 
-/* The arrow down to the next layer, in the gap above it. */
-.arch__layer + .arch__layer::after {
+/* The data layer is the foundation: the brand sweep, as on the platform plates. */
+.arch__layer:last-child {
+  background: linear-gradient(100deg, var(--blue-50), var(--cyan-50));
+}
+
+/* The link down to the next layer, in the gap above it. */
+.arch__layer + .arch__layer::before {
   content: '';
   position: absolute;
-  top: -.6875rem;
-  left: 2.125rem;
-  width: .5rem;
-  height: .5rem;
-  border-right: 2px solid var(--line-2);
-  border-bottom: 2px solid var(--line-2);
-  transform: rotate(45deg);
+  top: -.625rem;
+  left: 4.5rem;
+  width: 2px;
+  height: .625rem;
+  background: linear-gradient(var(--line-2), var(--edge));
 }
 
 .arch__layer:hover {
   transform: translateX(.375rem);
-  box-shadow: inset 4px 0 0 var(--edge), var(--shadow-float);
+  box-shadow: inset 4px 0 0 var(--edge), 0 0 0 1px var(--line), var(--shadow-float);
+}
+
+.arch__step {
+  justify-self: center;
+  color: var(--edge);
+  font-size: var(--t-small);
+  font-weight: 750;
 }
 
 .arch__icon {
@@ -481,12 +529,23 @@
   color: var(--ink);
 }
 
-.arch__name {
-  font-weight: 750;
+.arch__head {
+  display: grid;
+  gap: .125rem;
   line-height: 1.3;
 }
 
-.arch__items {
+.arch__head b {
+  font-weight: 750;
+}
+
+.arch__head span {
+  color: var(--fg-3);
+  font-size: var(--t-small);
+}
+
+.arch__items,
+.arch__packs {
   display: flex;
   flex-wrap: wrap;
   gap: .375rem;
@@ -501,58 +560,96 @@
   color: var(--ink-2);
 }
 
-.arch__security {
+.arch__packs li {
+  --tier: var(--blue);
+  --tier-soft: var(--blue-50);
+}
+
+.arch__packs li[data-tier='portal'] {
+  --tier: var(--cyan-600);
+  --tier-soft: var(--cyan-50);
+}
+
+.arch__packs li[data-tier='premium'] {
+  --tier: var(--violet);
+  --tier-soft: var(--violet-50);
+}
+
+.arch__packs a,
+.arch__packs span {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  padding: .375rem .75rem;
+  border-radius: var(--r-pill);
+  background: var(--tier-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tier) 30%, transparent);
+  color: var(--ink);
+  font-size: var(--t-small);
+  font-weight: 650;
+  transition: box-shadow var(--d-2) var(--ease);
+}
+
+.arch__packs a:hover {
+  box-shadow: inset 0 0 0 1.5px var(--tier);
+}
+
+.arch__packs b {
+  color: var(--tier);
+}
+
+/* The security perimeter's foot: its controls, three across on the navy band. */
+.arch__controls {
   display: grid;
-  align-content: start;
-  gap: .75rem;
-  padding: 1.25rem;
-  border-radius: var(--r-3);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .625rem 1.5rem;
+  margin: 0 calc(-1 * clamp(.75rem, 1.5vw, 1.25rem));
+  padding: 1.125rem clamp(1.25rem, 3vw, 2.25rem);
   background:
-    radial-gradient(80% 60% at 100% 0%, rgb(122 54 251 / 0.3), transparent 70%),
-    var(--night-2);
+    radial-gradient(60% 140% at 100% 0%, rgb(122 54 251 / 0.35), transparent 70%),
+    var(--navy);
   color: var(--night-ink);
 }
 
-.arch__security .arch__icon {
-  background: rgb(255 255 255 / 0.08);
-  color: var(--night-ink);
-  --icon-accent: var(--cyan);
-}
-
-.arch__security b {
-  font-size: 1.0625rem;
-}
-
-.arch__security ul {
-  display: grid;
-  gap: .625rem;
-}
-
-.arch__security li {
+.arch__controls li {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: .5rem;
-  font-size: 0.8125rem;
-  line-height: 1.45;
-  color: var(--night-ink-2);
+  align-items: center;
+  font-size: var(--t-small);
+  color: var(--night-ink);
 }
 
-.arch__security li .icon {
-  margin-top: .125rem;
+.arch__controls .icon {
   color: var(--cyan);
 }
 
 @media (max-width: 1023px) {
-  .arch {
+  .arch__layer {
+    grid-template-columns: 1.5rem auto minmax(0, 1fr);
+  }
+
+  .arch__items,
+  .arch__packs {
+    grid-column: 1 / -1;
+  }
+
+  .arch__layer + .arch__layer::before {
+    left: 3.5rem;
+  }
+
+  .arch__controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .arch__controls {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .arch__layer {
-    grid-template-columns: auto minmax(0, 1fr);
-  }
-
-  .arch__items {
-    grid-column: 1 / -1;
+  .arch__tab span {
+    display: none;
   }
 }
 

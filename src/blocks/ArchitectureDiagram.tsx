@@ -115,46 +115,76 @@ export function ConnectBoard({ data }: { data: ConnectBoardData }) {
 }
 
 export interface ArchitectureData {
-  layers: readonly { icon: IconName; name: string; items: readonly string[] }[];
+  layers: readonly { icon: IconName; name: string; note?: string; items: readonly string[]; packages?: boolean }[];
   security: { name: string; items: readonly string[] };
 }
 
+export interface ArchitecturePackage {
+  label: string;
+  count: string;
+  tier: 'base' | 'portal' | 'premium';
+  href: string | null;
+}
+
 /**
- * The platform's technical architecture (product deck slide 11) as stacked layers, from the interfaces people use
- * down to the data layer, with security and compliance running alongside all of them. Hovering a layer lifts it.
+ * The platform's technical architecture (product deck slide 11): five layers from the interfaces people use down
+ * to the data layer, numbered, with what each one holds. Security and compliance is drawn as the frame around all
+ * five, its controls along the foot: it runs through every layer rather than beside them. Given `packages`, the
+ * layer marked `packages` shows the three packages (with their counts and pages) instead of its item list.
  */
-export function LayeredArchitecture({ data }: { data: ArchitectureData }) {
+export function LayeredArchitecture({ data, packages }: { data: ArchitectureData; packages?: readonly ArchitecturePackage[] }) {
   return (
     <figure className="arch" data-reveal>
+      <figcaption className="arch__tab">
+        <Icon name="shield" size={16} />
+        {data.security.name}
+        <span>at every layer</span>
+      </figcaption>
       <ol className="arch__layers">
         {data.layers.map((layer, index) => (
           <li key={layer.name} className="arch__layer" style={vars({ '--i': index })}>
+            <span className="arch__step num">{String(index + 1).padStart(2, '0')}</span>
             <span className="arch__icon">
               <Icon name={layer.icon} size={20} />
             </span>
-            <span className="arch__name">{layer.name}</span>
-            <ul className="arch__items">
-              {layer.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+            <span className="arch__head">
+              <b>{layer.name}</b>
+              {layer.note && <span>{layer.note}</span>}
+            </span>
+            {layer.packages && packages ? (
+              <ul className="arch__packs">
+                {packages.map((pack) => (
+                  <li key={pack.label} data-tier={pack.tier}>
+                    {pack.href ? (
+                      <a href={pack.href}>
+                        {pack.label} <b className="num">{pack.count}</b>
+                      </a>
+                    ) : (
+                      <span>
+                        {pack.label} <b className="num">{pack.count}</b>
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <ul className="arch__items">
+                {layer.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ol>
-      <aside className="arch__security">
-        <span className="arch__icon">
-          <Icon name="shield" size={20} />
-        </span>
-        <b>{data.security.name}</b>
-        <ul>
-          {data.security.items.map((item) => (
-            <li key={item}>
-              <Icon name="check" size={14} />
-              {item}
-            </li>
-          ))}
-        </ul>
-      </aside>
+      <ul className="arch__controls">
+        {data.security.items.map((item) => (
+          <li key={item}>
+            <Icon name="check" size={14} />
+            {item}
+          </li>
+        ))}
+      </ul>
     </figure>
   );
 }

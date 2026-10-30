@@ -26,16 +26,17 @@ export const architecture = {
   title: 'Technical architecture',
   lead: 'Cloud-native, multi-tenant and API-first, built for enterprise security and scale.',
   layers: [
-    { icon: 'people', name: 'User interfaces', items: ['Web portal (React)', 'Mobile app (Android / iOS)', 'Admin panel', 'API access'] },
-    { icon: 'lock', name: 'API gateway and auth', items: ['OAuth 2.0 + JWT', 'Rate limiting', 'Request routing', 'HTTPS / TLS', 'Sessions'] },
+    { icon: 'people', name: 'User interfaces', note: 'Where people work: browser, phone, admin and APIs.', items: ['Web portal (React)', 'Mobile app (Android / iOS)', 'Admin panel', 'API access'] },
+    { icon: 'lock', name: 'API gateway and auth', note: 'Every request authenticated and routed.', items: ['OAuth 2.0 + JWT', 'Rate limiting', 'Request routing', 'HTTPS / TLS', 'Sessions'] },
     {
       icon: 'workflow',
       name: 'Workflow, rules and notifications engine',
+      note: 'Approvals, rules and alerts, configured rather than coded.',
       items: ['Multi-level approvals', 'SLA timers', 'Commercial rules', 'Scheme engine', 'Push alerts'],
     },
-    { icon: 'layers', name: 'Core modules', items: ['Accounting', 'HR and payroll', 'Order to cash', 'Procure to pay', 'Production', 'Inventory', 'SFA', 'CRM', 'VIM'] },
-    { icon: 'database', name: 'Data layer', items: ['MS SQL Server', 'Redis cache', 'Blob / file store', 'Audit log DB'] },
-  ] satisfies { icon: IconName; name: string; items: string[] }[],
+    { icon: 'layers', name: 'Core modules', note: 'Every module and portal, on one set of records.', packages: true, items: ['Accounting', 'HR and payroll', 'Order to cash', 'Procure to pay', 'Production', 'Inventory', 'SFA', 'CRM', 'VIM'] },
+    { icon: 'database', name: 'Data layer', note: 'Where records and the audit log are kept.', items: ['MS SQL Server', 'Redis cache', 'Blob / file store', 'Audit log DB'] },
+  ] satisfies { icon: IconName; name: string; note: string; items: string[]; packages?: boolean }[],
   security: {
     name: 'Security and compliance',
     items: [

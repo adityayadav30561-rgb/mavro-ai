@@ -1,47 +1,5 @@
 /* Package pages and the Platform overview (pages/PackagePage.tsx, pages/Platform.tsx). */
 
-/* Jump bar: the business areas, as anchors over the module cards. */
-.pk__jump {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: .5rem;
-  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
-}
-
-.pk__jump > span {
-  margin-right: .25rem;
-  color: var(--fg-3);
-  font-size: var(--t-small);
-}
-
-.pk__jump a {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  padding: .4375rem .875rem;
-  border-radius: var(--r-pill);
-  background: var(--surface);
-  box-shadow: 0 0 0 1px var(--line-2);
-  color: var(--fg);
-  font-size: var(--t-small);
-  font-weight: 600;
-  transition: box-shadow var(--d-2) var(--ease), color var(--d-2) var(--ease);
-}
-
-.pk__jump a:hover {
-  box-shadow: 0 0 0 1px var(--blue);
-  color: var(--blue);
-}
-
-.pk__jump a .icon {
-  color: var(--blue);
-}
-
-.pk__jump a b {
-  color: var(--fg-3);
-}
-
 .pk__groups {
   display: grid;
   gap: clamp(2.5rem, 5vw, 4rem);
@@ -100,14 +58,6 @@
   top: calc(var(--nav-h) + 1.5rem);
 }
 
-/* How the packages combine: the plate beside the three package cards. */
-.pk__combine {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: clamp(1.5rem, 4vw, 3.5rem);
-  align-items: center;
-}
-
 .pf__links {
   display: flex;
   flex-wrap: wrap;
@@ -124,8 +74,7 @@
 }
 
 @media (max-width: 1023px) {
-  .pk__portals,
-  .pk__combine {
+  .pk__portals {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -139,5 +88,87 @@
 
   .pk__area-count {
     grid-column: 2;
+  }
+}
+
+/* Platform: the ERP Connect callout under the integration hub. */
+.pf__erp {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 1.25rem 1.5rem;
+  align-items: center;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  border-radius: var(--r-4);
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--line-2), var(--shadow-2);
+}
+
+.pf__erp-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--r-3);
+  background: var(--grad-brand);
+  color: #fff;
+}
+
+.pf__erp b {
+  font-size: 1.125rem;
+  letter-spacing: -0.01em;
+}
+
+.pf__erp p {
+  max-width: 44rem;
+  margin-top: .25rem;
+  color: var(--fg-2);
+  font-size: var(--t-small);
+  line-height: 1.55;
+}
+
+.pf__erp-systems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: .875rem;
+}
+
+.pf__erp-systems li {
+  padding: .3125rem .75rem;
+  border-radius: var(--r-pill);
+  background: var(--paper);
+  box-shadow: 0 0 0 1px var(--line);
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+
+.pf__erp-systems span {
+  margin-left: .375rem;
+  color: var(--fg-3);
+  font-weight: 400;
+}
+
+.pf__erp .pf__links {
+  display: grid;
+  gap: .625rem;
+  margin: 0;
+  justify-items: end;
+}
+
+@media (max-width: 1023px) {
+  .pf__erp {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .pf__erp .pf__links {
+    grid-column: 1 / -1;
+    justify-items: start;
+  }
+}
+
+@media (max-width: 599px) {
+  .pf__erp {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

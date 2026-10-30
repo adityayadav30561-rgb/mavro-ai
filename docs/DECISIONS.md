@@ -205,6 +205,7 @@ least important, with full design effort. The ordered list lives in [STATUS.md](
 - Eyebrow labels above headings.
 - "Coming soon" tags; "Premium" tags on modules.
 - Compact lists of module names (the "also in the package" lists).
+- A "Jump to" bar of business-area anchors over the module cards on package pages (removed 2026-10-30 at the user's request).
 - Isometric 3D figurines in the Base module cards (replaced by mini module screens).
 - Small "snippet" mini screens for Base modules (replaced by full product screens, 2026-10-22).
 - Premium modules as a cloud of chips beside the heading.

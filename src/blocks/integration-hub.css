@@ -1,0 +1,224 @@
+/* Integration hub (blocks/IntegrationHub.tsx): interfaces | platform | connectors, wired together. */
+.ihub {
+  --wire: 3.5rem;
+  display: grid;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.ihub__map {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr) minmax(0, 1fr);
+  gap: var(--wire);
+  align-items: stretch;
+}
+
+.ihub__label {
+  margin-bottom: .875rem;
+  color: var(--fg-3);
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+
+.ihub__side[data-side='out'] .ihub__label {
+  text-align: right;
+}
+
+.ihub__side ul {
+  display: grid;
+  gap: .875rem;
+}
+
+.ihub__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: .875rem;
+  align-items: center;
+  padding: 1rem 1.125rem;
+  border-radius: var(--r-3);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
+}
+
+.ihub__item b {
+  display: block;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.ihub__item > span:nth-child(2) > span {
+  display: block;
+  margin-top: .125rem;
+  color: var(--fg-2);
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+.ihub__icon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--r-2);
+  background: var(--blue-50);
+  color: var(--blue);
+}
+
+.ihub__side[data-side='out'] .ihub__icon {
+  background: var(--violet-50);
+  color: var(--violet);
+}
+
+/* The wire from each card into the hub, across the column gap. */
+.ihub__wire {
+  position: absolute;
+  top: 50%;
+  width: var(--wire);
+  height: 2px;
+  background: linear-gradient(90deg, var(--line-2), var(--blue));
+  overflow: hidden;
+}
+
+.ihub__side[data-side='in'] .ihub__wire {
+  left: 100%;
+}
+
+.ihub__side[data-side='out'] .ihub__wire {
+  right: 100%;
+  background: linear-gradient(90deg, var(--violet), var(--line-2));
+}
+
+.ihub__packet {
+  position: absolute;
+  top: 0;
+  left: -0.75rem;
+  width: .75rem;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--cyan);
+  opacity: 0;
+}
+
+.ihub[data-live-on] .ihub__packet {
+  animation: ihub-run 2.4s var(--ease) infinite;
+  animation-delay: calc(var(--i, 0) * 0.35s);
+}
+
+.ihub__side[data-side='out'] .ihub__packet {
+  background: var(--violet);
+}
+
+@keyframes ihub-run {
+  0% { left: -0.75rem; opacity: 0; }
+  15% { opacity: 1; }
+  70% { left: 100%; opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+/* The platform in the middle. */
+.ihub__hub {
+  position: relative;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: .5rem;
+  margin-top: 2.25rem;
+  padding: 1.75rem 1.5rem;
+  border-radius: var(--r-4);
+  background: var(--grad-brand);
+  box-shadow: var(--shadow-float);
+  color: #fff;
+  text-align: center;
+}
+
+.ihub__hub-icon {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: .25rem;
+  border-radius: var(--r-3);
+  background: rgb(255 255 255 / 0.16);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.28);
+}
+
+.ihub__hub-name {
+  font-size: var(--t-h3);
+  letter-spacing: -0.02em;
+}
+
+.ihub__hub-note {
+  color: rgb(255 255 255 / 0.82);
+  font-size: var(--t-small);
+}
+
+.ihub__hub-points {
+  display: grid;
+  gap: .375rem;
+  margin-top: .75rem;
+  padding-top: .875rem;
+  border-top: 1px solid rgb(255 255 255 / 0.24);
+  font-size: var(--t-small);
+  text-align: left;
+}
+
+.ihub__hub-points li {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+/* The callout under the map, e.g. ERP Connect. */
+.ihub__callout {
+  display: grid;
+}
+
+@media (max-width: 1023px) {
+  .ihub {
+    --wire: 1.5rem;
+  }
+
+  .ihub__map {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--wire);
+  }
+
+  .ihub__side[data-side='out'] .ihub__label {
+    text-align: left;
+  }
+
+  .ihub__hub {
+    margin-top: 0;
+  }
+
+  /* Wires turn vertical: one from the last interface down into the hub, one from the hub down to the connectors. */
+  .ihub__wire {
+    display: none;
+  }
+
+  .ihub__hub::before,
+  .ihub__hub::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: var(--wire);
+    background: var(--line-2);
+  }
+
+  .ihub__hub::before {
+    bottom: 100%;
+    background: linear-gradient(var(--line-2), var(--blue));
+  }
+
+  .ihub__hub::after {
+    top: 100%;
+    background: linear-gradient(var(--violet), var(--line-2));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ihub[data-live-on] .ihub__packet {
+    animation: none;
+  }
+}
