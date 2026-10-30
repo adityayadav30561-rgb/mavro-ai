@@ -4,8 +4,8 @@ _Last updated: 2026-10-26. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–17 done (2026-10-26); next: Phase 18, Auction and Bidding, Real
-Estate Management and Learning Management.** The
+**Stage C (phased implementation). Phases 1–18 done (2026-10-30); next: Phase 19, Contract Labour Supply and
+Contract Labour Purchase.** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,23 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-30, **Phase 18 done: Auction and Bidding, Real Estate Management and Learning Management pages.** On `main`.
+  - **Screens (12 new, no phone):** Auction `esourcing-dashboard` (lead), `live-auction`, `create-event`,
+    `events-register`; Real Estate `portfolio-dashboard` (lead), `lease-renewal`, `property-360`, `property-register`;
+    Learning `lms-dashboard` (lead), `certification-approvals`, `course-register`, `curriculum-builder`. Content files from
+    deck v2 slides 78, 104, 92; the Real Estate and LMS spotlight mocks in catalogue.ts now match the screens (the
+    auction spotlight visual stays the generic one). Also fixed names: Kavita Iyer is the HR lead (not Kavita Joshi).
+  - **Auction scenario:** 41 events, ₹63.0 L saved (7.8% below ceiling) on 31 awards; live AUC-0088 export cartons
+    (ceiling ₹48.00, L1 ₹44.10, two auto-extensions to 14:06); AUC-0086 seal rings 70/30 and AUC-0085 await award;
+    AUC-0091 LM6 castings 1,800 kg is the draft raised by the PPDS MRP run, Konkan Foundry held out until audit AUD-0424
+    (21-22 Oct). Buyer Rohan Menon, purchase head S. Iyer.
+  - **Real estate scenario:** 14 properties (5 owned, 9 leased, 3,32,300 sq ft), rent ₹3.52 Cr a year; LR-0014
+    Ahmedabad depot (ends 31 Dec; ask ₹27.60, market avg ₹25.40, recommend ₹25.80, ₹33.4 L below the ask over 5 years);
+    Chennai fire NOC 15 Nov; Talegaon 4.2-acre idle plot; Pune depot is the WMS warehouse. Estates manager Sunil Pawar.
+  - **Learning scenario:** 491 employees, 94.2% current, 4 overdue (Yogesh Dhumal 5-axis, two forklift operators, a
+    crane operator); CERT-0412 held until the on-job evaluation on 10 Oct; CRS-0071 raised from CAPA-0088; CUR-0019
+    revision 4 adds a first-off inspection module (IA-0198). Training manager Snehal Deshpande.
 
 - 2026-10-26, **Phase 17 done: Cost Forecasting, Audit Management and Insurance Management pages.** On `main`.
   - **Screens (12 new, no phone):** Cost Forecasting `budget-dashboard` (lead), `budget-lines`, `forecast-wizard`,
@@ -605,9 +622,8 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 18: Auction and Bidding, Real Estate Management, Learning Management.** AUC-0091 (castings) is the MRP
-   auction drafted in PPDS; Yogesh Dhumal's 5-axis re-certification on 10 Oct and the repeat audit finding on it
-   (IA-0219, CAPA-0086) belong to Learning Management.
+1. **Phase 19: Contract Labour Supply and Contract Labour Purchase** (v2 slides 106, 108): CLRA, PF and ESIC
+   compliance. Contractor workforce ties to Roster Ledger and HRMS; contractor rates and invoices to Procure to Pay.
 
 ## Open items (need the user or real assets)
 

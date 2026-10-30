@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Auction and Bidding · E-sourcing dashboard</title>
+<!--
+  Scenario (Auction and Bidding, shared by every screen of the module; agrees with Procure to Pay, PPDS and mVLens):
+  Northfield Precision, 8 Oct, 14:02. FY 2026-27 to date: 41 events (24 reverse auctions, 9 sealed bids, 8 RFQs; 1 live, 3 scheduled, 2 drafts);
+  31 awarded, ₹7.42 Cr awarded against ceilings of ₹8.05 Cr: savings ₹63.0 L (7.8%). By category (events, awarded /
+  ceiling ₹ L): castings and forgings 7, 198.4 / 214.6; steel and bar 5, 186.0 / 199.5; packaging 6, 64.2 / 71.4;
+  tooling and consumables 8, 92.6 / 101.3; logistics and services 3, 128.0 / 137.6; capex 2, 72.8 / 80.6. Savings by
+  month (₹ L): Apr 6.2, May 8.9, Jun 11.4, Jul 9.8, Aug 13.6, Sep 10.5, Oct to date 2.6. Average 4.3 bidders per
+  event. Live now: AUC-0088 export cartons (5-ply, 24,000 for the H2 rate contract), ceiling ₹48.00, L1 ₹44.10,
+  closes 14:06 after two auto-extensions. Awaiting the award committee: AUC-0086 SR-18 seal rings, split 70/30 between
+  Nova Seals (L1) and the incumbent (L2); AUC-0085 carbide inserts. Draft: AUC-0091 LM6 castings 1,800 kg, raised from
+  the MRP run (over the ₹2 L auction threshold), starts 14 Oct. Only QA-approved vendors can bid. Purchase head:
+  S. Iyer; buyer: Rohan Menon.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .ct td { padding-top: 9px; padding-bottom: 9px; }
+  .sv { display: flex; align-items: center; gap: 8px; }
+  .sv .meter { width: 90px; min-width: 90px; }
+  .sv span { font: 11.5px var(--mono); color: var(--ink-2); }
+  tr.tot td { font-weight: 600; background: var(--surface-2); }
+  .lvc { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; padding: 12px 14px; border-radius: 10px; background: var(--accent-soft); border: 1px solid #d9e0ff; }
+  .lvc b { font-weight: 600; }
+  .lvc small { grid-column: 1; color: var(--ink-2); font-size: 11.5px; }
+  .lvc strong { grid-row: 1 / span 2; grid-column: 2; align-self: center; font: 650 20px var(--mono); color: var(--accent-ink); }
+  .lv2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; text-align: center; }
+  .lv2 div { padding: 8px 4px; border-radius: 8px; border: 1px solid var(--line); }
+  .lv2 label { display: block; font-size: 11px; color: var(--ink-3); }
+  .lv2 b { font: 600 13px var(--mono); }
+  .q li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; }
+  .q li + li { border-top: 1px solid var(--line); }
+  .q b { font-weight: 550; }
+  .q small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .q .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+</style>
+</head>
+<body data-module="auction-and-bidding" data-view="E-sourcing dashboard" data-crumb="Buy / Auction and Bidding / E-sourcing dashboard" data-org="NP|Northfield Precision|All sites" data-who="S. Iyer|Purchase head">
+<main>
+  <div class="head">
+    <div>
+      <h1>E-sourcing</h1>
+      <p>FY 2026-27 to date · reverse auctions, sealed bids and RFQs · savings measured against the ceiling of every event</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">This year</span><span>Quarter</span><span>Month</span></div>
+      <span class="btn pri">Create event</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Realised savings</label><div class="v"><strong>₹63.0 L</strong><i data-spark="6.2,15.1,26.5,36.3,49.9,60.4,63.0" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">7.8%</b><span>below ceiling, 31 awards</span></div></div>
+    <div class="card kpi"><label>Events this year</label><div class="v"><strong>41</strong></div><div class="foot"><b class="delta flat">1 live</b><span>3 scheduled · 2 drafts</span></div></div>
+    <div class="card kpi"><label>Bidders per event</label><div class="v"><strong>4.3</strong></div><div class="foot"><b class="delta flat">QA-approved only</b><span>from mVLens</span></div></div>
+    <div class="card kpi"><label>Awards awaiting committee</label><div class="v"><strong>2</strong></div><div class="foot"><b class="delta down">₹38.4 L</b><span>1 split award 70/30</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>By category</h2><span>awarded events, ₹ lakh</span><span class="more">Events</span></header>
+        <div class="body">
+          <table class="ct">
+            <thead><tr><th>Category</th><th class="r">Events</th><th class="r">Ceiling</th><th class="r">Awarded</th><th class="r">Saved</th><th>Below ceiling</th></tr></thead>
+            <tbody>
+              <tr><td><b>Castings and forgings</b></td><td class="r mono">7</td><td class="r mono">214.6</td><td class="r mono">198.4</td><td class="r mono">16.2</td><td><div class="sv"><span class="meter ok"><i style="width:62%"></i></span><span>7.5%</span></div></td></tr>
+              <tr><td><b>Steel and bar</b></td><td class="r mono">5</td><td class="r mono">199.5</td><td class="r mono">186.0</td><td class="r mono">13.5</td><td><div class="sv"><span class="meter ok"><i style="width:56%"></i></span><span>6.8%</span></div></td></tr>
+              <tr><td><b>Packaging</b></td><td class="r mono">6</td><td class="r mono">71.4</td><td class="r mono">64.2</td><td class="r mono">7.2</td><td><div class="sv"><span class="meter ok"><i style="width:84%"></i></span><span>10.1%</span></div></td></tr>
+              <tr><td><b>Tooling and consumables</b></td><td class="r mono">8</td><td class="r mono">101.3</td><td class="r mono">92.6</td><td class="r mono">8.7</td><td><div class="sv"><span class="meter ok"><i style="width:72%"></i></span><span>8.6%</span></div></td></tr>
+              <tr><td><b>Logistics and services</b><small>sealed bids</small></td><td class="r mono">3</td><td class="r mono">137.6</td><td class="r mono">128.0</td><td class="r mono">9.6</td><td><div class="sv"><span class="meter ok"><i style="width:58%"></i></span><span>7.0%</span></div></td></tr>
+              <tr><td><b>Capital equipment</b></td><td class="r mono">2</td><td class="r mono">80.6</td><td class="r mono">72.8</td><td class="r mono">7.8</td><td><div class="sv"><span class="meter ok"><i style="width:81%"></i></span><span>9.7%</span></div></td></tr>
+              <tr class="tot"><td>All categories</td><td class="r mono">31</td><td class="r mono">805.0</td><td class="r mono">742.0</td><td class="r mono">63.0</td><td><div class="sv"><span class="meter ok"><i style="width:65%"></i></span><span>7.8%</span></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Savings by month</h2><span>₹ lakh, realised on awards</span></header>
+        <div class="body chart-c" data-bars="6.2,8.9,11.4,9.8,13.6,10.5" data-max="15" data-labels="Apr,May,Jun,Jul,Aug,Sep" data-colors="#0c9b6a"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Live now</h2><span class="more">Monitor</span></header>
+        <div class="body" style="padding-top:6px">
+          <div class="lvc"><b>AUC-0088 · export cartons</b><small>24,000 · H2 rate contract · 5 bidding</small><strong>₹44.10</strong></div>
+          <div class="lv2">
+            <div><label>Ceiling</label><b>₹48.00</b></div>
+            <div><label>Below ceiling</label><b>8.1%</b></div>
+            <div><label>Closes</label><b>14:06</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Needs you</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="q">
+            <li><b>AUC-0086 · SR-18 seal rings</b><small>Split 70/30 · L1 Nova Seals, L2 incumbent</small><span class="chip warn">Award</span></li>
+            <li><b>AUC-0085 · carbide inserts</b><small>Single award to L1 · ₹14.2 L</small><span class="chip warn">Award</span></li>
+            <li><b>AUC-0091 · LM6 castings</b><small>From the MRP run · 1,800 kg · starts 14 Oct</small><span class="chip blue">Draft</span></li>
+            <li><b>SB-0019 · plant canteen contract</b><small>Sealed bids open 15 Oct, 11:00</small><span class="chip plain">Sealed</span></li>
+            <li><b>AUC-0089 · coolant and oils</b><small>Starts 10 Oct · 6 vendors invited</small><span class="chip plain">Scheduled</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

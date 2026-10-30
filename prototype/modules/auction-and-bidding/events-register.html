@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Auction and Bidding · Events</title>
+<!-- Scenario: see esourcing-dashboard.html. Events since 1 Sep (10 of 14 shown), newest first, ₹ lakh. AUC-0091 LM6
+     castings draft (ceiling 4.61); SB-0019 plant canteen, sealed bids open 15 Oct (38.0); AUC-0089 coolant and oils,
+     10 Oct (6.40); AUC-0088 export cartons live (11.52, best 10.58); AUC-0087 packing foam inserts, awarded 2 Oct
+     (3.10 → 2.79); AUC-0086 SR-18 seal rings, 60,000 a year (25.20 → 24.18, split 70/30 Nova Seals / Sealtech India),
+     awaiting award; AUC-0085 carbide inserts (15.60 → 14.20), awaiting award; SB-0018 freight, Pune–Ahmedabad lane,
+     H2 (48.0 → 44.6), awarded 26 Sep to Trimurti Logistics; AUC-0082 EN8 round bar, 120 t rate contract (105.6 →
+     98.4, ₹82/kg), awarded 12 Sep to Kaveri Steel Traders; AUC-0081 shop-floor lighting retrofit (capex, 22.4 →
+     20.1), awarded 4 Sep. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 10px; padding-bottom: 10px; }
+  .ty { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; font-weight: 550; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .ty.s { background: #f3efff; border-color: #e2d9ff; color: #5b3fc4; }
+  .svg2 { color: var(--ok); font: 600 12px var(--mono); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body data-module="auction-and-bidding" data-view="Events" data-crumb="Buy / Auction and Bidding / Events" data-org="NP|Northfield Precision|All sites" data-who="Rohan Menon|Buyer">
+<main>
+  <div class="head">
+    <div>
+      <h1>Events</h1>
+      <p>Every reverse auction and sealed bid, from draft to award, with its ceiling, result and savings</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">Create event</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Date <b>Since 1 Sep</b></span>
+    <span class="filter">Type <b>All</b></span>
+    <span class="filter">Category <b>All</b></span>
+    <span class="filter">Status <b>All</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Event, item or vendor</div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Events since 1 Sep</label><strong>14</strong></div>
+    <div class="card sm"><label>Live or scheduled</label><strong>4 <small>1 live</small></strong></div>
+    <div class="card sm"><label>Awaiting award</label><strong style="color:var(--warn)">2 <small>₹38.4 L</small></strong></div>
+    <div class="card sm"><label>Awarded</label><strong>7</strong></div>
+    <div class="card sm"><label>Saved on awards</label><strong style="color:var(--ok)">₹14.9 L <small>7.4%</small></strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Event</th><th>Type</th><th>Item</th><th>Date</th><th class="r">Bidders</th><th class="r">Ceiling</th><th class="r">Best or award</th><th class="r">Saved</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">AUC-0091</b></td><td><span class="ty">Reverse</span></td><td>LM6 castings<small>1,800 kg · from MRP</small></td><td class="mono">14 Oct</td><td class="r mono">3</td><td class="r mono">₹4.61 L</td><td class="r mono dim">—</td><td class="r dim">—</td><td><span class="chip blue">Draft</span></td></tr>
+          <tr><td><b class="mono">SB-0019</b></td><td><span class="ty s">Sealed</span></td><td>Plant canteen<small>12 months, Plant 1</small></td><td class="mono">15 Oct</td><td class="r mono">4</td><td class="r mono">₹38.0 L</td><td class="r mono dim">sealed</td><td class="r dim">—</td><td><span class="chip plain">Bids sealed</span></td></tr>
+          <tr><td><b class="mono">AUC-0089</b></td><td><span class="ty">Reverse</span></td><td>Coolant and oils<small>H2 rate contract</small></td><td class="mono">10 Oct</td><td class="r mono">6</td><td class="r mono">₹6.40 L</td><td class="r mono dim">—</td><td class="r dim">—</td><td><span class="chip plain">Scheduled</span></td></tr>
+          <tr class="hl"><td><b class="mono">AUC-0088</b></td><td><span class="ty">Reverse</span></td><td>Export cartons<small>24,000 · 5-ply</small></td><td class="mono">today</td><td class="r mono">5</td><td class="r mono">₹11.52 L</td><td class="r mono">₹10.58 L</td><td class="r svg2">8.1%</td><td><span class="chip ok">Live</span></td></tr>
+          <tr><td><b class="mono">AUC-0087</b></td><td><span class="ty">Reverse</span></td><td>Packing foam inserts</td><td class="mono">2 Oct</td><td class="r mono">4</td><td class="r mono">₹3.10 L</td><td class="r mono">₹2.79 L</td><td class="r svg2">10.0%</td><td><span class="chip ok">Awarded</span></td></tr>
+          <tr><td><b class="mono">AUC-0086</b></td><td><span class="ty">Reverse</span></td><td>SR-18 seal rings<small>60,000 a year · split 70/30</small></td><td class="mono">4 Oct</td><td class="r mono">4</td><td class="r mono">₹25.20 L</td><td class="r mono">₹24.18 L</td><td class="r svg2">4.0%</td><td><span class="chip warn">Awaiting award</span></td></tr>
+          <tr><td><b class="mono">AUC-0085</b></td><td><span class="ty">Reverse</span></td><td>Carbide inserts<small>turning grades</small></td><td class="mono">3 Oct</td><td class="r mono">5</td><td class="r mono">₹15.60 L</td><td class="r mono">₹14.20 L</td><td class="r svg2">9.0%</td><td><span class="chip warn">Awaiting award</span></td></tr>
+          <tr><td><b class="mono">SB-0018</b></td><td><span class="ty s">Sealed</span></td><td>Freight, Pune–Ahmedabad<small>H2 lane contract</small></td><td class="mono">26 Sep</td><td class="r mono">5</td><td class="r mono">₹48.0 L</td><td class="r mono">₹44.6 L</td><td class="r svg2">7.1%</td><td><span class="chip ok">Awarded</span></td></tr>
+          <tr><td><b class="mono">AUC-0082</b></td><td><span class="ty">Reverse</span></td><td>EN8 round bar<small>120 t · rate contract</small></td><td class="mono">12 Sep</td><td class="r mono">4</td><td class="r mono">₹105.6 L</td><td class="r mono">₹98.4 L</td><td class="r svg2">6.8%</td><td><span class="chip ok">Awarded</span></td></tr>
+          <tr><td><b class="mono">AUC-0081</b></td><td><span class="ty">Reverse</span></td><td>Lighting retrofit<small>capex, Plant 1</small></td><td class="mono">4 Sep</td><td class="r mono">3</td><td class="r mono">₹22.4 L</td><td class="r mono">₹20.1 L</td><td class="r svg2">10.3%</td><td><span class="chip ok">Awarded</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 10 of 14 events · bids, timestamps and award decisions kept for audit</span><span>Awards turn into purchase orders after approval</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

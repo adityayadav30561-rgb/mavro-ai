@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Real Estate Management · Portfolio dashboard</title>
+<!--
+  Scenario (Real Estate Management, shared by every screen of the module; agrees with the sites in WMS, Sales Force
+  Automation and Insurance): Northfield Precision, 8 Oct, 14:02. 14 properties, 3,32,300 sq ft built up. Owned 5:
+  Plant 1 Pune (Chakan MIDC, 1,42,000 sq ft), Chennai plant (Oragadam, SIPCOT leasehold, 96,000 sq ft), Chakan guest
+  house (3,200 sq ft), Talegaon land bank (4.2 acres, idle since 2021, book value ₹3.10 Cr, holding cost ₹4.6 L a year) and Chennai staff quarters (6,400 sq ft). Leased 9 (sq ft, ₹ per sq ft a month, lease end): Pune exports office, Baner (6,800, 96, Mar 2029);
+  Pune depot, Chakan (42,000, 26, Mar 2033); Ahmedabad depot, Changodar (28,000, 24, 31 Dec 2026); Mumbai sales
+  office (1,100, 165, Jun 2028); Hyderabad sales office (1,500, 70, Aug 2027); Indore sales office (1,200, 62, 30 Nov
+  2026); Nashik sales office (800, 55, Jan 2028); Coimbatore sales office (900, 48, Sep 2027); Chennai guest house
+  (₹65,000 a month, Feb 2027). Rent ₹29.30 L a month, ₹3.52 Cr a year; TDS on rent at 10% deducted every month.
+  Renewals within 90 days: Indore (30 Nov) and Ahmedabad depot (31 Dec, renewal under negotiation since 2 Oct).
+  Statutory: fire NOC Chennai plant expires 15 Nov (renewal filed 1 Oct); property tax Plant 1 second half due
+  30 Nov; factory licence Plant 1 renews 31 Dec. Rent committed under signed leases (₹ Cr): FY27 3.52, FY28 3.31,
+  FY29 3.18, FY30 2.86, FY31 2.71. Admin and estates manager: Sunil Pawar; CFO: Ashok Rathi.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .ls td { padding-top: 7px; padding-bottom: 7px; }
+  .bm { font: 11.5px var(--mono); color: var(--ink-3); }
+  .bm.hi { color: var(--warn); }
+  tr.due td { background: var(--warn-soft); }
+  .st li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; }
+  .st li + li { border-top: 1px solid var(--line); }
+  .st b { font-weight: 550; }
+  .st small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .st .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .lb { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: center; }
+  .lb svg { width: 64px; height: 52px; border-radius: 8px; background: #f6faf7; border: 1px solid var(--line); }
+  .lb b { display: block; font-weight: 600; }
+  .lb small { display: block; color: var(--ink-3); font-size: 11.5px; line-height: 1.4; }
+</style>
+</head>
+<body data-module="real-estate-management" data-view="Portfolio dashboard" data-crumb="Assets / Real Estate Management / Portfolio dashboard" data-org="NP|Northfield Precision|All sites" data-who="Sunil Pawar|Admin and estates manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Property portfolio</h1>
+      <p>Plants, depots, offices, guest houses and land bank · leases, rent and statutory documents in one register</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Property register</span>
+      <span class="btn pri">Add property</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Properties</label><div class="v"><strong>14 <small>3,32,300 sq ft</small></strong></div><div class="foot"><b class="delta flat">5 owned</b><span>9 leased</span></div></div>
+    <div class="card kpi"><label>Rent</label><div class="v"><strong>₹3.52 Cr <small>a year</small></strong></div><div class="foot"><b class="delta flat">₹29.30 L a month</b><span>TDS deducted</span></div></div>
+    <div class="card kpi"><label>Renewals in 90 days</label><div class="v"><strong>2</strong></div><div class="foot"><b class="delta down">Ahmedabad depot</b><span>in negotiation</span></div></div>
+    <div class="card kpi"><label>Statutory due in 90 days</label><div class="v"><strong>3</strong></div><div class="foot"><b class="delta down">Fire NOC, 15 Nov</b><span>Chennai plant</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Leases</h2><span>rent per sq ft a month against the market for the area</span><span class="more">All 9</span></header>
+        <div class="body">
+          <table class="ls">
+            <thead><tr><th>Property</th><th class="r">Area, sq ft</th><th class="r">Rent / sq ft</th><th class="r">Market</th><th class="r">Monthly rent</th><th>Lease ends</th></tr></thead>
+            <tbody>
+              <tr class="due"><td><b>Ahmedabad depot</b><small>Changodar · warehouse</small></td><td class="r mono">28,000</td><td class="r mono">₹24.00</td><td class="r bm">₹25.40</td><td class="r mono">₹6.72 L</td><td><span class="chip warn">31 Dec</span></td></tr>
+              <tr class="due"><td><b>Indore sales office</b><small>Vijay Nagar</small></td><td class="r mono">1,200</td><td class="r mono">₹62.00</td><td class="r bm">₹60.00</td><td class="r mono">₹0.74 L</td><td><span class="chip warn">30 Nov</span></td></tr>
+              <tr><td><b>Pune depot</b><small>Chakan · warehouse</small></td><td class="r mono">42,000</td><td class="r mono">₹26.00</td><td class="r bm">₹27.50</td><td class="r mono">₹10.92 L</td><td class="mono">Mar 2033</td></tr>
+              <tr><td><b>Pune exports office</b><small>Baner</small></td><td class="r mono">6,800</td><td class="r mono">₹96.00</td><td class="r bm">₹92.00</td><td class="r mono">₹6.53 L</td><td class="mono">Mar 2029</td></tr>
+              <tr><td><b>Mumbai sales office</b><small>Andheri East</small></td><td class="r mono">1,100</td><td class="r mono">₹165.00</td><td class="r bm">₹170.00</td><td class="r mono">₹1.82 L</td><td class="mono">Jun 2028</td></tr>
+              <tr><td><b>Hyderabad sales office</b><small>Kukatpally</small></td><td class="r mono">1,500</td><td class="r mono">₹70.00</td><td class="r bm hi">₹64.00</td><td class="r mono">₹1.05 L</td><td class="mono">Aug 2027</td></tr>
+              <tr><td><b>3 more</b><small>Nashik, Coimbatore, Chennai guest house</small></td><td class="r mono">4,100</td><td class="r dim">—</td><td class="r dim">—</td><td class="r mono">₹1.52 L</td><td class="mono">2027–28</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Committed rent</h2><span>₹ crore a year, signed leases only</span></header>
+        <div class="body chart-c" data-bars="3.52,3.31,3.18,2.86,2.71" data-max="4" data-labels="FY27,FY28,FY29,FY30,FY31" data-colors="#0a48fd"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Statutory watch</h2><span class="more">All</span></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="st">
+            <li><b>Fire NOC · Chennai plant</b><small>Expires 15 Nov · renewal filed 1 Oct</small><span class="chip warn">38 days</span></li>
+            <li><b>Property tax · Plant 1</b><small>Second half due 30 Nov</small><span class="chip plain">53 days</span></li>
+            <li><b>Factory licence · Plant 1</b><small>Renews 31 Dec</small><span class="chip plain">84 days</span></li>
+            <li><b>Lease registration</b><small>All 9 leases registered, stamp duty paid</small><span class="chip ok">Current</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Land bank</h2><span>owned, not in use</span></header>
+        <div class="body">
+          <div class="lb">
+            <svg viewBox="0 0 64 52" aria-hidden="true"><polygon points="10,12 50,8 56,40 16,44" fill="#e3efe6" stroke="#0c9b6a" stroke-width="1.5" stroke-dasharray="3 2"/></svg>
+            <div><b>Talegaon plot</b><small>4.2 acres, industrial zone · idle since 2021 · property tax paid to Mar 2027</small></div>
+          </div>
+          <div class="rule"></div>
+          <dl class="kv"><dt>Book value</dt><dd>₹3.10 Cr</dd><dt>Holding cost</dt><dd>₹4.6 L a year</dd><dt>Use</dt><dd>None planned</dd></dl>
+          <div class="rule"></div>
+          <ul class="st">
+            <li><b>Options to decide</b><small>Lease out, sell, or keep for a third plant</small><span class="chip blue">CFO review</span></li>
+            <li><b>Documents</b><small>Title, 7/12 extract, NA order on file</small><span class="chip ok">Complete</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

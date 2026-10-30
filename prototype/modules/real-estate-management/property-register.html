@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Real Estate Management · Property register</title>
+<!-- Scenario: see portfolio-dashboard.html. All 14 properties (owned, leased and land bank) with use, area, holding,
+     rent, landlord or title, escalation, lease end and the state of their documents. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 6px; padding-bottom: 6px; }
+  .hd { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; font-weight: 550; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); }
+  .hd.o { background: var(--ok-soft); border-color: #c8ecdc; color: var(--ok); }
+  .hd.l { background: #e3efe6; border-color: #c8ecdc; color: #2f6b4d; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body data-module="real-estate-management" data-view="Property register" data-crumb="Assets / Real Estate Management / Property register" data-org="NP|Northfield Precision|All sites" data-who="Sunil Pawar|Admin and estates manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Property register</h1>
+      <p>14 properties · 3,32,300 sq ft built up and 4.2 acres of land bank · owned, leased and idle in one register</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">Add property</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Holding <b>All</b></span>
+    <span class="filter">Use <b>All</b></span>
+    <span class="filter">State <b>All</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Property, city or landlord</div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Property</th><th>Use</th><th>Holding</th><th class="r">Area</th><th class="r">Rent a month</th><th>Landlord or title</th><th>Escalation</th><th>Lease ends</th><th>Documents</th></tr></thead>
+        <tbody>
+          <tr><td><b>Plant 1 · Pune</b><small>Chakan MIDC</small></td><td>Plant</td><td><span class="hd o">Owned</span></td><td class="r mono">1,42,000</td><td class="r dim">—</td><td>MIDC plot, freehold</td><td class="dim">—</td><td class="dim">—</td><td><span class="chip ok">Complete</span></td></tr>
+          <tr><td><b>Chennai plant</b><small>Oragadam</small></td><td>Plant</td><td><span class="hd o">Owned</span></td><td class="r mono">96,000</td><td class="r dim">—</td><td>SIPCOT, 99-year lease</td><td class="dim">—</td><td class="mono">2107</td><td><span class="chip warn">Fire NOC 15 Nov</span></td></tr>
+          <tr><td><b>Pune depot</b><small>Chakan</small></td><td>Warehouse</td><td><span class="hd">Leased</span></td><td class="r mono">42,000</td><td class="r mono">₹10.92 L</td><td>Sai Infra Parks</td><td>5% a year</td><td class="mono">Mar 2033</td><td><span class="chip ok">Complete</span></td></tr>
+          <tr class="hl"><td><b>Ahmedabad depot</b><small>Changodar</small></td><td>Warehouse</td><td><span class="hd">Leased</span></td><td class="r mono">28,000</td><td class="r mono">₹6.72 L</td><td>Patel Estates</td><td>5% a year</td><td class="mono">31 Dec 2026</td><td><span class="chip warn">Renewal LR-0014</span></td></tr>
+          <tr><td><b>Pune exports office</b><small>Baner</small></td><td>Office</td><td><span class="hd">Leased</span></td><td class="r mono">6,800</td><td class="r mono">₹6.53 L</td><td>Kalpataru Commercial</td><td>15% in 3 years</td><td class="mono">Mar 2029</td><td><span class="chip ok">Complete</span></td></tr>
+          <tr><td><b>Chennai staff quarters</b><small>Oragadam</small></td><td>Housing</td><td><span class="hd o">Owned</span></td><td class="r mono">6,400</td><td class="r dim">—</td><td>Freehold</td><td class="dim">—</td><td class="dim">—</td><td><span class="chip ok">Complete</span></td></tr>
+          <tr><td><b>Chakan guest house</b><small>Chakan</small></td><td>Guest house</td><td><span class="hd o">Owned</span></td><td class="r mono">3,200</td><td class="r dim">—</td><td>Freehold</td><td class="dim">—</td><td class="dim">—</td><td><span class="chip ok">Complete</span></td></tr>
+          <tr><td><b>Chennai guest house</b><small>Sriperumbudur</small></td><td>Guest house</td><td><span class="hd">Leased</span></td><td class="r mono">2,400</td><td class="r mono">₹0.65 L</td><td>R. Krishnan</td><td>5% a year</td><td class="mono">Feb 2027</td><td><span class="chip ok">Complete</span></td></tr>
+          <tr><td><b>Hyderabad sales office</b><small>Kukatpally</small></td><td>Office</td><td><span class="hd">Leased</span></td><td class="r mono">1,500</td><td class="r mono">₹1.05 L</td><td>Sri Sai Towers</td><td>5% a year</td><td class="mono">Aug 2027</td><td><span class="chip ok">Complete</span></td></tr>
+          <tr><td><b>Indore sales office</b><small>Vijay Nagar</small></td><td>Office</td><td><span class="hd">Leased</span></td><td class="r mono">1,200</td><td class="r mono">₹0.74 L</td><td>Malwa Realty</td><td>5% a year</td><td class="mono">30 Nov 2026</td><td><span class="chip warn">Renewal due</span></td></tr>
+          <tr><td><b>Mumbai sales office</b><small>Andheri East</small></td><td>Office</td><td><span class="hd">Leased</span></td><td class="r mono">1,100</td><td class="r mono">₹1.82 L</td><td>Marol Business Park</td><td>15% in 3 years</td><td class="mono">Jun 2028</td><td><span class="chip ok">Complete</span></td></tr>
+          <tr><td><b>Coimbatore sales office</b><small>Peelamedu</small></td><td>Office</td><td><span class="hd">Leased</span></td><td class="r mono">900</td><td class="r mono">₹0.43 L</td><td>K. Palanisamy</td><td>5% a year</td><td class="mono">Sep 2027</td><td><span class="chip ok">Complete</span></td></tr>
+          <tr><td><b>Nashik sales office</b><small>Satpur</small></td><td>Office</td><td><span class="hd">Leased</span></td><td class="r mono">800</td><td class="r mono">₹0.44 L</td><td>Godavari Plaza</td><td>5% a year</td><td class="mono">Jan 2028</td><td><span class="chip ok">Complete</span></td></tr>
+          <tr><td><b>Talegaon plot</b><small>4.2 acres</small></td><td>Land bank</td><td><span class="hd l">Idle</span></td><td class="r mono dim">land</td><td class="r dim">—</td><td>Freehold, NA order</td><td class="dim">—</td><td class="dim">—</td><td><span class="chip blue">CFO review</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>14 properties · areas in sq ft built up · rent before TDS</span><span>Leases are registered and stamped; TDS at 10% under section 194-I</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

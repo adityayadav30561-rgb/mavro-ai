@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Real Estate Management · Property 360</title>
+<!-- Scenario: see portfolio-dashboard.html. The Pune depot, Chakan: 42,000 sq ft warehouse leased from Sai Infra Parks
+     from 1 Apr 2024 to 31 Mar 2033 (9 years, lock-in to 31 Mar 2029), 5% escalation every April: ₹23.58 per sq ft in
+     FY25 (₹9.90 L a month), ₹24.76 in FY26 (₹10.40 L), ₹26.00 in FY27 (₹10.92 L), ₹27.30 from 1 Apr 2027 (₹11.47 L).
+     Security deposit ₹59.40 L (six months at the starting rent). Rent paid on the 5th: 30 of 30 months on time; TDS at
+     10% under section 194-I (₹1.09 L a month), so ₹9.83 L goes to the landlord. Lease deed registered at the Khed
+     sub-registrar; fire NOC valid to Jun 2027; building insured by the landlord, stock on Northfield's fire policy.
+     The depot is the Pune warehouse run in WMS. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols3 { grid-template-columns: 320px minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .facts { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+  .facts label { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .facts b { font-weight: 600; display: block; margin-top: 2px; font-size: 15px; }
+  .facts small { color: var(--ink-3); font-size: 11.5px; }
+  .ph { height: 120px; border-radius: 10px; background: linear-gradient(160deg, #e9edf3 0%, #d7dde7 100%); position: relative; overflow: hidden; }
+  .ph svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .chart-c { position: relative; height: 170px; }
+  .chart-c svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .py td { padding-top: 9px; padding-bottom: 9px; }
+  .docs li { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; font-size: 12.5px; }
+  .docs li + li { border-top: 1px solid var(--line); }
+  .docs i { height: 30px; border-radius: 7px; display: grid; place-items: center; font: 650 9.5px var(--mono); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .docs small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .nx li { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 10px; padding: 7px 0; font-size: 12.5px; }
+  .nx li + li { border-top: 1px solid var(--line); }
+  .nx time { font: 600 11.5px var(--mono); color: var(--ink-2); }
+</style>
+</head>
+<body data-module="real-estate-management" data-view="Property 360" data-crumb="Assets / Real Estate Management / Property 360 / Pune depot" data-org="NP|Northfield Precision|All sites" data-who="Sunil Pawar|Admin and estates manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Pune depot · Chakan &nbsp;<span class="chip ok" style="vertical-align:4px">Lease current</span></h1>
+      <p>Warehouse · leased from Sai Infra Parks · the Pune warehouse in WMS · everything about the property on one page</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Documents</span>
+      <span class="btn pri">Record payment</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="facts">
+        <div><label>Area</label><b>42,000 sq ft</b><small>warehouse and dock</small></div>
+        <div><label>Rent</label><b>₹26.00 / sq ft</b><small>₹10.92 L a month</small></div>
+        <div><label>Lease</label><b>Apr 2024 – Mar 2033</b><small>9 years</small></div>
+        <div><label>Lock-in</label><b>to Mar 2029</b><small>then 6 months’ notice</small></div>
+        <div><label>Escalation</label><b>5% every April</b><small>next ₹27.30 from Apr 2027</small></div>
+        <div><label>Security deposit</label><b>₹59.40 L</b><small>six months at the start</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols3">
+    <div class="stack">
+      <div class="card">
+        <header><h2>Property</h2></header>
+        <div class="body" style="padding-top:6px">
+          <div class="ph"><svg viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true"><rect x="40" y="44" width="220" height="56" fill="#c3cbd8"/><polygon points="34,46 150,18 266,46" fill="#aab4c4"/><rect x="62" y="70" width="34" height="30" fill="#8b93a3"/><rect x="112" y="70" width="34" height="30" fill="#8b93a3"/><rect x="162" y="70" width="34" height="30" fill="#8b93a3"/><rect x="212" y="70" width="34" height="30" fill="#8b93a3"/></svg></div>
+          <dl class="kv" style="margin-top:12px"><dt>Address</dt><dd>Chakan Phase II, Pune</dd><dt>Docks</dt><dd>4, with levellers</dd><dt>Used by</dt><dd>WMS · Pune warehouse</dd><dt>Landlord</dt><dd>Sai Infra Parks</dd></dl>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Coming up</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="nx">
+            <li><time>31 Oct</time><span>TDS return for Q2 (26Q)</span></li>
+            <li><time>5 Nov</time><span>October rent, ₹10.92 L less TDS</span></li>
+            <li><time>15 Nov</time><span>Form 16A for Q2 to the landlord</span></li>
+            <li><time>1 Apr 27</time><span>Escalation to ₹27.30 a sq ft</span></li>
+            <li><time>Jun 2027</time><span>Fire NOC renewal</span></li>
+            <li><time>Mar 2029</time><span>Lock-in ends</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Rent over the lease</h2><span>₹ lakh a month · April each year</span></header>
+        <div class="body"><div class="chart-c" data-bars="9.90,10.40,10.92,11.47,12.04" data-max="15" data-labels="FY25,FY26,FY27,FY28,FY29" data-colors="#0a48fd"></div></div>
+      </div>
+      <div class="card flush" style="flex:1 1 auto">
+        <header><h2>Payments</h2><span>₹10.92 L a month · 30 of 30 on time</span><span class="more">All</span></header>
+        <div class="body">
+          <table class="py">
+            <thead><tr><th>Month</th><th class="r">TDS 10%</th><th class="r">Paid</th><th>Date</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>September</td><td class="r mono">₹1,09,200</td><td class="r mono">₹9,82,800</td><td class="mono">5 Sep</td><td><span class="chip ok">On time</span></td></tr>
+              <tr><td>August</td><td class="r mono">₹1,09,200</td><td class="r mono">₹9,82,800</td><td class="mono">5 Aug</td><td><span class="chip ok">On time</span></td></tr>
+              <tr><td>July</td><td class="r mono">₹1,09,200</td><td class="r mono">₹9,82,800</td><td class="mono">4 Jul</td><td><span class="chip ok">On time</span></td></tr>
+              <tr><td>June</td><td class="r mono">₹1,09,200</td><td class="r mono">₹9,82,800</td><td class="mono">5 Jun</td><td><span class="chip ok">On time</span></td></tr>
+              <tr><td>May</td><td class="r mono">₹1,09,200</td><td class="r mono">₹9,82,800</td><td class="mono">5 May</td><td><span class="chip ok">On time</span></td></tr>
+              <tr><td>April<small>new rate from 1 Apr</small></td><td class="r mono">₹1,09,200</td><td class="r mono">₹9,82,800</td><td class="mono">3 Apr</td><td><span class="chip ok">On time</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Documents</h2><span>all current</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="docs">
+            <li><i>PDF</i><span>Lease deed<small>registered, Khed sub-registrar</small></span><span class="chip ok">Registered</span></li>
+            <li><i>PDF</i><span>Stamp duty receipt<small>paid at signing</small></span><span class="chip ok">On file</span></li>
+            <li><i>PDF</i><span>Fire NOC<small>valid to Jun 2027</small></span><span class="chip ok">Valid</span></li>
+            <li><i>PDF</i><span>Building insurance<small>held by the landlord</small></span><span class="chip ok">Valid</span></li>
+            <li><i>PDF</i><span>Stock cover<small>on Northfield’s fire policy</small></span><span class="chip ok">Covered</span></li>
+            <li><i>XLS</i><span>Form 16A, TDS on rent<small>to Q1 FY27</small></span><span class="chip ok">Issued</span></li>
+            <li><i>PDF</i><span>Deposit receipt<small>₹59.40 L</small></span><span class="chip ok">On file</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

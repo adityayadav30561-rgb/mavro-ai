@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Auction and Bidding · Create event</title>
+<!-- Scenario: see esourcing-dashboard.html. AUC-0091, drafted by the MRP run of 8 Oct (PPDS): LM6 aluminium castings,
+     1,800 kg needed in week 43 (pegged to WO-5538 GB-310 for EXP-0388 1,000 kg, WO-5534 IH-180 650 kg and safety
+     stock 150 kg), ₹4,60,800 at the last price of ₹256/kg, over the ₹2 L auction threshold. Ceiling ₹256/kg. Step 3
+     of 5, vendors: only QA-approved foundries from mVLens may bid: Aravali Castings (Faridabad, current and only
+     source, 94% on time), Kolhapur Foundry Works (approved, last audit Acceptable), Sahyadri Castings (Satara,
+     approved). Konkan Foundry (Ratnagiri) is held out: qualification audit AUD-0424 on 21–22 Oct. Rules: reverse,
+     rank-only, 14 Oct 11:00 for 30 minutes, 3-minute extension for a bid in the last 2, decrement 0.5%; split award
+     70/30 between L1 and L2 so the castings are not single-sourced; approvers purchase head S. Iyer, QA head Anil
+     Bhosale, finance. Delivery by 20 Oct to Plant 1 stores. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .flowcard .body { padding: 16px 18px 14px; }
+  .cols { grid-template-columns: minmax(0, 1fr) 360px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .item { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+  .item label { display: block; font-size: 11.5px; color: var(--ink-3); }
+  .item b { display: block; margin-top: 2px; font-weight: 550; }
+  .item small { color: var(--ink-3); font-size: 11.5px; }
+  .vd td { padding-top: 11px; padding-bottom: 11px; }
+  .ck { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 5px; background: var(--accent); color: #fff; font: 700 11px var(--sans); }
+  .ck.off { background: #fff; border: 1.5px solid var(--line-2); color: transparent; }
+  tr.out td { color: var(--ink-3); background: var(--surface-2); }
+  tr.out b { color: var(--ink-2); }
+  .src { padding: 10px 12px; border-radius: 10px; background: var(--accent-soft); border: 1px solid #d9e0ff; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+  .src b { color: var(--accent-ink); }
+  .split { display: flex; height: 26px; border-radius: 7px; overflow: hidden; margin-top: 6px; }
+  .split span { display: grid; place-items: center; color: #fff; font: 600 11.5px var(--mono); }
+  .inv { margin-top: auto; padding: 14px 16px 2px; border-top: 1px solid var(--line); }
+  .inv h3 { font: 600 12.5px var(--sans); margin-bottom: 8px; }
+  .inv h3 span { font-weight: 400; color: var(--ink-3); margin-left: 6px; }
+  .docs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .docs div { display: flex; gap: 10px; align-items: center; padding: 9px 10px; border-radius: 9px; border: 1px solid var(--line); font-size: 12.5px; }
+  .docs i { flex: none; width: 30px; height: 30px; border-radius: 7px; display: grid; place-items: center; font: 650 9.5px var(--mono); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .docs small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .lbl { display: block; margin-top: 14px; font-size: 11.5px; color: var(--ink-3); }
+  .why { margin-top: 8px; font-size: 12px; color: var(--ink-2); line-height: 1.45; }
+</style>
+</head>
+<body data-module="auction-and-bidding" data-view="Create event" data-crumb="Buy / Auction and Bidding / Create event / AUC-0091" data-org="NP|Northfield Precision|Plant 1 · Pune" data-who="Rohan Menon|Buyer">
+<main>
+  <div class="head">
+    <div>
+      <h1>New reverse auction · AUC-0091 &nbsp;<span class="chip blue" style="vertical-align:4px">Draft</span></h1>
+      <p>LM6 aluminium castings · drafted from the MRP run of 8 Oct · needed in week 43 at Plant 1</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Back</span>
+      <span class="btn">Save draft</span>
+      <span class="btn pri">Next: rules</span>
+    </div>
+  </div>
+
+  <div class="card flowcard">
+    <div class="body">
+      <ol class="flow" style="--n:5;--at:0.5">
+        <li class="done"><i></i><b>Source</b><span>MRP proposal</span></li>
+        <li class="done"><i></i><b>Item and ceiling</b><span>₹256 / kg</span></li>
+        <li class="now"><i></i><b>Vendors</b><span>3 of 4 qualified</span></li>
+        <li class="next"><i></i><b>Rules and award</b><span>split 70/30</span></li>
+        <li class="next"><i></i><b>Approve and publish</b><span>starts 14 Oct</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <header><h2>Item</h2><span>from the purchase proposal</span></header>
+    <div class="body">
+      <div class="item">
+        <div><label>Item</label><b>LM6 castings</b><small>aluminium, CV-110 and GB series</small></div>
+        <div><label>Quantity</label><b>1,800 kg</b><small>delivery by 20 Oct</small></div>
+        <div><label>Ceiling</label><b>₹256 / kg</b><small>last purchase price</small></div>
+        <div><label>Event value at ceiling</label><b>₹4,60,800</b><small>over the ₹2 L threshold</small></div>
+        <div><label>Needed for</label><b>WO-5538, WO-5534</b><small>and safety stock</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Vendors</h2><span>only QA-approved foundries from mVLens can be invited</span></header>
+      <div class="body">
+        <table class="vd">
+          <thead><tr><th></th><th>Vendor</th><th>Approval</th><th>Last audit</th><th class="r">On time</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ck">✓</span></td><td><b>Aravali Castings</b><small>Faridabad · current supplier</small></td><td><span class="chip ok">Approved</span></td><td>Acceptable · 21 Aug</td><td class="r mono">94%</td><td class="dim">only source today</td></tr>
+            <tr><td><span class="ck">✓</span></td><td><b>Kolhapur Foundry Works</b><small>Kolhapur</small></td><td><span class="chip ok">Approved</span></td><td>Acceptable · 14 Jun</td><td class="r mono">91%</td><td class="dim">supplies GB housings</td></tr>
+            <tr><td><span class="ck">✓</span></td><td><b>Sahyadri Castings</b><small>Satara</small></td><td><span class="chip ok">Approved</span></td><td>Observations · 9 May</td><td class="r mono">88%</td><td class="dim">CAPA closed</td></tr>
+            <tr class="out"><td><span class="ck off">✓</span></td><td><b>Konkan Foundry</b><small>Ratnagiri · second source in trial</small></td><td><span class="chip warn">Not approved</span></td><td>AUD-0424 · 21–22 Oct</td><td class="r mono">—</td><td>cannot bid yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="inv">
+        <h3>Sent with the invitation<span>through the Vendor Portal</span></h3>
+        <div class="docs">
+          <div><i>DWG</i><span>Drawings<small>CV-110 rev C, GB-310 rev B</small></span></div>
+          <div><i>PDF</i><span>Quality agreement<small>castings template v5</small></span></div>
+          <div><i>PDF</i><span>Delivery schedule<small>by 20 Oct, Plant 1 stores</small></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Why an auction</h2></header>
+        <div class="body" style="padding-top:6px">
+          <div class="src"><b>₹4,60,800 at ceiling</b> is over the ₹2 L auction threshold, so the MRP proposal became an auction draft instead of a purchase order.</div>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Award plan</h2><span>set in the next step</span></header>
+        <div class="body" style="padding-top:4px">
+          <span class="lbl" style="margin-top:0">Split award, L1 and L2</span>
+          <div class="split"><span style="flex:70;background:#0a48fd">L1 · 70% · 1,260 kg</span><span style="flex:30;background:#8497ff">L2 · 30%</span></div>
+          <p class="why">Castings come from one foundry today. A split keeps a second approved source supplying.</p>
+          <div class="rule"></div>
+          <dl class="kv"><dt>Starts</dt><dd>14 Oct, 11:00</dd><dt>Duration</dt><dd>30 min, auto-extended</dd><dt>Visibility</dt><dd>Rank only</dd><dt>Approvers</dt><dd>Purchase, QA, finance</dd><dt>On award</dt><dd>Purchase orders</dd></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

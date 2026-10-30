@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Learning Management · Courses and curricula</title>
+<!-- Scenario: see lms-dashboard.html. The course catalogue: 64 courses (28 mandatory), 12 shown, each with function,
+     type, delivery, duration, pass mark, validity (months, 0 = once), enrolled roles and state. CRS-0071 is new today
+     (draft, SME sign-off done, published 8 Oct). CRS-0034 5-axis setter 14 h, validity 12 months, on-job evaluation
+     required. Forklift CRS-0012 validity 36 months (licence), crane CRS-0013 12 months with medical fitness. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 9px; padding-bottom: 9px; }
+  .md { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; font-weight: 550; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); }
+  .md.m { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body data-module="learning-management" data-view="Courses and curricula" data-crumb="People / Learning Management / Courses and curricula" data-org="NP|Northfield Precision|All sites" data-who="Snehal Deshpande|Training manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Courses and curricula</h1>
+      <p>The catalogue by function: mandatory and optional courses, built into the curriculum for each role</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">New course</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Function <b>All</b></span>
+    <span class="filter">Type <b>All</b></span>
+    <span class="filter">Delivery <b>All</b></span>
+    <span class="filter">State <b>Published</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Course, role or trainer</div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Courses</label><strong>64 <small>28 mandatory</small></strong></div>
+    <div class="card sm"><label>Curricula</label><strong>42 <small>one per role</small></strong></div>
+    <div class="card sm"><label>With on-job evaluation</label><strong>17</strong></div>
+    <div class="card sm"><label>Trainers</label><strong>23 <small>all qualified</small></strong></div>
+    <div class="card sm"><label>Awaiting SME sign-off</label><strong style="color:var(--warn)">3</strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Course</th><th>Function</th><th>Type</th><th>Delivery</th><th class="r">Hours</th><th class="r">Pass mark</th><th class="r">Valid</th><th>Trainer</th><th>State</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td><b class="mono">CRS-0071</b><small>Calibrated tools: expiry, quarantine, withdrawal</small></td><td>Quality</td><td><span class="md m">Mandatory</span></td><td>Classroom, floor walk</td><td class="r mono">2</td><td class="r mono">80%</td><td class="r mono">12 mo</td><td>Anil Bhosale</td><td><span class="chip ok">Published today</span></td></tr>
+          <tr><td><b class="mono">CRS-0034</b><small>5-axis setter, certification</small></td><td>Machining</td><td><span class="md m">Mandatory</span></td><td>Classroom, on-job</td><td class="r mono">14</td><td class="r mono">80%</td><td class="r mono">12 mo</td><td>Rakesh Joshi</td><td><span class="chip ok">Published</span></td></tr>
+          <tr><td><b class="mono">CRS-0012</b><small>Forklift operator, licence</small></td><td>Stores</td><td><span class="md m">Mandatory</span></td><td>Classroom, practical</td><td class="r mono">8</td><td class="r mono">80%</td><td class="r mono">36 mo</td><td>Vilas Gaikwad</td><td><span class="chip ok">Published</span></td></tr>
+          <tr><td><b class="mono">CRS-0013</b><small>Crane operator, with medical fitness</small></td><td>Stores</td><td><span class="md m">Mandatory</span></td><td>Classroom, practical</td><td class="r mono">12</td><td class="r mono">80%</td><td class="r mono">12 mo</td><td>K. Arumugam</td><td><span class="chip ok">Published</span></td></tr>
+          <tr><td><b class="mono">CRS-0021</b><small>CMM operation and programming</small></td><td>Quality</td><td><span class="md m">Mandatory</span></td><td>Classroom, on-job</td><td class="r mono">16</td><td class="r mono">85%</td><td class="r mono">24 mo</td><td>Anil Bhosale</td><td><span class="chip ok">Published</span></td></tr>
+          <tr><td><b class="mono">CRS-0008</b><small>Fire safety and marshal</small></td><td>All sites</td><td><span class="md m">Mandatory</span></td><td>Practical drill</td><td class="r mono">4</td><td class="r mono">—</td><td class="r mono">12 mo</td><td>Safety officer</td><td><span class="chip ok">Published</span></td></tr>
+          <tr><td><b class="mono">CRS-0009</b><small>First aid</small></td><td>All sites</td><td><span class="md m">Mandatory</span></td><td>Classroom, practical</td><td class="r mono">6</td><td class="r mono">80%</td><td class="r mono">24 mo</td><td>External, Red Cross</td><td><span class="chip ok">Published</span></td></tr>
+          <tr><td><b class="mono">CRS-0027</b><small>Torque tool use and records</small></td><td>Assembly</td><td><span class="md m">Mandatory</span></td><td>Floor walk</td><td class="r mono">2</td><td class="r mono">80%</td><td class="r mono">12 mo</td><td>Swapnil Shelar</td><td><span class="chip ok">Published</span></td></tr>
+          <tr><td><b class="mono">CRS-0052</b><small>Poka-yoke and error proofing</small></td><td>Production</td><td><span class="md">Optional</span></td><td>Classroom</td><td class="r mono">4</td><td class="r mono">—</td><td class="r mono">once</td><td>Rakesh Joshi</td><td><span class="chip ok">Published</span></td></tr>
+          <tr><td><b class="mono">CRS-0066</b><small>Hazard communication</small></td><td>Stores</td><td><span class="md m">Mandatory</span></td><td>Classroom</td><td class="r mono">3</td><td class="r mono">80%</td><td class="r mono">24 mo</td><td>Safety officer</td><td><span class="chip warn">SME sign-off</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 10 of 64 courses · a course publishes only with trainer qualification and SME sign-off on file</span><span>Valid: months a certificate lasts</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

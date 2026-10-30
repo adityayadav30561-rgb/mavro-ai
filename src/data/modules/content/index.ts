@@ -2,6 +2,7 @@ import type { ModuleContent } from '../schema';
 import type { ModuleSlug } from '../slugs';
 import { content as accounting } from './accounting';
 import { content as assetManagement } from './asset-management';
+import { content as auctionAndBidding } from './auction-and-bidding';
 import { content as auditManagement } from './audit-management';
 import { content as costForecasting } from './cost-forecasting';
 import { content as crm } from './crm';
@@ -16,12 +17,14 @@ import { content as gateEntry } from './gate-entry';
 import { content as hrmsAndPayroll } from './hrms-and-payroll';
 import { content as insuranceManagement } from './insurance-management';
 import { content as inventoryManagement } from './inventory-management';
+import { content as learningManagement } from './learning-management';
 import { content as mvlensVendorAudit } from './mvlens-vendor-audit';
 import { content as orderToCash } from './order-to-cash';
 import { content as ppds } from './ppds';
 import { content as procureToPay } from './procure-to-pay';
 import { content as productionManagement } from './production-management';
 import { content as projectManagement } from './project-management';
+import { content as realEstateManagement } from './real-estate-management';
 import { content as restHoursLog } from './rest-hours-log';
 import { content as retailerPortal } from './retailer-portal';
 import { content as rosterLedger } from './roster-ledger';
@@ -49,6 +52,7 @@ type Registry = { [S in ModuleSlug]?: ModuleContent<S> };
 export const moduleContent: Registry = {
   accounting,
   'asset-management': assetManagement,
+  'auction-and-bidding': auctionAndBidding,
   'audit-management': auditManagement,
   'cost-forecasting': costForecasting,
   crm,
@@ -63,12 +67,14 @@ export const moduleContent: Registry = {
   'hrms-and-payroll': hrmsAndPayroll,
   'insurance-management': insuranceManagement,
   'inventory-management': inventoryManagement,
+  'learning-management': learningManagement,
   'mvlens-vendor-audit': mvlensVendorAudit,
   'order-to-cash': orderToCash,
   ppds,
   'procure-to-pay': procureToPay,
   'production-management': productionManagement,
   'project-management': projectManagement,
+  'real-estate-management': realEstateManagement,
   'rest-hours-log': restHoursLog,
   'retailer-portal': retailerPortal,
   'roster-ledger': rosterLedger,

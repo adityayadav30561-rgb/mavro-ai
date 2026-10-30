@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Auction and Bidding · Live auction</title>
+<!-- Scenario: see esourcing-dashboard.html. AUC-0088, reverse auction for 24,000 export cartons (5-ply, 600 × 400 ×
+     400 mm) on the H2 rate contract. Ceiling ₹48.00 per carton (the current rate). Opened 13:30, scheduled to close
+     14:00; a bid in the last 2 minutes extends the close by 3 minutes, so two extensions moved it to 14:06. Minimum
+     decrement ₹0.10. Six qualified vendors invited, five bidding, 47 bids. Ranks at 14:02: L1 Vardhman Packaging
+     ₹44.10 (13:59:41), L2 Shree Ganesh Packaging (incumbent) ₹44.35, L3 Om Corrugators ₹45.20, L4 Pack-Rite Industries
+     ₹46.80, L5 Sai Kraft Boards ₹47.50; Deccan Cartons invited, no bid. L1 against ceiling: 8.1%, ₹93,600 on 24,000.
+     Bidders see only their own rank, never prices or names. Award rule: single award to L1, subject to a trial lot
+     passing incoming inspection. Buyer: Rohan Menon. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .clock { font: 650 26px var(--mono); color: var(--accent-ink); letter-spacing: -0.02em; }
+  .rk td { padding-top: 10px; padding-bottom: 10px; }
+  .rank { display: inline-grid; place-items: center; width: 30px; height: 24px; border-radius: 6px; font: 650 11.5px var(--mono); background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  tr.l1 td { background: var(--ok-soft); }
+  tr.l1 .rank { background: var(--ok); border-color: var(--ok); color: #fff; }
+  .gap { font: 11.5px var(--mono); color: var(--ink-3); }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .vv { padding: 14px; border-radius: 10px; background: var(--ink); color: #fff; text-align: center; }
+  .vv small { display: block; font-size: 11.5px; color: rgb(255 255 255 / 0.65); }
+  .vv strong { display: block; margin: 4px 0 2px; font: 650 30px var(--sans); }
+  .vv span { font-size: 12px; color: rgb(255 255 255 / 0.8); }
+  .note { margin-top: 10px; font-size: 12px; color: var(--ink-2); line-height: 1.45; }
+</style>
+</head>
+<body data-module="auction-and-bidding" data-view="Live auctions" data-crumb="Buy / Auction and Bidding / Live auctions / AUC-0088" data-org="NP|Northfield Precision|All sites" data-who="Rohan Menon|Buyer">
+<main>
+  <div class="head">
+    <div>
+      <h1>AUC-0088 · export cartons &nbsp;<span class="chip ok" style="vertical-align:4px">Live</span></h1>
+      <p>Reverse auction · 24,000 cartons, 5-ply · H2 rate contract · rank-only bidding · opened 13:30</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Pause</span>
+      <span class="btn">Message bidders</span>
+      <span class="btn pri">Close and evaluate</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Closes in</label><div class="v"><strong class="clock">03:41</strong></div><div class="foot"><b class="delta flat">14:06</b><span>2 auto-extensions</span></div></div>
+    <div class="card kpi"><label>L1 bid</label><div class="v"><strong>₹44.10 <small>per carton</small></strong><i data-spark="48,47.2,46.4,45.9,45.3,44.9,44.6,44.3,44.1" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">−₹3.90</b><span>from the ₹48.00 ceiling</span></div></div>
+    <div class="card kpi"><label>Below ceiling</label><div class="v"><strong>8.1%</strong></div><div class="foot"><b class="delta up">₹93,600</b><span>on 24,000 cartons</span></div></div>
+    <div class="card kpi"><label>Bids</label><div class="v"><strong>47 <small>from 5 of 6</small></strong></div><div class="foot"><b class="delta flat">last 13:59:41</b><span>decrement ₹0.10</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Ranking</h2><span>buyer’s view · bidders see only their own rank</span></header>
+        <div class="body">
+          <table class="rk">
+            <thead><tr><th>Rank</th><th>Vendor</th><th class="r">Best bid</th><th class="r">Gap to L1</th><th class="r">Bids</th><th>Last bid</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr class="l1"><td><span class="rank">L1</span></td><td><b>Vardhman Packaging</b><small>Pune · approved 2024</small></td><td class="r mono">₹44.10</td><td class="r gap">—</td><td class="r mono">12</td><td class="mono">13:59:41</td><td><span class="chip ok">Leading</span></td></tr>
+              <tr><td><span class="rank">L2</span></td><td><b>Shree Ganesh Packaging</b><small>Pune · current supplier</small></td><td class="r mono">₹44.35</td><td class="r gap">+₹0.25</td><td class="r mono">14</td><td class="mono">13:58:52</td><td><span class="chip blue">Active</span></td></tr>
+              <tr><td><span class="rank">L3</span></td><td><b>Om Corrugators</b><small>Chakan</small></td><td class="r mono">₹45.20</td><td class="r gap">+₹1.10</td><td class="r mono">11</td><td class="mono">13:54:10</td><td><span class="chip blue">Active</span></td></tr>
+              <tr><td><span class="rank">L4</span></td><td><b>Pack-Rite Industries</b><small>Nashik</small></td><td class="r mono">₹46.80</td><td class="r gap">+₹2.70</td><td class="r mono">6</td><td class="mono">13:47:03</td><td><span class="chip plain">Idle</span></td></tr>
+              <tr><td><span class="rank">L5</span></td><td><b>Sai Kraft Boards</b><small>Ahmednagar</small></td><td class="r mono">₹47.50</td><td class="r gap">+₹3.40</td><td class="r mono">4</td><td class="mono">13:41:26</td><td><span class="chip plain">Idle</span></td></tr>
+              <tr><td><span class="rank">—</span></td><td><b>Deccan Cartons</b><small>Satara</small></td><td class="r mono dim">no bid</td><td class="r gap">—</td><td class="r mono">0</td><td class="dim">logged in 13:28</td><td><span class="chip plain">Watching</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>L1 price</h2><span>₹ per carton since opening</span><div class="legend"><span>L1</span><span style="--c:#c9cfdb">Ceiling</span></div></header>
+        <div class="body chart-c" data-area="48,47.2,46.4,45.9,45.3,44.9,44.6,44.3,44.1|48,48,48,48,48,48,48,48,48" data-min="43" data-max="48.5" data-labels="13:30,13:34,13:38,13:42,13:46,13:50,13:54,13:58,14:02"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>What Shree Ganesh sees</h2></header>
+        <div class="body" style="padding-top:6px">
+          <div class="vv"><small>Your rank</small><strong>L2</strong><span>Your best bid ₹44.35 · closes 14:06</span></div>
+          <p class="note">No prices or names of other bidders, so bidding stays competitive and fair.</p>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Rules</h2><span>locked at opening</span></header>
+        <div class="body" style="padding-top:4px">
+          <dl class="kv">
+            <dt>Type</dt><dd>Reverse, rank-only</dd>
+            <dt>Ceiling</dt><dd>₹48.00 per carton</dd>
+            <dt>Minimum decrement</dt><dd>₹0.10</dd>
+            <dt>Auto-extension</dt><dd>3 min if a bid lands in the last 2</dd>
+            <dt>Vendors</dt><dd>6 QA-approved</dd>
+            <dt>Award</dt><dd>L1, after a trial lot</dd>
+            <dt>Approvers</dt><dd>Purchase head, finance</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Latest bids</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="feed">
+            <li><i class="ok">L1</i><p><b>Vardhman</b> ₹44.10<small>close extended to 14:06</small></p><time>13:59</time></li>
+            <li><i>L2</i><p><b>Shree Ganesh</b> ₹44.35<small>close extended to 14:03</small></p><time>13:58</time></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

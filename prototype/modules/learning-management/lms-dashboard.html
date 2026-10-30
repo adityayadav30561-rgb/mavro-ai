@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Learning Management · LMS dashboard</title>
+<!--
+  Scenario (Learning Management, shared by every screen of the module; agrees with HRMS, Roster Ledger, Shop Floor
+  Control and Audit Management): Northfield Precision, 8 Oct, 14:02. 491 employees in 42 roles, each with a training
+  matrix. Mandatory training current: 94.2%. By department (employees, current, due in 30 days, overdue): machining
+  Plant 1 132, 96.1%, 7, 1; assembly Plant 1 64, 93.8%, 4, 0; quality 28, 97.4%, 3, 0; stores and warehouse 46, 89.6%,
+  5, 2; Chennai plant 118, 94.0%, 3, 1; sales and field 61, 92.5%, 1, 0; office and support 42, 95.0%, 0, 0. Due in
+  30 days 23; overdue 4, and an overdue certification keeps the person off that duty in Roster Ledger: Yogesh Dhumal,
+  5-axis setter, lapsed 30 Sep (re-certification on-job evaluation 10 Oct; the repeat finding in IA-0219, CAPA-0086);
+  Ganesh More and Sanjay Kamble, forklift operators, lapsed 4 and 6 Oct; M. Selvam, crane operator, Chennai, lapsed
+  2 Oct. 64 courses (28 mandatory), 42 curricula. New today: CRS-0071 "Calibrated tools: expiry, quarantine and
+  withdrawal", raised from CAPA-0088, SME sign-off by Anil Bhosale at 11:30, assigned to 64 supervisors and
+  assembly operators, due 31 Oct. Certificates issued since 1 Sep: 41; 7 waiting for approval. Expiring by month:
+  Oct 23, Nov 31, Dec 18, Jan 26, Feb 14, Mar 39. Training manager: Snehal Deshpande.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .dp td { padding-top: 8px; padding-bottom: 8px; }
+  .cur { display: flex; align-items: center; gap: 8px; }
+  .cur .meter { width: 100px; min-width: 100px; }
+  .cur span { font: 11.5px var(--mono); color: var(--ink-2); }
+  tr.tot td { font-weight: 600; background: var(--surface-2); }
+  .od li { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 8px 0; }
+  .od li + li { border-top: 1px solid var(--line); }
+  .od i { grid-row: 1 / span 2; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font: 600 10.5px var(--sans); font-style: normal; background: var(--bad-soft); color: var(--bad); }
+  .od b { font-weight: 550; }
+  .od small { grid-column: 2; color: var(--ink-3); font-size: 11.5px; }
+  .od .chip { grid-row: 1 / span 2; grid-column: 3; }
+  .nw { padding: 11px 12px; border-radius: 10px; background: var(--accent-soft); border: 1px solid #d9e0ff; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+  .nw b { display: block; color: var(--ink); margin-bottom: 2px; }
+  .nw .meter { margin-top: 10px; }
+  .nw small { display: flex; justify-content: space-between; margin-top: 5px; font-size: 11.5px; color: var(--ink-3); }
+</style>
+</head>
+<body data-module="learning-management" data-view="LMS dashboard" data-crumb="People / Learning Management / LMS dashboard" data-org="NP|Northfield Precision|All sites" data-who="Snehal Deshpande|Training manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Training and certification</h1>
+      <p>491 employees in 42 roles · every role mapped to its training matrix · status shared with rostering</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All sites</span><span>Plant 1 · Pune</span><span>Chennai</span></div>
+      <span class="btn pri">Assign training</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Mandatory training current</label><div class="v"><strong>94.2%</strong><i data-spark="91.8,92.4,93.1,92.9,93.6,94.0,94.2" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">+2.4 pts</b><span>since April</span></div></div>
+    <div class="card kpi"><label>Re-certification due</label><div class="v"><strong>23 <small>in 30 days</small></strong></div><div class="foot"><b class="delta flat">reminders sent</b><span>at 30, 15 and 7 days</span></div></div>
+    <div class="card kpi"><label>Overdue</label><div class="v"><strong style="color:var(--bad)">4</strong></div><div class="foot"><b class="delta down">kept off duty</b><span>in Roster Ledger</span></div></div>
+    <div class="card kpi"><label>Certificates since 1 Sep</label><div class="v"><strong>41</strong></div><div class="foot"><b class="delta flat">7 to approve</b><span>with evidence packs</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>By department</h2><span>mandatory courses and certifications for each role</span><span class="more">Training matrix</span></header>
+        <div class="body">
+          <table class="dp">
+            <thead><tr><th>Department</th><th class="r">People</th><th>Current</th><th class="r">Due in 30 days</th><th class="r">Overdue</th></tr></thead>
+            <tbody>
+              <tr><td><b>Machining · Plant 1</b><small>setters, operators, supervisors</small></td><td class="r mono">132</td><td><div class="cur"><span class="meter ok"><i style="width:96.1%"></i></span><span>96.1%</span></div></td><td class="r mono">7</td><td class="r mono" style="color:var(--bad)">1</td></tr>
+              <tr><td><b>Assembly · Plant 1</b></td><td class="r mono">64</td><td><div class="cur"><span class="meter ok"><i style="width:93.8%"></i></span><span>93.8%</span></div></td><td class="r mono">4</td><td class="r mono">0</td></tr>
+              <tr><td><b>Quality</b><small>inspectors, metrology</small></td><td class="r mono">28</td><td><div class="cur"><span class="meter ok"><i style="width:97.4%"></i></span><span>97.4%</span></div></td><td class="r mono">3</td><td class="r mono">0</td></tr>
+              <tr><td><b>Stores and warehouse</b><small>forklift and crane licences</small></td><td class="r mono">46</td><td><div class="cur"><span class="meter warn"><i style="width:89.6%"></i></span><span>89.6%</span></div></td><td class="r mono">5</td><td class="r mono" style="color:var(--bad)">2</td></tr>
+              <tr><td><b>Chennai plant</b></td><td class="r mono">118</td><td><div class="cur"><span class="meter ok"><i style="width:94%"></i></span><span>94.0%</span></div></td><td class="r mono">3</td><td class="r mono" style="color:var(--bad)">1</td></tr>
+              <tr><td><b>Sales and field</b></td><td class="r mono">61</td><td><div class="cur"><span class="meter ok"><i style="width:92.5%"></i></span><span>92.5%</span></div></td><td class="r mono">1</td><td class="r mono">0</td></tr>
+              <tr><td><b>Office and support</b></td><td class="r mono">42</td><td><div class="cur"><span class="meter ok"><i style="width:95%"></i></span><span>95.0%</span></div></td><td class="r mono">0</td><td class="r mono">0</td></tr>
+              <tr class="tot"><td>All departments</td><td class="r mono">491</td><td><div class="cur"><span class="meter ok"><i style="width:94.2%"></i></span><span>94.2%</span></div></td><td class="r mono">23</td><td class="r mono">4</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Certifications expiring</h2><span>by month, so re-certification is planned ahead</span></header>
+        <div class="body chart-c" data-bars="23,31,18,26,14,39" data-max="40" data-labels="Oct,Nov,Dec,Jan,Feb,Mar" data-colors="#8497ff"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Overdue</h2><span>off that duty until certified</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="od">
+            <li><i>YD</i><b>Yogesh Dhumal</b><small>5-axis setter · lapsed 30 Sep</small><span class="chip blue">OJT 10 Oct</span></li>
+            <li><i>GM</i><b>Ganesh More</b><small>Forklift operator · lapsed 4 Oct</small><span class="chip warn">Test 11 Oct</span></li>
+            <li><i>SK</i><b>Sanjay Kamble</b><small>Forklift operator · lapsed 6 Oct</small><span class="chip warn">Test 11 Oct</span></li>
+            <li><i>MS</i><b>M. Selvam</b><small>Crane operator, Chennai · lapsed 2 Oct</small><span class="chip warn">Medical due</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>New mandatory course</h2><span>today</span></header>
+        <div class="body" style="padding-top:6px">
+          <div class="nw"><b>CRS-0071 · Calibrated tools: expiry, quarantine and withdrawal</b>Raised from CAPA-0088 after the IA-0219 audit. SME sign-off by Anil Bhosale, 11:30.<span class="meter"><i style="width:3%"></i></span><small><span>2 of 64 done</span><span>due 31 Oct</span></small></div>
+          <div class="rule"></div>
+          <dl class="kv"><dt>Assigned to</dt><dd>Supervisors, assembly</dd><dt>Delivery</dt><dd>Classroom and floor walk</dd><dt>Pass mark</dt><dd>80%</dd></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

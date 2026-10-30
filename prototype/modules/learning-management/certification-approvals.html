@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Learning Management · Certification approvals</title>
+<!-- Scenario: see lms-dashboard.html. Seven certificates wait for approval; the trainer or the QA head signs only when
+     the evidence pack is complete: assessment pass, on-job evaluation, trainer qualification, attendance. Selected:
+     CERT-0412, Yogesh Dhumal, 5-axis setter re-certification (course CRS-0034, Plant 1). Written test 86% (pass mark
+     80%) on 7 Oct; on-job evaluation by the shift supervisor Swapnil Shelar on 10 Oct is scheduled, so the pack is
+     incomplete: approval is held until it is signed. Previous certificate lapsed 30 Sep; valid 12 months from issue.
+     Trainer Rakesh Joshi (qualified, 5-axis, valid to Mar 2027). Until certified he stays off the 5-axis cell in
+     Roster Ledger (the shift B setting goes to Swapnil Shelar). Other waiting: CERT-0409 Ganesh More forklift, CERT-0410
+     Sanjay Kamble forklift (test 11 Oct, not yet), CERT-0411 Priya Nair CMM operator (complete), CERT-0413 Chennai
+     crane operator M. Selvam (medical fitness awaited), CERT-0414 and CERT-0415 first aid (complete). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 380px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .q td { padding-top: 11px; padding-bottom: 11px; }
+  .pk { display: flex; gap: 3px; }
+  .pk i { width: 16px; height: 6px; border-radius: 3px; background: var(--ok); }
+  .pk i.x { background: #e3e6ec; }
+  tr.sel td { background: var(--accent-soft); }
+  tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+  .ev li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; font-size: 12.5px; line-height: 1.35; }
+  .ev li + li { border-top: 1px solid var(--line); }
+  .ev i { grid-row: 1 / span 2; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .ev i.w { background: var(--warn-soft); color: var(--warn); }
+  .ev small { display: block; grid-column: 2; color: var(--ink-3); font-size: 11.5px; }
+  .ev em { grid-row: 1 / span 2; grid-column: 3; align-self: center; font: 600 12px var(--mono); font-style: normal; color: var(--ink-2); }
+  .hold { padding: 10px 12px; border-radius: 10px; background: var(--warn-soft); border: 1px solid #f5e2b0; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+  .hold b { color: var(--warn); }
+  .iss { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .iss h3 { padding: 0 16px 6px; font: 600 12.5px var(--sans); }
+  .iss td { padding-top: 9px; padding-bottom: 9px; }
+  .bt { display: flex; gap: 8px; }
+  .bt .btn { flex: 1; justify-content: center; }
+</style>
+</head>
+<body data-module="learning-management" data-view="Certification approvals" data-crumb="People / Learning Management / Certification approvals" data-org="NP|Northfield Precision|All sites" data-who="Snehal Deshpande|Training manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Certification approvals</h1>
+      <p>7 certificates waiting · a certificate is issued only when the evidence pack an auditor would ask for is complete</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export evidence</span>
+      <span class="btn pri">Approve 3 complete</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Waiting</h2><span>assessment · on-job evaluation · trainer · attendance</span></header>
+      <div class="body">
+        <table class="q">
+          <thead><tr><th>Certificate</th><th>Person</th><th>Course</th><th>Evidence</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b class="mono">CERT-0409</b></td><td>Ganesh More<small>Stores · Plant 1</small></td><td>Forklift operator</td><td><span class="pk"><i></i><i class="x"></i><i></i><i></i></span></td><td><span class="chip warn">Test 11 Oct</span></td></tr>
+            <tr><td><b class="mono">CERT-0410</b></td><td>Sanjay Kamble<small>Stores · Plant 1</small></td><td>Forklift operator</td><td><span class="pk"><i></i><i class="x"></i><i></i><i></i></span></td><td><span class="chip warn">Test 11 Oct</span></td></tr>
+            <tr><td><b class="mono">CERT-0411</b></td><td>Priya Nair<small>Quality · Plant 1</small></td><td>CMM operator</td><td><span class="pk"><i></i><i></i><i></i><i></i></span></td><td><span class="chip ok">Complete</span></td></tr>
+            <tr class="sel"><td><b class="mono">CERT-0412</b></td><td>Yogesh Dhumal<small>Machining · Plant 1</small></td><td>5-axis setter, re-certification</td><td><span class="pk"><i></i><i class="x"></i><i></i><i></i></span></td><td><span class="chip warn">OJT 10 Oct</span></td></tr>
+            <tr><td><b class="mono">CERT-0413</b></td><td>M. Selvam<small>Chennai plant</small></td><td>Crane operator</td><td><span class="pk"><i></i><i></i><i></i><i class="x"></i></span></td><td><span class="chip warn">Medical due</span></td></tr>
+            <tr><td><b class="mono">CERT-0414</b></td><td>Rohini Patil<small>Assembly · Plant 1</small></td><td>First aid</td><td><span class="pk"><i></i><i></i><i></i><i></i></span></td><td><span class="chip ok">Complete</span></td></tr>
+            <tr><td><b class="mono">CERT-0415</b></td><td>Faisal Khan<small>Chennai plant</small></td><td>First aid</td><td><span class="pk"><i></i><i></i><i></i><i></i></span></td><td><span class="chip ok">Complete</span></td></tr>
+          </tbody>
+        </table>
+        <div class="iss">
+          <h3>Issued this week</h3>
+          <table>
+            <tbody>
+              <tr><td><b class="mono">CERT-0408</b></td><td>Kiran Jadhav<small>Quality</small></td><td>Gauge calibration awareness</td><td class="mono">3 Oct</td><td><span class="chip ok">Issued</span></td></tr>
+              <tr><td><b class="mono">CERT-0407</b></td><td>Neha Pawar<small>Assembly</small></td><td>Torque tool use</td><td class="mono">2 Oct</td><td><span class="chip ok">Issued</span></td></tr>
+              <tr><td><b class="mono">CERT-0406</b></td><td>R. Murugan<small>Chennai plant</small></td><td>Fire safety, marshal</td><td class="mono">1 Oct</td><td><span class="chip ok">Issued</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>CERT-0412 · Yogesh Dhumal</h2><span>5-axis setter</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="ev">
+            <li><i>✓</i><span>Written assessment<small>CRS-0034 · 7 Oct · pass mark 80%</small></span><em>86%</em></li>
+            <li><i class="w">!</i><span>On-job evaluation<small>Swapnil Shelar, shift supervisor · set for 10 Oct</small></span><em style="color:var(--warn)">Open</em></li>
+            <li><i>✓</i><span>Trainer qualified<small>Rakesh Joshi · 5-axis · valid to Mar 2027</small></span><em>Valid</em></li>
+            <li><i>✓</i><span>Attendance<small>2 days, 6 Oct and 7 Oct</small></span><em>16 h</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Decision</h2></header>
+        <div class="body" style="padding-top:6px;display:flex;flex-direction:column;gap:12px">
+          <div class="hold"><b>Held until the on-job evaluation is signed.</b> A quiz score alone does not certify. Until then he stays off the 5-axis cell, and Roster Ledger sends tonight’s setting to Swapnil Shelar.</div>
+          <dl class="kv"><dt>Previous certificate</dt><dd>Lapsed 30 Sep</dd><dt>New validity</dt><dd>12 months from issue</dd><dt>Linked to</dt><dd>CAPA-0086, IA-0219</dd></dl>
+          <div class="bt"><span class="btn">Return to trainer</span><span class="btn pri">Approve when signed</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

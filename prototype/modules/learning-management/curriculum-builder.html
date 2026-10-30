@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Learning Management · Curriculum builder</title>
+<!-- Scenario: see lms-dashboard.html. Curriculum for the role "5-axis setter" (CUR-0019), built from the role training
+     matrix and tied to course CRS-0034 (14 h, 12-month validity). Modules: M1 safety and lock-out 2 h; M2 5-axis
+     kinematics and work offsets 4 h; M3 tool and fixture setup 3 h; M4 first-off inspection and records 2 h; M5 on-job
+     evaluation, 3 set-ups observed 3 h. Assessment: written test 25 questions, pass mark 80%, two retakes, retraining
+     after a fail; on-job evaluation by a qualified supervisor against a 12-point checklist, all points must pass.
+     Retraining cycle 12 months. Release gates: trainer qualified (Rakesh Joshi, valid to Mar 2027) done; SME sign-off
+     by the machining head Prakash Nair, signed 2 Oct; QA review pending 1 Oct signed. Draft revision 4 differs from
+     rev 3 by adding the first-off inspection module after the IA-0198 finding. Roles using it: 5-axis setters (6
+     people). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 360px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .mp li { display: grid; grid-template-columns: 34px minmax(0, 1fr) 50px 118px; gap: 10px; align-items: center; padding: 13px 16px; border-top: 1px solid var(--line); font-size: 12.5px; }
+  .mp li:first-child { border-top: 0; }
+  .mp .chip { white-space: nowrap; }
+  .mp .n { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; background: var(--surface-2); border: 1px solid var(--line); font: 650 11.5px var(--mono); color: var(--ink-2); }
+  .mp li.new .n { background: var(--accent-soft); border-color: #d9e0ff; color: var(--accent-ink); }
+  .mp b { font-weight: 550; }
+  .mp small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .mp em { font: 600 12px var(--mono); font-style: normal; color: var(--ink-2); text-align: right; }
+  .tot { display: flex; justify-content: space-between; padding: 12px 16px 2px; border-top: 2px solid var(--line-2); font-weight: 600; font-size: 13px; }
+  .pp { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .pp h3 { padding: 0 16px 6px; font: 600 12.5px var(--sans); }
+  .pp h3 span { font-weight: 400; color: var(--ink-3); margin-left: 8px; }
+  .pp td { padding-top: 10px; padding-bottom: 10px; }
+  .gt li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 9px 0; font-size: 12.5px; line-height: 1.35; }
+  .gt li + li { border-top: 1px solid var(--line); }
+  .gt i { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .gt small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .as dt { color: var(--ink-3); }
+  .cl li { display: flex; gap: 8px; padding: 4px 0; font-size: 12.5px; color: var(--ink-2); }
+  .cl li::before { content: '✓'; color: var(--ok); font-weight: 700; }
+  .rev { padding: 10px 12px; border-radius: 10px; background: var(--accent-soft); border: 1px solid #d9e0ff; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+  .rev b { color: var(--accent-ink); }
+</style>
+</head>
+<body data-module="learning-management" data-view="Curriculum builder" data-crumb="People / Learning Management / Curriculum builder / CUR-0019" data-org="NP|Northfield Precision|Plant 1 · Pune" data-who="Snehal Deshpande|Training manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>Curriculum · 5-axis setter &nbsp;<span class="chip blue" style="vertical-align:4px">Draft revision 4</span></h1>
+      <p>CUR-0019 · built from the role’s training matrix · course CRS-0034 · 14 hours · certificate valid 12 months</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Compare with rev 3</span>
+      <span class="btn pri">Release</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Module plan</h2><span>in the order they are taught</span><span class="more">Add module</span></header>
+      <div class="body">
+        <ul class="mp">
+          <li><span class="n">M1</span><span><b>Safety and lock-out</b><small>guards, interlocks, coolant, emergency stop</small></span><em>2 h</em><span class="chip plain">Classroom</span></li>
+          <li><span class="n">M2</span><span><b>5-axis kinematics and work offsets</b><small>tilt and rotate, tool length, probing</small></span><em>4 h</em><span class="chip plain">Classroom</span></li>
+          <li><span class="n">M3</span><span><b>Tool and fixture set-up</b><small>holders, balancing, fixture clamping</small></span><em>3 h</em><span class="chip plain">On the machine</span></li>
+          <li class="new"><span class="n">M4</span><span><b>First-off inspection and records</b><small>added in rev 4 after the IA-0198 finding</small></span><em>2 h</em><span class="chip blue">New</span></li>
+          <li><span class="n">M5</span><span><b>On-job evaluation</b><small>three set-ups observed by a qualified supervisor</small></span><em>3 h</em><span class="chip plain">On the machine</span></li>
+        </ul>
+        <div class="tot"><span>Total</span><span class="mono">14 h</span></div>
+        <div class="pp">
+          <h3>People in this role<span>6 setters · certificate status</span></h3>
+          <table>
+            <tbody>
+              <tr><td><b>Swapnil Shelar</b><small>Machining · Plant 1</small></td><td class="mono">Rev 3</td><td class="mono">Valid to 14 Jan</td><td><span class="chip ok">Certified</span></td></tr>
+              <tr><td><b>Manoj Bhor</b><small>Machining · Plant 1</small></td><td class="mono">Rev 3</td><td class="mono">Valid to 2 Mar</td><td><span class="chip ok">Certified</span></td></tr>
+              <tr><td><b>Yogesh Dhumal</b><small>Machining · Plant 1</small></td><td class="mono">Rev 3</td><td class="mono">Lapsed 30 Sep</td><td><span class="chip warn">OJT 10 Oct</span></td></tr>
+              <tr><td><b>3 more</b><small>Plant 1 and Chennai</small></td><td class="mono">Rev 3</td><td class="mono">Valid to Feb–May</td><td><span class="chip ok">Certified</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Assessment</h2></header>
+        <div class="body" style="padding-top:6px">
+          <dl class="kv as"><dt>Written test</dt><dd>25 questions</dd><dt>Pass mark</dt><dd>80%</dd><dt>Retakes</dt><dd>2, then retraining</dd><dt>On-job evaluation</dt><dd>12-point checklist</dd><dt>Retraining cycle</dt><dd>every 12 months</dd></dl>
+          <div class="rule"></div>
+          <ul class="cl"><li>All 12 checklist points must pass</li><li>Evaluator is a qualified supervisor</li><li>Quiz score alone never certifies</li></ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Release gates</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="gt">
+            <li><i>✓</i><span>Trainer qualified<small>Rakesh Joshi · valid to Mar 2027</small></span><span class="chip ok">Done</span></li>
+            <li><i>✓</i><span>SME sign-off<small>Prakash Nair, machining head · 2 Oct</small></span><span class="chip ok">Signed</span></li>
+            <li><i>✓</i><span>QA review<small>Anil Bhosale · 1 Oct</small></span><span class="chip ok">Signed</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>What changes on release</h2></header>
+        <div class="body" style="padding-top:6px">
+          <div class="rev"><b>6 setters</b> move to revision 4 at their next re-certification. Anyone certified on revision 3 stays certified until it lapses.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
