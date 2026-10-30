@@ -68,7 +68,7 @@ export const erpConnect = {
       {
         icon: 'phone',
         title: 'Mobility and flexibility',
-        tag: 'Every change is ERP development',
+        tag: 'Desk-bound ERP access',
         points: ['ERP access tied to the desktop', 'Approvals stall when users are away', 'Data split across multiple ERPs'],
       },
     ] satisfies { icon: IconName; title: string; tag: string; points: string[] }[],
@@ -129,7 +129,6 @@ export const erpConnect = {
       ['Your forms and approvals', 'Your branding and terms', 'Changes in days, not months'],
       ['Approvals on the move', 'Offline-capable sync', 'Push alerts for pending tasks'],
     ],
-    close: 'Lower licence spend, happier users, with the ERP core untouched.',
   },
 
   /** Deck slide 6. */
@@ -200,13 +199,13 @@ export const erpConnect = {
       },
       {
         name: 'Billing and dispatch',
-        summary: 'Notification, invoice, e-documents',
+        summary: 'From shipment confirmation to dispatch',
         steps: [
-          { name: 'Customer notification', lane: 'mavro', note: '“Your shipment has been dispatched”' },
+          { name: 'Customer notification', lane: 'mavro', note: 'Sent on shipment confirmation, with the invoice and e-documents' },
           { name: 'Invoice', lane: 'b1' },
           { name: 'E-invoice', lane: 'both' },
           { name: 'E-way bill', lane: 'both' },
-          { name: 'Dispatch', lane: 'mavro' },
+          { name: 'Dispatch', lane: 'mavro', note: 'Once the notification, invoice and e-documents are done' },
         ],
       },
     ],

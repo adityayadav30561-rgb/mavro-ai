@@ -200,11 +200,22 @@
   line-height: 1.4;
 }
 
+/* The step's system: read out on desktop (the lanes show it), visible on phones and on shared steps. */
 .swim__sys {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .swim__step[data-lane='both'] .swim__sys {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip-path: none;
   display: block;
   color: var(--violet);
   font-size: .6875rem;
@@ -256,7 +267,7 @@
     padding: .625rem .5625rem;
   }
 
-  .swim__note {
+  .swim__step:not([data-scan]) .swim__note {
     display: none;
   }
 }
@@ -308,6 +319,11 @@
   }
 
   .swim__sys {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
     display: block;
     color: var(--fg-3);
     font-size: .6875rem;
