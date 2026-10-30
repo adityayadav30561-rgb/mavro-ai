@@ -255,7 +255,7 @@ export const platformPage = {
       hub: {
         name: 'MAVRO platform',
         note: 'One set of records behind every call',
-        points: ['API gateway, OAuth 2.0 + JWT', 'HTTPS / TLS in transit', 'Every change in the audit log'],
+        points: ['API gateway, OAuth 2.0 + JWT', 'HTTPS / TLS in transit', 'Audit trail, logs kept 7 years'],
       },
     } satisfies IntegrationHubData,
     erp: {

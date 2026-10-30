@@ -108,7 +108,7 @@ change. New blocks: `ph` (page hero), `crumbs`, `sframe`, `tour`, `cap`, `ww`, `
 
 | Page | Sections (tone / treatment) |
 |---|---|
-| Package | Hero `module` with `HeroScreens` and the client band → every module as `ModuleCards` under a header row per business area (Portals: `ChainDiagram` beside `PortalLayers`) (white / soft) → package-specific: Base `FlowStrip` one record, Portals `ChainDiagram` with every portal lit, Premium `PremiumSpotlight` (paper, paper, night / mark, mark, grad) → `PackageStack`, current tier lifted (white / grad) → FAQ (paper / mark) → CTA |
+| Package | Hero `module` with `HeroScreens` and the client band → every module as `ModuleCards` under a header row per business area (Portals: `ChainDiagram` beside `PortalLayers`) (white / soft) → package-specific: Base `FlowStrip` one record, Portals `ChainDiagram` with every portal lit, Premium `PremiumSpotlight` (paper, paper, night / mark, mark, grad) → `PackageStack`, current tier lifted (white / grad; soft on Premium, after its grad night band) → FAQ (paper / mark) → CTA |
 | Platform | Hero `module` with `HeroScreens` → `LayeredArchitecture` (paper / soft) → `PlatformStrip` (white / mark) → `PackageStack` (paper / grad) → `PhoneRow` (white / soft) → integrations `IntegrationHub` with an ERP Connect callout (paper / mark) → FAQ (white / grad) → CTA |
 
 Module cards come from `pages/module-card.ts` (`cardFor`), shared with the module page's related modules; a package

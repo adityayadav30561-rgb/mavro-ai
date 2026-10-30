@@ -182,7 +182,7 @@ export function Page() {
         </Section>
       )}
 
-      <Section id="combine" title={t.combine.title} rest={t.combine.rest} treatment="grad" lead={t.combine.lead}>
+      <Section id="combine" title={t.combine.title} rest={t.combine.rest} treatment={pack === 'premium' ? 'soft' : 'grad'} lead={t.combine.lead}>
         <PackageStack tiers={packageTiers()} foundation={intro.foundation} current={pack} here={t.combine.here} go={t.combine.go} />
       </Section>
 
