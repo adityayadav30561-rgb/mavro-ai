@@ -1,18 +1,111 @@
-/* Package pages (pages/PackagePage.tsx). */
+/* Package pages and the Platform overview (pages/PackagePage.tsx, pages/Platform.tsx). */
+
+/* Jump bar: the business areas, as anchors over the module cards. */
+.pk__jump {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.pk__jump > span {
+  margin-right: .25rem;
+  color: var(--fg-3);
+  font-size: var(--t-small);
+}
+
+.pk__jump a {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .4375rem .875rem;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--line-2);
+  color: var(--fg);
+  font-size: var(--t-small);
+  font-weight: 600;
+  transition: box-shadow var(--d-2) var(--ease), color var(--d-2) var(--ease);
+}
+
+.pk__jump a:hover {
+  box-shadow: 0 0 0 1px var(--blue);
+  color: var(--blue);
+}
+
+.pk__jump a .icon {
+  color: var(--blue);
+}
+
+.pk__jump a b {
+  color: var(--fg-3);
+}
+
 .pk__groups {
   display: grid;
-  gap: clamp(2rem, 4vw, 3rem);
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.pk__group {
+  scroll-margin-top: calc(var(--nav-h) + 1rem);
 }
 
 .pk__area {
-  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: .875rem;
+  align-items: center;
+  margin-bottom: 1.125rem;
+  padding-bottom: .875rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.pk__area-icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--r-3);
+  background: var(--blue-50);
+  color: var(--blue);
+}
+
+.pk__area h3 {
   font-size: var(--t-h3);
   letter-spacing: -0.02em;
 }
 
+.pk__area p {
+  color: var(--fg-2);
+  font-size: var(--t-small);
+}
+
+.pk__area-count {
+  color: var(--fg-3);
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+
+/* Portals: the chain beside the four portal rows. */
+.pk__portals {
+  display: grid;
+  grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
 .pk__chain {
-  max-width: 62rem;
-  margin-inline: auto;
+  position: sticky;
+  top: calc(var(--nav-h) + 1.5rem);
+}
+
+/* How the packages combine: the plate beside the three package cards. */
+.pk__combine {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
 }
 
 .pf__links {
@@ -28,4 +121,23 @@
   gap: .375rem;
   color: var(--blue);
   font-weight: 600;
+}
+
+@media (max-width: 1023px) {
+  .pk__portals,
+  .pk__combine {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pk__chain {
+    position: static;
+  }
+
+  .pk__area {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .pk__area-count {
+    grid-column: 2;
+  }
 }

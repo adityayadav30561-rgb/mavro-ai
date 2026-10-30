@@ -3,7 +3,9 @@ import { CapabilityTiles } from '../blocks/CapabilityTiles';
 import { CtaBand } from '../blocks/CtaBand';
 import { FaqBlock } from '../blocks/FaqBlock';
 import { PackageLinks, type PackageLink } from '../blocks/PackageLinks';
+import { HeroScreens } from '../blocks/HeroScreens';
 import { PackagePlate } from '../blocks/PackagePlate';
+import { ClientBand } from '../blocks/ClientBand';
 import { PageHero } from '../blocks/PageHero';
 import { PhoneRow } from '../blocks/PhoneRow';
 import { PlatformStrip } from '../blocks/PlatformStrip';
@@ -41,7 +43,7 @@ export function Page() {
   return (
     <>
       <PageHero
-        variant="package"
+        variant="module"
         title={p.hero.title}
         rest={p.hero.rest}
         lead={p.hero.lead}
@@ -50,7 +52,15 @@ export function Page() {
           { label: packageTemplate.demo, interest: null },
           { label: 'See how it is built', href: '#architecture' },
         ]}
-        visual={<PackagePlate />}
+        band={<ClientBand />}
+        visual={
+          <HeroScreens
+            lead={{ screen: 'overview', alt: 'The MAVRO overview screen: orders, production, stock and receivables for the plant on one dashboard (illustrative data).' }}
+            behind={{ screen: 'o2c', alt: '' }}
+            phone={{ screen: 'platform/approvals', alt: p.mobile.shots[0].alt }}
+            note={explore.sample}
+          />
+        }
       />
 
       <Section id="architecture" tone="paper" title={p.architecture.title} rest={p.architecture.rest} treatment="soft" lead={p.architecture.lead}>
@@ -62,7 +72,10 @@ export function Page() {
       </Section>
 
       <Section id="packages" tone="paper" title={p.packages.title} rest={p.packages.rest} treatment="grad" lead={p.packages.lead}>
-        <PackageLinks packages={links} />
+        <div className="pk__combine">
+          <PackagePlate />
+          <PackageLinks packages={links} go="See" stack />
+        </div>
       </Section>
 
       <Section id="mobile" title={p.mobile.title} rest={p.mobile.rest} treatment="soft" lead={p.mobile.lead}>
@@ -78,7 +91,7 @@ export function Page() {
       </Section>
 
       <Section id="integrations" tone="paper" title={p.integrations.title} rest={p.integrations.rest} treatment="mark" lead={p.integrations.lead}>
-        <CapabilityTiles tiles={p.integrations.items} />
+        <CapabilityTiles tiles={p.integrations.items} columns={3} />
         <p className="pf__links">
           {erp && (
             <a href={href(erp)}>

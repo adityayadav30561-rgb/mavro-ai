@@ -5,7 +5,7 @@
  * `packageTemplate`.
  */
 import type { IconName } from '../components/Icon';
-import { catalogue, packs, type Pack } from './modules';
+import { catalogue, packs, type ModuleSlug, type Pack } from './modules';
 
 const count = (pack: Pack) => catalogue.filter((entry) => entry.pack === pack).length;
 const nBase = count('base');
@@ -16,14 +16,13 @@ const nPremium = count('premium');
 export const packageTemplate = {
   demo: 'Request a demo',
   seeModules: 'See the modules',
-  modules: {
-    title: 'Every module in',
-    lead: 'Each module has its own page, with its screens and what it does.',
-  },
+  /** The jump bar over the module cards. */
+  jump: 'Jump to',
   combine: {
     title: 'Three packages,',
     rest: 'one platform.',
     lead: 'The packages are not separate products. They share the same orders, items, ledgers and the same platform features, so a portal order lands in Order to Cash and a premium module reads the same stock.',
+    go: 'See',
     here: 'You are here',
   },
   faq: { title: 'Questions about', lead: 'Answers from the product decks, written the way buyers ask.' },
@@ -34,6 +33,10 @@ export interface PackageContent {
   pack: Pack;
   icon: IconName;
   hero: { title: string; rest: string; lead: string; facts: { value: string; label: string }[] };
+  /** Heading over the module cards. */
+  modules: { title: string; rest: string; lead: string };
+  /** The hero's screens, as module slugs: the lead, the one behind it, and whose phone screen stands in front. */
+  screens: { lead: ModuleSlug; behind: ModuleSlug; phone: ModuleSlug };
   /** Heading of the package-specific section. */
   specific: { title: string; rest: string; lead: string };
   faq: { q: string; a: string }[];
@@ -46,13 +49,15 @@ export const packageContent: Record<Pack, PackageContent> = {
     icon: 'layers',
     hero: {
       title: 'Base modules',
-      rest: 'for the core of the business.',
+      rest: 'run the business.',
       lead: `${nBase} modules covering finance, sales, supply chain, production, people and projects, on one set of records: order to cash, procure to pay, payroll and the plant floor.`,
       facts: [
         { value: String(nBase), label: 'Base modules' },
         { value: '25–30 days', label: 'Phased implementation' },
       ],
     },
+    modules: { title: `${nBase} modules,`, rest: 'one set of records.', lead: 'From the first order to the last ledger entry. Each module has its own page, with its screens and what it does.' },
+    screens: { lead: 'order-to-cash', behind: 'production-management', phone: 'order-to-cash' },
     specific: {
       title: 'One record,',
       rest: 'from the order to the ledger.',
@@ -86,17 +91,19 @@ export const packageContent: Record<Pack, PackageContent> = {
     icon: 'distribution',
     hero: {
       title: 'Portals',
-      rest: 'for vendors and the channel.',
+      rest: 'for your whole channel.',
       lead: `${nPortal} self-service portals that bring suppliers, distributors, dealers and retailers into your ERP: supply, primary, secondary and tertiary sales on the same orders and stock.`,
       facts: [
         { value: String(nPortal), label: 'Portals' },
         { value: 'One chain', label: 'Supply to retail' },
       ],
     },
+    modules: { title: 'One chain,', rest: 'four portals.', lead: 'Each portal serves one link of the chain goods move along, from your suppliers to the shelf.' },
+    screens: { lead: 'distributor-portal', behind: 'vendor-portal', phone: 'retailer-portal' },
     specific: {
-      title: 'The chain',
-      rest: 'from supplier to shelf.',
-      lead: 'Each portal serves one link of the chain that goods move along, and every order, invoice and stock figure it shows is the one in your ERP.',
+      title: 'Same records,',
+      rest: 'inside and outside.',
+      lead: 'A portal is the outside face of records your teams already work in. What a vendor, distributor, dealer or retailer does there lands in the same modules, with nothing re-keyed.',
     },
     faq: [
       {
@@ -126,16 +133,18 @@ export const packageContent: Record<Pack, PackageContent> = {
     icon: 'rocket',
     hero: {
       title: 'Premium modules',
-      rest: 'for the specialised work.',
+      rest: 'for specialised work.',
       lead: `${nPremium} modules for the operations a core ERP leaves to spreadsheets: transport and warehousing, schemes and rebates, auctions, scheduling, audits, budgets, training and more.`,
       facts: [
         { value: String(nPremium), label: 'Premium modules' },
         { value: '6', label: 'Business areas' },
       ],
     },
+    modules: { title: `${nPremium} modules,`, rest: 'by business area.', lead: 'The operations a core ERP leaves to spreadsheets, each with its own page, screens and story.' },
+    screens: { lead: 'transportation-management', behind: 'warehouse-management', phone: 'transportation-management' },
     specific: {
-      title: 'Every module,',
-      rest: 'with its own space.',
+      title: 'See each module',
+      rest: 'up close.',
       lead: 'Pick a module to see what it does and what its screen looks like. Each one runs on the same records as the base modules it sits beside.',
     },
     faq: [
@@ -163,6 +172,16 @@ export const packageContent: Record<Pack, PackageContent> = {
   },
 };
 
+/** The business areas over the module cards: an icon and one line on what the area covers. */
+export const areaMeta: Record<string, { icon: IconName; line: string }> = {
+  finance: { icon: 'finance', line: 'Accounts, invoices, expenses, budgets, assets and risk.' },
+  sales: { icon: 'sales', line: 'Customers, orders, schemes and sales channels.' },
+  supply: { icon: 'inventory', line: 'Buying, stock, warehouses and the movement of goods.' },
+  make: { icon: 'production', line: 'Planning, the shop floor and quality.' },
+  people: { icon: 'people', line: 'Payroll, rosters, training and contract workforce.' },
+  data: { icon: 'database', line: 'Analytics, master data, documents, projects and property.' },
+};
+
 /** The nodes of the Base page's "one record" strip: stage label, then module slugs. Notes come from each module's flow. */
 export const baseFlow = [
   { label: 'Sell', slugs: ['crm', 'sales-force-automation', 'order-to-cash'] },
@@ -175,6 +194,7 @@ export const baseFlowNote = 'Each stage passes its records to the next: the same
 
 /** The Platform overview (/platform). */
 export const platformPage = {
+  screens: { lead: 'overview', behind: 'o2c', phone: 'platform/approvals' },
   hero: {
     title: 'One platform.',
     rest: 'Every module.',

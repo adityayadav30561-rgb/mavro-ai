@@ -1,39 +1,56 @@
 import { ChainDiagram } from '../blocks/ChainDiagram';
+import { ClientBand } from '../blocks/ClientBand';
 import { CtaBand } from '../blocks/CtaBand';
 import { FaqBlock } from '../blocks/FaqBlock';
-import { FlowStrip } from '../blocks/FlowStrip';
+import { FlowStrip, type FlowNode } from '../blocks/FlowStrip';
+import { HeroScreens } from '../blocks/HeroScreens';
 import { ModuleCards } from '../blocks/ModuleCards';
 import { PackageLinks, type PackageLink } from '../blocks/PackageLinks';
 import { PackagePlate } from '../blocks/PackagePlate';
 import { PageHero } from '../blocks/PageHero';
+import { PortalLayers } from '../blocks/PortalLayers';
 import { PremiumSpotlight, type SpotlightGroup } from '../blocks/PremiumSpotlight';
 import { Section } from '../blocks/Section';
+import { Icon } from '../components/Icon';
 import { explore } from '../data/home';
 import {
   areaOrder,
   areas,
   catalogue,
+  contentFor,
   entryBySlug,
   packs,
+  portals,
   premiumById,
   premiumGroups,
-  type Pack,
   type ModuleSlug,
+  type Pack,
 } from '../data/modules';
-import { baseFlow, baseFlowNote, packageContent, packageTemplate as t } from '../data/packages';
-import { contentFor } from '../data/modules';
+import { areaMeta, baseFlow, baseFlowNote, packageContent, packageTemplate as t } from '../data/packages';
 import { hasPage } from '../links';
 import { usePath } from '../routing';
-import { cardFor, iconOf, pageOf } from './module-card';
+import { cardFor, iconOf, pageOf, thumbnail } from './module-card';
 import './package-page.css';
 
 const order: Pack[] = ['base', 'portal', 'premium'];
 
+/** The lead screen and phone screen a module's page leads with, as hero shots. */
+function shot(slug: ModuleSlug) {
+  const own = contentFor(slug)!.screens[0];
+  return { screen: own.screen, alt: own.alt };
+}
+function phoneShot(slug: ModuleSlug) {
+  const phone = contentFor(slug)?.phone;
+  return phone ? { screen: phone.screen, alt: phone.alt } : undefined;
+}
+
 /**
- * The package page template (SITE-PLAN.md section 3.2), one page for Base modules, Portals and Premium modules:
- * hero with the package plate, every module as a card with its lead screen (grouped by business area), a
- * package-specific section (Base: one record from order to ledger; Portals: the supply-to-retail chain; Premium:
- * the list and panel), how the three packages combine, FAQ and CTA. Content: src/data/packages.ts.
+ * The package page template (SITE-PLAN.md section 3.2), one page for Base modules, Portals and Premium modules.
+ * The hero is the module hero: the package's lead screen bleeding off the edge, a second module behind it and a phone
+ * in front, over the client band. Then every module as a card by business area under a jump bar (Portals: the chain
+ * beside four rich portal rows), a package-specific section (Base: one record from order to ledger; Portals: the
+ * records they share with the Base modules; Premium: the list and panel), how the packages combine with the plate,
+ * FAQ and CTA. Content: src/data/packages.ts.
  */
 export function Page() {
   const path = usePath();
@@ -43,16 +60,13 @@ export function Page() {
   const name = packs[pack].name;
   const entries = catalogue.filter((entry) => entry.pack === pack);
 
-  // Modules as cards: by business area; the portals as one group in chain order.
-  const groups =
-    pack === 'portal'
-      ? [{ name: 'Supply to retail', entries }]
-      : areaOrder
-          .map((area) => ({ name: areas[area], entries: entries.filter((entry) => entry.area === area) }))
-          .filter((group) => group.entries.length > 0);
-
   const missing = entries.filter((entry) => !pageOf(entry));
   if (missing.length) throw new Error(`PackagePage: ${name} modules without a page: ${missing.map((e) => e.slug).join(', ')}`);
+
+  // Modules as cards, by business area.
+  const groups = areaOrder
+    .map((area) => ({ area, name: areas[area], entries: entries.filter((entry) => entry.area === area) }))
+    .filter((group) => group.entries.length > 0);
 
   const links: PackageLink[] = order.map((key) => ({
     tier: key,
@@ -72,15 +86,30 @@ export function Page() {
   }));
   const features = Object.fromEntries(premiumGroups.flatMap((g) => g.ids).map((id) => [id, premiumById(id)]));
 
-  const flowNode = (slug: ModuleSlug) => {
+  const flowNode = (slug: ModuleSlug): FlowNode => {
     const entry = entryBySlug(slug);
-    return { name: entry.name, icon: iconOf(entry), href: pageOf(entry), note: contentFor(slug)?.tagline.split(':')[0] };
+    return { name: entry.name, icon: iconOf(entry), href: pageOf(entry), note: entry.summary };
   };
+
+  // Portals: the modules behind them, each named in the portals' own module pages (their flow of records).
+  const shared: ModuleSlug[] = ['procure-to-pay', 'vendor-invoice-management', 'order-to-cash', 'scheme-and-rebate', 'inventory-management'];
+
+  const portalRows = portals.map((portal) => ({
+    name: portal.name,
+    layer: portal.layer,
+    who: portal.who,
+    body: portal.body,
+    points: portal.points,
+    href: hasPage(`/modules/${portal.slug}`) ? `/modules/${portal.slug}` : null,
+    ...thumbnail(portal.slug),
+  }));
+
+  const behind = shot(content.screens.behind);
 
   return (
     <>
       <PageHero
-        variant="package"
+        variant="module"
         chip={{ label: name, tier: pack, icon: content.icon }}
         title={content.hero.title}
         rest={content.hero.rest}
@@ -90,18 +119,58 @@ export function Page() {
           { label: t.demo, interest: name },
           { label: t.seeModules, href: '#modules' },
         ]}
-        visual={<PackagePlate tier={pack} />}
+        band={<ClientBand />}
+        visual={
+          <HeroScreens
+            lead={shot(content.screens.lead)}
+            behind={{ ...behind, alt: '' }}
+            phone={phoneShot(content.screens.phone)}
+            note={explore.sample}
+          />
+        }
       />
 
-      <Section id="modules" title={t.modules.title} rest={`${name}.`} treatment="soft" lead={t.modules.lead}>
-        <div className="pk__groups">
-          {groups.map((group) => (
-            <div key={group.name} className="pk__group">
-              <h3 className="pk__area">{group.name}</h3>
-              <ModuleCards cards={group.entries.map((entry) => cardFor(entry.slug))} />
+      <Section id="modules" title={content.modules.title} rest={content.modules.rest} treatment="soft" lead={content.modules.lead}>
+        {pack === 'portal' ? (
+          <div className="pk__portals">
+            <div className="pk__chain">
+              <ChainDiagram title={explore.chainTitle} nodes={explore.chain} core="company" badge={explore.chainBadge} />
             </div>
-          ))}
-        </div>
+            <PortalLayers portals={portalRows} more="See the portal" />
+          </div>
+        ) : (
+          <>
+            <nav className="pk__jump" aria-label="Business areas">
+              <span>{t.jump}</span>
+              {groups.map((group) => (
+                <a key={group.area} href={`#area-${group.area}`}>
+                  <Icon name={areaMeta[group.area!].icon} size={16} />
+                  {group.name}
+                  <b className="num">{group.entries.length}</b>
+                </a>
+              ))}
+            </nav>
+            <div className="pk__groups">
+              {groups.map((group) => (
+                <div key={group.area} id={`area-${group.area}`} className="pk__group">
+                  <header className="pk__area">
+                    <span className="pk__area-icon">
+                      <Icon name={areaMeta[group.area!].icon} size={22} />
+                    </span>
+                    <div>
+                      <h3>{group.name}</h3>
+                      <p>{areaMeta[group.area!].line}</p>
+                    </div>
+                    <span className="pk__area-count num">
+                      {group.entries.length} {group.entries.length === 1 ? 'module' : 'modules'}
+                    </span>
+                  </header>
+                  <ModuleCards cards={group.entries.map((entry) => cardFor(entry.slug))} />
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </Section>
 
       {pack === 'base' && (
@@ -116,9 +185,14 @@ export function Page() {
 
       {pack === 'portal' && (
         <Section id="specific" tone="paper" title={content.specific.title} rest={content.specific.rest} treatment="mark" lead={content.specific.lead}>
-          <div className="pk__chain">
-            <ChainDiagram title={explore.chainTitle} nodes={explore.chain} core="company" badge={explore.chainBadge} />
-          </div>
+          <FlowStrip
+            layout="columns"
+            note="Each portal writes to the module behind it: a distributor’s order is a sales order, a vendor’s invoice is an invoice to match."
+            stages={[
+              { label: 'Outside your walls', nodes: portals.map((portal) => flowNode(portal.slug)) },
+              { label: 'Inside, the same records', nodes: shared.map(flowNode) },
+            ]}
+          />
         </Section>
       )}
 
@@ -128,8 +202,11 @@ export function Page() {
         </Section>
       )}
 
-      <Section id="combine" tone={pack === 'premium' ? 'white' : 'white'} title={t.combine.title} rest={t.combine.rest} treatment="grad" lead={t.combine.lead}>
-        <PackageLinks packages={links} current={pack} here={t.combine.here} />
+      <Section id="combine" title={t.combine.title} rest={t.combine.rest} treatment="grad" lead={t.combine.lead}>
+        <div className="pk__combine">
+          <PackagePlate tier={pack} />
+          <PackageLinks packages={links} current={pack} here={t.combine.here} go={t.combine.go} stack />
+        </div>
       </Section>
 
       <FaqBlock

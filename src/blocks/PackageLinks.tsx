@@ -17,9 +17,23 @@ export interface PackageLink {
  * The three packages as cards, each with its module count: how they combine on one platform. On a package page the
  * current package is marked and not linked; on the platform overview all three link.
  */
-export function PackageLinks({ packages, current, here }: { packages: readonly PackageLink[]; current?: Tier; here?: string }) {
+export function PackageLinks({
+  packages,
+  current,
+  here,
+  go = 'See',
+  stack,
+}: {
+  packages: readonly PackageLink[];
+  current?: Tier;
+  here?: string;
+  /** The link text before the package name. */
+  go?: string;
+  /** One column (beside the plate) instead of three. */
+  stack?: boolean;
+}) {
   return (
-    <ul className="plinks">
+    <ul className="plinks" data-stack={stack || undefined}>
       {packages.map((item, index) => {
         const isHere = item.tier === current;
         const body = (
@@ -35,6 +49,7 @@ export function PackageLinks({ packages, current, here }: { packages: readonly P
             ) : (
               item.href && (
                 <span className="plinks__go">
+                  {go} {item.name}
                   <Icon name="arrow" size={16} />
                 </span>
               )

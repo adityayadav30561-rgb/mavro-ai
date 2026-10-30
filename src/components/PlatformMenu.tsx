@@ -1,7 +1,7 @@
 import { useRef, type KeyboardEvent } from 'react';
 import { connect, explore, proof } from '../data/home';
 import { areaOrder, areas, byPack, modules, type Pack } from '../data/modules';
-import { branches, connectLink, moduleLink, portalLinks, type Branch } from '../data/nav';
+import { branches, connectLink, moduleLink, overviewLink, portalLinks, type Branch } from '../data/nav';
 import { Icon } from './Icon';
 import { NavLink } from './NavLink';
 
@@ -96,6 +96,16 @@ export function PlatformMenu({ id, open, branch, onBranch, onNavigate }: Platfor
               </NavLink>
             </li>
           ))}
+          <li className="mega__overview">
+            <NavLink link={overviewLink} className="mega__overview-link" onClick={onNavigate}>
+              <Icon name="layers" size={16} />
+              <span>
+                <b>{overviewLink.label}</b>
+                <span>Architecture, mobile app, integrations</span>
+              </span>
+              <Icon name="arrow" size={16} />
+            </NavLink>
+          </li>
         </ul>
 
         <div className="mega__stage" data-branch={branch} key={branch}>

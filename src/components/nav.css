@@ -136,6 +136,44 @@
   overflow-y: auto;
 }
 
+.mega__overview {
+  margin-top: .5rem;
+  padding-top: .75rem;
+  border-top: 1px solid var(--line);
+}
+
+.mega__overview-link {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: .625rem;
+  align-items: center;
+  padding: .5rem .625rem;
+  border-radius: var(--r-3);
+  color: var(--fg-2);
+  font-size: var(--t-small);
+}
+
+.mega__overview-link span span {
+  display: block;
+  color: var(--fg-3);
+  font-size: .75rem;
+}
+
+.mega__overview-link b {
+  display: block;
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.mega__overview-link:hover {
+  background: var(--surface);
+  color: var(--blue);
+}
+
+.mega__overview-link .icon:first-child {
+  color: var(--blue);
+}
+
 .mega__branch {
   --tier: var(--ink);
   --tier-50: var(--paper-2);

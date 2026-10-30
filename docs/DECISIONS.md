@@ -201,7 +201,7 @@ least important, with full design effort. The ordered list lives in [STATUS.md](
 
 - Coloured gradient bands, multi-colour avatars and glowing accents on cards ("looks like AI slop", 2026-10-23).
 - A "Platform overview" branch in the Platform mega menu listing every module (user, 2026-10-23: the Base, Portals and
-  Premium branches already cover it, and it looked cluttered). Platform overview stays a footer link.
+  Premium branches already cover it, and it looked cluttered). Platform overview stays a footer link. Since 2026-10-30 (the page was not reachable from the header) the mega menu also has one plain "Platform overview" link under its rail, and the mobile drawer one at the top of its Platform accordion; that is a link to a page, not a branch listing modules.
 - Eyebrow labels above headings.
 - "Coming soon" tags; "Premium" tags on modules.
 - Compact lists of module names (the "also in the package" lists).

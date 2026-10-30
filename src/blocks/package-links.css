@@ -85,9 +85,16 @@
 .plinks__go,
 .plinks__here {
   grid-area: go;
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
   color: var(--tier);
   font-size: var(--t-small);
   font-weight: 600;
+}
+
+.plinks[data-stack] {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 @media (max-width: 800px) {

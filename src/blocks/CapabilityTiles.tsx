@@ -15,9 +15,18 @@ export interface CapabilityTile {
  * The deck's four capability tiles for a module (e.g. Order to Cash: Order Book Health, Credit and Exposure,
  * Batch Allocation, Dunning Engine): icon, title, one line, and optionally a figure from the module's screens.
  */
-export function CapabilityTiles({ tiles, tier = 'base' }: { tiles: readonly CapabilityTile[]; tier?: Tier }) {
+export function CapabilityTiles({
+  tiles,
+  tier = 'base',
+  columns,
+}: {
+  tiles: readonly CapabilityTile[];
+  tier?: Tier;
+  /** Three across (six tiles as 3 × 2) instead of four. */
+  columns?: 3;
+}) {
   return (
-    <ul className="cap" data-tier={tier}>
+    <ul className="cap" data-tier={tier} data-cols={columns}>
       {tiles.map((tile, index) => (
         <li key={tile.title} className="cap__tile" data-reveal style={vars({ '--i': index })}>
           <div className="cap__top">

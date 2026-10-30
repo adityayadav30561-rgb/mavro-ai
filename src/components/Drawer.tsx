@@ -8,6 +8,7 @@ import {
   industryLinks,
   moduleLink,
   needLinks,
+  overviewLink,
   portalLinks,
   resourceLinks,
 } from '../data/nav';
@@ -155,6 +156,7 @@ export function Drawer({ id, open, expanded, onToggle, onNavigate }: DrawerProps
                     open={is('platform')}
                     onToggle={() => onToggle('platform')}
                   >
+                    {list([overviewLink])}
                     {packOrder.map((pack) => (
                       <Fold
                         key={pack}

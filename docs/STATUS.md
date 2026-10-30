@@ -37,6 +37,11 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-10-30, **Phase 21 follow-up (user feedback): `/platform` reachable, package and platform heroes and sections raised to module-page level.** On `main`.
+  - **Reachability:** the URL already loaded (dev, preview, build) but nothing in the header led there. The Platform mega-menu now has a "Platform overview" link under its rail and the mobile drawer one at the top of its Platform accordion (checked by Playwright: header menu and drawer both land on the page; the rail's Base, Portals and Premium links go to `/platform/*`).
+  - **Heroes:** package pages and the Platform overview use the module hero (`variant="module"`): the package's lead screen bleeding off the edge, a second module's screen behind it, a phone in front, the client band below (new `HeroScreens` block; screens chosen in `packages.ts`). Headlines are two lines.
+  - **Sections:** a jump bar and a header row (icon, one line, count) per business area over the module cards; headings computed from counts ("18 modules, one set of records."); Portals: the chain beside four rich portal rows (`PortalLayers`), then a strip of the records they share with the Base modules; "How packages combine" is now the plate (current tier lifted) beside the three cards with a "See Portals" link; integration tiles 3 x 2; flow notes use each module's catalogue summary.
+
 - 2026-10-30, **Phase 21 done: Platform overview and the three package pages.** On `main`.
   - **Pages:** `/platform` (src/pages/Platform.tsx) and `/platform/base`, `/platform/portals`, `/platform/premium` (one
     template, src/pages/PackagePage.tsx); copy in `src/data/packages.ts` (counts computed from the catalogue, not typed).

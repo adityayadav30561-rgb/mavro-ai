@@ -1,0 +1,45 @@
+/* Hero screens (blocks/HeroScreens.tsx): lead screen, a second screen behind it and a phone in front. */
+.hs__behind {
+  position: absolute;
+  z-index: 0;
+  top: -2.5rem;
+  left: 7rem;
+  width: calc(var(--sframe-w, 47.5rem) * 0.82);
+  opacity: 0.92;
+}
+
+.hs__behind .hs__shot {
+  display: block;
+  width: 100%;
+  border-radius: var(--r-3) var(--r-3) 0 0;
+  box-shadow:
+    0 0 0 1px rgb(9 14 52 / 0.08),
+    0 1.5rem 3rem -1.5rem rgb(9 14 52 / 0.3);
+}
+
+.ph__visual .sframe__shot {
+  z-index: 1;
+}
+
+.hs__phone {
+  position: absolute;
+  z-index: 2;
+  left: -2.25rem;
+  bottom: 2.5rem;
+  width: 11.5rem;
+}
+
+@media (max-width: 1023px) {
+  .hs__behind {
+    display: none;
+  }
+
+  .hs__phone {
+    left: auto;
+    right: 5%;
+    top: 9%;
+    bottom: auto;
+    width: 24%;
+    max-width: 9rem;
+  }
+}
