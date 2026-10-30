@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Document Management · Version history</title>
+<!-- Scenario: see repository-dashboard.html. SOP-0063 "Calibrated tool control", owner QA (Anil Bhosale). v1 Mar 2022, v2
+     Jun 2023, v3 Feb 2025 (effective), v4 drafted 8 Oct after CAPA-0088 / IA-0219: adds quarantine tag on expiry, supervisor
+     confirmation of withdrawal, and gauge-crib issue by scan. Route: author Anil Bhosale (done), review Swapnil Shelar (done
+     11:50), approval Prakash Nair, plant head (waiting). Effective on approval, planned 10 Oct; v3 is superseded on that date; the
+     course CRS-0071 trains the 64 supervisors and assembly operators on v4 (acknowledgement through Learning Management
+     by 31 Oct). Only one version is effective at a time. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: 320px minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .vh li { position: relative; display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 1px 10px; padding: 22px 0; }
+  .vh li::after { content: ''; position: absolute; left: 6px; top: 42px; bottom: -22px; width: 2px; background: var(--line); }
+  .vh li:last-child::after { display: none; }
+  .vh i { grid-row: 1 / span 2; width: 14px; height: 14px; margin-top: 2px; border-radius: 50%; background: #c9cfdb; z-index: 1; }
+  .vh i.ok { background: var(--ok); }
+  .vh i.n { background: #fff; border: 3px solid var(--accent); }
+  .vh b { font-weight: 600; }
+  .vh small { grid-column: 2; color: var(--ink-3); font-size: 11.5px; }
+  .vh time { grid-row: 1; grid-column: 3; font: 11.5px var(--mono); color: var(--ink-3); }
+  .df li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; padding: 11px 16px; border-top: 1px solid var(--line); font-size: 12.5px; line-height: 1.45; }
+  .df li:first-child { border-top: 0; }
+  .df .pl { width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; font: 700 12px var(--mono); background: var(--ok-soft); color: var(--ok); }
+  .df small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .ap li { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 8px 0; }
+  .ap li + li { border-top: 1px solid var(--line); }
+  .ap i { grid-row: 1 / span 2; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font: 600 10px var(--sans); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .ap small { grid-column: 2; color: var(--ink-3); font-size: 11.5px; }
+  .ap .chip { grid-row: 1 / span 2; grid-column: 3; }
+  .nt { padding: 10px 12px; border-radius: 10px; background: var(--accent-soft); border: 1px solid #d9e0ff; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+  .nt b { color: var(--accent-ink); }
+  .bt { display: flex; gap: 8px; }
+  .bt .btn { flex: 1; justify-content: center; }
+</style>
+</head>
+<body data-module="document-management" data-view="Version history" data-crumb="Data / Document Management / Version history / SOP-0063" data-org="NP|Northfield Precision|All sites" data-who="Leena Dsouza|Document controller">
+<main>
+  <div class="head">
+    <div>
+      <h1>SOP-0063 · Calibrated tool control &nbsp;<span class="chip warn" style="vertical-align:4px">v4 in approval</span></h1>
+      <p>Owner QA · one effective version at a time · v3 stays in force until v4 is approved</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Compare v3 and v4</span>
+      <span class="btn pri">Approve v4</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card">
+      <header><h2>Versions</h2></header>
+      <div class="body" style="padding-top:4px">
+        <ul class="vh">
+          <li><i class="n"></i><b>v4 · draft</b><small>revised after CAPA-0088 · in approval</small><time>8 Oct</time></li>
+          <li><i class="ok"></i><b>v3 · effective</b><small>approved by Prakash Nair</small><time>Feb 2025</time></li>
+          <li><i></i><b>v2 · superseded</b><small>gauge crib added</small><time>Jun 2023</time></li>
+          <li><i></i><b>v1 · superseded</b><small>first issue</small><time>Mar 2022</time></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stack"><div class="card flush">
+      <header><h2>What changes in v4</h2><span>against v3</span></header>
+      <div class="body">
+        <ul class="df">
+          <li><span class="pl">+</span><span><b>Quarantine tag the day a tool expires</b><small>Section 4.2 · new</small></span></li>
+          <li><span class="pl">+</span><span><b>Line supervisor confirms withdrawal in the app</b><small>Section 4.3 · new</small></span></li>
+          <li><span class="pl">+</span><span><b>Gauge crib issues tools by scan and refuses blocked ones</b><small>Section 5.1 · new</small></span></li>
+          <li><span class="pl" style="background:var(--surface-2);color:var(--ink-2)">~</span><span><b>Recall list sent weekly to each line</b><small>Section 3.4 · reworded</small></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="flex:1 1 auto">
+      <header><h2>Document</h2></header>
+      <div class="body" style="padding-top:4px">
+        <dl class="kv"><dt>Number</dt><dd>SOP-0063</dd><dt>Type</dt><dd>SOP</dd><dt>Owner</dt><dd>QA</dd><dt>Applies to</dt><dd>Plant 1, Chennai plant</dd><dt>Review cycle</dt><dd>every 24 months</dd><dt>Retention</dt><dd>7 years after supersession</dd></dl>
+      </div>
+    </div></div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Approval</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="ap">
+            <li><i>AB</i><b>Anil Bhosale</b><small>Author · QA head</small><span class="chip ok">Done</span></li>
+            <li><i>SS</i><b>Swapnil Shelar</b><small>Review · 11:50</small><span class="chip ok">Done</span></li>
+            <li><i>PN</i><b>Prakash Nair</b><small>Approval · plant head</small><span class="chip warn">Waiting</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>On approval</h2></header>
+        <div class="body" style="padding-top:6px;display:flex;flex-direction:column;gap:12px">
+          <div class="nt"><b>v4 takes effect on 10 Oct</b> and v3 is superseded. The 64 supervisors and assembly operators acknowledge it through course CRS-0071 by 31 Oct.</div>
+          <div class="bt"><span class="btn">Return to author</span><span class="btn pri">Approve v4</span></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Linked records</h2></header>
+        <div class="body" style="padding-top:4px">
+          <dl class="kv"><dt>Raised by</dt><dd>CAPA-0088</dd><dt>Audit</dt><dd>IA-0219</dd><dt>Training</dt><dd>CRS-0071</dd></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

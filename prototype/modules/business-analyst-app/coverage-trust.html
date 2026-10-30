@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Business Analyst App · Coverage and trust</title>
+<!--
+  Scenario (Business Analyst App, shared by every screen of the module; builds on Data Analytics' pipelines, e.g. PL-087
+  secondary sales held, and Master Data Management): Northfield Precision, 8 Oct, 14:02. 128 reports, 214 active users
+  in the last 30 days, 46 certified metrics. By domain (reports, share on certified metrics, users): sales 31, 90%,
+  58; finance 24, 92%, 29; operations 29, 86%, 62; supply chain 22, 82%, 37; people 14, 79%, 12; quality 8, 100%, 16.
+  88% of reports (112 of 128) use only certified metrics. 14 reports not opened in 90 days: candidates to retire. Data-quality
+  exceptions open 5 (see the queue). Uncertified-metric reports: 16. Metric conflict resolved this week: "net sales" had two definitions (Sales: before
+  schemes; Finance: after schemes and returns), now one certified metric M-009 net sales after schemes. Data platform
+  lead: Farah Siddiqui; business analyst: Rashmi Desai.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .dm td { padding-top: 11px; padding-bottom: 11px; }
+  .cv { display: flex; align-items: center; gap: 8px; }
+  .cv .meter { width: 100px; min-width: 100px; }
+  .cv span { font: 11.5px var(--mono); color: var(--ink-2); }
+  tr.tot td { font-weight: 600; background: var(--surface-2); }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .ex li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; }
+  .ex li + li { border-top: 1px solid var(--line); }
+  .ex b { font-weight: 550; }
+  .ex small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .ex .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .rs { padding: 11px 12px; border-radius: 10px; background: var(--ok-soft); border: 1px solid #c8ecdc; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+  .rs b { color: var(--ok); }
+</style>
+</head>
+<body data-module="business-analyst-app" data-view="Coverage and trust" data-crumb="Data / Business Analyst App / Coverage and trust" data-org="NP|Northfield Precision|All sites" data-who="Farah Siddiqui|Data platform lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Reporting coverage and data trust</h1>
+      <p>128 reports across six domains · one definition per metric · what is certified, who uses it, and where the data is doubtful</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All domains</span><span>Sales</span><span>Operations</span><span>Finance</span></div>
+      <span class="btn pri">New report</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Reports</label><div class="v"><strong>128</strong></div><div class="foot"><b class="delta flat">6 domains</b><span>214 active users</span></div></div>
+    <div class="card kpi"><label>On certified metrics only</label><div class="v"><strong>88%</strong><i data-spark="71,74,78,81,83,86,88" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">+17 pts</b><span>since April</span></div></div>
+    <div class="card kpi"><label>Certified metrics</label><div class="v"><strong>46</strong></div><div class="foot"><b class="delta flat">1 conflict resolved</b><span>net sales, this week</span></div></div>
+    <div class="card kpi"><label>Data-quality exceptions</label><div class="v"><strong style="color:var(--warn)">5</strong></div><div class="foot"><b class="delta down">2 on secondary sales</b><span>assigned to owners</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Coverage by domain</h2><span>reports on certified metrics and who uses them</span><span class="more">Report register</span></header>
+        <div class="body">
+          <table class="dm">
+            <thead><tr><th>Domain</th><th class="r">Reports</th><th>On certified metrics</th><th class="r">Active users</th><th class="r">Not opened, 90 days</th></tr></thead>
+            <tbody>
+              <tr><td><b>Sales</b><small>orders, secondary sales, schemes</small></td><td class="r mono">31</td><td><div class="cv"><span class="meter ok"><i style="width:90%"></i></span><span>90%</span></div></td><td class="r mono">58</td><td class="r mono">4</td></tr>
+              <tr><td><b>Finance</b><small>receivables, margin, budgets</small></td><td class="r mono">24</td><td><div class="cv"><span class="meter ok"><i style="width:92%"></i></span><span>92%</span></div></td><td class="r mono">29</td><td class="r mono">2</td></tr>
+              <tr><td><b>Operations</b><small>OEE, downtime, output</small></td><td class="r mono">29</td><td><div class="cv"><span class="meter ok"><i style="width:86%"></i></span><span>86%</span></div></td><td class="r mono">62</td><td class="r mono">3</td></tr>
+              <tr><td><b>Supply chain</b><small>stock, purchase, freight</small></td><td class="r mono">22</td><td><div class="cv"><span class="meter warn"><i style="width:82%"></i></span><span>82%</span></div></td><td class="r mono">37</td><td class="r mono">3</td></tr>
+              <tr><td><b>People</b><small>headcount, attrition, training</small></td><td class="r mono">14</td><td><div class="cv"><span class="meter warn"><i style="width:79%"></i></span><span>79%</span></div></td><td class="r mono">12</td><td class="r mono">2</td></tr>
+              <tr><td><b>Quality</b><small>complaints, audits, CAPA</small></td><td class="r mono">8</td><td><div class="cv"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td class="r mono">16</td><td class="r mono">0</td></tr>
+              <tr class="tot"><td>All domains</td><td class="r mono">128</td><td><div class="cv"><span class="meter ok"><i style="width:88%"></i></span><span>88%</span></div></td><td class="r mono">214</td><td class="r mono">14</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Report opens by week</h2><span>certified and other reports</span><div class="legend"><span>Certified</span><span style="--c:#c9cfdb">Other</span></div></header>
+        <div class="body chart-c" data-bars="610,640,655,690,720,742|140,128,120,104,96,88" data-max="800" data-labels="W36,W37,W38,W39,W40,W41" data-colors="#0a48fd,#c9cfdb"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Resolved this week</h2></header>
+        <div class="body" style="padding-top:6px">
+          <div class="rs"><b>Net sales had two definitions.</b> Sales counted it before schemes, Finance after schemes and returns. It is now one certified metric, M-009, and 9 reports moved to it.</div>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Needs attention</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="ex">
+            <li><b>Secondary sales dashboard</b><small>Data 33 h old · pipeline PL-087 held</small><span class="chip warn">Stale</span></li>
+            <li><b>16 reports use uncertified metrics</b><small>Visible to their users with a notice</small><span class="chip warn">Review</span></li>
+            <li><b>14 reports not opened in 90 days</b><small>Retire to free refresh capacity</small><span class="chip plain">Retire</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Access</h2><span>applied when a report is published</span></header>
+        <div class="body" style="padding-top:4px">
+          <dl class="kv"><dt>Row-level security</dt><dd>By role and territory</dd><dt>Certified by</dt><dd>Peer review</dd><dt>Refresh</dt><dd>Hourly to daily</dd></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

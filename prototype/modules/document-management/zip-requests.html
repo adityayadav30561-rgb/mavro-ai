@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Document Management · Zip requests</title>
+<!-- Scenario: see repository-dashboard.html. Bulk zip download requests: access control and expiry. ZR-0041 Kestrel Pumps
+     customer audit pack for CA-0013 (17 Oct): 38 files, requested by Rekha Iyengar (QA), contains restricted files (customer drawings), needs approval by the QA head;
+     link valid 48 hours after approval. ZR-0040 Chennai fire NOC renewal pack for the fire authority, 14 files, approved,
+     link valid to 10 Oct. ZR-0039 external auditor pack for the ISO 9001 surveillance on 18 Nov, 212 files, waiting for
+     approval (restricted 9), link 7 days. ZR-0038 Pune depot lease file for legal, 11 files, downloaded 3 Oct, expired.
+     ZR-0037 vendor audit evidence AUD-0413, 26 files, downloaded 29 Sep. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .zr td { padding-top: 14px; padding-bottom: 14px; }
+  .zr th, .zr td { padding-left: 9px; padding-right: 9px; }
+  tr.sel td { background: var(--accent-soft); }
+  tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+  .fl li { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0; font-size: 12.5px; }
+  .fl li + li { border-top: 1px solid var(--line); }
+  .fl i { height: 30px; border-radius: 7px; display: grid; place-items: center; font: 650 9.5px var(--mono); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .fl small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .bt { display: flex; gap: 8px; }
+  .bt .btn { flex: 1; justify-content: center; }
+</style>
+</head>
+<body data-module="document-management" data-view="Zip requests" data-crumb="Data / Document Management / Zip requests" data-org="NP|Northfield Precision|All sites" data-who="Leena Dsouza|Document controller">
+<main>
+  <div class="head">
+    <div>
+      <h1>Bulk download requests</h1>
+      <p>Zip links expire, and restricted content needs approval before anyone can download it</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Access rules</span>
+      <span class="btn pri">New zip request</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Requests this month</label><div class="v"><strong>5</strong></div><div class="foot"><b class="delta flat">3 downloaded</b><span>2 waiting</span></div></div>
+    <div class="card kpi"><label>Waiting for approval</label><div class="v"><strong style="color:var(--warn)">2</strong></div><div class="foot"><b class="delta down">restricted files</b><span>QA head approves</span></div></div>
+    <div class="card kpi"><label>Link life</label><div class="v"><strong>48 h <small>to 7 days</small></strong></div><div class="foot"><b class="delta flat">set per request</b><span>expired links are void</span></div></div>
+    <div class="card kpi"><label>Restricted documents</label><div class="v"><strong>212</strong></div><div class="foot"><b class="delta flat">customer drawings</b><span>approval on each pack</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Requests</h2><span>newest first</span></header>
+      <div class="body">
+        <table class="zr">
+          <thead><tr><th>Request</th><th>Pack</th><th class="r">Files</th><th>Requested by</th><th>Link</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr class="sel"><td><b class="mono">ZR-0041</b></td><td>Kestrel Pumps audit pack<small>for CA-0013 · 17 Oct</small></td><td class="r mono">38</td><td>Rekha Iyengar</td><td>48 hours</td><td><span class="chip warn">Restricted, approval</span></td></tr>
+            <tr><td><b class="mono">ZR-0039</b></td><td>ISO 9001 surveillance pack<small>external auditor · 18 Nov</small></td><td class="r mono">212</td><td>Anil Bhosale</td><td>7 days</td><td><span class="chip warn">Restricted, approval</span></td></tr>
+            <tr><td><b class="mono">ZR-0040</b></td><td>Chennai fire NOC renewal<small>for the fire authority</small></td><td class="r mono">14</td><td>Sunil Pawar</td><td>to 10 Oct</td><td><span class="chip ok">Approved</span></td></tr>
+            <tr><td><b class="mono">ZR-0038</b></td><td>Pune depot lease file<small>for legal</small></td><td class="r mono">11</td><td>Sunil Pawar</td><td>expired</td><td><span class="chip plain">Downloaded 3 Oct</span></td></tr>
+            <tr><td><b class="mono">ZR-0037</b></td><td>Vendor audit evidence<small>AUD-0413</small></td><td class="r mono">26</td><td>Neha Kulkarni</td><td>expired</td><td><span class="chip plain">Downloaded 29 Sep</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>ZR-0041 · contents</h2><span>38 files, 9 restricted</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="fl">
+            <li><i>DWG</i><span>IH-220 housing, Rev C<small>customer drawing</small></span><span class="chip warn">Restricted</span></li>
+            <li><i>PDF</i><span>Quality agreement, Kestrel Pumps<small>QAG-0021</small></span><span class="chip plain">Internal</span></li>
+            <li><i>PDF</i><span>Inspection records, SO-24817<small>14 files</small></span><span class="chip plain">Internal</span></li>
+            <li><i>PDF</i><span>+ 35 more<small>8 more restricted</small></span><span class="chip plain">…</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Approval</h2></header>
+        <div class="body" style="padding-top:6px;display:flex;flex-direction:column;gap:12px">
+          <dl class="kv"><dt>Approver</dt><dd>Anil Bhosale, QA head</dd><dt>Link valid</dt><dd>48 hours from approval</dd><dt>Download logged</dt><dd>Yes</dd></dl>
+          <div class="bt"><span class="btn">Remove restricted</span><span class="btn pri">Approve pack</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

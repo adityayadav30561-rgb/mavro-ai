@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Document Management · Upload batch</title>
+<!-- Scenario: see repository-dashboard.html. Upload batch UB-0218, 9 files dropped by Engineering (Leena Dsouza
+     reviewing) at 13:40. Auto-numbering by type, version detection and duplicate detection run before anything enters the
+     repository: 5 new documents numbered, 1 new revision DWG-IH220 Rev D detected against Rev C (becomes
+     effective only after approval), 2 exact duplicates by checksum blocked (already DWG-IH180 Rev B and CRT-3119), 1
+     file with no document type, held for the uploader to classify. Restricted: the revision of IH-220 is restricted
+     (customer drawing for Kestrel Pumps), so downloads need approval. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .ub td { padding-top: 13px; padding-bottom: 13px; }
+  .ub th, .ub td { padding-left: 9px; padding-right: 9px; }
+  .fi { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 10px; align-items: center; }
+  .fi i { height: 30px; border-radius: 7px; display: grid; place-items: center; font: 650 9.5px var(--mono); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .fi small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  tr.dup td { background: var(--warn-soft); }
+  tr.sel td { background: var(--accent-soft); }
+  .rl li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; }
+  .rl li + li { border-top: 1px solid var(--line); }
+  .rl b { font-weight: 550; }
+  .rl small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .rl .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .bt { display: flex; gap: 8px; }
+  .bt .btn { flex: 1; justify-content: center; }
+</style>
+</head>
+<body data-module="document-management" data-view="Upload batch" data-crumb="Data / Document Management / Upload batch / UB-0218" data-org="NP|Northfield Precision|All sites" data-who="Leena Dsouza|Document controller">
+<main>
+  <div class="head">
+    <div>
+      <h1>Upload batch · UB-0218 &nbsp;<span class="chip warn" style="vertical-align:4px">Review</span></h1>
+      <p>9 files from Engineering · numbered, version-checked and screened for duplicates before they enter the repository</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Discard batch</span>
+      <span class="btn pri">Accept 6 files</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Files in the batch</label><div class="v"><strong>9</strong></div><div class="foot"><b class="delta flat">Engineering</b><span>13:40</span></div></div>
+    <div class="card kpi"><label>New documents</label><div class="v"><strong>5</strong></div><div class="foot"><b class="delta up">numbered</b><span>by type</span></div></div>
+    <div class="card kpi"><label>New revision</label><div class="v"><strong>1</strong></div><div class="foot"><b class="delta flat">Rev C → Rev D</b><span>awaits approval</span></div></div>
+    <div class="card kpi"><label>Blocked</label><div class="v"><strong style="color:var(--warn)">3</strong></div><div class="foot"><b class="delta down">2 duplicates</b><span>1 unclassified</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Files</h2><span>what the repository will do with each</span></header>
+      <div class="body">
+        <table class="ub">
+          <thead><tr><th>File</th><th>Type</th><th>Number</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr class="sel"><td><div class="fi"><i>DWG</i><span>IH-220_housing_RevD.dwg<small>2.4 MB</small></span></div></td><td>Drawing</td><td class="mono">DWG-IH220 · Rev D</td><td><span class="chip blue">New revision of Rev C</span></td></tr>
+            <tr><td><div class="fi"><i>PDF</i><span>GB-310_cover_inspection.pdf<small>0.8 MB</small></span></div></td><td>Specification</td><td class="mono">SPC-1352</td><td><span class="chip ok">New</span></td></tr>
+            <tr><td><div class="fi"><i>PDF</i><span>CNC-03_spindle_service.pdf<small>1.1 MB</small></span></div></td><td>Certificate</td><td class="mono">CRT-3207</td><td><span class="chip ok">New</span></td></tr>
+            <tr><td><div class="fi"><i>PDF</i><span>CV-110_casting_spec_v5.pdf<small>0.6 MB</small></span></div></td><td>Specification</td><td class="mono">SPC-1353</td><td><span class="chip ok">New</span></td></tr>
+            <tr><td><div class="fi"><i>PDF</i><span>fixture_FX-22_layout.pdf<small>0.4 MB</small></span></div></td><td>Drawing</td><td class="mono">DWG-FX22</td><td><span class="chip ok">New</span></td></tr>
+            <tr><td><div class="fi"><i>PDF</i><span>EN8_mill_cert_Oct.pdf<small>0.3 MB</small></span></div></td><td>Certificate</td><td class="mono">CRT-3208</td><td><span class="chip ok">New</span></td></tr>
+            <tr class="dup"><td><div class="fi"><i>DWG</i><span>IH-180_cover_RevB.dwg<small>1.9 MB</small></span></div></td><td>Drawing</td><td class="mono">DWG-IH180 · Rev B</td><td><span class="chip warn">Duplicate, blocked</span></td></tr>
+            <tr class="dup"><td><div class="fi"><i>PDF</i><span>heat_treat_cert_0926.pdf<small>0.3 MB</small></span></div></td><td>Certificate</td><td class="mono">CRT-3119</td><td><span class="chip warn">Duplicate, blocked</span></td></tr>
+            <tr><td><div class="fi"><i>XLS</i><span>notes_final2.xlsx<small>0.1 MB</small></span></div></td><td class="dim">Not set</td><td class="dim">—</td><td><span class="chip bad">Needs a type</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>DWG-IH220 · Rev D</h2><span>new revision</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="rl">
+            <li><b>Supersedes Rev C</b><small>Rev C stays effective until Rev D is approved</small><span class="chip plain">Rule</span></li>
+            <li><b>Restricted</b><small>Customer drawing, Kestrel Pumps · downloads need approval</small><span class="chip warn">212 files</span></li>
+            <li><b>Approval route</b><small>Engineering head, then QA</small><span class="chip plain">2 steps</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Numbering</h2></header>
+        <div class="body" style="padding-top:6px;display:flex;flex-direction:column;gap:12px">
+          <dl class="kv"><dt>Format</dt><dd>TYPE-SEQUENCE</dd><dt>Next drawing</dt><dd>DWG-FX22</dd><dt>Duplicate check</dt><dd>File checksum</dd></dl>
+          <div class="bt"><span class="btn">Classify file</span><span class="btn pri">Accept 6 files</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

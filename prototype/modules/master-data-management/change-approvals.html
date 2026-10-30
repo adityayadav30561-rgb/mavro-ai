@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Master Data Management · Change approvals</title>
+<!-- Scenario: see quality-dashboard.html. Six attribute changes wait for review before they sync downstream. CHG-0231
+     IH-220 list price ₹3,840 → ₹4,020 (+4.7%), needs sales head Vikram Shah and finance controller Ritu Kapoor, requested by
+     sales operations; CHG-0232 HSN code of 14 items (DQX-0115) to the correct 8-digit code, approver finance; CHG-0233
+     Ahmedabad territory remap: pincodes of Changodar moved from AMD-2 to AMD-3, impact check 4 beats, 38 outlets, 2 reps,
+     approver sales head; CHG-0234 Kestrel Pumps credit limit ₹60 L → ₹75 L, approver finance controller and sales head;
+     CHG-0235 vendor bank account change for Mehta Alloys, two approvers (purchase head S. Iyer and finance) plus a call-back
+     verification; CHG-0236 payment terms Net 45 for Aravali Castings (MSME), approver finance. Selected CHG-0233. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 360px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .q td { padding-top: 15px; padding-bottom: 15px; }
+  .q th, .q td { padding-left: 9px; padding-right: 9px; }
+  .dom { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; font-weight: 550; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .ar { font: 12px var(--mono); }
+  .ar s { color: var(--ink-3); }
+  tr.sel td { background: var(--accent-soft); }
+  tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+  .im li { display: flex; justify-content: space-between; padding: 8px 0; font-size: 12.5px; }
+  .im li + li { border-top: 1px solid var(--line); }
+  .im span:last-child { font-family: var(--mono); font-weight: 600; }
+  .ap li { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 8px 0; }
+  .ap li + li { border-top: 1px solid var(--line); }
+  .ap i { grid-row: 1 / span 2; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font: 600 10px var(--sans); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .ap small { grid-column: 2; color: var(--ink-3); font-size: 11.5px; }
+  .ap .chip { grid-row: 1 / span 2; grid-column: 3; }
+  .bt { display: flex; gap: 8px; }
+  .bt .btn { flex: 1; justify-content: center; }
+</style>
+</head>
+<body data-module="master-data-management" data-view="Change approvals" data-crumb="Data / Master Data Management / Change approvals" data-org="NP|Northfield Precision|All sites" data-who="Aarti Kulkarni|Data steward lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Change approvals</h1>
+      <p>6 attribute changes waiting · reviewed by the right approver before anything syncs downstream</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Approval rules</span>
+      <span class="btn pri">Approve selected</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Waiting for approval</h2><span>attribute, change and who has to sign</span></header>
+      <div class="body">
+        <table class="q">
+          <thead><tr><th>Change</th><th>Domain</th><th>Record</th><th>Attribute</th><th>From → to</th><th>Approver</th></tr></thead>
+          <tbody>
+            <tr><td><b class="mono">CHG-0231</b></td><td><span class="dom">Material</span></td><td>IH-220</td><td>List price</td><td class="ar"><s>₹3,840</s> → ₹4,020</td><td>Sales head, finance</td></tr>
+            <tr><td><b class="mono">CHG-0232</b></td><td><span class="dom">Material</span></td><td>14 items</td><td>HSN code</td><td class="ar">blank → 8-digit</td><td>Finance</td></tr>
+            <tr class="sel"><td><b class="mono">CHG-0233</b></td><td><span class="dom">Territory</span></td><td>AMD-2 → AMD-3</td><td>Pincodes, Changodar</td><td class="ar">12 pincodes</td><td>Sales head</td></tr>
+            <tr><td><b class="mono">CHG-0234</b></td><td><span class="dom">Customer</span></td><td>Kestrel Pumps</td><td>Credit limit</td><td class="ar"><s>₹60 L</s> → ₹75 L</td><td>Finance, sales head</td></tr>
+            <tr><td><b class="mono">CHG-0235</b></td><td><span class="dom">Vendor</span></td><td>Mehta Alloys</td><td>Bank account</td><td class="ar">new account</td><td>Purchase head, finance</td></tr>
+            <tr><td><b class="mono">CHG-0236</b></td><td><span class="dom">Vendor</span></td><td>Aravali Castings</td><td>Payment terms</td><td class="ar"><s>Net 30</s> → Net 45</td><td>Finance</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>CHG-0233 · territory remap</h2><span>impact check</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="im">
+            <li><span>Pincodes moving</span><span>12</span></li>
+            <li><span>Beats affected</span><span>4</span></li>
+            <li><span>Outlets re-assigned</span><span>38</span></li>
+            <li><span>Reps affected</span><span>2</span></li>
+            <li><span>Reports using the territory</span><span>7</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Approval</h2></header>
+        <div class="body" style="padding-top:2px;display:flex;flex-direction:column;gap:12px">
+          <ul class="ap">
+            <li><i>AK</i><b>Aarti Kulkarni</b><small>Steward · requested</small><span class="chip ok">Raised</span></li>
+            <li><i>VS</i><b>Vikram Shah</b><small>Sales head · approver</small><span class="chip warn">Waiting</span></li>
+          </ul>
+          <div class="bt"><span class="btn">Send back</span><span class="btn pri">Approve and sync</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -583,7 +583,7 @@ export const premiumFeatures: PremiumFeature[] = [
       chip: ['Approval pending', 'live'],
       meta: [['Documents', '8,960'], ['Pending approval', '6'], ['Retention rules', '14']],
       cols: ['Document', 'Version', 'Owner', 'State'],
-      rows: [['SOP · Line clearance', 'v4', 'QA', 'Approved'], ['Quality agreement V-118', 'v2', 'Purchase', 'In review'], ['Drawing IH-220', 'Rev C', 'Engineering', 'Approved'], ['Fire NOC · Plant 1', 'v1', 'Admin', 'Approved']],
+      rows: [['SOP-0063 · Calibrated tool control', 'v4', 'QA', 'In approval'], ['QAG-0038 · Quality agreement', 'v2', 'Purchase', 'On hold'], ['DWG-IH220 · Pump housing', 'Rev D', 'Engineering', 'In approval'], ['LIC-0012 · Fire NOC, Chennai', 'v1', 'Admin', 'Approved']],
       on: 1,
       note: ['Approval routed by document type', 'Every version and sign-off is kept'],
     },

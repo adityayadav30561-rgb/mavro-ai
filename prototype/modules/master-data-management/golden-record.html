@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Master Data Management · Golden record</title>
+<!-- Scenario: see quality-dashboard.html. Duplicate cluster CL-0412, customer Kestrel Pumps: three records. ERP C-10231
+     "Kestrel Pumps Ltd", Pune 411019, GSTIN present (27 state code; shown masked), credit limit ₹60 L, 30 days, bills
+     (SO-24817 890 IH-220); CRM A-4408 "Kestrel Pumps Limited", Pune 411019, same GSTIN, newer address (Plot 14, Bhosari)
+     and phone, 98% match; Distributor portal P-0731 "Kestral Pumps", Pune 411026, no GSTIN, 91% match, created by a
+     typo during a portal order. Survivorship: name and GSTIN and credit terms from ERP (system of record), address and
+     phone from CRM (most recent), portal record retired. Enrichment: GST registry check confirms the legal name
+     "Kestrel Pumps Limited" and the active status; the name is updated from the registry. Impact of merge: 2 open
+     orders, 14 invoices, 1 customer audit CA-0013 on 17 Oct; credit exposure shown once (₹38.4 L). The merge goes to the
+     steward for approval and syncs to ERP, CRM and the portal together. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .mg th, .mg td { padding-left: 9px; padding-right: 9px; }
+  .mg td { padding-top: 12px; padding-bottom: 12px; font-size: 12.5px; }
+  .mg td.gold { background: var(--ok-soft); font-weight: 600; }
+  .mg th.gold { color: var(--ok); }
+  .mg small { display: block; color: var(--ink-3); font-size: 11px; font-weight: 400; }
+  .mg td.fld { color: var(--ink-3); width: 120px; }
+  .src { display: inline-block; padding: 1px 6px; border-radius: 5px; font-size: 10.5px; font-weight: 600; background: var(--accent-soft); color: var(--accent-ink); margin-left: 4px; }
+  .mtc { font: 600 11.5px var(--mono); }
+  .im li { display: flex; justify-content: space-between; padding: 8px 0; font-size: 12.5px; }
+  .im li + li { border-top: 1px solid var(--line); }
+  .im span:last-child { font-family: var(--mono); font-weight: 600; }
+  .en { padding: 10px 12px; border-radius: 10px; background: var(--accent-soft); border: 1px solid #d9e0ff; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+  .en b { color: var(--accent-ink); }
+  .bt { display: flex; gap: 8px; }
+  .bt .btn { flex: 1; justify-content: center; }
+</style>
+</head>
+<body data-module="master-data-management" data-view="Golden record" data-crumb="Data / Master Data Management / Golden record / CL-0412" data-org="NP|Northfield Precision|All sites" data-who="Aarti Kulkarni|Data steward lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Golden record · Kestrel Pumps &nbsp;<span class="chip warn" style="vertical-align:4px">Merge proposed</span></h1>
+      <p>Cluster CL-0412 · customer · three records for one buyer · match, survive, enrich, then sync everywhere</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Not a duplicate</span>
+      <span class="btn pri">Approve merge</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack"><div class="card flush">
+      <header><h2>Match and survivorship</h2><span>the golden value is taken from the best source for each field</span></header>
+      <div class="body">
+        <table class="mg">
+          <thead><tr><th></th><th>ERP · C-10231</th><th>CRM · A-4408</th><th>Portal · P-0731</th><th class="gold">Golden record</th></tr></thead>
+          <tbody>
+            <tr><td class="fld">Match</td><td class="mtc">System of record</td><td class="mtc">98%</td><td class="mtc">91%</td><td class="gold">3 records → 1</td></tr>
+            <tr><td class="fld">Name</td><td>Kestrel Pumps Ltd</td><td>Kestrel Pumps Limited</td><td>Kestral Pumps</td><td class="gold">Kestrel Pumps Limited<span class="src">GST registry</span></td></tr>
+            <tr><td class="fld">GSTIN</td><td>On file</td><td>Same</td><td>Missing</td><td class="gold">On file<span class="src">ERP</span></td></tr>
+            <tr><td class="fld">Address</td><td>Pune 411019</td><td>Plot 14, Bhosari, Pune 411019<small>updated 12 Sep</small></td><td>Pune 411026</td><td class="gold">Plot 14, Bhosari, Pune 411019<span class="src">CRM</span></td></tr>
+            <tr><td class="fld">Phone</td><td>Old number</td><td>Current number<small>updated 12 Sep</small></td><td>—</td><td class="gold">Current number<span class="src">CRM</span></td></tr>
+            <tr><td class="fld">Credit terms</td><td>₹60 L · 30 days</td><td>—</td><td>—</td><td class="gold">₹60 L · 30 days<span class="src">ERP</span></td></tr>
+            <tr><td class="fld">Status</td><td>Active</td><td>Active</td><td>Typo, to retire</td><td class="gold">Active</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card flush" style="flex:1 1 auto">
+      <header><h2>Other clusters in the queue</h2><span>37 in all</span><span class="more">All</span></header>
+      <div class="body">
+        <table class="mg">
+          <tbody>
+            <tr><td><b class="mono">CL-0413</b></td><td>Customer</td><td>Aster Compressors / Aster Compressor Pvt</td><td class="mtc">96%</td><td><span class="chip warn">Review</span></td></tr>
+            <tr><td><b class="mono">CL-0409</b></td><td>Material</td><td>EN8 round bar 40 mm / EN-8 RB 40</td><td class="mtc">94%</td><td><span class="chip warn">Review</span></td></tr>
+            <tr><td><b class="mono">CL-0405</b></td><td>Vendor</td><td>Mehta Alloys / Mehta Alloys and Steel</td><td class="mtc">93%</td><td><span class="chip warn">Review</span></td></tr>
+            <tr><td><b class="mono">CL-0401</b></td><td>Customer</td><td>Halvorsen Pumps AS / Halvorsen Pumps</td><td class="mtc">90%</td><td><span class="chip warn">Review</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div></div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Enrichment</h2></header>
+        <div class="body" style="padding-top:6px">
+          <div class="en"><b>GST registry check passed.</b> The legal name is Kestrel Pumps Limited and the registration is active, so the name is updated from the registry.</div>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Impact of the merge</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="im">
+            <li><span>Open orders</span><span>2</span></li>
+            <li><span>Invoices relinked</span><span>14</span></li>
+            <li><span>Credit exposure, shown once</span><span>₹38.4 L</span></li>
+            <li><span>Customer audit</span><span>CA-0013 · 17 Oct</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Sync on approval</h2></header>
+        <div class="body" style="padding-top:6px;display:flex;flex-direction:column;gap:12px">
+          <dl class="kv"><dt>Steward</dt><dd>Aarti Kulkarni</dd><dt>Systems updated</dt><dd>ERP, CRM, portal</dd><dt>Retired</dt><dd>Portal P-0731</dd></dl>
+          <div class="bt"><span class="btn">Edit survivorship</span><span class="btn pri">Approve merge</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Business Analyst App · Data quality</title>
+<!-- Scenario: see coverage-trust.html. The data-quality exception queue: 5 open, each assigned to the owner of the source
+     system rather than patched locally. DQX-0112 duplicate rows in the secondary sales feed (PL-087, 42 rows, matches
+     Data Analytics AN-0417), owner distributor portal admin; DQX-0113 freshness, the secondary sales dataset 33 h old
+     (AN-0418), owner Data platform (fix running); DQX-0114 customer GSTIN missing on 9 active accounts, owner CRM
+     (sales ops); DQX-0115 14 items without HSN code, owner Inventory (stores, Kavita Joshi); DQX-0116 three bins with
+     negative stock balances, owner WMS (Sana Qureshi). Impact: reports affected per exception. Closed this week 7;
+     median time to fix 1.4 days. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .q td { padding-top: 14px; padding-bottom: 14px; }
+  .q th, .q td { padding-left: 9px; padding-right: 9px; }
+  tr.sel td { background: var(--accent-soft); }
+  tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+  .rule2 { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; font-weight: 550; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .dt li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 10px; padding: 8px 0; font-size: 12.5px; }
+  .dt li + li { border-top: 1px solid var(--line); }
+  .dt time { font: 11.5px var(--mono); color: var(--ink-3); }
+  .why { padding: 10px 12px; border-radius: 10px; background: var(--warn-soft); border: 1px solid #f5e2b0; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+  .why b { color: var(--warn); }
+  .bt { display: flex; gap: 8px; }
+  .bt .btn { flex: 1; justify-content: center; }
+</style>
+</head>
+<body data-module="business-analyst-app" data-view="Data quality" data-crumb="Data / Business Analyst App / Data quality" data-org="NP|Northfield Precision|All sites" data-who="Farah Siddiqui|Data platform lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Data-quality exceptions</h1>
+      <p>5 open · every exception goes to the owner of the source system instead of a local patch in a report</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Rules</span>
+      <span class="btn pri">Assign selected</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Open exceptions</label><div class="v"><strong>5</strong></div><div class="foot"><b class="delta flat">all assigned</b><span>none unowned</span></div></div>
+    <div class="card kpi"><label>Reports affected</label><div class="v"><strong>11</strong></div><div class="foot"><b class="delta down">secondary sales 6</b><span>of the 11</span></div></div>
+    <div class="card kpi"><label>Closed this week</label><div class="v"><strong>7</strong></div><div class="foot"><b class="delta up">1.4 days</b><span>median time to fix</span></div></div>
+    <div class="card kpi"><label>Rules running</label><div class="v"><strong>86</strong></div><div class="foot"><b class="delta flat">nightly and live</b><span>freshness, duplicates, nulls</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Exception queue</h2><span>routed to the owning source system</span></header>
+      <div class="body">
+        <table class="q">
+          <thead><tr><th>Exception</th><th>Rule</th><th>Found in</th><th class="r">Reports</th><th>Owner</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr class="sel"><td><b class="mono">DQX-0112</b><small>42 duplicate rows</small></td><td><span class="rule2">Duplicates</span></td><td>Secondary sales feed<small>PL-087</small></td><td class="r mono">6</td><td>Distributor portal<small>admin</small></td><td><span class="chip blue">Fix running</span></td></tr>
+            <tr><td><b class="mono">DQX-0113</b><small>33 hours old</small></td><td><span class="rule2">Freshness</span></td><td>Secondary sales dataset<small>DS-017</small></td><td class="r mono">6</td><td>Data platform<small>Farah Siddiqui</small></td><td><span class="chip blue">Fix running</span></td></tr>
+            <tr><td><b class="mono">DQX-0114</b><small>GSTIN missing, 9 accounts</small></td><td><span class="rule2">Completeness</span></td><td>Customer master<small>CRM</small></td><td class="r mono">3</td><td>Sales operations</td><td><span class="chip warn">Open</span></td></tr>
+            <tr><td><b class="mono">DQX-0115</b><small>14 items without HSN</small></td><td><span class="rule2">Completeness</span></td><td>Item master<small>Inventory</small></td><td class="r mono">2</td><td>Stores<small>Kavita Joshi</small></td><td><span class="chip warn">Open</span></td></tr>
+            <tr><td><b class="mono">DQX-0116</b><small>3 negative balances</small></td><td><span class="rule2">Validity</span></td><td>Bin stock<small>WMS</small></td><td class="r mono">1</td><td>Warehouse<small>Sana Qureshi</small></td><td><span class="chip warn">Open</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>DQX-0112</h2><span>duplicate rows</span></header>
+        <div class="body" style="padding-top:6px;display:flex;flex-direction:column;gap:12px">
+          <div class="why"><b>Fixed at the source.</b> The distributor portal uploaded two files for one stock statement. The reports show a notice until the duplicates are removed upstream; nobody edits the numbers in a report.</div>
+          <ul class="dt">
+            <li><time>06:10</time><span>Rule found 42 duplicate rows</span></li>
+            <li><time>06:12</time><span>Assigned to the portal admin</span></li>
+            <li><time>09:40</time><span>Re-load of the feed started</span></li>
+          </ul>
+          <div class="bt"><span class="btn">Reassign</span><span class="btn pri">Open in Data Analytics</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

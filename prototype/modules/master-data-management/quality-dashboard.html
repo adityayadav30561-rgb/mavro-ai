@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Master Data Management · Quality dashboard</title>
+<!--
+  Scenario (Master Data Management, shared by every screen of the module; feeds the Business Analyst App's data quality
+  and CRM, Inventory and Procure to Pay): Northfield Precision, 8 Oct, 14:02. 12,480 master records in seven domains
+  (records, completeness, duplicate clusters): customer 2,140, 93%, 21; material 7,640, 91%, 11; vendor 612, 95%, 5;
+  employee 491, 98%, 0; account 1,246, 97%, 0; territory 96, 94%, 0; location 255, 92%, 0. 37 duplicate clusters,
+  quality score 92%. Change approvals waiting 6. Records without a named steward: 0. Stewards: customer and territory
+  Aarti Kulkarni (sales operations); material Kavita Joshi (stores); vendor Rohan Menon (purchase); employee and
+  account HR and finance. Data steward lead: Aarti Kulkarni. Examples: duplicate customer cluster Kestrel Pumps (3
+  records); missing GSTIN on 9 active customers (DQX-0114); 14 items without HSN (DQX-0115). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .dm td { padding-top: 10px; padding-bottom: 10px; }
+  .cv { display: flex; align-items: center; gap: 8px; }
+  .cv .meter { width: 100px; min-width: 100px; }
+  .cv span { font: 11.5px var(--mono); color: var(--ink-2); }
+  tr.tot td { font-weight: 600; background: var(--surface-2); }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .ex li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; }
+  .ex li + li { border-top: 1px solid var(--line); }
+  .ex b { font-weight: 550; }
+  .ex small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .ex .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+</style>
+</head>
+<body data-module="master-data-management" data-view="Quality dashboard" data-crumb="Data / Master Data Management / Quality dashboard" data-org="NP|Northfield Precision|All sites" data-who="Aarti Kulkarni|Data steward lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Master data quality</h1>
+      <p>12,480 records in seven domains · one governed record per customer, material, vendor and territory, synced everywhere</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All domains</span><span>Customer</span><span>Material</span><span>Vendor</span></div>
+      <span class="btn pri">Review duplicates</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Master records</label><div class="v"><strong>12,480</strong></div><div class="foot"><b class="delta flat">7 domains</b><span>every record has a steward</span></div></div>
+    <div class="card kpi"><label>Quality score</label><div class="v"><strong>92%</strong><i data-spark="86,87,88,89,90,91,92" data-color="#0c9b6a"></i></div><div class="foot"><b class="delta up">+6 pts</b><span>since April</span></div></div>
+    <div class="card kpi"><label>Duplicate clusters</label><div class="v"><strong style="color:var(--warn)">37</strong></div><div class="foot"><b class="delta down">21 customers</b><span>11 materials · 5 vendors</span></div></div>
+    <div class="card kpi"><label>Changes awaiting approval</label><div class="v"><strong>6</strong></div><div class="foot"><b class="delta flat">price, tax, territory</b><span>none synced yet</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>By domain</h2><span>completeness and duplicates</span><span class="more">Master records</span></header>
+        <div class="body">
+          <table class="dm">
+            <thead><tr><th>Domain</th><th>Steward</th><th class="r">Records</th><th>Complete</th><th class="r">Duplicate clusters</th></tr></thead>
+            <tbody>
+              <tr><td><b>Customer</b></td><td>Aarti Kulkarni</td><td class="r mono">2,140</td><td><div class="cv"><span class="meter ok"><i style="width:93%"></i></span><span>93%</span></div></td><td class="r mono" style="color:var(--warn)">21</td></tr>
+              <tr><td><b>Material</b></td><td>Kavita Joshi</td><td class="r mono">7,640</td><td><div class="cv"><span class="meter warn"><i style="width:91%"></i></span><span>91%</span></div></td><td class="r mono" style="color:var(--warn)">11</td></tr>
+              <tr><td><b>Vendor</b></td><td>Rohan Menon</td><td class="r mono">612</td><td><div class="cv"><span class="meter ok"><i style="width:95%"></i></span><span>95%</span></div></td><td class="r mono" style="color:var(--warn)">5</td></tr>
+              <tr><td><b>Employee</b></td><td>Kavita Iyer</td><td class="r mono">491</td><td><div class="cv"><span class="meter ok"><i style="width:98%"></i></span><span>98%</span></div></td><td class="r mono">0</td></tr>
+              <tr><td><b>Account</b></td><td>Ritu Kapoor</td><td class="r mono">1,246</td><td><div class="cv"><span class="meter ok"><i style="width:97%"></i></span><span>97%</span></div></td><td class="r mono">0</td></tr>
+              <tr><td><b>Territory</b></td><td>Aarti Kulkarni</td><td class="r mono">96</td><td><div class="cv"><span class="meter ok"><i style="width:94%"></i></span><span>94%</span></div></td><td class="r mono">0</td></tr>
+              <tr><td><b>Location</b></td><td>Sunil Pawar</td><td class="r mono">255</td><td><div class="cv"><span class="meter warn"><i style="width:92%"></i></span><span>92%</span></div></td><td class="r mono">0</td></tr>
+              <tr class="tot"><td>All domains</td><td></td><td class="r mono">12,480</td><td><div class="cv"><span class="meter ok"><i style="width:92%"></i></span><span>92%</span></div></td><td class="r mono">37</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Quality score by month</h2><span>all domains, %</span></header>
+        <div class="body chart-c" data-area="86,87,88,89,90,91,92" data-min="80" data-max="100" data-labels="Apr,May,Jun,Jul,Aug,Sep,Oct"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Needs a decision</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="ex">
+            <li><b>Kestrel Pumps · 3 records</b><small>Merge proposed, 98% and 91% match</small><span class="chip warn">Merge</span></li>
+            <li><b>9 active customers without GSTIN</b><small>Cannot be invoiced for GST until fixed</small><span class="chip warn">Open</span></li>
+            <li><b>14 items without HSN</b><small>Tax code needed before sale</small><span class="chip warn">Open</span></li>
+            <li><b>Ahmedabad territory remap</b><small>Impact check: 4 beats, 38 outlets</small><span class="chip blue">Approval</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Sync to systems</h2><span>last 24 hours</span></header>
+        <div class="body" style="padding-top:4px">
+          <dl class="kv"><dt>Records synced</dt><dd>148</dd><dt>Held for approval</dt><dd>6</dd><dt>Failed</dt><dd>0</dd><dt>Last full sync</dt><dd>02:00</dd></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Document Management · Repository dashboard</title>
+<!--
+  Scenario (Document Management, shared by every screen of the module; ties to Audit Management, Learning Management,
+  Real Estate and mVLens): Northfield Precision, 8 Oct, 14:02. 8,960 controlled documents by type: drawings 2,860;
+  certificates and test reports 3,120; specifications 1,350; SOPs 412; contracts 96; quality agreements 64; licences
+  and NOCs 58; other 1,000. 6 waiting for approval. 14 retention rules. Expiring within 90 days: 9 (fire NOC Chennai
+  15 Nov; ISO 9001 surveillance paperwork; QAG-0019 Mehta Alloys quality agreement 30 Nov; 4 gate-pass related
+  licences; vendor certificates). Numbering: TYPE-SEQUENCE (SOP-0063, DWG-IH220-D, QAG-0038, LIC-0012). Uploaded this
+  week 143, duplicates blocked 11. Document controller: Leena Dsouza; QA head: Anil Bhosale. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .ty td { padding-top: 9px; padding-bottom: 9px; }
+  .sh { display: flex; align-items: center; gap: 8px; }
+  .sh .meter { width: 90px; min-width: 90px; }
+  .sh span { font: 11.5px var(--mono); color: var(--ink-2); }
+  tr.tot td { font-weight: 600; background: var(--surface-2); }
+  .rc td { padding-top: 9px; padding-bottom: 9px; }
+  .ex li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; }
+  .ex li + li { border-top: 1px solid var(--line); }
+  .ex b { font-weight: 550; }
+  .ex small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .ex .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+</style>
+</head>
+<body data-module="document-management" data-view="Repository dashboard" data-crumb="Data / Document Management / Repository dashboard" data-org="NP|Northfield Precision|All sites" data-who="Leena Dsouza|Document controller">
+<main>
+  <div class="head">
+    <div>
+      <h1>Document repository</h1>
+      <p>8,960 controlled documents · numbered, versioned, approved and retrievable · one effective version at a time</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Zip requests</span>
+      <span class="btn pri">Upload documents</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Controlled documents</label><div class="v"><strong>8,960</strong></div><div class="foot"><b class="delta flat">143 this week</b><span>11 duplicates blocked</span></div></div>
+    <div class="card kpi"><label>Waiting for approval</label><div class="v"><strong>6</strong></div><div class="foot"><b class="delta down">1 for the plant head</b><span>SOP-0063 v4</span></div></div>
+    <div class="card kpi"><label>Expiring in 90 days</label><div class="v"><strong style="color:var(--warn)">9</strong></div><div class="foot"><b class="delta down">Fire NOC, 15 Nov</b><span>owners alerted</span></div></div>
+    <div class="card kpi"><label>Retention rules</label><div class="v"><strong>14</strong></div><div class="foot"><b class="delta flat">by document type</b><span>none overdue</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>By document type</h2><span>number series and what is waiting</span><span class="more">Document types</span></header>
+        <div class="body">
+          <table class="ty">
+            <thead><tr><th>Type</th><th>Number</th><th class="r">Documents</th><th>Effective</th><th class="r">Awaiting approval</th><th class="r">Expiring, 90 days</th></tr></thead>
+            <tbody>
+              <tr><td><b>Drawings</b></td><td class="mono">DWG-…</td><td class="r mono">2,860</td><td><div class="sh"><span class="meter ok"><i style="width:99%"></i></span><span>99%</span></div></td><td class="r mono">2</td><td class="r mono dim">—</td></tr>
+              <tr><td><b>Certificates and test reports</b></td><td class="mono">CRT-…</td><td class="r mono">3,120</td><td><div class="sh"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td class="r mono dim">—</td><td class="r mono">4</td></tr>
+              <tr><td><b>Specifications</b></td><td class="mono">SPC-…</td><td class="r mono">1,350</td><td><div class="sh"><span class="meter ok"><i style="width:99%"></i></span><span>99%</span></div></td><td class="r mono">1</td><td class="r mono dim">—</td></tr>
+              <tr><td><b>SOPs</b></td><td class="mono">SOP-…</td><td class="r mono">412</td><td><div class="sh"><span class="meter ok"><i style="width:98%"></i></span><span>98%</span></div></td><td class="r mono">2</td><td class="r mono dim">—</td></tr>
+              <tr><td><b>Contracts</b></td><td class="mono">CON-…</td><td class="r mono">96</td><td><div class="sh"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td class="r mono dim">—</td><td class="r mono">1</td></tr>
+              <tr><td><b>Quality agreements</b></td><td class="mono">QAG-…</td><td class="r mono">64</td><td><div class="sh"><span class="meter ok"><i style="width:97%"></i></span><span>97%</span></div></td><td class="r mono">1</td><td class="r mono">1</td></tr>
+              <tr><td><b>Licences and NOCs</b></td><td class="mono">LIC-…</td><td class="r mono">58</td><td><div class="sh"><span class="meter warn"><i style="width:91%"></i></span><span>91%</span></div></td><td class="r mono dim">—</td><td class="r mono">3</td></tr>
+              <tr><td><b>Other</b></td><td class="mono">DOC-…</td><td class="r mono">1,000</td><td><div class="sh"><span class="meter ok"><i style="width:96%"></i></span><span>96%</span></div></td><td class="r mono dim">—</td><td class="r mono dim">—</td></tr>
+              <tr class="tot"><td>All types</td><td></td><td class="r mono">8,960</td><td></td><td class="r mono">6</td><td class="r mono">9</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card flush" style="flex:1 1 auto">
+        <header><h2>Recent documents</h2><span class="more">All</span></header>
+        <div class="body">
+          <table class="rc">
+            <thead><tr><th>Document</th><th>Version</th><th>Owner</th><th>State</th></tr></thead>
+            <tbody>
+              <tr><td><b class="mono">SOP-0063</b><small>Calibrated tool control</small></td><td class="mono">v4</td><td>QA</td><td><span class="chip warn">In approval</span></td></tr>
+              <tr><td><b class="mono">DWG-IH220</b><small>IH-220 pump housing</small></td><td class="mono">Rev D</td><td>Engineering</td><td><span class="chip warn">In approval</span></td></tr>
+              <tr><td><b class="mono">QAG-0038</b><small>Quality agreement, Bharat Heat Treaters</small></td><td class="mono">v2</td><td>Purchase</td><td><span class="chip warn">On hold</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Expiring soon</h2><span>owners are alerted at 90, 60 and 30 days</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="ex">
+            <li><b>LIC-0012 · Fire NOC, Chennai plant</b><small>Expires 15 Nov · renewal filed 1 Oct</small><span class="chip warn">38 days</span></li>
+            <li><b>QAG-0019 · Mehta Alloys agreement</b><small>Expires 30 Nov · CAPA-0087 to verify</small><span class="chip plain">53 days</span></li>
+            <li><b>CRT-… · 4 vendor certificates</b><small>Mill and material certificates</small><span class="chip plain">to 31 Dec</span></li>
+            <li><b>CON-0044 · Pune depot lease addendum</b><small>Reviewed with Real Estate</small><span class="chip plain">84 days</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Control checks</h2></header>
+        <div class="body" style="padding-top:4px">
+          <dl class="kv"><dt>Duplicate uploads blocked</dt><dd>11 this week</dd><dt>Documents with 2 effective versions</dt><dd>0</dd><dt>Restricted, approval needed</dt><dd>212</dd></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

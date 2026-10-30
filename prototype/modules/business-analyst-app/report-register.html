@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Business Analyst App · Report register</title>
+<!-- Scenario: see coverage-trust.html. The report register, 10 of 128 shown: owner, dataset, refresh, opens in 30 days,
+     users, certification state. RPT-0161 is the draft in the builder. RPT-0042 "Collection ageing" is the Finance
+     report, certified. The two reports on the held feed (secondary sales) show a stale notice. Not opened in 90 days:
+     RPT-0087 and RPT-0094, candidates to retire. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 14px; padding-bottom: 14px; }
+  .dom { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; font-weight: 550; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body data-module="business-analyst-app" data-view="Report register" data-crumb="Data / Business Analyst App / Report register" data-org="NP|Northfield Precision|All sites" data-who="Rashmi Desai|Business analyst">
+<main>
+  <div class="head">
+    <div>
+      <h1>Report and dataset register</h1>
+      <p>Owner, dataset, refresh and usage for every report, so unused ones are retired and used ones are trusted</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">New report</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Domain <b>All</b></span>
+    <span class="filter">State <b>All</b></span>
+    <span class="filter">Usage <b>Any</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Report, owner or dataset</div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Report</th><th>Domain</th><th>Owner</th><th>Dataset</th><th>Refresh</th><th class="r">Opens, 30 days</th><th class="r">Users</th><th>State</th></tr></thead>
+        <tbody>
+          <tr><td><b class="mono">RPT-0012</b><small>Order book by region</small></td><td><span class="dom">Sales</span></td><td>Sales operations</td><td class="mono">DS-004</td><td>Hourly</td><td class="r mono">1,420</td><td class="r mono">44</td><td><span class="chip ok">Certified</span></td></tr>
+          <tr><td><b class="mono">RPT-0161</b><small>Secondary sales by territory</small></td><td><span class="dom">Sales</span></td><td>Rashmi Desai</td><td class="mono">DS-017</td><td>Daily</td><td class="r mono dim">draft</td><td class="r mono dim">—</td><td><span class="chip blue">In builder</span></td></tr>
+          <tr><td><b class="mono">RPT-0058</b><small>Secondary sales dashboard</small></td><td><span class="dom">Sales</span></td><td>Sales operations</td><td class="mono">DS-017</td><td>Daily</td><td class="r mono">388</td><td class="r mono">31</td><td><span class="chip warn">Stale, 33 h</span></td></tr>
+          <tr><td><b class="mono">RPT-0042</b><small>Collection ageing</small></td><td><span class="dom">Finance</span></td><td>Finance</td><td class="mono">DS-009</td><td>Daily</td><td class="r mono">612</td><td class="r mono">19</td><td><span class="chip ok">Certified</span></td></tr>
+          <tr><td><b class="mono">RPT-0066</b><small>Margin bridge</small></td><td><span class="dom">Finance</span></td><td>Finance</td><td class="mono">DS-011</td><td>Daily</td><td class="r mono">204</td><td class="r mono">12</td><td><span class="chip warn">In review</span></td></tr>
+          <tr><td><b class="mono">RPT-0031</b><small>Plant OEE</small></td><td><span class="dom">Operations</span></td><td>Operations</td><td class="mono">DS-021</td><td>Daily</td><td class="r mono">1,106</td><td class="r mono">41</td><td><span class="chip ok">Certified</span></td></tr>
+          <tr><td><b class="mono">RPT-0073</b><small>Stock cover by item</small></td><td><span class="dom">Supply chain</span></td><td>Supply chain</td><td class="mono">DS-014</td><td>Hourly</td><td class="r mono">736</td><td class="r mono">26</td><td><span class="chip ok">Certified</span></td></tr>
+          <tr><td><b class="mono">RPT-0102</b><small>Attrition by plant</small></td><td><span class="dom">People</span></td><td>HR</td><td class="mono">DS-030</td><td>Weekly</td><td class="r mono">58</td><td class="r mono">6</td><td><span class="chip warn">Uncertified metric</span></td></tr>
+          <tr><td><b class="mono">RPT-0087</b><small>Pack-size mix, FY24</small></td><td><span class="dom">Sales</span></td><td>Sales operations</td><td class="mono">DS-004</td><td>Daily</td><td class="r mono">0</td><td class="r mono">0</td><td><span class="chip plain">Retire</span></td></tr>
+          <tr><td><b class="mono">RPT-0094</b><small>Legacy freight sheet</small></td><td><span class="dom">Supply chain</span></td><td>Logistics</td><td class="mono">DS-019</td><td>Daily</td><td class="r mono">0</td><td class="r mono">0</td><td><span class="chip plain">Retire</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 10 of 128 reports · 88% on certified metrics</span><span>Reports not opened in 90 days are proposed for retirement</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

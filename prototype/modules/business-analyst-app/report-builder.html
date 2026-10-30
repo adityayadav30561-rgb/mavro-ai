@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Business Analyst App · Report builder</title>
+<!-- Scenario: see coverage-trust.html. Rashmi Desai builds RPT-0161 "Secondary sales by territory" for the sales head
+     (Vikram Shah). Metrics chosen: M-009 Net sales after schemes (certified, Finance), M-021 Secondary sales value
+     (certified), M-034 Sales target (certified, region grain), M-052 Fill rate (draft, uncertified). Dimensions: month,
+     territory, distributor, product group. Dataset: DS-017 secondary sales (pipeline PL-087, held, 33 h old).
+     Validation: ✓ metric definitions certified (3 of 4); ✕ grain: M-034 sales target is held by region, the report is
+     by territory, so target and achievement cannot sit in one row until the target is allocated to territories
+     (allocation DS-022 exists); ! M-052 is uncertified; ! dataset freshness: PL-087 held, data 33 h against a 24 h
+     promise; ✓ lineage traced to ERP orders and distributor stock statements; ✓ row-level security by territory
+     applied (sales managers see their own territory). Publication blocked until the grain is fixed; certification then
+     goes to peer review (Farah Siddiqui). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols3 { grid-template-columns: 250px minmax(0, 1fr) 320px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .mt li { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 10px 16px; border-top: 1px solid var(--line); font-size: 12.5px; }
+  .mt li:first-child { border-top: 0; }
+  .mt i { grid-row: 1 / span 2; width: 14px; height: 14px; border-radius: 4px; background: var(--accent); }
+  .mt i.off { background: #fff; border: 1.5px solid var(--line-2); }
+  .mt small { grid-column: 2; color: var(--ink-3); font-size: 11.5px; }
+  .mt .chip { grid-row: 1 / span 2; grid-column: 3; }
+  .pv th, .pv td { padding-left: 9px; padding-right: 9px; }
+  .pv td { padding-top: 10px; padding-bottom: 10px; }
+  .grain { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .grain span { padding: 3px 9px; border-radius: 6px; background: var(--accent-soft); border: 1px solid #d9e0ff; font-size: 12px; color: var(--accent-ink); font-weight: 550; }
+  .vl li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 2px 10px; padding: 9px 0; font-size: 12.5px; line-height: 1.35; }
+  .vl li + li { border-top: 1px solid var(--line); }
+  .vl i { grid-row: 1 / span 2; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .vl i.x { background: var(--bad-soft); color: var(--bad); }
+  .vl i.w { background: var(--warn-soft); color: var(--warn); }
+  .vl small { color: var(--ink-3); font-size: 11.5px; display: block; }
+  .lin { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+  .lin li { position: relative; padding: 11px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); font-size: 12px; }
+  .lin li:not(:last-child)::after { content: '›'; position: absolute; right: -11px; top: 50%; transform: translateY(-50%); color: var(--ink-3); }
+  .lin li.warn { background: var(--warn-soft); border-color: #f5e2b0; }
+  .lin li.end { background: var(--accent-soft); border-color: #d9e0ff; }
+  .lin b { display: block; font-weight: 600; }
+  .lin small { color: var(--ink-3); font-size: 11px; }
+  .bt { display: flex; gap: 8px; }
+  .bt .btn { flex: 1; justify-content: center; }
+</style>
+</head>
+<body data-module="business-analyst-app" data-view="Report builder" data-crumb="Data / Business Analyst App / Report builder / RPT-0161" data-org="NP|Northfield Precision|All sites" data-who="Rashmi Desai|Business analyst">
+<main>
+  <div class="head">
+    <div>
+      <h1>Secondary sales by territory · RPT-0161 &nbsp;<span class="chip blue" style="vertical-align:4px">Draft</span></h1>
+      <p>For the sales head · metrics, grain and lineage are validated before the report can be published</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Preview</span>
+      <span class="btn pri">Request certification</span>
+    </div>
+  </div>
+
+  <div class="grid cols3">
+    <div class="card flush">
+      <header><h2>Metrics</h2><span>from the catalogue</span></header>
+      <div class="body">
+        <ul class="mt">
+          <li><i></i><b>Net sales after schemes</b><small>M-009 · Finance</small><span class="chip ok">Certified</span></li>
+          <li><i></i><b>Secondary sales value</b><small>M-021 · Sales ops</small><span class="chip ok">Certified</span></li>
+          <li><i></i><b>Sales target</b><small>M-034 · region grain</small><span class="chip ok">Certified</span></li>
+          <li><i></i><b>Fill rate</b><small>M-052 · distributor service</small><span class="chip warn">Draft</span></li>
+          <li><i class="off"></i><b>Return rate</b><small>M-058 · not selected</small><span class="chip ok">Certified</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Layout</h2><span>dataset DS-017 secondary sales</span></header>
+        <div class="body">
+          <div style="padding:12px 16px 4px"><div class="grain"><span>Month</span><span>Territory</span><span>Distributor</span><span>Product group</span></div></div>
+          <table class="pv">
+            <thead><tr><th>Territory</th><th class="r">Secondary, ₹ L</th><th class="r">Net of schemes</th><th class="r">Target</th><th class="r">Fill rate</th></tr></thead>
+            <tbody>
+              <tr><td><b>Ahmedabad</b></td><td class="r mono">84.2</td><td class="r mono">79.8</td><td class="r mono" style="color:var(--bad)">by region</td><td class="r mono">91%</td></tr>
+              <tr><td><b>Pune</b></td><td class="r mono">112.6</td><td class="r mono">107.1</td><td class="r mono" style="color:var(--bad)">by region</td><td class="r mono">94%</td></tr>
+              <tr><td><b>Indore</b></td><td class="r mono">38.9</td><td class="r mono">36.7</td><td class="r mono" style="color:var(--bad)">by region</td><td class="r mono">89%</td></tr>
+              <tr><td><b>Hyderabad</b></td><td class="r mono">61.4</td><td class="r mono">58.0</td><td class="r mono" style="color:var(--bad)">by region</td><td class="r mono">92%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Lineage</h2><span>from source to report</span></header>
+        <div class="body">
+          <ol class="lin">
+            <li><b>ERP orders</b><small>sales orders, schemes</small></li>
+            <li><b>Distributor stock statements</b><small>portal uploads</small></li>
+            <li class="warn"><b>PL-087</b><small>held · 33 h old</small></li>
+            <li><b>DS-017</b><small>secondary sales</small></li>
+            <li class="end"><b>RPT-0161</b><small>this report</small></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Validation</h2><span>2 to fix · 2 to review</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="vl">
+            <li><i class="x">✕</i><span><b>Grain mismatch</b><small>Sales target is held by region; the report is by territory. Use the territory allocation DS-022.</small></span></li>
+            <li><i class="w">!</i><span><b>Fill rate is uncertified</b><small>Certify M-052 or drop it before publishing</small></span></li>
+            <li><i class="w">!</i><span><b>Data is 33 hours old</b><small>PL-087 held; the report promises 24 hours</small></span></li>
+            <li><i>✓</i><span><b>Lineage traced</b><small>ERP orders and distributor stock statements</small></span></li>
+            <li><i>✓</i><span><b>Row-level security</b><small>Managers see only their own territory</small></span></li>
+          </ul>
+          <div class="rule"></div>
+          <div class="bt"><span class="btn">Fix grain</span><span class="btn pri">Re-validate</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

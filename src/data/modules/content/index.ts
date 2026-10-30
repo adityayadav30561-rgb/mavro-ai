@@ -4,6 +4,7 @@ import { content as accounting } from './accounting';
 import { content as assetManagement } from './asset-management';
 import { content as auctionAndBidding } from './auction-and-bidding';
 import { content as auditManagement } from './audit-management';
+import { content as businessAnalystApp } from './business-analyst-app';
 import { content as contractLabourPurchase } from './contract-labour-purchase';
 import { content as contractLabourSupply } from './contract-labour-supply';
 import { content as costForecasting } from './cost-forecasting';
@@ -13,6 +14,7 @@ import { content as dataAnalytics } from './data-analytics';
 import { content as dealerPortal } from './dealer-portal';
 import { content as distributorPortal } from './distributor-portal';
 import { content as ecommerceIntegration } from './ecommerce-integration';
+import { content as documentManagement } from './document-management';
 import { content as fleetManagement } from './fleet-management';
 import { content as fscPortal } from './fsc-portal';
 import { content as gateEntry } from './gate-entry';
@@ -20,6 +22,7 @@ import { content as hrmsAndPayroll } from './hrms-and-payroll';
 import { content as insuranceManagement } from './insurance-management';
 import { content as inventoryManagement } from './inventory-management';
 import { content as learningManagement } from './learning-management';
+import { content as masterDataManagement } from './master-data-management';
 import { content as mvlensVendorAudit } from './mvlens-vendor-audit';
 import { content as orderToCash } from './order-to-cash';
 import { content as ppds } from './ppds';
@@ -56,6 +59,7 @@ export const moduleContent: Registry = {
   'asset-management': assetManagement,
   'auction-and-bidding': auctionAndBidding,
   'audit-management': auditManagement,
+  'business-analyst-app': businessAnalystApp,
   'contract-labour-purchase': contractLabourPurchase,
   'contract-labour-supply': contractLabourSupply,
   'cost-forecasting': costForecasting,
@@ -65,6 +69,7 @@ export const moduleContent: Registry = {
   'dealer-portal': dealerPortal,
   'distributor-portal': distributorPortal,
   'ecommerce-integration': ecommerceIntegration,
+  'document-management': documentManagement,
   'fleet-management': fleetManagement,
   'fsc-portal': fscPortal,
   'gate-entry': gateEntry,
@@ -72,6 +77,7 @@ export const moduleContent: Registry = {
   'insurance-management': insuranceManagement,
   'inventory-management': inventoryManagement,
   'learning-management': learningManagement,
+  'master-data-management': masterDataManagement,
   'mvlens-vendor-audit': mvlensVendorAudit,
   'order-to-cash': orderToCash,
   ppds,

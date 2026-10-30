@@ -4,8 +4,8 @@ _Last updated: 2026-10-26. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–19 done (2026-10-30); next: Phase 20, Business Analyst App, Master Data
-Management and Document Management.** The
+**Stage C (phased implementation). Phases 1–20 done (2026-10-30); next: Phase 21, the package pages and the Platform
+overview. All 42 module pages now exist.** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,24 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-30, **Phase 20 done: Business Analyst App, Master Data Management and Document Management pages (the last module pages: 42 of 42).** On `main`.
+  - **Screens (12 new, no phone):** Business Analyst App `coverage-trust` (lead), `report-builder`, `data-quality`,
+    `report-register`; Master Data `quality-dashboard` (lead), `golden-record`, `change-approvals`, `master-records`;
+    Documents `repository-dashboard` (lead), `upload-batch`, `version-history`, `zip-requests`. Content from deck v2 slides
+    88 and 90; **Document Management has no v2 detail slide, so it follows the AMR L1 deck slides 78-79** (resolved the
+    plan's "DMS content gap"); that deck's artwork/plate-destruction/customer-code numbering belongs to a printing
+    customer and is not used (see the note in `document-management.ts`). Crumbs under "Data".
+  - **BAA scenario:** 128 reports, 88% on certified metrics, 46 certified metrics; "net sales" conflict resolved as M-009;
+    RPT-0161 secondary sales by territory blocked by a region/territory grain mismatch and PL-087 stale data (ties to Data
+    Analytics AN-0418); 5 DQ exceptions routed to source owners. Platform lead Farah Siddiqui, analyst Rashmi Desai.
+  - **MDM scenario:** 12,480 records (customer 2,140, material 7,640, vendor 612, employee 491, account 1,246, territory
+    96, location 255), 37 duplicate clusters; Kestrel Pumps cluster CL-0412 merged to a golden record; 6 change approvals
+    (IH-220 price, HSN codes, Ahmedabad remap of 38 outlets, Kestrel credit limit, Mehta Alloys bank change, Aravali
+    terms). Steward lead Aarti Kulkarni.
+  - **DMS scenario:** 8,960 documents; SOP-0063 v4 (after CAPA-0088 / IA-0219) awaits the plant head, effective 10 Oct, trained
+    through CRS-0071; upload batch UB-0218 (new IH-220 Rev D, 2 duplicates blocked); zip ZR-0041 Kestrel audit pack needs
+    QA-head approval. Document controller Leena Dsouza.
 
 - 2026-10-30, **Phase 19 done: Contract Labour Supply and Contract Labour Purchase pages.** On `main`.
   - **Split between the two:** Supply is the principal employer's compliance view (CLRA, PF, ESIC, wage register,
@@ -636,8 +654,8 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 20: Business Analyst App, Master Data Management, Document Management** (v2 slides 88, 90; DMS has no v2
-   detail slide, so resolve that content gap first, from the v1 and AMR decks).
+1. **Phase 21: Package pages (Base modules, Portals, Premium) and the Platform overview** (4 pages plus mobile
+   screens; see IMPLEMENTATION-PLAN.md and SITE-PLAN.md). The module pages are complete, so these can link to all 42.
 
 ## Open items (need the user or real assets)
 

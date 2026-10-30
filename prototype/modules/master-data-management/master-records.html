@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Master Data Management · Master records</title>
+<!-- Scenario: see quality-dashboard.html. The master record register, customer and material records needing attention,
+     9 of 12,480 shown: steward, quality score, state, last change, source systems. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 14px; padding-bottom: 14px; }
+  .dom { display: inline-block; padding: 1px 7px; border-radius: 5px; font-size: 11.5px; font-weight: 550; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .qs { display: flex; align-items: center; gap: 7px; }
+  .qs .meter { width: 56px; min-width: 56px; }
+  .qs span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body data-module="master-data-management" data-view="Master records" data-crumb="Data / Master Data Management / Master records" data-org="NP|Northfield Precision|All sites" data-who="Aarti Kulkarni|Data steward lead">
+<main>
+  <div class="head">
+    <div>
+      <h1>Master record register</h1>
+      <p>Every record has a named steward, a quality score and a state · licence and registration checks run before a record goes active</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">New record</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Domain <b>All</b></span>
+    <span class="filter">State <b>Needs attention</b></span>
+    <span class="filter">Steward <b>All</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Name, code or GSTIN</div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Record</th><th>Domain</th><th>Steward</th><th>Quality</th><th>Issue</th><th>Systems</th><th>Last change</th><th>State</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td><b>Kestrel Pumps Ltd</b><small class="mono">C-10231</small></td><td><span class="dom">Customer</span></td><td>Aarti Kulkarni</td><td><div class="qs"><span class="meter warn"><i style="width:81%"></i></span><span>81</span></div></td><td>Duplicate cluster CL-0412</td><td>ERP, CRM, portal</td><td class="mono">12 Sep</td><td><span class="chip warn">Merge proposed</span></td></tr>
+          <tr><td><b>Aster Compressors</b><small class="mono">C-10284</small></td><td><span class="dom">Customer</span></td><td>Aarti Kulkarni</td><td><div class="qs"><span class="meter warn"><i style="width:84%"></i></span><span>84</span></div></td><td>Duplicate cluster CL-0413</td><td>ERP, CRM</td><td class="mono">2 Oct</td><td><span class="chip warn">Review</span></td></tr>
+          <tr><td><b>Sri Ganesh Engineering</b><small class="mono">C-10419</small></td><td><span class="dom">Customer</span></td><td>Aarti Kulkarni</td><td><div class="qs"><span class="meter bad"><i style="width:64%"></i></span><span>64</span></div></td><td>GSTIN missing</td><td>ERP</td><td class="mono">15 Jul</td><td><span class="chip bad">Not billable</span></td></tr>
+          <tr><td><b>Patil Hydraulics</b><small class="mono">C-10433</small></td><td><span class="dom">Customer</span></td><td>Aarti Kulkarni</td><td><div class="qs"><span class="meter bad"><i style="width:68%"></i></span><span>68</span></div></td><td>GSTIN missing</td><td>ERP, CRM</td><td class="mono">21 Aug</td><td><span class="chip bad">Not billable</span></td></tr>
+          <tr><td><b>EN8 round bar 40 mm</b><small class="mono">RM-0128</small></td><td><span class="dom">Material</span></td><td>Kavita Joshi</td><td><div class="qs"><span class="meter warn"><i style="width:79%"></i></span><span>79</span></div></td><td>Duplicate cluster CL-0409</td><td>ERP, WMS</td><td class="mono">30 Sep</td><td><span class="chip warn">Review</span></td></tr>
+          <tr><td><b>Hex bolt M10 × 40</b><small class="mono">RM-0462</small></td><td><span class="dom">Material</span></td><td>Kavita Joshi</td><td><div class="qs"><span class="meter bad"><i style="width:70%"></i></span><span>70</span></div></td><td>HSN missing</td><td>ERP</td><td class="mono">3 Jun</td><td><span class="chip bad">Not saleable</span></td></tr>
+          <tr><td><b>Mehta Alloys</b><small class="mono">V-10008</small></td><td><span class="dom">Vendor</span></td><td>Rohan Menon</td><td><div class="qs"><span class="meter warn"><i style="width:88%"></i></span><span>88</span></div></td><td>Bank change CHG-0235</td><td>ERP, portal</td><td class="mono">6 Oct</td><td><span class="chip blue">In approval</span></td></tr>
+          <tr><td><b>Konkan Foundry</b><small class="mono">V-10163</small></td><td><span class="dom">Vendor</span></td><td>Rohan Menon</td><td><div class="qs"><span class="meter warn"><i style="width:76%"></i></span><span>76</span></div></td><td>Qualification pending, AUD-0424</td><td>ERP</td><td class="mono">24 Sep</td><td><span class="chip warn">Not active</span></td></tr>
+          <tr><td><b>AMD-3</b><small class="mono">T-0043</small></td><td><span class="dom">Territory</span></td><td>Aarti Kulkarni</td><td><div class="qs"><span class="meter ok"><i style="width:94%"></i></span><span>94</span></div></td><td>Remap CHG-0233</td><td>ERP, CRM, SFA</td><td class="mono">8 Oct</td><td><span class="chip blue">In approval</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 9 of 12,480 records · filtered to records needing attention</span><span>Quality score: completeness, validity and duplicates</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
