@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Contract Labour Purchase · Workforce register</title>
+<!-- Scenario: see factory-dashboard.html. The factory-side register of contract workers on Plant 1, today (shift B), with
+     presence from the biometric reader, department, contractor, gate pass, medical and police verification expiry. 402
+     workers on Plant 1; 9 shown, filtered to Assembly and Packing. Two workers show the same gate-pass dates as in
+     Contract Labour Supply (Mahesh Bhosale 19 Oct, Ganesh Yadav 17 Oct). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 12px; padding-bottom: 12px; }
+  .ok2 { color: var(--ok); font-weight: 600; font-size: 12px; }
+  .wa2 { color: var(--warn); font-weight: 600; font-size: 12px; }
+  .in { font: 11.5px var(--mono); color: var(--ink-2); }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body data-module="contract-labour-purchase" data-view="Workforce register" data-crumb="People / Contract Labour Purchase / Workforce register" data-org="NP|Northfield Precision|Plant 1 · Pune" data-who="Mahesh Kulkarni|Plant HR officer">
+<main>
+  <div class="head">
+    <div>
+      <h1>Workforce register</h1>
+      <p>Contract workers on Plant 1 with today’s biometric presence, gate pass, medical and police verification</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">Issue gate pass</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Department <b>Assembly, Packing</b></span>
+    <span class="filter">Contractor <b>All</b></span>
+    <span class="filter">Shift <b>B</b></span>
+    <span class="filter">Expiry <b>Any</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Worker, pass or contractor</div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>On Plant 1</label><strong>402</strong></div>
+    <div class="card sm"><label>Shift B, present</label><strong>206 <small>of 220</small></strong></div>
+    <div class="card sm"><label>Gate pass expiring, 30 days</label><strong style="color:var(--warn)">7</strong></div>
+    <div class="card sm"><label>Medical expiring, 30 days</label><strong style="color:var(--warn)">3</strong></div>
+    <div class="card sm"><label>Absent without cover</label><strong>14</strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Worker</th><th>Department</th><th>Contractor</th><th>Today</th><th>In</th><th>Gate pass</th><th>Medical</th><th>Police</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b>Asha Mane</b><small class="mono">CLP-1830</small></td><td>Assembly</td><td>Bhairav Industrial</td><td><span class="chip ok">Present</span></td><td class="in">07:56</td><td class="ok2">Mar 2027</td><td class="ok2">Mar 2027</td><td class="ok2">Done</td><td>Active</td></tr>
+          <tr><td><b>Mahesh Bhosale</b><small class="mono">CLP-1807</small></td><td>Assembly</td><td>Bhairav Industrial</td><td><span class="chip ok">Present</span></td><td class="in">07:51</td><td class="wa2">19 Oct</td><td class="ok2">Feb 2027</td><td class="ok2">Done</td><td>Pass due</td></tr>
+          <tr><td><b>Pravin Salunke</b><small class="mono">CLP-1812</small></td><td>Assembly</td><td>Bhairav Industrial</td><td><span class="chip bad">Absent</span></td><td class="in">—</td><td class="wa2">22 Oct</td><td class="wa2">24 Oct</td><td class="ok2">Done</td><td>2 due</td></tr>
+          <tr><td><b>Ravindra Jagtap</b><small class="mono">CLP-1844</small></td><td>Assembly</td><td>Bhairav Industrial</td><td><span class="chip ok">Present</span></td><td class="in">07:58</td><td class="ok2">Dec 2026</td><td class="wa2">26 Oct</td><td class="ok2">Done</td><td>Medical due</td></tr>
+          <tr><td><b>Kiran Sawant</b><small class="mono">CLP-1851</small></td><td>Assembly</td><td>Bhairav Industrial</td><td><span class="chip bad">Absent</span></td><td class="in">—</td><td class="ok2">Jan 2027</td><td class="ok2">Jan 2027</td><td class="ok2">Done</td><td>Active</td></tr>
+          <tr><td><b>Ganesh Yadav</b><small class="mono">CLP-2102</small></td><td>Packing</td><td>Tirupati Labour</td><td><span class="chip ok">Present</span></td><td class="in">07:49</td><td class="wa2">17 Oct</td><td class="ok2">Apr 2027</td><td class="ok2">Done</td><td>Pass due</td></tr>
+          <tr><td><b>Seema Thorat</b><small class="mono">CLP-2118</small></td><td>Packing</td><td>Tirupati Labour</td><td><span class="chip ok">Present</span></td><td class="in">07:55</td><td class="wa2">20 Oct</td><td class="ok2">Apr 2027</td><td class="ok2">Done</td><td>Pass due</td></tr>
+          <tr><td><b>Vikas Gaikwad</b><small class="mono">CLP-2125</small></td><td>Packing</td><td>Tirupati Labour</td><td><span class="chip bad">Absent</span></td><td class="in">—</td><td class="ok2">Feb 2027</td><td class="ok2">May 2027</td><td class="ok2">Done</td><td>Active</td></tr>
+          <tr><td><b>Rekha Shinde</b><small class="mono">CLP-2131</small></td><td>Packing</td><td>Tirupati Labour</td><td><span class="chip ok">Present</span></td><td class="in">08:02</td><td class="ok2">Mar 2027</td><td class="ok2">Mar 2027</td><td class="ok2">Done</td><td>Active</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 9 of 402 · presence from the biometric reader at the gate turnstile</span><span>An expired gate pass stops entry at the turnstile</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

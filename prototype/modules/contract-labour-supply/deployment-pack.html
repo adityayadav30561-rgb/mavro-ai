@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Contract Labour Supply · Deployment pack</title>
+<!-- Scenario: see compliance-dashboard.html. September compliance pack for Bhairav Industrial Services (assembly, Plant
+     1): 96 workers, CLRA licence valid to Jan 2027 (licence no. illustrative), 25 working days. Evidence: CLRA licence
+     and contract agreement ✓; PF challan for September, wage month September, due 15 Oct, NOT yet filed (bill held);
+     ESIC challan filed 6 Oct ✓; wage register (Form XVII) uploaded 5 Oct ✓; wages paid by bank transfer 96 of 96,
+     statement uploaded ✓; minimum-wage check against the 1 Oct revision: rates reconciled for 96 of 96 ✓; safety
+     induction 96 of 96 ✓; muster 2,412 man-days against biometric 2,374, 38 over, flagged for the attendance
+     reconciliation. Bill ₹23.5 L held; certification unblocks when the PF challan is uploaded; the contractor has been
+     reminded. Pack covers the period 1–30 Sep. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .flowcard .body { padding: 16px 18px 14px; }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .ev li { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto auto; gap: 2px 14px; align-items: center; padding: 17px 16px; border-top: 1px solid var(--line); font-size: 12.5px; line-height: 1.35; }
+  .ev li:first-child { border-top: 0; }
+  .ev i { grid-row: 1 / span 2; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .ev i.x { background: var(--bad-soft); color: var(--bad); }
+  .ev i.w { background: var(--warn-soft); color: var(--warn); }
+  .ev b { font-weight: 550; }
+  .ev small { display: block; grid-column: 2; color: var(--ink-3); font-size: 11.5px; }
+  .ev em { grid-row: 1 / span 2; grid-column: 3; font: 600 12px var(--mono); font-style: normal; color: var(--ink-2); white-space: nowrap; }
+  .ev .chip { grid-row: 1 / span 2; grid-column: 4; }
+  .why { padding: 10px 12px; border-radius: 10px; background: var(--bad-soft); border: 1px solid #f8cfca; font-size: 12.5px; color: #8c2a22; line-height: 1.45; }
+  .why b { color: var(--bad); }
+  .at { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; margin-top: 4px; }
+  .at div { padding: 9px 4px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface-2); }
+  .at label { display: block; font-size: 11px; color: var(--ink-3); }
+  .at b { font: 650 15px var(--mono); }
+  .bt { display: flex; gap: 8px; }
+  .bt .btn { flex: 1; justify-content: center; }
+</style>
+</head>
+<body data-module="contract-labour-supply" data-view="Deployment pack" data-crumb="People / Contract Labour Supply / Deployment pack / Bhairav Industrial" data-org="NP|Northfield Precision|Plant 1 · Pune" data-who="Pooja Nair|Contract labour compliance">
+<main>
+  <div class="head">
+    <div>
+      <h1>Bhairav Industrial Services · September pack &nbsp;<span class="chip bad" style="vertical-align:4px">1 gap</span></h1>
+      <p>Assembly, Plant 1 · 96 workers · wage period 1–30 Sep · the evidence behind the bill, in one pack</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Remind contractor</span>
+      <span class="btn pri">Download pack</span>
+    </div>
+  </div>
+
+  <div class="card flowcard">
+    <div class="body">
+      <ol class="flow" style="--n:5;--at:0.5">
+        <li class="done"><i></i><b>Deployed</b><span>96 workers</span></li>
+        <li class="done"><i></i><b>Attendance</b><span>muster vs biometric</span></li>
+        <li class="now"><i></i><b>Statutory evidence</b><span>PF challan awaited</span></li>
+        <li class="next"><i></i><b>Bill certified</b><span>₹23.5 L</span></li>
+        <li class="next"><i></i><b>Paid</b><span>per payment terms</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>Evidence checklist</h2><span>every item must be on record before the bill is certified</span></header>
+      <div class="body">
+        <ul class="ev">
+          <li><i>✓</i><span><b>CLRA licence and agreement</b><small>licence valid to Jan 2027 · agreement to Mar 2027</small></span><em>Valid</em><span class="chip ok">On file</span></li>
+          <li><i class="x">!</i><span><b>PF challan, September</b><small>due 15 Oct · contractor reminded 6 Oct</small></span><em style="color:var(--bad)">Missing</em><span class="chip bad">Blocks the bill</span></li>
+          <li><i>✓</i><span><b>ESIC challan, September</b><small>filed 6 Oct</small></span><em>96 / 96</em><span class="chip ok">On file</span></li>
+          <li><i>✓</i><span><b>Wage register</b><small>Form XVII, uploaded 5 Oct</small></span><em>96 / 96</em><span class="chip ok">On file</span></li>
+          <li><i>✓</i><span><b>Wages paid by bank transfer</b><small>statement uploaded</small></span><em>96 / 96</em><span class="chip ok">Paid</span></li>
+          <li><i>✓</i><span><b>Minimum-wage check, 1 Oct revision</b><small>rates reconciled worker by worker</small></span><em>96 / 96</em><span class="chip ok">Applied</span></li>
+          <li><i>✓</i><span><b>Safety induction</b><small>all posted to live areas</small></span><em>96 / 96</em><span class="chip ok">Done</span></li>
+          <li><i class="w">!</i><span><b>Attendance reconciliation</b><small>muster above biometric by 38 man-days</small></span><em style="color:var(--warn)">+38</em><span class="chip warn">Adjust bill</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Why the bill is held</h2></header>
+        <div class="body" style="padding-top:6px">
+          <div class="why"><b>PF proof is missing.</b> A bill is not certified until the PF challan for the month is on record. It releases the moment the challan is uploaded.</div>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Attendance</h2><span>man-days, September</span></header>
+        <div class="body" style="padding-top:6px">
+          <div class="at"><div><label>Muster</label><b>2,412</b></div><div><label>Biometric</label><b>2,374</b></div><div><label>Difference</label><b style="color:var(--warn)">38</b></div></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Bill</h2></header>
+        <div class="body" style="padding-top:4px;display:flex;flex-direction:column;gap:12px">
+          <dl class="kv"><dt>Billed</dt><dd>₹23.52 L</dd><dt>On biometric days</dt><dd>₹23.15 L</dd><dt>Status</dt><dd>Held</dd></dl>
+          <div class="bt"><span class="btn">Reject bill</span><span class="btn pri">Certify when complete</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

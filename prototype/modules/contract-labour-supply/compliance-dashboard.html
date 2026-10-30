@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Contract Labour Supply · Compliance dashboard</title>
+<!--
+  Scenario (Contract Labour Supply, shared by every screen of the module and by Contract Labour Purchase; agrees with
+  Gate Entry's contract worker pass CLP-2281, Roster Ledger and Accounting): Northfield Precision, 8 Oct, 14:02, the
+  principal employer. 9 contractors, 472 contract workers deployed (Plant 1 402, Chennai plant 70), separate from the
+  491 employees. Contractors (workers, trade, September bill ₹ lakh, status): Sai Manpower Solutions 128, helpers and
+  line workers, 31.4, certified; Bhairav Industrial Services 96, assembly, 23.5, HELD (PF challan for September not
+  yet filed, due 15 Oct; 38 man-days of muster above biometric); Tirupati Labour Contractors 64, packing and dispatch,
+  15.4, in review; Shree Om Facility Services 52, stores, housekeeping and security, 11.6, in review (one worker's pass
+  CLP-2281 expired 6 Oct, stopped at the gate); Kaveri Skilled Manpower 38, CNC operators and fitters, 14.9, certified;
+  Ganesh Loaders and Movers 24, 5.6, certified; Annapurna Housekeeping 28, Chennai, 6.2, certified; Deccan Canteen
+  Services 22, Chennai, 4.7, certified; Rajan Industrial Contractors 20, Chennai, 4.4, certified. September bills
+  ₹1.18 Cr: 6 certified (₹67.2 L), 3 pending (₹50.5 L). Licences and gate passes expiring within 30 days: 11
+  (2 contractor licences, 9 worker passes). Safety induction done for 468 of 472; the 4
+  without are not posted to live areas. Minimum-wage revision from 1 Oct (DA) applied to 6 of 9 contractors' rates;
+  3 pending. Compliance officer: Pooja Nair; HR head: Kavita Iyer.
+-->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .ct td { padding-top: 8px; padding-bottom: 8px; }
+  .ct th, .ct td { padding-left: 9px; padding-right: 9px; }
+  .ok2 { color: var(--ok); font-weight: 600; font-size: 12px; }
+  .bad2 { color: var(--bad); font-weight: 600; font-size: 12px; }
+  .wa2 { color: var(--warn); font-weight: 600; font-size: 12px; }
+  tr.held td { background: #fff7f6; }
+  tr.tot td { font-weight: 600; background: var(--surface-2); }
+  .ex li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; }
+  .ex li + li { border-top: 1px solid var(--line); }
+  .ex b { font-weight: 550; }
+  .ex small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .ex .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+</style>
+</head>
+<body data-module="contract-labour-supply" data-view="Compliance dashboard" data-crumb="People / Contract Labour Supply / Compliance dashboard" data-org="NP|Northfield Precision|All sites" data-who="Pooja Nair|Contract labour compliance">
+<main>
+  <div class="head">
+    <div>
+      <h1>Contract manpower and compliance</h1>
+      <p>Principal employer · 9 contractors · September wage period · statutory evidence checked before any bill is certified</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All sites</span><span>Plant 1 · Pune</span><span>Chennai</span></div>
+      <span class="btn pri">Bill approval</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Contract workers deployed</label><div class="v"><strong>472 <small>9 contractors</small></strong></div><div class="foot"><b class="delta flat">Plant 1 402</b><span>Chennai 70</span></div></div>
+    <div class="card kpi"><label>September bills</label><div class="v"><strong>₹1.18 Cr</strong></div><div class="foot"><b class="delta down">3 pending, ₹50.5 L</b><span>1 held on PF</span></div></div>
+    <div class="card kpi"><label>Expiring in 30 days</label><div class="v"><strong>11</strong></div><div class="foot"><b class="delta down">2 licences</b><span>9 worker gate passes</span></div></div>
+    <div class="card kpi"><label>Safety induction done</label><div class="v"><strong>468 <small>of 472</small></strong></div><div class="foot"><b class="delta down">4 not posted</b><span>to live areas</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Contractors</h2><span>September deployment, evidence and bill</span><span class="more">Register</span></header>
+        <div class="body">
+          <table class="ct">
+            <thead><tr><th>Contractor</th><th class="r">Workers</th><th>CLRA licence</th><th>PF</th><th>ESIC</th><th>Wages</th><th class="r">Bill, ₹ L</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><b>Sai Manpower Solutions</b><small>helpers, line workers</small></td><td class="r mono">128</td><td class="mono">Mar 2027</td><td class="ok2">Filed</td><td class="ok2">Filed</td><td class="ok2">Paid</td><td class="r mono">31.4</td><td><span class="chip ok">Certified</span></td></tr>
+              <tr class="held"><td><b>Bhairav Industrial</b><small>assembly</small></td><td class="r mono">96</td><td class="mono">Jan 2027</td><td class="bad2">Due 15 Oct</td><td class="ok2">Filed</td><td class="ok2">Paid</td><td class="r mono">23.5</td><td><span class="chip bad">Held</span></td></tr>
+              <tr><td><b>Tirupati Labour</b><small>packing, dispatch</small></td><td class="r mono">64</td><td class="mono">Aug 2027</td><td class="ok2">Filed</td><td class="ok2">Filed</td><td class="wa2">Rate check</td><td class="r mono">15.4</td><td><span class="chip warn">In review</span></td></tr>
+              <tr><td><b>Shree Om Facility</b><small>stores, housekeeping</small></td><td class="r mono">52</td><td class="mono">Oct 2026</td><td class="ok2">Filed</td><td class="ok2">Filed</td><td class="ok2">Paid</td><td class="r mono">11.6</td><td><span class="chip warn">In review</span></td></tr>
+              <tr><td><b>Kaveri Skilled</b><small>CNC operators, fitters</small></td><td class="r mono">38</td><td class="mono">Jun 2027</td><td class="ok2">Filed</td><td class="ok2">Filed</td><td class="ok2">Paid</td><td class="r mono">14.9</td><td><span class="chip ok">Certified</span></td></tr>
+              <tr><td><b>4 more</b><small>Ganesh, Annapurna, Deccan, Rajan</small></td><td class="r mono">94</td><td class="dim">—</td><td class="ok2">Filed</td><td class="ok2">Filed</td><td class="ok2">Paid</td><td class="r mono">20.9</td><td><span class="chip ok">Certified</span></td></tr>
+              <tr class="tot"><td>All contractors</td><td class="r mono">472</td><td></td><td></td><td></td><td></td><td class="r mono">117.7</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Bill value by contractor</h2><span>September, ₹ lakh</span></header>
+        <div class="body chart-c" data-bars="31.4,23.5,15.4,11.6,14.9,20.9" data-max="40" data-labels="Sai,Bhairav,Tirupati,Shree Om,Kaveri,Others" data-colors="#0a48fd"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Needs you</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="ex">
+            <li><b>Bhairav · PF challan, September</b><small>Due 15 Oct · bill held until proof is uploaded</small><span class="chip bad">Held</span></li>
+            <li><b>Shree Om · licence ends Oct 2026</b><small>Renewal copy not yet uploaded</small><span class="chip warn">23 days</span></li>
+            <li><b>Pass CLP-2281 expired 6 Oct</b><small>Shree Om worker stopped at the gate, 07:52</small><span class="chip warn">Renew</span></li>
+            <li><b>Minimum-wage revision, 1 Oct</b><small>Applied to 6 of 9 contractors’ rates</small><span class="chip warn">3 pending</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Gate passes and licences</h2><span>next 30 days</span></header>
+        <div class="body" style="padding-top:2px">
+          <dl class="kv"><dt>Contractor licences</dt><dd>2</dd><dt>Worker gate passes</dt><dd>9</dd><dt>Medical fitness</dt><dd>3</dd><dt>Police verification</dt><dd>0</dd></dl>
+          <div class="rule"></div>
+          <ul class="ex">
+            <li><b>Wage revision, 1 Oct</b><small>Rates reconciled worker by worker</small><span class="chip warn">6 of 9</span></li>
+            <li><b>September returns</b><small>PF, ESIC and wage registers draw on this register</small><span class="chip plain">Due 15 Oct</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

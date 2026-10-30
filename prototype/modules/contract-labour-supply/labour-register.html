@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Contract Labour Supply · Labour register</title>
+<!-- Scenario: see compliance-dashboard.html. The worker register, filtered to contractors with items to resolve (Shree Om
+     Facility Services and Bhairav shown), 10 of 472 shown. Per worker: ID, trade, daily rate (₹, skilled / semi / unskilled,
+     illustrative), gate pass validity, medical fitness, police verification, safety induction, status. CLP-2281
+     (Ramesh Gawande, Shree Om, security helper) pass expired 6 Oct. Gate passes expiring within 30 days: 9. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .bar { display: flex; align-items: center; gap: 8px; }
+  .filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .filter b { color: var(--ink); font-weight: 550; }
+  .find { margin-left: auto; display: flex; align-items: center; gap: 8px; width: 290px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink-3); font-size: 12px; }
+  .find svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+  .sums { grid-template-columns: repeat(5, 1fr); }
+  .sm { padding: 12px 16px; }
+  .sm label { display: block; color: var(--ink-2); font-size: 12px; }
+  .sm strong { display: block; margin-top: 4px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .sm strong small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .reg { flex: 1; }
+  .reg th, .reg td { padding-left: 9px; padding-right: 9px; }
+  .reg td { padding-top: 10px; padding-bottom: 10px; }
+  .ok2 { color: var(--ok); font-weight: 600; font-size: 12px; }
+  .bad2 { color: var(--bad); font-weight: 600; font-size: 12px; }
+  .wa2 { color: var(--warn); font-weight: 600; font-size: 12px; }
+  tr.exp td { background: #fff7f6; }
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 2px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body data-module="contract-labour-supply" data-view="Labour register" data-crumb="People / Contract Labour Supply / Labour register" data-org="NP|Northfield Precision|All sites" data-who="Pooja Nair|Contract labour compliance">
+<main>
+  <div class="head">
+    <div>
+      <h1>Contractor and labour register</h1>
+      <p>Every contract worker with trade, rate, gate pass and verification validity · the register statutory returns draw on</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">Onboard worker</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="filter">Contractor <b>All</b></span>
+    <span class="filter">Trade <b>All</b></span>
+    <span class="filter">Site <b>All</b></span>
+    <span class="filter">Show <b>Items to resolve</b></span>
+    <div class="find"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 13.5 13.5"/></svg>Worker, pass or contractor</div>
+  </div>
+
+  <div class="sums grid">
+    <div class="card sm"><label>Workers on the register</label><strong>472</strong></div>
+    <div class="card sm"><label>Valid gate pass</label><strong>463 <small>9 expiring</small></strong></div>
+    <div class="card sm"><label>Medical fitness current</label><strong>469 <small>3 due</small></strong></div>
+    <div class="card sm"><label>Police verification</label><strong>472 <small>all</small></strong></div>
+    <div class="card sm"><label>Not posted to live areas</label><strong style="color:var(--bad)">4</strong></div>
+  </div>
+
+  <div class="card flush reg">
+    <div class="body">
+      <table>
+        <thead><tr><th>Worker</th><th>Contractor</th><th>Trade</th><th class="r">Rate a day</th><th>Gate pass</th><th>Medical</th><th>Police</th><th>Induction</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="exp"><td><b>Ramesh Gawande</b><small class="mono">CLP-2281</small></td><td>Shree Om Facility</td><td>Security helper</td><td class="r mono">₹640</td><td class="bad2">Expired 6 Oct</td><td class="ok2">Mar 2027</td><td class="ok2">Done</td><td class="ok2">Done</td><td><span class="chip bad">Entry refused</span></td></tr>
+          <tr><td><b>Sunita Waghmare</b><small class="mono">CLP-2296</small></td><td>Shree Om Facility</td><td>Housekeeping</td><td class="r mono">₹620</td><td class="wa2">14 Oct</td><td class="ok2">Jan 2027</td><td class="ok2">Done</td><td class="ok2">Done</td><td><span class="chip warn">Pass due</span></td></tr>
+          <tr><td><b>Dinesh Pardeshi</b><small class="mono">CLP-2340</small></td><td>Shree Om Facility</td><td>Stores helper</td><td class="r mono">₹640</td><td class="ok2">Jun 2027</td><td class="ok2">Jul 2027</td><td class="ok2">Done</td><td class="bad2">Pending</td><td><span class="chip bad">Not posted</span></td></tr>
+          <tr><td><b>Anita Kharat</b><small class="mono">CLP-2341</small></td><td>Shree Om Facility</td><td>Housekeeping</td><td class="r mono">₹620</td><td class="ok2">Jun 2027</td><td class="ok2">Jul 2027</td><td class="ok2">Done</td><td class="bad2">Pending</td><td><span class="chip bad">Not posted</span></td></tr>
+          <tr><td><b>Mahesh Bhosale</b><small class="mono">CLP-1807</small></td><td>Bhairav Industrial</td><td>Assembly, semi-skilled</td><td class="r mono">₹780</td><td class="wa2">19 Oct</td><td class="ok2">Feb 2027</td><td class="ok2">Done</td><td class="ok2">Done</td><td><span class="chip warn">Pass due</span></td></tr>
+          <tr><td><b>Pravin Salunke</b><small class="mono">CLP-1812</small></td><td>Bhairav Industrial</td><td>Assembly, semi-skilled</td><td class="r mono">₹780</td><td class="wa2">22 Oct</td><td class="wa2">24 Oct</td><td class="ok2">Done</td><td class="ok2">Done</td><td><span class="chip warn">2 due</span></td></tr>
+          <tr><td><b>Asha Mane</b><small class="mono">CLP-1830</small></td><td>Bhairav Industrial</td><td>Assembly, unskilled</td><td class="r mono">₹640</td><td class="ok2">Mar 2027</td><td class="ok2">Mar 2027</td><td class="ok2">Done</td><td class="ok2">Done</td><td><span class="chip ok">Clear</span></td></tr>
+          <tr><td><b>Ravindra Jagtap</b><small class="mono">CLP-1844</small></td><td>Bhairav Industrial</td><td>Assembly, skilled</td><td class="r mono">₹920</td><td class="ok2">Dec 2026</td><td class="wa2">26 Oct</td><td class="ok2">Done</td><td class="ok2">Done</td><td><span class="chip warn">Medical due</span></td></tr>
+          <tr><td><b>Ganesh Yadav</b><small class="mono">CLP-2102</small></td><td>Tirupati Labour</td><td>Packing</td><td class="r mono">₹640</td><td class="wa2">17 Oct</td><td class="ok2">Apr 2027</td><td class="ok2">Done</td><td class="ok2">Done</td><td><span class="chip warn">Pass due</span></td></tr>
+          <tr><td><b>Seema Thorat</b><small class="mono">CLP-2118</small></td><td>Tirupati Labour</td><td>Packing</td><td class="r mono">₹640</td><td class="wa2">20 Oct</td><td class="ok2">Apr 2027</td><td class="ok2">Done</td><td class="ok2">Done</td><td><span class="chip warn">Pass due</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot"><span>Showing 10 of 472 · filtered to workers with an item to resolve</span><span>Workers without a safety induction cannot be posted to a live area</span></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

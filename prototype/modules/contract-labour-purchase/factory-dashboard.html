@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Contract Labour Purchase · Factory dashboard</title>
+<!--
+  Scenario (Contract Labour Purchase, shared by every screen of the module; the factory-side view of the same contract
+  labour as Contract Labour Supply): Northfield Precision, 8 Oct, 14:02, shift B (08:00–16:00), Plant 1. Plan 220
+  contract workers on shift B, 206 present by biometric: assembly 80 / 74 (−6, Bhairav Industrial), machining helpers
+  64 / 64 (Sai Manpower), packing 46 / 42 (−4, Tirupati Labour), stores 30 / 26 (−4, Shree Om Facility). 14 short. One
+  requisition open: REQ-0231, 12 packers for 14 Oct to 31 Oct (the depot refill and EXP-0388 export dispatch), ₹ estimate
+  2.2 L, waiting for the plant head's approval. Contractor scorecards, September (fulfilment of requested shifts,
+  compliance, rating of 5): Sai 98%, compliant, 4.6; Kaveri Skilled 97%, compliant, 4.5; Bhairav 91%, PF proof pending,
+  3.8; Tirupati 93%, wage check, 4.0; Shree Om 89%, pass and induction gaps, 3.6. Plant HR officer: Mahesh Kulkarni;
+  plant head: Prakash Nair. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .dp td { padding-top: 12px; padding-bottom: 12px; }
+  .pres { display: flex; align-items: center; gap: 8px; }
+  .pres .meter { width: 110px; min-width: 110px; }
+  .pres span { font: 11.5px var(--mono); color: var(--ink-2); }
+  tr.tot td { font-weight: 600; background: var(--surface-2); }
+  .chart-c { position: relative; flex: 1; min-height: 0; }
+  .chart-c svg { position: absolute; inset: 14px 16px 12px; width: calc(100% - 32px); height: calc(100% - 26px); }
+  .sc li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 2px 12px; align-items: center; padding: 9px 0; }
+  .sc li + li { border-top: 1px solid var(--line); }
+  .sc b { font-weight: 550; }
+  .sc small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .sc em { grid-row: 1 / span 2; grid-column: 2; font: 600 12px var(--mono); font-style: normal; color: var(--ink-2); }
+  .sc .chip { grid-row: 1 / span 2; grid-column: 3; }
+  .rq { padding: 12px 14px; border-radius: 10px; background: var(--accent-soft); border: 1px solid #d9e0ff; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+  .rq b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 2px; }
+</style>
+</head>
+<body data-module="contract-labour-purchase" data-view="Factory dashboard" data-crumb="People / Contract Labour Purchase / Factory dashboard" data-org="NP|Northfield Precision|Plant 1 · Pune" data-who="Mahesh Kulkarni|Plant HR officer">
+<main>
+  <div class="head">
+    <div>
+      <h1>Contract labour on the floor</h1>
+      <p>Plant 1 · shift B, 08:00–16:00 · plan against biometric attendance · the factory-side view of contract manpower</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span>Shift A</span><span class="on">Shift B</span><span>Shift C</span></div>
+      <span class="btn pri">Raise requisition</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Present on shift B</label><div class="v"><strong>206 <small>of 220</small></strong></div><div class="foot" style="display:flex;align-items:center;gap:8px"><span class="meter warn" style="flex:1"><i style="width:93.6%"></i></span><span>93.6%</span></div></div>
+    <div class="card kpi"><label>Shortfall</label><div class="v"><strong style="color:var(--bad)">14</strong></div><div class="foot"><b class="delta down">3 departments</b><span>assembly −6</span></div></div>
+    <div class="card kpi"><label>Open requisitions</label><div class="v"><strong>1</strong></div><div class="foot"><b class="delta flat">12 packers</b><span>awaiting approval</span></div></div>
+    <div class="card kpi"><label>Contractors in good standing</label><div class="v"><strong>7 <small>of 9</small></strong></div><div class="foot"><b class="delta down">2 with gaps</b><span>Bhairav, Shree Om</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Deployment by department</h2><span>plan against biometric, shift B</span><span class="more">Workforce register</span></header>
+        <div class="body">
+          <table class="dp">
+            <thead><tr><th>Department</th><th>Contractor</th><th class="r">Plan</th><th class="r">Present</th><th>Presence</th><th class="r">Gap</th></tr></thead>
+            <tbody>
+              <tr><td><b>Assembly</b></td><td>Bhairav Industrial</td><td class="r mono">80</td><td class="r mono">74</td><td><div class="pres"><span class="meter warn"><i style="width:92.5%"></i></span><span>92%</span></div></td><td class="r mono" style="color:var(--bad)">−6</td></tr>
+              <tr><td><b>Machining helpers</b></td><td>Sai Manpower</td><td class="r mono">64</td><td class="r mono">64</td><td><div class="pres"><span class="meter ok"><i style="width:100%"></i></span><span>100%</span></div></td><td class="r mono">0</td></tr>
+              <tr><td><b>Packing</b></td><td>Tirupati Labour</td><td class="r mono">46</td><td class="r mono">42</td><td><div class="pres"><span class="meter warn"><i style="width:91.3%"></i></span><span>91%</span></div></td><td class="r mono" style="color:var(--bad)">−4</td></tr>
+              <tr><td><b>Stores</b></td><td>Shree Om Facility</td><td class="r mono">30</td><td class="r mono">26</td><td><div class="pres"><span class="meter warn"><i style="width:86.7%"></i></span><span>87%</span></div></td><td class="r mono" style="color:var(--bad)">−4</td></tr>
+              <tr class="tot"><td>All departments</td><td></td><td class="r mono">220</td><td class="r mono">206</td><td><div class="pres"><span class="meter"><i style="width:93.6%"></i></span><span>94%</span></div></td><td class="r mono">−14</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Contract headcount</h2><span>present on shift B, by hour</span></header>
+        <div class="body chart-c" data-area="188,198,204,206,206|220,220,220,220,220" data-min="160" data-max="230" data-labels="08:00,10:00,12:00,13:00,14:00"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Open requisition</h2><span class="more">All</span></header>
+        <div class="body" style="padding-top:6px">
+          <div class="rq"><b>REQ-0231 · 12 packers</b>14 Oct to 31 Oct, for the depot refill and the export dispatch · estimate ₹2.2 L · waiting for the plant head.</div>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Contractor scorecards</h2><span>September</span></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="sc">
+            <li><b>Sai Manpower</b><small>fulfilment 98% · compliant</small><em>4.6</em><span class="chip ok">Good</span></li>
+            <li><b>Kaveri Skilled</b><small>fulfilment 97% · compliant</small><em>4.5</em><span class="chip ok">Good</span></li>
+            <li><b>Tirupati Labour</b><small>fulfilment 93% · wage check</small><em>4.0</em><span class="chip warn">Review</span></li>
+            <li><b>Bhairav Industrial</b><small>fulfilment 91% · PF proof pending</small><em>3.8</em><span class="chip bad">Held</span></li>
+            <li><b>Shree Om Facility</b><small>fulfilment 89% · pass and induction</small><em>3.6</em><span class="chip warn">Review</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

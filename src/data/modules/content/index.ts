@@ -4,6 +4,8 @@ import { content as accounting } from './accounting';
 import { content as assetManagement } from './asset-management';
 import { content as auctionAndBidding } from './auction-and-bidding';
 import { content as auditManagement } from './audit-management';
+import { content as contractLabourPurchase } from './contract-labour-purchase';
+import { content as contractLabourSupply } from './contract-labour-supply';
 import { content as costForecasting } from './cost-forecasting';
 import { content as crm } from './crm';
 import { content as customerService } from './customer-service';
@@ -54,6 +56,8 @@ export const moduleContent: Registry = {
   'asset-management': assetManagement,
   'auction-and-bidding': auctionAndBidding,
   'audit-management': auditManagement,
+  'contract-labour-purchase': contractLabourPurchase,
+  'contract-labour-supply': contractLabourSupply,
   'cost-forecasting': costForecasting,
   crm,
   'customer-service': customerService,

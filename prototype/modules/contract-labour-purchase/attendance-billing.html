@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Contract Labour Purchase · Attendance and billing</title>
+<!-- Scenario: see factory-dashboard.html. September billing reconciliation, Plant 1, by contractor: man-days on the
+     contractor's muster against the biometric record, the difference, billed and payable amounts, and whether PF
+     proof is on record (a missing challan holds billing). Muster / biometric: Sai Manpower 3,198 / 3,198 (₹31.40 L → 31.40);
+     Bhairav 2,412 / 2,374, −38 (₹23.52 L → ₹23.15 L; PF challan due 15 Oct, held); Tirupati 1,598 / 1,590, −8 (₹15.40 L
+     → ₹15.32 L); Shree Om 1,298 / 1,291, −7 (₹11.60 L → ₹11.54 L); Kaveri Skilled 948 / 948 (₹14.90 L). Plant 1 total
+     of the five: muster 9,454, biometric 9,401, difference 53 man-days, billed ₹96.82 L → payable ₹96.31 L, ₹0.51 L
+     less. Selected: Bhairav, daily detail: 25 working days, a worker-level list of the 38 man-days with no biometric
+     punch (14 workers). -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .rc td { padding-top: 12px; padding-bottom: 12px; }
+  tr.sel td { background: var(--accent-soft); }
+  tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+  tr.tot td { font-weight: 600; background: var(--surface-2); }
+  .neg { color: var(--bad); }
+  .pf li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; }
+  .pf li + li { border-top: 1px solid var(--line); }
+  .pf b { font-weight: 550; }
+  .pf small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .pf .chip { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .dd td { padding-top: 8px; padding-bottom: 8px; }
+  .why { padding: 10px 12px; border-radius: 10px; background: var(--warn-soft); border: 1px solid #f5e2b0; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+  .why b { color: var(--warn); }
+</style>
+</head>
+<body data-module="contract-labour-purchase" data-view="Attendance and billing" data-crumb="People / Contract Labour Purchase / Attendance and billing" data-org="NP|Northfield Precision|Plant 1 · Pune" data-who="Mahesh Kulkarni|Plant HR officer">
+<main>
+  <div class="head">
+    <div>
+      <h1>Attendance and billing</h1>
+      <p>September · contractor muster against biometric punches · pay only for verified shifts</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span>August</span><span class="on">September</span><span>October</span></div>
+      <span class="btn pri">Send for certification</span>
+    </div>
+  </div>
+
+  <div class="kpis grid">
+    <div class="card kpi"><label>Billed, Plant 1 (5 contractors)</label><div class="v"><strong>₹96.82 L</strong></div><div class="foot"><b class="delta flat">9,454 man-days</b><span>on the musters</span></div></div>
+    <div class="card kpi"><label>Verified by biometric</label><div class="v"><strong>9,401</strong></div><div class="foot"><b class="delta down">53 man-days short</b><span>of the muster</span></div></div>
+    <div class="card kpi"><label>Payable</label><div class="v"><strong>₹96.31 L</strong></div><div class="foot"><b class="delta up">₹0.51 L less</b><span>than billed</span></div></div>
+    <div class="card kpi"><label>Held for PF proof</label><div class="v"><strong>1 <small>₹23.15 L</small></strong></div><div class="foot"><b class="delta down">Bhairav</b><span>due 15 Oct</span></div></div>
+  </div>
+
+  <div class="grid cols">
+    <div class="stack">
+      <div class="card flush">
+        <header><h2>Reconciliation by contractor</h2><span>man-days and ₹ lakh</span><span class="more">Contractor scorecards</span></header>
+        <div class="body">
+          <table class="rc">
+            <thead><tr><th>Contractor</th><th class="r">Muster</th><th class="r">Biometric</th><th class="r">Difference</th><th class="r">Billed</th><th class="r">Payable</th><th>PF proof</th></tr></thead>
+            <tbody>
+              <tr><td><b>Sai Manpower</b></td><td class="r mono">3,198</td><td class="r mono">3,198</td><td class="r mono dim">0</td><td class="r mono">31.40</td><td class="r mono">31.40</td><td><span class="chip ok">On file</span></td></tr>
+              <tr class="sel"><td><b>Bhairav Industrial</b></td><td class="r mono">2,412</td><td class="r mono">2,374</td><td class="r mono neg">−38</td><td class="r mono">23.52</td><td class="r mono">23.15</td><td><span class="chip bad">Held</span></td></tr>
+              <tr><td><b>Tirupati Labour</b></td><td class="r mono">1,598</td><td class="r mono">1,590</td><td class="r mono neg">−8</td><td class="r mono">15.40</td><td class="r mono">15.32</td><td><span class="chip ok">On file</span></td></tr>
+              <tr><td><b>Shree Om Facility</b></td><td class="r mono">1,298</td><td class="r mono">1,291</td><td class="r mono neg">−7</td><td class="r mono">11.60</td><td class="r mono">11.54</td><td><span class="chip ok">On file</span></td></tr>
+              <tr><td><b>Kaveri Skilled</b></td><td class="r mono">948</td><td class="r mono">948</td><td class="r mono dim">0</td><td class="r mono">14.90</td><td class="r mono">14.90</td><td><span class="chip ok">On file</span></td></tr>
+              <tr class="tot"><td>Plant 1</td><td class="r mono">9,454</td><td class="r mono">9,401</td><td class="r mono neg">−53</td><td class="r mono">96.82</td><td class="r mono">96.31</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card flush" style="flex:1 1 auto">
+        <header><h2>Bhairav · man-days with no punch</h2><span>14 workers, 38 man-days</span></header>
+        <div class="body">
+          <table class="dd">
+            <thead><tr><th>Worker</th><th class="r">Days on muster</th><th class="r">Punches</th><th class="r">No punch</th><th>Dates</th></tr></thead>
+            <tbody>
+              <tr><td><b>Kiran Sawant</b><small class="mono">CLP-1851</small></td><td class="r mono">25</td><td class="r mono">22</td><td class="r mono neg">3</td><td class="mono">9, 10, 23 Sep</td></tr>
+              <tr><td><b>Pravin Salunke</b><small class="mono">CLP-1812</small></td><td class="r mono">25</td><td class="r mono">22</td><td class="r mono neg">3</td><td class="mono">2, 3, 17 Sep</td></tr>
+              <tr><td><b>12 more</b></td><td class="r mono">—</td><td class="r mono">—</td><td class="r mono neg">32</td><td class="dim">1–3 days each</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Rules for this bill</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="pf">
+            <li><b>Biometric match</b><small>Only days with a punch are paid</small><span class="chip plain">On</span></li>
+            <li><b>PF and ESIC proof</b><small>A missing challan holds the bill</small><span class="chip plain">On</span></li>
+            <li><b>Dispute window</b><small>Contractor may submit missing punches in 3 days</small><span class="chip plain">3 days</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Bhairav Industrial</h2></header>
+        <div class="body" style="padding-top:6px;display:flex;flex-direction:column;gap:12px">
+          <div class="why"><b>Held.</b> The PF challan for September is due on 15 Oct. The 38 man-days without a punch (1.6% of muster) come off the bill, ₹37,050.</div>
+          <dl class="kv"><dt>Billed</dt><dd>₹23.52 L</dd><dt>Payable on biometric</dt><dd>₹23.15 L</dd><dt>Certification</dt><dd>In Contract Labour Supply</dd></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

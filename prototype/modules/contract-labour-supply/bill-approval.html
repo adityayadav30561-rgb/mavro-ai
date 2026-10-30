@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Contract Labour Supply · Bill approval</title>
+<!-- Scenario: see compliance-dashboard.html. The September bill queue: 9 bills, ₹1.18 Cr (117.7 L). A bill is certified
+     only when its checks pass: attendance matches biometric, PF challan, ESIC challan, wages paid, safety induction.
+     Pending 3: Bhairav Industrial BI/0932 ₹23.52 L (PF challan missing, 38 man-days over biometric); Tirupati
+     Labour TL/0418 ₹15.40 L (wage check: 14 workers billed at the new minimum-wage rate for September although the
+     revision applies from 1 Oct, difference ₹21,600); Shree Om Facility SO/0207 ₹11.60 L (safety induction record
+     missing for 2 new joiners, so 4 workers overall in the company are not yet posted to live areas). Certified 6: Sai
+     SM/1126 31.40, Kaveri KS/0309 14.90, Ganesh GL/0071 5.60, Annapurna AH/0155 6.20, Deccan DC/0092 4.70, Rajan
+     RI/0044 4.40 = 67.20. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .cols { grid-template-columns: minmax(0, 1fr) 360px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .q td { padding-top: 17px; padding-bottom: 17px; }
+  .q th, .q td { padding-left: 8px; padding-right: 8px; }
+  .ck { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; font: 700 11px var(--sans); background: var(--ok-soft); color: var(--ok); }
+  .ck.x { background: var(--bad-soft); color: var(--bad); }
+  .ck.w { background: var(--warn-soft); color: var(--warn); }
+  tr.sel td { background: var(--accent-soft); }
+  tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+  .why { padding: 10px 12px; border-radius: 10px; background: var(--bad-soft); border: 1px solid #f8cfca; font-size: 12.5px; color: #8c2a22; line-height: 1.45; }
+  .why b { color: var(--bad); }
+  .tl li { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 7px 0; font-size: 12.5px; }
+  .tl li::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+  .tl li.now::before { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .tl time { font: 11.5px var(--mono); color: var(--ink-3); }
+  .bt { display: flex; gap: 8px; }
+  .bt .btn { flex: 1; justify-content: center; }
+</style>
+</head>
+<body data-module="contract-labour-supply" data-view="Bill approval" data-crumb="People / Contract Labour Supply / Bill approval" data-org="NP|Northfield Precision|All sites" data-who="Pooja Nair|Contract labour compliance">
+<main>
+  <div class="head">
+    <div>
+      <h1>Contractor bill approval</h1>
+      <p>September bills · ₹1.18 Cr · certification is blocked until the statutory evidence is complete</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Export</span>
+      <span class="btn pri">Certify 6 clear bills</span>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card flush">
+      <header><h2>September bills</h2><span>attendance · PF · ESIC · wages · induction</span></header>
+      <div class="body">
+        <table class="q">
+          <thead><tr><th>Bill</th><th>Contractor</th><th class="r">Workers</th><th class="r">₹ lakh</th><th>Attend.</th><th>PF</th><th>ESIC</th><th>Wages</th><th>Induct.</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr class="sel"><td><b class="mono">BI/0932</b></td><td>Bhairav Industrial</td><td class="r mono">96</td><td class="r mono">23.52</td><td><span class="ck w">!</span></td><td><span class="ck x">✕</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="chip bad">Held</span></td></tr>
+            <tr><td><b class="mono">TL/0418</b></td><td>Tirupati Labour</td><td class="r mono">64</td><td class="r mono">15.40</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck w">!</span></td><td><span class="ck">✓</span></td><td><span class="chip warn">In review</span></td></tr>
+            <tr><td><b class="mono">SO/0207</b></td><td>Shree Om Facility</td><td class="r mono">52</td><td class="r mono">11.60</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck w">!</span></td><td><span class="chip warn">In review</span></td></tr>
+            <tr><td><b class="mono">SM/1126</b></td><td>Sai Manpower</td><td class="r mono">128</td><td class="r mono">31.40</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="chip ok">Certified</span></td></tr>
+            <tr><td><b class="mono">KS/0309</b></td><td>Kaveri Skilled</td><td class="r mono">38</td><td class="r mono">14.90</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="chip ok">Certified</span></td></tr>
+            <tr><td><b class="mono">AH/0155</b></td><td>Annapurna Housekeeping</td><td class="r mono">28</td><td class="r mono">6.20</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="chip ok">Certified</span></td></tr>
+            <tr><td><b class="mono">GL/0071</b></td><td>Ganesh Loaders</td><td class="r mono">24</td><td class="r mono">5.60</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="chip ok">Certified</span></td></tr>
+            <tr><td><b class="mono">DC/0092</b></td><td>Deccan Canteen</td><td class="r mono">22</td><td class="r mono">4.70</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="chip ok">Certified</span></td></tr>
+            <tr><td><b class="mono">RI/0044</b></td><td>Rajan Industrial</td><td class="r mono">20</td><td class="r mono">4.40</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="chip ok">Certified</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>BI/0932 · Bhairav Industrial</h2><span>₹23.52 L</span></header>
+        <div class="body" style="padding-top:6px;display:flex;flex-direction:column;gap:12px">
+          <div class="why"><b>PF challan for September is missing.</b> The bill cannot be certified. Attendance also shows 38 man-days of muster above biometric, ₹37,050 to come off.</div>
+          <dl class="kv"><dt>Payable on biometric days</dt><dd>₹23.15 L</dd><dt>PF challan due</dt><dd>15 Oct</dd><dt>Payment terms</dt><dd>Net 30 from certification</dd></dl>
+          <div class="bt"><span class="btn">Open pack</span><span class="btn pri">Remind contractor</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Also in review</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="tl">
+            <li class="now"><span><b>TL/0418</b> · 14 workers on the new wage rate<br><small class="dim">September stays at the old rate; ₹21,600 difference</small></span><time>review</time></li>
+            <li class="now"><span><b>SO/0207</b> · induction record for 2 workers<br><small class="dim">New joiners, not yet posted to live areas</small></span><time>review</time></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>September at a glance</h2></header>
+        <div class="body" style="padding-top:4px">
+          <dl class="kv"><dt>Certified</dt><dd>6 bills · ₹67.2 L</dd><dt>Pending</dt><dd>3 bills · ₹50.5 L</dd><dt>Held for PF proof</dt><dd>1 bill · ₹23.5 L</dd><dt>To come off for attendance</dt><dd>₹0.37 L</dd></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

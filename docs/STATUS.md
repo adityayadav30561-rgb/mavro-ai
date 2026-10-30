@@ -4,8 +4,8 @@ _Last updated: 2026-10-26. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–18 done (2026-10-30); next: Phase 19, Contract Labour Supply and
-Contract Labour Purchase.** The
+**Stage C (phased implementation). Phases 1–19 done (2026-10-30); next: Phase 20, Business Analyst App, Master Data
+Management and Document Management.** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,20 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-30, **Phase 19 done: Contract Labour Supply and Contract Labour Purchase pages.** On `main`.
+  - **Split between the two:** Supply is the principal employer's compliance view (CLRA, PF, ESIC, wage register,
+    induction; bills certified only with evidence); Purchase is the plant's operating view (biometric deployment,
+    requisitions, scorecards, attendance-reconciled billing). They share one scenario and the same contract workers.
+  - **Screens (8 new, no phone):** Supply `compliance-dashboard` (lead), `deployment-pack`, `bill-approval`,
+    `labour-register`; Purchase `factory-dashboard` (lead), `workforce-register`, `raise-requisition`,
+    `attendance-billing`. Content files from deck v2 slides 106 and 108; the two spotlight mocks now match the screens.
+  - **Scenario (Northfield, 8 Oct, principal employer):** 9 fictional contractors, 472 contract workers (Plant 1 402,
+    Chennai 70; separate from the 491 employees); September bills ₹1.18 Cr (6 certified ₹67.2 L, 3 pending ₹50.5 L).
+    Bhairav Industrial BI/0932 ₹23.52 L held for the September PF challan (due 15 Oct) and 38 man-days muster over
+    biometric (payable ₹23.15 L); Tirupati rate check; Shree Om induction gaps and pass CLP-2281 expired 6 Oct (matches
+    Gate Entry SEC-0416). Shift B Plant 1: 206 of 220 present; REQ-0231 12 packers 14-31 Oct ₹2.2 L. Compliance officer
+    Pooja Nair (from Gate Entry), plant HR officer Mahesh Kulkarni.
 
 - 2026-10-30, **Phase 18 done: Auction and Bidding, Real Estate Management and Learning Management pages.** On `main`.
   - **Screens (12 new, no phone):** Auction `esourcing-dashboard` (lead), `live-auction`, `create-event`,
@@ -622,8 +636,8 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 19: Contract Labour Supply and Contract Labour Purchase** (v2 slides 106, 108): CLRA, PF and ESIC
-   compliance. Contractor workforce ties to Roster Ledger and HRMS; contractor rates and invoices to Procure to Pay.
+1. **Phase 20: Business Analyst App, Master Data Management, Document Management** (v2 slides 88, 90; DMS has no v2
+   detail slide, so resolve that content gap first, from the v1 and AMR decks).
 
 ## Open items (need the user or real assets)
 

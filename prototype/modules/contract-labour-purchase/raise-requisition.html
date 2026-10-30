@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Contract Labour Purchase · Raise requisition</title>
+<!-- Scenario: see factory-dashboard.html. REQ-0231: 12 packers on day shifts (6 on shift A, 6 on shift B), 14 to 31 Oct
+     (15 working days, Sundays off), for the Pune depot refill and the export order EXP-0388 dispatch (see PPDS).
+     Contractor suggested: Tirupati Labour (64 deployed, fulfilment 93%, ₹640 a day, service charge 8%, CLRA licence to Aug
+     2027 for up to 100 workers, so 76 with this requisition); alternate Sai Manpower (no packing crew free before 21
+     Oct). Cost: wages 12 × 15 × ₹640 = ₹1,15,200 + 8% service charge ₹9,216 + overtime and canteen allowance ₹95,584 =
+     ₹2,20,000. Approval: plant HR officer Mahesh Kulkarni, then plant head Prakash Nair. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .flowcard .body { padding: 16px 18px 14px; }
+  .cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 330px; flex: 1; }
+  .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; min-height: 0; }
+  .stack > .card { flex: none; }
+  .kv2 { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px 14px; font-size: 12.5px; }
+  .kv2 dt { color: var(--ink-3); }
+  .kv2 dd { font-weight: 550; text-align: right; line-height: 1.35; }
+  .kv2 dd small { display: block; font-weight: 400; color: var(--ink-3); font-size: 11.5px; }
+  .opt { padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); margin-bottom: 10px; }
+  .opt.on { background: var(--accent-soft); border-color: #d9e0ff; }
+  .opt h3 { display: flex; justify-content: space-between; font: 600 13px var(--sans); }
+  .opt p { margin-top: 4px; font-size: 12px; color: var(--ink-2); line-height: 1.45; }
+  .cost li { display: flex; justify-content: space-between; padding: 8px 0; font-size: 12.5px; }
+  .cost li + li { border-top: 1px solid var(--line); }
+  .cost li.t { font-weight: 650; font-size: 14px; border-top: 2px solid var(--line-2); }
+  .cost span:last-child { font-family: var(--mono); }
+  .chk li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 2px 10px; padding: 8px 0; font-size: 12.5px; line-height: 1.35; }
+  .chk li + li { border-top: 1px solid var(--line); }
+  .chk i { grid-row: 1 / span 2; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); font-style: normal; background: var(--ok-soft); color: var(--ok); }
+  .chk small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .appr li { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 8px 0; }
+  .appr li + li { border-top: 1px solid var(--line); }
+  .appr i { grid-row: 1 / span 2; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font: 600 10px var(--sans); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .appr small { grid-column: 2; color: var(--ink-3); font-size: 11.5px; }
+  .appr .chip { grid-row: 1 / span 2; grid-column: 3; }
+</style>
+</head>
+<body data-module="contract-labour-purchase" data-view="Raise requisition" data-crumb="People / Contract Labour Purchase / Raise requisition / REQ-0231" data-org="NP|Northfield Precision|Plant 1 · Pune" data-who="Mahesh Kulkarni|Plant HR officer">
+<main>
+  <div class="head">
+    <div>
+      <h1>New requisition · REQ-0231 &nbsp;<span class="chip blue" style="vertical-align:4px">Draft</span></h1>
+      <p>12 packers for 14 to 31 Oct · the depot refill and the export dispatch · shortfall to approved requisition in hours</p>
+    </div>
+    <div class="acts">
+      <span class="btn">Save draft</span>
+      <span class="btn pri">Submit for approval</span>
+    </div>
+  </div>
+
+  <div class="card flowcard">
+    <div class="body">
+      <ol class="flow" style="--n:5;--at:0.5">
+        <li class="done"><i></i><b>Need</b><span>12 packers</span></li>
+        <li class="done"><i></i><b>Contractor</b><span>Tirupati Labour</span></li>
+        <li class="now"><i></i><b>Cost and approval</b><span>₹2.2 L estimate</span></li>
+        <li class="next"><i></i><b>Deployment</b><span>14 Oct</span></li>
+        <li class="next"><i></i><b>Billing</b><span>on biometric days</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="grid cols">
+    <div class="card">
+      <header><h2>Need</h2></header>
+      <div class="body">
+        <dl class="kv2">
+          <dt>Department</dt><dd>Packing · Plant 1</dd>
+          <dt>Workers</dt><dd>12<small>6 on shift A, 6 on shift B</small></dd>
+          <dt>Period</dt><dd>14 to 31 Oct<small>15 working days, Sundays off</small></dd>
+          <dt>Trade and rate</dt><dd>Packing, unskilled<small>₹640 a day</small></dd>
+          <dt>Reason</dt><dd>Depot refill and EXP-0388 dispatch<small>14 short on shift B today</small></dd>
+          <dt>Raised by</dt><dd>Mahesh Kulkarni<small>plant HR officer</small></dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Contractor</h2><span>by scorecard and licence headroom</span></header>
+        <div class="body" style="padding-top:8px">
+          <div class="opt on"><h3><span>Tirupati Labour</span><span class="chip ok">Selected</span></h3><p>Fulfilment 93%, rating 4.0. Licence to Aug 2027 covers 100 workers; 64 deployed, 76 with this requisition.</p></div>
+          <div class="opt"><h3><span>Sai Manpower</span><span class="chip plain">Alternate</span></h3><p>Fulfilment 98%, rating 4.6, but no packing crew free before 21 Oct.</p></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Compliance check</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="chk">
+            <li><i>✓</i><span>Contractor licence valid<small>CLRA licence to Aug 2027</small></span></li>
+            <li><i>✓</i><span>Licence covers the headcount<small>76 of 100 workers</small></span></li>
+            <li><i>✓</i><span>Minimum-wage rate applied<small>1 Oct revision</small></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <header><h2>Cost estimate</h2></header>
+        <div class="body" style="padding-top:4px">
+          <ul class="cost">
+            <li><span>Wages · 12 × 15 days × ₹640</span><span>₹1,15,200</span></li>
+            <li><span>Contractor service charge, 8%</span><span>₹9,216</span></li>
+            <li><span>Overtime and canteen allowance</span><span>₹95,584</span></li>
+            <li class="t"><span>Estimate</span><span>₹2,20,000</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="flex:1 1 auto">
+        <header><h2>Approval</h2></header>
+        <div class="body" style="padding-top:2px">
+          <ul class="appr">
+            <li><i>MK</i><b>Mahesh Kulkarni</b><small>Plant HR officer</small><span class="chip ok">Raised</span></li>
+            <li><i>PN</i><b>Prakash Nair</b><small>Plant head</small><span class="chip plain">Next</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
