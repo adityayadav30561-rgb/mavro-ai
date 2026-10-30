@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Mobile app · Offline orders (phone)</title>
+<!-- Platform page (mobile app). 12:48 on 8 Oct, field rep Meera Kapoor in a market with no signal, in the app offline: an order for
+     Shree Ganesh Traders captured (24 cartons IH-180, ₹38,400) and saved on the phone, with a visit note and a collection
+     promise; 3 items wait to sync. Everything syncs when signal returns, in order. -->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  .ph-sys svg { opacity: 0.2; }
+  body.phone main { gap: 10px; }
+  .off { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: 10px; background: var(--warn-soft); border: 1px solid #f5e2b0; color: var(--warn); font-size: 12.5px; font-weight: 550; }
+  .off i { width: 8px; height: 8px; border-radius: 50%; background: var(--warn); }
+  .q li { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 1px 10px; align-items: center; padding: 10px 0; }
+  .q li + li { border-top: 1px solid var(--line); }
+  .q i { grid-row: 1 / span 2; width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; font: 650 10px var(--mono); font-style: normal; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .q b { font-weight: 550; }
+  .q small { grid-column: 2; color: var(--ink-3); font-size: 11.5px; }
+  .q .chip { grid-row: 1 / span 2; grid-column: 3; }
+  .amount { font-size: 24px; font-weight: 640; letter-spacing: -0.03em; }
+  .amount small { font-size: 12.5px; font-weight: 500; color: var(--ink-3); }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="sales-force-automation" data-title="New order" data-subtitle="Shree Ganesh Traders" data-time="12:48"
+      data-tab="Orders" data-tabs="Home:home|Visits:pin|Orders:cart|Collect:coin|More:more" data-who="Meera Kapoor|Field rep">
+<main>
+  <div class="off"><i></i>No signal · saved on the phone · 3 to sync</div>
+  <div class="card">
+    <header><h2>Order saved</h2><span>offline</span></header>
+    <div class="body">
+      <div class="amount">₹38,400 <small>incl. GST</small></div>
+      <p class="sub" style="margin-top:4px">24 cartons IH-180 · scheme slab applied · delivery 11 Oct</p>
+    </div>
+  </div>
+  <div class="card">
+    <header><h2>Waiting to sync</h2><span>sent in order when signal returns</span></header>
+    <div class="body" style="padding-top:2px">
+      <ul class="q">
+        <li><i>SO</i><b>Sales order</b><small>Shree Ganesh Traders · 24 cartons</small><span class="chip warn">Queued</span></li>
+        <li><i>VN</i><b>Visit note</b><small>Photo of the shelf, 12:41</small><span class="chip warn">Queued</span></li>
+        <li><i>PP</i><b>Promise to pay</b><small>₹21,000 on 15 Oct</small><span class="chip warn">Queued</span></li>
+      </ul>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

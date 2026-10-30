@@ -2,6 +2,7 @@ import type { ComponentType } from 'react';
 import { faq } from './data/home';
 import { entryBySlug, moduleContent, modulePage, packs } from './data/modules';
 import { notFound, pipelineCheck } from './data/pages';
+import { packageContent, platformPage } from './data/packages';
 import { site } from './data/site';
 import type { Crumb } from './routing';
 import { faqPage, moduleSoftware } from './seo/schema';
@@ -98,6 +99,35 @@ const moduleRoutes: Route[] = Object.values(moduleContent).map((content) => {
   };
 });
 
+
+/** The Platform overview and the three package pages (SITE-PLAN.md sections 3.2 and 3.3). */
+const platformRoutes: Route[] = [
+  {
+    path: '/platform',
+    page: 'Platform',
+    title: platformPage.seo.title,
+    description: platformPage.seo.description,
+    crumbs: [{ name: 'Platform', path: '/platform' }],
+    inSitemap: true,
+    priority: 0.9,
+    schema: () => [faqPage(`${site.url}/platform#faq`, platformPage.faq)],
+  },
+  ...(['base', 'portal', 'premium'] as const).map((key): Route => {
+    const pack = packs[key];
+    const content = packageContent[key];
+    return {
+      path: pack.page,
+      page: 'PackagePage',
+      title: content.seo.title,
+      description: content.seo.description,
+      crumbs: [{ name: 'Platform', path: '/platform', fallback: '/#platform' }, { name: pack.name, path: pack.page }],
+      inSitemap: true,
+      priority: 0.9,
+      schema: () => [faqPage(`${site.url}${pack.page}#faq`, content.faq)],
+    };
+  }),
+];
+
 const libraryRoute: Route = {
   path: '/_library',
   page: 'Library',
@@ -119,6 +149,7 @@ export const routes: Route[] = [
     crumbs: [{ name: pipelineCheck.seo.crumb, path: '/pipeline-check' }],
     inSitemap: false,
   },
+  ...platformRoutes,
   ...moduleRoutes,
   // Dev only: the section library (src/library/). Absent from production builds, so never prerendered or served.
   ...(import.meta.env.DEV ? [libraryRoute] : []),

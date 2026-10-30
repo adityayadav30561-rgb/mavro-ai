@@ -68,7 +68,11 @@ section (src/links.ts), so a module page never links to a missing page.
 | `FlowStrip` | FlowStrip.tsx | `stages` [{label?, nodes [{name, href?, icon?, note?, kind?}]}] (`note`: what passes along the link), `layout` (columns/chain), `legend`, `note`. Kinds: shared, configured, current | Module (where it sits), industry (order flow), package |
 | `ModuleCards` | ModuleCards.tsx | `cards` [{name, summary, icon, tier, href or null, screen?, alt?}], `more` (link label) | Package, industry, related modules |
 | `PlatformStrip` | PlatformStrip.tsx | the eight features of deck slide 12 (`data/platform.ts`), identical everywhere; optional `module` {name, icon, tier, label} draws the module on top, wired into the features. Light or night band | Every module page, platform |
-| `ChainDiagram` | ChainDiagram.tsx | `title`, `nodes` [{id, name, icon, link}], `core`, `active`, `badge` | Homepage Explore (Portals), portal pages |
+| `ChainDiagram` | ChainDiagram.tsx | `title`, `nodes` [{id, name, icon, link}], `core`, `active` (omit to light every portal), `badge` | Homepage Explore (Portals), portal pages, Portals package page |
+| `PackagePlate` | PackagePlate.tsx | optional `tier` (base, portal, premium): the platform diagram's isometric plates (geometry in `blocks/plates.ts`, shared with the homepage `PlatformIntro`) with that tier lifted and the rest faded; none lifts nothing. Decorative | Package hero, platform hero |
+| `PackageLinks` | PackageLinks.tsx | `packages` [{tier, name, blurb, count, icon, href or null}], `current` (marked, not linked), `here` (its label) | Package pages (how packages combine), platform |
+| `PremiumSpotlight` | PremiumSpotlight.tsx | `groups` [{name, modules [{id, name, icon, href}]}], `features` (by module id, from `premiumFeatures`), `seeLabel`. Grouped list left, panel right, arrow keys; no kicker, no "Premium" tag. Night band | Premium package page |
+| `PhoneRow` | PhoneRow.tsx | `shots` [{screen, alt, title, caption}] (phone screens, `platform/<name>`), `note` | Platform (mobile app) |
 | `ConnectBoard` | ArchitectureDiagram.tsx | `data` (the ERP Connect board: systems, broker, app, users, rule). Dark band only | Homepage, ERP Connect |
 | `LayeredArchitecture` | ArchitectureDiagram.tsx | `data` {layers, security} (deck slide 11, `data/platform.ts`) | Platform, security |
 | `Timeline` | Timeline.tsx | `data` {label, span, milestones, phases, after, ongoing} | Homepage, implementation, ERP Connect |
@@ -93,3 +97,16 @@ change. New blocks: `ph` (page hero), `crumbs`, `sframe`, `tour`, `cap`, `ww`, `
 2. Add it to the gallery (`src/library/Library.tsx`, sample data in `src/library/samples.ts` from the decks).
 3. Check the gallery at the nine sizes (`qa/measure.html?path=/_library`) and at 1440×900, 1366×768, 390×844.
 4. Add a row above.
+
+### The package pages and the Platform overview
+
+`src/pages/PackagePage.tsx` renders `/platform/base`, `/platform/portals` and `/platform/premium` from
+`src/data/packages.ts`; `src/pages/Platform.tsx` renders `/platform`. Sections and tones:
+
+| Page | Sections (tone / treatment) |
+|---|---|
+| Package | Hero `package` with `PackagePlate` (hero) → every module as `ModuleCards` by business area (white / soft) → package-specific: Base `FlowStrip` one record, Portals `ChainDiagram` with every portal lit, Premium `PremiumSpotlight` (paper, paper, night / mark, mark, grad) → `PackageLinks` (white / grad) → FAQ (paper / mark) → CTA |
+| Platform | Hero with `PackagePlate` → `LayeredArchitecture` (paper / soft) → `PlatformStrip` (white / mark) → `PackageLinks` (paper / grad) → `PhoneRow` (white / soft) → integrations `CapabilityTiles` + links to ERP Connect and Security (paper / mark) → FAQ (white / grad) → CTA |
+
+Module cards come from `pages/module-card.ts` (`cardFor`), shared with the module page's related modules; a package
+page stops the build if a card has no page.

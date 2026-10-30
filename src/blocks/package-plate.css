@@ -1,0 +1,25 @@
+/* Package plate (blocks/PackagePlate.tsx): the platform diagram with one tier lifted. Uses sections/platform-intro.css. */
+.pplate {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  margin: 0;
+}
+
+.pplate__svg {
+  width: min(100%, 26rem);
+}
+
+.pplate .intro__plate {
+  cursor: default;
+}
+
+.pplate .pplate__plate[data-dim] {
+  opacity: 0.45;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pplate .intro__plate {
+    transition: none;
+  }
+}

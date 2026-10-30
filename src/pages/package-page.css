@@ -1,0 +1,31 @@
+/* Package pages (pages/PackagePage.tsx). */
+.pk__groups {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+.pk__area {
+  margin-bottom: 1rem;
+  font-size: var(--t-h3);
+  letter-spacing: -0.02em;
+}
+
+.pk__chain {
+  max-width: 62rem;
+  margin-inline: auto;
+}
+
+.pf__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 2rem;
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.pf__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  color: var(--blue);
+  font-weight: 600;
+}

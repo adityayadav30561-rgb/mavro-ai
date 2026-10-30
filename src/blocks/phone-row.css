@@ -1,0 +1,50 @@
+/* Phone row (blocks/PhoneRow.tsx): mobile app screens in drawn devices. */
+.prow__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.prow__list li {
+  display: grid;
+  gap: .5rem;
+  justify-items: center;
+  align-content: start;
+  text-align: center;
+}
+
+.prow__phone {
+  width: min(100%, 14rem);
+}
+
+.prow__list h3 {
+  margin-top: .75rem;
+  font-size: var(--t-h3);
+  letter-spacing: -0.02em;
+}
+
+.prow__list p {
+  max-width: 17rem;
+  color: var(--fg-2);
+  font-size: var(--t-small);
+}
+
+.prow__note {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: var(--fg-3);
+  font-size: var(--t-small);
+}
+
+@media (max-width: 1000px) {
+  .prow__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .prow__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

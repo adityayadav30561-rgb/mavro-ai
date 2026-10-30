@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Mobile app · Notifications (phone)</title>
+<!-- Platform page (mobile app). 14:02 on 8 Oct, alerts routed by role to the plant head: CNC-03 spindle alarm 11:36 (MO-0418),
+     TW-14 torque wrench found in use at ASM-02 13:10 (IA-0219), shift B 14 contract workers short 08:15, Shree Om pass CLP-2281
+     refused at the gate 07:52, auction AUC-0088 closes 14:06 (buyer's copy), CAPA-0088 reopened. Push, email and in-app. -->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  body.phone main { gap: 10px; }
+  .nt { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 2px 12px; padding: 12px 14px; align-items: start; }
+  .nt + .nt { border-top: 1px solid var(--line); }
+  .nt i { grid-row: 1 / span 2; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font: 650 10px var(--mono); font-style: normal; background: var(--bad-soft); color: var(--bad); }
+  .nt i.w { background: var(--warn-soft); color: var(--warn); }
+  .nt i.b { background: var(--accent-soft); color: var(--accent-ink); }
+  .nt b { font-weight: 600; font-size: 13.5px; }
+  .nt time { font: 11.5px var(--mono); color: var(--ink-3); }
+  .nt p { grid-column: 2 / 4; color: var(--ink-2); font-size: 12.5px; line-height: 1.4; }
+  .rt { padding: 9px 12px; font-size: 12.5px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--ink-3); }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="production-management" data-title="Alerts" data-subtitle="Routed to you by role" data-time="14:02"
+      data-tab="Alerts" data-tabs="Home:home|Approvals:check:4|Alerts:bell:5|Reports:doc|More:more" data-who="Prakash Nair|Plant head">
+<main>
+  <div class="card">
+    <div class="nt"><i>CNC</i><b>CNC-03 spindle alarm</b><time>11:36</time><p>Machine stopped. Maintenance order MO-0418 raised; 2 h 10 m lost so far.</p></div>
+    <div class="nt"><i>QA</i><b>Blocked tool in use</b><time>13:10</time><p>Torque wrench TW-14 found at ASM-02 during audit IA-0219. CAPA-0088 reopened.</p></div>
+    <div class="nt"><i class="w">CLP</i><b>Shift B is 14 short</b><time>08:15</time><p>Assembly 6, packing 4, stores 4. A requisition is waiting for you.</p></div>
+    <div class="nt"><i class="w">GTE</i><b>Gate pass expired</b><time>07:52</time><p>Contract worker pass CLP-2281 refused at the turnstile.</p></div>
+    <div class="nt"><i class="b">AUC</i><b>Auction closes 14:06</b><time>13:58</time><p>AUC-0088 export cartons: L1 at 8.1% below the ceiling.</p></div>
+  </div>
+  <div class="rt">Delivered by push, email and in the app, routed by role. Quiet hours 22:00 to 06:00.</div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

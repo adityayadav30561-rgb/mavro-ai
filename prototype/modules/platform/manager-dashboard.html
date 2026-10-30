@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Mobile app · Plant dashboard (phone)</title>
+<!-- Platform page (mobile app). 14:02 on 8 Oct, plant head Prakash Nair: Plant 1 OEE 79.1% (target 82%), schedule
+     adherence 91%, shift B deployment 206 of 220 contract workers, CNC-03 spindle alarm since 11:36 (2 h 10 m down, MO-0418),
+     open orders at risk 1 (SO-24809 recovered by OT-0311), 4 approvals waiting. Figures as on the module screens. -->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  body.phone main { gap: 10px; }
+  .big { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .big .card .body { padding: 12px 14px; }
+  .big label { display: block; font-size: 12px; color: var(--ink-2); }
+  .big strong { display: block; margin-top: 3px; font-size: 24px; font-weight: 640; letter-spacing: -0.03em; }
+  .big small { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .big .d { margin-top: 4px; font-size: 11.5px; }
+  .chart { position: relative; height: 96px; }
+  .chart svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .al { display: grid; grid-template-columns: 8px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 9px 0; }
+  .al + .al { border-top: 1px solid var(--line); }
+  .al i { width: 8px; height: 8px; border-radius: 50%; background: var(--bad); }
+  .al i.w { background: var(--warn); }
+  .al b { font-weight: 550; display: block; }
+  .al small { color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="production-management" data-title="Plant 1" data-subtitle="Shift B · live" data-time="14:02"
+      data-tab="Home" data-tabs="Home:home|Approvals:check:4|Alerts:bell:5|Reports:doc|More:more" data-who="Prakash Nair|Plant head">
+<main>
+  <div class="big">
+    <div class="card"><div class="body"><label>OEE today</label><strong>79.1<small>%</small></strong><div class="d"><span class="chip warn">Target 82%</span></div></div></div>
+    <div class="card"><div class="body"><label>Schedule adherence</label><strong>91<small>%</small></strong><div class="d"><span class="chip ok">On track</span></div></div></div>
+    <div class="card"><div class="body"><label>Contract workers</label><strong>206<small> / 220</small></strong><div class="d"><span class="chip warn">14 short</span></div></div></div>
+    <div class="card"><div class="body"><label>Orders at risk</label><strong>1</strong><div class="d"><span class="chip plain">SO-24809 recovered</span></div></div></div>
+  </div>
+  <div class="card">
+    <header><h2>OEE by hour</h2><span>shift B</span></header>
+    <div class="body"><div class="chart" data-area="82,81,80,74,76,79|82,82,82,82,82,82" data-min="60" data-max="90" data-labels="08,09,10,11,12,13"></div></div>
+  </div>
+  <div class="card">
+    <header><h2>Needs you</h2></header>
+    <div class="body" style="padding-top:2px">
+      <div class="al"><i></i><span><b>CNC-03 spindle alarm</b><small>Down 2 h 10 m · MO-0418</small></span><span class="chip bad">Open</span></div>
+      <div class="al"><i class="w"></i><span><b>4 approvals waiting</b><small>Requisition, SOP, forecast, purchase</small></span><span class="chip warn">4</span></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

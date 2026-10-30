@@ -9,8 +9,12 @@ import { FaqBlock } from '../blocks/FaqBlock';
 import { FlowStrip } from '../blocks/FlowStrip';
 import { InlineCta } from '../blocks/InlineCta';
 import { ModuleCards } from '../blocks/ModuleCards';
+import { PackageLinks } from '../blocks/PackageLinks';
+import { PackagePlate } from '../blocks/PackagePlate';
 import { PageHero } from '../blocks/PageHero';
+import { PhoneRow } from '../blocks/PhoneRow';
 import { PlatformStrip } from '../blocks/PlatformStrip';
+import { PremiumSpotlight } from '../blocks/PremiumSpotlight';
 import { ScreenFrame } from '../blocks/ScreenFrame';
 import { ScreenTour } from '../blocks/ScreenTour';
 import { Section } from '../blocks/Section';
@@ -20,6 +24,8 @@ import { TrustPanel } from '../blocks/TrustPanel';
 import { WhatWhy } from '../blocks/WhatWhy';
 import { Screen } from '../components/Screen';
 import { connect, explore, faq, implementation, industries, inlineCtas, proof, why } from '../data/home';
+import { catalogue, premiumById, premiumGroups } from '../data/modules';
+import { platformPage } from '../data/packages';
 import { architecture, platformFeatures } from '../data/platform';
 import { audience, beforeAfter, cards, chain, o2c, risks, sits } from './samples';
 import './library.css';
@@ -82,17 +88,9 @@ function HeroDemo({ variant }: { variant: (typeof heroes)[number] }) {
           title="Portals"
           rest="for vendors and the channel."
           treatment="soft"
-          lead="Sample: the package hero with a diagram in the visual slot (the package plate comes in Phase 21)."
+          lead="Sample: the package hero with the package plate in the visual slot."
           actions={[demo]}
-          visual={
-            <ChainDiagram
-              title={explore.chainTitle}
-              nodes={explore.chain}
-              core="company"
-              active="distributor"
-              badge={explore.chainBadge}
-            />
-          }
+          visual={<PackagePlate tier="portal" />}
         />
       );
     case 'solution':
@@ -188,6 +186,43 @@ export function Page() {
         </Entry>
         <Entry name="ModuleCards" file="blocks/ModuleCards.tsx" use="Package, industry, related modules">
           <ModuleCards cards={cards} more="See the module" />
+        </Entry>
+        <Entry name="PackagePlate" file="blocks/PackagePlate.tsx" use="Package hero, platform hero">
+          <div className="lib__narrow">
+            <PackagePlate tier="premium" />
+          </div>
+        </Entry>
+        <Entry name="PackageLinks" file="blocks/PackageLinks.tsx" use="Package pages, platform">
+          <PackageLinks
+            current="base"
+            here="You are here"
+            packages={[
+              { tier: 'base', name: 'Base modules', blurb: 'Core ERP, HR and operations.', count: '18 modules', icon: 'layers', href: '/platform/base' },
+              { tier: 'portal', name: 'Portals', blurb: 'Self-service for vendors and the channel.', count: '4 portals', icon: 'distribution', href: '/platform/portals' },
+              { tier: 'premium', name: 'Premium modules', blurb: 'Niche and industry-specific capability.', count: '20 modules', icon: 'rocket', href: '/platform/premium' },
+            ]}
+          />
+        </Entry>
+        <Entry name="PhoneRow" file="blocks/PhoneRow.tsx" use="Platform (mobile app)">
+          <PhoneRow
+            note={explore.sample}
+            shots={platformPage.mobile.shots.slice(0, 2).map((shot) => ({ screen: shot.name as `platform/${string}`, alt: shot.alt, title: shot.title, caption: shot.caption }))}
+          />
+        </Entry>
+        <Entry name="PremiumSpotlight" file="blocks/PremiumSpotlight.tsx" use="Premium package page (night band)">
+          <div className="lib__night">
+            <PremiumSpotlight
+              seeLabel="see the screens"
+              features={Object.fromEntries(premiumGroups.flatMap((g) => g.ids).map((id) => [id, premiumById(id)]))}
+              groups={premiumGroups.map((group) => ({
+                name: group.name,
+                modules: group.ids.map((id) => {
+                  const entry = catalogue.find((item) => item.kind === 'module' && item.item.id === id)!;
+                  return { id, name: entry.name, icon: entry.kind === 'module' ? entry.item.icon : 'layers', href: null };
+                }),
+              }))}
+            />
+          </div>
         </Entry>
         <Entry name="PlatformStrip" file="blocks/PlatformStrip.tsx" use="Every module page, platform">
           <PlatformStrip />

@@ -4,8 +4,8 @@ _Last updated: 2026-10-26. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–20 done (2026-10-30); next: Phase 21, the package pages and the Platform
-overview. All 42 module pages now exist.** The
+**Stage C (phased implementation). Phases 1–21 done (2026-10-30); next: Phase 22, the ERP Connect page. All 42 module pages
+and the Platform overview and package pages exist.** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,23 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-30, **Phase 21 done: Platform overview and the three package pages.** On `main`.
+  - **Pages:** `/platform` (src/pages/Platform.tsx) and `/platform/base`, `/platform/portals`, `/platform/premium` (one
+    template, src/pages/PackagePage.tsx); copy in `src/data/packages.ts` (counts computed from the catalogue, not typed).
+    Module-page breadcrumbs now link to the package pages; the footer's Platform overview and the package links switch
+    to the real pages by themselves (`src/links.ts`). Four routes in the sitemap with FAQPage JSON-LD.
+  - **New blocks** (in `/_library` and docs/LIBRARY.md): `PackagePlate` (the homepage plate diagram with one tier lifted;
+    geometry now shared in `blocks/plates.ts`, `PlatformIntro` imports it), `PackageLinks`, `PremiumSpotlight` (list left,
+    panel right, fed by the current `premiumFeatures`; no kicker, no "Premium" tag), `PhoneRow`. `ChainDiagram` `active` is
+    optional (omit to light every portal). The module card helper moved to `src/pages/module-card.ts` (`cardFor`), shared by
+    the module and package pages; a package page stops the build if a module card has no page.
+  - **Mobile app screens (4 new phone screens, `prototype/modules/platform/`, captured to `src/assets/screens/platform/`):**
+    `approvals` (plant head's inbox from four modules), `manager-dashboard`, `alerts`, `offline` (field rep, no signal). They reuse
+    the Northfield scenario; the module shell needs a real module slug on the body, which the phone does not show.
+  - **Not done on purpose:** the homepage platform-diagram tier labels still go to the Explore tabs (DECISIONS.md locks
+    that behaviour); pointing them at the package pages is Phase 27 (homepage integration). The Security link on the Platform
+    page stays hidden until Phase 25 (`target()` returns null without a fallback); ERP Connect falls back to `#connect`.
 
 - 2026-10-30, **Phase 20 done: Business Analyst App, Master Data Management and Document Management pages (the last module pages: 42 of 42).** On `main`.
   - **Screens (12 new, no phone):** Business Analyst App `coverage-trust` (lead), `report-builder`, `data-quality`,
@@ -654,8 +671,9 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 21: Package pages (Base modules, Portals, Premium) and the Platform overview** (4 pages plus mobile
-   screens; see IMPLEMENTATION-PLAN.md and SITE-PLAN.md). The module pages are complete, so these can link to all 42.
+1. **Phase 22: ERP Connect page** (`/erp-connect`, 1 page and 2 screens: the MAVRO App's boutique screen for an ERP
+   user and a mobile approval screen; sources: the connectivity deck and the SAP Business One flow deck; SITE-PLAN.md 3.4).
+   The homepage Connect section and `ConnectBoard`/`Timeline` blocks already exist.
 
 ## Open items (need the user or real assets)
 

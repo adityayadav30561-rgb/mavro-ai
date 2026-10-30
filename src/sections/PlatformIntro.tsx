@@ -3,6 +3,7 @@ import { Icon } from '../components/Icon';
 import { byPack, packs, type Pack } from '../data/modules';
 import { intro } from '../data/home';
 import { vars } from '../motion/hooks';
+import { CX, H, T, VIEW_H, W, face, left, plates, right, tiles } from '../blocks/plates';
 import './platform-intro.css';
 
 /*
@@ -11,38 +12,6 @@ import './platform-intro.css';
  * label is a link to its package in Explore the platform; hovering or focusing it lifts the matching plate,
  * and clicking a plate follows the same link.
  */
-const CX = 196; // centre of the plates
-const W = 172; // half-width of a plate's top face
-const H = 86; // half-height (2:1 isometric)
-const T = 14; // plate thickness
-const GAP = 104; // vertical distance between plates
-const TOP_Y = 110;
-
-const plates: { key: Pack | 'data'; y: number }[] = [
-  { key: 'premium', y: TOP_Y },
-  { key: 'portal', y: TOP_Y + GAP },
-  { key: 'base', y: TOP_Y + GAP * 2 },
-  { key: 'data', y: TOP_Y + GAP * 3 },
-];
-const VIEW_H = TOP_Y + GAP * 3 + H + T + 30;
-
-const face = (y: number) => `${CX},${y - H} ${CX + W},${y} ${CX},${y + H} ${CX - W},${y}`;
-const left = (y: number) => `${CX - W},${y} ${CX},${y + H} ${CX},${y + H + T} ${CX - W},${y + T}`;
-const right = (y: number) => `${CX},${y + H} ${CX + W},${y} ${CX + W},${y + T} ${CX},${y + H + T}`;
-
-/** Small module tiles printed on the front half of a plate: one per module, up to the five that fit. */
-function tiles(y: number, count: number) {
-  const tw = 17;
-  const th = 8.5;
-  const step = 37;
-  const row = y + 40;
-  const x0 = CX - ((count - 1) * step) / 2;
-  return Array.from({ length: count }, (_, i) => {
-    const x = x0 + i * step;
-    return `${x},${row - th} ${x + tw},${row} ${x},${row + th} ${x - tw},${row}`;
-  });
-}
-
 const isPack = (tier: string): tier is Pack => tier in packs;
 
 export function PlatformIntro() {

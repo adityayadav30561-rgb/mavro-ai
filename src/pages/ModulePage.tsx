@@ -5,7 +5,7 @@ import { ChainDiagram } from '../blocks/ChainDiagram';
 import { CtaBand } from '../blocks/CtaBand';
 import { FaqBlock } from '../blocks/FaqBlock';
 import { FlowStrip, type FlowNode } from '../blocks/FlowStrip';
-import { ModuleCards, type ModuleCard } from '../blocks/ModuleCards';
+import { ModuleCards } from '../blocks/ModuleCards';
 import { PageHero } from '../blocks/PageHero';
 import { PlatformStrip } from '../blocks/PlatformStrip';
 import { ScreenFrame } from '../blocks/ScreenFrame';
@@ -14,39 +14,21 @@ import { Section } from '../blocks/Section';
 import { WhatWhy } from '../blocks/WhatWhy';
 import { Screen } from '../components/Screen';
 import { explore, industries } from '../data/home';
+import { cardFor, iconOf, pageOf } from './module-card';
 import {
   catalogue,
   contentFor,
   entryBySlug,
   fill,
-  leadScreens,
   moduleViews,
-  modulePage,
   moduleTemplate as t,
   packs,
-  type CatalogueEntry,
   type ModuleLink,
   type ModuleSlug,
 } from '../data/modules';
-import { hasPage, target } from '../links';
+import { target } from '../links';
 import { useHref, usePath } from '../routing';
 import './module-page.css';
-
-/** A module's page, or null while it has none (a plain label or card instead of a link). */
-const pageOf = (entry: CatalogueEntry) => (hasPage(modulePage(entry)) ? modulePage(entry) : null);
-
-const iconOf = (entry: CatalogueEntry) => (entry.kind === 'module' ? entry.item.icon : 'distribution');
-
-/** The lead screen of a module for its card: its own first screen once it has content, else its lead screen
- *  (leads.ts), else its homepage Explore screen. */
-function thumbnail(slug: ModuleSlug): Pick<ModuleCard, 'screen' | 'alt'> {
-  const own = contentFor(slug)?.screens[0];
-  if (own) return { screen: own.screen, alt: own.alt };
-  if (leadScreens[slug]) return leadScreens[slug];
-  const entry = entryBySlug(slug);
-  const base = explore.packages.base.screens as Record<string, { screen: ModuleCard['screen']; alt: string }>;
-  return entry.kind === 'module' && base[entry.item.id] ? base[entry.item.id] : {};
-}
 
 /**
  * The module page template (SITE-PLAN.md section 3.1), one page per module in src/data/modules/content/. Ten
@@ -91,17 +73,7 @@ export function Page() {
       .filter((other) => other.area === entry.area && other.slug !== slug)
       .map((other) => other.slug)
       .slice(0, 4);
-  const cards: ModuleCard[] = related.map((other) => {
-    const card = entryBySlug(other);
-    return {
-      name: card.name,
-      summary: card.summary,
-      icon: iconOf(card),
-      tier: card.pack,
-      href: pageOf(card),
-      ...thumbnail(other),
-    };
-  });
+  const cards = related.map(cardFor);
 
   // Where it sits: what feeds it and what it feeds. Portal pages draw the supply-to-retail chain beside it.
   const flow = (

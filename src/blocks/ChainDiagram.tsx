@@ -16,8 +16,8 @@ interface ChainDiagramProps {
   nodes: readonly ChainNode[];
   /** The node that is the business itself (drawn as the core). */
   core: string;
-  /** The lit node; its badge reads `badge`. The link it serves lights too. */
-  active: string;
+  /** The lit node; its badge reads `badge`. The link it serves lights too. Omit it to light every portal and link. */
+  active?: string;
   badge: string;
 }
 
@@ -29,6 +29,7 @@ interface ChainDiagramProps {
 export function ChainDiagram({ title, nodes, core, active, badge }: ChainDiagramProps) {
   const at = nodes.findIndex((node) => node.id === active);
   const lit = at < nodes.findIndex((node) => node.id === core) ? at : at - 1;
+  const all = !active;
 
   return (
     <figure className="pc" aria-hidden="true">
@@ -38,7 +39,7 @@ export function ChainDiagram({ title, nodes, core, active, badge }: ChainDiagram
           <li
             key={node.id}
             className="pc__step"
-            data-on={node.id === active || undefined}
+            data-on={(all ? node.id !== core : node.id === active) || undefined}
             data-core={node.id === core || undefined}
             style={vars({ '--i': index })}
           >
@@ -50,7 +51,7 @@ export function ChainDiagram({ title, nodes, core, active, badge }: ChainDiagram
               {node.id === active && <span className="pc__badge">{badge}</span>}
             </span>
             {node.link && (
-              <span className="pc__link" data-on={index === lit || undefined}>
+              <span className="pc__link" data-on={(all || index === lit) || undefined}>
                 <span className="pc__line" />
                 <span className="pc__label">{node.link}</span>
               </span>

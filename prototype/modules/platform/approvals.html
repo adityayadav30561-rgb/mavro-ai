@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Mobile app · Approvals inbox (phone)</title>
+<!-- Platform page (mobile app). 14:02 on 8 Oct: plant head Prakash Nair's approvals from four modules in one inbox:
+     REQ-0231 12 packers ₹2.2 L (Contract Labour Purchase), SOP-0063 v4 calibrated tool control (Document Management),
+     H2 reforecast FC-2026-H2 (Cost Forecasting), CNC-03 spindle bearing set PR-0463 (Procure to Pay). The module
+     shell needs a module slug; it is not shown on the phone. -->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  body.phone main { gap: 10px; }
+  .ap { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 3px 12px; padding: 12px 14px; }
+  .ap + .ap { border-top: 1px solid var(--line); }
+  .ap i { grid-row: 1 / span 3; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font: 650 10.5px var(--mono); font-style: normal; background: var(--accent-soft); color: var(--accent-ink); }
+  .ap b { font-weight: 600; font-size: 13.5px; }
+  .ap p { color: var(--ink-2); font-size: 12.5px; }
+  .ap small { color: var(--ink-3); font-size: 11.5px; }
+  .ap .row { display: flex; gap: 8px; margin-top: 8px; }
+  .ap .row .btn { flex: 1; justify-content: center; height: 32px; font-size: 12.5px; }
+  .seg2 { display: flex; gap: 8px; }
+  .seg2 span { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 12.5px; color: var(--ink-2); background: #fff; }
+  .seg2 span.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="order-to-cash" data-title="Approvals" data-subtitle="4 waiting for you" data-time="14:02"
+      data-tab="Approvals" data-tabs="Home:home|Approvals:check:4|Alerts:bell:5|Reports:doc|More:more" data-who="Prakash Nair|Plant head">
+<main>
+  <div class="seg2"><span class="on">Waiting 4</span><span>Done today 6</span><span>Delegated</span></div>
+  <div class="card">
+    <div class="ap"><i>CLP</i><b>REQ-0231 · 12 packers</b><p>14 to 31 Oct · Contract Labour Purchase</p><small>₹2.2 L estimate · raised by Mahesh Kulkarni</small>
+      <div class="row" style="grid-column:2"><span class="btn">Reject</span><span class="btn pri">Approve</span></div></div>
+    <div class="ap"><i>DMS</i><b>SOP-0063 v4 · Calibrated tool control</b><p>Revised after CAPA-0088 · Document Management</p><small>Reviewed by Swapnil Shelar, 11:50</small>
+      <div class="row" style="grid-column:2"><span class="btn">Return</span><span class="btn pri">Approve</span></div></div>
+    <div class="ap"><i>CFO</i><b>H2 reforecast · FC-2026-H2</b><p>Base ₹45.07 Cr, +3.0% · Cost Forecasting</p><small>Then to the CFO · Meenakshi Bhat</small>
+      <div class="row" style="grid-column:2"><span class="btn">Comment</span><span class="btn pri">Approve</span></div></div>
+    <div class="ap"><i>P2P</i><b>PR-0463 · Spindle bearing set SB-7014</b><p>For the 19 Oct shutdown · Procure to Pay</p><small>Needed by 17 Oct</small>
+      <div class="row" style="grid-column:2"><span class="btn">Reject</span><span class="btn pri">Approve</span></div></div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

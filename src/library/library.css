@@ -99,3 +99,9 @@
     width: 100%;
   }
 }
+
+.lib__night {
+  padding: 2rem;
+  border-radius: var(--r-4);
+  background: var(--night);
+}
