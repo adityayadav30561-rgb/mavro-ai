@@ -9,6 +9,8 @@ export interface CapabilityTile {
   body: string;
   /** A small figure from the module's screens (illustrative, like the screens themselves). */
   figure?: { value: string; label: string };
+  /** Short points under the line, each ticked (e.g. ERP Connect's benefits, deck slide 5). */
+  points?: readonly string[];
 }
 
 /**
@@ -22,8 +24,8 @@ export function CapabilityTiles({
 }: {
   tiles: readonly CapabilityTile[];
   tier?: Tier;
-  /** Three across (six tiles as 3 × 2) instead of four. */
-  columns?: 3;
+  /** Three across (six tiles as 3 × 2) or five (one row of five) instead of four. */
+  columns?: 3 | 5;
 }) {
   return (
     <ul className="cap" data-tier={tier} data-cols={columns}>
@@ -42,6 +44,16 @@ export function CapabilityTiles({
           </div>
           <h3 className="cap__title">{tile.title}</h3>
           <p className="cap__body">{tile.body}</p>
+          {tile.points && (
+            <ul className="cap__points">
+              {tile.points.map((point) => (
+                <li key={point}>
+                  <Icon name="check" size={14} />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          )}
         </li>
       ))}
     </ul>

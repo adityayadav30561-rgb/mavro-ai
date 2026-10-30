@@ -4,6 +4,8 @@ import { Audience } from '../blocks/Audience';
 import { CapabilityTiles } from '../blocks/CapabilityTiles';
 import { ChainDiagram } from '../blocks/ChainDiagram';
 import { BeforeAfter, DataTable } from '../blocks/ComparisonTable';
+import { ErpSystems } from '../blocks/ErpSystems';
+import { GapColumns } from '../blocks/GapColumns';
 import { CtaBand } from '../blocks/CtaBand';
 import { FaqBlock } from '../blocks/FaqBlock';
 import { FlowStrip } from '../blocks/FlowStrip';
@@ -20,11 +22,14 @@ import { ScreenFrame } from '../blocks/ScreenFrame';
 import { ScreenTour } from '../blocks/ScreenTour';
 import { Section } from '../blocks/Section';
 import { StoryCards } from '../blocks/StoryCards';
+import { SwimlaneFlow } from '../blocks/SwimlaneFlow';
+import { SyncSteps } from '../blocks/SyncSteps';
 import { Timeline } from '../blocks/Timeline';
 import { TrustPanel } from '../blocks/TrustPanel';
 import { WhatWhy } from '../blocks/WhatWhy';
 import { Screen } from '../components/Screen';
 import { connect, explore, faq, implementation, industries, inlineCtas, intro, proof, why } from '../data/home';
+import { erpConnect } from '../data/erp-connect';
 import { packageTiers } from '../pages/module-card';
 import { catalogue, premiumById, premiumGroups } from '../data/modules';
 import { platformPage } from '../data/packages';
@@ -207,7 +212,7 @@ export function Page() {
           />
         </Entry>
         <Entry name="PremiumSpotlight" file="blocks/PremiumSpotlight.tsx" use="Premium package page (night band)">
-          <div className="lib__night">
+          <div className="night-panel">
             <PremiumSpotlight
               seeLabel="see the screens"
               features={Object.fromEntries(premiumGroups.flatMap((g) => g.ids).map((id) => [id, premiumById(id)]))}
@@ -251,6 +256,25 @@ export function Page() {
         treatment="soft"
         lead="Before and after (connectivity deck slide 6), risks (product deck slide 26), the rollout plan, the portal chain and the screen frame."
       >
+        <Entry name="SyncSteps" file="blocks/SyncSteps.tsx" use="ERP Connect (architecture)">
+          <SyncSteps
+            board={connect}
+            steps={erpConnect.architecture.steps}
+            label={erpConnect.architecture.stepsLabel}
+            directions={erpConnect.architecture.directions}
+            prev={erpConnect.architecture.prev}
+            next={erpConnect.architecture.next}
+          />
+        </Entry>
+        <Entry name="ErpSystems" file="blocks/ErpSystems.tsx" use="ERP Connect (who it is for)">
+          <ErpSystems systems={erpConnect.who.systems} users={erpConnect.who.users} />
+        </Entry>
+        <Entry name="GapColumns" file="blocks/GapColumns.tsx" use="ERP Connect (gaps)">
+          <GapColumns gaps={erpConnect.gaps.items} />
+        </Entry>
+        <Entry name="SwimlaneFlow" file="blocks/SwimlaneFlow.tsx" use="ERP Connect (SAP Business One)">
+          <SwimlaneFlow lanes={erpConnect.b1.lanes} zones={erpConnect.b1.zones} legend={erpConnect.b1.legend} close={erpConnect.b1.close} />
+        </Entry>
         <Entry name="BeforeAfter" file="blocks/ComparisonTable.tsx" use="ERP Connect">
           <BeforeAfter {...beforeAfter} />
         </Entry>

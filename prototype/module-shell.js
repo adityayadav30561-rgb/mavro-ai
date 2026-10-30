@@ -15,7 +15,8 @@
  * Portal screens seen by the partner (a distributor, a vendor) use data-chrome="partner": the sidebar shows the
  * partner's company (data-org) and only the portal's own menu, under data-host ("Northfield Precision · Distributor
  * portal"). The menu is the module's views (views.ts), or data-menu="Label:icon|Label:icon" when the partner sees a
- * different menu (a vendor applying through the Vendor Portal); data-view must be one of its labels.
+ * different menu (a vendor applying through the Vendor Portal); data-view must be one of its labels. data-hostline
+ * replaces the footer line (HTML), e.g. an ERP Connect boutique app: "Runs beside <b>SAP S/4HANA</b>".
  */
 import { areaOrder, areas, catalogue } from '/src/data/modules/catalogue.ts';
 import { moduleViews } from '/src/data/modules/views.ts';
@@ -123,7 +124,7 @@ function partner() {
     `<div class="brand"><img src="/src/assets/brand/logo-480.webp" alt="MAVRO.AI" height="22" width="118"></div>` +
     `<div class="org"><i>${orgMark}</i><div><span>${orgName}</span><small>${orgSub}</small></div></div>` +
     `<nav class="nav"><h6>${hostName} · ${hostSub}</h6>${items}</nav>` +
-    `<div class="host">${svg('portal')}<span>Portal of <b>${hostName}</b><small>on MAVRO</small></span></div>`;
+    `<div class="host">${svg('portal')}<span>${d.hostline || `Portal of <b>${hostName}</b><small>on MAVRO</small>`}</span></div>`;
 
   const crumb = (d.crumb || `${hostSub} / ${d.view || ''}`).split('/').map((s) => s.trim()).filter(Boolean);
   const top = document.createElement('header');

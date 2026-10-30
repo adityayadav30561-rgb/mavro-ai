@@ -126,6 +126,8 @@ export const connect = {
   internal: { label: 'Internal API', note: 'Read · write' },
   app: { name: 'MAVRO App', role: 'Web + mobile', points: ['Boutique screens', 'Android and iOS'] },
   users: { name: 'Users', groups: ['Office', 'Plant', 'Field'] },
+  /** Under the benefits: the ERP Connect page (shown once it exists). */
+  more: { label: 'See how ERP Connect works, step by step', page: '/erp-connect' },
   rule: 'No direct ERP access',
   ruleBody: 'The MAVRO App never calls SAP, Oracle or Tally directly. All external traffic is brokered by the MAVRO Database.',
   /** The five benefits of MAVRO Connect, from the connectivity deck (slide 5). */
@@ -434,7 +436,7 @@ export const faq = {
     {
       q: 'Does MAVRO work with SAP, Oracle or Tally?',
       a: 'Yes. With MAVRO ERP Connect, SAP (S/4HANA and ECC), Oracle (EBS and Fusion Cloud), Tally (TallyPrime and ERP 9) and legacy ERPs sync two ways with the MAVRO Database. Your ERP stays the system of record, and the MAVRO App never calls the ERP directly. Occasional users can work in MAVRO, so named ERP licences stay with core users.',
-      link: { label: 'How ERP Connect works', href: '#connect' },
+      link: { label: 'How ERP Connect works', href: '/erp-connect' },
     },
     {
       q: 'Can MAVRO replace our current ERP or Tally?',

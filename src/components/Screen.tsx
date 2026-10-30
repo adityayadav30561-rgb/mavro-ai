@@ -19,6 +19,7 @@ const sizes = {
 export type ScreenName =
   | `${ModuleSlug}/${string}`
   | `platform/${string}`
+  | `erp-connect/${string}`
   | 'overview'
   | 'sales-order'
   | 'production'

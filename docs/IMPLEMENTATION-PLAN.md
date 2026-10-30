@@ -84,7 +84,7 @@ For each module in the phase:
 | 19 | Premium: Contract Labour Supply, Contract Labour Purchase | 2 pages | **Done 2026-10-30** |
 | 20 | Premium: Business Analyst App, Master Data Management, Document Management | 3 pages | **Done 2026-10-30** |
 | 21 | Package pages and Platform overview | 4 pages + mobile screens | **Done 2026-10-30** |
-| 22 | ERP Connect page | 1 page + 2 screens | To do |
+| 22 | ERP Connect page | 1 page + 2 screens | Done (2026-10-30) |
 | 23 | Industry pages: Manufacturing, Pharma | 2 pages + 2 screens | To do |
 | 24 | Industry pages: Distribution, Service providers | 2 pages + 2 screens | To do |
 | 25 | Implementation and Security and compliance pages | 2 pages | To do |

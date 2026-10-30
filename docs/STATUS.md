@@ -4,8 +4,8 @@ _Last updated: 2026-10-30. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–21 done (2026-10-30); next: Phase 22, the ERP Connect page. All 42 module pages
-and the Platform overview and package pages exist.** The
+**Stage C (phased implementation). Phases 1–22 done (2026-10-30); next: Phase 23, the Manufacturing and Pharma industry
+pages. All 42 module pages, the Platform overview, the package pages and ERP Connect exist.** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +36,28 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-30, **Phase 22 done: the ERP Connect page (`/erp-connect`).** On `main`.
+  - **Page:** src/pages/ErpConnect.tsx, content src/data/erp-connect.ts (connectivity deck slides 1–6 and 8, not the
+    competitor table; B1 MAVRO flow deck). The board and the five benefits are the homepage's (`connect` in home.ts).
+    Sections: dark module hero (the page's one night band) with two new screens; who it is for (four ERPs bracketed
+    into one MAVRO app); the three gaps; the board with a five-step sync step-through in a dark panel; five benefits
+    with the deck's three points each; before and after (six rows); SAP Business One as swimlanes by zone (inbound,
+    warehouse and production, outbound, billing and dispatch; inward and outbound scans marked; e-invoice and e-way
+    bill as "MAVRO, integrated"; closes with "B1 records the transactions. MAVRO executes the warehouse." and a link to
+    Warehouse Management); the 25–30 day roadmap (Timeline); FAQ (FAQPage JSON-LD); CTA. In the sitemap.
+  - **Screens (illustrative, Sahyadri Forgings on SAP S/4HANA):** `erp-connect/approvals` (a boutique approvals app:
+    SAP PRs and POs with their SAP numbers and sync state, one PO's trail SAP → MAVRO → SAP) and
+    `erp-connect/phone-approval` (the same PO approved on the phone, being written back to SAP). The partner chrome
+    gained `data-hostline` (module-shell.js) for the "Runs beside SAP S/4HANA" footer.
+  - **New blocks:** `SyncSteps`, `ErpSystems`, `GapColumns`, `SwimlaneFlow`; `ConnectBoard` takes an optional
+    `focus`; `CapabilityTiles` takes `points` and `columns={5}`; shared `.night-panel` (base.css) replaces the
+    library's `lib__night`.
+  - **Links:** the menu rail, drawer, footer, customer story, Platform callout and 404 all reach the page through
+    `connectLink`/`target`; the homepage Connect section gained "See how ERP Connect works, step by step" under the
+    benefits, and the homepage FAQ answer links to the page. No `#connect` links remain in the build.
+  - **Checks:** 1440, 1366, 390 and the nine measure sizes: no overflow, no console errors; architecture section 1.21
+    screens at 1440 (the board plus the steps), gaps 0.67. Keyboard: arrow keys move the sync steps and the zone tabs.
 
 - 2026-10-30, **Phase 21 second follow-up (user feedback with screenshots): architecture, packages and integrations redrawn; jump bar removed.** On `main`.
   - **Architecture (`LayeredArchitecture`):** security drawn as a perimeter around the five layers (a tab on the frame, its six controls on a navy foot); numbered layers with a one-line note each; the Core modules row shows the three packages as tier pills with their counts (optional `packages` prop).
@@ -682,9 +704,10 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 22: ERP Connect page** (`/erp-connect`, 1 page and 2 screens: the MAVRO App's boutique screen for an ERP
-   user and a mobile approval screen; sources: the connectivity deck and the SAP Business One flow deck; SITE-PLAN.md 3.4).
-   The homepage Connect section and `ConnectBoard`/`Timeline` blocks already exist.
+1. **Phase 23: Industry pages, Manufacturing and Pharma** (`/industries/manufacturing`, `/industries/pharma`;
+   IMPLEMENTATION-PLAN.md Phase 23, SITE-PLAN.md 3.5): an industry hero screen each (Manufacturing: shop floor or
+   multi-plant view; Pharma: batch record and QC release, from the Healthcare Manufacturing deck), gaps, configured
+   flow linked to modules, module cards, compliance, matching story, FAQ, CTA.
 
 ## Open items (need the user or real assets)
 

@@ -11,6 +11,10 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.cap[data-cols='5'] {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
 .cap[data-tier='portal'] {
   --tier: var(--cyan-600);
   --tier-soft: var(--cyan-50);
@@ -107,16 +111,51 @@
   color: var(--fg-2);
 }
 
+.cap__points {
+  display: grid;
+  gap: .4375rem;
+  margin-top: .375rem;
+  padding-top: .875rem;
+  border-top: 1px solid var(--line);
+}
+
+.cap__points li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: .5rem;
+  align-items: baseline;
+  font-size: var(--t-small);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.cap__points .icon {
+  color: var(--tier);
+  transform: translateY(.125rem);
+}
+
+@media (max-width: 1199px) {
+  .cap[data-cols='5'] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 1023px) {
   .cap,
-  .cap[data-cols='3'] {
+  .cap[data-cols='3'],
+  .cap[data-cols='5'] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cap[data-cols='5'] .cap__tile:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
 }
 
 @media (max-width: 520px) {
   .cap,
-  .cap[data-cols='3'] {
+  .cap[data-cols='3'],
+  .cap[data-cols='5'] {
     grid-template-columns: minmax(0, 1fr);
   }
 }

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · ERP Connect · Boutique approvals app on SAP S/4HANA</title>
+<!-- ERP Connect page (hero and architecture). Illustrative: Sahyadri Forgings runs SAP S/4HANA; its plant head,
+     Anil Deshpande, approves SAP purchase requisitions and purchase orders in a MAVRO boutique app with only the
+     fields he needs. Documents keep their SAP numbers; each row shows its sync state with SAP through the MAVRO
+     Database. Selected: PO 4500018233, Kaveri Steel Traders, EN8 round bar 6,240 kg at ₹82 = ₹5,11,680, release
+     level 2 of 3. The shell needs a module slug for the chrome; the boutique menu replaces the module menu. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 360px; flex: 1; }
+  .q td { padding-top: 9px; padding-bottom: 9px; }
+  .q tr.sel td { background: var(--accent-soft); }
+  .doc { display: inline-block; padding: 0 6px; margin-right: 6px; border-radius: 5px; background: #fff3e8; border: 1px solid #f6dcc4; font: 600 10.5px/18px var(--sans); color: #a4541b; vertical-align: 1px; }
+  .sap { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .sap i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
+  .sap.w i { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .sap.p i { background: var(--ink-3); }
+  .det .body { display: flex; flex-direction: column; gap: 12px; }
+  .kv { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 6px 10px; font-size: 12.5px; }
+  .kv span { color: var(--ink-3); }
+  .kv b { font-weight: 550; }
+  .line { display: flex; justify-content: space-between; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); font-size: 12.5px; }
+  .line small { display: block; color: var(--ink-3); font-size: 11.5px; margin-top: 2px; }
+  .acts2 { display: flex; gap: 8px; }
+  .acts2 .btn { flex: 1; justify-content: center; }
+  .trail { display: grid; gap: 0; margin-top: 2px; }
+  .trail li { list-style: none; position: relative; display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; gap: 10px; padding: 6px 0; font-size: 12px; }
+  .trail li::before { content: ''; position: absolute; left: 7px; top: 20px; bottom: -6px; width: 1px; background: var(--line-2); }
+  .trail li:last-child::before { display: none; }
+  .trail i { width: 15px; height: 15px; margin-top: 1px; border-radius: 50%; border: 2px solid var(--ok); background: #fff; }
+  .trail li.now i { border-color: var(--accent); background: var(--accent-soft); }
+  .trail li.next i { border-color: var(--line-2); }
+  .trail small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .trail em { font-style: normal; font: 11.5px var(--mono); color: var(--ink-3); }
+  .note { color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="procure-to-pay" data-chrome="partner" data-view="My approvals"
+      data-org="SF|Sahyadri Forgings|Plant 2 · Chakan" data-host="Sahyadri Forgings|Approvals app"
+      data-hostline="Runs beside <b>SAP S/4HANA</b><small>synced through the MAVRO Database</small>"
+      data-menu="My approvals:check:5|Purchase requests:cart|Goods receipts:supply|Stock at plant:data|Reports:doc"
+      data-crumb="Approvals app / My approvals" data-search="Search SAP documents"
+      data-live="Synced with SAP · 2 min ago" data-who="Anil Deshpande|Plant head">
+<main>
+  <div class="head">
+    <div>
+      <h1>My approvals</h1>
+      <p>SAP purchase requisitions and orders waiting at your release level, with only the fields you need</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">Waiting</span><span>Approved today</span><span>Returned</span></div>
+      <span class="btn">Delegate</span>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="card kpi"><label>Waiting for you</label><div class="v"><strong>5 <small>₹11.2 L</small></strong></div><div class="foot"><span>oldest raised 7 Oct</span></div></div>
+    <div class="card kpi"><label>Approved today</label><div class="v"><strong>6</strong></div><div class="foot"><span class="chip ok">all released in SAP</span></div></div>
+    <div class="card kpi"><label>Writing to SAP now</label><div class="v"><strong>1</strong></div><div class="foot"><span>PO 4500018224 · level 3</span></div></div>
+    <div class="card kpi"><label>Last sync with SAP S/4HANA</label><div class="v"><strong>14:00</strong></div><div class="foot"><span class="chip ok">two-way · no errors</span></div></div>
+  </div>
+
+  <div class="cols grid">
+    <div class="card flush">
+      <header><h2>Waiting at your level</h2><span>release level 2 · Plant 2</span><span class="more">Approve selected</span></header>
+      <div class="body">
+        <table class="q">
+          <thead><tr><th>SAP document</th><th>What</th><th class="r">Value</th><th>Need by</th><th>In SAP</th></tr></thead>
+          <tbody>
+            <tr class="sel"><td><span class="doc">PO</span><b class="mono">4500018233</b><small>raised by R. Menon</small></td><td><b>Kaveri Steel Traders</b><small>EN8 round bar · 6,240 kg</small></td><td class="r mono">₹5,11,680</td><td class="mono">14 Oct</td><td><span class="sap"><i></i>Level 1 released</span></td></tr>
+            <tr><td><span class="doc">PR</span><b class="mono">10004871</b><small>raised by S. Kulkarni</small></td><td><b>Spindle bearing set</b><small>CNC-03 · for 19 Oct shutdown</small></td><td class="r mono">₹1,84,000</td><td class="mono">17 Oct</td><td><span class="sap p"><i></i>Waiting</span></td></tr>
+            <tr><td><span class="doc">PO</span><b class="mono">4500018229</b><small>raised by R. Menon</small></td><td><b>Deccan Tooling</b><small>Fixture rework · 4 sets</small></td><td class="r mono">₹2,84,000</td><td class="mono">20 Oct</td><td><span class="sap"><i></i>Level 1 released</span></td></tr>
+            <tr><td><span class="doc">PR</span><b class="mono">10004866</b><small>raised by M. Patil</small></td><td><b>Cutting coolant</b><small>1,200 L · stores</small></td><td class="r mono">₹96,000</td><td class="mono">15 Oct</td><td><span class="sap p"><i></i>Waiting</span></td></tr>
+            <tr><td><span class="doc">PR</span><b class="mono">10004862</b><small>raised by A. Kale</small></td><td><b>Forging die blocks</b><small>H13 · 2 nos</small></td><td class="r mono">₹1,48,000</td><td class="mono">25 Oct</td><td><span class="sap p"><i></i>Waiting</span></td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin:12px 16px 0">Approved today</p>
+        <table class="q">
+          <tbody>
+            <tr><td><span class="doc">PO</span><b class="mono">4500018224</b><small>approved 13:58</small></td><td><b>Vertex Conveyors</b><small>Conveyor modules · 2 nos</small></td><td class="r mono">₹6,80,000</td><td class="mono">22 Oct</td><td><span class="sap w"><i></i>Writing to SAP</span></td></tr>
+            <tr><td><span class="doc">PR</span><b class="mono">10004859</b><small>approved 13:41</small></td><td><b>Packing film</b><small>480 rolls · dispatch</small></td><td class="r mono">₹62,400</td><td class="mono">12 Oct</td><td><span class="sap"><i></i>Released · 13:41</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card det">
+      <header><h2>PO 4500018233</h2><span>Kaveri Steel Traders</span></header>
+      <div class="body">
+        <div class="kv">
+          <span>Plant</span><b>Plant 2 · Chakan</b>
+          <span>Vendor</span><b>Kaveri Steel Traders, Chennai</b>
+          <span>Need by</span><b>14 Oct</b>
+          <span>Release</span><b>Level 2 of 3 · you</b>
+        </div>
+        <div class="line"><div><b>EN8 round bar, Ø40</b><small>6,240 kg at ₹82 · rate contract</small></div><b class="mono">₹5,11,680</b></div>
+        <div class="acts2"><span class="btn">Return</span><span class="btn pri">Approve</span></div>
+        <ul class="trail">
+          <li><i></i><span>Created in SAP S/4HANA<small>R. Menon, buyer</small></span><em>7 Oct 11:20</em></li>
+          <li><i></i><span>Synced to the MAVRO Database</span><em>11:21</em></li>
+          <li><i></i><span>Level 1 released in MAVRO<small>R. Menon · written back to SAP</small></span><em>16:05</em></li>
+          <li class="now"><i></i><span>Level 2 · waiting for you</span><em>now</em></li>
+          <li class="next"><i></i><span>Level 3 · CFO</span><em></em></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

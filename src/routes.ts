@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+import { erpConnect } from './data/erp-connect';
 import { faq } from './data/home';
 import { entryBySlug, moduleContent, modulePage, packs } from './data/modules';
 import { notFound, pipelineCheck } from './data/pages';
@@ -128,6 +129,17 @@ const platformRoutes: Route[] = [
   }),
 ];
 
+const erpConnectRoute: Route = {
+  path: '/erp-connect',
+  page: 'ErpConnect',
+  title: erpConnect.seo.title,
+  description: erpConnect.seo.description,
+  crumbs: [{ name: 'ERP Connect', path: '/erp-connect' }],
+  inSitemap: true,
+  priority: 0.9,
+  schema: () => [faqPage(`${site.url}/erp-connect#faq`, erpConnect.faq)],
+};
+
 const libraryRoute: Route = {
   path: '/_library',
   page: 'Library',
@@ -150,6 +162,7 @@ export const routes: Route[] = [
     inSitemap: false,
   },
   ...platformRoutes,
+  erpConnectRoute,
   ...moduleRoutes,
   // Dev only: the section library (src/library/). Absent from production builds, so never prerendered or served.
   ...(import.meta.env.DEV ? [libraryRoute] : []),

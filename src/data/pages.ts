@@ -41,7 +41,7 @@ export const notFound = {
       icon: 'link',
       label: 'ERP Connect',
       body: 'Run MAVRO alongside SAP, Oracle, Tally or a legacy ERP.',
-      href: '#connect',
+      href: '/erp-connect',
     },
     {
       icon: 'calendar',

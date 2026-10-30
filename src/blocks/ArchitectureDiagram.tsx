@@ -15,9 +15,12 @@ export interface ConnectBoardData {
   ruleBody: string;
 }
 
-function Link({ label, note, both }: { label: string; note: string; both?: boolean }) {
+/** The parts of the board a step-through can light (ConnectBoard `focus`). */
+export type BoardPart = 'systems' | 'external' | 'db' | 'internal' | 'app' | 'users';
+
+function Link({ label, note, both, ...part }: { label: string; note: string; both?: boolean; 'data-part'?: BoardPart; 'data-on'?: true }) {
   return (
-    <div className="cx__link" data-both={both || undefined} aria-hidden="true">
+    <div className="cx__link" data-both={both || undefined} aria-hidden="true" {...part}>
       <span className="cx__link-label">{label}</span>
       <span className="cx__wire">
         <span className="cx__packet" />
@@ -31,13 +34,16 @@ function Link({ label, note, both }: { label: string; note: string; both?: boole
 /**
  * The ERP Connect architecture (connectivity deck, integration page): every ERP syncs two ways with the MAVRO
  * Database, the only integration broker; the MAVRO App reads and writes that database; users never touch the
- * ERP directly. Packets travel the wires while the board is on screen. Drawn for a dark (section--night) band.
+ * ERP directly. Packets travel the wires while the board is on screen. Drawn for a dark band (section--night or a
+ * .night-panel). Optional `focus`: the parts lit by a step-through (blocks/SyncSteps); the rest dims.
  */
-export function ConnectBoard({ data }: { data: ConnectBoardData }) {
+export function ConnectBoard({ data, focus }: { data: ConnectBoardData; focus?: readonly BoardPart[] }) {
+  const part = (name: BoardPart) =>
+    focus ? { 'data-part': name, 'data-on': focus.includes(name) || undefined } : {};
   return (
-    <figure className="cx__board" data-reveal data-live>
+    <figure className="cx__board" data-reveal data-live data-focus={focus ? '' : undefined}>
       <div className="cx__map">
-        <div className="cx__col cx__col--systems">
+        <div className="cx__col cx__col--systems" {...part('systems')}>
           <p className="cx__heading">{data.columns[0]}</p>
           <ul className="cx__systems">
             {data.systems.map((system) => (
@@ -49,12 +55,12 @@ export function ConnectBoard({ data }: { data: ConnectBoardData }) {
           </ul>
         </div>
 
-        <Link label={data.external.label} note={data.external.note} both />
+        <Link label={data.external.label} note={data.external.note} both {...part('external')} />
 
         <div className="cx__platform">
           <p className="cx__heading">{data.columns[1]}</p>
           <div className="cx__platform-row">
-            <div className="cx__hub cx__hub--db">
+            <div className="cx__hub cx__hub--db" {...part('db')}>
               <span className="cx__hub-icon">
                 <Icon name="database" />
               </span>
@@ -67,9 +73,9 @@ export function ConnectBoard({ data }: { data: ConnectBoardData }) {
               </ul>
             </div>
 
-            <Link label={data.internal.label} note={data.internal.note} both />
+            <Link label={data.internal.label} note={data.internal.note} both {...part('internal')} />
 
-            <div className="cx__hub cx__hub--app">
+            <div className="cx__hub cx__hub--app" {...part('app')}>
               <span className="cx__hub-icon">
                 <Icon name="phone" />
               </span>
@@ -84,9 +90,9 @@ export function ConnectBoard({ data }: { data: ConnectBoardData }) {
           </div>
         </div>
 
-        <Link label="" note="" />
+        <Link label="" note="" {...part('users')} />
 
-        <div className="cx__col cx__col--users">
+        <div className="cx__col cx__col--users" {...part('users')}>
           <p className="cx__heading">{data.columns[2]}</p>
           <div className="cx__users">
             <span className="cx__hub-icon">

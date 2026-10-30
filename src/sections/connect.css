@@ -100,3 +100,21 @@
     padding: 1rem;
   }
 }
+
+/* The link to the ERP Connect page, under the benefits. */
+.cx__more {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.cx__more a {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  color: var(--cyan);
+  font-weight: 650;
+}
+
+.cx__more a:hover {
+  color: var(--night-ink);
+}

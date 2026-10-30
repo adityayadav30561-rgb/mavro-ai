@@ -3,6 +3,7 @@ import { InlineCta } from '../blocks/InlineCta';
 import { SectionHead } from '../blocks/SectionHead';
 import { Icon } from '../components/Icon';
 import { connect, inlineCtas } from '../data/home';
+import { hasPage } from '../links';
 import { vars } from '../motion/hooks';
 import './connect.css';
 
@@ -37,6 +38,15 @@ export function Connect() {
             </li>
           ))}
         </ul>
+
+        {hasPage(connect.more.page) && (
+          <p className="cx__more">
+            <a href={connect.more.page}>
+              {connect.more.label}
+              <Icon name="arrow" size={14} />
+            </a>
+          </p>
+        )}
 
         <InlineCta {...inlineCtas.connect} tone="dark" />
       </div>

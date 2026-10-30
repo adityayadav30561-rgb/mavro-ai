@@ -139,6 +139,29 @@ canvas {
   color-scheme: dark;
 }
 
+/* A dark card inside a light section, for blocks drawn for the night band (e.g. ConnectBoard) on a page whose one
+   night band is used elsewhere. Same tokens as .section--night, with the brand light pooling behind. */
+.night-panel {
+  --bg: var(--night);
+  --fg: var(--night-ink);
+  --fg-2: var(--night-ink-2);
+  --fg-3: var(--night-ink-3);
+  --border: var(--night-line);
+  --focus: var(--cyan);
+  position: relative;
+  isolation: isolate;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  border-radius: var(--r-4);
+  background:
+    radial-gradient(45% 55% at 50% 45%, rgb(10 72 253 / 0.3), transparent 70%),
+    radial-gradient(35% 45% at 5% 10%, rgb(122 54 251 / 0.22), transparent 70%),
+    radial-gradient(30% 40% at 98% 95%, rgb(3 200 253 / 0.14), transparent 70%),
+    var(--night);
+  box-shadow: var(--shadow-float);
+  color: var(--fg);
+  color-scheme: dark;
+}
+
 .head {
   display: grid;
   gap: var(--s-4);
