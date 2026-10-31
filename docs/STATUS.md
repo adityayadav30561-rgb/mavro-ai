@@ -56,7 +56,7 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
     aftermarket lines; Plant 1 agrees with production-management/plant-output), `industries/pharma-batch-record` (a new
     tenant, Arvanta Lifesciences: BMR with sequence lock, QA verification, yields, in-process checks, hold-time clock,
     a deviation attached) and `industries/pharma-qc-release` (phone: CoA, assay, dissolution, release from quarantine).
-    Manufacturing's hero also shows shop-floor-control/live-board behind and platform/manager-dashboard on the phone.
+    Manufacturing's hero also shows shop-floor-control/live-board behind and platform/approvals on the phone.
   - **Links:** the homepage Industries panel shows "MAVRO for <industry>" once the page exists; menus, drawer, footer
     and module pages' audience cards switched through `industryLinks`/`target`. Distribution and Service providers keep
     their `#industry-` anchors until Phase 24.

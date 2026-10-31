@@ -70,8 +70,8 @@ export const industryContent: IndustryContent[] = [
       },
       behind: { screen: 'shop-floor-control/live-board' },
       phone: {
-        screen: 'platform/manager-dashboard',
-        alt: 'The plant head’s dashboard on the phone: OEE against target, schedule adherence, contract workers on shift and what needs attention (illustrative data).',
+        screen: 'platform/approvals',
+        alt: 'The plant head’s approvals on the phone: a contract labour request, an SOP revision, a cost reforecast and a spare-part requisition from four modules in one inbox (illustrative data).',
       },
     },
     gaps: {

@@ -39,6 +39,11 @@ export function Page() {
   const missing = slugs.filter((slug) => !pageOf(entryBySlug(slug)));
   if (missing.length) throw new Error(`IndustryPage: ${industry.name} modules without a page: ${missing.join(', ')}`);
 
+  // A flow link keyed by a label the card does not have would silently leave that stage unlinked.
+  const labels = [...industries.core.start, ...industry.middle, industry.fulfil, ...industries.core.end];
+  const stray = Object.keys(content.flow.links).filter((label) => !labels.includes(label));
+  if (stray.length) throw new Error(`IndustryPage: ${industry.name} flow links for unknown stages: ${stray.join(', ')}`);
+
   const node = (label: string, kind: FlowNode['kind']): FlowNode => {
     const slug = content.flow.links[label];
     const entry = slug && entryBySlug(slug);
