@@ -4,9 +4,9 @@ _Last updated: 2026-10-30. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–23 done (2026-10-31); next: Phase 24, the Distribution and Service providers
-industry pages. All 42 module pages, the Platform overview, the package pages, ERP Connect and the Manufacturing and
-Pharma pages exist.** The
+**Stage C (phased implementation). Phases 1–24 done (2026-10-31); next: Phase 25, Implementation and Security and
+compliance. All 42 module pages, the Platform overview, the package pages, ERP Connect and the four industry pages
+exist.** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -37,6 +37,29 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-31, **Phase 24 done: Distribution and Service providers industry pages** (`/industries/distribution`,
+  `/industries/service-providers`). On `main`. Data only on the Phase 23 template (src/data/industries.ts) plus screens.
+  - **Distribution:** gaps from the product deck (slide 3's channel gap, slide 4's missing modules and cost/upgrade
+    reasons); flow linked scheme check → Scheme and Rebate, allocation → Order to Cash, picking and ship confirm →
+    Warehouse Management, delivery → Transportation Management; eight modules (the card's five plus Sales Force
+    Automation, Dealer Portal, Transportation Management); compliance: GST e-invoicing with place-of-supply checks,
+    e-way bills, schemes at order entry, claims and credit notes, credit exposure, batch and shelf life.
+  - **Service providers:** gaps from the HRMS deck (slide 3: attendance and payroll, leave and policy, self-service);
+    flow linked to Project Management and HRMS ("Handover" left unlinked); modules: the card's four plus Travel and
+    Expense, CRM, Document Management, Learning Management; compliance from HRMS deck slide 7 (PF, ESI, TDS with Form
+    16 and 24Q, PT, gratuity, GST) and Travel and Expense (policy).
+  - **Stories:** none of the deck's three stories is a distribution or services project, so neither page has the section.
+  - **Screens (illustrative):** `industries/distribution-channel` (Northfield's channel in the festive season: distributor
+    purchases, secondary orders, tiers, slab progress per distributor, scheme budgets; agrees with Scheme and Rebate and
+    the Distributor Portal), with scheme-and-rebate/slab-builder behind and sales-force-automation/call-report on the
+    phone; `industries/services-project` (a new tenant, Corvane Technologies: client project PRJ-0342 with milestones
+    billed on sign-off, people, costs from time cards and claims) and `industries/services-time-card` (phone).
+  - **Fix:** the Manufacturing multi-plant screen's user was renamed (Ritu Malhotra is Northfield's trade marketing
+    manager on the Scheme and Rebate screens) and recaptured.
+  - **Links:** all four industry pages now reached from the menu, drawer, footer, homepage panel and module pages; no
+    `#industry-` fallbacks remain in the build.
+  - **Checks:** 1440, 1366, 390 and the nine measure sizes: no overflow, no console errors, sections in range.
 
 - 2026-10-31, **Phase 23 done: Manufacturing and Pharma industry pages** (`/industries/manufacturing`, `/industries/pharma`). On `main`.
   - **Template:** src/pages/IndustryPage.tsx, one page for every industry. The homepage card (`industries.list` in
@@ -732,11 +755,10 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 24: Industry pages, Distribution and Service providers** (IMPLEMENTATION-PLAN.md Phase 24): add their
-   entries to src/data/industries.ts and two hero screens (Distribution: scheme slab builder or channel view; Service
-   providers: a client project with milestones, people and costs). Gaps: product deck slide 3 for Distribution;
-   Project Management, HRMS and Travel and Expense pages and the HRMS deck for Service providers. Stories: the
-   vendor story may fit Distribution; check before reusing.
+1. **Phase 25: Implementation and Security and compliance** (`/implementation`, `/security-and-compliance`;
+   IMPLEMENTATION-PLAN.md Phase 25, SITE-PLAN.md 3.6 and 3.7): the larger timeline, migration map, risks table, 90 days
+   after, support model; security architecture, access and audit (reuse the `access` screen), India compliance,
+   data protection, FAQ, CTA. Then the homepage FAQ links to `#implementation` / `#why` can point to these pages.
 
 ## Open items (need the user or real assets)
 

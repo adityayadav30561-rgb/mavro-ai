@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Order to Cash · Channel sales (Distribution industry page)</title>
+<!-- Distribution industry page hero. Northfield Precision's channel, 8 Oct, 14:02, festive season (1 Sep – 31 Oct).
+     Agrees with Scheme and Rebate (schemes.html: ₹42.6 L of ₹60.0 L used, festive slab at 89% of ₹14 L, ₹11.8 L
+     accrued, 23 claims ₹6.4 L, bulk settlement 9 Oct with 14 credit notes ₹3.9 L) and the Distributor Portal
+     (Navrangpura Distributors DST-0412 bought ₹51.8 L since 1 Sep: 3% slab reached, ₹8.2 L to the 4% slab at ₹60 L;
+     4 claims ₹1.16 L). Distributor purchases since 1 Sep ₹2.46 Cr; secondary orders booked by field reps (Sales Force
+     Automation) ₹1.18 Cr. Tier counts and other distributors invented. Head of sales: Kavita Menon. Illustrative. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .rail { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) ; gap: 0; padding: 14px 16px; }
+  .tier { position: relative; display: grid; gap: 2px; padding: 0 14px; }
+  .tier + .tier { border-left: 1px solid var(--line); }
+  .tier label { color: var(--ink-3); font-size: 11.5px; }
+  .tier strong { font-size: 20px; font-weight: 620; letter-spacing: -0.02em; }
+  .tier small { color: var(--ink-2); font-size: 12px; }
+  .dt td { padding-top: 8px; padding-bottom: 8px; }
+  .slab { display: grid; gap: 4px; min-width: 150px; }
+  .slab span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .bud { display: grid; gap: 6px; }
+  .bud .t { display: flex; justify-content: space-between; font-size: 12.5px; }
+  .bud small { color: var(--ink-3); font-size: 11.5px; }
+  .row2 { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; font-size: 12.5px; }
+  .row2 + .row2 { border-top: 1px solid var(--line); }
+  .row2 small { display: block; color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="order-to-cash" data-view="Reports" data-crumb="Sell / Order to Cash / Channel sales"
+      data-who="Kavita Menon|Head of sales">
+<main>
+  <div class="head">
+    <div>
+      <h1>Channel sales · festive season</h1>
+      <p>Distributors, dealers and retailers on one order book, with schemes checked at order entry · 1 Sep to today</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All territories</span><span>West</span><span>North</span><span>South</span></div>
+      <span class="btn">Export</span>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="card kpi"><label>Distributor purchases</label><div class="v"><strong>₹2.46 <small>Cr</small></strong></div><div class="foot"><span>primary · since 1 Sep</span></div></div>
+    <div class="card kpi"><label>Secondary orders, field reps</label><div class="v"><strong>₹1.18 <small>Cr</small></strong></div><div class="foot"><span>booked on beat visits</span></div></div>
+    <div class="card kpi"><label>Scheme accrued, not settled</label><div class="v"><strong>₹11.8 <small>L</small></strong></div><div class="foot"><span>₹42.6 L of ₹60.0 L budget used</span></div></div>
+    <div class="card kpi"><label>Claims waiting</label><div class="v"><strong>23 <small>₹6.4 L</small></strong></div><div class="foot"><span class="chip blue">14 settle on 9 Oct</span></div></div>
+  </div>
+
+  <div class="cols grid">
+    <div class="card flush">
+      <div class="tiers">
+        <div class="tier"><label>Distributors</label><strong>14</strong><small>12 ordered this week</small></div>
+        <div class="tier"><label>Dealers</label><strong>186</strong><small>visited 141 · ordered 96</small></div>
+        <div class="tier"><label>Retailers</label><strong>1,240</strong><small>on the retailer app · 412 orders</small></div>
+      </div>
+      <header style="padding-top:0"><h2>Distributors</h2><span>festive volume slab: 3% from ₹40 L, 4% from ₹60 L</span><span class="more">Open schemes</span></header>
+      <div class="body">
+        <table class="dt">
+          <thead><tr><th>Distributor</th><th class="r">Bought since 1 Sep</th><th>Festive slab</th><th class="r">Credit used</th><th>Claims</th></tr></thead>
+          <tbody>
+            <tr><td><b>Navrangpura Distributors</b><small>DST-0412 · Ahmedabad · A</small></td><td class="r mono">₹51.8 L</td><td><span class="slab"><span>3% · ₹8.2 L to 4%</span><span class="meter"><i style="width:86%"></i></span></span></td><td class="r mono">72%</td><td><span class="chip warn">4 · ₹1.16 L</span></td></tr>
+            <tr><td><b>Surat Engineering Traders</b><small>DST-0405 · Surat · A</small></td><td class="r mono">₹64.3 L</td><td><span class="slab"><span>4% reached</span><span class="meter ok"><i style="width:100%"></i></span></span></td><td class="r mono">58%</td><td><span class="chip ok">settled</span></td></tr>
+            <tr><td><b>Rajkot Pump House</b><small>DST-0418 · Rajkot · B</small></td><td class="r mono">₹38.6 L</td><td><span class="slab"><span>₹1.4 L to 3%</span><span class="meter warn"><i style="width:96%"></i></span></span></td><td class="r mono">81%</td><td><span class="chip">2 · ₹22,400</span></td></tr>
+            <tr><td><b>Vadodara Industrial Supplies</b><small>DST-0409 · Vadodara · B</small></td><td class="r mono">₹29.5 L</td><td><span class="slab"><span>₹10.5 L to 3%</span><span class="meter warn"><i style="width:74%"></i></span></span></td><td class="r mono">44%</td><td><span class="chip">1 · ₹8,600</span></td></tr>
+            <tr><td><b>Malwa Pumps and Spares</b><small>DST-0421 · Indore · B</small></td><td class="r mono">₹26.2 L</td><td><span class="slab"><span>₹13.8 L to 3%</span><span class="meter warn"><i style="width:66%"></i></span></span></td><td class="r mono">91%</td><td><span class="chip bad">credit hold</span></td></tr>
+            <tr><td><b>Nagpur Agro Equipment</b><small>DST-0416 · Nagpur · C</small></td><td class="r mono">₹17.4 L</td><td><span class="slab"><span>₹22.6 L to 3%</span><span class="meter ink"><i style="width:44%"></i></span></span></td><td class="r mono">36%</td><td><span class="chip">—</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="rail">
+      <div class="card">
+        <header><h2>Scheme budgets</h2><span>this year</span></header>
+        <div class="body bud">
+          <div class="t"><b>Festive volume slab</b><span class="chip warn">89%</span></div>
+          <span class="meter warn"><i style="width:89%"></i></span>
+          <small>₹12.5 L of ₹14.0 L · 85% alert raised</small>
+          <div class="t" style="margin-top:8px"><b>All schemes</b><span class="mono">71%</span></div>
+          <span class="meter"><i style="width:71%"></i></span>
+          <small>₹42.6 L of ₹60.0 L · 5 live, 2 settling</small>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Needs you</h2></header>
+        <div class="body" style="padding-top:2px">
+          <div class="row2"><span><b>Malwa Pumps and Spares</b><small>91% of credit used · order NPO-3321 held</small></span><span class="chip bad">Credit</span></div>
+          <div class="row2"><span><b>4 duplicate claims</b><small>₹1.40 L flagged before settlement</small></span><span class="chip warn">Review</span></div>
+          <div class="row2"><span><b>Bulk settlement · 9 Oct</b><small>14 credit notes · ₹3.9 L</small></span><span class="chip blue">Ready</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

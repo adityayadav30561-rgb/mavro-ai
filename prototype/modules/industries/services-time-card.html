@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · HRMS and Payroll · Time card (phone, Service providers industry page)</title>
+<!-- Service providers industry page hero phone. Illustrative: Corvane Technologies, 8 Oct, 18:10. Rahul Kamath
+     (developer) logs today's 8 h against projects and tasks: PRJ-0342 Halden Retail order portal, sprint 3 checkout
+     API 6.5 h; PRJ-0338 support 1.0 h; internal training 0.5 h. This week 24 of 40 h by Wednesday evening. The approved hours
+     cost the project and feed attendance and payroll. -->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  body.phone main { gap: 10px; }
+  .day { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; }
+  .day strong { font-size: 22px; font-weight: 640; letter-spacing: -0.02em; }
+  .card.day { flex-direction: row; }
+  .day small { display: block; color: var(--ink-3); font-size: 12px; }
+  .en { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 11px 14px; font-size: 12.5px; }
+  .en + .en { border-top: 1px solid var(--line); }
+  .en b { grid-column: 1; font-weight: 600; font-size: 13px; }
+  .en small { grid-column: 1; color: var(--ink-3); font-size: 11.5px; }
+  .en em { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-style: normal; font: 600 13px var(--mono); }
+  .wk { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; padding: 12px 14px; }
+  .wk span { display: grid; gap: 4px; justify-items: center; font-size: 11px; color: var(--ink-3); }
+  .wk i { width: 100%; height: 34px; border-radius: 6px; background: var(--accent-soft); position: relative; overflow: hidden; }
+  .wk i b { position: absolute; inset: auto 0 0; background: var(--accent); }
+  .row { display: flex; gap: 8px; }
+  .row .btn { flex: 1; justify-content: center; height: 40px; }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="hrms-and-payroll" data-title="Time card" data-subtitle="Wed 8 Oct · 8.0 of 8 h" data-time="18:10"
+      data-tab="Home" data-tabs="Home:home|Approvals:check|Alerts:bell:1|Reports:doc|More:more" data-who="Rahul Kamath|Developer">
+<main>
+  <div class="card day"><span><small>Today</small><strong>8.0 h</strong></span><span class="chip ok">Ready to submit</span></div>
+  <div class="card">
+    <div class="en"><b>PRJ-0342 · Halden Retail</b><em>6.5 h</em><small>Sprint 3 · checkout API · Bengaluru office</small></div>
+    <div class="en"><b>PRJ-0338 · support</b><em>1.0 h</em><small>Ticket fixes · remote</small></div>
+    <div class="en"><b>Internal · training</b><em>0.5 h</em><small>Secure coding module</small></div>
+  </div>
+  <div class="card">
+    <header><h2>This week</h2><span>24 of 40 h</span></header>
+    <div class="wk">
+      <span><i><b style="height:100%"></b></i>Mon</span>
+      <span><i><b style="height:100%"></b></i>Tue</span>
+      <span><i><b style="height:100%"></b></i>Wed</span>
+      <span><i><b style="height:0"></b></i>Thu</span>
+      <span><i><b style="height:0"></b></i>Fri</span>
+    </div>
+  </div>
+  <div class="card" style="padding:12px 14px;font-size:12.5px;color:var(--ink-2)">Approved hours cost the project and reach attendance and payroll as one feed.</div>
+  <div class="row"><span class="btn">Add entry</span><span class="btn pri">Submit</span></div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

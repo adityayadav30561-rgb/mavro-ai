@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Project Management · Client project (Service providers industry page)</title>
+<!-- Service providers industry page hero. Illustrative tenant: Corvane Technologies (IT services, Bengaluru), 8 Oct,
+     14:02. Client project PRJ-0342, order portal rebuild for Halden Retail, fixed price ₹64.0 L billed by milestone,
+     cost budget ₹48.0 L. Milestones: M1 discovery 15% (₹9.6 L, invoiced and paid), M2 design 20% (₹12.8 L, invoiced,
+     due 20 Oct), M3 build 40% (₹25.6 L, sprint 3 of 4, 62% done), M4 UAT 15% (₹9.6 L), M5 go-live 10% (₹6.4 L).
+     Billed ₹22.4 L. Cost to date ₹27.6 L: people ₹24.1 L from approved time cards, travel ₹1.9 L, tools ₹1.6 L.
+     Team of 7, 312 h logged last week of 336 planned. CR-0019 (+₹3.2 L, payment gateway change) waiting for the client.
+     Delivery manager: Nikhil Bhat. Illustrative. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 360px; flex: 1; }
+  .rail { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .ms td { padding-top: 9px; padding-bottom: 9px; }
+  .pg { display: grid; gap: 4px; min-width: 120px; }
+  .pg span { font: 11.5px var(--mono); color: var(--ink-2); }
+  .ppl { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 4px 10px; align-items: center; padding: 7px 0; font-size: 12.5px; }
+  .ppl + .ppl { border-top: 1px solid var(--line); }
+  .ppl i { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); color: var(--ink-2); font: 600 10.5px var(--sans); font-style: normal; }
+  .ppl small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .ppl em { font-style: normal; font: 11.5px var(--mono); color: var(--ink-2); }
+  .cost { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 7px 10px; font-size: 12.5px; }
+  .cost span { color: var(--ink-2); }
+  .bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: #eceef2; margin: 10px 0 4px; }
+  .bar i { display: block; height: 100%; }
+</style>
+</head>
+<body data-module="project-management" data-view="Milestone plans" data-crumb="Projects / Project Management / PRJ-0342"
+      data-org="CT|Corvane Technologies|Bengaluru" data-who="Nikhil Bhat|Delivery manager">
+<main>
+  <div class="head">
+    <div>
+      <h1>PRJ-0342 · Order portal rebuild</h1>
+      <p>Halden Retail · fixed price ₹64.0 L, billed by milestone · 4 Aug to 28 Nov</p>
+    </div>
+    <div class="acts">
+      <span class="chip ok">On schedule</span>
+      <span class="btn">Raise invoice</span>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="card kpi"><label>Billed to the client</label><div class="v"><strong>₹22.4 <small>L of ₹64.0 L</small></strong></div><div class="foot"><span>M1 paid · M2 due 20 Oct</span></div></div>
+    <div class="card kpi"><label>Cost to date</label><div class="v"><strong>₹27.6 <small>L of ₹48.0 L</small></strong></div><div class="foot"><span>58% of budget · 55% of work done</span></div></div>
+    <div class="card kpi"><label>Hours last week</label><div class="v"><strong>312 <small>of 336</small></strong></div><div class="foot"><span>7 people · from time cards</span></div></div>
+    <div class="card kpi"><label>Change requests</label><div class="v"><strong style="color:var(--warn)">1</strong></div><div class="foot"><span>CR-0019 · +₹3.2 L · with client</span></div></div>
+  </div>
+
+  <div class="cols grid">
+    <div class="card flush">
+      <header><h2>Milestones</h2><span>each one billed on sign-off</span></header>
+      <div class="body">
+        <table class="ms">
+          <thead><tr><th>Milestone</th><th>Due</th><th>Progress</th><th class="r">Billing</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b>M1 · Discovery</b><small>signed off by client 22 Aug</small></td><td class="mono">22 Aug</td><td><span class="pg"><span>100%</span><span class="meter ok"><i style="width:100%"></i></span></span></td><td class="r mono">₹9.6 L</td><td><span class="chip ok">Paid</span></td></tr>
+            <tr><td><b>M2 · Design</b><small>signed off 19 Sep</small></td><td class="mono">19 Sep</td><td><span class="pg"><span>100%</span><span class="meter ok"><i style="width:100%"></i></span></span></td><td class="r mono">₹12.8 L</td><td><span class="chip blue">Invoiced · due 20 Oct</span></td></tr>
+            <tr><td><b>M3 · Build</b><small>sprint 3 of 4 · 41 of 66 stories</small></td><td class="mono">31 Oct</td><td><span class="pg"><span>62%</span><span class="meter"><i style="width:62%"></i></span></span></td><td class="r mono">₹25.6 L</td><td><span class="chip ok">On track</span></td></tr>
+            <tr><td><b>M4 · UAT</b><small>with Halden Retail's store team</small></td><td class="mono">14 Nov</td><td><span class="pg"><span>0%</span><span class="meter"><i style="width:0"></i></span></span></td><td class="r mono">₹9.6 L</td><td><span class="chip">Planned</span></td></tr>
+            <tr><td><b>M5 · Go-live and handover</b><small>hypercare 2 weeks</small></td><td class="mono">28 Nov</td><td><span class="pg"><span>0%</span><span class="meter"><i style="width:0"></i></span></span></td><td class="r mono">₹6.4 L</td><td><span class="chip">Planned</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="rail">
+      <div class="card">
+        <header><h2>People</h2><span>last week</span></header>
+        <div class="body" style="padding-top:4px">
+          <div class="ppl"><i>NB</i><span>Nikhil Bhat<small>delivery manager · 50%</small></span><em>20 h</em></div>
+          <div class="ppl"><i>AS</i><span>Aditi Shenoy<small>tech lead · 100%</small></span><em>40 h</em></div>
+          <div class="ppl"><i>RK</i><span>Rahul Kamath<small>developer · 100%</small></span><em>42 h</em></div>
+          <div class="ppl"><i>PN</i><span>Pooja Nair<small>QA engineer · 100%</small></span><em>38 h</em></div>
+          <div class="ppl"><i>+3</i><span>3 more<small>2 developers, 1 designer</small></span><em>172 h</em></div>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Costs</h2><span>to date</span></header>
+        <div class="body">
+          <div class="bar"><i style="width:50%;background:var(--accent)"></i><i style="width:4%;background:#7a36fb"></i><i style="width:3.5%;background:#03c8fd"></i></div>
+          <div class="cost">
+            <span>People, from approved time cards</span><b class="mono">₹24.1 L</b>
+            <span>Travel, from expense claims</span><b class="mono">₹1.9 L</b>
+            <span>Tools and licences</span><b class="mono">₹1.6 L</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
