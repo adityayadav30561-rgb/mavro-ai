@@ -5,6 +5,16 @@
   gap: clamp(1rem, 2vw, 1.5rem);
 }
 
+/* Fewer stories (an industry page): two share the width, one keeps a card's width. */
+.proof__stories[data-count='2'] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.proof__stories[data-count='1'] {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 40rem;
+}
+
 .proof__story {
   display: flex;
 }
@@ -178,7 +188,8 @@
 }
 
 @media (max-width: 1023px) {
-  .proof__stories {
+  .proof__stories,
+  .proof__stories[data-count] {
     grid-template-columns: minmax(0, 1fr);
     max-width: 40rem;
   }

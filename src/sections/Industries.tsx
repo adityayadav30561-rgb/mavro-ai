@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Icon, type IconName } from '../components/Icon';
 import { industries } from '../data/home';
 import { channelPortals, moduleById, packs, vendorPortal, type Pack } from '../data/modules';
+import { hasPage } from '../links';
 import { useTabs, vars } from '../motion/hooks';
 import './industries.css';
 
@@ -97,6 +98,12 @@ export function Industries() {
                   </li>
                 ))}
               </ul>
+              {hasPage(`/industries/${industry.slug}`) && (
+                <a className="ind__page" href={`/industries/${industry.slug}`}>
+                  {industries.pageLink} {industry.name.toLowerCase()}
+                  <Icon name="arrow" size={14} />
+                </a>
+              )}
             </div>
 
             <div className="ind__flowbox">

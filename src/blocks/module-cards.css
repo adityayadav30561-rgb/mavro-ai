@@ -5,9 +5,11 @@
   gap: clamp(.875rem, 1.6vw, 1.5rem);
 }
 
-/* Exactly four cards (related modules): one row of four on desktops, two by two below, never three and one. */
+/* Exactly four cards (related modules) or eight (an industry page): rows of four on desktops, two across below,
+   never a short last row. */
 @media (min-width: 1024px) {
-  .mc:has(> .mc__item:nth-child(4):last-child) {
+  .mc:has(> .mc__item:nth-child(4):last-child),
+  .mc:has(> .mc__item:nth-child(8):last-child) {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }

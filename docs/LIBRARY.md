@@ -68,7 +68,7 @@ section (src/links.ts), so a module page never links to a missing page.
 | `WhatWhy` | WhatWhy.tsx | `what` {title, body}, `why` {title, points} | Module |
 | `Audience` | Audience.tsx | `industries` [{name, icon, who, note, href or null}], `roles` [{name, task, works?}], `labels` {industries, roles, works, see}, `screensHref` | Module (who uses it) |
 | `FlowStrip` | FlowStrip.tsx | `stages` [{label?, nodes [{name, href?, icon?, note?, kind?}]}] (`note`: what passes along the link), `layout` (columns/chain), `legend`, `note`. Kinds: shared, configured, current | Module (where it sits), industry (order flow), package |
-| `ModuleCards` | ModuleCards.tsx | `cards` [{name, summary, icon, tier, href or null, screen?, alt?}], `more` (link label) | Package, industry, related modules |
+| `ModuleCards` | ModuleCards.tsx | `cards` [{name, summary, icon, tier, href or null, screen?, alt?}], `more` (link label); exactly four or eight cards run four across on desktops | Package, industry, related modules |
 | `PlatformStrip` | PlatformStrip.tsx | the eight features of deck slide 12 (`data/platform.ts`), identical everywhere; optional `module` {name, icon, tier, label} draws the module on top, wired into the features. Light or night band | Every module page, platform |
 | `ChainDiagram` | ChainDiagram.tsx | `title`, `nodes` [{id, name, icon, link}], `core`, `active` (omit to light every portal), `badge` | Homepage Explore (Portals), portal pages, Portals package page |
 | `HeroScreens` | HeroScreens.tsx | `lead` {screen, alt}, `behind?`, `phone?`, `note`. A package or platform hero's visual for PageHero `variant="module"`: the lead screen bleeding off the edge, a second module's screen standing behind it (hidden under 1024px), a phone in front | Package pages, platform |
@@ -85,7 +85,7 @@ section (src/links.ts), so a module page never links to a missing page.
 | `SwimlaneFlow` | SwimlaneFlow.tsx | `lanes` [two {id, name, note}], `zones` [{name, summary, steps [{name, lane (id or 'both'), note?, scan?}]}], `legend`, `close?`, `link?`: zone tabs; each step in its system's lane on one stepped line, shared steps across both lanes, control points ringed. Stacks below 768px, each step tagged with its system | ERP Connect (SAP Business One) |
 | `LayeredArchitecture` | ArchitectureDiagram.tsx | `data` {layers (icon, name, note, items, packages?), security} (deck slide 11, `data/platform.ts`), optional `packages` (tier pills for the layer marked `packages`): numbered layers inside a security perimeter, controls on a navy foot | Platform, security |
 | `Timeline` | Timeline.tsx | `data` {label, span, milestones, phases, after, ongoing} | Homepage, implementation, ERP Connect |
-| `StoryCards` | StoryCards.tsx | `stories` (type `Story`). Dark band only | Homepage, customers, industry |
+| `StoryCards` | StoryCards.tsx | `stories` (type `Story`); two share the width, one keeps a card's width. Dark band only | Homepage, customers, industry |
 | `TrustPanel` | TrustPanel.tsx | `data` (compliance + security), `variant` (card with tabs / expanded), `id` | Homepage Why MAVRO (card); security, platform (expanded) |
 | `BeforeAfter` | ComparisonTable.tsx | `before`, `after`, `rows` [{before, after}] | ERP Connect |
 | `DataTable` | ComparisonTable.tsx | `caption`, `columns` [{key, label}], `rows` (cells: text or {level, text}) | Implementation (risks) |
@@ -107,7 +107,7 @@ change. New blocks: `ph` (page hero), `crumbs`, `sframe`, `tour`, `cap`, `ww`, `
 3. Check the gallery at the nine sizes (`qa/measure.html?path=/_library`) and at 1440×900, 1366×768, 390×844.
 4. Add a row above.
 
-### The package pages, the Platform overview and ERP Connect
+### The package pages, the Platform overview, ERP Connect and the industry pages
 
 `src/pages/PackagePage.tsx` renders `/platform/base`, `/platform/portals` and `/platform/premium` from
 `src/data/packages.ts`; `src/pages/Platform.tsx` renders `/platform`. Sections and tones:
@@ -115,6 +115,7 @@ change. New blocks: `ph` (page hero), `crumbs`, `sframe`, `tour`, `cap`, `ww`, `
 | Page | Sections (tone / treatment) |
 |---|---|
 | Package | Hero `module` with `HeroScreens` and the client band → every module as `ModuleCards` under a header row per business area (Portals: `ChainDiagram` beside `PortalLayers`) (white / soft) → package-specific: Base `FlowStrip` one record, Portals `ChainDiagram` with every portal lit, Premium `PremiumSpotlight` (paper, paper, night / mark, mark, grad) → `PackageStack`, current tier lifted (white / grad; soft on Premium, after its grad night band) → FAQ (paper / mark) → CTA |
+| Industry | `src/pages/IndustryPage.tsx`, one template for `/industries/<slug>`: the homepage card (`industries.list`) gives headline, points, flow stages and first modules; `src/data/industries.ts` the rest. Hero `module` with an industry chip, `HeroScreens` (the industry's own screen) and the client band → `GapColumns` (white / soft) → `FlowStrip` in four groups, shared and configured, every stage linked to its module (paper / mark) → `ModuleCards`, eight in rows of four (white / grad) → compliance `CapabilityTiles` 3 × 2 (paper / soft) → matching `StoryCards` (night / grad; left out when none match) → FAQ (white / mark) → CTA. The build stops if a module card has no page |
 | ERP Connect | Hero `module` dark with `HeroScreens` (boutique approvals app on SAP + phone approval) → `ErpSystems` (white / soft) → `GapColumns` (paper / mark) → `SyncSteps` in a `.night-panel` (white / grad) → `CapabilityTiles` five with points (paper / soft) → `BeforeAfter` (white / mark) → `SwimlaneFlow` B1 and MAVRO (paper / grad) → `Timeline` 25–30 days (white / soft) → FAQ (paper / mark) → CTA. Page: `src/pages/ErpConnect.tsx`, content `src/data/erp-connect.ts` |
 | Platform | Hero `module` with `HeroScreens` → `LayeredArchitecture` (paper / soft) → `PlatformStrip` (white / mark) → `PackageStack` (paper / grad) → `PhoneRow` (white / soft) → integrations `IntegrationHub` with an ERP Connect callout (paper / mark) → FAQ (white / grad) → CTA |
 

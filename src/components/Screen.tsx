@@ -20,6 +20,7 @@ export type ScreenName =
   | `${ModuleSlug}/${string}`
   | `platform/${string}`
   | `erp-connect/${string}`
+  | `industries/${string}`
   | 'overview'
   | 'sales-order'
   | 'production'

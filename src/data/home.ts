@@ -245,6 +245,8 @@ export const industries = {
   shared: 'Customers, items, pricing, GST, inventory, ledgers, roles and audit',
   core: { start: ['Enquiry', 'Quotation', 'Order'], end: ['Invoice', 'Payment'] },
   modulesLabel: 'Modules to see',
+  /** Under the points, once the industry has its page: "MAVRO for pharma". */
+  pageLink: 'MAVRO for',
   list: [
     {
       name: 'Manufacturing',

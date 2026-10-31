@@ -28,7 +28,7 @@ export function StoryCards({ stories }: { stories: readonly Story[] }) {
   const href = useHref();
 
   return (
-    <ol className="proof__stories">
+    <ol className="proof__stories" data-count={stories.length}>
       {stories.map((story, index) => (
         <li key={story.project} className="proof__story" data-reveal style={vars({ '--i': index })}>
           <article aria-labelledby={`story-${index}`}>

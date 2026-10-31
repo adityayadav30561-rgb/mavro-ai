@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Production Management · Batch record (Pharma industry page)</title>
+<!-- Pharma industry page hero. Illustrative tenant: Arvanta Lifesciences, Unit 1 (Baddi), 8 Oct, 14:02. Electronic
+     batch record for batch B24-1187, paracetamol 500 mg tablets, WO-8841, batch size 2,50,000 tablets, against the
+     master MFR-PCM500 v6. Stages 1–5 signed by production and verified by QA in sequence; granulation yield 99.1% and
+     blend yield 99.4% within 98.0–101.0%. Compression in progress since 12:30: 1,42,600 tablets; deviation DEV-0231
+     (13:20, hardness 4.1 kp on station 2 against 5–8 kp, punch set changed, 1,200 tablets segregated) open and
+     attached to the batch. Lubricated blend hold time 1 h 40 m of the 72 h limit. Coating and packing locked until
+     compression is signed and QA-verified. Production officer: Rohit Thakur; QA: Sneha Rana. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .cols { grid-template-columns: minmax(0, 1fr) 350px; flex: 1; }
+  .rail { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .st td { padding-top: 8px; padding-bottom: 8px; vertical-align: middle; }
+  .n { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; font: 650 11px var(--mono); background: var(--ok-soft); color: var(--ok); }
+  tr.now .n { background: var(--accent); color: #fff; }
+  tr.lock td { color: var(--ink-3); }
+  tr.lock .n { background: var(--surface-2); color: var(--ink-3); }
+  tr.now td { background: var(--accent-soft); }
+  .sig { font-size: 12px; color: var(--ink-2); }
+  .sig small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .lockt { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--ink-3); }
+  .lockt svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+  .ipc { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 7px 10px; font-size: 12.5px; align-items: center; }
+  .ipc span { color: var(--ink-2); }
+  .ipc em { font-style: normal; color: var(--ink-3); font: 11.5px var(--mono); }
+  .clock { display: flex; align-items: baseline; gap: 6px; }
+  .clock strong { font-size: 22px; font-weight: 620; letter-spacing: -0.02em; }
+  .clock small { color: var(--ink-3); }
+  .dev { padding: 10px 12px; border-radius: 10px; border: 1px solid #f5e2b0; background: var(--warn-soft); font-size: 12.5px; }
+  .dev b { display: block; }
+  .dev small { color: var(--ink-2); font-size: 12px; }
+  .acts2 { display: flex; gap: 8px; margin-top: 12px; }
+  .acts2 .btn { flex: 1; justify-content: center; }
+  .btn.dis { opacity: .5; }
+</style>
+</head>
+<body data-module="production-management" data-view="Work orders" data-crumb="Make / Production Management / Batch record B24-1187"
+      data-org="AL|Arvanta Lifesciences|Unit 1 · Baddi" data-who="Rohit Thakur|Production officer">
+<main>
+  <div class="head">
+    <div>
+      <h1>Batch record · B24-1187</h1>
+      <p>Paracetamol 500 mg tablets · WO-8841 · 2,50,000 tablets · master MFR-PCM500 v6</p>
+    </div>
+    <div class="acts">
+      <span class="chip blue">In process</span>
+      <span class="btn">Print BMR</span>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="card kpi"><label>Stages signed and QA-verified</label><div class="v"><strong>5 <small>of 8</small></strong></div><div class="foot"><span>in sequence, no skips</span></div></div>
+    <div class="card kpi"><label>Blend yield</label><div class="v"><strong>99.4<small>%</small></strong></div><div class="foot"><span class="chip ok">limits 98.0–101.0%</span></div></div>
+    <div class="card kpi"><label>Compressed so far</label><div class="v"><strong>1,42,600</strong></div><div class="foot"><span>since 12:30 · 1,200 segregated</span></div></div>
+    <div class="card kpi"><label>Open deviations</label><div class="v"><strong style="color:var(--warn)">1</strong></div><div class="foot"><span>DEV-0231 · attached to the batch</span></div></div>
+  </div>
+
+  <div class="cols grid">
+    <div class="card flush">
+      <header><h2>Stages</h2><span>signed by production, verified by QA</span></header>
+      <div class="body">
+        <table class="st">
+          <thead><tr><th></th><th>Stage</th><th>Result</th><th>Signed</th><th>QA verified</th></tr></thead>
+          <tbody>
+            <tr><td><span class="n">1</span></td><td><b>Dispensing</b><small>6 materials weighed against the BOM</small></td><td class="mono">6 of 6</td><td class="sig">R. Thakur<small>06:10</small></td><td class="sig">S. Rana<small>06:25</small></td></tr>
+            <tr><td><span class="n">2</span></td><td><b>Dry mixing</b><small>15 min at 12 rpm</small></td><td class="mono">complete</td><td class="sig">R. Thakur<small>07:05</small></td><td class="sig">S. Rana<small>07:12</small></td></tr>
+            <tr><td><span class="n">3</span></td><td><b>Granulation</b><small>yield against theoretical</small></td><td class="mono">99.1%</td><td class="sig">R. Thakur<small>09:05</small></td><td class="sig">S. Rana<small>09:20</small></td></tr>
+            <tr><td><span class="n">4</span></td><td><b>Drying</b><small>loss on drying ≤ 2.0%</small></td><td class="mono">LOD 1.8%</td><td class="sig">R. Thakur<small>11:10</small></td><td class="sig">S. Rana<small>11:18</small></td></tr>
+            <tr><td><span class="n">5</span></td><td><b>Blending and lubrication</b><small>yield against theoretical</small></td><td class="mono">99.4%</td><td class="sig">R. Thakur<small>12:10</small></td><td class="sig">S. Rana<small>12:20</small></td></tr>
+            <tr class="now"><td><span class="n">6</span></td><td><b>Compression</b><small>in-process checks every 30 min</small></td><td class="mono">1,42,600</td><td class="sig">running<small>since 12:30</small></td><td class="sig">—</td></tr>
+            <tr class="lock"><td><span class="n">7</span></td><td><b>Coating</b></td><td colspan="3"><span class="lockt"><svg viewBox="0 0 16 16"><rect x="3.5" y="7" width="9" height="6.5" rx="1.2"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg>Opens when compression is signed and QA-verified</span></td></tr>
+            <tr class="lock"><td><span class="n">8</span></td><td><b>Packing</b></td><td colspan="3"><span class="lockt"><svg viewBox="0 0 16 16"><rect x="3.5" y="7" width="9" height="6.5" rx="1.2"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg>Locked</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="rail">
+      <div class="card">
+        <header><h2>Compression · in-process</h2><span>13:30 check</span></header>
+        <div class="body">
+          <div class="ipc">
+            <span>Average weight</span><b class="mono">601.2 mg</b><em>600 ± 3%</em>
+            <span>Hardness</span><b class="mono">6.2 kp</b><em>5–8 kp</em>
+            <span>Thickness</span><b class="mono">4.8 mm</b><em>4.6–5.0</em>
+            <span>Friability</span><b class="mono">0.3%</b><em>≤ 1.0%</em>
+          </div>
+          <div class="acts2"><span class="btn">Record check</span><span class="btn pri dis">Sign stage</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Hold time</h2><span>lubricated blend</span></header>
+        <div class="body">
+          <div class="clock"><strong>1 h 40 m</strong><small>of 72 h · alert at 60 h</small></div>
+          <span class="meter ok" style="margin-top:10px"><i style="width:3%"></i></span>
+        </div>
+      </div>
+      <div class="card">
+        <header><h2>Deviations</h2><span>stay with the batch until closed</span></header>
+        <div class="body">
+          <div class="dev"><b>DEV-0231 · minor · open</b><small>13:20 · hardness 4.1 kp on station 2 against 5–8 kp. Punch set changed, 1,200 tablets segregated. QA review: S. Rana</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

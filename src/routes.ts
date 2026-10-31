@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react';
 import { erpConnect } from './data/erp-connect';
-import { faq } from './data/home';
+import { faq, industries } from './data/home';
+import { industryContent } from './data/industries';
 import { entryBySlug, moduleContent, modulePage, packs } from './data/modules';
 import { notFound, pipelineCheck } from './data/pages';
 import { packageContent, platformPage } from './data/packages';
@@ -140,6 +141,22 @@ const erpConnectRoute: Route = {
   schema: () => [faqPage(`${site.url}/erp-connect#faq`, erpConnect.faq)],
 };
 
+/** One page per industry with content in src/data/industries.ts (the template: src/pages/IndustryPage.tsx). */
+const industryRoutes: Route[] = industryContent.map((content) => {
+  const industry = industries.list.find((item) => item.slug === content.slug)!;
+  const path = `/industries/${industry.slug}`;
+  return {
+    path,
+    page: 'IndustryPage',
+    title: content.seo.title,
+    description: content.seo.description,
+    crumbs: [{ name: industry.name, path }],
+    inSitemap: true,
+    priority: 0.8,
+    schema: () => [faqPage(`${site.url}${path}#faq`, content.faq)],
+  };
+});
+
 const libraryRoute: Route = {
   path: '/_library',
   page: 'Library',
@@ -163,6 +180,7 @@ export const routes: Route[] = [
   },
   ...platformRoutes,
   erpConnectRoute,
+  ...industryRoutes,
   ...moduleRoutes,
   // Dev only: the section library (src/library/). Absent from production builds, so never prerendered or served.
   ...(import.meta.env.DEV ? [libraryRoute] : []),

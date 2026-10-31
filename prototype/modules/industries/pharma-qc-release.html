@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Production Management · QC release (phone, Pharma industry page)</title>
+<!-- Pharma industry page hero phone. Illustrative: Arvanta Lifesciences, Unit 1 (Baddi), 8 Oct, 14:02. QA head
+     Sneha Rana releases batch B24-1179 (paracetamol 500 mg tablets, made 4 Oct) to the finished-goods store: all
+     eight BMR stages signed and QA-verified, CoA generated, assay 99.4% (95.0–105.0%), dissolution 92% (Q ≥ 80% in
+     30 min), deviation DEV-0224 closed. Next: B24-1183 (dissolution running) and B24-1184 (samples in QC). Expiry Sep 2028; FEFO picking from release. -->
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="../../phone.css">
+<style>
+  body.phone main { gap: 10px; }
+  .sum { padding: 14px; }
+  .sum p { color: var(--ink-2); font-size: 12.5px; margin-top: 2px; }
+  .sum b.big { display: block; font-size: 20px; font-weight: 640; letter-spacing: -0.02em; }
+  .chk { display: grid; padding: 4px 14px; }
+  .chk div { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 9px 0; font-size: 12.5px; }
+  .chk div + div { border-top: 1px solid var(--line); }
+  .chk i { width: 18px; height: 18px; border-radius: 50%; background: var(--ok-soft); color: var(--ok); display: grid; place-items: center; font-style: normal; font-size: 11px; font-weight: 700; }
+  .chk em { font-style: normal; font: 11.5px var(--mono); color: var(--ink-3); }
+  .row { display: flex; gap: 8px; }
+  .row .btn { flex: 1; justify-content: center; height: 40px; }
+</style>
+</head>
+<body class="phone" data-device="phone" data-module="production-management" data-title="Release B24-1179" data-subtitle="QC release · finished goods" data-time="14:02"
+      data-tab="Approvals" data-tabs="Home:home|Approvals:check:3|Alerts:bell:1|Reports:doc|More:more" data-who="Sneha Rana|QA head">
+<main>
+  <div class="card sum">
+    <b class="big">Paracetamol 500 mg tablets</b>
+    <p>Batch B24-1179 · 2,48,900 tablets · made 4 Oct · expiry Sep 2028</p>
+  </div>
+  <div class="card">
+    <div class="chk">
+      <div><i>✓</i><span>BMR: 8 of 8 stages signed and QA-verified</span><em></em></div>
+      <div><i>✓</i><span>Assay</span><em>99.4% · 95–105</em></div>
+      <div><i>✓</i><span>Dissolution</span><em>92% · Q ≥ 80</em></div>
+      <div><i>✓</i><span>Certificate of analysis</span><em>CoA-24-1179</em></div>
+      <div><i>✓</i><span>Deviations</span><em>DEV-0224 closed</em></div>
+    </div>
+  </div>
+  <div class="card" style="padding:12px 14px;font-size:12.5px;color:var(--ink-2)">On release, the batch moves from quarantine to the finished-goods store and is picked FEFO.</div>
+  <div class="row"><span class="btn">Hold</span><span class="btn pri">Release batch</span></div>
+  <div class="card">
+    <header><h2>Next in the queue</h2><span>2 waiting</span></header>
+    <div class="chk">
+      <div><i style="background:var(--warn-soft);color:var(--warn)">!</i><span>B24-1183 · dissolution running</span><em>result 16:00</em></div>
+      <div><i style="background:var(--surface-2);color:var(--ink-3)">·</i><span>B24-1184 · samples in QC</span><em>since 11:40</em></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>

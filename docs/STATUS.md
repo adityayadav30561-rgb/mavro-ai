@@ -4,8 +4,9 @@ _Last updated: 2026-10-30. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–22 done (2026-10-30); next: Phase 23, the Manufacturing and Pharma industry
-pages. All 42 module pages, the Platform overview, the package pages and ERP Connect exist.** The
+**Stage C (phased implementation). Phases 1–23 done (2026-10-31); next: Phase 24, the Distribution and Service providers
+industry pages. All 42 module pages, the Platform overview, the package pages, ERP Connect and the Manufacturing and
+Pharma pages exist.** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -36,6 +37,33 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-31, **Phase 23 done: Manufacturing and Pharma industry pages** (`/industries/manufacturing`, `/industries/pharma`). On `main`.
+  - **Template:** src/pages/IndustryPage.tsx, one page for every industry. The homepage card (`industries.list` in
+    home.ts) supplies the headline, points, flow stage labels and first module chips, so card and page cannot drift;
+    src/data/industries.ts holds hero lead and facts, screens, the three gaps, which module each flow stage opens,
+    extra modules (to eight cards), compliance tiles, which customer stories match, FAQ (FAQPage) and SEO. Phase 24
+    needs only data and screens. The build stops if a module card has no page.
+  - **Sections:** hero (industry chip, screens, client band) → gaps (`GapColumns`; Manufacturing: product deck slide 3,
+    Pharma: Healthcare Manufacturing deck slide 3, tags in the decks' "GAP:" wording) → the order flow in four groups
+    (take the order, in between configured, deliver, get paid), stages linked to modules ("Dispensing" left unlinked:
+    no deck names its module) → eight module cards in rows of four → compliance (six tiles from the decks; Pharma: batch
+    records against the GMP master, QC release, hold times and deviations, batch and expiry, quarantine and cold rooms
+    "in support of GDP compliance", vendor vault, audits and CAPA) → stories (Manufacturing: the TMS-alongside-SAP and
+    vendor stories, night band; Pharma: none match, so no section) → FAQ → CTA. Left out: the decks' customer and reach
+    claims, before/after figures, outcome slides and any certification they do not state.
+  - **Screens (illustrative):** `industries/manufacturing-plants` (Northfield Precision, three plants, OEM and
+    aftermarket lines; Plant 1 agrees with production-management/plant-output), `industries/pharma-batch-record` (a new
+    tenant, Arvanta Lifesciences: BMR with sequence lock, QA verification, yields, in-process checks, hold-time clock,
+    a deviation attached) and `industries/pharma-qc-release` (phone: CoA, assay, dissolution, release from quarantine).
+    Manufacturing's hero also shows shop-floor-control/live-board behind and platform/manager-dashboard on the phone.
+  - **Links:** the homepage Industries panel shows "MAVRO for <industry>" once the page exists; menus, drawer, footer
+    and module pages' audience cards switched through `industryLinks`/`target`. Distribution and Service providers keep
+    their `#industry-` anchors until Phase 24.
+  - **Blocks:** `StoryCards` lays out two stories two-up (one at a card's width); `ModuleCards` runs exactly eight cards
+    four across. No new blocks.
+  - **Checks:** 1440, 1366, 390 and the nine measure sizes: no overflow, no console errors; sections 0.7–1.13 screens
+    on desktop (gaps 0.68, as on ERP Connect).
 
 - 2026-10-30, **Phase 22 done: the ERP Connect page (`/erp-connect`).** On `main`.
   - **Page:** src/pages/ErpConnect.tsx, content src/data/erp-connect.ts (connectivity deck slides 1–6 and 8, not the
@@ -704,10 +732,11 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 23: Industry pages, Manufacturing and Pharma** (`/industries/manufacturing`, `/industries/pharma`;
-   IMPLEMENTATION-PLAN.md Phase 23, SITE-PLAN.md 3.5): an industry hero screen each (Manufacturing: shop floor or
-   multi-plant view; Pharma: batch record and QC release, from the Healthcare Manufacturing deck), gaps, configured
-   flow linked to modules, module cards, compliance, matching story, FAQ, CTA.
+1. **Phase 24: Industry pages, Distribution and Service providers** (IMPLEMENTATION-PLAN.md Phase 24): add their
+   entries to src/data/industries.ts and two hero screens (Distribution: scheme slab builder or channel view; Service
+   providers: a client project with milestones, people and costs). Gaps: product deck slide 3 for Distribution;
+   Project Management, HRMS and Travel and Expense pages and the HRMS deck for Service providers. Stories: the
+   vendor story may fit Distribution; check before reusing.
 
 ## Open items (need the user or real assets)
 

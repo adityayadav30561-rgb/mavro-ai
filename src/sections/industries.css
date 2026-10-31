@@ -433,3 +433,21 @@
   width: 1px;
   height: 1px;
 }
+
+/* The industry's own page, under its points (shown once the page exists). */
+.ind__page {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  margin-top: 1rem;
+  color: var(--blue);
+  font-weight: 650;
+}
+
+.ind__page .icon {
+  transition: translate var(--d-2) var(--ease);
+}
+
+.ind__page:hover .icon {
+  translate: .1875rem 0;
+}

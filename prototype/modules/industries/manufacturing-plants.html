@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MAVRO · Production Management · Plants overview (Manufacturing industry page)</title>
+<!-- Manufacturing industry page hero. Northfield Precision, 8 Oct, 14:02, shift B, every plant on one view. Plant 1
+     (Pune) agrees with production-management/plant-output.html: OEE 78.4% against 80%, 1,148 of 1,171 pcs (98%),
+     23 work orders released, 2 at risk (WO-5518 after the CNC-03 breakdown, WO-5514 with lot L-0927 OOS-0112).
+     Plant 2 (Chennai, in plant-output's plant switcher) 2,310 of 2,280 (101%), OEE 83.1%; Plant 3 (Hosur,
+     aftermarket spares) 840 of 920 (91%), OEE 74.6% against 78%. Group 4,298 of 4,371 = 98.3%. OEM schedule: SO-24817
+     Kestrel Pumps 890 IH-220 (570 machined), SO-24798 Aster Compressors BR-045 2,400 (at risk, OOS-0112), SO-24809
+     Vardhan Hydraulics CV-110 (recovered by OT-0311), as on the module screens. Illustrative. -->
+<link rel="stylesheet" href="../../app.css">
+<style>
+  .plants { grid-template-columns: repeat(3, 1fr); }
+  .pl { padding: 14px 16px; }
+  .pl h3 { display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; font-weight: 600; }
+  .pl h3 small { color: var(--ink-3); font-weight: 500; font-size: 12px; }
+  .pl .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+  .pl label { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .pl strong { display: block; margin-top: 2px; font-size: 19px; font-weight: 620; letter-spacing: -0.02em; white-space: nowrap; }
+  .pl strong small { font-size: 11.5px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+  .pl .meter { margin-top: 12px; }
+  .pl .foot { display: flex; justify-content: space-between; margin-top: 8px; font-size: 11.5px; color: var(--ink-3); }
+  .cols { grid-template-columns: minmax(0, 1fr) 340px; flex: 1; }
+  .ln td { padding-top: 8px; padding-bottom: 8px; }
+  .seg-t { display: inline-block; padding: 0 6px; border-radius: 5px; font: 600 10.5px/18px var(--sans); }
+  .seg-t.oem { background: var(--accent-soft); color: var(--accent-ink); border: 1px solid #d9e0ff; }
+  .seg-t.am { background: #f4efff; color: #6a2fe0; border: 1px solid #e3d6ff; }
+  .meter.bad i { background: var(--bad); }
+  .oe { display: flex; align-items: center; gap: 8px; }
+  .oe .meter { width: 70px; min-width: 0; }
+  .so { display: grid; gap: 4px; padding: 11px 0; }
+  .so + .so { border-top: 1px solid var(--line); }
+  .so .t { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .so b { font-weight: 600; font-size: 13px; }
+  .so small { color: var(--ink-3); font-size: 11.5px; }
+</style>
+</head>
+<body data-module="production-management" data-view="Plant output" data-crumb="Make / Production Management / All plants"
+      data-who="Ritu Malhotra|Head of operations">
+<main>
+  <div class="head">
+    <div>
+      <h1>All plants · shift B</h1>
+      <p>OEM and aftermarket lines across three plants, live against plan</p>
+    </div>
+    <div class="acts">
+      <div class="seg"><span class="on">All plants</span><span>Plant 1</span><span>Plant 2</span><span>Plant 3</span></div>
+      <span class="btn">Export</span>
+    </div>
+  </div>
+
+  <div class="plants grid">
+    <div class="card pl">
+      <h3>Plant 1 · Pune <small>OEM machining and assembly</small></h3>
+      <div class="row">
+        <div><label>OEE</label><strong style="color:var(--warn)">78.4<small>% · 80</small></strong></div>
+        <div><label>Output</label><strong>1,148<small> / 1,171</small></strong></div>
+        <div><label>At risk</label><strong style="color:var(--bad)">2<small> of 23 WOs</small></strong></div>
+      </div>
+      <div class="meter warn"><i style="width:98%"></i></div>
+      <div class="foot"><span>98% of plan to this hour</span><span>CNC-03 down 2 h 10 m</span></div>
+    </div>
+    <div class="card pl">
+      <h3>Plant 2 · Chennai <small>OEM castings and machining</small></h3>
+      <div class="row">
+        <div><label>OEE</label><strong style="color:var(--ok)">83.1<small>% · 80</small></strong></div>
+        <div><label>Output</label><strong>2,310<small> / 2,280</small></strong></div>
+        <div><label>At risk</label><strong>0<small> of 31 WOs</small></strong></div>
+      </div>
+      <div class="meter ok"><i style="width:100%"></i></div>
+      <div class="foot"><span>101% of plan to this hour</span><span>no open stoppages</span></div>
+    </div>
+    <div class="card pl">
+      <h3>Plant 3 · Hosur <small>Aftermarket spares</small></h3>
+      <div class="row">
+        <div><label>OEE</label><strong style="color:var(--warn)">74.6<small>% · 78</small></strong></div>
+        <div><label>Output</label><strong>840<small> / 920</small></strong></div>
+        <div><label>At risk</label><strong style="color:var(--warn)">1<small> of 14 WOs</small></strong></div>
+      </div>
+      <div class="meter warn"><i style="width:91%"></i></div>
+      <div class="foot"><span>91% of plan to this hour</span><span>Line A changeover 48 m</span></div>
+    </div>
+  </div>
+
+  <div class="cols grid">
+    <div class="card flush">
+      <header><h2>Lines</h2><span>group output 4,298 of 4,371 · 98.3%</span><span class="more">Open live board</span></header>
+      <div class="body">
+        <table class="ln">
+          <thead><tr><th>Plant · line</th><th>For</th><th>Running</th><th>OEE</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b>Plant 1 · CNC-01</b><small>machining</small></td><td><span class="seg-t oem">OEM</span></td><td>IH-220 impeller housing<small>WO-5521 · Kestrel Pumps</small></td><td><span class="oe"><span class="meter warn"><i style="width:77%"></i></span><span class="mono">76.9%</span></span></td><td><span class="chip warn">Changeover 34 m</span></td></tr>
+            <tr><td><b>Plant 1 · CNC-03</b><small>machining</small></td><td><span class="seg-t oem">OEM</span></td><td>CV-110 valve body<small>WO-5518 · Vardhan Hydraulics</small></td><td><span class="oe"><span class="meter bad"><i style="width:52%"></i></span><span class="mono">51.8%</span></span></td><td><span class="chip bad">Breakdown · MO-0418</span></td></tr>
+            <tr><td><b>Plant 1 · ASM-02</b><small>assembly</small></td><td><span class="seg-t oem">OEM</span></td><td>GH-310 gearbox housing<small>WO-5506</small></td><td><span class="oe"><span class="meter ok"><i style="width:84%"></i></span><span class="mono">84.2%</span></span></td><td><span class="chip ok">Running</span></td></tr>
+            <tr><td><b>Plant 2 · Line 1</b><small>castings</small></td><td><span class="seg-t oem">OEM</span></td><td>LM6 castings, IH-220<small>for Plant 1</small></td><td><span class="oe"><span class="meter ok"><i style="width:86%"></i></span><span class="mono">86.0%</span></span></td><td><span class="chip ok">Running</span></td></tr>
+            <tr><td><b>Plant 2 · Line 2</b><small>machining</small></td><td><span class="seg-t oem">OEM</span></td><td>BR-045 bracket<small>WO-5530 · Aster Compressors</small></td><td><span class="oe"><span class="meter ok"><i style="width:82%"></i></span><span class="mono">82.3%</span></span></td><td><span class="chip ok">Running</span></td></tr>
+            <tr><td><b>Plant 3 · Line A</b><small>spares</small></td><td><span class="seg-t am">Aftermarket</span></td><td>SK-22 seal kit<small>WO-5527 · distributor stock</small></td><td><span class="oe"><span class="meter warn"><i style="width:71%"></i></span><span class="mono">71.2%</span></span></td><td><span class="chip warn">Changeover 48 m</span></td></tr>
+            <tr><td><b>Plant 3 · Line B</b><small>spares</small></td><td><span class="seg-t am">Aftermarket</span></td><td>IH-180 service housing<small>WO-5525 · dealer orders</small></td><td><span class="oe"><span class="meter ok"><i style="width:78%"></i></span><span class="mono">78.0%</span></span></td><td><span class="chip ok">Running</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <header><h2>OEM orders this week</h2><span>promise dates</span></header>
+      <div class="body" style="padding-top:4px">
+        <div class="so"><div class="t"><b>Aster Compressors · SO-24798</b><span class="chip bad">At risk</span></div><small>2,400 BR-045 · due 10 Oct · lot L-0927 on hold, OOS-0112</small></div>
+        <div class="so"><div class="t"><b>Vardhan Hydraulics · SO-24809</b><span class="chip ok">Recovered</span></div><small>CV-110 · due 12 Oct · overtime OT-0311 approved</small></div>
+        <div class="so"><div class="t"><b>Kestrel Pumps · SO-24817</b><span class="chip blue">On plan</span></div><small>890 IH-220 · due 15 Oct · 570 machined</small><span class="meter"><i style="width:64%"></i></span></div>
+        <div class="so"><div class="t"><b>Distributor stock · aftermarket</b><span class="chip warn">91%</span></div><small>SK-22 and IH-180 spares from Plant 3 · weekly plan</small></div>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="module" src="../../module-shell.js"></script>
+</body>
+</html>
