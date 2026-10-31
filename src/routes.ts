@@ -1,7 +1,9 @@
 import type { ComponentType } from 'react';
 import { erpConnect } from './data/erp-connect';
 import { faq, industries } from './data/home';
+import { implementationPage } from './data/implementation';
 import { industryContent } from './data/industries';
+import { securityPage } from './data/security';
 import { entryBySlug, moduleContent, modulePage, packs } from './data/modules';
 import { notFound, pipelineCheck } from './data/pages';
 import { packageContent, platformPage } from './data/packages';
@@ -157,6 +159,29 @@ const industryRoutes: Route[] = industryContent.map((content) => {
   };
 });
 
+const trustRoutes: Route[] = [
+  {
+    path: '/implementation',
+    page: 'Implementation',
+    title: implementationPage.seo.title,
+    description: implementationPage.seo.description,
+    crumbs: [{ name: 'Implementation and support', path: '/implementation' }],
+    inSitemap: true,
+    priority: 0.8,
+    schema: () => [faqPage(`${site.url}/implementation#faq`, implementationPage.faq)],
+  },
+  {
+    path: '/security-and-compliance',
+    page: 'Security',
+    title: securityPage.seo.title,
+    description: securityPage.seo.description,
+    crumbs: [{ name: 'Security and compliance', path: '/security-and-compliance' }],
+    inSitemap: true,
+    priority: 0.8,
+    schema: () => [faqPage(`${site.url}/security-and-compliance#faq`, securityPage.faq)],
+  },
+];
+
 const libraryRoute: Route = {
   path: '/_library',
   page: 'Library',
@@ -181,6 +206,7 @@ export const routes: Route[] = [
   ...platformRoutes,
   erpConnectRoute,
   ...industryRoutes,
+  ...trustRoutes,
   ...moduleRoutes,
   // Dev only: the section library (src/library/). Absent from production builds, so never prerendered or served.
   ...(import.meta.env.DEV ? [libraryRoute] : []),

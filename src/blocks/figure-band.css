@@ -1,0 +1,70 @@
+/* Figure band (blocks/FigureBand.tsx): big figures and their controls, on a dark band. */
+.fband {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.fband__figures {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border-radius: var(--r-4);
+  background: var(--night-line);
+  box-shadow: inset 0 0 0 1px var(--night-line);
+}
+
+.fband__figures div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: .5rem;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  background: var(--night-2);
+}
+
+.fband__figures dd {
+  margin: 0;
+  background: linear-gradient(100deg, #a983ff 0%, #6f8dff 45%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(2rem, 1.4rem + 2vw, 3.25rem);
+  font-weight: 760;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.fband__figures dt {
+  color: var(--night-ink-2);
+  font-size: var(--t-small);
+}
+
+.fband__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .625rem;
+}
+
+.fband__controls li {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem .875rem;
+  border-radius: var(--r-pill);
+  background: rgb(255 255 255 / 0.05);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12);
+  color: var(--night-ink);
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+
+.fband__controls .icon {
+  color: var(--cyan);
+}
+
+@media (max-width: 1023px) {
+  .fband__figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

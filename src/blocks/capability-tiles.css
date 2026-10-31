@@ -165,3 +165,14 @@
     transform: none;
   }
 }
+
+.cap__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  margin-top: auto;
+  padding-top: .5rem;
+  color: var(--tier);
+  font-size: var(--t-small);
+  font-weight: 650;
+}

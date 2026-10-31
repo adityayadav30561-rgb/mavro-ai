@@ -1,0 +1,56 @@
+/* Screen and points (blocks/ScreenPoints.tsx): a product screen beside the controls it shows. */
+.spts {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+  align-items: center;
+}
+
+.spts__points {
+  display: grid;
+  gap: 1.125rem;
+}
+
+.spts__points li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: .875rem;
+  align-items: start;
+}
+
+.spts__icon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--r-2);
+  background: var(--blue-50);
+  color: var(--blue);
+}
+
+.spts__points b {
+  font-size: 1rem;
+}
+
+.spts__points p {
+  margin-top: .125rem;
+  color: var(--fg-2);
+  font-size: var(--t-small);
+  line-height: 1.5;
+}
+
+@media (max-width: 1023px) {
+  .spts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .spts__points {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .spts__points {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -11,6 +11,8 @@ export interface CapabilityTile {
   figure?: { value: string; label: string };
   /** Short points under the line, each ticked (e.g. ERP Connect's benefits, deck slide 5). */
   points?: readonly string[];
+  /** A link under the tile, e.g. the module that produces the record. */
+  link?: { label: string; href: string } | null;
 }
 
 /**
@@ -53,6 +55,12 @@ export function CapabilityTiles({
                 </li>
               ))}
             </ul>
+          )}
+          {tile.link && (
+            <a className="cap__link" href={tile.link.href}>
+              {tile.link.label}
+              <Icon name="arrow" size={14} />
+            </a>
           )}
         </li>
       ))}

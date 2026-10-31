@@ -443,22 +443,22 @@ export const faq = {
     {
       q: 'Can MAVRO replace our current ERP or Tally?',
       a: 'Yes. Each tool you use today maps to a MAVRO module: a legacy ERP to MAVRO Accounting and Vendor Invoice Management, external payroll to MAVRO Payroll, production spreadsheets to Production Management, and WhatsApp orders to sales force automation and the portals. Data moves across in a trial migration in the first two weeks. If you prefer to keep your ERP, MAVRO runs alongside it through ERP Connect.',
-      link: { label: 'See the rollout plan', href: '#implementation' },
+      link: { label: 'See the rollout plan', href: '/implementation' },
     },
     {
       q: 'How long does it take to implement MAVRO?',
       a: 'MAVRO is implemented in a phased 25 to 30 day plan: discovery and setup in weeks 1 and 2, the first go-live in week 3, full go-live in week 4, then ongoing support. One dedicated resource stays with your project from the first workshop to go-live, on site if agreed or remote, with same-day issue resolution during go-live.',
-      link: { label: 'See the rollout plan', href: '#implementation' },
+      link: { label: 'See the rollout plan', href: '/implementation' },
     },
     {
       q: 'Is MAVRO GST compliant?',
       a: 'Yes. MAVRO applies GST at every touchpoint: e-invoices with place-of-supply checks before posting, GSTR-1 and GSTR-3B built from transactions, input tax credit protected by GSTR-2B reconciliation that holds mismatched vendors, and e-way bills on every movement of goods.',
-      link: { label: 'India compliance in MAVRO', href: '#why' },
+      link: { label: 'India compliance in MAVRO', href: '/security-and-compliance#compliance' },
     },
     {
       q: 'Does MAVRO handle Indian payroll and statutory compliance?',
       a: 'Yes. The MAVRO HRMS and Payroll module calculates PF, ESI, TDS and professional tax inside the payroll run, along with bonus and LTA, syncs attendance to payroll and posts the payroll journal to the general ledger on approval. For contract labour, bills can be held until PF, ESIC and wage evidence is complete.',
-      link: { label: 'India compliance in MAVRO', href: '#why' },
+      link: { label: 'India compliance in MAVRO', href: '/security-and-compliance#compliance' },
     },
     {
       q: 'Can our vendors, distributors and dealers use MAVRO?',
@@ -476,7 +476,7 @@ export const faq = {
     {
       q: 'How does MAVRO keep our data secure?',
       a: 'MAVRO encrypts data with AES-256 at rest and in transit, controls access by role down to individual fields, supports MFA and SSO, and can restrict access by IP address and device. Every transaction is written to a tamper-proof audit log kept for seven years, and daily backups with disaster recovery target a recovery point under 4 hours and a recovery time under 8 hours.',
-      link: { label: 'Security in MAVRO', href: '#why' },
+      link: { label: 'Security in MAVRO', href: '/security-and-compliance' },
     },
     {
       q: 'Does MAVRO integrate with other software?',

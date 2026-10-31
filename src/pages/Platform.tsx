@@ -28,7 +28,7 @@ export function Page() {
   const href = useHref();
   const tiers = packageTiers();
   const erp = target({ label: 'ERP Connect', page: '/erp-connect', fallback: '#connect' });
-  const security = target({ label: 'Security', page: '/security' });
+  const security = target({ label: 'Security', page: '/security-and-compliance' });
 
   return (
     <>

@@ -87,7 +87,7 @@ For each module in the phase:
 | 22 | ERP Connect page | 1 page + 2 screens | Done (2026-10-30) |
 | 23 | Industry pages: Manufacturing, Pharma | 2 pages + 2 screens | Done (2026-10-31) |
 | 24 | Industry pages: Distribution, Service providers | 2 pages + 2 screens | Done (2026-10-31) |
-| 25 | Implementation and Security and compliance pages | 2 pages | To do |
+| 25 | Implementation and Security and compliance pages | 2 pages | Done (2026-10-31) |
 | 26 | Customers, Company, Contact, Legal, blog and careers scaffolds | 5 pages + 2 hidden | To do |
 | 27 | Homepage integration and cross-linking | homepage links to pages | To do |
 | 28 | Launch QA | full-site audit | To do |

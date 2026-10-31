@@ -1,0 +1,102 @@
+/* Rollout card (blocks/RolloutCard.tsx): the plan's phases on a rail, a hero visual. */
+.roll {
+  width: min(100%, 30rem);
+  margin: 0;
+  padding: 1.5rem;
+  border-radius: var(--r-4);
+  background: var(--surface);
+  box-shadow: var(--shadow-float);
+}
+
+.roll__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.roll__head b {
+  font-size: 1.125rem;
+  letter-spacing: -0.01em;
+}
+
+.roll__head span {
+  padding: .25rem .625rem;
+  border-radius: var(--r-pill);
+  background: var(--blue-50);
+  color: var(--blue);
+  font-size: var(--t-small);
+  font-weight: 650;
+}
+
+.roll__steps {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem 0;
+}
+
+/* The rail behind the icons, in the brand sweep. */
+.roll__steps::before {
+  content: '';
+  position: absolute;
+  top: 2.5rem;
+  bottom: 2.5rem;
+  left: 1.1875rem;
+  width: 2px;
+  background: var(--grad-brand);
+}
+
+.roll__steps li {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 1rem;
+  align-items: center;
+}
+
+.roll__icon {
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 0 0 2px var(--blue-100);
+  color: var(--blue);
+}
+
+.roll__steps li:last-child .roll__icon {
+  background: var(--grad-brand);
+  box-shadow: none;
+  color: #fff;
+}
+
+.roll__when {
+  color: var(--fg-3);
+  font-size: var(--t-label);
+  font-weight: 600;
+}
+
+.roll__steps b {
+  font-size: 1rem;
+}
+
+.roll__foot {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  color: var(--fg-2);
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+
+.roll__foot .icon {
+  color: var(--blue);
+}

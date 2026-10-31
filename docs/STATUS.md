@@ -4,9 +4,9 @@ _Last updated: 2026-10-30. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–24 done (2026-10-31); next: Phase 25, Implementation and Security and
-compliance. All 42 module pages, the Platform overview, the package pages, ERP Connect and the four industry pages
-exist.** The
+**Stage C (phased implementation). Phases 1–25 done (2026-10-31); next: Phase 26, the Customers, Company, Contact,
+Legal, blog and careers scaffolds. All 42 module pages, the Platform overview, the package pages, ERP Connect, the four
+industry pages, Implementation and Security and compliance exist.** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -37,6 +37,30 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-31, **Phase 25 done: Implementation and Security and compliance** (`/implementation`,
+  `/security-and-compliance`). On `main`.
+  - **Implementation** (src/pages/Implementation.tsx, src/data/implementation.ts): hero with a `RolloutCard` (the
+    homepage plan's phases) → the homepage `Timeline` → who you work with (homepage support model plus slide 28's
+    points) → migration map (slide 24, each target linked to its module page; "GST filings" and "payroll posted on
+    approval" as plain capabilities) → risks and mitigation (all seven rows of slide 26; status column, "Month 1/2"
+    timings dropped; "Both" shown as "Joint"; moved out of the dev library, which now imports it) → ninety days after
+    go-live (slide 27) → FAQ → CTA. **Left out:** slide 27's "month-end close in 1–2 days" and "zero disputes before
+    payment", slide 24's "zero double-entry" (unverifiable outcomes).
+  - **Security and compliance** (src/pages/Security.tsx, src/data/security.ts): hero with the GST returns screen
+    (roles and audit behind) → security at every layer (`LayeredArchitecture`) → access and audit (`ScreenPoints`: the
+    `access` screen beside RBAC, MFA/SSO, the API gateway, IP and device control, the audit trail) → India compliance
+    by rule (GST returns, e-invoicing, e-way bills, statutory payroll, contract labour, vendor compliance), each with
+    its returns or registers and a link to the module that makes the record → data protection (`FigureBand`, the
+    page's night band: AES-256, 7 years, RPO < 4 hr, RTO < 8 hr, the six controls) → FAQ → CTA. No certification,
+    hosting location, residency or testing claim (none in the decks).
+  - **New blocks:** `RolloutCard`, `MigrationMap`, `ScreenPoints`, `FigureBand`; `CapabilityTiles` takes `link`.
+  - **Links:** the homepage FAQ's rollout links go to `/implementation`, its compliance and security links to
+    `/security-and-compliance`; the Platform integrations callout's Security link (it named `/security`, so never
+    showed) now appears; menus, drawer and footer switched through their `page`. No `/#implementation` or `/#why`
+    links remain on other pages.
+  - **Checks:** 1440, 1366, 390 and the nine measure sizes: no overflow, no console errors. Short sections: support
+    model and FAQ about 0.68 screens, data protection about 0.65.
 
 - 2026-10-31, **Phase 24 done: Distribution and Service providers industry pages** (`/industries/distribution`,
   `/industries/service-providers`). On `main`. Data only on the Phase 23 template (src/data/industries.ts) plus screens.
@@ -755,10 +779,8 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 25: Implementation and Security and compliance** (`/implementation`, `/security-and-compliance`;
-   IMPLEMENTATION-PLAN.md Phase 25, SITE-PLAN.md 3.6 and 3.7): the larger timeline, migration map, risks table, 90 days
-   after, support model; security architecture, access and audit (reuse the `access` screen), India compliance,
-   data protection, FAQ, CTA. Then the homepage FAQ links to `#implementation` / `#why` can point to these pages.
+1. **Phase 26: Customers, Company, Contact, Legal, blog and careers scaffolds** (IMPLEMENTATION-PLAN.md Phase 26):
+   read the plan's scope and SITE-PLAN.md 3.8 onwards before starting.
 
 ## Open items (need the user or real assets)
 

@@ -8,6 +8,7 @@ import type { FlowStage } from '../blocks/FlowStrip';
 import type { ModuleCard } from '../blocks/ModuleCards';
 import type { TourScreen } from '../blocks/ScreenTour';
 import { industries } from '../data/home';
+import { implementationPage } from '../data/implementation';
 import { contentFor, moduleById } from '../data/modules';
 
 /** Product deck slide 34: Order to Cash. */
@@ -157,39 +158,5 @@ export const beforeAfter = {
   ],
 };
 
-/** Product deck slide 26: implementation risks and mitigation (first four). */
-export const risks = {
-  caption: 'Implementation risks, their impact, mitigation and owner',
-  columns: [
-    { key: 'risk', label: 'Risk' },
-    { key: 'impact', label: 'Impact' },
-    { key: 'mitigation', label: 'Mitigation' },
-    { key: 'owner', label: 'Owner' },
-  ],
-  rows: [
-    {
-      risk: 'Poor master data quality',
-      impact: { level: 'high', text: 'High' },
-      mitigation: 'Data cleansing workshop in month 1; trial migration before go-live',
-      owner: 'Client IT',
-    },
-    {
-      risk: 'User adoption resistance',
-      impact: { level: 'high', text: 'High' },
-      mitigation: 'Department champions appointed; in-person training on site',
-      owner: 'Joint',
-    },
-    {
-      risk: 'Legacy data migration issues',
-      impact: { level: 'medium', text: 'Medium' },
-      mitigation: 'Trial migration in month 1; exceptions handled before cutover',
-      owner: 'SaiSatwik',
-    },
-    {
-      risk: 'Integration delays',
-      impact: { level: 'low', text: 'Low' },
-      mitigation: 'Clean cutover assumed; parallel-run buffer built in',
-      owner: 'SaiSatwik',
-    },
-  ],
-} as const;
+/** Product deck slide 26: implementation risks and mitigation (the Implementation page's table). */
+export const risks = implementationPage.risks;

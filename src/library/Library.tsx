@@ -25,11 +25,16 @@ import { StoryCards } from '../blocks/StoryCards';
 import { SwimlaneFlow } from '../blocks/SwimlaneFlow';
 import { SyncSteps } from '../blocks/SyncSteps';
 import { Timeline } from '../blocks/Timeline';
+import { RolloutCard } from '../blocks/RolloutCard';
+import { MigrationMap } from '../blocks/MigrationMap';
+import { ScreenPoints } from '../blocks/ScreenPoints';
+import { FigureBand } from '../blocks/FigureBand';
 import { TrustPanel } from '../blocks/TrustPanel';
 import { WhatWhy } from '../blocks/WhatWhy';
 import { Screen } from '../components/Screen';
 import { connect, explore, faq, implementation, industries, inlineCtas, intro, proof, why } from '../data/home';
 import { erpConnect } from '../data/erp-connect';
+import { securityPage } from '../data/security';
 import { packageTiers } from '../pages/module-card';
 import { catalogue, premiumById, premiumGroups } from '../data/modules';
 import { platformPage } from '../data/packages';
@@ -280,6 +285,26 @@ export function Page() {
         </Entry>
         <Entry name="DataTable" file="blocks/ComparisonTable.tsx" use="Implementation (risks)">
           <DataTable caption={risks.caption} columns={risks.columns} rows={risks.rows} />
+        </Entry>
+        <Entry name="RolloutCard" file="blocks/RolloutCard.tsx" use="Implementation hero">
+          <div className="lib__narrow">
+            <RolloutCard title="Your first month" span="Day 1 → Day 30" phases={implementation.plan.phases} foot="One dedicated resource · same-day resolution" />
+          </div>
+        </Entry>
+        <Entry name="MigrationMap" file="blocks/MigrationMap.tsx" use="Implementation (migration plan)">
+          <MigrationMap
+            from="Today"
+            to="In MAVRO"
+            rows={[{ icon: 'people', area: 'HR and payroll', today: 'External payroll, posted to the GL by manual journals', to: [{ name: 'HRMS and Payroll', note: 'Attendance to GL', href: '/modules/hrms-and-payroll', icon: 'people' }, { name: 'Payroll posted to the GL on approval' }] }]}
+          />
+        </Entry>
+        <Entry name="ScreenPoints" file="blocks/ScreenPoints.tsx" use="Security (access and audit)">
+          <ScreenPoints screen="access" alt="Roles and audit (illustrative data)." note={explore.sample} points={securityPage.access.points.slice(0, 3)} />
+        </Entry>
+        <Entry name="FigureBand" file="blocks/FigureBand.tsx" use="Security (data protection, night band)">
+          <div className="night-panel">
+            <FigureBand figures={why.trust.security.figures} controls={why.trust.security.controls} />
+          </div>
         </Entry>
         <Entry name="Timeline" file="blocks/Timeline.tsx" use="Homepage, implementation, ERP Connect">
           <Timeline data={implementation.plan} />
