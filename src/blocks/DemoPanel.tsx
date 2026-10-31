@@ -2,13 +2,14 @@ import { Icon } from '../components/Icon';
 import { demo } from '../data/home';
 import { site } from '../data/site';
 import { DemoForm } from './demo/DemoForm';
-import './demo.css';
+import './demo-panel.css';
 
 /**
- * The close: the demo request. One navy panel (the wordmark's colour) with the pitch and direct contact on the
- * left and the form on the right. Every "Request a demo" button on the page lands here.
+ * The demo request (#demo): one navy panel (the wordmark's colour) with the pitch and direct contact on the left and
+ * the form on the right. The homepage's close and the heart of the Contact page; every "Request a demo" button on
+ * those pages lands here (blocks/DemoLink). Class names kept from the homepage section (`demo__`).
  */
-export function Demo() {
+export function DemoPanel() {
   return (
     <section id="demo" className="section demo" aria-labelledby="demo-title">
       <div className="page">

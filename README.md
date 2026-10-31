@@ -73,7 +73,7 @@ wordmark and it holds up from 74px headlines down to 11px interface labels.
 | WhyMavro | `#why` | Six principles, with a "Trust, built in" card as evidence (blocks/TrustPanel.tsx): India compliance (GST, ITC, e-way bill, statutory payroll, contract labour) and Security (AES-256, 7-year audit logs, RPO/RTO, access controls) tabs, all from the product deck |
 | CustomerProof | `#stories` | Three anonymised customer stories (deck slide 23) as cards on a dark band: sector tags, the headline result (before → after), starting point and what was built, three deliverables, links to related modules (`data-module` opens them in Explore). Renders nothing if `proof` is emptied |
 | Faq | `#faq` | 15 questions (`faq` in home.ts) as native `<details>` in two columns; every answer is in the prerendered HTML and each question has an anchor id. The same items generate the FAQPage JSON-LD, so edit the text in one place only |
-| Demo | `#demo` | The close: navy panel with what the demo covers, direct email and phone, and the request form (sections/demo/DemoForm.tsx). Two mid-page CTAs (blocks/InlineCta.tsx, after ERP Connect and Premium) scroll here and tick the matching interest; from other pages, links to `/?interest=…#demo` tick it on arrival |
+| Demo | `#demo` | The close: navy panel with what the demo covers, direct email and phone, and the request form (blocks/DemoPanel.tsx, blocks/demo/DemoForm.tsx; also on /contact). Two mid-page CTAs (blocks/InlineCta.tsx, after ERP Connect and Premium) scroll here and tick the matching interest; from other pages, links to `/?interest=…#demo` tick it on arrival |
 
 ## Pages and routing
 

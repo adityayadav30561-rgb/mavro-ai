@@ -21,6 +21,14 @@ export const useCrumbs = () => useContext(RouteContext).crumbs;
  * In-page anchors ('#demo', '#platform') are sections of the homepage. On any other page they point back to it
  * ('/#demo'), and '#top' (the logo) becomes '/'. Every other link is returned as it is.
  */
+/** Pages that carry the demo form (#demo): the homepage and Contact. Demo buttons there stay on the page. */
+export const formPages = ['/', '/contact'];
+
+/** Where "Request a demo" goes from this page: the form on this page if it has one, else the homepage's. */
+export function useDemoHref() {
+  return formPages.includes(usePath()) ? '#demo' : '/#demo';
+}
+
 export function useHref() {
   const path = usePath();
   return (href: string) => {

@@ -11,8 +11,8 @@ export function Prose({ sections, updated }: { sections: readonly { heading?: st
       {sections.map((section, index) => (
         <section key={section.heading ?? index}>
           {section.heading && <h2>{section.heading}</h2>}
-          {section.paragraphs.map((paragraph) => (
-            <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+          {section.paragraphs.map((paragraph, i) => (
+            <p key={i}>{paragraph}</p>
           ))}
         </section>
       ))}

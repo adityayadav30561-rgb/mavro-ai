@@ -17,11 +17,15 @@ export function ResultCard({ stories, title }: { stories: readonly Story[]; titl
             <span className="rcard__fig num">
               {story.result.before && (
                 <s>
+                  <span className="sr-only">Before: </span>
                   {story.result.before}
                   <Icon name="arrow" size={14} />
                 </s>
               )}
-              <b>{story.result.after}</b>
+              <b>
+                {story.result.before && <span className="sr-only">Now: </span>}
+                {story.result.after}
+              </b>
             </span>
             <span className="rcard__what">
               {story.result.label}

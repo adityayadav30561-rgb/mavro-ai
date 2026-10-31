@@ -4,7 +4,7 @@ import { PageHero } from '../blocks/PageHero';
 import { Section } from '../blocks/Section';
 import { contactPage as p } from '../data/company';
 import { site } from '../data/site';
-import { Demo } from '../sections/Demo';
+import { DemoPanel } from '../blocks/DemoPanel';
 
 /**
  * Contact (SITE-PLAN.md section 3.10): direct contact in the hero, the full demo form (the homepage's #demo
@@ -33,7 +33,7 @@ export function Page() {
         }
       />
 
-      <Demo />
+      <DemoPanel />
 
       <Section id="next" tone="paper" title={p.next.title} rest={p.next.rest} treatment="mark" lead={p.next.lead}>
         <CapabilityTiles columns={3} tiles={p.next.steps} />

@@ -1,6 +1,6 @@
 import { Connect } from '../sections/Connect';
 import { CustomerProof } from '../sections/CustomerProof';
-import { Demo } from '../sections/Demo';
+import { DemoPanel } from '../blocks/DemoPanel';
 import { Explore } from '../sections/Explore';
 import { Faq } from '../sections/Faq';
 import { Hero } from '../sections/Hero';
@@ -48,7 +48,7 @@ export function Page() {
       <WhyMavro />
       <CustomerProof />
       <Faq />
-      <Demo />
+      <DemoPanel />
     </>
   );
 }

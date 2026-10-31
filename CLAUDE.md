@@ -64,8 +64,8 @@ src/library/             the dev-only gallery page and its sample data
 src/data/                site.ts, nav.ts, home.ts, modules/, platform.ts, packages.ts, erp-connect.ts, industries.ts,
                          implementation.ts, security.ts, company.ts, pages.ts
                          (all content)
-src/sections/            homepage sections, built on the blocks; hero/ = 3D scene; explore/ = premium mockups;
-                         demo/ = demo form
+src/sections/            homepage sections, built on the blocks; hero/ = 3D scene; explore/ = premium mockups
+                         (the demo form is a block: blocks/DemoPanel.tsx, blocks/demo/)
 src/components/          Nav, PlatformMenu (mega menu), NavMenus, Drawer (mobile), NavLink, Footer, Logo, Icon, Screen
 src/styles/              tokens.css, base.css
 src/assets/              brand/ (logo), clients/ (client logos), screens/ (product screenshots)

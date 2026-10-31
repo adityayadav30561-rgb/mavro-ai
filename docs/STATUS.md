@@ -51,8 +51,13 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
     once content exists (src/routes.ts), so nothing links to an empty page. Listed under Open items.
   - **New blocks:** `StoryFeature`, `ResultCard`, `LogoWall`, `ContactCard`, `Prose` (in `/_library`).
   - **Links:** "Customer stories" (menu, footer) and "Contact" now open the pages (they fell back to `#stories` and
-    the email address); Company, Blog, Careers, Privacy and Terms remain hidden. "Request a demo" buttons elsewhere still
-    open the homepage form (`/?interest=…#demo`); pointing them at `/contact` is a Phase 27 question.
+    the email address); Company, Blog, Careers, Privacy and Terms remain hidden. On `/contact` every "Request a demo"
+    (header, drawer, page buttons) stays on the page's form (`formPages`/`useDemoHref` in routing.tsx); elsewhere they
+    still open the homepage form (`/?interest=…#demo`). Pointing them all at `/contact` is a Phase 27 question.
+  - **Demo form moved to the library:** `sections/Demo.tsx` → `blocks/DemoPanel.tsx` (form in `blocks/demo/`), same
+    markup and class names, used by the homepage and Contact.
+  - **Templates smoke-tested** with temporary sample content (Company, blog list and post, careers at 1440 and 390: no
+    errors, links appeared in the menus and footer), then the sample was removed. Empty hero leads no longer render.
   - **Checks:** 1440, 1366, 390 and the nine measure sizes: no overflow, no console errors. The full stories section
     is 1.8 screens on desktop (three complete case studies, the page's content); Contact's "what happens next" is 0.6.
 

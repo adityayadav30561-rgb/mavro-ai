@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import { usePath } from '../routing';
-import { demoHref, prefillDemo } from '../sections/demo/prefill';
+import { formPages, usePath } from '../routing';
+import { demoHref, prefillDemo } from './demo/prefill';
 
 interface DemoLinkProps {
   /** The demo-form interest to tick ('Base modules', 'Portals', 'Premium modules', 'ERP Connect'), or null. */
@@ -16,7 +16,8 @@ interface DemoLinkProps {
  * by event; on any other page it opens the homepage form with the interest in the URL.
  */
 export function DemoLink({ interest, module, className, children }: DemoLinkProps) {
-  const home = usePath() === '/';
+  // A page with the form (#demo, routing.tsx formPages): scroll to it and tick the interest by event.
+  const home = formPages.includes(usePath());
   return (
     <a
       className={className}

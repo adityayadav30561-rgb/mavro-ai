@@ -32,11 +32,15 @@ export function StoryFeature({ stories, labels }: StoryFeatureProps) {
               <p className="sfeat__label">{labels.result}</p>
               {story.result.before && (
                 <p className="sfeat__before num">
+                  <span className="sr-only">Before: </span>
                   <s>{story.result.before}</s>
                   <Icon name="arrow" size={18} />
                 </p>
               )}
-              <p className="sfeat__after num">{story.result.after}</p>
+              <p className="sfeat__after num">
+                {story.result.before && <span className="sr-only">Now: </span>}
+                {story.result.after}
+              </p>
               <p className="sfeat__what">{story.result.label}</p>
               <p className="sfeat__client">{story.client}</p>
             </div>

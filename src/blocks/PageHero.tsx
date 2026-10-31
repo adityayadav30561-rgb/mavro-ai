@@ -89,7 +89,7 @@ export function PageHero({
             level={1}
             className="display ph__title"
           />
-          <p className="lead ph__lead">{lead}</p>
+          {lead && <p className="lead ph__lead">{lead}</p>}
 
           {actions.length > 0 && (
             <div className="ph__actions">

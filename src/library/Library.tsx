@@ -27,6 +27,7 @@ import { SyncSteps } from '../blocks/SyncSteps';
 import { Timeline } from '../blocks/Timeline';
 import { RolloutCard } from '../blocks/RolloutCard';
 import { StoryFeature } from '../blocks/StoryFeature';
+import { DemoPanel } from '../blocks/DemoPanel';
 import { ResultCard } from '../blocks/ResultCard';
 import { LogoWall } from '../blocks/LogoWall';
 import { ContactCard } from '../blocks/ContactCard';
@@ -291,6 +292,9 @@ export function Page() {
         </Entry>
         <Entry name="DataTable" file="blocks/ComparisonTable.tsx" use="Implementation (risks)">
           <DataTable caption={risks.caption} columns={risks.columns} rows={risks.rows} />
+        </Entry>
+        <Entry name="DemoPanel" file="blocks/DemoPanel.tsx" use="Homepage close, Contact (the demo form, #demo)">
+          <DemoPanel />
         </Entry>
         <Entry name="StoryFeature" file="blocks/StoryFeature.tsx" use="Customers (stories in full)">
           <StoryFeature stories={proof.stories.slice(0, 1)} labels={customersPage.labels} />

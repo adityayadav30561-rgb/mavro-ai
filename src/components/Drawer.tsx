@@ -15,7 +15,7 @@ import {
 import type { NavLink as Item } from '../data/nav';
 import { cta } from '../data/site';
 import { shown } from '../links';
-import { useHref } from '../routing';
+import { useDemoHref } from '../routing';
 import { Icon } from './Icon';
 import { NavLink } from './NavLink';
 
@@ -81,7 +81,7 @@ const searchable = [
  */
 export function Drawer({ id, open, expanded, onToggle, onNavigate }: DrawerProps) {
   const [query, setQuery] = useState('');
-  const href = useHref();
+  const demoHref = useDemoHref();
   const q = query.trim().toLowerCase();
   const results = q ? searchable.filter((item) => `${item.name} ${item.summary}`.toLowerCase().includes(q)) : [];
   const is = (key: string) => expanded.has(key);
@@ -230,7 +230,7 @@ export function Drawer({ id, open, expanded, onToggle, onNavigate }: DrawerProps
         )}
 
         <div className="drawer__actions">
-          <a className="btn btn--primary" href={href(cta.primary.href)} onClick={onNavigate}>
+          <a className="btn btn--primary" href={demoHref} onClick={onNavigate}>
             {cta.primary.label}
           </a>
         </div>

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import type { Pack } from '../data/modules';
 import { header as items, type Branch, type MenuId } from '../data/nav';
 import { cta } from '../data/site';
-import { useHref } from '../routing';
+import { useDemoHref, useHref } from '../routing';
 import { CATALOGUE_EVENT } from './catalogue';
 import { Drawer } from './Drawer';
 import { Icon } from './Icon';
@@ -35,6 +35,7 @@ export function Nav() {
   const current = useRef(menu);
   current.current = menu;
   const href = useHref();
+  const demoHref = useDemoHref();
 
   // Solid surface once the top of the page has scrolled away. An observer, not a scroll handler.
   useEffect(() => {
@@ -233,7 +234,7 @@ export function Nav() {
           </nav>
 
           <div className="nav__actions">
-            <a className="btn btn--primary btn--sm" href={href(cta.primary.href)} onClick={closeAll}>
+            <a className="btn btn--primary btn--sm" href={demoHref} onClick={closeAll}>
               {cta.primary.label}
             </a>
           </div>
