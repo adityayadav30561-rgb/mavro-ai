@@ -89,7 +89,7 @@ For each module in the phase:
 | 24 | Industry pages: Distribution, Service providers | 2 pages + 2 screens | Done (2026-10-31) |
 | 25 | Implementation and Security and compliance pages | 2 pages | Done (2026-10-31) |
 | 26 | Customers, Company, Contact, Legal, blog and careers scaffolds | 5 pages + 2 hidden | Done (2026-10-31; Company, Legal, blog, careers wait for content) |
-| 27 | Homepage integration and cross-linking | homepage links to pages | To do |
+| 27 | Homepage integration and cross-linking | homepage links to pages | Done (2026-10-31) |
 | 28 | Launch QA | full-site audit | To do |
 
 Module pages: 1 + 17 base + 4 portals + 20 premium = 42. Pages in total: 60 (SITE-PLAN.md section 2).

@@ -1,6 +1,8 @@
 import { SectionHead } from '../blocks/SectionHead';
 import { StoryCards } from '../blocks/StoryCards';
+import { Icon } from '../components/Icon';
 import { proof } from '../data/home';
+import { hasPage } from '../links';
 import './customer-proof.css';
 
 /**
@@ -17,6 +19,14 @@ export function CustomerProof() {
       <div className="page">
         <SectionHead id="proof-title" title={proof.title} rest={proof.titleMark} treatment="mark" lead={proof.lead} />
         <StoryCards stories={proof.stories} />
+        {hasPage(proof.more.page) && (
+          <p className="proof__more">
+            <a className="more-link" href={proof.more.page}>
+              {proof.more.label}
+              <Icon name="arrow" size={14} />
+            </a>
+          </p>
+        )}
       </div>
     </section>
   );

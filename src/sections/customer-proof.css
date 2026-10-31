@@ -19,3 +19,8 @@
 .proof .mark {
   background-image: linear-gradient(90deg, rgb(122 54 251 / 0.75), rgb(10 72 253 / 0.7) 50%, rgb(3 200 253 / 0.75));
 }
+
+.proof__more {
+  margin-top: clamp(1.25rem, 2.5vw, 1.75rem);
+  text-align: center;
+}

@@ -2,6 +2,7 @@ import { SectionHead } from '../blocks/SectionHead';
 import { Timeline } from '../blocks/Timeline';
 import { Icon } from '../components/Icon';
 import { implementation } from '../data/home';
+import { hasPage } from '../links';
 import './implementation.css';
 
 /*
@@ -26,6 +27,12 @@ export function Implementation() {
           <div className="impl__support-head">
             <p className="impl__support-title">{implementation.supportTitle}</p>
             <p className="impl__support-note">{implementation.supportNote}</p>
+            {hasPage(implementation.more.page) && (
+              <a className="more-link" href={implementation.more.page}>
+                {implementation.more.label}
+                <Icon name="arrow" size={14} />
+              </a>
+            )}
           </div>
           <ul>
             {implementation.support.map((item) => (

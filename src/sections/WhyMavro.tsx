@@ -1,5 +1,6 @@
 import { Icon } from '../components/Icon';
 import { why } from '../data/home';
+import { hasPage } from '../links';
 import { vars } from '../motion/hooks';
 import { TrustPanel } from '../blocks/TrustPanel';
 import './why.css';
@@ -23,6 +24,12 @@ export function WhyMavro() {
 
           <div className="why__trust" data-reveal style={vars({ '--i': 1 })}>
             <TrustPanel data={why.trust} />
+            {hasPage(why.more.page) && (
+              <a className="more-link why__more" href={why.more.page}>
+                {why.more.label}
+                <Icon name="arrow" size={14} />
+              </a>
+            )}
           </div>
         </div>
 

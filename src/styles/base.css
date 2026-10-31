@@ -602,3 +602,24 @@ canvas {
   --icon-accent: var(--cyan);
   --icon-soft: rgb(3 200 253 / 0.18);
 }
+
+/* A "more" link at the foot of a homepage section, into the page that covers it in full. */
+.more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  color: var(--blue);
+  font-weight: 650;
+}
+
+.section--night .more-link {
+  color: var(--cyan);
+}
+
+.more-link .icon {
+  transition: translate var(--d-2) var(--ease);
+}
+
+.more-link:hover .icon {
+  translate: .1875rem 0;
+}

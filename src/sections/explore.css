@@ -524,3 +524,22 @@
     animation: none;
   }
 }
+
+/* The featured module's own page, under its points. */
+.xp__see {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  width: fit-content;
+  margin-top: 1rem;
+  color: var(--blue);
+  font-weight: 650;
+}
+
+.xp__see .icon {
+  transition: translate var(--d-2) var(--ease);
+}
+
+.xp__see:hover .icon {
+  translate: .1875rem 0;
+}

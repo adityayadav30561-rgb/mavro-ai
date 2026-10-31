@@ -5,12 +5,16 @@ import { ChainDiagram } from '../blocks/ChainDiagram';
 import { InlineCta } from '../blocks/InlineCta';
 import { ScreenFrame } from '../blocks/ScreenFrame';
 import { explore, inlineCtas } from '../data/home';
+import { hasPage } from '../links';
 import {
   baseCapabilities,
   baseFeatured,
   byPack,
+  catalogue,
   channelPortals,
+  modulePage,
   moduleById,
+  packs,
   premiumById,
   vendorPortal,
   type Pack,
@@ -113,12 +117,19 @@ const counts: Record<Pack, number> = {
 /* Links anywhere on the page (nav, footer, mega-menu, platform diagram) open the matching package. */
 const anchors: Record<string, number> = { '#modules': 0, '#portals': 1, '#premium': 2 };
 
+/** A featured module's own page (by its module or portal id), or null while it has none. */
+const pageOf = (id: string) => {
+  const entry = catalogue.find((item) => item.item.id === id);
+  return entry && hasPage(modulePage(entry)) ? modulePage(entry) : null;
+};
+
 /** One package: its featured modules as a vertical tab list beside a panel with the module's story and screen. */
 function PackageView({ pack, initial = 0 }: { pack: Pack; initial?: number }) {
   const list = items[pack];
   const copy = explore.packages[pack];
   const { active, tabProps, panelProps } = useTabs(list.length, `xp-${pack}`, initial);
   const item = list[active];
+  const page = pageOf(item.id);
 
   return (
     <div className="xp__stage">
@@ -133,13 +144,20 @@ function PackageView({ pack, initial = 0 }: { pack: Pack; initial?: number }) {
             </button>
           ))}
         </div>
-        {copy.all && (
-          <button type="button" className="xp__all" onClick={() => openCatalogue(pack)}>
-            <Icon name="layers" size={16} />
-            {copy.all.replace('{n}', String(counts[pack]))}
-            <Icon name="arrow" size={14} className="btn__arrow" />
-          </button>
-        )}
+        {copy.all &&
+          (hasPage(packs[pack].page) ? (
+            <a className="xp__all" href={packs[pack].page}>
+              <Icon name="layers" size={16} />
+              {copy.all.replace('{n}', String(counts[pack]))}
+              <Icon name="arrow" size={14} className="btn__arrow" />
+            </a>
+          ) : (
+            <button type="button" className="xp__all" onClick={() => openCatalogue(pack)}>
+              <Icon name="layers" size={16} />
+              {copy.all.replace('{n}', String(counts[pack]))}
+              <Icon name="arrow" size={14} className="btn__arrow" />
+            </button>
+          ))}
       </div>
 
       <div className="xp__panel" data-shot={item.shot || undefined} {...panelProps}>
@@ -155,6 +173,12 @@ function PackageView({ pack, initial = 0 }: { pack: Pack; initial?: number }) {
               </li>
             ))}
           </ul>
+          {page && (
+            <a className="xp__see" href={page}>
+              {explore.see.replace('{name}', item.name)}
+              <Icon name="arrow" size={14} />
+            </a>
+          )}
         </div>
         <div className="xp__visual" key={`${item.id}-visual`} data-shot={item.shot || undefined}>
           {item.visual}

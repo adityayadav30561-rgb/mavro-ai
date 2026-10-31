@@ -46,6 +46,8 @@ export const explore = {
   title: 'Explore the platform.',
   titleSoft: 'Three packages, one system.',
   lead: 'Base modules run the business, portals bring your vendors and channel into it, and premium modules cover the specialised work. All live, all on the same orders, items and ledgers.',
+  /** Under each module's points: its own page ("See Order to Cash"). */
+  see: 'See {name}',
   packages: {
     base: {
       tab: 'Base package',
@@ -69,7 +71,7 @@ export const explore = {
       unit: 'portals',
       blurb: 'Your vendors and channel, self-served',
       featured: ['vendor', 'distributor', 'dealer', 'retailer'],
-      all: null,
+      all: 'The {n} portals' as string | null,
     },
     premium: {
       tab: 'Premium package',
@@ -192,6 +194,8 @@ export const implementation = {
       },
     ] satisfies TimelinePhase[],
   } satisfies TimelineData,
+  /** Under the support note, once the page exists. */
+  more: { label: 'The full rollout plan', page: '/implementation' },
   supportTitle: 'Who you work with',
   supportNote: 'The same team from kickoff to go-live, and after it.',
   support: [
@@ -379,6 +383,8 @@ export const why = {
    * The evidence beside the principles: statutory compliance and security, as stated in the product deck
    * (slides 1, 11, 12 and the module pages). Nothing here may go beyond what the deck says.
    */
+  /** Under the trust card, once the page exists. */
+  more: { label: 'Security and compliance in depth', page: '/security-and-compliance' },
   trust: {
     title: 'Trust, built in',
     compliance: {
@@ -423,7 +429,7 @@ export const faq = {
     {
       q: 'What is MAVRO ERP?',
       a: 'MAVRO is an enterprise resource planning (ERP) platform for manufacturers, distributors and service providers, made by SaiSatwik Technologies in Greater Noida, India. It brings base modules (accounting, payroll, order to cash, procure to pay, production, inventory), portals for vendors and the sales channel, and premium modules for specialised operations onto one platform with one set of business data.',
-      link: { label: 'Explore the platform', href: '#explore' },
+      link: { label: 'Explore the platform', href: '/platform' },
     },
     {
       q: 'Who is MAVRO ERP built for?',
@@ -433,7 +439,7 @@ export const faq = {
     {
       q: 'Which modules does MAVRO include?',
       a: `MAVRO includes ${counts.base} base modules, ${counts.portals} portals and ${counts.premium} premium modules, and all of them are live. Base modules cover accounting, HRMS and payroll, order to cash, procure to pay, production, inventory, CRM and sales force automation. The portals serve vendors, distributors, dealers and retailers. Premium modules include transportation, warehouse, scheme and rebate, PPDS and shop floor control.`,
-      link: { label: 'Explore the platform', href: '#explore' },
+      link: { label: 'Explore the platform', href: '/platform' },
     },
     {
       q: 'Does MAVRO work with SAP, Oracle or Tally?',
@@ -463,7 +469,7 @@ export const faq = {
     {
       q: 'Can our vendors, distributors and dealers use MAVRO?',
       a: 'Yes. MAVRO has four self-service portals: a Vendor Portal for supplier onboarding with GSTIN and PAN verification, a Distributor (B2B) Portal for primary orders, a Dealer Portal for secondary sales and a Retailer Portal for tertiary demand. Each portal works from the same records your team uses, so orders and claims arrive without re-keying.',
-      link: { label: 'See the portals', href: '#portals' },
+      link: { label: 'See the portals', href: '/platform/portals' },
     },
     {
       q: 'Is MAVRO available on mobile?',
@@ -505,6 +511,8 @@ export const proof = {
   titleMark: 'with MAVRO.',
   lead: 'Three recent projects delivered by SaiSatwik Technologies. Clients are anonymised; the results are verified.',
   logos: [] as { name: string; src: string }[],
+  /** Under the stories, once the page exists. */
+  more: { label: 'All three stories in full', page: '/customers' },
   stories: [
     {
       sector: 'Plantation and export',

@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Icon } from '../components/Icon';
 import { byPack, packs, type Pack } from '../data/modules';
 import { intro } from '../data/home';
+import { hasPage } from '../links';
 import { vars } from '../motion/hooks';
 import { CX, H, T, VIEW_H, W, face, left, plates, right, tiles } from '../blocks/plates';
 import './platform-intro.css';
@@ -120,7 +121,7 @@ export function PlatformIntro() {
               >
                 {isPack(layer.tier) ? (
                   <a
-                    href={packs[layer.tier].href}
+                    href={hasPage(packs[layer.tier].page) ? packs[layer.tier].page : packs[layer.tier].href}
                     ref={(el) => {
                       links.current[layer.tier as Pack] = el;
                     }}

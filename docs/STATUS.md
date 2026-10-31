@@ -4,8 +4,7 @@ _Last updated: 2026-10-30. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–26 done (2026-10-31); next: Phase 27, homepage integration and
-cross-linking. Every planned page with content exists; Company, Privacy, Terms, the blog and careers wait for the
+**Stage C (phased implementation). Phases 1–27 done (2026-10-31); next: Phase 28, launch QA. Every planned page with content exists; Company, Privacy, Terms, the blog and careers wait for the
 user's text (Open items).** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
@@ -37,6 +36,23 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-31, **Phase 27 done: homepage integration and cross-linking.** On `main`.
+  - **Homepage → pages:** Explore's "All 18 base modules" / "All 20 premium modules" and a new "The 4 portals" open
+    the package pages (the catalogue overlay remains the fallback); each featured module's panel ends with "See
+    <module>" to its page; the platform diagram's tiers open the package pages; the Industries module chips open the
+    module pages (DECISIONS.md updated); the FAQ's "Explore the platform" and "See the portals" go to `/platform` and
+    `/platform/portals`; new "more" links under the stories (`/customers`), the support model (`/implementation`) and
+    the trust card (`/security-and-compliance`), shown only once the page exists (shared `.more-link` in base.css).
+    Kept as in-page anchors on purpose: the hero's "Explore the platform" (#platform), FAQ "See industries"
+    (#industries; there is no industries hub page) and every "Request a demo" (#demo).
+  - **Link check:** new `npm run linkcheck` (scripts/linkcheck.cjs, after a build): crawls dist/ from the homepage.
+    Result: 57 pages, no dead links, no missing anchors, every page one click from the homepage (header menus and
+    footer), the only orphan is `/pipeline-check` (hidden test page, removed in Phase 28).
+  - **Homepage still measures the same:** sections unchanged except Why (+42px) and Stories (+54px) at 1440, both still
+    under 1.2 screens; no overflow at 390.
+  - **Open question carried to Phase 28:** "Request a demo" on inner pages still opens the homepage form
+    (`/?interest=…#demo`, ticking the interest); `/contact` has the same form. Ask the user which they prefer.
 
 - 2026-10-31, **Phase 26 done: Customers and Contact live; Company, Legal, blog and careers scaffolded.** On `main`.
   - **Customers** (`/customers`, src/pages/Customers.tsx): hero with a `ResultCard` (the three verified results) →
@@ -802,8 +818,9 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 27: Homepage integration and cross-linking** (IMPLEMENTATION-PLAN.md Phase 27): read its scope first.
-   Questions carried over: should "Request a demo" on inner pages open `/contact` instead of the homepage form?
+1. **Phase 28: Launch QA** (IMPLEMENTATION-PLAN.md Phase 28): read its scope first. Includes removing
+   `/pipeline-check`, rerunning `npm run linkcheck`, and asking the user whether inner-page "Request a demo" should
+   open `/contact`.
 
 ## Open items (need the user or real assets)
 

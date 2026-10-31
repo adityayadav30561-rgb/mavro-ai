@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Icon, type IconName } from '../components/Icon';
 import { industries } from '../data/home';
-import { channelPortals, moduleById, packs, vendorPortal, type Pack } from '../data/modules';
+import { catalogue, channelPortals, moduleById, modulePage, packs, vendorPortal, type Pack } from '../data/modules';
 import { hasPage } from '../links';
 import { useTabs, vars } from '../motion/hooks';
 import './industries.css';
@@ -15,17 +15,19 @@ const portalIcons: Record<string, IconName> = {
 };
 
 /** A module or portal id as a chip: its name, icon and the package anchor Explore listens for. */
-function moduleLink(id: string): { name: string; icon: IconName; pack: Pack } {
+function moduleLink(id: string): { name: string; icon: IconName; pack: Pack; page: string | null } {
+  const entry = catalogue.find((item) => item.item.id === id);
+  const page = entry && hasPage(modulePage(entry)) ? modulePage(entry) : null;
   const portal = portalList.find((p) => p.id === id);
-  if (portal) return { name: portal.name.replace(' / B2B', ''), icon: portalIcons[id], pack: 'portal' };
+  if (portal) return { name: portal.name.replace(' / B2B', ''), icon: portalIcons[id], pack: 'portal', page };
   const module = moduleById(id);
-  return { name: module.name, icon: module.icon, pack: module.pack };
+  return { name: module.name, icon: module.icon, pack: module.pack, page };
 }
 
 /**
  * The four audiences from the product deck as tabs. Each panel says what MAVRO does for that business, shows
  * the order flow with its shared ends and configured middle, and links to the modules to look at: a chip opens
- * that exact module in Explore the platform (data-module, read by Explore's link handler).
+ * the module's own page (until one exists, that module in Explore the platform, via data-module).
  */
 export function Industries() {
   const { active, select, tabProps, panelProps } = useTabs(industries.list.length, 'industry');
@@ -138,7 +140,11 @@ export function Industries() {
                   const link = moduleLink(id);
                   return (
                     <li key={id} style={vars({ '--i': i })}>
-                      <a href={packs[link.pack].href} data-module={id} data-pack={link.pack}>
+                      <a
+                        href={link.page ?? packs[link.pack].href}
+                        data-module={link.page ? undefined : id}
+                        data-pack={link.page ? undefined : link.pack}
+                      >
                         <span className="ind__mod-icon">
                           <Icon name={link.icon} size={16} />
                         </span>

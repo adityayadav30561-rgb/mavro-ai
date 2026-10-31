@@ -96,7 +96,7 @@ least important, with full design effort. The ordered list lives in [STATUS.md](
 | Which industries | Manufacturing (OEM suppliers, multi-line plants), Distribution (dealer, distributor and retail networks), Pharma (multi-plant, GMP), **Service providers** (IT companies and professional services). Exporters replaced by Service providers at the user's request (2026-10-23: "we have service providers like IT companies instead of exporters"). Printing and packaging dropped | The deck's own audiences (slide 2) plus pharma from its module pages. "FMCG" is not used because the deck does not say it. |
 | Claims | Only capabilities from the deck. Left out: "trusted by major automotive OEMs", "markets on every continent", "60+ countries" | Unverifiable customer and reach claims. |
 | Layout | Four industry cards above one full-width panel: headline + three points, the order flow on one line, then module chips | A side list squeezed the 10-stage flow onto two lines. |
-| Module chips | Each opens that exact module in Explore the platform (package tab + module tab); only featured modules are used | "Each links to its relevant modules" from the plan, without dead ends. |
+| Module chips | Each opens that exact module in Explore the platform (package tab + module tab); only featured modules are used. **Since Phase 27 (2026-10-31):** each opens the module's own page; Explore is the fallback only for a module without one | "Each links to its relevant modules" from the plan, without dead ends; the plan's Phase 27 points the homepage at the new pages. |
 
 ## Visual refinements (improvement item 8, 2026-10-23)
 
