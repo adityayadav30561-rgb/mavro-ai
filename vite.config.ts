@@ -34,8 +34,7 @@ export default defineConfig({
   plugins: [react(), staticHost()],
   server: { port: 5180, strictPort: true },
   preview: { port: 5181, strictPort: true },
-  // The three.js hero scene is one lazy chunk (~150 kB gzip) loaded after the page is idle; it is never on the
-  // critical path, so the warning threshold is raised to cover it rather than splitting it further.
+  // The main bundle carries the module catalogue and page data (~185 kB gzip); the warning threshold covers it.
   // The manifest tells scripts/prerender.mjs which chunk each page module is in, so every page preloads its own.
   build: { cssCodeSplit: false, assetsInlineLimit: 2048, chunkSizeWarningLimit: 650, manifest: true },
 });

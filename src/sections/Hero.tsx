@@ -3,7 +3,7 @@ import { ClientBand } from '../blocks/ClientBand';
 import { hero } from '../data/home';
 import { cta } from '../data/site';
 import { vars } from '../motion/hooks';
-import { HeroScene } from './hero/HeroScene';
+import { HeroPlant } from './hero/HeroPlant';
 import './hero.css';
 
 export function Hero() {
@@ -41,7 +41,7 @@ export function Hero() {
         </div>
 
         <div className="hero__stage hero__in" style={vars({ '--i': 2 })}>
-          <HeroScene />
+          <HeroPlant />
         </div>
       </div>
 

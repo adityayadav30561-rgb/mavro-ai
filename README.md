@@ -1,6 +1,6 @@
 # MAVRO website
 
-The public MAVRO website: the homepage for the MAVRO Super ERP. Vite 5, React 18, TypeScript, three.js, npm.
+The public MAVRO website: the homepage for the MAVRO Super ERP. Vite 5, React 18, TypeScript, npm; the hero art is drawn in code with the anidoodle skill.
 
 Working on this project? Start with [CLAUDE.md](CLAUDE.md) and [docs/STATUS.md](docs/STATUS.md). This README
 is the technical reference.
@@ -63,7 +63,7 @@ wordmark and it holds up from 74px headlines down to 11px interface labels.
 
 | Section | Anchor | What it does |
 |---|---|---|
-| Hero | `#top` | Audience headline, three proof points, CTAs, the 3D platform scene with two floating interface panels, and the client logo band |
+| Hero | `#top` | Audience headline, three proof points, CTAs, the anidoodle plant (an isometric cutaway: one order tote looping through order desk, press, racks, truck and ledger, every station wired to a data core), and the client logo band |
 | PlatformIntro | `#platform` | Base modules, portals and premium modules on one shared platform (isometric SVG). Each tier label links to its package in Explore (`packs[*].href`); hover or focus lifts the matching plate, and clicking a plate clicks its label |
 | Showcase | `#product` | The real interface (prototype screenshots) as five teams see it |
 | Connect | `#connect` | ERP Connect: SAP, Oracle, Tally and legacy ERPs sync two ways with the MAVRO Database, the sole integration broker (from the connectivity deck's architecture page) A dark band (`section--night`) with a glow behind the board, the broker hub as its one bright object, and the deck's five benefits (`connect.benefits`, slide 5) before a dark CTA |
@@ -89,7 +89,7 @@ in the sitemap. One table drives everything:
 - `sitemap.xml` lists the routes with `inSitemap`.
 - In the browser, src/entry-client.tsx finds the route for `location.pathname` (unknown paths get the 404 page),
   loads its page chunk and hydrates. Each page module is its own chunk and the prerendered HTML preloads it, so
-  a page only loads its own code: three.js stays in the homepage's lazy scene chunk.
+  a page only loads its own code.
 - Links are plain `<a>` to real URLs. Header, footer and CTA links written as `#section` are homepage sections;
   off the homepage `useHref` (src/routing.tsx) points them at `/#section`.
 - Navigation links (src/data/nav.ts) name the page they belong to (`page: '/erp-connect'`) and a fallback
@@ -108,21 +108,19 @@ and SoftwareApplication + FAQPage structured data. Adding a module page: write i
 Adding a page: write `src/pages/<Name>.tsx` exporting `Page`, add a route. `/pipeline-check` is a hidden test page
 (noindex, not linked, not in the sitemap) to be removed at launch QA.
 
-## The hero scene
+## The hero art
 
-[src/sections/hero/scene.ts](src/sections/hero/scene.ts) is a hand-built three.js scene: a stacked platform core
-with seams of brand light and a floating glass "record", six module nodes (labelled Accounting, Inventory,
-Procure to Pay, Production, Audit, Transport) each with its own sculpted object, and connections carrying packets both ways.
-Labels are HTML, projected from the 3D nodes every frame. Layout data shared with React is in
-[nodes.ts](src/sections/hero/nodes.ts).
+The hero is an isometric plant drawn in code with the anidoodle skill (`.claude/skills/anidoodle`). Its source is
+[art/src/canvas-core/heroPlant.ts](art/src/canvas-core/heroPlant.ts) (the brief: [art/brief.md](art/brief.md)):
+one pure `drawPlant(frame)` over a seamless 300-frame (10 s) loop. `npm run hero:art` compiles it into
+`src/sections/hero/plant.gen.js` (about 13 kB), which [HeroPlant.tsx](src/sections/hero/HeroPlant.tsx) draws on a
+transparent canvas over the hero's own background, at the device's pixel ratio (capped at 2).
 
-- Loaded with `import()` after the page is idle, as its own chunk (about 150 kB gzip), so it never delays the headline.
-- No real-time shadows or post-processing; contact shadows are painted textures. Pixel ratio is capped at 2 (1.5 on
-  small or modest devices, which also get fewer packets and no pointer tilt).
-- Rendering stops when the canvas is off screen or the tab is hidden.
-- `prefers-reduced-motion`: the scene is drawn once, settled, and left still.
-- No WebGL, or before the first frame: a CSS rendition of the same composition stands in, with labels at their
-  resting positions. The stage keeps a fixed 1.12 aspect ratio, so nothing shifts when the canvas fades in.
+- Frame 0 is also a prerendered image (`src/assets/hero/plant.webp`): the first paint, the no-JavaScript view and
+  the whole picture for `prefers-reduced-motion`. The canvas covers it once its first frame lands.
+- Drawing stops while the hero is off screen or the tab is hidden.
+- The stage keeps its 1.12 aspect ratio (1344 x 1200 art), so nothing shifts when the canvas takes over.
+- Changing the art: [art/README.md](art/README.md) (restore the engine with the scaffold, render, gate, rebuild).
 
 ## The product screenshots
 

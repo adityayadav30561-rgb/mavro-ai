@@ -37,6 +37,24 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-10-31, **Homepage hero redrawn with anidoodle** (user: "start making the hero section with anidoodle"). On `main`.
+  - **Intake (user's answers):** a looping machine, Isometric cutaway style, a miniature plant on a loop. Defaults
+    of mine in `art/brief.md`: silent, 10 s seamless loop, 1344 x 1200 (the stage's 1.12 ratio), transparent, the
+    order tote as the only brand-blue accent, daylight from the upper left.
+  - **The art** (`art/src/canvas-core/heroPlant.ts`): a walled cutaway works on one slab; a conveyor loop carries
+    the tote past the order kiosk (slip printed), the press (ram strikes), the racks (a gantry lowers a carton),
+    the truck (the carton slides in) and the ledger desk (stamp); each act sends a pulse to the data core in the
+    middle (white tier plates edged in the site's Base/Portals/Premium colours), whose lamp answers; steady data
+    traffic runs on every cable. Gate: 14/14 PASS (deterministic, contract clean, no dead air; calm declared as a
+    site hero). User approved the rendered loop.
+  - **On the site:** `npm run hero:art` compiles the art into `src/sections/hero/plant.gen.js` (~13 kB);
+    `HeroPlant.tsx` draws it live on a transparent canvas (DPR up to 2, paused off screen or tab hidden); frame 0 is
+    `src/assets/hero/plant.webp` for first paint, no JS and reduced motion. The three.js scene, its panels and the
+    `three` dependency are removed (the homepage no longer downloads the ~150 kB gzip scene chunk). Checked at 1440,
+    1366, 1920 and 390 and with reduced motion: no errors, no overflow, same stage size.
+  - **Committed:** only `art/brief.md`, `art/README.md`, the art source and its host page; the engine copy in `art/` is
+    restored with the scaffold (art/README.md).
+
 - 2026-10-31, **anidoodle skill installed** (user: "install anidoodle skill from github, we will make our hero section of
   homepage with it"). `.claude/skills/anidoodle` = the repo's `skills/anidoodle` folder, unmodified, v0.10.1
   (github.com/alexgreensh/anidoodle, Apache-2.0; LICENSE, NOTICE and SOURCE.txt alongside). Reviewed before install:

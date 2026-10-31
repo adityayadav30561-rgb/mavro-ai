@@ -1,7 +1,7 @@
 # MAVRO website: start here
 
 Marketing website for **MAVRO** (MAVRO.AI), a Super ERP by **SaiSatwik Technologies** for manufacturers,
-distributors and exporters. Vite 5 + React 18 + TypeScript + three.js, prerendered to static HTML.
+distributors and exporters. Vite 5 + React 18 + TypeScript, prerendered to static HTML; the hero art is drawn in code with anidoodle.
 
 ## Read before doing anything
 
@@ -64,7 +64,8 @@ src/library/             the dev-only gallery page and its sample data
 src/data/                site.ts, nav.ts, home.ts, modules/, platform.ts, packages.ts, erp-connect.ts, industries.ts,
                          implementation.ts, security.ts, company.ts, pages.ts
                          (all content)
-src/sections/            homepage sections, built on the blocks; hero/ = 3D scene; explore/ = premium mockups
+src/sections/            homepage sections, built on the blocks; hero/ = the anidoodle plant (HeroPlant + generated
+                         plant.gen.js); explore/ = premium mockups
                          (the demo form is a block: blocks/DemoPanel.tsx, blocks/demo/)
 src/components/          Nav, PlatformMenu (mega menu), NavMenus, Drawer (mobile), NavLink, Footer, Logo, Icon, Screen
 src/styles/              tokens.css, base.css
@@ -76,7 +77,8 @@ prototype/               HTML product screens that `npm run shots` photographs; 
 brand/                   source artwork: official logo, clientele slide
 legacy/                  snapshot of the site before the redesign (not built)
 .claude/skills/anidoodle the anidoodle skill (code-drawn art and animation, Apache-2.0, from
-                         github.com/alexgreensh/anidoodle v0.10.1); used for the homepage hero
+                         github.com/alexgreensh/anidoodle v0.10.1)
+art/                     the hero art's source and brief (art/README.md: restore the engine, render, `npm run hero:art`)
 docs/                    STATUS, WORKFLOW, DECISIONS, PRODUCT, VERIFY, SITE-PLAN, IMPLEMENTATION-PLAN, CLOUD, LIBRARY;
                          source/ = text of the source decks, slide by slide
 ```

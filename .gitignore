@@ -13,3 +13,17 @@ shots/
 .claude/skills/anidoodle/engine/dist/
 .claude/skills/anidoodle/engine/.tmp/
 .claude/skills/anidoodle/engine/.cache/
+
+# hero art project (art/): only our files are committed; the engine copy, its dependencies and renders are
+# restored with the anidoodle scaffold (art/README.md)
+art/*
+!art/README.md
+!art/brief.md
+!art/src/
+art/src/*
+!art/src/canvas-core/
+art/src/canvas-core/*
+!art/src/canvas-core/heroPlant.ts
+!art/src/hosts/
+art/src/hosts/*
+!art/src/hosts/page-heroPlant.ts

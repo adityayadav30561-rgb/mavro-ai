@@ -21,6 +21,8 @@ export const hero = {
     { icon: 'link', text: 'Works with SAP, Oracle and Tally' },
   ] satisfies { icon: IconName; text: string }[],
   clientsLabel: 'Trusted by',
+  /** The hero art's text alternative (the art itself: art/brief.md). */
+  art: 'An isometric cutaway of a small plant: one blue order tote rides a conveyor past the order desk, the production press, the warehouse racks, the dispatch truck and the ledger desk, and every station is wired to one data core in the middle.',
 };
 export const intro = {
   title: 'One connected platform.',
