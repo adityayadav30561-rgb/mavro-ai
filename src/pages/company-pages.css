@@ -1,0 +1,48 @@
+/* Blog index and careers (pages/Blog.tsx, pages/Careers.tsx): a list of linked cards. */
+.cp__list {
+  display: grid;
+  gap: 1rem;
+  max-width: 52rem;
+}
+
+.cp__list a {
+  display: grid;
+  gap: .25rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--r-3);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
+  color: var(--fg);
+  transition: box-shadow var(--d-2) var(--ease);
+}
+
+.cp__list a:hover {
+  box-shadow: 0 0 0 1px var(--blue), var(--shadow-2);
+}
+
+.cp__list small {
+  color: var(--fg-3);
+  font-size: var(--t-label);
+}
+
+.cp__list b {
+  font-size: var(--t-h3);
+  letter-spacing: -0.02em;
+}
+
+.cp__list span {
+  color: var(--fg-2);
+}
+
+.cp__list .icon,
+.cp__apply {
+  color: var(--blue);
+}
+
+.cp__apply {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  margin-top: .5rem;
+  font-weight: 650;
+}

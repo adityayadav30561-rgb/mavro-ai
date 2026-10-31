@@ -1,0 +1,44 @@
+/* Logo wall (blocks/LogoWall.tsx): the clientele in tiles, grey until hovered. */
+.lwall {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border-radius: var(--r-4);
+  background: var(--line);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.lwall li {
+  display: grid;
+  place-items: center;
+  height: clamp(5.5rem, 9vw, 7.5rem);
+  padding: 1.25rem 1.5rem;
+  background: var(--surface);
+}
+
+.lwall img {
+  max-width: 100%;
+  max-height: 3.25rem;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.85;
+  transition: filter var(--d-2) var(--ease), opacity var(--d-2) var(--ease);
+}
+
+.lwall li:hover img {
+  filter: none;
+  opacity: 1;
+}
+
+@media (max-width: 1023px) {
+  .lwall {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .lwall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

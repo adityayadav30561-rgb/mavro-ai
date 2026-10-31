@@ -62,7 +62,7 @@ src/pages/               one module per page type (Home.tsx = homepage section o
 src/blocks/              the section library: every reusable block (docs/LIBRARY.md); gallery at /_library (dev)
 src/library/             the dev-only gallery page and its sample data
 src/data/                site.ts, nav.ts, home.ts, modules/, platform.ts, packages.ts, erp-connect.ts, industries.ts,
-                         implementation.ts, security.ts, pages.ts
+                         implementation.ts, security.ts, company.ts, pages.ts
                          (all content)
 src/sections/            homepage sections, built on the blocks; hero/ = 3D scene; explore/ = premium mockups;
                          demo/ = demo form

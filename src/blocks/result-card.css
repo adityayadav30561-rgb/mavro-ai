@@ -1,0 +1,86 @@
+/* Result card (blocks/ResultCard.tsx): the stories' results on a navy card, a hero visual. */
+.rcard {
+  width: min(100%, 30rem);
+  margin: 0;
+  padding: 1.5rem;
+  border-radius: var(--r-4);
+  background:
+    radial-gradient(70% 60% at 15% 10%, rgb(122 54 251 / 0.35), transparent 70%),
+    radial-gradient(60% 50% at 95% 95%, rgb(3 200 253 / 0.2), transparent 70%),
+    var(--night);
+  box-shadow: var(--shadow-float);
+  color: var(--night-ink);
+}
+
+.rcard figcaption {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--night-line);
+  color: var(--night-ink-2);
+  font-size: var(--t-small);
+  font-weight: 650;
+}
+
+.rcard ol {
+  display: grid;
+}
+
+.rcard li {
+  display: grid;
+  grid-template-columns: 10.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+  padding: 1.125rem 0;
+}
+
+.rcard li + li {
+  border-top: 1px solid var(--night-line);
+}
+
+.rcard__fig {
+  display: grid;
+  gap: .125rem;
+}
+
+.rcard__fig s {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  color: var(--night-ink-3);
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+
+.rcard__fig s .icon {
+  color: var(--cyan);
+}
+
+.rcard__fig b {
+  background: linear-gradient(100deg, #a983ff 0%, #6f8dff 45%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 2.25rem;
+  font-weight: 780;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.rcard__what {
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.rcard__what small {
+  display: block;
+  margin-top: .25rem;
+  color: var(--night-ink-3);
+  font-size: var(--t-label);
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .rcard li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: .375rem;
+  }
+}

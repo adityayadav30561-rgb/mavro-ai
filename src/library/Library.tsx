@@ -26,6 +26,11 @@ import { SwimlaneFlow } from '../blocks/SwimlaneFlow';
 import { SyncSteps } from '../blocks/SyncSteps';
 import { Timeline } from '../blocks/Timeline';
 import { RolloutCard } from '../blocks/RolloutCard';
+import { StoryFeature } from '../blocks/StoryFeature';
+import { ResultCard } from '../blocks/ResultCard';
+import { LogoWall } from '../blocks/LogoWall';
+import { ContactCard } from '../blocks/ContactCard';
+import { Prose } from '../blocks/Prose';
 import { MigrationMap } from '../blocks/MigrationMap';
 import { ScreenPoints } from '../blocks/ScreenPoints';
 import { FigureBand } from '../blocks/FigureBand';
@@ -35,6 +40,7 @@ import { Screen } from '../components/Screen';
 import { connect, explore, faq, implementation, industries, inlineCtas, intro, proof, why } from '../data/home';
 import { erpConnect } from '../data/erp-connect';
 import { securityPage } from '../data/security';
+import { customersPage } from '../data/company';
 import { packageTiers } from '../pages/module-card';
 import { catalogue, premiumById, premiumGroups } from '../data/modules';
 import { platformPage } from '../data/packages';
@@ -285,6 +291,25 @@ export function Page() {
         </Entry>
         <Entry name="DataTable" file="blocks/ComparisonTable.tsx" use="Implementation (risks)">
           <DataTable caption={risks.caption} columns={risks.columns} rows={risks.rows} />
+        </Entry>
+        <Entry name="StoryFeature" file="blocks/StoryFeature.tsx" use="Customers (stories in full)">
+          <StoryFeature stories={proof.stories.slice(0, 1)} labels={customersPage.labels} />
+        </Entry>
+        <Entry name="ResultCard" file="blocks/ResultCard.tsx" use="Customers hero">
+          <div className="lib__narrow">
+            <ResultCard stories={proof.stories} title="Result" />
+          </div>
+        </Entry>
+        <Entry name="LogoWall" file="blocks/LogoWall.tsx" use="Customers (clientele)">
+          <LogoWall />
+        </Entry>
+        <Entry name="ContactCard" file="blocks/ContactCard.tsx" use="Contact hero">
+          <div className="lib__narrow">
+            <ContactCard title="Reach us directly" rows={[{ icon: 'mail', label: 'Email', value: 'contact@saisatwik.com', href: 'mailto:contact@saisatwik.com' }, { icon: 'pin', label: 'Head office', value: '1415, 13th Floor, Galaxy Blue Sapphire', lines: ['Greater Noida 201009'] }]} />
+          </div>
+        </Entry>
+        <Entry name="Prose" file="blocks/Prose.tsx" use="Company, Privacy, Terms, blog posts (when the text exists)">
+          <Prose updated="Sample" sections={[{ heading: 'A section heading', paragraphs: ['Long-form text at a readable measure. The real text for Company, Privacy and Terms comes from the user.'] }]} />
         </Entry>
         <Entry name="RolloutCard" file="blocks/RolloutCard.tsx" use="Implementation hero">
           <div className="lib__narrow">

@@ -1,0 +1,67 @@
+/* Contact card (blocks/ContactCard.tsx): email, phone and office, a hero visual. */
+.ccard {
+  width: min(100%, 28rem);
+  margin: 0;
+  padding: 1.5rem;
+  border-radius: var(--r-4);
+  background: var(--surface);
+  box-shadow: var(--shadow-float);
+}
+
+.ccard figcaption {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.ccard ul {
+  display: grid;
+}
+
+.ccard li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  padding: 1rem 0;
+}
+
+.ccard li + li {
+  border-top: 1px solid var(--line);
+}
+
+.ccard__icon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--r-2);
+  background: var(--grad-brand);
+  color: #fff;
+}
+
+.ccard small {
+  display: block;
+  color: var(--fg-3);
+  font-size: var(--t-label);
+  font-weight: 600;
+}
+
+.ccard a,
+.ccard b {
+  display: block;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.ccard a {
+  color: var(--blue);
+  overflow-wrap: anywhere;
+}
+
+.ccard__line {
+  display: block;
+  color: var(--fg-2);
+  font-size: var(--t-small);
+}

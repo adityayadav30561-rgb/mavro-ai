@@ -1,0 +1,26 @@
+/* Prose (blocks/Prose.tsx): long-form text at a readable measure. */
+.prose {
+  display: grid;
+  gap: 2rem;
+  max-width: 44rem;
+}
+
+.prose__updated {
+  color: var(--fg-3);
+  font-size: var(--t-small);
+}
+
+.prose h2 {
+  margin-bottom: .75rem;
+  font-size: var(--t-h3);
+  letter-spacing: -0.02em;
+}
+
+.prose p {
+  color: var(--fg-2);
+  line-height: 1.7;
+}
+
+.prose p + p {
+  margin-top: .875rem;
+}

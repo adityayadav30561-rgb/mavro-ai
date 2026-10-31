@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+import { blogPage, careersPage, companyText, contactPage, customersPage, openings, posts, privacyText, termsText } from './data/company';
 import { erpConnect } from './data/erp-connect';
 import { faq, industries } from './data/home';
 import { implementationPage } from './data/implementation';
@@ -182,6 +183,57 @@ const trustRoutes: Route[] = [
   },
 ];
 
+/*
+ * Customers and Contact are live. Company, Privacy, Terms, the blog and careers wait for the user's content
+ * (src/data/company.ts): each route is added only once its content exists, so links stay hidden until then.
+ */
+const companyRoutes: Route[] = [
+  {
+    path: '/customers',
+    page: 'Customers',
+    title: customersPage.seo.title,
+    description: customersPage.seo.description,
+    crumbs: [{ name: 'Customers', path: '/customers' }],
+    inSitemap: true,
+    priority: 0.7,
+  },
+  {
+    path: '/contact',
+    page: 'Contact',
+    title: contactPage.seo.title,
+    description: contactPage.seo.description,
+    crumbs: [{ name: 'Contact', path: '/contact' }],
+    inSitemap: true,
+    priority: 0.7,
+  },
+  ...(
+    [
+      ['/company', 'About', companyText],
+      ['/privacy', 'Privacy policy', privacyText],
+      ['/terms', 'Terms of use', termsText],
+    ] as const
+  ).flatMap(([path, name, text]): Route[] =>
+    text ? [{ path, page: 'TextPage', title: text.seo.title, description: text.seo.description, crumbs: [{ name, path }], inSitemap: true, priority: 0.3 }] : [],
+  ),
+  ...(posts.length
+    ? [
+        { path: '/blog', page: 'Blog', ...blogPage.seo, crumbs: [{ name: 'Blog', path: '/blog' }], inSitemap: true, priority: 0.5 },
+        ...posts.map((post) => ({
+          path: `/blog/${post.slug}`,
+          page: 'Blog',
+          title: `${post.title} | MAVRO`,
+          description: post.summary,
+          crumbs: [{ name: 'Blog', path: '/blog' }, { name: post.title, path: `/blog/${post.slug}` }],
+          inSitemap: true,
+          priority: 0.5,
+        })),
+      ]
+    : []),
+  ...(openings.length
+    ? [{ path: '/careers', page: 'Careers', ...careersPage.seo, crumbs: [{ name: 'Careers', path: '/careers' }], inSitemap: true, priority: 0.4 }]
+    : []),
+];
+
 const libraryRoute: Route = {
   path: '/_library',
   page: 'Library',
@@ -207,6 +259,7 @@ export const routes: Route[] = [
   erpConnectRoute,
   ...industryRoutes,
   ...trustRoutes,
+  ...companyRoutes,
   ...moduleRoutes,
   // Dev only: the section library (src/library/). Absent from production builds, so never prerendered or served.
   ...(import.meta.env.DEV ? [libraryRoute] : []),

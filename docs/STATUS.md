@@ -4,9 +4,9 @@ _Last updated: 2026-10-30. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–25 done (2026-10-31); next: Phase 26, the Customers, Company, Contact,
-Legal, blog and careers scaffolds. All 42 module pages, the Platform overview, the package pages, ERP Connect, the four
-industry pages, Implementation and Security and compliance exist.** The
+**Stage C (phased implementation). Phases 1–26 done (2026-10-31); next: Phase 27, homepage integration and
+cross-linking. Every planned page with content exists; Company, Privacy, Terms, the blog and careers wait for the
+user's text (Open items).** The
 homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
 and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
 pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
@@ -37,6 +37,24 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-10-31, **Phase 26 done: Customers and Contact live; Company, Legal, blog and careers scaffolded.** On `main`.
+  - **Customers** (`/customers`, src/pages/Customers.tsx): hero with a `ResultCard` (the three verified results) →
+    the three stories in full (`StoryFeature`: result on navy beside the challenge, what was built, what it
+    delivered and the module links) → the clientele wall (`LogoWall`, all 20 logos) → CTA. Stories are `proof` in
+    home.ts, shared with the homepage.
+  - **Contact** (`/contact`, src/pages/Contact.tsx): hero with a `ContactCard` (email, phone, head office from
+    site.ts) → the full demo form (the homepage `Demo` section, reused) → what happens after you ask (three steps
+    from the demo copy; no response-time promise, none is stated).
+  - **Waiting for the user:** Company, Privacy policy, Terms of use (`TextPage` + `Prose`), the blog (`Blog`: list and
+    post) and careers (`Careers`). Their slots are in src/data/company.ts; routes, links and sitemap entries appear only
+    once content exists (src/routes.ts), so nothing links to an empty page. Listed under Open items.
+  - **New blocks:** `StoryFeature`, `ResultCard`, `LogoWall`, `ContactCard`, `Prose` (in `/_library`).
+  - **Links:** "Customer stories" (menu, footer) and "Contact" now open the pages (they fell back to `#stories` and
+    the email address); Company, Blog, Careers, Privacy and Terms remain hidden. "Request a demo" buttons elsewhere still
+    open the homepage form (`/?interest=…#demo`); pointing them at `/contact` is a Phase 27 question.
+  - **Checks:** 1440, 1366, 390 and the nine measure sizes: no overflow, no console errors. The full stories section
+    is 1.8 screens on desktop (three complete case studies, the page's content); Contact's "what happens next" is 0.6.
 
 - 2026-10-31, **Phase 25 done: Implementation and Security and compliance** (`/implementation`,
   `/security-and-compliance`). On `main`.
@@ -779,8 +797,8 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 26: Customers, Company, Contact, Legal, blog and careers scaffolds** (IMPLEMENTATION-PLAN.md Phase 26):
-   read the plan's scope and SITE-PLAN.md 3.8 onwards before starting.
+1. **Phase 27: Homepage integration and cross-linking** (IMPLEMENTATION-PLAN.md Phase 27): read its scope first.
+   Questions carried over: should "Request a demo" on inner pages open `/contact` instead of the homepage form?
 
 ## Open items (need the user or real assets)
 
@@ -792,7 +810,9 @@ items when context is heavy.
 | Testimonials / case studies | `proof` in `src/data/home.ts` | three anonymised stories from deck slide 23 (approved 2026-10-23). Named stories, quotes or logos per story only with the client's approval |
 | Social share image | `src/seo/head.ts` | none |
 | FAQ: pricing and hosting | `faq.items` in home.ts | not answered: the decks do not state a pricing model, deployment options beyond "cloud-native" or data ownership terms. Add those questions once the user supplies the answers |
-| About, Careers, Blog, Privacy, Terms | `src/data/nav.ts` (page, no fallback) | planned pages; links stay hidden until their routes exist |
+| **Company (About), Privacy policy, Terms of use** | `companyText`, `privacyText`, `termsText` in `src/data/company.ts` (`TextContent`: SEO, title, lead, updated, sections) | **waiting for the user's text.** Template ready (`src/pages/TextPage.tsx`); the route, the menu/footer link and the sitemap entry appear once the text is filled in. Never fill with invented copy |
+| **Blog posts** | `posts` in `src/data/company.ts` | **none yet.** Templates ready (`src/pages/Blog.tsx`: `/blog` list and `/blog/<slug>`); the Resources menu shows Blog once there is a post |
+| **Careers openings** | `openings` in `src/data/company.ts` | **none yet.** Template ready (`src/pages/Careers.tsx`, apply by email); the Company menu and footer show Careers once there is an opening |
 | Hidden test page | `/pipeline-check` in `src/routes.ts` | noindex, not linked, not in the sitemap; remove at launch QA (Phase 28) |
 | One stylesheet for all pages | `cssCodeSplit: false` in vite.config.ts | every page loads the full CSS (96 kB, about 19 kB gzip, after Phase 2's blocks); revisit in the Phase 28 performance pass as pages grow |
 | 404 has no canonical | `src/seo/head.ts` | deliberate (the plan said "own canonical"): the 404 answers at any missing URL, so it names none and is noindex |
