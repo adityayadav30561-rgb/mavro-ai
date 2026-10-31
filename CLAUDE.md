@@ -75,6 +75,8 @@ prototype/               HTML product screens that `npm run shots` photographs; 
                          module-shell.js (sidebar from the catalogue), phone.css (phone screens)
 brand/                   source artwork: official logo, clientele slide
 legacy/                  snapshot of the site before the redesign (not built)
+.claude/skills/anidoodle the anidoodle skill (code-drawn art and animation, Apache-2.0, from
+                         github.com/alexgreensh/anidoodle v0.10.1); used for the homepage hero
 docs/                    STATUS, WORKFLOW, DECISIONS, PRODUCT, VERIFY, SITE-PLAN, IMPLEMENTATION-PLAN, CLOUD, LIBRARY;
                          source/ = text of the source decks, slide by slide
 ```

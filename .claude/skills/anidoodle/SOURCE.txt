@@ -1,0 +1,1 @@
+anidoodle v0.10.1 (commit 9c20e77) from https://github.com/alexgreensh/anidoodle, Apache-2.0. Copied unmodified from skills/anidoodle.

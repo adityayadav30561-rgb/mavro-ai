@@ -6,3 +6,10 @@ dist-ssr
 shots/
 .claude/settings.local.json
 *.log
+
+# anidoodle skill (.claude/skills/anidoodle): engine dependencies and render output stay local
+.claude/skills/anidoodle/engine/node_modules/
+.claude/skills/anidoodle/engine/out/
+.claude/skills/anidoodle/engine/dist/
+.claude/skills/anidoodle/engine/.tmp/
+.claude/skills/anidoodle/engine/.cache/

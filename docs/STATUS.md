@@ -37,6 +37,14 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-10-31, **anidoodle skill installed** (user: "install anidoodle skill from github, we will make our hero section of
+  homepage with it"). `.claude/skills/anidoodle` = the repo's `skills/anidoodle` folder, unmodified, v0.10.1
+  (github.com/alexgreensh/anidoodle, Apache-2.0; LICENSE, NOTICE and SOURCE.txt alongside). Reviewed before install:
+  no hooks, no install scripts, no telemetry; its engine (three.js, esbuild; Remotion optional, only for films)
+  downloads npm packages and a Playwright Chromium on its first render. Committed to `main` at the user's choice so
+  every session has it; the engine's node_modules and render output are git-ignored. **Next:** the homepage hero with
+  it (start with the skill's intake, `references/workflows/site-art.md`), then Phase 28 launch QA.
+
 - 2026-10-31, **Phase 27 done: homepage integration and cross-linking.** On `main`.
   - **Homepage → pages:** Explore's "All 18 base modules" / "All 20 premium modules" and a new "The 4 portals" open
     the package pages (the catalogue overlay remains the fallback); each featured module's panel ends with "See
