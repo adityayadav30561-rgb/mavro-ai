@@ -58,26 +58,29 @@ export function TrustPanel({
       </div>
 
       <div className="trust__panels">
-        <ul className="trust__panel trust__rules" {...panel(0)}>
-          {data.compliance.items.map((item) => (
-            <li key={item.title}>
-              <span className="trust__icon" aria-hidden="true">
-                <Icon name={item.icon} size={18} />
-              </span>
-              <div>
-                <p className="trust__rule-head">
-                  <b>{item.title}</b>
-                  <span className="trust__tags">
-                    {item.tags.map((tag) => (
-                      <span key={tag}>{tag}</span>
-                    ))}
-                  </span>
-                </p>
-                <p className="trust__rule-body">{item.body}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
+        {/* The tab panel wraps the list, so the list keeps its own role (its items need a list parent). */}
+        <div className="trust__panel" {...panel(0)}>
+          <ul className="trust__rules">
+            {data.compliance.items.map((item) => (
+              <li key={item.title}>
+                <span className="trust__icon" aria-hidden="true">
+                  <Icon name={item.icon} size={18} />
+                </span>
+                <div>
+                  <p className="trust__rule-head">
+                    <b>{item.title}</b>
+                    <span className="trust__tags">
+                      {item.tags.map((tag) => (
+                        <span key={tag}>{tag}</span>
+                      ))}
+                    </span>
+                  </p>
+                  <p className="trust__rule-body">{item.body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <div className="trust__panel trust__security" {...panel(1)}>
           <dl className="trust__figures">

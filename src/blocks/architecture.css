@@ -487,6 +487,11 @@
   --edge: color-mix(in srgb, var(--blue) 50%, var(--cyan));
 }
 
+/* The step number is text: the 50% mix is too light for it (3.5:1), 80% blue reads at 5:1. */
+.arch__layer:nth-child(4) .arch__step {
+  color: color-mix(in srgb, var(--blue) 80%, var(--cyan));
+}
+
 .arch__layer:nth-child(n + 5) {
   --edge: var(--cyan);
 }

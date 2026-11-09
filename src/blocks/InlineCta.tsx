@@ -18,7 +18,8 @@ interface InlineCtaProps {
  */
 export function InlineCta({ title, body, label, interest, tone = 'light' }: InlineCtaProps) {
   return (
-    <aside className="icta" data-tone={tone} data-reveal>
+    // A div, not an aside: it sits inside a section, and a complementary landmark must be top level.
+    <div className="icta" data-tone={tone} data-reveal>
       <span className="icta__mark" aria-hidden="true" />
       <div className="icta__text">
         <p className="icta__title">{title}</p>
@@ -28,6 +29,6 @@ export function InlineCta({ title, body, label, interest, tone = 'light' }: Inli
         {label}
         <Icon name="arrow" size={16} className="btn__arrow" />
       </DemoLink>
-    </aside>
+    </div>
   );
 }

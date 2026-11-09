@@ -30,7 +30,7 @@
   --violet-50: #f4efff;
   --cyan-50: #e8f9ff;
   /* Cyan darkened for icons, text and lines on light surfaces (the Portals tier colour there). */
-  --cyan-600: #0291c0;
+  --cyan-600: #02729e; /* darkened from #0291c0 in Phase 28: 4.5:1 as text on white and on --cyan-50 */
 
   /* Neutrals, cooled toward the navy so greys belong to the brand */
   --white: #ffffff;
@@ -52,9 +52,9 @@
   --night-ink-3: #8a90b4;
 
   /* Status, for interface mockups and risk levels only */
-  --ok: #0a9b6c;
+  --ok: #077a55; /* darkened from #0a9b6c in Phase 28: 4.5:1 as text on --ok-50 */
   --ok-50: #e7f7f0;
-  --warn: #b26b00;
+  --warn: #955800; /* darkened from #b26b00 in Phase 28: 4.5:1 as text on --warn-50 */
   --warn-50: #fff3df;
   --bad: #c0293b;
   --bad-50: #fdecee;

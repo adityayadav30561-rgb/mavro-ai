@@ -6,7 +6,7 @@ import { implementationPage } from './data/implementation';
 import { industriesHub, industryContent } from './data/industries';
 import { securityPage } from './data/security';
 import { entryBySlug, moduleContent, modulePage, packs } from './data/modules';
-import { notFound, pipelineCheck } from './data/pages';
+import { notFound } from './data/pages';
 import { packageContent, platformPage } from './data/packages';
 import { site } from './data/site';
 import type { Crumb } from './routing';
@@ -253,16 +253,6 @@ const libraryRoute: Route = {
 
 export const routes: Route[] = [
   home,
-  // Hidden: proves the multi-page pipeline (prerender, own head, hydration, no three.js). Not linked, not in the
-  // sitemap, noindex. Remove at launch QA (Phase 28).
-  {
-    path: '/pipeline-check',
-    page: 'PipelineCheck',
-    title: pipelineCheck.seo.title,
-    description: pipelineCheck.seo.description,
-    crumbs: [{ name: pipelineCheck.seo.crumb, path: '/pipeline-check' }],
-    inSitemap: false,
-  },
   ...platformRoutes,
   erpConnectRoute,
   ...industryRoutes,

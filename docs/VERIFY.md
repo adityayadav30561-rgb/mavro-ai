@@ -12,7 +12,7 @@ npm run build        # typecheck + bundle + prerender; must pass
 With the dev server running (`npm run dev`):
 
 - **Section heights and overflow:** open `http://localhost:5180/qa/measure.html` (any other page:
-  `qa/measure.html?path=/pipeline-check`). It loads the page at nine
+  `qa/measure.html?path=/contact`). It loads the page at nine
   screen sizes (phone to 2560×1440) and prints each section's height as a share of the screen plus anything
   running past the right edge. Targets: desktop sections about 0.75–1.2×; `overflow=none` everywhere. Takes
   about 25 seconds; the tab title changes to "done".
@@ -24,6 +24,12 @@ With the dev server running (`npm run dev`):
   length warnings), canonical, robots vs sitemap, og:image, `lang="en-IN"`, JSON-LD parsing and `@id` references,
   FAQPage questions visible on the page, no noindex page in sitemap.xml or llms.txt. Exits 1 on an error.
   `npm run linkcheck` never fails by itself: check its output says `dead []`.
+- `node qa/sweep.cjs` (production build served by `npx vite preview --port 5181`): every built page at the nine
+  sizes: one H1, no horizontal overflow (names the elements causing it), no broken images, console errors or failed
+  requests. Pass paths to sweep only some. Exits 1 on a failure.
+- `node qa/a11ycheck.cjs` (same server): axe-core (WCAG 2.1 A/AA and best practices; `axe-core` is a dev
+  dependency) on one page per template at 1440 and 390 wide, plus a keyboard pass checking a visible focus ring
+  on the first 40 Tab stops. Exits 1 on a serious or critical violation.
 - `node qa/pagecheck.cjs / /platform /modules/order-to-cash`: each path at 1440x900, 1366x768 and 390x844: one
   H1, no horizontal overflow, no broken images, no console errors; then each section's height in screens at
   1440x900 (target about 0.75–1.2). Exits 1 on a failure.
@@ -106,8 +112,8 @@ Before a screen is captured, open it on the dev server (`/prototype/modules/<slu
 
 ## Pages and routes
 
-After `npm run build`, `npx vite preview` serves `dist/` like a static host: `/pipeline-check` gets
-`dist/pipeline-check/index.html`, an unknown URL gets `dist/404.html` with status 404 (vite.config.ts). For each
+After `npm run build`, `npx vite preview` serves `dist/` like a static host: `/contact` gets
+`dist/contact/index.html`, an unknown URL gets `dist/404.html` with status 404 (vite.config.ts). For each
 new page check: its own `<title>`, description, canonical and JSON-LD in the built file; it is in `sitemap.xml`
 (unless hidden); it hydrates with no console errors; its network requests contain no `scene-*.js` (three.js) unless
 it is the homepage.

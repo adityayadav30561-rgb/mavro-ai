@@ -73,7 +73,9 @@ export function PageHero({
     >
       <div className="ph__bg" aria-hidden="true" />
       <div className="page ph__grid">
-        <div className="ph__copy" data-reveal>
+        {/* No scroll reveal in the hero: it is on screen at load, and a reveal would hide the page's largest text
+            and screen until the JavaScript has run (Phase 28: LCP). Only the industry variant's tilt uses it. */}
+        <div className="ph__copy">
           <Breadcrumbs />
           {chip && (
             <span className="ph__chip" data-tier={chip.tier}>
@@ -127,7 +129,7 @@ export function PageHero({
         </div>
 
         {!simple && (
-          <div className="ph__visual" data-reveal>
+          <div className="ph__visual" data-reveal={variant === 'industry' || undefined}>
             {visual}
           </div>
         )}

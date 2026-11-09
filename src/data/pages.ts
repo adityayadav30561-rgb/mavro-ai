@@ -51,19 +51,3 @@ export const notFound = {
     },
   ] satisfies { icon: IconName; label: string; body: string; href: string }[],
 } as const;
-
-export const pipelineCheck = {
-  seo: {
-    title: 'Pipeline check | MAVRO',
-    description: 'Internal check page for the multi-page build: prerendered HTML, its own metadata and hydration.',
-    crumb: 'Pipeline check',
-  },
-  title: 'Pipeline check',
-  lead: 'A hidden page that proves a route other than the homepage is prerendered with its own metadata, hydrates in the browser and loads only its own code.',
-  checks: [
-    { label: 'Prerendered', server: 'This text is in the HTML file', client: 'This text is in the HTML file' },
-    { label: 'Hydrated', server: 'Waiting for the browser', client: 'React is running on this page' },
-    { label: 'Interactive', server: 'Button not wired yet', client: 'The button below counts clicks' },
-  ],
-  button: 'Count a click',
-} as const;

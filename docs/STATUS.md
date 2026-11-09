@@ -7,7 +7,8 @@ _Last updated: 2026-11-09. Update this file at the end of every task and before 
 **Phases 1–27 done (2026-10-31), the homepage hero redrawn with anidoodle (2026-10-31), and D1 content optimisation
 done (2026-11-09: the Super ERP for Indian businesses in every industry, an `/industries` hub and eight draft
 industry pages), and D2 SEO, AEO and GEO done (2026-11-09; the domain, profiles and Company text wait on the user).
-Next, in the user's order, each in its own session: Phase 28 launch QA → D3 Indian city pages → D4 UAE and GCC → D5 high-volume module queries**
+Phase 28 launch QA checks are done; launch waits on the user's sign-off (Launch checklist below). Then, in the
+user's order, each in its own session: D3 Indian city pages → D4 UAE and GCC → D5 high-volume module queries**
 ([IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md), Stage D; the user's market and audience in DECISIONS.md). Every planned page with content exists
 (66 prerendered: 42 module pages, platform and package pages, ERP Connect, the industries hub and twelve industry
 pages (eight of them drafts), implementation, security, customers, contact, 404); Company, Privacy, Terms, the blog and careers wait for the user's text (Open
@@ -42,6 +43,24 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-11-09, **Phase 28 launch QA: checks done, launch waits on the user's sign-off** (checklist below). On `main`.
+  - **Removed** `/pipeline-check` (page, data, route, docs); linkcheck now finds no orphans.
+  - **New checks** (VERIFY.md): `qa/sweep.cjs` (every page at nine sizes on the production build) and
+    `qa/a11ycheck.cjs` (axe-core WCAG 2.1 AA + keyboard focus, one page per template at 1440 and 390). Results:
+    sweep 65 pages × 9 sizes, 0 failures; a11y 16 templates × 2 sizes, 0 serious or critical; seocheck no errors;
+    linkcheck `dead []`, `orphans []`.
+  - **Fixed from the checks:** text contrast (three tokens darkened, DECISIONS "Phase 28"); trust panel list
+    semantics; inline CTA landmark; keyboard access to the phone timeline.
+  - **Performance** (Playwright, Pixel 7, 4× CPU, ~1.6 Mbps, 150 ms latency; LCP before → after):
+    homepage 2.36 → 2.36 s (the hero poster); module page 5.0 → 3.1 s; industries hub 3.9 → 0.9 s; contact
+    2.8 → 1.0 s. Cause: the page hero waited for JavaScript to fade in; it no longer fades, and eager hero screens
+    load at high priority. Total blocking time 0.1–0.6 s.
+  - **Not done, for sign-off:** the main script is 648 KB (194 KB gzipped) on every page, because the route table
+    imports all 42 modules' content (about 500 KB of source). Splitting it means loading each module's content
+    before hydration and changing the related-module thumbnails and the draft pages' screen lookup: worth doing
+    before D5, when module pages are the SEO target (module LCP 3.1 s on a slow phone today).
+  - New guide: docs/ADDING-A-MODULE.md.
 
 - 2026-11-09, **D2 SEO, AEO and GEO, part 1** (user's answers in DECISIONS.md, "D2"). On `main`.
   - **Facts:** `site.facts` (pricing depends on need, cloud or on-premise, client owns its data), word for word in
@@ -934,6 +953,20 @@ items when context is heavy.
 4. **D3: Indian city pages**, then **D4: UAE and GCC pages**, then **D5: high-volume module queries** (payroll,
    HRMS and the like), each in its own session, each starting with the questions listed in its section.
 
+## Launch checklist (Phase 28): what needs the user
+
+| # | Item | State | Needs |
+|---|---|---|---|
+| 1 | Production domain | `site.url` is `https://mavro.example` | the domain; then canonical, sitemap, robots, og:image and JSON-LD follow by themselves |
+| 2 | Eight draft industry pages + their cards | noindex, out of sitemap and llms.txt | real material for each, or sign-off to launch them as noindex drafts (or to hide them) |
+| 3 | `sameAs` profiles and Company (About) text | none | the links and the text (user: at launch) |
+| 4 | Demo form endpoint | `site.demoEndpoint` is null: the form opens a pre-filled email | a form service URL, or sign-off to launch with email |
+| 5 | Lighthouse | not run (could not be downloaded in the cloud session) | run locally on /, a module page, /industries, /contact |
+| 6 | Rich Results Test, Search Console, Bing | need the live domain | after deploy (advice list below) |
+| 7 | Main script size | 194 KB gzipped on every page | sign-off to launch as is and split before D5, or split now |
+
+Phase 28 is closed, and Stage C with it, once each row is done or signed off.
+
 ## Search and AI visibility: what only the user can do (advice from D2)
 
 No one can guarantee a place in Google's AI Overviews or AI Mode; they draw on the normal index. What helps beyond
@@ -963,7 +996,6 @@ the site itself:
 | **Company (About), Privacy policy, Terms of use** | `companyText`, `privacyText`, `termsText` in `src/data/company.ts` (`TextContent`: SEO, title, lead, updated, sections) | **waiting for the user's text.** Template ready (`src/pages/TextPage.tsx`); the route, the menu/footer link and the sitemap entry appear once the text is filled in. Never fill with invented copy |
 | **Blog posts** | `posts` in `src/data/company.ts` | **none yet.** Templates ready (`src/pages/Blog.tsx`: `/blog` list and `/blog/<slug>`); the Resources menu shows Blog once there is a post |
 | **Careers openings** | `openings` in `src/data/company.ts` | **none yet.** Template ready (`src/pages/Careers.tsx`, apply by email); the Company menu and footer show Careers once there is an opening |
-| Hidden test page | `/pipeline-check` in `src/routes.ts` | noindex, not linked, not in the sitemap; remove at launch QA (Phase 28) |
 | One stylesheet for all pages | `cssCodeSplit: false` in vite.config.ts | every page loads the full CSS (96 kB, about 19 kB gzip, after Phase 2's blocks); revisit in the Phase 28 performance pass as pages grow |
 | 404 has no canonical | `src/seo/head.ts` | deliberate (the plan said "own canonical"): the 404 answers at any missing URL, so it names none and is noindex |
 

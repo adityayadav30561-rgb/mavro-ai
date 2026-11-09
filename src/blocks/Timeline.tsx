@@ -102,7 +102,8 @@ export function Timeline({ data }: { data: TimelineData }) {
         </div>
       </div>
 
-      <ol className="impl__phases">
+      {/* Scrolls sideways on phones, so it takes keyboard focus (arrow keys then scroll it) and has a name. */}
+      <ol className="impl__phases" tabIndex={0} aria-label={`${data.label}: phases`}>
         {phases.map((phase, i) => (
           <li key={phase.title} className="impl__phase" data-phase={i} style={vars({ '--i': i })}>
             <div className="impl__phase-top">

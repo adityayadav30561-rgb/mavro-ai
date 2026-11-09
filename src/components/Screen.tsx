@@ -71,6 +71,9 @@ export function Screen({
       alt={alt}
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"
+      // An eager screen is in a hero, usually the page's largest paint: fetch it first (Phase 28). Lowercase spread:
+      // React 18 passes fetchpriority through only as a plain attribute.
+      {...(eager ? { fetchpriority: 'high' } : {})}
     />
   );
 

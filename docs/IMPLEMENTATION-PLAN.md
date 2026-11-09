@@ -261,6 +261,9 @@ has its 3–4 bespoke screens, and its links (menu, related modules, package dat
 
 ### Phase 28: Launch QA
 
+**Checks done 2026-11-09** (STATUS.md, "Most recent work" and "Launch checklist"); closes when the user signs
+off the checklist's open rows.
+
 - **Goal:** the whole site is ready to publish.
 - **Scope:** `qa/measure.html` across every route at nine sizes; accessibility pass (keyboard, headings, contrast,
   alt text); structured data validated for each template; titles and descriptions unique; Open Graph images per

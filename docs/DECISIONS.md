@@ -252,3 +252,14 @@ stories are used since 2026-10-23, with the user's approval (see Customer storie
 | Share image | **Made from the hero art**: one 1200×630 default for every page | User: "Make one from the hero art" |
 | Profiles and About text | Sent by the user at launch; until then no `sameAs`, and the Company page stays empty | User: "i will send links later during launch, i will send the about text later" |
 | Pricing, deployment, data | Pricing has no fixed model ("depends on the need"); **cloud and on-premise both offered**; **the client owns its data**. Stated word for word from `site.facts` (site.ts) in the homepage, platform and security FAQs | User: "pricing model is not fixed, it depends on the need, cloud and on prem both options are there, data is owned by the client" |
+
+## Phase 28 launch QA (2026-11-09)
+
+| Decision | Choice | Why |
+|---|---|---|
+| Contrast | `--cyan-600` #0291c0 → #02729e, `--ok` #0a9b6c → #077a55, `--warn` #b26b00 → #955800; the platform diagram's fourth step number uses an 80% blue mix. The portal tier reads a deeper teal, still distinct from the brand blue | WCAG AA 4.5:1 for text (axe found 3.2–3.8:1) |
+| Page hero | No scroll fade-in on the page hero's text and screen (the industry variant's tilt keeps it); eager hero screens load at high priority | The fade hid the largest paint until the JavaScript ran: LCP on a throttled phone fell from 3.9 to 0.9 s (hub), 2.8 to 1.0 s (contact), 5.0 to 3.1 s (module page) |
+| Accessibility fixes | The trust panel's tab panel wraps its list; inline CTAs are `div`s, not nested `aside`s; the timeline that scrolls on phones takes keyboard focus | axe: list items need a list parent, complementary landmarks must be top level, scrollable regions need keyboard access |
+| Share image | One default (public/og.png) for every page, not one per template | The user chose one image from the hero art (D2) |
+| Structured data validation | `qa/seocheck.cjs` (parsing, `@id` references, FAQ text visible), not Google's Rich Results Test | No external validator reachable from the cloud session; run the Rich Results Test once the domain is live |
+| `/pipeline-check` | Removed | Planned for Phase 28 |

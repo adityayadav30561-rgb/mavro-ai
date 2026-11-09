@@ -59,7 +59,7 @@ npx tsc --noEmit  # typecheck only
 src/routes.ts            every page: path, page module, title, description, breadcrumbs, JSON-LD, sitemap
 src/Layout.tsx           skip link, Nav, <main>, Footer (shared by every page)
 src/pages/               one module per page type (Home.tsx = homepage section order, IndustriesHub = /industries, ModulePage = the module
-                         template for every /modules/<slug>, NotFound, PipelineCheck)
+                         template for every /modules/<slug>, NotFound)
 src/blocks/              the section library: every reusable block (docs/LIBRARY.md); gallery at /_library (dev)
 src/library/             the dev-only gallery page and its sample data
 src/data/                site.ts, nav.ts, home.ts, modules/, platform.ts, packages.ts, erp-connect.ts, industries.ts (+ industries-draft.ts: draft pages),
@@ -72,7 +72,8 @@ src/components/          Nav, PlatformMenu (mega menu), NavMenus, Drawer (mobile
 src/styles/              tokens.css, base.css
 src/assets/              brand/ (logo), clients/ (client logos), screens/ (product screenshots)
 scripts/                 brand.mjs, clients.mjs, shots.mjs, capture.mjs, prerender.mjs, linkcheck.cjs, hero-art.mjs
-qa/                      measure.html, shot.html (dev-only QA pages, not built); pagecheck.cjs, sections.cjs
+qa/                      measure.html, shot.html (dev-only QA pages, not built); pagecheck.cjs, sections.cjs,
+                         seocheck.cjs, sweep.cjs, a11ycheck.cjs
                          (Playwright checks, docs/VERIFY.md)
 prototype/               HTML product screens that `npm run shots` photographs; modules/<slug>/ per module,
                          module-shell.js (sidebar from the catalogue), phone.css (phone screens)
@@ -81,6 +82,7 @@ legacy/                  snapshot of the site before the redesign (not built)
 .claude/skills/anidoodle the anidoodle skill (code-drawn art and animation, Apache-2.0, from
                          github.com/alexgreensh/anidoodle v0.10.1)
 art/                     the hero art's source and brief (art/README.md: restore the engine, render, `npm run hero:art`)
-docs/                    STATUS, WORKFLOW, DECISIONS, PRODUCT, VERIFY, SITE-PLAN, IMPLEMENTATION-PLAN, CLOUD, LIBRARY;
+docs/                    STATUS, WORKFLOW, DECISIONS, PRODUCT, VERIFY, SITE-PLAN, IMPLEMENTATION-PLAN, CLOUD, LIBRARY,
+                         ADDING-A-MODULE;
                          source/ = text of the source decks, slide by slide
 ```

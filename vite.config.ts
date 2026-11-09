@@ -4,7 +4,7 @@ import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 
 /**
- * `vite preview` serves dist/ the way a static host does: a clean URL ('/pipeline-check') gets its prerendered
+ * `vite preview` serves dist/ the way a static host does: a clean URL ('/contact') gets its prerendered
  * dist/<path>/index.html, and an unknown URL gets dist/404.html with status 404. Without this, preview answers
  * every path with the homepage. The dev server needs nothing: it serves index.html and the client renders the
  * route itself.
