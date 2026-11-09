@@ -91,7 +91,7 @@ export function DemoForm() {
     return () => window.removeEventListener(DEMO_EVENT, onPrefill);
   }, []);
 
-  // A call to action on another page arrives as /?interest=…#demo; from a module page also &module=<name>, which
+  // A call to action on another page arrives as /contact?interest=…#demo; from a module page also &module=<name>, which
   // starts the message (only names from the catalogue are taken).
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);

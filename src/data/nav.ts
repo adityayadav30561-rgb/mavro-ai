@@ -222,7 +222,7 @@ export const footerColumns: { title: string; links: NavLink[] }[] = [
   { title: 'Resources', links: [label(implementationLink, 'Implementation'), securityLink, storiesLink, faqLink] },
   {
     title: 'Company',
-    links: [label(aboutLink, 'About'), contactLink, careersLink, { label: 'Request a demo', fallback: '#demo' }],
+    links: [label(aboutLink, 'About'), contactLink, careersLink, { label: 'Request a demo', fallback: '/contact#demo' }],
   },
 ];
 

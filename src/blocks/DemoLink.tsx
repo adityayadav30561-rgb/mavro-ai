@@ -13,7 +13,8 @@ interface DemoLinkProps {
 
 /**
  * A link to the demo request form that ticks an interest. On the homepage it scrolls to #demo and tells the form
- * by event; on any other page it opens the homepage form with the interest in the URL.
+ * by event (the homepage and Contact carry the form); on any other page it opens Contact's form with the interest in
+ * the URL.
  */
 export function DemoLink({ interest, module, className, children }: DemoLinkProps) {
   // A page with the form (#demo, routing.tsx formPages): scroll to it and tick the interest by event.

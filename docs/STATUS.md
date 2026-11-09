@@ -5,8 +5,9 @@ _Last updated: 2026-11-09. Update this file at the end of every task and before 
 ## Where we are
 
 **Phases 1–27 done (2026-10-31), and the homepage hero redrawn with anidoodle (2026-10-31). Next, in the user's
-order, each in its own session: D1 content optimisation → D2 SEO, AEO and GEO → Phase 28 launch QA**
-([IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md), Stage D and Phase 28). Every planned page with content exists
+order, each in its own session: D1 content optimisation (for every industry) → D2 SEO, AEO and GEO (India) →
+Phase 28 launch QA → D3 Indian city pages → D4 UAE and GCC → D5 high-volume module queries**
+([IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md), Stage D; the user's market and audience in DECISIONS.md). Every planned page with content exists
 (58 prerendered: 42 module pages, platform and package pages, ERP Connect, four industries, implementation,
 security, customers, contact, 404); Company, Privacy, Terms, the blog and careers wait for the user's text (Open
 items). The site plan ([SITE-PLAN.md](SITE-PLAN.md)) was approved on 2026-10-23. See [WORKFLOW.md](WORKFLOW.md).
@@ -40,6 +41,18 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-11-09, **Inner-page demo buttons open `/contact`; the user's market strategy recorded.** On `main`.
+  - **Demo links** (user: yes): every "Request a demo" off the homepage and Contact (page buttons, CTA bands, inline
+    CTAs, header, drawer, footer, 404) now opens `/contact?interest=…#demo`; the form ticks the interest and names
+    the module as before (`demoHref` in blocks/demo/prefill.ts, `useDemoHref` in routing.tsx, nav.ts, pages.ts).
+    Checked on the production build: from Order to Cash the button lands on Contact's form, scrolled to it, "Base
+    modules" ticked, message "I would like to see Order to Cash." (The dev server does not jump to `#demo` on
+    arrival because it serves no prerendered HTML; the homepage behaved the same before.)
+  - **Strategy** (DECISIONS.md "Working order after the pages"): MAVRO serves all industries; India first, then
+    Indian city pages, then the UAE and GCC; rank for SEO/AEO/GEO and Google's AI answers; protect high-volume
+    module queries (payroll, HRMS). Stage D now runs D1 → D2 → Phase 28 → D3 cities → D4 GCC → D5 module queries,
+    each with what to ask the user first (IMPLEMENTATION-PLAN.md).
 
 - 2026-11-09, **Docs checked for continuity; Stage D planned** (user: make sure nothing is lost between sessions or
   accounts; next a content session, then an SEO/AEO/GEO session, one after the other). On `main`.
@@ -857,12 +870,16 @@ items when context is heavy.
 
 ## Next steps
 
-1. **D1: Content optimisation** (its own session; IMPLEMENTATION-PLAN.md, Stage D). First settle with the user:
-   should inner-page "Request a demo" open `/contact` (same form) instead of the homepage form?
-2. **D2: SEO, AEO and GEO** (its own session, after D1). Ask the user first for the inputs listed there: the
-   production domain, a share image, official profiles, the AI-crawler policy, pricing/hosting answers.
-3. **Phase 28: Launch QA** (IMPLEMENTATION-PLAN.md): includes removing `/pipeline-check` and rerunning
-   `npm run linkcheck`.
+1. **D1: Content optimisation** (its own session; IMPLEMENTATION-PLAN.md, Stage D): reposition the copy for every
+   industry (the user: IT, printing, pharma and all). Ask the user first for the industries to name, a new hero
+   headline (offer options) and whether more industry pages are wanted.
+2. **D2: SEO, AEO and GEO for India** (its own session). Ask the user first for the inputs listed there: the
+   production domain, a share image, official profiles, the AI-crawler policy, pricing/hosting answers, the Company
+   page text.
+3. **Phase 28: Launch QA** (recommended here, before the growth work): includes removing `/pipeline-check` and
+   rerunning `npm run linkcheck`.
+4. **D3: Indian city pages**, then **D4: UAE and GCC pages**, then **D5: high-volume module queries** (payroll,
+   HRMS and the like), each in its own session, each starting with the questions listed in its section.
 
 ## Open items (need the user or real assets)
 

@@ -102,7 +102,7 @@ section (src/links.ts), so a module page never links to a missing page.
 | `CtaBand` | CtaBand.tsx | a full dark section: title parts, `body`, `label`, `interest`, `module` (module pages: named in the form's message) | The close of every page below the homepage |
 | `ClientBand` | ClientBand.tsx | none: the clientele logos (`clients` in home.ts) | Homepage hero, module heroes (PageHero `band`) |
 | `InlineCta` | InlineCta.tsx | `title`, `body`, `label`, `interest`, `tone` | Homepage, long pages |
-| `DemoLink` | DemoLink.tsx | `interest`, children. On a page with the form (`formPages` in routing.tsx: homepage and Contact) it scrolls to `#demo` and ticks by event; elsewhere links to `/?interest=…#demo` (the form reads it) | PageHero, CtaBand, InlineCta |
+| `DemoLink` | DemoLink.tsx | `interest`, children. On a page with the form (`formPages` in routing.tsx: homepage and Contact) it scrolls to `#demo` and ticks by event; elsewhere links to Contact's form, `/contact?interest=…#demo` (the form reads it) | PageHero, CtaBand, InlineCta |
 | `DemoPanel` | DemoPanel.tsx (+ `demo/DemoForm.tsx`, `demo/prefill.ts`) | none: the demo request, pitch and direct contact beside the form (`demo` in home.ts), `id="demo"`. Moved from sections/ in Phase 26; class names kept (`demo__`) | Homepage close, Contact |
 
 Class prefixes of blocks taken from the homepage keep their old names (`faq__`, `proof__` for story cards,

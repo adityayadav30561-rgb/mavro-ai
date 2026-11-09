@@ -24,9 +24,9 @@ export const useCrumbs = () => useContext(RouteContext).crumbs;
 /** Pages that carry the demo form (#demo): the homepage and Contact. Demo buttons there stay on the page. */
 export const formPages = ['/', '/contact'];
 
-/** Where "Request a demo" goes from this page: the form on this page if it has one, else the homepage's. */
+/** Where "Request a demo" goes from this page: the form on this page if it has one, else Contact's. */
 export function useDemoHref() {
-  return formPages.includes(usePath()) ? '#demo' : '/#demo';
+  return formPages.includes(usePath()) ? '#demo' : '/contact#demo';
 }
 
 export function useHref() {

@@ -92,8 +92,11 @@ For each module in the phase:
 | 27 | Homepage integration and cross-linking | homepage links to pages | Done (2026-10-31) |
 | — | Homepage hero redrawn with anidoodle (user's request, outside the plan) | the isometric plant loop | Done (2026-10-31) |
 | D1 | Content optimisation (user's request, one session) | copy across every page | To do: next |
-| D2 | SEO, AEO and GEO (user's request, its own session, after D1) | metadata, structured data, answer and AI-engine readiness | To do |
-| 28 | Launch QA | full-site audit | To do: after D1 and D2 |
+| D2 | SEO, AEO and GEO for India (its own session, after D1) | metadata, structured data, answer and AI-engine readiness | To do |
+| 28 | Launch QA | full-site audit | To do: after D2 (recommended), before D3 |
+| D3 | Indian city pages (user's request) | a template + a page per target city | To do |
+| D4 | UAE and GCC pages (user's request) | country pages, hreflang | To do |
+| D5 | High-volume module queries: payroll, HRMS and the like (user's request) | module pages aimed at their queries + supporting articles | To do |
 
 Module pages: 1 + 17 base + 4 portals + 20 premium = 42. Pages in total: 60 (SITE-PLAN.md section 2).
 
@@ -270,15 +273,27 @@ has its 3–4 bespoke screens, and its links (menu, related modules, package dat
 
 ## Stage D: refinement workstreams (user, 2026-11-09)
 
-The user's order: **D1 content optimisation in one session, then D2 SEO, AEO and GEO in another, one after the
-other, never together; then Phase 28 launch QA** (QA last, so it checks the final copy and metadata). Each
-workstream starts from a clean `main`, reads the files below first, and ends with STATUS.md updated, a commit and
-a push, like a phase.
+The user's order (2026-11-09), each in its own session, one after the other, never together:
+
+1. **D1 content optimisation**, repositioned for **every industry**, not only manufacturing and distribution;
+2. **D2 SEO, AEO and GEO** for India, aiming at search results, answer boxes and **Google's AI answers**;
+3. **D3 Indian city pages**, a page per target city for local queries;
+4. **D4 UAE and GCC pages**, the next market;
+5. **D5 high-volume module queries** (payroll, HRMS and the like): hold and grow rankings for the general
+   modules people search for most.
+
+**Phase 28 launch QA** sits after D2 (my recommendation, the user can move it): the site can go live once its copy
+and SEO are final, and D3–D5 then grow it. Each workstream starts from a clean `main`, reads the files below first,
+and ends with STATUS.md updated, a commit and a push, like a phase.
+
+**The user's market and audience (all workstreams):** MAVRO serves **all types of industries** (the user names IT,
+printing and pharma alongside manufacturing and distribution). **India first**, then **Indian cities** with their
+own pages, then **the UAE and the GCC countries**.
 
 ### D1: Content optimisation
 
-- **Goal:** every page's copy is clear, consistent and persuasive for a manufacturing, distribution or services
-  buyer in India, without adding a single fact the decks do not state.
+- **Goal:** every page's copy is clear, consistent and persuasive for a business buyer in **any industry** in India
+  (the user: "we serve all type of industries"), without adding a single product fact the decks do not state.
 - **Read first:** CLAUDE.md (rules, especially "No invented claims"), DECISIONS.md (what the user liked and
   rejected, including the "Left out on purpose" list), PRODUCT.md (the facts), docs/source/ (the decks, slide by
   slide), LIBRARY.md (which block shows which text, so length changes do not break a layout).
@@ -297,9 +312,18 @@ a push, like a phase.
      and leads that fit their blocks (check at 1366 and 390).
   4. Repetition: the homepage, package pages, industry pages and module pages describe the same modules; vary
      the angle per page instead of repeating sentences.
-  5. Calls to action: one clear ask per section; settle the open question first (should inner-page "Request a
-     demo" open `/contact`? STATUS.md, Next steps).
-  6. Ask the user before changing anything listed in DECISIONS.md, and record every preference they give.
+  5. Calls to action: one clear ask per section. (Settled 2026-11-09: inner-page "Request a demo" opens the form
+     on `/contact`.)
+  6. **Reposition for every industry.** Today the copy speaks to manufacturers and distributors: the hero
+     headline ("One ERP for manufacturers & distributors."), the site title and description (`site.ts`), the
+     homepage lead and FAQ, `why`, the Industries section (four industries) and the footer note. Broaden them to
+     businesses of every industry while keeping manufacturing, distribution, pharma and services as worked
+     examples. **Ask the user at the start:** the industries to name (the user mentioned IT, printing and pharma),
+     the new headline (offer three options), and whether more industry pages are wanted (each needs real
+     industry facts: what MAVRO does there, from the decks or the user). DECISIONS.md lists "Printing and packaging
+     dropped" and "Exporters replaced by Service providers" (2026-10-22/23): the user's new statement supersedes
+     the first; confirm before re-adding either.
+  7. Ask the user before changing anything listed in DECISIONS.md, and record every preference they give.
 - **Not in D1:** titles, meta descriptions, structured data, FAQ-for-search rewriting (that is D2); new pages.
 - **Done when:** every page re-read in the browser at 1440 and 390; `node qa/pagecheck.cjs <paths>` passes (one
   H1, no overflow, no console errors, sections about 0.75–1.2 screens); `npm run build` and `npm run linkcheck`
@@ -329,7 +353,9 @@ a push, like a phase.
   - a social share image (or approval to make one from the hero art);
   - official profiles for Organization `sameAs` (LinkedIn and so on): never guess them;
   - whether AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended) may crawl the site (robots.txt);
-  - answers the decks do not give: pricing model, hosting and deployment options, data ownership (open FAQ items).
+  - answers the decks do not give: pricing model, hosting and deployment options, data ownership (open FAQ items);
+  - the Company page text (who SaiSatwik is, team, office): it is the site's main trust signal for search and AI
+    answers, and it is still empty (STATUS.md, Open items).
 - **Approach:**
   1. SEO: one search intent per page; unique titles (about 60 characters) and descriptions (about 155); heading
      order; internal links with descriptive text; image alt text; `og:image` per template once approved; sitemap
@@ -341,11 +367,68 @@ a push, like a phase.
      25–30 day rollout, the ERPs it connects to); an `llms.txt` at the site root summarising the site with links to
      the key pages (generated by `prerender.mjs` from the route table); Organization and Product entities linked by
      `@id`; quotable, specific sentences with no invented figures.
-  4. Validate: every template's JSON-LD (a schema validator), `npm run build`, `npm run linkcheck`, Lighthouse SEO
+  4. India targeting: `en-IN` language, INR and Indian compliance terms (GST, GSTR, e-invoice, e-way bill, PF,
+     ESI, TDS, PT) where people search them; Organization `areaServed` India; a `hreflang` scheme planned now so
+     D4's GCC pages slot in without reworking URLs.
+  5. **Google's AI answers (AI Overviews / AI Mode)** use the same index as search: there is no special markup
+     and no way to guarantee a place in them. What helps: pages Google can crawl and index, a direct answer in
+     the first sentences under a question-shaped heading, specific facts stated consistently across pages,
+     accurate structured data, a real Company page (who stands behind the product), and authority earned off the
+     site (reviews, listings, mentions, links: the user's marketing, list it as advice). Say this plainly to the
+     user; never promise inclusion.
+  6. Validate: every template's JSON-LD (a schema validator), `npm run build`, `npm run linkcheck`, Lighthouse SEO
      on the main templates.
 - **Done when:** the checks above pass or list what waits on the user; STATUS.md records every change and the
   remaining user inputs; DECISIONS.md records the user's choices (crawler policy, domain, share image).
 
+
+### D3: Indian city pages
+
+- **Goal:** rank for "ERP software in <city>" style queries in the user's target cities, without the pages being
+  near-copies (Google treats near-identical location pages as doorway pages and can demote the whole site).
+- **Ask the user first:** the city list and its order; for each city whether SaiSatwik has an office, staff or
+  on-site implementation there (the implementation model offers on-site work "if agreed"); clients there that
+  may be named (only with their approval); the industries that matter most there.
+- **Each page must earn its place** with content true for that city: the industries strong there (public facts,
+  stated carefully), the state's own compliance (professional tax slabs, e-way bill rules), how implementation
+  and support reach that city, the modules that fit its industries, a city-specific FAQ. Facts about MAVRO stay
+  the decks'; facts about the city must be checkable.
+- **Build:** a new template (`src/pages/CityPage.tsx`, data `src/data/cities.ts`, routes generated from the data like
+  the industry pages), a URL scheme agreed in D2 (for example `/erp-software/<city>`), breadcrumbs, FAQPage,
+  `areaServed`; LocalBusiness markup only where a real office exists. Link the pages from a cities index and the
+  footer, not from every page.
+- **Done when:** each city page passes `qa/pagecheck.cjs`, differs substantially from its siblings (compare
+  their text), and the build, link check and sitemap include them; STATUS.md lists the cities and what each needs.
+
+### D4: UAE and GCC pages
+
+- **Goal:** pages for the UAE first, then the other GCC countries, for searches in those markets.
+- **Ask the user first (none of this is in the decks):** which countries; what MAVRO supports there today, for
+  example UAE VAT, Saudi ZATCA e-invoicing, WPS payroll, Arabic, AED and other currencies (the decks state
+  multi-currency, nothing country-specific); local presence, partners or clients; pricing or contact differences.
+  **Never claim a country's compliance without the user's confirmation.**
+- **Build:** country (and later city) pages from a template, `hreflang` (`en-AE`, `en-SA` and so on) on the scheme
+  planned in D2, country-specific FAQ and structured data (`areaServed`), contact details for the region if any.
+- **Done when:** as D3, plus `hreflang` validated across the India and GCC pages.
+
+### D5: High-volume module queries (payroll, HRMS and the like)
+
+- **Goal:** keep and grow rankings for the general modules with the most searches (payroll software, HRMS,
+  accounting, inventory management, CRM, procurement, warehouse management and similar), where MAVRO competes
+  with single-purpose products.
+- **Approach:**
+  1. Research which module queries have the most searches in India (a keyword tool; the user's Search Console data
+     once the site is live) and pick the modules to lead with.
+  2. Make each chosen module page the main page for its query ("payroll software in India" → the HRMS and Payroll
+     page): title, H1 and lead aimed at that query, answer-first sections, a fuller FAQ from the decks (the HRMS
+     deck's statutory slide for payroll), and internal links from the homepage, package, industry and city pages.
+  3. Supporting articles for the questions around each query ("how to calculate PF", "payroll compliance in
+     India") on the blog (`posts` in `company.ts`), each linking to the module page; one page per query, so pages
+     never compete with each other (no cannibalisation between module, industry, city and article pages).
+  4. Comparison or "alternative to" pages only with the user's approval (DECISIONS.md left out the competitor
+     table) and with facts that can be backed up.
+- **Done when:** the chosen module pages and articles are live and linked, each query maps to one page (written
+  down in STATUS.md as a query → page table), and the build and link check pass.
 
 ---
 

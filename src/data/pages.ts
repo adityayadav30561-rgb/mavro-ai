@@ -47,7 +47,7 @@ export const notFound = {
       icon: 'calendar',
       label: 'Request a demo',
       body: 'See MAVRO on your own processes.',
-      href: '#demo',
+      href: '/contact#demo',
     },
   ] satisfies { icon: IconName; label: string; body: string; href: string }[],
 } as const;
