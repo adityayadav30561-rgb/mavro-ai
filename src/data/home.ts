@@ -603,7 +603,7 @@ export const faq = {
   items: [
     {
       q: 'What is MAVRO ERP?',
-      a: 'MAVRO is the Super ERP for Indian businesses: an enterprise resource planning (ERP) platform for companies in every industry, from manufacturers and distributors to pharma, IT and professional services, and printing, made by SaiSatwik Technologies in Greater Noida, India. It brings base modules (accounting, payroll, order to cash, procure to pay, production, inventory), portals for vendors and the sales channel, and premium modules for specialised operations onto one platform with one set of business data.',
+      a: 'MAVRO ERP is the Super ERP for Indian businesses: an enterprise resource planning (ERP) platform for every industry, made by SaiSatwik Technologies in Greater Noida, India. It puts base modules such as accounting, payroll, order to cash and production, portals for vendors and the sales channel, and premium modules on one platform with one set of business data.',
       link: { label: 'Explore the platform', href: '/platform' },
     },
     {

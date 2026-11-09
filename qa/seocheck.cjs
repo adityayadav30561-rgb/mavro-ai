@@ -4,7 +4,7 @@
 //
 // Per page: one <title> and description, unique across indexable pages, with length warnings (title ≤ 60
 // characters, description 70–160); canonical absolute and equal to the page's own URL; robots meta matches the
-// sitemap (indexable ⇔ listed); og:image and lang="en-IN"; JSON-LD parses, every `@id` reference resolves inside
+// sitemap (indexable ⇔ listed); og:image and lang="en-IN"; images have alt, links have an href and say where they go; JSON-LD parses, every `@id` reference resolves inside
 // the page's graph, every FAQPage question appears in the page's visible text. Site-wide: no noindex page in
 // sitemap.xml or llms.txt, every sitemap URL has a page. Used by D2, Phase 28, and the city and GCC pages (D3, D4).
 const fs = require('fs');
@@ -78,6 +78,18 @@ for (const file of files) {
     }
     if (title && title.length > 60) warn(route, `title ${title.length} chars: ${title}`);
     if (description && (description.length < 70 || description.length > 160)) warn(route, `description ${description.length} chars`);
+  }
+
+  // What Lighthouse's SEO audit also checks: every image has an alt attribute (empty for decoration), link text
+  // says where it goes, and links are crawlable (a real href).
+  const body = html.replace(/<script[\s\S]*?<\/script>/g, '');
+  const noAlt = [...body.matchAll(/<img\b(?![^>]*\balt=)[^>]*>/g)].length;
+  if (noAlt) err(route, `${noAlt} image(s) without an alt attribute`);
+  for (const m of body.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)) {
+    const label = text(m[2]).trim().toLowerCase();
+    if (/^(click here|here|read more|more|learn more|link)$/.test(label)) warn(route, `vague link text "${label}"`);
+    if (!/\bhref="[^"]+"/.test(m[1])) err(route, `link without an href: "${label.slice(0, 40)}"`);
+    else if (/\bhref="javascript:/.test(m[1])) err(route, `javascript: link "${label.slice(0, 40)}"`);
   }
 
   // Structured data

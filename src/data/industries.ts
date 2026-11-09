@@ -398,7 +398,7 @@ export const industryContent: IndustryContent[] = [
       },
       {
         q: 'Does MAVRO handle GST e-invoicing and e-way bills?',
-        a: 'Yes. Invoices are GST-compliant with e-invoicing built in, and Transportation Management keeps e-way bill compliance on every shipment.',
+        a: 'Yes. MAVRO handles GST e-invoicing and e-way bills: Order to Cash raises GST-compliant invoices with e-invoicing built in, Accounting builds GSTR-1 and GSTR-3B from posted invoices, and Transportation Management keeps e-way bill compliance on every shipment.',
       },
     ],
   },

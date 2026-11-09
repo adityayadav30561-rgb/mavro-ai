@@ -336,6 +336,16 @@ draft industry pages. Left for an optional D1b: a copy polish of the module, pla
 
 ### D2: SEO, AEO and GEO
 
+**Done 2026-11-09** (STATUS.md, "Most recent work"), except what waits on the user: the domain, `sameAs` profiles,
+the Company text (Open items). Lighthouse could not be downloaded in the cloud session; `qa/seocheck.cjs` covers its
+SEO audits (title, description, canonical, robots, hreflang, lang, image alt, link text, crawlable links) and adds
+JSON-LD checks. Run Lighthouse locally in Phase 28.
+
+**URL scheme for D4 (decided now so nothing moves later):** India stays at the root (`/`, `/modules/…`, hreflang
+`en-IN`). The GCC pages go under a country prefix, `/ae/…` for the UAE and `/sa/`, `/qa/`, `/om/`, `/kw/`, `/bh/`
+for the rest as they are added, each page listing its alternates (`en-IN` ↔ `en-AE` …) and the root as
+`x-default`. `site.locale` and the hreflang lines in `src/seo/head.ts` are where D4 adds them.
+
 - **Goal:** each page is found and understood by search engines (SEO), answers questions directly enough to be
   quoted by answer engines and featured snippets (AEO), and gives AI assistants consistent, citable facts about
   MAVRO and SaiSatwik Technologies (GEO).

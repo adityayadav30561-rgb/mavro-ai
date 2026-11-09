@@ -58,7 +58,14 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
     homepage), the four industries, platform and packages, ERP Connect, implementation, security, customers and
     contact all within 60 / 160 characters; nine module titles over 70 shortened. 64 module-page length warnings
     left for D5.
-  - **`qa/seocheck.cjs`** (VERIFY.md): no errors on 67 pages.
+  - **`qa/seocheck.cjs`** (VERIFY.md): no errors on 67 pages. It also checks image alt, link text and crawlable
+    links (Lighthouse's SEO audits; Lighthouse itself could not be downloaded here: run it locally at Phase 28).
+  - **AEO:** the homepage "What is MAVRO ERP?" answer tightened to a 60-word definition; the distribution e-invoicing
+    answer now names GSTR-1 and 3B (from the Accounting page). FAQ answers on the main templates run 25–60 words,
+    the question's words first.
+  - **FAQ rich results:** Google retired them from Search in May 2026 (Search Central changelog). FAQPage markup
+    stays: it is harmless and still helps machines read the questions and answers.
+  - **D4 URL scheme** decided (IMPLEMENTATION-PLAN.md, D2): India at the root, GCC under `/ae/` and other prefixes.
 
 - 2026-11-09, **Industry renames** (user): Pharma → "Pharma and healthcare", Service providers → "IT and professional
   services" (slug `it-services`, tab label "IT services"; `lower`/`tab` fields on `Industry`, `inSentence()` in home.ts).
@@ -928,6 +935,20 @@ items when context is heavy.
    rerunning `npm run linkcheck`.
 4. **D3: Indian city pages**, then **D4: UAE and GCC pages**, then **D5: high-volume module queries** (payroll,
    HRMS and the like), each in its own session, each starting with the questions listed in its section.
+
+## Search and AI visibility: what only the user can do (advice from D2)
+
+No one can guarantee a place in Google's AI Overviews or AI Mode; they draw on the normal index. What helps beyond
+the site itself:
+
+1. **Set the domain** (`site.url` in site.ts), deploy, and redirect `www` (or the bare domain) to the one chosen.
+2. **Google Search Console** and **Bing Webmaster Tools**: verify the domain, submit `/sitemap.xml`, watch indexing.
+3. **Google Business Profile** for the Greater Noida office (local and brand searches; D3's city pages build on it).
+4. **LinkedIn company page** and other official profiles; send the links for `sameAs` (Organization JSON-LD).
+5. **Listings and reviews** on software directories (G2, Capterra, SoftwareSuggest, Techjockey), from real customers.
+6. **Mentions and links** from clients, partners, industry associations and the press; case studies with clients'
+   approval.
+7. **The Company page text**: who SaiSatwik is, the team, the office, the founding year. It is the main trust signal.
 
 ## Open items (need the user or real assets)
 
