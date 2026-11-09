@@ -342,6 +342,9 @@ export const industries = {
       fulfil: 'Handover',
       modules: ['prj', 'hrms', 'acc', 'o2c'],
     },
+    // Draft from here on (user, 2026-11-09: "invent the claims, we will remove and add real things once we are ready
+    // to launch the site"): the cards below carry invented framing like their pages (src/data/industries-draft.ts,
+    // `draft`); they render on the homepage tabs (printing) and the /industries hub. Replace both before launch.
     {
       name: 'Printing and packaging',
       slug: 'printing-packaging',

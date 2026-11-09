@@ -543,7 +543,6 @@ export const industriesHub = {
     rest: 'your industry.',
     lead: 'Each industry has its own page: the order flow with every stage linked to its module, the modules it runs on and the compliance built in.',
     more: 'MAVRO for',
-    modules: 'Runs on',
   },
   core: {
     title: 'The same core',
@@ -551,7 +550,7 @@ export const industriesHub = {
     lead: 'What does not change from one industry to the next.',
     tiles: [
       { icon: 'database', title: 'One set of business data', body: 'Customers, items, pricing, GST, inventory, ledgers, roles and audit, shared by every module.' },
-      { icon: 'rules', title: 'Configured, not rewritten', body: 'Each industry’s middle steps are configured on the same platform, so an upgrade reaches every business at once.' },
+      { icon: 'rules', title: 'Configured, not rewritten', body: 'Each industry’s middle steps are configured with the modules it needs, on the same platform and the same data.' },
       { icon: 'receipt', title: 'Indian compliance built in', body: 'GST, e-invoicing, e-way bills and statutory payroll in the modules that create the records.' },
       { icon: 'link', title: 'Alongside your ERP', body: 'ERP Connect syncs two ways with SAP, Oracle, Tally or a legacy ERP, so modules can be added without a replacement.' },
       { icon: 'layers', title: 'Base, portals and premium', body: 'Core ERP and HR and payroll, portals for vendors and the sales channel, and premium modules for specialised operations.' },

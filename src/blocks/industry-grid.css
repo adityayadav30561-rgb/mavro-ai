@@ -97,6 +97,17 @@ a.ig__card:focus-visible {
   color: var(--blue);
 }
 
+/* Twelve cards run four across on wide desktops, three rows instead of four. */
+@media (min-width: 1200px) {
+  .ig:has(> .ig__item:nth-child(4n):last-child) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ig:has(> .ig__item:nth-child(4n):last-child) .ig__card {
+    padding: 1.25rem;
+  }
+}
+
 @media (max-width: 1023px) {
   .ig {
     grid-template-columns: repeat(2, minmax(0, 1fr));

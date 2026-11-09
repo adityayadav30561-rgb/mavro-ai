@@ -56,7 +56,7 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
     side, so a manpower-supplier page would be mis-grounded), FMCG (inside distribution and food), automotive
     (inside manufacturing), education and shipping (no modules for them).
   - **`/industries` hub** (`pages/IndustriesHub.tsx`, content `industriesHub` in industries.ts): every industry as a
-    card (new block **IndustryGrid**, in the library and LIBRARY.md), the shared core as six tiles, FAQ (FAQPage
+    card, four across from 1200px, list 1.28 screens (new block **IndustryGrid**, in the library and LIBRARY.md), the shared core as six tiles, FAQ (FAQPage
     JSON-LD), CTA; in the sitemap. Industry breadcrumbs are now Industries → industry. The homepage FAQ's "See
     industries" and a "See all 12 industries" link under the tabs open it.
   - **Draft pages** (user: "invent the claims, we will remove and add real things once we are ready to launch"):
@@ -68,7 +68,7 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
     results, certifications, named-regulation claims. New icons: printer, cart, shirt, cup, flask, building, leaf.
   - Checked: `qa/pagecheck.cjs` on /, /industries, all eight drafts, manufacturing and /_library at 1440, 1366, 390
     (one H1, no overflow, no broken images, no errors); homepage industries section 1.11 screens (was 1.03) with
-    five tabs and the hub link; build passes; linkcheck 66 pages, no dead links.
+    five tabs and the hub link; Solutions menu (1366, 1440), drawer (390) and footer checked; build passes; linkcheck 66 pages, no dead links.
   - **Not done in D1 (D1b, optional, ask the user):** a copy polish of the 42 module pages and the platform and
     package pages; they were written from the decks and already serve every industry.
 
@@ -915,7 +915,7 @@ items when context is heavy.
 |---|---|---|
 | Production domain | `site.url` in `src/data/site.ts` | `https://mavro.example` placeholder |
 | Demo form endpoint | `site.demoEndpoint` in `src/data/site.ts` | `null`, so the form opens a pre-filled email to contact@saisatwik.com. Set a form service URL (Formspree, Basin, HubSpot or MAVRO's own API) that accepts a JSON POST to receive requests directly |
-| **Draft industry pages** | `src/data/industries-draft.ts` (`draft` on each) | **eight drafts**: printing and packaging, retail and ecommerce, logistics, textiles and apparel, food and beverage, chemicals, construction and real estate, agriculture and plantations. Noindex and out of the sitemap; `npm run build` lists them. Before launch: replace the invented framing, gaps, hero facts and FAQ with real material, ideally give each its own industry screen (they reuse module screens, e.g. a machining schedule on the printing page), then delete `draft`. Phase 28 needs none left |
+| **Draft industry pages** | `src/data/industries-draft.ts` (`draft` on each) | **eight drafts**: printing and packaging, retail and ecommerce, logistics, textiles and apparel, food and beverage, chemicals, construction and real estate, agriculture and plantations. Noindex and out of the sitemap; `npm run build` lists them. Their cards in home.ts `industries.list` (headline, who, points, flow labels) are drafts too and show on the indexed homepage tabs (printing) and `/industries` hub. Before launch: replace the invented framing, gaps, hero facts and FAQ, and those cards, with real material, ideally give each its own industry screen (they reuse module screens, e.g. a machining schedule on the printing page), then delete `draft`. Phase 28 needs none left |
 | Industry list | `industries` in `src/data/home.ts` | twelve (user, 2026-11-09: "all other major industries which use erp or the erp modules we have made"); five featured. Confirm before launch |
 | Testimonials / case studies | `proof` in `src/data/home.ts` | three anonymised stories from deck slide 23 (approved 2026-10-23). Named stories, quotes or logos per story only with the client's approval |
 | Social share image | `src/seo/head.ts` | none |

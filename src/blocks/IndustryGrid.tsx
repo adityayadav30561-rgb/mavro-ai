@@ -9,15 +9,15 @@ export interface IndustryCard {
   who: string;
   /** The industry's headline from its homepage card. */
   title: string;
-  /** Up to three module names it runs on, shown as plain chips. */
-  modules: readonly string[];
+  /** Up to three module names it runs on, shown as plain chips (optional: the hub leaves them out to fit). */
+  modules?: readonly string[];
   /** The industry page; null while it does not exist (the card shows, without a link). */
   href: string | null;
 }
 
 /**
  * Industries as cards: an icon tile, the name, who it is for, the industry's headline, the modules it runs on and a
- * link to its page. Three across on desktops, two on tablets, one on phones. Used on the /industries hub.
+ * link to its page. Three across on desktops (four from 1200px when the count divides by four), two on tablets, one on phones. Used on the /industries hub.
  */
 export function IndustryGrid({ cards, more }: { cards: readonly IndustryCard[]; more: string }) {
   return (
@@ -35,11 +35,13 @@ export function IndustryGrid({ cards, more }: { cards: readonly IndustryCard[]; 
               </span>
             </span>
             <span className="ig__title">{card.title}</span>
-            <span className="ig__mods">
-              {card.modules.map((name) => (
-                <span key={name}>{name}</span>
-              ))}
-            </span>
+            {card.modules?.length ? (
+              <span className="ig__mods">
+                {card.modules.map((name) => (
+                  <span key={name}>{name}</span>
+                ))}
+              </span>
+            ) : null}
             {card.href && (
               <span className="ig__more">
                 {more} {card.name.toLowerCase()}

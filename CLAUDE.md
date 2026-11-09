@@ -58,11 +58,11 @@ npx tsc --noEmit  # typecheck only
 ```
 src/routes.ts            every page: path, page module, title, description, breadcrumbs, JSON-LD, sitemap
 src/Layout.tsx           skip link, Nav, <main>, Footer (shared by every page)
-src/pages/               one module per page type (Home.tsx = homepage section order, ModulePage = the module
+src/pages/               one module per page type (Home.tsx = homepage section order, IndustriesHub = /industries, ModulePage = the module
                          template for every /modules/<slug>, NotFound, PipelineCheck)
 src/blocks/              the section library: every reusable block (docs/LIBRARY.md); gallery at /_library (dev)
 src/library/             the dev-only gallery page and its sample data
-src/data/                site.ts, nav.ts, home.ts, modules/, platform.ts, packages.ts, erp-connect.ts, industries.ts,
+src/data/                site.ts, nav.ts, home.ts, modules/, platform.ts, packages.ts, erp-connect.ts, industries.ts (+ industries-draft.ts: draft pages),
                          implementation.ts, security.ts, company.ts, pages.ts
                          (all content)
 src/sections/            homepage sections, built on the blocks; hero/ = the anidoodle plant (HeroPlant + generated

@@ -268,7 +268,7 @@ has its 3–4 bespoke screens, and its links (menu, related modules, package dat
   the production domain (once decided); docs final (README, STATUS, a short "how to add a module page" guide).
 - **Depends on:** 27.
 - **Done when:** every check above passes or is listed with the user's sign-off; **no draft pages left** (`npm run
-  build` lists none: every industry page's `draft` replaced with real material, DECISIONS.md "No invented claims");
+  build` lists none: every industry page's `draft` and its card in home.ts `industries.list` replaced with real material, DECISIONS.md "No invented claims");
   Stage C closed in STATUS.md.
 
 ---

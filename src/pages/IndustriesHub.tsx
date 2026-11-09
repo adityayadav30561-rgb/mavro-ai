@@ -7,17 +7,7 @@ import { PageHero } from '../blocks/PageHero';
 import { Section } from '../blocks/Section';
 import { industries } from '../data/home';
 import { industriesHub as h } from '../data/industries';
-import { catalogue, portals } from '../data/modules';
 import { hasPage } from '../links';
-
-/** A homepage card's module or portal id as the short name on an industry card. */
-const nameOf = (id: string) => {
-  const portal = portals.find((item) => item.id === id);
-  if (portal) return portal.name.replace(' / B2B', '');
-  const entry = catalogue.find((item) => item.item.id === id);
-  if (!entry) throw new Error(`IndustriesHub: no catalogue entry for module id "${id}"`);
-  return entry.name;
-};
 
 /**
  * The industries hub, /industries: every industry the site names as a card linked to its page (the featured ones
@@ -34,7 +24,6 @@ export function Page() {
         icon: industry.icon,
         who: industry.who,
         title: industry.title,
-        modules: industry.modules.slice(0, 3).map(nameOf),
         href: hasPage(href) ? href : null,
       };
     });

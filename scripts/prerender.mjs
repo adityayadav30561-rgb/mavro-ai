@@ -93,4 +93,4 @@ console.log(`prerendered ${written.length} pages for ${site.url}:\n  ${written.j
 
 // Draft pages (content written before launch, noindex, out of the sitemap): launch QA needs this list empty.
 const drafts = routes.filter((route) => route.draft).map((route) => route.path);
-if (drafts.length) console.log(`\n${drafts.length} draft pages (noindex, not in the sitemap; replace before launch):\n  ${drafts.join('\n  ')}`);
+if (drafts.length) console.log(`\n${drafts.length} draft pages (noindex, not in the sitemap; replace them and their cards in home.ts `industries.list` before launch):\n  ${drafts.join('\n  ')}`);
