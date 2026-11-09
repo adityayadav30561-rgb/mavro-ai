@@ -9,7 +9,7 @@ import { ModuleCards } from '../blocks/ModuleCards';
 import { PageHero } from '../blocks/PageHero';
 import { Section } from '../blocks/Section';
 import { StoryCards } from '../blocks/StoryCards';
-import { explore, industries, proof } from '../data/home';
+import { explore, industries, inSentence, proof } from '../data/home';
 import { contentFor, industryTemplate as t } from '../data/industries';
 import { catalogue, entryBySlug, type ModuleSlug } from '../data/modules';
 import { usePath } from '../routing';
@@ -106,7 +106,7 @@ export function Page() {
 
       <FaqBlock
         id="faq"
-        title={`${t.faq.title} ${industry.name.toLowerCase()}`}
+        title={`${t.faq.title} ${inSentence(industry)}`}
         treatment="mark"
         lead={content.draft ? t.faq.draftLead : t.faq.lead}
         items={content.faq}

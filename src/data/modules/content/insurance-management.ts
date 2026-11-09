@@ -63,7 +63,7 @@ export const content: ModuleContent<'insurance-management'> = {
     { slug: 'manufacturing', note: 'Plants, machinery and stock insured at their real value, with breakdown claims filed from the maintenance record.' },
     { slug: 'distribution', note: 'Transit, warehouse stock and fleet policies across depots, with damage claims and recoveries tracked.' },
     { slug: 'pharma', note: 'Plants, cold-chain stock and product liability covered, with renewals and claims on one screen.' },
-    { slug: 'service-providers', note: 'Office, liability and employee policies across entities, renewed on time.' },
+    { slug: 'it-services', note: 'Office, liability and employee policies across entities, renewed on time.' },
   ],
   roles: [
     { name: 'Corporate risk manager', task: 'Keeps every policy current and every claim moving.', works: 'Risk dashboard' },

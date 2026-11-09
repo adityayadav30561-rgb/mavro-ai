@@ -63,7 +63,7 @@ export const content: ModuleContent<'production-management'> = {
     { slug: 'manufacturing', note: 'Work orders for customer orders and stock, routed through machines and inspection to dispatch.' },
     { slug: 'pharma', note: 'Batch records with stage sign-offs and yields, and QC release with CoA, assay and dissolution.' },
     { slug: 'distribution', note: 'Kitting, repacking and light assembly at the depot, run as work orders with a QC check.' },
-    { slug: 'service-providers', note: 'Systems assembled or configured for a client project, run as work orders against it.' },
+    { slug: 'it-services', note: 'Systems assembled or configured for a client project, run as work orders against it.' },
   ],
   roles: [
     { name: 'Plant head', task: 'Watches OEE, downtime and the work orders at risk across lines.', works: 'Plant output' },

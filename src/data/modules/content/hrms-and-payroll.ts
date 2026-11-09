@@ -64,7 +64,7 @@ export const content: ModuleContent<'hrms-and-payroll'> = {
     { slug: 'manufacturing', note: 'Shift workers on biometric punches across plants, overtime from the roster and one payroll run for every unit.' },
     { slug: 'pharma', note: 'Plant, QA and field teams on one record, with attrition by unit watched before it affects coverage.' },
     { slug: 'distribution', note: 'Depot, warehouse and sales staff across branches, with field reps punching in by geo-fenced mobile.' },
-    { slug: 'service-providers', note: 'Office and on-site staff on web and mobile attendance, with leave policies, payroll and Form 16.' },
+    { slug: 'it-services', note: 'Office and on-site staff on web and mobile attendance, with leave policies, payroll and Form 16.' },
   ],
   roles: [
     { name: 'HR and payroll lead', task: 'Runs the payroll cycle and statutory dues, and watches the workforce by unit.', works: 'Payroll' },

@@ -403,9 +403,9 @@ export const industryContent: IndustryContent[] = [
     ],
   },
   {
-    slug: 'service-providers',
+    slug: 'it-services',
     seo: {
-      title: 'ERP for service providers and IT companies | MAVRO',
+      title: 'ERP for IT and professional services firms | MAVRO',
       description:
         'MAVRO for IT companies and professional services: client projects against budget, schedule and change requests, time cards, attendance and payroll with PF, ESI, PT and TDS, travel and expense claims checked against policy, and billing.',
     },
@@ -492,7 +492,7 @@ export const industryContent: IndustryContent[] = [
     faq: [
       {
         q: 'Is MAVRO suitable for IT and professional services companies?',
-        a: 'Yes. Service providers run client projects, time cards, attendance and payroll, travel and expenses, and billing on MAVRO, with projects tracked against budget, schedule and change requests.',
+        a: 'Yes. IT and professional services firms run client projects, time cards, attendance and payroll, travel and expenses, and billing on MAVRO, with projects tracked against budget, schedule and change requests.',
       },
       {
         q: 'Can employees log time against projects?',

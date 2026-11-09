@@ -223,7 +223,7 @@ export type IndustrySlug =
   | 'manufacturing'
   | 'distribution'
   | 'pharma'
-  | 'service-providers'
+  | 'it-services'
   | 'printing-packaging'
   | 'retail-ecommerce'
   | 'logistics'
@@ -248,6 +248,10 @@ export interface Industry {
   fulfil: string;
   /** Modules featured in Explore the platform; each chip opens that module there. */
   modules: string[];
+  /** The name inside a sentence ("Configured for …"), when lower-casing the name would be wrong ("IT"). */
+  lower?: string;
+  /** A shorter name for the homepage tab, when the full one would wrap to three lines. */
+  tab?: string;
   /** One of the homepage tabs and the Solutions menu's industries; the rest are on /industries. */
   featured?: boolean;
 }
@@ -307,7 +311,7 @@ export const industries = {
       modules: ['o2c', 'snr', 'wms', 'distributor', 'retailer'],
     },
     {
-      name: 'Pharma',
+      name: 'Pharma and healthcare',
       slug: 'pharma',
       featured: true,
       icon: 'quality',
@@ -325,11 +329,13 @@ export const industries = {
       modules: ['prd', 'o2c', 'inv', 'hrms'],
     },
     {
-      name: 'Service providers',
-      slug: 'service-providers',
+      name: 'IT and professional services',
+      lower: 'IT and professional services',
+      tab: 'IT services',
+      slug: 'it-services',
       featured: true,
       icon: 'workflow',
-      who: 'IT companies and professional services',
+      who: 'Software, IT services and consulting firms',
       title: 'Projects, people and costs on one system.',
       points: [
         'Projects tracked against budget, schedule and change requests',
@@ -484,6 +490,9 @@ export const industries = {
     },
   ] satisfies Industry[],
 };
+
+/** An industry's name inside a sentence: "MAVRO for pharma and healthcare", "MAVRO for IT and professional services". */
+export const inSentence = (industry: { name: string; lower?: string }) => industry.lower ?? industry.name.toLowerCase();
 
 /** The industries on the homepage tabs and in the Solutions menu; /industries lists them all. */
 export const featuredIndustries = industries.list.filter((industry) => industry.featured);

@@ -224,7 +224,7 @@ has its 3–4 bespoke screens, and its links (menu, related modules, package dat
 
 ### Phase 24: Industry pages, Distribution and Service providers
 
-- **Goal:** `/industries/distribution`, `/industries/service-providers`.
+- **Goal:** `/industries/distribution`, `/industries/it-services`.
 - **Scope:** as Phase 23; hero screens (Distribution: scheme slab builder or channel view; Service providers: a
   client project with milestones, people and costs).
 - **Depends on:** 23.

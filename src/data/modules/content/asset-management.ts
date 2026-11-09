@@ -63,7 +63,7 @@ export const content: ModuleContent<'asset-management'> = {
     { slug: 'manufacturing', note: 'Machines, dies and test rigs kept running and calibrated, with breakdowns traced to the equipment.' },
     { slug: 'pharma', note: 'Equipment qualification and calibration that block use when they lapse, beside book value.' },
     { slug: 'distribution', note: 'Warehouses, forklifts and vehicles across depots, verified, insured and depreciated.' },
-    { slug: 'service-providers', note: 'Laptops, servers and office assets issued, verified and depreciated by entity.' },
+    { slug: 'it-services', note: 'Laptops, servers and office assets issued, verified and depreciated by entity.' },
   ],
   roles: [
     { name: 'Maintenance head', task: 'Watches uptime, breakdown clusters and overdue preventive work.', works: 'Uptime and value' },

@@ -43,6 +43,9 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-11-09, **Industry renames** (user): Pharma → "Pharma and healthcare", Service providers → "IT and professional
+  services" (slug `it-services`, tab label "IT services"; `lower`/`tab` fields on `Industry`, `inSentence()` in home.ts).
+
 - 2026-11-09, **D1 content optimisation: every industry.** On `main`, two commits.
   - **Repositioning** (user's picks): hero "The Super ERP / for Indian businesses.", a lead naming core ERP, HR and
     payroll, portals and specialised modules for every industry; site title and description, the FAQ ("What is",
@@ -184,7 +187,7 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
     model and FAQ about 0.68 screens, data protection about 0.65.
 
 - 2026-10-31, **Phase 24 done: Distribution and Service providers industry pages** (`/industries/distribution`,
-  `/industries/service-providers`). On `main`. Data only on the Phase 23 template (src/data/industries.ts) plus screens.
+  `/industries/it-services`). On `main`. Data only on the Phase 23 template (src/data/industries.ts) plus screens.
   - **Distribution:** gaps from the product deck (slide 3's channel gap, slide 4's missing modules and cost/upgrade
     reasons); flow linked scheme check → Scheme and Rebate, allocation → Order to Cash, picking and ship confirm →
     Warehouse Management, delivery → Transportation Management; eight modules (the card's five plus Sales Force

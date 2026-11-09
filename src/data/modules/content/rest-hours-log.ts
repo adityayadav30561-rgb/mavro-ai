@@ -63,7 +63,7 @@ export const content: ModuleContent<'rest-hours-log'> = {
     { slug: 'manufacturing', note: 'Three-shift plants where breakdown recovery and cover can push a worker past the limits.' },
     { slug: 'pharma', note: 'Production and QA shifts kept inside hour limits, with the registers an inspector asks for.' },
     { slug: 'distribution', note: 'Warehouse and dispatch crews whose peak-season overtime stays inside the caps.' },
-    { slug: 'service-providers', note: 'Round-the-clock support shifts, with night runs and rest gaps watched.' },
+    { slug: 'it-services', note: 'Round-the-clock support shifts, with night runs and rest gaps watched.' },
   ],
   roles: [
     { name: 'Plant head', task: 'Approves or rejects each violation and the compensatory rest proposed.', works: 'Violations' },

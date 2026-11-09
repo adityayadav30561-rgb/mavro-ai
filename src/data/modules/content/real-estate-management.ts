@@ -61,7 +61,7 @@ export const content: ModuleContent<'real-estate-management'> = {
     { slug: 'manufacturing', note: 'Plants, depots, sales offices and idle land on one register, with every lease renewed on evidence.' },
     { slug: 'distribution', note: 'Many depots and offices across cities, each lease tracked, benchmarked and renewed in time.' },
     { slug: 'pharma', note: 'Plant and warehouse licences and leases tracked beside the properties they apply to.' },
-    { slug: 'service-providers', note: 'Offices across cities with leases, deposits and rent escalations managed centrally.' },
+    { slug: 'it-services', note: 'Offices across cities with leases, deposits and rent escalations managed centrally.' },
   ],
   roles: [
     { name: 'Admin and estates manager', task: 'Keeps the register, rent and statutory dates current.', works: 'Property register' },

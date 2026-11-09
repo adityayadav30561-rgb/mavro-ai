@@ -64,7 +64,7 @@ export const content: ModuleContent<'procure-to-pay'> = {
     { slug: 'manufacturing', note: 'Shortages from planning become requisitions; castings, bar stock and parts are bought on rate contracts.' },
     { slug: 'distribution', note: 'Purchases planned from stock cover, with vendor fill rates and lead times watched.' },
     { slug: 'pharma', note: 'Quality agreements and approved alternates for critical materials are checked before receipt.' },
-    { slug: 'service-providers', note: 'Hardware, software and subcontracted services bought against budgets, approved by value.' },
+    { slug: 'it-services', note: 'Hardware, software and subcontracted services bought against budgets, approved by value.' },
   ],
   roles: [
     { name: 'Buyers', task: 'Send RFQs, compare quotes on landed cost and place POs on rate contracts.', works: 'RFQs' },

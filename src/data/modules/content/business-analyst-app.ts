@@ -60,7 +60,7 @@ export const content: ModuleContent<'business-analyst-app'> = {
     { slug: 'manufacturing', note: 'OEE, order book and margin reported from certified metrics that sales, plants and finance agree on.' },
     { slug: 'distribution', note: 'Secondary sales, stock cover and scheme cost by territory, with row-level security for each manager.' },
     { slug: 'pharma', note: 'Batch, quality and compliance reporting on governed definitions with the lineage to defend them.' },
-    { slug: 'service-providers', note: 'Utilisation, revenue and delivery metrics defined once for every team.' },
+    { slug: 'it-services', note: 'Utilisation, revenue and delivery metrics defined once for every team.' },
   ],
   roles: [
     { name: 'Data platform lead', task: 'Certifies metrics and watches coverage and trust.', works: 'Coverage and trust' },

@@ -64,7 +64,7 @@ export function Page() {
       page: `/industries/${industry.slug}`,
       fallback: `#industry-${industry.slug}`,
     });
-    return { name: industry.name, icon: industry.icon, who: industry.who, note: use.note, href: to && href(to) };
+    return { name: industry.name, lower: industry.lower, icon: industry.icon, who: industry.who, note: use.note, href: to && href(to) };
   });
 
   const related =

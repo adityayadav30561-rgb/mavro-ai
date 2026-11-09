@@ -62,7 +62,7 @@ export const content: ModuleContent<'master-data-management'> = {
     { slug: 'manufacturing', note: 'Item, vendor and customer masters kept clean across the plants, with price and tax changes approved.' },
     { slug: 'distribution', note: 'Customers, outlets and territories governed across thousands of records, with remaps impact-checked.' },
     { slug: 'pharma', note: 'Licence and registration validity enforced on customers and vendors before a record goes active.' },
-    { slug: 'service-providers', note: 'Clients, entities and employees held once and shared with every system.' },
+    { slug: 'it-services', note: 'Clients, entities and employees held once and shared with every system.' },
   ],
   roles: [
     { name: 'Data steward lead', task: 'Runs duplicate reviews, merges and the approval queue.', works: 'Quality dashboard' },

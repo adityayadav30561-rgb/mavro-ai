@@ -63,7 +63,7 @@ export const content: ModuleContent<'inventory-management'> = {
     { slug: 'manufacturing', note: 'Raw material, work in progress and finished goods tracked by lot from receipt to dispatch.' },
     { slug: 'distribution', note: 'Stock across depots with cover and reorder signals, and batches issued first to expire.' },
     { slug: 'pharma', note: 'Batch and expiry control, quarantine until QA release, and cold-store capacity watched.' },
-    { slug: 'service-providers', note: 'Spares, equipment in store and consumables counted and issued against projects.' },
+    { slug: 'it-services', note: 'Spares, equipment in store and consumables counted and issued against projects.' },
   ],
   roles: [
     { name: 'Stores manager', task: 'Watches cover and reorder signals and approves write-offs within limits.', works: 'Adjustments' },

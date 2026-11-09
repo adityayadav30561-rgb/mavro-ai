@@ -4,6 +4,8 @@ import './audience.css';
 
 export interface AudienceIndustry {
   name: string;
+  /** The name inside a sentence, when lower-casing it would be wrong ("IT"). */
+  lower?: string;
   icon: IconName;
   /** Who the industry is, e.g. "OEM suppliers and multi-line plants". */
   who: string;
@@ -63,7 +65,7 @@ export function Audience({ industries, roles, labels, screensHref }: AudiencePro
                   <span className="aud__note">{industry.note}</span>
                   {industry.href && (
                     <span className="aud__more">
-                      {labels.see.replace('{industry}', industry.name.toLowerCase())}
+                      {labels.see.replace('{industry}', industry.lower ?? industry.name.toLowerCase())}
                       <Icon name="arrow" size={14} />
                     </span>
                   )}

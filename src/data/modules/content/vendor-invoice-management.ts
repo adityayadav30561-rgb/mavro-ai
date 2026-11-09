@@ -61,7 +61,7 @@ export const content: ModuleContent<'vendor-invoice-management'> = {
     { slug: 'manufacturing', note: 'High supplier volumes matched line by line against POs and goods receipts.' },
     { slug: 'distribution', note: 'Freight and service bills matched to trips and contracts before payment.' },
     { slug: 'pharma', note: 'Payment waits for quality release of the material, not just its receipt.' },
-    { slug: 'service-providers', note: 'Subcontractor and service invoices checked against agreed rates.' },
+    { slug: 'it-services', note: 'Subcontractor and service invoices checked against agreed rates.' },
   ],
   roles: [
     { name: 'AP team', task: 'Clears exceptions with the reason on every invoice.', works: 'Exceptions' },

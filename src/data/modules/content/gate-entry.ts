@@ -62,7 +62,7 @@ export const content: ModuleContent<'gate-entry'> = {
     { slug: 'manufacturing', note: 'Inward material weighed and matched to its PO before unloading; dispatches sealed and recorded.' },
     { slug: 'distribution', note: 'Dock turnaround at depots tracked, and detention claims settled from the gate record.' },
     { slug: 'pharma', note: 'Cold-chain vehicles flagged on reefer logs or idle time, with hygiene checks before unloading.' },
-    { slug: 'service-providers', note: 'Visitors, contractors and equipment recorded in and out at every office and site.' },
+    { slug: 'it-services', note: 'Visitors, contractors and equipment recorded in and out at every office and site.' },
   ],
   roles: [
     { name: 'Gate officers', task: 'Check the driver, documents and vehicle on the phone and issue the gate pass.', works: 'Gate passes' },

@@ -62,7 +62,7 @@ export const content: ModuleContent<'mvlens-vendor-audit'> = {
     { slug: 'manufacturing', note: 'Process audits of casting, machining and component suppliers, with CAPAs closed before the next order.' },
     { slug: 'pharma', note: 'Qualification and periodic audits of material and packaging vendors, with quality agreements e-signed.' },
     { slug: 'distribution', note: 'Audits of contract packers, warehouses and transporters against the agreed standard.' },
-    { slug: 'service-providers', note: 'Audits of subcontractors and service vendors, with agreements and corrective actions on record.' },
+    { slug: 'it-services', note: 'Audits of subcontractors and service vendors, with agreements and corrective actions on record.' },
   ],
   roles: [
     { name: 'Audit manager', task: 'Plans the programme, assigns auditors and follows every audit to closure.', works: 'Audit plans' },

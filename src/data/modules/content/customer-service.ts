@@ -62,7 +62,7 @@ export const content: ModuleContent<'customer-service'> = {
     { slug: 'manufacturing', note: 'Complaints traced to the lot, its work order and the outgoing test before a replacement ships.' },
     { slug: 'distribution', note: 'Dealer and customer tickets from every channel on one record, with SLAs per channel.' },
     { slug: 'pharma', note: 'Product complaints tied to the batch record; adverse events intimated to pharmacovigilance in time.' },
-    { slug: 'service-providers', note: 'Client tickets owned per agent, with response and closure SLAs and CSAT.' },
+    { slug: 'it-services', note: 'Client tickets owned per agent, with response and closure SLAs and CSAT.' },
   ],
   roles: [
     { name: 'Service agents', task: 'Answer tickets from every channel inside the first-response SLA.', works: 'Tickets' },

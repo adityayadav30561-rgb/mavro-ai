@@ -68,7 +68,7 @@ export const content: ModuleContent<'order-to-cash'> = {
       slug: 'pharma',
       note: 'FEFO and shelf-life rules on every line, so short-dated stock is caught before it ships.',
     },
-    { slug: 'service-providers', note: 'Orders invoiced with GST and collected against one customer ledger.' },
+    { slug: 'it-services', note: 'Orders invoiced with GST and collected against one customer ledger.' },
   ],
   roles: [
     {

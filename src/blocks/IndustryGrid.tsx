@@ -4,6 +4,8 @@ import './industry-grid.css';
 
 export interface IndustryCard {
   name: string;
+  /** The name inside a sentence, when lower-casing it would be wrong ("IT"). */
+  lower?: string;
   icon: IconName;
   /** Who it is for, e.g. "Commercial printers and packaging converters". */
   who: string;
@@ -44,7 +46,7 @@ export function IndustryGrid({ cards, more }: { cards: readonly IndustryCard[]; 
             ) : null}
             {card.href && (
               <span className="ig__more">
-                {more} {card.name.toLowerCase()}
+                {more} {card.lower ?? card.name.toLowerCase()}
                 <Icon name="arrow" size={14} />
               </span>
             )}

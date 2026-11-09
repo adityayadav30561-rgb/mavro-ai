@@ -62,7 +62,7 @@ export const content: ModuleContent<'sales-force-automation'> = {
     { slug: 'manufacturing', note: 'Reps cover dealers and workshop buyers on planned beats and book orders on the phone.' },
     { slug: 'distribution', note: 'Secondary orders reach the distributor with the scheme already applied.' },
     { slug: 'pharma', note: 'Doctor, chemist and stockist calls planned by potential, with samples accounted for.' },
-    { slug: 'service-providers', note: 'Field teams logged against client visits, with expenses settled on policy.' },
+    { slug: 'it-services', note: 'Field teams logged against client visits, with expenses settled on policy.' },
   ],
   roles: [
     { name: 'Field reps', task: 'Follow the beat, report each call with location and samples, and book orders.', works: 'Call reports' },

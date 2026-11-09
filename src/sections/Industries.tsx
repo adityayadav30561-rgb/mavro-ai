@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Icon, type IconName } from '../components/Icon';
-import { featuredIndustries as list, industries } from '../data/home';
+import { featuredIndustries as list, industries, inSentence } from '../data/home';
 import { catalogue, channelPortals, moduleById, modulePage, packs, vendorPortal, type Pack } from '../data/modules';
 import { hasPage } from '../links';
 import { useTabs, vars } from '../motion/hooks';
@@ -82,7 +82,7 @@ export function Industries() {
                   <Icon name={item.icon} size={20} />
                 </span>
                 <span className="ind__tab-text">
-                  <b>{item.name}</b>
+                  <b>{item.tab ?? item.name}</b>
                   <span>{item.who}</span>
                 </span>
               </button>
@@ -102,7 +102,7 @@ export function Industries() {
               </ul>
               {hasPage(`/industries/${industry.slug}`) && (
                 <a className="ind__page" href={`/industries/${industry.slug}`}>
-                  {industries.pageLink} {industry.name.toLowerCase()}
+                  {industries.pageLink} {inSentence(industry)}
                   <Icon name="arrow" size={14} />
                 </a>
               )}
@@ -111,7 +111,7 @@ export function Industries() {
             <div className="ind__flowbox">
               <div className="ind__legend" aria-hidden="true">
                 <span data-core>Shared by every industry</span>
-                <span>Configured for {industry.name.toLowerCase()}</span>
+                <span>Configured for {inSentence(industry)}</span>
                 <span className="ind__record">
                   Working record <b>{industry.record}</b> · traced by <b>{industry.trace}</b>
                 </span>

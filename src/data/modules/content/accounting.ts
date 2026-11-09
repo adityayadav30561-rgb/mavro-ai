@@ -62,7 +62,7 @@ export const content: ModuleContent<'accounting'> = {
     { slug: 'manufacturing', note: 'Work orders post WIP and finished goods, so product cost reaches the ledger as production runs.' },
     { slug: 'distribution', note: 'Scheme accruals and credit notes post as they happen, keeping channel margins honest.' },
     { slug: 'pharma', note: 'Multi-plant books consolidated, with batch costs traced to the ledger.' },
-    { slug: 'service-providers', note: 'Project costs and billing post to the ledger by client and cost centre.' },
+    { slug: 'it-services', note: 'Project costs and billing post to the ledger by client and cost centre.' },
   ],
   roles: [
     { name: 'Finance controller', task: 'Runs the close, approves manual journals and signs off the statements.', works: 'Period close' },

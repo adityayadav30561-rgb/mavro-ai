@@ -62,7 +62,7 @@ export const content: ModuleContent<'vendor-portal'> = {
     { slug: 'manufacturing', note: 'Castings, bar stock and bought-out parts vendors on one master for every plant.' },
     { slug: 'pharma', note: 'GMP certificates and licences in a vault that blocks a vendor when one lapses.' },
     { slug: 'distribution', note: 'Packaging, transport and service vendors for every depot, verified once.' },
-    { slug: 'service-providers', note: 'Contractors and service vendors onboarded with tax and bank checks.' },
+    { slug: 'it-services', note: 'Contractors and service vendors onboarded with tax and bank checks.' },
   ],
   roles: [
     { name: 'Purchase head', task: 'Watches the vendor base, compliance and onboarding across plants.', works: 'Vendor dashboard' },

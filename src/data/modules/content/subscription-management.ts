@@ -3,7 +3,7 @@ import type { ModuleContent } from '../schema';
 /*
  * Subscription Management. Source: product deck v2, slides 102–103 (tagline, four tiles, what it does, why it
  * matters, four screens). The screens use their own company, an IT services firm selling a subscription app, since
- * the module serves businesses that sell subscriptions (the service-providers industry); its figures agree with the
+ * the module serves businesses that sell subscriptions (the IT and professional services industry); its figures agree with the
  * homepage Explore panel. Figures on the tiles come from the module's screens
  * (prototype/modules/subscription-management/), whose scenario is below; like all screen data they are illustrative.
  */
@@ -59,7 +59,7 @@ export const content: ModuleContent<'subscription-management'> = {
     ],
   },
   industries: [
-    { slug: 'service-providers', note: 'Software and managed services sold on plans, with renewals quoted on time and failed payments recovered.' },
+    { slug: 'it-services', note: 'Software and managed services sold on plans, with renewals quoted on time and failed payments recovered.' },
     { slug: 'manufacturing', note: 'Service contracts and maintenance plans for installed equipment, billed and renewed on a cycle.' },
   ],
   roles: [

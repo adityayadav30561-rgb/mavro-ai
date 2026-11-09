@@ -61,7 +61,7 @@ export const content: ModuleContent<'learning-management'> = {
     { slug: 'manufacturing', note: 'Setters, operators and inspectors certified on the machines they run, with lapses visible to the roster.' },
     { slug: 'pharma', note: 'GMP and procedure training matrices with evidence for every inspection.' },
     { slug: 'distribution', note: 'Forklift, safety and hazard training for depot staff, renewed on time.' },
-    { slug: 'service-providers', note: 'Compliance and skills training tracked per role and delivery team.' },
+    { slug: 'it-services', note: 'Compliance and skills training tracked per role and delivery team.' },
   ],
   roles: [
     { name: 'Training manager', task: 'Runs the catalogue, assignments and the certification queue.', works: 'LMS dashboard' },

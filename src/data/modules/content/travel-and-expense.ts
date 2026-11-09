@@ -62,7 +62,7 @@ export const content: ModuleContent<'travel-and-expense'> = {
     { slug: 'manufacturing', note: 'Plant and vendor visits charged to the right plant and cost centre.' },
     { slug: 'distribution', note: 'Field reps claim against their beat plans, checked against policy line by line.' },
     { slug: 'pharma', note: 'Field force travel and allowances kept to grade entitlements across regions.' },
-    { slug: 'service-providers', note: 'Client travel charged to projects and checked against policy before it is billed.' },
+    { slug: 'it-services', note: 'Client travel charged to projects and checked against policy before it is billed.' },
   ],
   roles: [
     { name: 'Travellers', task: 'Request trips and claim expenses from the phone, with receipts read on capture.', works: 'Expense reports' },

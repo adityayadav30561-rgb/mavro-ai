@@ -62,7 +62,7 @@ export const content: ModuleContent<'roster-ledger'> = {
     { slug: 'manufacturing', note: 'Three-shift plants rostered from the production plan, with a qualified operator on every line.' },
     { slug: 'pharma', note: 'Qualified operators on every line and shift, so line qualification holds through leave and swaps.' },
     { slug: 'distribution', note: 'Warehouse and dispatch shifts sized to the order plan, with weekly offs and overtime in budget.' },
-    { slug: 'service-providers', note: 'Support and operations desks in shifts around the clock, with swaps checked against rest rules.' },
+    { slug: 'it-services', note: 'Support and operations desks in shifts around the clock, with swaps checked against rest rules.' },
   ],
   roles: [
     { name: 'Roster planner', task: 'Runs the auto-roster from the plan, fixes gaps and publishes each week.', works: 'Roster builder' },

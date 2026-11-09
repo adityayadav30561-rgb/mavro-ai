@@ -21,6 +21,7 @@ export function Page() {
       const href = `/industries/${industry.slug}`;
       return {
         name: industry.name,
+        lower: industry.lower,
         icon: industry.icon,
         who: industry.who,
         title: industry.title,

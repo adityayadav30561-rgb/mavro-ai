@@ -61,7 +61,7 @@ export const content: ModuleContent<'crm'> = {
     { slug: 'manufacturing', note: 'OEM enquiries qualified on credit and checked against free capacity before quoting.' },
     { slug: 'distribution', note: 'Leads routed by territory so each dealer prospect has one owner.' },
     { slug: 'pharma', note: 'Institutional and stockist leads verified on licences and GST before onboarding.' },
-    { slug: 'service-providers', note: 'Enquiries scored and owned until the proposal goes out.' },
+    { slug: 'it-services', note: 'Enquiries scored and owned until the proposal goes out.' },
   ],
   roles: [
     { name: 'Inside sales lead', task: 'Watches the pipeline by source and settles escalated leads.', works: 'Pipeline' },

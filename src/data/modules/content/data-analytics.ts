@@ -63,7 +63,7 @@ export const content: ModuleContent<'data-analytics'> = {
     { slug: 'manufacturing', note: 'Shop floor, ERP and field data in one model, checked before OEE and output reach the morning review.' },
     { slug: 'pharma', note: 'Lineage and quality gates for every metric, so each reported figure traces back to its source.' },
     { slug: 'distribution', note: 'Secondary sales from the field app and portals, held back when duplicates or gaps appear.' },
-    { slug: 'service-providers', note: 'Delivery, billing and people data on dashboards with a named owner and a freshness promise.' },
+    { slug: 'it-services', note: 'Delivery, billing and people data on dashboards with a named owner and a freshness promise.' },
   ],
   roles: [
     { name: 'Data platform lead', task: 'Watches the nightly window, failures and held pipelines before the morning review.', works: 'Platform health' },

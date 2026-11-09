@@ -64,7 +64,7 @@ export const content: ModuleContent<'document-management'> = {
     { slug: 'manufacturing', note: 'Drawings, specifications and SOPs controlled by revision, with only the effective one in use on the floor.' },
     { slug: 'pharma', note: 'SOPs, certificates of analysis and licences with approval, version control and expiry alerts.' },
     { slug: 'distribution', note: 'Contracts, licences and agreements per depot, with owners alerted before they lapse.' },
-    { slug: 'service-providers', note: 'Client contracts, policies and certifications controlled, versioned and retrievable.' },
+    { slug: 'it-services', note: 'Client contracts, policies and certifications controlled, versioned and retrievable.' },
   ],
   roles: [
     { name: 'Document controller', task: 'Reviews uploads, numbers them and keeps one effective version.', works: 'Upload batch' },

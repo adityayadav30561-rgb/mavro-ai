@@ -63,7 +63,7 @@ export const content: ModuleContent<'project-management'> = {
     { slug: 'manufacturing', note: 'New lines, tooling and utilities tracked against sanction, baseline and go-live.' },
     { slug: 'pharma', note: 'Plant and equipment projects with IQ and OQ gates that hold go-live until they pass.' },
     { slug: 'distribution', note: 'Depot, racking and warehouse projects delivered on budget, with vendor delays named.' },
-    { slug: 'service-providers', note: 'Client and internal projects with milestones, change requests and cost against budget.' },
+    { slug: 'it-services', note: 'Client and internal projects with milestones, change requests and cost against budget.' },
   ],
   roles: [
     { name: 'PMO lead', task: 'Watches the portfolio, prepares the steering pack and chases governance gaps.', works: 'Portfolio health' },

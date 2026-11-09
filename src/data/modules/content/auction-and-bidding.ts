@@ -62,7 +62,7 @@ export const content: ModuleContent<'auction-and-bidding'> = {
     { slug: 'manufacturing', note: 'Castings, bar stock, packaging and tooling bought through auctions, with only approved foundries and mills invited.' },
     { slug: 'distribution', note: 'Freight lanes, packaging and warehouse services competed through sealed bids and auctions.' },
     { slug: 'pharma', note: 'Packaging and services bought competitively, from vendors qualified by quality first.' },
-    { slug: 'service-providers', note: 'Hardware, licences and facilities contracts bid through RFQs and sealed bids.' },
+    { slug: 'it-services', note: 'Hardware, licences and facilities contracts bid through RFQs and sealed bids.' },
   ],
   roles: [
     { name: 'Buyers', task: 'Create events from indents and run them live.', works: 'Create event' },

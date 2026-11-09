@@ -62,7 +62,7 @@ export const content: ModuleContent<'cost-forecasting'> = {
     { slug: 'manufacturing', note: 'Plant overheads, power, maintenance and freight forecast from volume and tariffs, with overruns caught early.' },
     { slug: 'distribution', note: 'Freight, schemes and depot costs budgeted by region and reforecast as volumes move.' },
     { slug: 'pharma', note: 'Plant and quality costs budgeted by site, with every variance explained before the review.' },
-    { slug: 'service-providers', note: 'People, software and office costs by entity and cost centre, with scenarios for hiring plans.' },
+    { slug: 'it-services', note: 'People, software and office costs by entity and cost centre, with scenarios for hiring plans.' },
   ],
   roles: [
     { name: 'FP&A manager', task: 'Runs the reforecast, its drivers and scenarios, and the variance reviews.', works: 'Forecast wizard' },
