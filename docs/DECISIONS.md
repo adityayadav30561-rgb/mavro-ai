@@ -263,3 +263,14 @@ stories are used since 2026-10-23, with the user's approval (see Customer storie
 | Share image | One default (public/og.png) for every page, not one per template | The user chose one image from the hero art (D2) |
 | Structured data validation | `qa/seocheck.cjs` (parsing, `@id` references, FAQ text visible), not Google's Rich Results Test | No external validator reachable from the cloud session; run the Rich Results Test once the domain is live |
 | `/pipeline-check` | Removed | Planned for Phase 28 |
+
+## D3 city pages (user, 2026-11-09)
+
+| Decision | Choice | Why |
+|---|---|---|
+| Cities | **All three groups** plus the cities where SaiSatwik has people: NCR (Delhi, Noida, Greater Noida, Gurugram, Faridabad, Ghaziabad), metros (Mumbai, Pune, Ahmedabad, Chennai, Bengaluru, Hyderabad, Kolkata), industrial hubs (Ludhiana, Surat, Rajkot, Coimbatore, Vadodara, Nashik, Indore, Jaipur, Kanpur, Baddi), and Lucknow and Bhopal: 25 pages | User picked "NCR set", "Big industrial metros" and "Industrial hubs"; Lucknow and Bhopal are in their presence list |
+| Navigation | **Not in the header menu.** Reached from one footer link to an index page (`/erp-software`), links between nearby cities, and search results | User asked whether they would be in the menu or only reachable from search; search engines still need ordinary links to find and rank them |
+| Presence | Head office: Greater Noida only (the only page with an address and LocalBusiness markup). People on the ground in the user's list, worded neutrally ("a team or partner on the ground") because the user did not say which city has an office, staff or a partner; "Punjab" is stated as the state. Every other city: served remotely, on site when agreed (the deck's model) | User: "HEAD OFFICE GREATER NOIDA ONLY, AND OTHER OFFICES STAFF AND PARTNER IN NOIDA, KOLKATA, PUNE, MUMBAI, BADDI, LUCKNOW, DELHI, PUNJAB, BHOPAL, BANGALORE, CHENNAI AND OTHER CITIES..." |
+| Client names | None on city pages | User: "No client names" |
+| Indexing | **Indexed** (not drafts), so every city fact must be true and checkable: GST state codes, whether the state levies professional tax, well-known industries and industrial areas. No city statistics, PT slab amounts or e-way bill thresholds | User: "Index them" |
+| URL | `/erp-software/<city>`; D4 adds `/ae/erp-software/<city>` on the D2 scheme | Planned in D2 |
