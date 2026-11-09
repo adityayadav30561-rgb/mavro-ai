@@ -922,7 +922,8 @@ items when context is heavy.
 | Industry list | `industries` in `src/data/home.ts` | twelve (user, 2026-11-09: "all other major industries which use erp or the erp modules we have made"); five featured. Confirm before launch |
 | Testimonials / case studies | `proof` in `src/data/home.ts` | three anonymised stories from deck slide 23 (approved 2026-10-23). Named stories, quotes or logos per story only with the client's approval |
 | Social share image | `src/seo/head.ts` | none |
-| FAQ: pricing and hosting | `faq.items` in home.ts | not answered: the decks do not state a pricing model, deployment options beyond "cloud-native" or data ownership terms. Add those questions once the user supplies the answers |
+| FAQ: pricing and hosting | `site.facts` in site.ts | **answered (user, 2026-11-09)**: no fixed pricing (depends on need), cloud and on-premise, client owns its data; in the homepage, platform and security FAQs. A real price list or plans only if the user gives one |
+| Official profiles (`sameAs`) and About text | `src/seo/head.ts` Organization; `companyText` in company.ts | **at launch (user)**. Never guess profile URLs |
 | **Company (About), Privacy policy, Terms of use** | `companyText`, `privacyText`, `termsText` in `src/data/company.ts` (`TextContent`: SEO, title, lead, updated, sections) | **waiting for the user's text.** Template ready (`src/pages/TextPage.tsx`); the route, the menu/footer link and the sitemap entry appear once the text is filled in. Never fill with invented copy |
 | **Blog posts** | `posts` in `src/data/company.ts` | **none yet.** Templates ready (`src/pages/Blog.tsx`: `/blog` list and `/blog/<slug>`); the Resources menu shows Blog once there is a post |
 | **Careers openings** | `openings` in `src/data/company.ts` | **none yet.** Template ready (`src/pages/Careers.tsx`, apply by email); the Company menu and footer show Careers once there is an opening |

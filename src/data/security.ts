@@ -6,6 +6,7 @@
  * Payroll, the contract labour modules, Vendor Portal) and the HRMS deck (slide 7). No certification, hosting
  * location, data residency or testing claim: none is in the decks (DECISIONS.md).
  */
+import { site } from './site';
 import type { IconName } from '../components/Icon';
 import type { ModuleSlug } from './modules';
 
@@ -106,6 +107,10 @@ export const securityPage = {
     {
       q: 'How does MAVRO keep our data secure?',
       a: 'Data is encrypted with AES-256 at rest and in transit. Access is role-based with field-level control, MFA and SSO, and IP and device control; every request passes an API gateway with OAuth 2.0 and JWT over HTTPS and TLS.',
+    },
+    {
+      q: 'Who owns our data in MAVRO?',
+      a: `${site.facts.data} It is encrypted with AES-256 at rest and in transit, every change is written to a tamper-proof audit trail, and access is role-based with MFA and SSO. ${site.facts.deployment}`,
     },
     {
       q: 'Does MAVRO keep an audit trail?',

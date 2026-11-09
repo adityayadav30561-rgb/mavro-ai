@@ -28,6 +28,15 @@ export const site = {
     region: 'Uttar Pradesh',
     country: 'IN',
   },
+  /**
+   * Facts the user gave (2026-11-09) that the decks do not state. Each is one sentence, used word for word wherever
+   * it appears (FAQs, llms.txt), so search engines and AI assistants read the same fact the same way.
+   */
+  facts: {
+    pricing: 'MAVRO has no fixed price list: pricing depends on what each business needs.',
+    deployment: 'MAVRO can run in the cloud or on-premise, on the client’s own servers.',
+    data: 'The client owns its data in MAVRO.',
+  },
   title: 'MAVRO | The Super ERP for Indian businesses in every industry',
   description:
     'MAVRO is the Super ERP for Indian businesses in every industry: base ERP modules, HR and payroll, vendor and channel portals and premium modules on one platform, with GST built in, and it connects to SAP, Oracle, Tally and legacy ERPs.',

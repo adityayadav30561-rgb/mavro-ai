@@ -4,6 +4,7 @@
  * modules/catalogue.ts, never typed here; product facts from the decks (docs/PRODUCT.md). Shared headings sit in
  * `packageTemplate`.
  */
+import { site } from './site';
 import type { IntegrationHubData } from '../blocks/IntegrationHub';
 import type { IconName } from '../components/Icon';
 import { catalogue, packs, type ModuleSlug, type Pack } from './modules';
@@ -271,8 +272,8 @@ export const platformPage = {
       a: 'The MAVRO platform is the shared base under every module: a cloud-native, multi-tenant, API-first architecture with a workflow and rules engine, audit trail, notifications, role-based access and integration APIs. Base modules, portals and premium modules all run on it and share one set of records.',
     },
     {
-      q: 'Is MAVRO cloud-based?',
-      a: 'Yes. MAVRO is cloud-native and multi-tenant, with a web portal, an Android and iOS app, an admin panel and API access, on MS SQL Server with Redis caching, daily backups and disaster recovery.',
+      q: 'Is MAVRO cloud-based or on-premise?',
+      a: `Both. ${site.facts.deployment} It is cloud-native and multi-tenant, with a web portal, an Android and iOS app, an admin panel and API access, on MS SQL Server with Redis caching, daily backups and disaster recovery.`,
     },
     {
       q: 'Does MAVRO have a mobile app?',

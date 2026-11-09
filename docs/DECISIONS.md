@@ -242,3 +242,13 @@ stories are used since 2026-10-23, with the user's approval (see Customer storie
 | Featured | Five on the homepage tabs, Solutions menu, drawer and footer: manufacturing, distribution, pharma, service providers, printing and packaging (the user's named groups); the rest on `/industries` | My call, offered for veto |
 | Left out | Staffing and manpower (Contract Labour Supply and Purchase are the principal employer's side, so a manpower-supplier page would be mis-grounded), FMCG (inside distribution and food), automotive (inside manufacturing), education and shipping (no modules for them) | My call, offered for veto |
 | Draft claims | Where the decks say nothing, write the framing now and mark it as draft; real facts replace it before launch | User: "apart from that, invent the claims, we will remove and add real things once we are ready to launch the site" |
+
+## D2 SEO, AEO and GEO (user, 2026-11-09)
+
+| Decision | Choice | Why |
+|---|---|---|
+| Production domain | **Not decided yet**; `site.url` stays the `https://mavro.example` placeholder (one line to change) | User picked "Not decided yet" |
+| AI crawlers | **Allow all** (GPTBot, ClaudeBot, PerplexityBot, Google-Extended and the rest), plus an `llms.txt` | User: "Allow all" |
+| Share image | **Made from the hero art**: one 1200×630 default for every page | User: "Make one from the hero art" |
+| Profiles and About text | Sent by the user at launch; until then no `sameAs`, and the Company page stays empty | User: "i will send links later during launch, i will send the about text later" |
+| Pricing, deployment, data | Pricing has no fixed model ("depends on the need"); **cloud and on-premise both offered**; **the client owns its data**. Stated word for word from `site.facts` (site.ts) in the homepage, platform and security FAQs | User: "pricing model is not fixed, it depends on the need, cloud and on prem both options are there, data is owned by the client" |

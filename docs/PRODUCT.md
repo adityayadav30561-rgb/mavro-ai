@@ -27,6 +27,11 @@ elements), in the order of `ppt/presentation.xml`.
 - India-specific: GST at every touchpoint (e-invoicing, GSTR-1/3B, ITC), India payroll (PF, ESI, TDS),
   multi-entity and multi-plant.
 - Delivery: 25–30 day phased implementation, a dedicated resource, AMS after go-live.
+- **From the user (2026-11-09), not in the decks** (`site.facts` in site.ts, stated word for word):
+  - pricing: "pricing model is not fixed, it depends on the need" (no price list, per-user rate or trial is stated);
+  - deployment: "cloud and on prem both options are there";
+  - data ownership: "data is owned by the client".
+- The market: every industry, India first, then Indian cities, then the UAE and GCC (DECISIONS.md).
 
 ## Packages and modules (all live)
 

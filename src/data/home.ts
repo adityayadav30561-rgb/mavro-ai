@@ -3,6 +3,7 @@
  * copy can be revised without touching layout or animation code. All of it is temporary marketing copy, written
  * to evaluate the design; none of it states a figure, certification or customer result.
  */
+import { site } from './site';
 import type { ChainNode } from '../blocks/ChainDiagram';
 import type { Story } from '../blocks/StoryCards';
 import type { TimelineData, TimelinePhase } from '../blocks/Timeline';
@@ -646,10 +647,6 @@ export const faq = {
       link: { label: 'See the portals', href: '/platform/portals' },
     },
     {
-      q: 'Is MAVRO available on mobile?',
-      a: 'Yes. The MAVRO App runs on the web and on Android and iOS, so orders, approvals and dashboards reach users in the office, at the plant and in the field. The mobile app is offline-capable and syncs when the connection returns, and push alerts flag pending approvals.',
-    },
-    {
       q: 'Does MAVRO support multiple companies, plants and currencies?',
       a: 'Yes. MAVRO is cloud-native and runs multiple entities, branches and plants in multiple currencies on one platform, with a live multi-currency P&L and role dashboards for the CFO, plant heads, sales and HR.',
     },
@@ -657,6 +654,14 @@ export const faq = {
       q: 'How does MAVRO keep our data secure?',
       a: 'MAVRO encrypts data with AES-256 at rest and in transit, controls access by role down to individual fields, supports MFA and SSO, and can restrict access by IP address and device. Every transaction is written to a tamper-proof audit log kept for seven years, and daily backups with disaster recovery target a recovery point under 4 hours and a recovery time under 8 hours.',
       link: { label: 'Security in MAVRO', href: '/security-and-compliance' },
+    },
+    {
+      q: 'How much does MAVRO ERP cost?',
+      a: `${site.facts.pricing} A business chooses the base modules, portals and premium modules it needs, and is quoted for that scope. Request a demo to see the modules that fit your processes and get a quote.`,
+    },
+    {
+      q: 'Is MAVRO cloud-based or on-premise?',
+      a: `Both. ${site.facts.deployment} It is built cloud-native, with a web portal, Android and iOS apps and API access, daily backups and disaster recovery. ${site.facts.data}`,
     },
     {
       q: 'Does MAVRO integrate with other software?',
