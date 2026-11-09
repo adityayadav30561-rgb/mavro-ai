@@ -539,7 +539,7 @@ export const cities: City[] = [
     ],
     nearby: ['ahmedabad', 'surat', 'indore'],
     seo: {
-      title: 'ERP software in Vadodara for chemicals and engineering | MAVRO',
+      title: 'ERP software in Vadodara for chemical units | MAVRO',
       description: 'ERP for Vadodara’s chemical units in Nandesari and engineering makers in Makarpura, Por and Savli: batches, vendor audits, documents, projects and GST.',
     },
   },
@@ -643,6 +643,211 @@ export const cities: City[] = [
     seo: {
       title: 'ERP software in Kanpur for leather and textiles | MAVRO',
       description: 'ERP for Kanpur’s leather goods and saddlery makers around Jajmau, hosiery and garment units and engineering works: lots, contract labour, payroll and GST.',
+    },
+  },
+  {
+    slug: 'chennai',
+    name: 'Chennai',
+    state: 'tamil-nadu',
+    region: 'south',
+    presence: 'team',
+    knownFor: 'automobiles, electronics and port trade.',
+    lead: 'For the auto and electronics suppliers of Sriperumbudur, Oragadam and Ambattur, the importers and exporters moving goods through Chennai and Ennore ports, and the IT firms along the Old Mahabalipuram Road: plants, shipments, projects, payroll with Tamil Nadu professional tax, and GST on one system.',
+    areas: ['Sriperumbudur', 'Oragadam', 'Ambattur Industrial Estate', 'Irungattukottai', 'Old Mahabalipuram Road (IT corridor)'],
+    industries: [
+      { slug: 'manufacturing', note: 'Auto component and electronics plants supplying the vehicle and device makers around Sriperumbudur and Oragadam, often across several plants.' },
+      { slug: 'logistics', note: 'Importers, exporters and transporters working through Chennai and Ennore ports, where shipments and e-way bills never stop.' },
+      { slug: 'it-services', note: 'IT and engineering services firms along the Old Mahabalipuram Road, with projects, time cards and growing teams.' },
+    ],
+    faq: [
+      {
+        q: 'Can MAVRO compare OEE across our plants in Oragadam and Ambattur?',
+        a: 'Yes. Production Management and Shop Floor Control track output, downtime and OEE by line and shift in every plant, on one screen for the plant heads and the management.',
+      },
+      {
+        q: 'Does MAVRO deduct Tamil Nadu professional tax?',
+        a: 'Yes. HRMS and Payroll deducts professional tax for employees in Tamil Nadu alongside PF, ESI and TDS, and posts payroll to the ledger.',
+      },
+      {
+        q: 'Is there a MAVRO team in Chennai?',
+        a: 'SaiSatwik Technologies has a team or partner on the ground in Chennai, and implementation follows the 25–30 day plan with on-site discovery, training and go-live.',
+      },
+    ],
+    nearby: ['bengaluru', 'coimbatore', 'hyderabad'],
+    seo: {
+      title: 'ERP software in Chennai for auto and electronics | MAVRO',
+      description: 'ERP for Chennai’s auto and electronics suppliers in Sriperumbudur, Oragadam and Ambattur, port traders and IT firms: plants, shipments, payroll and GST.',
+    },
+  },
+  {
+    slug: 'bengaluru',
+    name: 'Bengaluru',
+    aka: 'Bangalore',
+    state: 'karnataka',
+    region: 'south',
+    presence: 'team',
+    knownFor: 'IT, engineering and new consumer brands.',
+    lead: 'For Bengaluru’s (Bangalore’s) IT and product companies, the machine shops and electronics and aerospace suppliers of Peenya and Bommasandra, and the consumer brands selling online: projects, people, production, marketplaces, payroll with Karnataka professional tax, and GST on one system.',
+    areas: ['Peenya Industrial Area', 'Bommasandra', 'Electronic City', 'Whitefield', 'Outer Ring Road'],
+    industries: [
+      { slug: 'it-services', note: 'IT services and product companies across Whitefield, Electronic City and the Outer Ring Road, with large teams, projects and travel.' },
+      { slug: 'manufacturing', note: 'Machine shops, precision engineering and electronics and aerospace suppliers in Peenya and Bommasandra, running job cards across machines.' },
+      { slug: 'retail-ecommerce', note: 'Consumer brands selling through marketplaces and their own webstores, with stock in several warehouses.' },
+    ],
+    faq: [
+      {
+        q: 'Does MAVRO handle Karnataka professional tax for a Bengaluru IT team?',
+        a: 'Yes. HRMS and Payroll deducts Karnataka professional tax alongside PF, ESI and TDS, and the daily time card feeds attendance, project costs and payroll as one record.',
+      },
+      {
+        q: 'Can a Bangalore D2C brand pull orders from marketplaces into MAVRO?',
+        a: 'Yes. Ecommerce Integration brings marketplace and webstore orders and returns into one order book and keeps listings, prices and stock in sync across channels.',
+      },
+      {
+        q: 'Can a Peenya machine shop schedule jobs by machine?',
+        a: 'Yes. Shop Floor Control’s scheduling board loads job cards onto each machine against capacity, and records output, downtime and rework as the shift runs.',
+      },
+    ],
+    nearby: ['chennai', 'coimbatore', 'hyderabad'],
+    seo: {
+      title: 'ERP software in Bengaluru (Bangalore) | MAVRO',
+      description: 'ERP for Bengaluru’s IT and product companies, Peenya and Bommasandra machine shops and electronics suppliers, and D2C brands: projects, production and GST.',
+    },
+  },
+  {
+    slug: 'hyderabad',
+    name: 'Hyderabad',
+    state: 'telangana',
+    region: 'south',
+    presence: 'remote',
+    knownFor: 'pharma and bulk drugs, IT and real estate.',
+    lead: 'For Hyderabad’s pharma and bulk drug makers in Jeedimetla, Bollaram, Pashamylaram and Genome Valley, its IT companies in HITEC City and Gachibowli, and its developers: batches, QC release, vendor audits, projects, payroll with Telangana professional tax, and GST on one system.',
+    areas: ['Genome Valley', 'Jeedimetla', 'Bollaram', 'Pashamylaram', 'HITEC City and Gachibowli'],
+    industries: [
+      { slug: 'pharma', note: 'Bulk drug and formulation makers in the industrial areas north and west of the city, where batch records and QC release decide every dispatch.' },
+      { slug: 'it-services', note: 'IT services and product companies in HITEC City and Gachibowli, with large teams and client projects.' },
+      { slug: 'construction-real-estate', note: 'Developers and contractors building across the growing west of the city, tracking projects, sites and leases.' },
+    ],
+    faq: [
+      {
+        q: 'Can MAVRO keep batch records for a bulk drug plant?',
+        a: 'Yes. Production Management runs each batch against its master with stage-wise sign-off and yields, and no batch reaches finished goods without QC release.',
+      },
+      {
+        q: 'Can a Hyderabad developer manage leases and rent in MAVRO?',
+        a: 'Yes. Real Estate Management keeps each property with its leases, renewals and rent, and Project Management tracks construction against budget and milestones.',
+      },
+      {
+        q: 'Does MAVRO deduct Telangana professional tax?',
+        a: 'Yes. HRMS and Payroll deducts professional tax for employees in Telangana alongside PF, ESI and TDS.',
+      },
+    ],
+    nearby: ['bengaluru', 'chennai'],
+    seo: {
+      title: 'ERP software in Hyderabad for pharma and bulk drugs | MAVRO',
+      description: 'ERP for Hyderabad’s pharma and bulk drug makers in Jeedimetla, Bollaram and Genome Valley, IT firms and developers: batches, QC release, payroll and GST.',
+    },
+  },
+  {
+    slug: 'coimbatore',
+    name: 'Coimbatore',
+    state: 'tamil-nadu',
+    region: 'south',
+    presence: 'remote',
+    knownFor: 'pumps, motors, foundries and textiles.',
+    lead: 'For Coimbatore’s pump, motor and wet grinder makers and foundries, its spinning mills, and the knitwear exporters of nearby Tiruppur: production, dealers and warranty, shift rosters, payroll with Tamil Nadu professional tax, and GST on one system.',
+    areas: ['SIDCO Kurichi', 'Ganapathy', 'Peelamedu', 'Malumichampatti', 'Tiruppur (knitwear, nearby)'],
+    industries: [
+      { slug: 'manufacturing', note: 'Pump, motor and wet grinder makers and foundries, building to stock for dealers across India and to order for OEMs.' },
+      { slug: 'textiles-apparel', note: 'Spinning mills around the city and knitwear exporters in Tiruppur, running round the clock in shifts.' },
+      { slug: 'distribution', note: 'Pump and motor makers selling through dealers and distributors, with warranty claims coming back from the field.' },
+    ],
+    faq: [
+      {
+        q: 'Can MAVRO handle warranty claims for pumps sold through dealers?',
+        a: 'Yes. Customer Service logs warranty claims as tickets with SLAs against the product and its sale, and the Dealer Portal lets dealers raise claims against the same records.',
+      },
+      {
+        q: 'Can a spinning mill roster three shifts in MAVRO?',
+        a: 'Yes. Roster Ledger builds shift rosters against demand, tracks coverage, swaps and overtime, and feeds attendance to payroll.',
+      },
+      {
+        q: 'Does MAVRO deduct Tamil Nadu professional tax for Coimbatore staff?',
+        a: 'Yes. HRMS and Payroll deducts professional tax for employees in Tamil Nadu alongside PF, ESI and TDS.',
+      },
+    ],
+    nearby: ['chennai', 'bengaluru'],
+    seo: {
+      title: 'ERP software in Coimbatore for pumps and textiles | MAVRO',
+      description: 'ERP for Coimbatore’s pump, motor and wet grinder makers, foundries, spinning mills and Tiruppur knitwear exporters: production, warranty, rosters and GST.',
+    },
+  },
+  {
+    slug: 'kolkata',
+    name: 'Kolkata',
+    state: 'west-bengal',
+    region: 'east',
+    presence: 'team',
+    knownFor: 'tea, jute, engineering and East India distribution.',
+    lead: 'For the tea companies run from Kolkata with gardens in North Bengal and Assam, the jute mills and engineering works of the Hooghly belt and Howrah, and the distributors serving East India: estates, mills, channel, payroll with West Bengal professional tax, and GST on one system.',
+    areas: ['Howrah', 'Taratala', 'Kasba Industrial Estate', 'Dankuni', 'Kalyani'],
+    industries: [
+      { slug: 'agriculture-plantation', note: 'Tea companies with head offices in Kolkata and gardens in North Bengal and Assam, with large estate workforces and produce traced garden by garden.' },
+      { slug: 'manufacturing', note: 'Jute mills along the Hooghly and engineering works in Howrah, running shifts, contract labour and order-wise production.' },
+      { slug: 'distribution', note: 'Distributors and stockists serving East and North-East India from Kolkata, with schemes, credit and long delivery routes.' },
+    ],
+    faq: [
+      {
+        q: 'Can MAVRO run payroll and rosters for a tea estate workforce?',
+        a: 'Yes. Roster Ledger builds rosters and tracks coverage for each garden, and HRMS and Payroll records attendance and pays workers with PF, ESI and other statutory deductions.',
+      },
+      {
+        q: 'Does MAVRO deduct West Bengal professional tax?',
+        a: 'Yes. HRMS and Payroll deducts professional tax for employees in West Bengal alongside PF, ESI and TDS, and posts payroll to the ledger.',
+      },
+      {
+        q: 'Is there a MAVRO team in Kolkata?',
+        a: 'SaiSatwik Technologies has a team or partner on the ground in Kolkata, and implementation follows the 25–30 day plan with on-site discovery, training and go-live.',
+      },
+    ],
+    nearby: ['delhi', 'lucknow'],
+    seo: {
+      title: 'ERP software in Kolkata for tea, jute and trade | MAVRO',
+      description: 'ERP for Kolkata’s tea companies, jute mills and Howrah engineering works, and East India distributors: estates, mills, channel, payroll and GST.',
+    },
+  },
+  {
+    slug: 'ludhiana',
+    name: 'Ludhiana',
+    state: 'punjab',
+    region: 'north',
+    presence: 'state-team',
+    knownFor: 'hosiery, bicycles and auto parts.',
+    lead: 'For Ludhiana’s hosiery, knitwear and woollen makers, its bicycle and bicycle part manufacturers, and the auto part and hand tool makers of Focal Point: production by season, thousands of parts, dealers, payroll with the Punjab State Development Tax, and GST on one system.',
+    areas: ['Focal Point', 'Industrial Area A and B', 'Dhandari Kalan', 'Gill Road'],
+    industries: [
+      { slug: 'textiles-apparel', note: 'Hosiery, knitwear and woollen makers, producing for the winter season against orders booked months ahead.' },
+      { slug: 'manufacturing', note: 'Bicycle, bicycle part, auto part and hand tool makers, each with thousands of parts and many small suppliers.' },
+      { slug: 'distribution', note: 'Makers selling through dealers and wholesalers across India, with schemes and credit for the season.' },
+    ],
+    faq: [
+      {
+        q: 'Can MAVRO plan knitwear production for the winter season?',
+        a: 'Yes. Orders booked ahead flow into Production Management’s work orders and PPDS schedules them against capacity and material, so the season’s load is visible early.',
+      },
+      {
+        q: 'Can a bicycle parts maker keep thousands of items accurate?',
+        a: 'Yes. Inventory Management tracks every item by location, with cycle counts and adjustments recorded, so stock is checked continuously rather than once a year.',
+      },
+      {
+        q: 'Does MAVRO handle the Punjab State Development Tax?',
+        a: 'Yes. HRMS and Payroll deducts the Punjab State Development Tax for employees liable to it, alongside PF, ESI and TDS.',
+      },
+    ],
+    nearby: ['delhi', 'baddi'],
+    seo: {
+      title: 'ERP software in Ludhiana for hosiery and bicycles | MAVRO',
+      description: 'ERP for Ludhiana’s hosiery and knitwear makers, bicycle and bicycle part manufacturers and Focal Point auto part units: production, stock, dealers and GST.',
     },
   },
 ];

@@ -56,6 +56,8 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
     max 0.30 (Lucknow ~ Noida); all checks clean.
   - Batch 3: Mumbai (team), Ahmedabad, Vadodara, Rajkot, Nashik, Kanpur (remote). Similarity max 0.32 (Ahmedabad ~
     Surat: two remote Gujarat pages share the state block and delivery text); all checks clean.
+  - Batch 4: Chennai, Bengaluru/Bangalore, Kolkata (team), Ludhiana (Punjab team), Hyderabad, Coimbatore (remote).
+    Similarity max still 0.32; all checks clean.
 
 - 2026-11-09, **Main script split (user: "split the script now")**: launch checklist row 7 done. On `main`.
   - Module content loads per page: each `content/<slug>.ts` is its own chunk, found by `import.meta.glob`
