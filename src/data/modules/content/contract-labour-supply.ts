@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -73,11 +74,10 @@ export const content: ModuleContent<'contract-labour-supply'> = {
   related: ['contract-labour-purchase', 'hrms-and-payroll', 'gate-entry', 'vendor-invoice-management'],
   screens: [
     {
-      screen: 'contract-labour-supply/compliance-dashboard',
+      ...leadScreens['contract-labour-supply'],
       view: 'Compliance dashboard',
       title: 'Contract manpower and compliance',
       caption: 'Every contractor with workers, licence, PF, ESIC, wages, bill and status, plus what needs action.',
-      alt: 'MAVRO contract manpower dashboard: 472 contract workers across 9 contractors, September bills of ₹1.18 crore with three pending, 11 licences and passes expiring, 468 of 472 safety inductions done, a contractor table with CLRA licence, PF, ESIC, wages, bill and status, bill value by contractor and items needing action (illustrative data).',
     },
     {
       screen: 'contract-labour-supply/deployment-pack',

@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -73,11 +74,10 @@ export const content: ModuleContent<'crm'> = {
   related: ['order-to-cash', 'sales-force-automation', 'customer-service', 'scheme-and-rebate'],
   screens: [
     {
-      screen: 'crm/pipeline',
+      ...leadScreens['crm'],
       view: 'Pipeline',
       title: 'Pipeline and lead velocity',
       caption: 'Conversion by source, the funnel, time in each stage and the leads closest to their SLA.',
-      alt: 'MAVRO CRM pipeline: 186 leads in 30 days, 92% answered within the first-response SLA, conversion by source from website, marketplaces, trade fairs, distributor referrals, field reps and existing customers, the funnel to 14 won and the leads waiting for a first response (illustrative data).',
     },
     {
       screen: 'crm/lead-detail',

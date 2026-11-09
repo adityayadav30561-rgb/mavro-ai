@@ -26,7 +26,10 @@ module up by themselves. The full recipe (content, scenario, screens, page, link
 - `src/data/modules/content/<slug>.ts` exporting `content: ModuleContent<'<slug>'>` (schema and comments in
   `src/data/modules/schema.ts`: tagline, four tiles, what and why, flow, industries, roles, screens with alt
   text, scenario, 3–5 FAQs, SEO title ≤ 60 characters and description ≤ 160).
-- Register it in `src/data/modules/content/index.ts` (import and add to `moduleContent`).
+- Nothing to register: `src/data/modules/content/index.ts` finds the file, gives the module its route and loads
+  its content only on the pages that read it (the route's `content` in `src/routes.ts`).
+- Its lead screen (the first screen: `screen` and `alt`) goes in `src/data/modules/leads.ts`, and the content
+  file's first screen spreads it in (`...leadScreens['<slug>']`): cards show it without loading the content.
 - Facts only from the decks (docs/PRODUCT.md, CLAUDE.md "No invented claims"); screen figures are illustrative
   and say so in the alt text.
 

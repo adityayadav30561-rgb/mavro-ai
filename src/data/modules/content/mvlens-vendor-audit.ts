@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'mvlens-vendor-audit'> = {
   related: ['procure-to-pay', 'production-management', 'gate-entry', 'inventory-management'],
   screens: [
     {
-      screen: 'mvlens-vendor-audit/auditor-dashboard',
+      ...leadScreens['mvlens-vendor-audit'],
       view: 'Auditor dashboard',
       title: 'Auditor portal',
       caption: 'The auditor’s day: the audit on site with its lifecycle and checklist progress, the findings so far and how they will classify the site, and CAPAs to verify.',
-      alt: 'MAVRO mVLens auditor dashboard: a for-cause audit on site at a bearing supplier at step five of eight, 34 of 48 checklist clauses done, one major, two minor findings and an observation, the auditor’s audits this quarter and three vendor CAPA responses to verify (illustrative data).',
     },
     {
       screen: 'mvlens-vendor-audit/audit-plan',

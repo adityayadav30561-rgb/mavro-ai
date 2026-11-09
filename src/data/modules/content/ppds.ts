@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -73,11 +74,10 @@ export const content: ModuleContent<'ppds'> = {
   related: ['production-management', 'shop-floor-control', 'procure-to-pay', 'inventory-management'],
   screens: [
     {
-      screen: 'ppds/planning-dashboard',
+      ...leadScreens['ppds'],
       view: 'Planning dashboard',
       title: 'Planning dashboard',
       caption: 'Weeks of stock against safety item by item, the week’s adherence and OEE, and every plan exception with what is being done.',
-      alt: 'MAVRO PPDS planning dashboard for week 41: 91% schedule adherence, 79.1% OEE, one dispatch commitment at risk, demand coverage in weeks of stock against safety stock for six items, adherence and OEE by week, and plan exceptions including a breakdown recovered by overtime and an export order asking into the frozen week (illustrative data).',
     },
     {
       screen: 'ppds/line-schedule',

@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'accounting'> = {
   related: ['vendor-invoice-management', 'order-to-cash', 'travel-and-expense', 'procure-to-pay'],
   screens: [
     {
-      screen: 'accounting/general-ledger',
+      ...leadScreens['accounting'],
       view: 'General ledger',
       title: 'General ledger',
       caption: 'Journals posted from the documents that caused them, each opened line by line, with GST returns and the close beside them.',
-      alt: 'MAVRO general ledger for October: 1,284 journals with 98.6% posted automatically, the journal list with its source documents, journal JV-10482 from invoice INV-6114 line by line, GST returns ready to file and the October close checklist (illustrative data).',
     },
     {
       screen: 'accounting/bank-reconciliation',

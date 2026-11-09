@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'rest-hours-log'> = {
   related: ['roster-ledger', 'hrms-and-payroll', 'production-management', 'gate-entry'],
   screens: [
     {
-      screen: 'rest-hours-log/compliance',
+      ...leadScreens['rest-hours-log'],
       view: 'Compliance health',
       title: 'Duty hours and rest compliance',
       caption: 'Rest score, open violations and average hours by plant, the rules in force, violations by rule and the rest still to give.',
-      alt: 'MAVRO Rest Hours Log dashboard: 369 shift workers on two plants, a 99.1% rest score last week, 6 open violations with 4 waiting for a plant head, an average week of 48.6 hours against a 60-hour limit, the rules in force, violations by rule for four weeks and the compensatory rest due (illustrative data).',
     },
     {
       screen: 'rest-hours-log/work-rest',

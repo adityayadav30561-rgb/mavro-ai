@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -76,11 +77,10 @@ export const content: ModuleContent<'document-management'> = {
   related: ['audit-management', 'learning-management', 'mvlens-vendor-audit', 'real-estate-management'],
   screens: [
     {
-      screen: 'document-management/repository-dashboard',
+      ...leadScreens['document-management'],
       view: 'Repository dashboard',
       title: 'Repository dashboard',
       caption: 'Documents by type with number series, what is awaiting approval and what is about to expire.',
-      alt: 'MAVRO document repository dashboard: 8,960 controlled documents, 6 waiting for approval, 9 expiring in 90 days, 14 retention rules, documents by type with number series and effective share, recent documents and the licences and agreements expiring soon (illustrative data).',
     },
     {
       screen: 'document-management/upload-batch',

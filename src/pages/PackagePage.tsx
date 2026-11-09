@@ -18,6 +18,7 @@ import {
   catalogue,
   contentFor,
   entryBySlug,
+  leadScreens,
   packs,
   portals,
   premiumById,
@@ -34,10 +35,7 @@ import './package-page.css';
 const order: Pack[] = ['base', 'portal', 'premium'];
 
 /** The lead screen and phone screen a module's page leads with, as hero shots. */
-function shot(slug: ModuleSlug) {
-  const own = contentFor(slug)!.screens[0];
-  return { screen: own.screen, alt: own.alt };
-}
+const shot = (slug: ModuleSlug) => leadScreens[slug];
 function phoneShot(slug: ModuleSlug) {
   const phone = contentFor(slug)?.phone;
   return phone ? { screen: phone.screen, alt: phone.alt } : undefined;

@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'cost-forecasting'> = {
   related: ['accounting', 'data-analytics', 'asset-management', 'procure-to-pay'],
   screens: [
     {
-      screen: 'cost-forecasting/budget-dashboard',
+      ...leadScreens['cost-forecasting'],
       view: 'Budget dashboard',
       title: 'Budget against actual',
       caption: 'Every cost centre against its budget and the share of the year gone, with the alerts and the reforecast.',
-      alt: 'MAVRO budget dashboard: ₹22.93 crore spent of a ₹43.74 crore budget with 52% of the year gone, a full-year forecast of ₹45.07 crore, cost centres with budget, actual, used against the year marker, forecast and variance, monthly spend against budget, one variance alert and three scenarios (illustrative data).',
     },
     {
       screen: 'cost-forecasting/forecast-wizard',

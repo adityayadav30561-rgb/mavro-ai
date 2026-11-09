@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'auction-and-bidding'> = {
   related: ['procure-to-pay', 'vendor-portal', 'mvlens-vendor-audit', 'ppds'],
   screens: [
     {
-      screen: 'auction-and-bidding/esourcing-dashboard',
+      ...leadScreens['auction-and-bidding'],
       view: 'E-sourcing dashboard',
       title: 'E-sourcing dashboard',
       caption: 'Realised savings against the ceiling by category and month, the live event and what needs approval.',
-      alt: 'MAVRO e-sourcing dashboard: ₹63 lakh realised savings, 7.8% below ceiling across 31 awards, 41 events, 4.3 bidders per event, savings by category with ceiling, awarded and saved, savings by month, a live auction and events waiting for award or start (illustrative data).',
     },
     {
       screen: 'auction-and-bidding/live-auction',

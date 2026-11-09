@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -75,11 +76,10 @@ export const content: ModuleContent<'asset-management'> = {
   related: ['accounting', 'production-management', 'procure-to-pay', 'inventory-management'],
   screens: [
     {
-      screen: 'asset-management/uptime-value',
+      ...leadScreens['asset-management'],
       view: 'Uptime and value',
       title: 'Asset uptime and value',
       caption: 'Uptime, breakdowns, gross block and book value by site, the equipment behind the lost hours, and the spares, calibration and verification gaps to close.',
-      alt: 'MAVRO Asset Management dashboard: 95.6% uptime across three sites against a 97% target, 13 breakdowns with 14 h 20 m lost, ₹24.8 Cr gross block and ₹13.6 Cr book value, breakdown clusters led by one turning centre, critical spares below reorder, calibration due and physical verification gaps (illustrative data).',
     },
     {
       screen: 'asset-management/asset-detail',

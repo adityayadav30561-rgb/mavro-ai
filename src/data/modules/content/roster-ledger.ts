@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'roster-ledger'> = {
   related: ['hrms-and-payroll', 'rest-hours-log', 'production-management', 'asset-management'],
   screens: [
     {
-      screen: 'roster-ledger/coverage',
+      ...leadScreens['roster-ledger'],
       view: 'Shift coverage',
       title: 'Shift coverage and roster ledger',
       caption: 'Coverage by department, open slots and skill gaps, tonight’s shortfall with how it is being filled, and the roster weeks from draft to locked.',
-      alt: 'MAVRO Roster Ledger coverage: 98.0% of 1,512 shift slots filled this week at Plant 1, 11 open slots in the next 72 hours, two qualified-operator gaps, 386 of 1,500 overtime hours used, coverage by department, tonight’s night shift 5 short with the cover found, and the next 7 days against demand (illustrative data).',
     },
     {
       screen: 'roster-ledger/builder',

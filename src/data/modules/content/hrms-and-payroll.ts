@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -76,11 +77,10 @@ export const content: ModuleContent<'hrms-and-payroll'> = {
   related: ['roster-ledger', 'rest-hours-log', 'travel-and-expense', 'accounting'],
   screens: [
     {
-      screen: 'hrms-and-payroll/workforce',
+      ...leadScreens['hrms-and-payroll'],
       view: 'Workforce dashboard',
       title: 'Workforce dashboard',
       caption: 'Headcount, attendance, attrition and open roles by unit, the attrition cluster to act on, and what needs HR this month.',
-      alt: 'MAVRO HRMS workforce dashboard: 489 employees on three units, 362 of 440 expected punched in today, 11.9% attrition over 12 months with the Chennai plant at 18.6%, 14 open roles, an attrition cluster among CNC operators and the approvals, reviews and offers that need attention (illustrative data).',
     },
     {
       screen: 'hrms-and-payroll/leave-attendance',

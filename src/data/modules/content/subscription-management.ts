@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -72,11 +73,10 @@ export const content: ModuleContent<'subscription-management'> = {
   related: ['crm', 'order-to-cash', 'customer-service', 'accounting'],
   screens: [
     {
-      screen: 'subscription-management/arr-churn',
+      ...leadScreens['subscription-management'],
       view: 'ARR and churn',
       title: 'ARR, renewals and churn',
       caption: 'MRR and what moved it, churn and trial conversion plan by plan, renewals due with their owners and the card-expiry wave.',
-      alt: 'MRR of ₹38.6 L and ARR of ₹4.63 Cr in MAVRO Subscription Management, with 1.8% monthly churn (2.6% on the Basic plan) and 108% net revenue retention. MRR movement for September, plans with churn and trial conversion, and renewals due in 30 days with owners (illustrative data).',
     },
     {
       screen: 'subscription-management/plan-builder',

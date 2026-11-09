@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -75,11 +76,10 @@ export const content: ModuleContent<'data-analytics'> = {
   related: ['sales-force-automation', 'production-management', 'accounting', 'order-to-cash'],
   screens: [
     {
-      screen: 'data-analytics/pipeline-health',
+      ...leadScreens['data-analytics'],
       view: 'Platform health',
       title: 'Pipeline health and insight delivery',
       caption: 'Last night’s run by layer, the window against its target with the retry and the held gate marked, sources, and which dashboards were fresh by 06:00.',
-      alt: 'MAVRO Data Analytics platform health: 45 of 46 pipelines succeeded, the nightly window ended at 05:52 against 05:30, 41 of 43 dashboards fresh by 06:00, run counts and durations by layer, a timeline of the window with a retried source and a pipeline held at its quality gate, sources and dashboards by audience (illustrative data).',
     },
     {
       screen: 'data-analytics/pipeline-detail',

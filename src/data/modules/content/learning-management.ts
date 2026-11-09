@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -73,11 +74,10 @@ export const content: ModuleContent<'learning-management'> = {
   related: ['hrms-and-payroll', 'roster-ledger', 'audit-management', 'production-management'],
   screens: [
     {
-      screen: 'learning-management/lms-dashboard',
+      ...leadScreens['learning-management'],
       view: 'LMS dashboard',
       title: 'Training and certification dashboard',
       caption: 'Mandatory training current by department, certifications expiring, overdue people and new courses.',
-      alt: 'MAVRO learning dashboard: 94.2% of mandatory training current, 23 re-certifications due in 30 days, 4 overdue and kept off duty, 41 certificates issued, status by department, certifications expiring by month, the overdue people and a new mandatory course raised from an audit finding (illustrative data).',
     },
     {
       screen: 'learning-management/certification-approvals',

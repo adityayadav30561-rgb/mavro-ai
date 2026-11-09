@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'master-data-management'> = {
   related: ['crm', 'procure-to-pay', 'inventory-management', 'business-analyst-app'],
   screens: [
     {
-      screen: 'master-data-management/quality-dashboard',
+      ...leadScreens['master-data-management'],
       view: 'Quality dashboard',
       title: 'Master data quality dashboard',
       caption: 'Completeness, duplicates and stewardship by domain, with what needs a decision.',
-      alt: 'MAVRO master data quality: 12,480 records in seven domains, a 92% quality score, 37 duplicate clusters, 6 changes awaiting approval, completeness and duplicate clusters by domain with stewards, quality score by month and items needing a decision (illustrative data).',
     },
     {
       screen: 'master-data-management/golden-record',

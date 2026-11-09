@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'gate-entry'> = {
   related: ['procure-to-pay', 'inventory-management', 'vendor-invoice-management', 'order-to-cash'],
   screens: [
     {
-      screen: 'gate-entry/gate-dock',
+      ...leadScreens['gate-entry'],
       view: 'Gate and dock load',
       title: 'Gate movements and dock load',
       caption: 'Every dock and the vehicle at it, the vehicles waiting at the gate, movements by hour and the open security exceptions.',
-      alt: 'MAVRO Gate Entry dashboard: 39 vehicle movements today, average turnaround of 1 h 48 m, three vehicles waiting at the gate, six docks with one blocked by a vehicle idle for over three hours, movements by hour and five open security exceptions (illustrative data).',
     },
     {
       screen: 'gate-entry/vehicle-clearance',

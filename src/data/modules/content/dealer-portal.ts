@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -73,11 +74,10 @@ export const content: ModuleContent<'dealer-portal'> = {
   related: ['distributor-portal', 'scheme-and-rebate', 'sales-force-automation', 'inventory-management'],
   screens: [
     {
-      screen: 'dealer-portal/offtake',
+      ...leadScreens['dealer-portal'],
       view: 'Offtake and stock',
       title: 'Secondary offtake and stock',
       caption: 'Dealers in a territory with offtake, retailers billed, stock cover against the norm and what to watch, beside primary dispatch.',
-      alt: 'MAVRO Dealer Portal offtake dashboard for one territory: ₹1.12 Cr dealer offtake in September, 271 of 312 retailers billed in 30 days, five dealers out of one item, near-expiry seal kits holding reorders, each dealer’s stock cover against a 21-day norm, and offtake against primary dispatch by week (illustrative data).',
     },
     {
       screen: 'dealer-portal/replenishment',

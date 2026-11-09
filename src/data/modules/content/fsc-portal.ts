@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -73,11 +74,10 @@ export const content: ModuleContent<'fsc-portal'> = {
   related: ['procure-to-pay', 'vendor-portal', 'document-management', 'transportation-management'],
   screens: [
     {
-      screen: 'fsc-portal/plot-registry',
+      ...leadScreens['fsc-portal'],
       view: 'Plot registry',
       title: 'Plot registry and map',
       caption: 'Every supplying plot on the map with its polygon, certification and the deforestation cut-off check.',
-      alt: 'MAVRO FSC Portal plot registry: 1,426 plots mapped by GPS polygon or point, 1,419 clear of the 31 December 2020 deforestation cut-off and 7 flagged, plot clusters on a map with one selected, and plots listed with area, geometry, certification, cut-off check and lot (illustrative data).',
     },
     {
       screen: 'fsc-portal/chain-of-custody',

@@ -44,6 +44,23 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-11-09, **Main script split (user: "split the script now")**: launch checklist row 7 done. On `main`.
+  - Module content loads per page: each `content/<slug>.ts` is its own chunk, found by `import.meta.glob`
+    (`content/index.ts`: `contentSlugs`, `loadContent`, `loadAllContent`, `contentFor` which throws for a module not
+    loaded). A route names the modules its page reads (`content` in routes.ts): a module page its own, a package page
+    its phone screen's module, an industry page the modules its hero screens come from. The browser loads them with
+    the page chunk before hydrating (entry-client.tsx), the prerender preloads their chunks (`modulepreload`) and loads
+    all content first (`loadAllContent`). Module routes' titles and descriptions are read at build time only.
+  - Every module's lead screen moved to `modules/leads.ts` (the content files spread it in as their first screen),
+    so card thumbnails need no content. The draft industry pages read their borrowed screens' alt text at render.
+  - Only a hero's lead screen gets `fetchpriority="high"` (`priority` on Screen); client logos load lazily.
+  - **Result:** main script 648 → 351 KB (194 → 108 KB gzipped). Throttled phone (as before): homepage LCP
+    2.41 → 1.88 s, 580 → 314 KB downloaded; module page LCP 3.16 → 2.58 s, 682 → 425 KB; blocking time down.
+  - **Proof nothing changed for visitors:** the previous commit built side by side; all 66 prerendered pages
+    identical apart from asset hashes and preload tags; sitemap and llms.txt list the same URLs (module pages now in
+    catalogue order). Dev server, library and production hydration checked (a module page fetches only its own
+    content chunk, its tabs work, no console errors).
+
 - 2026-11-09, **Phase 28 launch QA: checks done, launch waits on the user's sign-off** (checklist below). On `main`.
   - **Removed** `/pipeline-check` (page, data, route, docs); linkcheck now finds no orphans.
   - **New checks** (VERIFY.md): `qa/sweep.cjs` (every page at nine sizes on the production build) and
@@ -56,10 +73,7 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
     homepage 2.36 → 2.36 s (the hero poster); module page 5.0 → 3.1 s; industries hub 3.9 → 0.9 s; contact
     2.8 → 1.0 s. Cause: the page hero waited for JavaScript to fade in; it no longer fades, and eager hero screens
     load at high priority. Total blocking time 0.1–0.6 s.
-  - **Not done, for sign-off:** the main script is 648 KB (194 KB gzipped) on every page, because the route table
-    imports all 42 modules' content (about 500 KB of source). Splitting it means loading each module's content
-    before hydration and changing the related-module thumbnails and the draft pages' screen lookup: worth doing
-    before D5, when module pages are the SEO target (module LCP 3.1 s on a slow phone today).
+  - The main script then carried all 42 modules' content (648 KB, 194 KB gzipped): split right after, see above.
   - New guide: docs/ADDING-A-MODULE.md.
 
 - 2026-11-09, **D2 SEO, AEO and GEO, part 1** (user's answers in DECISIONS.md, "D2"). On `main`.
@@ -963,7 +977,7 @@ items when context is heavy.
 | 4 | Demo form endpoint | `site.demoEndpoint` is null: the form opens a pre-filled email | a form service URL, or sign-off to launch with email |
 | 5 | Lighthouse | not run (could not be downloaded in the cloud session) | run locally on /, a module page, /industries, /contact |
 | 6 | Rich Results Test, Search Console, Bing | need the live domain | after deploy (advice list below) |
-| 7 | Main script size | 194 KB gzipped on every page | sign-off to launch as is and split before D5, or split now |
+| 7 | Main script size | **done**: split per page, 108 KB gzipped (was 194) | nothing |
 
 Phase 28 is closed, and Stage C with it, once each row is done or signed off.
 

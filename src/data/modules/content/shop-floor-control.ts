@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -73,11 +74,10 @@ export const content: ModuleContent<'shop-floor-control'> = {
   related: ['production-management', 'ppds', 'asset-management', 'roster-ledger'],
   screens: [
     {
-      screen: 'shop-floor-control/live-board',
+      ...leadScreens['shop-floor-control'],
       view: 'Live shop floor',
       title: 'Live shop floor status',
       caption: 'Every work centre on today’s timeline with the machine that is down, output against plan and the order on the floor.',
-      alt: 'MAVRO Shop Floor Control live board for shift B: 1,148 pieces against plan, 78.4% OEE, 96.4% first-pass yield, a machine schedule for nine work centres with one down on a spindle alarm, and the running work order’s operations and materials (illustrative data).',
     },
     {
       screen: 'shop-floor-control/scheduling-board',

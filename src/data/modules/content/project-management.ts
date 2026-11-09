@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -75,11 +76,10 @@ export const content: ModuleContent<'project-management'> = {
   related: ['procure-to-pay', 'asset-management', 'accounting', 'hrms-and-payroll'],
   screens: [
     {
-      screen: 'project-management/portfolio',
+      ...leadScreens['project-management'],
       view: 'Portfolio health',
       title: 'Portfolio health and delivery',
       caption: 'Every active project against its sanction and baseline, capex by portfolio, what goes to steering and the delivery risks with their owners.',
-      alt: 'MAVRO Project Management portfolio: 9 active capex projects, ₹4.40 Cr spent of ₹7.16 Cr sanctioned and ₹31 L behind plan, 3 projects at risk, 5 change requests waiting, one governance breach, each project’s spend, completion against plan and forecast go-live, and the risks named with owners (illustrative data).',
     },
     {
       screen: 'project-management/milestone-plan',

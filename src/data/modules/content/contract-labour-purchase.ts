@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -73,11 +74,10 @@ export const content: ModuleContent<'contract-labour-purchase'> = {
   related: ['contract-labour-supply', 'gate-entry', 'roster-ledger', 'vendor-invoice-management'],
   screens: [
     {
-      screen: 'contract-labour-purchase/factory-dashboard',
+      ...leadScreens['contract-labour-purchase'],
       view: 'Factory dashboard',
       title: 'Contract labour on the floor',
       caption: 'Plan against biometric attendance by department and shift, an open requisition and contractor scorecards.',
-      alt: 'MAVRO factory dashboard for contract labour: 206 of 220 present on shift B, a shortfall of 14 across three departments, deployment by department and contractor, headcount through the shift, one open requisition for 12 packers and contractor scorecards with fulfilment and rating (illustrative data).',
     },
     {
       screen: 'contract-labour-purchase/workforce-register',

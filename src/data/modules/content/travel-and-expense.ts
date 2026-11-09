@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'travel-and-expense'> = {
   related: ['hrms-and-payroll', 'sales-force-automation', 'accounting', 'vendor-invoice-management'],
   screens: [
     {
-      screen: 'travel-and-expense/spend-compliance',
+      ...leadScreens['travel-and-expense'],
       view: 'Spend and compliance',
       title: 'Travel spend and compliance',
       caption: 'Spend by region against budget, policy violations by type and the advances still open.',
-      alt: 'MAVRO travel spend and compliance dashboard for September: ₹46.8 L of a ₹50 L budget, 94% within policy, reimbursement in 4.2 days, spend by region with Gujarat over budget, spend by category, policy violations and unsettled advances (illustrative data).',
     },
     {
       screen: 'travel-and-expense/trip-request',

@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'sales-force-automation'> = {
   related: ['crm', 'order-to-cash', 'scheme-and-rebate', 'travel-and-expense'],
   screens: [
     {
-      screen: 'sales-force-automation/field-force',
+      ...leadScreens['sales-force-automation'],
       view: 'Field force',
       title: 'Field force dashboard',
       caption: 'Calls, coverage and secondary orders by territory, the reps below the call norm and what waits for approval.',
-      alt: 'MAVRO Sales Force Automation field force dashboard: 142 of 168 planned calls made today, 91% of A-class outlets covered, ₹18.6 L of secondary orders, calls against norm by territory, reps below the call norm and the approval queue (illustrative data).',
     },
     {
       screen: 'sales-force-automation/rep-activity',

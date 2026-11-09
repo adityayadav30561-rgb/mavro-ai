@@ -25,7 +25,7 @@ interface ScreenFrameProps {
 export function ScreenFrame({ screen, alt, sizes, eager, variant = 'contained', note = null }: ScreenFrameProps) {
   return (
     <div className="sframe" data-variant={variant}>
-      <Screen name={screen} alt={alt} sizes={sizes} eager={eager} className="sframe__shot" />
+      <Screen name={screen} alt={alt} sizes={sizes} eager={eager} priority={eager} className="sframe__shot" />
       {note && (
         <p className="sframe__note" aria-hidden="true">
           {note}

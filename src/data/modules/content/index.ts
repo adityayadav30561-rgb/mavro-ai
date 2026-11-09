@@ -1,102 +1,54 @@
 import type { ModuleContent } from '../schema';
-import type { ModuleSlug } from '../slugs';
-import { content as accounting } from './accounting';
-import { content as assetManagement } from './asset-management';
-import { content as auctionAndBidding } from './auction-and-bidding';
-import { content as auditManagement } from './audit-management';
-import { content as businessAnalystApp } from './business-analyst-app';
-import { content as contractLabourPurchase } from './contract-labour-purchase';
-import { content as contractLabourSupply } from './contract-labour-supply';
-import { content as costForecasting } from './cost-forecasting';
-import { content as crm } from './crm';
-import { content as customerService } from './customer-service';
-import { content as dataAnalytics } from './data-analytics';
-import { content as dealerPortal } from './dealer-portal';
-import { content as distributorPortal } from './distributor-portal';
-import { content as ecommerceIntegration } from './ecommerce-integration';
-import { content as documentManagement } from './document-management';
-import { content as fleetManagement } from './fleet-management';
-import { content as fscPortal } from './fsc-portal';
-import { content as gateEntry } from './gate-entry';
-import { content as hrmsAndPayroll } from './hrms-and-payroll';
-import { content as insuranceManagement } from './insurance-management';
-import { content as inventoryManagement } from './inventory-management';
-import { content as learningManagement } from './learning-management';
-import { content as masterDataManagement } from './master-data-management';
-import { content as mvlensVendorAudit } from './mvlens-vendor-audit';
-import { content as orderToCash } from './order-to-cash';
-import { content as ppds } from './ppds';
-import { content as procureToPay } from './procure-to-pay';
-import { content as productionManagement } from './production-management';
-import { content as projectManagement } from './project-management';
-import { content as realEstateManagement } from './real-estate-management';
-import { content as restHoursLog } from './rest-hours-log';
-import { content as retailerPortal } from './retailer-portal';
-import { content as rosterLedger } from './roster-ledger';
-import { content as salesForceAutomation } from './sales-force-automation';
-import { content as schemeAndRebate } from './scheme-and-rebate';
-import { content as shopFloorControl } from './shop-floor-control';
-import { content as subscriptionManagement } from './subscription-management';
-import { content as transportationManagement } from './transportation-management';
-import { content as travelAndExpense } from './travel-and-expense';
-import { content as vendorInvoiceManagement } from './vendor-invoice-management';
-import { content as vendorPortal } from './vendor-portal';
-import { content as warehouseManagement } from './warehouse-management';
+import { moduleSlugs, type ModuleSlug } from '../slugs';
 
 /*
- * Module page content, one file per module (./<slug>.ts, exporting `content`), registered here as each module
- * phase lands (IMPLEMENTATION-PLAN.md phases 5–20). The type ties each key to its file's slug. A module gets a
- * route (src/routes.ts) once it is listed here, so the navigation switches from its homepage fallback to the page
- * by itself (src/links.ts).
+ * Module page content, one file per module (./<slug>.ts, exporting `content: ModuleContent<'<slug>'>`), loaded per
+ * page (Phase 28 performance: all 42 used to ship in the main script on every page).
  *
- * Adding a module: write ./<slug>.ts (`export const content: ModuleContent<'<slug>'> = { slug: '<slug>', ... }`), import it
- * below and add it to the map.
+ * - Each file is its own chunk. `contentSlugs` lists the modules that have one, without loading any: a module gets a
+ *   route (src/routes.ts) as soon as its file exists, and the navigation switches to its page (src/links.ts).
+ * - A route names the modules its page reads (`content` in routes.ts); the browser loads them before hydrating
+ *   (entry-client.tsx), the prerender loads all of them first (`loadAllContent`, entry-server.tsx).
+ * - `contentFor` is synchronous and throws if a module with content was not loaded, so a page that reads a module
+ *   it did not name fails loudly instead of rendering differently from its prerendered HTML.
+ * - Card thumbnails do not need any of this: every module's lead screen is in ../leads.ts.
+ *
+ * Adding a module: write ./<slug>.ts; nothing to register here (docs/ADDING-A-MODULE.md).
  */
-type Registry = { [S in ModuleSlug]?: ModuleContent<S> };
+const loaders = import.meta.glob<{ content: ModuleContent }>(['./*.ts', '!./index.ts']);
 
-export const moduleContent: Registry = {
-  accounting,
-  'asset-management': assetManagement,
-  'auction-and-bidding': auctionAndBidding,
-  'audit-management': auditManagement,
-  'business-analyst-app': businessAnalystApp,
-  'contract-labour-purchase': contractLabourPurchase,
-  'contract-labour-supply': contractLabourSupply,
-  'cost-forecasting': costForecasting,
-  crm,
-  'customer-service': customerService,
-  'data-analytics': dataAnalytics,
-  'dealer-portal': dealerPortal,
-  'distributor-portal': distributorPortal,
-  'ecommerce-integration': ecommerceIntegration,
-  'document-management': documentManagement,
-  'fleet-management': fleetManagement,
-  'fsc-portal': fscPortal,
-  'gate-entry': gateEntry,
-  'hrms-and-payroll': hrmsAndPayroll,
-  'insurance-management': insuranceManagement,
-  'inventory-management': inventoryManagement,
-  'learning-management': learningManagement,
-  'master-data-management': masterDataManagement,
-  'mvlens-vendor-audit': mvlensVendorAudit,
-  'order-to-cash': orderToCash,
-  ppds,
-  'procure-to-pay': procureToPay,
-  'production-management': productionManagement,
-  'project-management': projectManagement,
-  'real-estate-management': realEstateManagement,
-  'rest-hours-log': restHoursLog,
-  'retailer-portal': retailerPortal,
-  'roster-ledger': rosterLedger,
-  'sales-force-automation': salesForceAutomation,
-  'scheme-and-rebate': schemeAndRebate,
-  'shop-floor-control': shopFloorControl,
-  'subscription-management': subscriptionManagement,
-  'transportation-management': transportationManagement,
-  'travel-and-expense': travelAndExpense,
-  'vendor-invoice-management': vendorInvoiceManagement,
-  'vendor-portal': vendorPortal,
-  'warehouse-management': warehouseManagement,
-};
+const slugOf = (file: string) => file.slice(2, -3) as ModuleSlug;
+const fileOf = (slug: ModuleSlug) => `./${slug}.ts`;
 
-export const contentFor = (slug: ModuleSlug): ModuleContent | undefined => moduleContent[slug];
+/** The modules with a content file (and so a page), in catalogue order. */
+export const contentSlugs: readonly ModuleSlug[] = moduleSlugs.filter((slug) => fileOf(slug) in loaders);
+
+const stray = Object.keys(loaders).map(slugOf).filter((slug) => !moduleSlugs.includes(slug));
+if (stray.length) throw new Error(`modules/content: files with no slug in slugs.ts: ${stray.join(', ')}`);
+
+const cache: Partial<Record<ModuleSlug, ModuleContent>> = {};
+
+/** Loads the named modules' content (each once); modules without a content file are skipped. */
+export async function loadContent(slugs: readonly ModuleSlug[] = []) {
+  await Promise.all(
+    slugs
+      .filter((slug) => !cache[slug] && fileOf(slug) in loaders)
+      .map(async (slug) => {
+        const { content } = await loaders[fileOf(slug)]();
+        if (content.slug !== slug) throw new Error(`modules/content: ${fileOf(slug)} has slug "${content.slug}"`);
+        cache[slug] = content;
+      }),
+  );
+}
+
+/** Every module's content: the prerender (titles, descriptions, structured data and every page). */
+export const loadAllContent = () => loadContent(contentSlugs);
+
+/** A module's content: undefined if it has no content file; throws if it has one that was not loaded. */
+export function contentFor(slug: ModuleSlug): ModuleContent | undefined {
+  const content = cache[slug];
+  if (!content && fileOf(slug) in loaders) {
+    throw new Error(`modules/content: "${slug}" was read before it was loaded; add it to its route's \`content\` (src/routes.ts)`);
+  }
+  return content;
+}

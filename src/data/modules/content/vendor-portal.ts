@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'vendor-portal'> = {
   related: ['procure-to-pay', 'vendor-invoice-management', 'mvlens-vendor-audit', 'gate-entry'],
   screens: [
     {
-      screen: 'vendor-portal/dashboard',
+      ...leadScreens['vendor-portal'],
       view: 'Vendor dashboard',
       title: 'Vendor dashboard',
       caption: 'The vendor base by category and plant with its compliance, onboarding by step, blocked vendors and the documents expiring next.',
-      alt: 'MAVRO Vendor Portal dashboard: 412 active vendors across two plants and a depot, 96.1% fully compliant, 9 in onboarding at 4.2 days on average, 17 documents expiring in 90 days, 3 vendors blocked from new POs, and the vendor base by category (illustrative data).',
     },
     {
       screen: 'vendor-portal/onboarding',

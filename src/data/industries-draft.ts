@@ -12,17 +12,26 @@
 import type { IconName } from '../components/Icon';
 import type { ScreenName } from '../components/Screen';
 import type { IndustryContent } from './industries';
-import { moduleContent, type ModuleSlug } from './modules';
+import { contentFor, type ModuleSlug } from './modules';
 
 const DRAFT = 'Industry framing, gaps, hero facts and FAQ written before launch; capabilities from the module pages.';
 
-/** A module's own screen with its own alt text, so a reused screen never gets a new description. */
+/**
+ * A module's own screen with its own alt text, so a reused screen never gets a new description. The alt is read
+ * when the page renders, from that module's content, which the industry route loads (`content` in routes.ts: the
+ * modules its screens come from).
+ */
 function shot(name: ScreenName): { screen: ScreenName; alt: string } {
   const [slug] = name.split('/') as [ModuleSlug];
-  const content = moduleContent[slug];
-  const found = content && [...content.screens, ...(content.phone ? [content.phone] : [])].find((s) => s.screen === name);
-  if (!found) throw new Error(`industries-draft: no module screen "${name}"`);
-  return { screen: found.screen, alt: found.alt };
+  return {
+    screen: name,
+    get alt() {
+      const content = contentFor(slug);
+      const found = content && [...content.screens, ...(content.phone ? [content.phone] : [])].find((s) => s.screen === name);
+      if (!found) throw new Error(`industries-draft: no module screen "${name}"`);
+      return found.alt;
+    },
+  };
 }
 
 /** Compliance tiles shared by most industries (the same wording as the manufacturing page, from the deck). */

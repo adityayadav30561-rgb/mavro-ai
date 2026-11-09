@@ -1,10 +1,8 @@
 import type { ModuleCard } from '../blocks/ModuleCards';
 import type { StackTier } from '../blocks/PackageStack';
-import { explore } from '../data/home';
 import { packageContent } from '../data/packages';
 import {
   catalogue,
-  contentFor,
   entryBySlug,
   leadScreens,
   modulePage,
@@ -19,16 +17,8 @@ export const pageOf = (entry: CatalogueEntry) => (hasPage(modulePage(entry)) ? m
 
 export const iconOf = (entry: CatalogueEntry) => (entry.kind === 'module' ? entry.item.icon : 'distribution');
 
-/** The lead screen of a module for its card: its own first screen once it has content, else its lead screen
- *  (leads.ts), else its homepage Explore screen. */
-export function thumbnail(slug: ModuleSlug): Pick<ModuleCard, 'screen' | 'alt'> {
-  const own = contentFor(slug)?.screens[0];
-  if (own) return { screen: own.screen, alt: own.alt };
-  if (leadScreens[slug]) return leadScreens[slug];
-  const entry = entryBySlug(slug);
-  const base = explore.packages.base.screens as Record<string, { screen: ModuleCard['screen']; alt: string }>;
-  return entry.kind === 'module' && base[entry.item.id] ? base[entry.item.id] : {};
-}
+/** A module's card thumbnail: its lead screen (modules/leads.ts, the first screen of its page). */
+export const thumbnail = (slug: ModuleSlug): Pick<ModuleCard, 'screen' | 'alt'> => leadScreens[slug];
 
 /** A module as a card: name, summary, tier, thumbnail and its page. */
 export function cardFor(slug: ModuleSlug): ModuleCard {

@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -73,11 +74,10 @@ export const content: ModuleContent<'real-estate-management'> = {
   related: ['accounting', 'asset-management', 'insurance-management', 'document-management'],
   screens: [
     {
-      screen: 'real-estate-management/portfolio-dashboard',
+      ...leadScreens['real-estate-management'],
       view: 'Portfolio dashboard',
       title: 'Portfolio dashboard',
       caption: 'Leases against market rent, committed rent by year, statutory dates and the land bank.',
-      alt: 'MAVRO property portfolio dashboard: 14 properties, ₹3.52 crore rent a year, two renewals in 90 days, statutory dates due, leases with area, rent per square foot against the market and lease end, committed rent by year, statutory watch and an idle land plot (illustrative data).',
     },
     {
       screen: 'real-estate-management/lease-renewal',

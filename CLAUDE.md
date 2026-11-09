@@ -29,7 +29,9 @@ npx tsc --noEmit  # typecheck only
 - **Content lives in data files, not components.** Copy: `src/data/home.ts`. CTAs, site facts:
   `src/data/site.ts`. Header, menus, footer links: `src/data/nav.ts` (a link shows its page once the route exists,
   its homepage fallback until then: `src/links.ts`). Module catalogue, portals, premium spotlight: `src/data/modules/catalogue.ts`; module page content:
-  `src/data/modules/content/<slug>.ts` (schema in `schema.ts`, deck slides per module in `sources.ts`). Which modules Explore
+  `src/data/modules/content/<slug>.ts` (schema in `schema.ts`, deck slides per module in `sources.ts`; each module's
+  lead screen in `leads.ts`). Module content loads per page: a route lists the modules it reads (`content` in
+  routes.ts), and `contentFor` throws for one that was not listed. Which modules Explore
   features, and which product screen each Base module shows: `explore` in home.ts. Product screens are HTML
   pages in `prototype/` (module screens in `prototype/modules/<slug>/`), captured by `npm run shots <name>` (dev server
   running) into `src/assets/screens/`.

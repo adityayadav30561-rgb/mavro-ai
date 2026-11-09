@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -73,11 +74,10 @@ export const content: ModuleContent<'distributor-portal'> = {
   related: ['order-to-cash', 'scheme-and-rebate', 'sales-force-automation', 'inventory-management'],
   screens: [
     {
-      screen: 'distributor-portal/home',
+      ...leadScreens['distributor-portal'],
       view: 'Home',
       title: 'Distributor home: orders and credit',
       caption: 'What the distributor sees first: credit available and outstanding, open orders and claims, purchases by category, the scheme slab and what is due.',
-      alt: 'MAVRO distributor portal home as the distributor sees it: ₹11.4 L of a ₹40 L credit limit available, ₹28.6 L outstanding with one invoice overdue, 2 open orders, 4 claims pending, purchases by category, recent orders and progress towards the next festive scheme slab (illustrative data).',
     },
     {
       screen: 'distributor-portal/order-builder',

@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -72,11 +73,10 @@ export const content: ModuleContent<'business-analyst-app'> = {
   related: ['data-analytics', 'master-data-management', 'order-to-cash', 'document-management'],
   screens: [
     {
-      screen: 'business-analyst-app/coverage-trust',
+      ...leadScreens['business-analyst-app'],
       view: 'Coverage and trust',
       title: 'Reporting coverage and data trust',
       caption: 'Reports by domain, the share on certified metrics, who uses them and where data is doubtful.',
-      alt: 'MAVRO reporting coverage: 128 reports across six domains, 88% on certified metrics, 46 certified metrics, 5 data-quality exceptions, coverage and active users by domain, report opens by week, a metric conflict resolved and items needing attention (illustrative data).',
     },
     {
       screen: 'business-analyst-app/report-builder',

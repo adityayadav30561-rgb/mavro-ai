@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -92,11 +93,10 @@ export const content: ModuleContent<'order-to-cash'> = {
   related: ['crm', 'sales-force-automation', 'customer-service', 'scheme-and-rebate'],
   screens: [
     {
-      screen: 'order-to-cash/order-book',
+      ...leadScreens['order-to-cash'],
       view: 'Order book',
       title: 'Order book',
       caption: 'Open orders with their credit status, allocation and stage, so the day starts from what is stuck.',
-      alt: 'MAVRO Order to Cash order book: ₹4.86 Cr of open orders, three on credit hold worth ₹38.2 L, nine to dispatch this week and ₹12.4 L overdue, the order list with credit and allocation, a credit check for Kestrel Pumps and receivables by age (illustrative data).',
     },
     {
       screen: 'order-to-cash/order-workflow',

@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -75,11 +76,10 @@ export const content: ModuleContent<'inventory-management'> = {
   related: ['procure-to-pay', 'gate-entry', 'order-to-cash', 'accounting'],
   screens: [
     {
-      screen: 'inventory-management/stock-position',
+      ...leadScreens['inventory-management'],
       view: 'Stock position',
       title: 'Stock position and cover',
       caption: 'Stock value and days of cover across the stores, what each item is promised to, and the items below reorder or near expiry.',
-      alt: 'MAVRO Inventory Management stock position: ₹2.14 Cr across 1,284 items in four stores, 27 days of cover, ₹6.8 L under inspection, 3 items below reorder, stock by item with free, reserved and in-inspection quantities, value by stock type and today’s movements (illustrative data).',
     },
     {
       screen: 'inventory-management/cycle-count',

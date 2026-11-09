@@ -20,7 +20,11 @@ const root = path.resolve(import.meta.dirname, '..');
 const dist = path.join(root, 'dist');
 const ssr = path.join(root, 'dist-ssr');
 
-const { llmsTxt, render, renderHead, routes, site } = await import(pathToFileURL(path.join(ssr, 'entry-server.js')).href);
+const { llmsTxt, loadAllContent, render, renderHead, routes, site } = await import(
+  pathToFileURL(path.join(ssr, 'entry-server.js')).href
+);
+// Module content loads per page in the browser; here every page, title and structured data needs it, so load it all.
+await loadAllContent();
 
 const assets = await readdir(path.join(dist, 'assets'));
 const displayFont = assets.find((file) => /^manrope-latin-wght-normal-.+\.woff2$/.test(file));
@@ -49,7 +53,14 @@ function pagePreloads(route) {
     manifest[`src/pages/${route.page}.tsx`] ??
     Object.values(manifest).find((entry) => entry.isDynamicEntry && entry.name === route.page);
   if (!chunk) throw new Error(`prerender: no chunk for src/pages/${route.page}.tsx in the client manifest`);
-  return [...collect(chunk)]
+  // And the content chunk of every module the page reads (route.content), so hydration does not wait on it either.
+  const files = collect(chunk);
+  for (const slug of route.content ?? []) {
+    const content = manifest[`src/data/modules/content/${slug}.ts`];
+    if (!content) throw new Error(`prerender: no chunk for module content "${slug}" in the client manifest`);
+    collect(content, files);
+  }
+  return [...files]
     .filter((file) => !entryChunks.has(file))
     .map((file) => `\n    <link rel="modulepreload" crossorigin href="/${file}" />`)
     .join('');

@@ -20,6 +20,8 @@ export function ClientBand() {
                   <img
                     src={logos[`../assets/clients/${client.file}.webp`]}
                     alt={copy ? '' : client.name}
+                    // Lazy: below the fold on phones, so they no longer compete with the hero's largest paint.
+                    loading="lazy"
                     decoding="async"
                   />
                 </li>

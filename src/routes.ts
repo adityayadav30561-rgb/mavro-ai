@@ -5,7 +5,7 @@ import { faq, industries } from './data/home';
 import { implementationPage } from './data/implementation';
 import { industriesHub, industryContent } from './data/industries';
 import { securityPage } from './data/security';
-import { entryBySlug, moduleContent, modulePage, packs } from './data/modules';
+import { contentFor, contentSlugs, entryBySlug, loadContent, modulePage, moduleSlugs, packs, type ModuleSlug } from './data/modules';
 import { notFound } from './data/pages';
 import { packageContent, platformPage } from './data/packages';
 import { site } from './data/site';
@@ -40,6 +40,8 @@ export interface Route {
   inSitemap: boolean;
   /** Sitemap priority (default 0.8). */
   priority?: number;
+  /** The modules whose content (src/data/modules/content/) the page reads; loaded before it renders. */
+  content?: readonly ModuleSlug[];
   /** Draft content to replace before launch (an industry page's `draft`); such a route is noindex, out of the
    *  sitemap, and the build lists it. */
   draft?: string;
@@ -75,23 +77,30 @@ export const notFoundRoute: Route = {
  * The trail runs Home / package / module; the package crumb links to its homepage section until the package page
  * exists. Each page carries the module as a SoftwareApplication (part of MAVRO) and its FAQ.
  */
-const moduleRoutes: Route[] = Object.values(moduleContent).map((content) => {
-  const entry = entryBySlug(content.slug);
+const moduleRoutes: Route[] = contentSlugs.map((slug) => {
+  const entry = entryBySlug(slug);
   const pack = packs[entry.pack];
   const path = modulePage(entry);
+  // Title and description are read from the content, which the prerender loads first; the browser never reads them.
+  const content = () => contentFor(slug)!;
   return {
     path,
     page: 'ModulePage',
-    title: content.seo.title,
-    description: content.seo.description,
+    get title() {
+      return content().seo.title;
+    },
+    get description() {
+      return content().seo.description;
+    },
     crumbs: [
       { name: pack.name, path: pack.page, fallback: `/${pack.href}` },
       { name: entry.name, path },
     ],
     inSitemap: true,
+    content: [slug],
     schema: () => [
-      moduleSoftware(site.url, path, entry.name, pack.name, content.seo.description),
-      faqPage(`${site.url}${path}#faq`, content.faq),
+      moduleSoftware(site.url, path, entry.name, pack.name, content().seo.description),
+      faqPage(`${site.url}${path}#faq`, content().faq),
     ],
   };
 });
@@ -121,6 +130,8 @@ const platformRoutes: Route[] = [
       inSitemap: true,
       priority: 0.9,
       schema: () => [faqPage(`${site.url}${pack.page}#faq`, content.faq)],
+      // The hero's phone screen; the lead and behind screens and every card are lead screens (modules/leads.ts).
+      content: [content.screens.phone],
     };
   }),
 ];
@@ -163,6 +174,10 @@ const industryRoutes: Route[] = [
       inSitemap: !content.draft,
       priority: 0.8,
       draft: content.draft,
+      // A hero screen borrowed from a module page reads that module's alt text (industries-draft.ts, shot()).
+      content: [content.screens.lead.screen, content.screens.phone?.screen]
+        .map((screen) => screen?.split('/')[0] as ModuleSlug)
+        .filter((slug) => moduleSlugs.includes(slug)),
       schema: () => [faqPage(`${site.url}${path}#faq`, content.faq)],
     };
   }),
@@ -275,7 +290,8 @@ const pages = import.meta.glob<PageModule>('./pages/*.tsx');
 
 /** Loads a route's page module (its own chunk). */
 export function loadPage(route: Route): Promise<PageModule> {
-  if (import.meta.env.DEV && route.page === 'Library') return import('./library/Library');
+  // The library's samples read Order to Cash's content when the module loads, so that content comes first.
+  if (import.meta.env.DEV && route.page === 'Library') return loadContent(['order-to-cash']).then(() => import('./library/Library'));
   const load = pages[`./pages/${route.page}.tsx`];
   if (!load) throw new Error(`routes: no page module src/pages/${route.page}.tsx for ${route.path}`);
   return load();

@@ -3,6 +3,7 @@ import { renderToString } from 'react-dom/server';
 import { Layout } from './Layout';
 import { loadPage, type Route } from './routes';
 
+export { loadAllContent } from './data/modules';
 export { site } from './data/site';
 export { renderHead } from './seo/head';
 export { llmsTxt } from './seo/llms';

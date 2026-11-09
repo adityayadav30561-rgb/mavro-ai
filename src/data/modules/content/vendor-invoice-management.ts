@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -73,11 +74,10 @@ export const content: ModuleContent<'vendor-invoice-management'> = {
   related: ['accounting', 'procure-to-pay', 'inventory-management', 'travel-and-expense'],
   screens: [
     {
-      screen: 'vendor-invoice-management/ap-dashboard',
+      ...leadScreens['vendor-invoice-management'],
       view: 'AP dashboard',
       title: 'AP dashboard',
       caption: 'The invoice pipeline from receipt to payment, open payables by due date, the exceptions and the next run.',
-      alt: 'MAVRO accounts payable dashboard: 71% of 214 invoices touchless, ₹2.36 Cr open payables, a 6.4-day AP cycle, the invoice pipeline from received to paid, payables by due date, 23 exceptions by reason and the next payment run of ₹62.40 L (illustrative data).',
     },
     {
       screen: 'vendor-invoice-management/invoice-register',

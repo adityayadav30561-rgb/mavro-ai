@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -72,11 +73,10 @@ export const content: ModuleContent<'retailer-portal'> = {
   related: ['scheme-and-rebate', 'sales-force-automation', 'distributor-portal', 'customer-service'],
   screens: [
     {
-      screen: 'retailer-portal/home',
+      ...leadScreens['retailer-portal'],
       view: 'Store home',
       title: 'Store home: orders and rewards',
       caption: 'What the retailer sees first: purchases, points, items out at the counter with reorder suggestions, recent orders and offers.',
-      alt: 'MAVRO Retailer Portal store home as the retailer sees it: ₹1.38 L bought in October, 4,820 reward points with 600 expiring, two items out at the counter with suggested reorders, recent orders from two distributors with delivery and payment status, and the offers applied (illustrative data).',
     },
     {
       screen: 'retailer-portal/loyalty-returns',

@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'transportation-management'> = {
   related: ['fleet-management', 'warehouse-management', 'gate-entry', 'order-to-cash'],
   screens: [
     {
-      screen: 'transportation-management/control-tower',
+      ...leadScreens['transportation-management'],
       view: 'Control tower',
       title: 'Control tower',
       caption: 'Every shipment in motion on one map, lane performance, freight against budget and the few trips that need action, each with its reason.',
-      alt: 'MAVRO Transportation Management control tower: 31 shipments in motion across three sites on a lane map, 93.6% on time in full over 30 days, three shipments at risk, ₹13.1 L of a ₹48 L October freight budget, lane performance with the Pune to Ahmedabad lane 18% dearer, and five exceptions including an ETA past the consignee’s cut-off and an e-way bill extension (illustrative data).',
     },
     {
       screen: 'transportation-management/shipment-register',

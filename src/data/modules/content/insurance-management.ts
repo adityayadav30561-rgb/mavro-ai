@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -75,11 +76,10 @@ export const content: ModuleContent<'insurance-management'> = {
   related: ['asset-management', 'fleet-management', 'transportation-management', 'accounting'],
   screens: [
     {
-      screen: 'insurance-management/risk-dashboard',
+      ...leadScreens['insurance-management'],
       view: 'Risk dashboard',
       title: 'Risk and insurance dashboard',
       caption: 'Renewals at 30, 60 and 90 days, open and settled claims, coverage gaps and premium by cover.',
-      alt: 'MAVRO insurance risk dashboard: ₹84.8 crore of property and machinery insured on 10 policies, four renewals in 90 days, three open claims including one being filed, 46 days average settlement, a renewal radar, claims with stage and days open, coverage check items, renewal quotes and premium by type of cover (illustrative data).',
     },
     {
       screen: 'insurance-management/file-claim',

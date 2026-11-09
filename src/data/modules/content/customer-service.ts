@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'customer-service'> = {
   related: ['order-to-cash', 'crm', 'production-management', 'sales-force-automation'],
   screens: [
     {
-      screen: 'customer-service/ticket-load',
+      ...leadScreens['customer-service'],
       view: 'Ticket load',
       title: 'Ticket load and SLA health',
       caption: 'Open tickets by channel with response time and breaches, a complaint cluster raised to QA and tickets about to breach.',
-      alt: 'MAVRO Customer Service ticket load: 74 open tickets, 94% first response within SLA, tickets by channel with SLA health, a complaint cluster on lot L-0897 raised to QA, and tickets about to breach (illustrative data).',
     },
     {
       screen: 'customer-service/resolution-workbench',

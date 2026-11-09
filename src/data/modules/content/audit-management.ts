@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -72,11 +73,10 @@ export const content: ModuleContent<'audit-management'> = {
   related: ['mvlens-vendor-audit', 'asset-management', 'production-management', 'document-management'],
   screens: [
     {
-      screen: 'audit-management/coverage-capa',
+      ...leadScreens['audit-management'],
       view: 'Coverage and CAPA',
       title: 'Audit coverage and CAPA health',
       caption: 'Plan adherence by audit type, open findings by severity, CAPAs and what needs attention.',
-      alt: 'MAVRO audit coverage: 31 of 34 audits due done, 27 open findings with one critical, 21 open CAPAs with three overdue, two repeat observations, the plan by internal, vendor, customer, regulatory and certification audits, CAPAs raised and closed by month, items needing attention and audits coming up (illustrative data).',
     },
     {
       screen: 'audit-management/audit-execution',

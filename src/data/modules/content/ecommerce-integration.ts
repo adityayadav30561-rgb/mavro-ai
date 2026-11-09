@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -71,11 +72,10 @@ export const content: ModuleContent<'ecommerce-integration'> = {
   related: ['order-to-cash', 'warehouse-management', 'customer-service', 'scheme-and-rebate'],
   screens: [
     {
-      screen: 'ecommerce-integration/channel-dashboard',
+      ...leadScreens['ecommerce-integration'],
       view: 'Channel dashboard',
       title: 'Channel dashboard',
       caption: 'Every channel’s orders, listings, connector health, returns and payouts, and the issues that need attention.',
-      alt: 'MAVRO Ecommerce Integration channel dashboard: 312 orders today across two marketplaces, a B2B marketplace and a D2C store, 205 of 212 listings live with 7 paused at their buffer, orders routed to three fulfilment centres, one connector with API errors and a payout ₹6,982 short (illustrative data).',
     },
     {
       screen: 'ecommerce-integration/order-feed',

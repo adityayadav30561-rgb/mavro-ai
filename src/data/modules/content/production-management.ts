@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -75,11 +76,10 @@ export const content: ModuleContent<'production-management'> = {
   related: ['inventory-management', 'procure-to-pay', 'mvlens-vendor-audit', 'asset-management'],
   screens: [
     {
-      screen: 'production-management/plant-output',
+      ...leadScreens['production-management'],
       view: 'Plant output',
       title: 'Plant output and OEE',
       caption: 'Every work centre’s OEE split into availability, performance and quality, the main loss on each, downtime by cause and output against plan.',
-      alt: 'MAVRO Production Management plant dashboard: plant OEE of 78.4% this shift against an 80% target, 1,148 of 1,171 planned pieces made, 4 h 24 m of downtime led by a 2 h 10 m breakdown on a turning centre, seven work centres with availability, performance and quality, and planned against actual output over the rolling year (illustrative data).',
     },
     {
       screen: 'production-management/work-order',

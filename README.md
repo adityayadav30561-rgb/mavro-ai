@@ -104,7 +104,7 @@ in the sitemap. One table drives everything:
 `/modules/<slug>` on the template `src/pages/ModulePage.tsx` (which reads the slug from the path), with its SEO
 title and description, the trail Home / package / module (the package crumb falls back to its homepage section),
 and SoftwareApplication + FAQPage structured data. Adding a module page: write its content file and screens
-(IMPLEMENTATION-PLAN.md, module recipe) and register it; the menus, footer and sitemap pick it up by themselves.
+(IMPLEMENTATION-PLAN.md, module recipe; docs/ADDING-A-MODULE.md); the route, menus, footer and sitemap pick it up by themselves.
 
 Adding a page: write `src/pages/<Name>.tsx` exporting `Page`, add a route. Adding a module page: docs/ADDING-A-MODULE.md.
 

@@ -4,13 +4,15 @@ import '@fontsource-variable/manrope/index.css';
 import './styles/tokens.css';
 import './styles/base.css';
 import { Layout } from './Layout';
+import { loadContent } from './data/modules';
 import { findRoute, loadPage } from './routes';
 
 const root = document.getElementById('root')!;
 const route = findRoute(window.location.pathname);
 
-// Each page is its own chunk; the prerendered HTML preloads it, so this import does not wait on the network.
-loadPage(route).then(({ Page }) => {
+// Each page is its own chunk, and so is each module's content; the prerendered HTML preloads both, so neither waits on
+// the network. The page renders only once the modules it reads (route.content) are loaded.
+Promise.all([loadPage(route), loadContent(route.content)]).then(([{ Page }]) => {
   const app = (
     <StrictMode>
       <Layout route={route}>

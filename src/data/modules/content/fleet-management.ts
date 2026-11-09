@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -73,11 +74,10 @@ export const content: ModuleContent<'fleet-management'> = {
   related: ['transportation-management', 'asset-management', 'gate-entry', 'warehouse-management'],
   screens: [
     {
-      screen: 'fleet-management/fleet-dashboard',
+      ...leadScreens['fleet-management'],
       view: 'Fleet dashboard',
       title: 'Fleet dashboard',
       caption: 'Every vehicle by base and state, live trips with their flags, documents coming due and the cost per km by class.',
-      alt: 'MAVRO Fleet Management dashboard: 21 of 32 vehicles on trip, 3 in the workshop and 8 at base across three sites, 34 trips today, ₹27.4 a km in October, one vehicle blocked on a lapsed PUC, live trips with driver coaching flags, cost per km by vehicle class and own fleet against market trucks per lane (illustrative data).',
     },
     {
       screen: 'fleet-management/vehicle-register',

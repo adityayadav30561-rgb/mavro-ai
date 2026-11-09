@@ -44,6 +44,8 @@ interface ScreenProps {
   sizes?: string;
   /** Above the fold: load immediately instead of lazily. */
   eager?: boolean;
+  /** The page's largest paint (a hero's lead screen): fetched before everything else. Implies eager. */
+  priority?: boolean;
   className?: string;
   /** A phone screen (prototype/phone.css): its own size and aspect. */
   device?: 'desktop' | 'phone';
@@ -54,6 +56,7 @@ export function Screen({
   alt,
   sizes: hint = '(max-width: 1240px) 94vw, 1180px',
   eager,
+  priority,
   className,
   device = 'desktop',
 }: ScreenProps) {
@@ -69,11 +72,11 @@ export function Screen({
       width={size.width}
       height={size.height}
       alt={alt}
-      loading={eager ? 'eager' : 'lazy'}
+      loading={eager || priority ? 'eager' : 'lazy'}
       decoding="async"
-      // An eager screen is in a hero, usually the page's largest paint: fetch it first (Phase 28). Lowercase spread:
-      // React 18 passes fetchpriority through only as a plain attribute.
-      {...(eager ? { fetchpriority: 'high' } : {})}
+      // Only the largest paint jumps the queue (Phase 28): a phone or second screen in the same hero would compete
+      // with it. Lowercase spread: React 18 passes fetchpriority through only as a plain attribute.
+      {...(priority ? { fetchpriority: 'high' } : {})}
     />
   );
 

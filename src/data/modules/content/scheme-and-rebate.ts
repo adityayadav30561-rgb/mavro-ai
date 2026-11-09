@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -72,11 +73,10 @@ export const content: ModuleContent<'scheme-and-rebate'> = {
   related: ['order-to-cash', 'distributor-portal', 'dealer-portal', 'sales-force-automation'],
   screens: [
     {
-      screen: 'scheme-and-rebate/schemes',
+      ...leadScreens['scheme-and-rebate'],
       view: 'Schemes',
       title: 'Scheme dashboard',
       caption: 'Every scheme’s budget against its cap and its sales lift, accruals against settlements and the claims waiting.',
-      alt: 'MAVRO Scheme and Rebate dashboard: ₹42.6 L of a ₹60 L trade budget used, the festive volume slab over its 85% alert, scheme performance with sales lift, accruals against settlements and 23 claims waiting with 4 duplicates caught (illustrative data).',
     },
     {
       screen: 'scheme-and-rebate/scheme-register',

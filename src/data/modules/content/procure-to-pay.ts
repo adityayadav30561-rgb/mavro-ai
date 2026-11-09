@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -76,11 +77,10 @@ export const content: ModuleContent<'procure-to-pay'> = {
   related: ['vendor-invoice-management', 'inventory-management', 'gate-entry', 'accounting'],
   screens: [
     {
-      screen: 'procure-to-pay/spend-suppliers',
+      ...leadScreens['procure-to-pay'],
       view: 'Spend and suppliers',
       title: 'Spend and supplier health',
       caption: 'Committed spend by category against budget and contract price, supplier scorecards and single-source risk.',
-      alt: 'MAVRO Procure to Pay spend and supplier health dashboard: ₹1.04 Cr committed against a ₹1.41 Cr budget, ₹38,900 over contract price across 6 invoices with payment blocked, 91% on-time receipts, 2.6 days from requisition to PO, spend by category, supplier health and single-source items (illustrative data).',
     },
     {
       screen: 'procure-to-pay/rfq',

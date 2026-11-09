@@ -1,3 +1,4 @@
+import { leadScreens } from '../leads';
 import type { ModuleContent } from '../schema';
 
 /*
@@ -74,11 +75,10 @@ export const content: ModuleContent<'warehouse-management'> = {
   related: ['inventory-management', 'transportation-management', 'gate-entry', 'order-to-cash'],
   screens: [
     {
-      screen: 'warehouse-management/wms-dashboard',
+      ...leadScreens['warehouse-management'],
       view: 'WMS dashboard',
       title: 'WMS dashboard',
       caption: 'The wave against its cut-off, dock to stock, zone occupancy on a floor plan and the decisions that need making this hour.',
-      alt: 'MAVRO Warehouse Management dashboard for a finished-goods warehouse: wave W-0318 at 61 of 86 lines before a 16:30 cut-off, dock to stock of 2 h 07 m, 99.6% pick accuracy, zones on a floor plan with the housings zone at 93%, pallets received and shipped by month, five decisions including a short pick and a quality hold, and an expiry watch on three batches (illustrative data).',
     },
     {
       screen: 'warehouse-management/stock-register',
