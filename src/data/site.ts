@@ -28,9 +28,9 @@ export const site = {
     region: 'Uttar Pradesh',
     country: 'IN',
   },
-  title: 'MAVRO | Enterprise ERP for manufacturers, distributors and service providers',
+  title: 'MAVRO | The Super ERP for Indian businesses in every industry',
   description:
-    'MAVRO brings base ERP modules, vendor and channel portals and premium modules onto one platform, and connects to SAP, Oracle, Tally and legacy ERPs.',
+    'MAVRO is the Super ERP for Indian businesses in every industry: base ERP modules, HR and payroll, vendor and channel portals and premium modules on one platform, with GST built in, and it connects to SAP, Oracle, Tally and legacy ERPs.',
 } as const;
 
 /** Calls to action. Labels are temporary copy; destinations are the in-page targets. */

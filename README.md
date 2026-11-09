@@ -27,7 +27,7 @@ node scripts/capture.mjs 1366 768 shots/x.png "id=explore"   # screenshot at an 
 | Client logos | `clients` in [src/data/home.ts](src/data/home.ts) | 20 logos from the clientele slide, shown in the hero band |
 | Testimonials / case studies | `proof` in [src/data/home.ts](src/data/home.ts) | three anonymised stories from deck slide 23 (approved by the user). Add only verified, approved material |
 | Module catalogue | [src/data/modules/catalogue.ts](src/data/modules/catalogue.ts) | from the product deck (Mavro Modules v2); all modules live. Premium spotlight content and its sample screens are in `premiumFeatures` |
-| Industry list | `industries` in home.ts | Manufacturing, Distribution, Pharma, Service providers (user, 2026-10-23); confirm before launch |
+| Industry list | `industries` in home.ts | Every industry (user, 2026-11-09); the homepage tabs feature four, `/industries` lists all; pages beyond the deck are marked `draft` until launch |
 | Social share image | [src/seo/head.ts](src/seo/head.ts) | none; add `og:image` / `twitter:image` once artwork exists |
 
 Copy is based on the user's product decks ([docs/PRODUCT.md](docs/PRODUCT.md)) and makes no numeric,

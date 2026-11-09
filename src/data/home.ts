@@ -11,8 +11,8 @@ import type { ScreenName } from '../components/Screen';
 import { byPack, channelPortals } from './modules';
 
 export const hero = {
-  title: ['One ERP for', 'manufacturers & distributors.'],
-  lead: 'Core ERP, vendor and channel portals, and specialised modules for logistics, trade schemes and the shop floor, on one platform that shares one set of business data.',
+  title: ['The Super ERP', 'for Indian businesses.'],
+  lead: 'Core ERP, HR and payroll, vendor and channel portals, and specialised modules for every industry, from the factory floor to the front office, on one platform that shares one set of business data.',
   /** Three facts from the product deck that answer a buyer's first questions: how fast, built for India, and
    *  what about the ERP we already run. */
   proof: [
@@ -247,7 +247,7 @@ export interface Industry {
 export const industries = {
   title: 'Built for how your industry runs.',
   titleSoft: 'Same platform, configured middle.',
-  lead: 'For manufacturing, distribution and service businesses running at scale: multi-line, high-volume and multi-entity. Every business takes an order and gets paid; what happens in between is configured, not rewritten.',
+  lead: 'From factories and distributors to pharma, IT services, printing and retail: every business takes an order and gets paid, and what happens in between is configured, not rewritten.',
   shared: 'Customers, items, pricing, GST, inventory, ledgers, roles and audit',
   core: { start: ['Enquiry', 'Quotation', 'Order'], end: ['Invoice', 'Payment'] },
   modulesLabel: 'Modules to see',
@@ -374,7 +374,7 @@ export const why = {
   titleSoft: 'not a generic ERP with add-ons.',
   lead: 'One platform that covers the gaps a core ERP leaves in HR, production and the channel, delivered by a partner rather than a vendor.',
   points: [
-    { icon: 'shield', title: 'Built for Indian manufacturing', body: 'GST at every touchpoint with e-invoicing, India payroll with PF, ESI and TDS, and multi-entity, multi-plant operations from one dashboard.' },
+    { icon: 'shield', title: 'Built for Indian business', body: 'GST at every touchpoint with e-invoicing, India payroll with PF, ESI and TDS, and multi-entity, multi-plant operations from one dashboard.' },
     { icon: 'distribution', title: 'Connects your entire channel', body: 'Sales force automation, a scheme and rebate engine by outlet tier, and portals for vendors, distributors, dealers and retailers.' },
     { icon: 'eye', title: 'Visibility from floor to CFO', body: 'Production status by shift, payables, receivables and cash, and role dashboards for the CFO, plant head, sales and HR.' },
     { icon: 'workflow', title: 'Built once, shared everywhere', body: 'A no-code workflow engine, business rules kept apart from process flows, notifications and an audit trail on every transaction.' },
@@ -424,18 +424,18 @@ const counts = { base: byPack('base').length, portals: channelPortals.length + 1
 export const faq = {
   title: 'Frequently asked questions',
   titleGrad: 'about MAVRO ERP.',
-  lead: 'Straight answers to what manufacturers and distributors ask before a demo: what MAVRO covers, how it works with SAP, Oracle and Tally, how long it takes, and how it handles GST, payroll and security.',
+  lead: 'Straight answers to what businesses ask before a demo: what MAVRO covers, how it works with SAP, Oracle and Tally, how long it takes, and how it handles GST, payroll and security.',
   more: 'Another question?',
   moreBody: 'Ask it in the demo request, or write to us.',
   items: [
     {
       q: 'What is MAVRO ERP?',
-      a: 'MAVRO is an enterprise resource planning (ERP) platform for manufacturers, distributors and service providers, made by SaiSatwik Technologies in Greater Noida, India. It brings base modules (accounting, payroll, order to cash, procure to pay, production, inventory), portals for vendors and the sales channel, and premium modules for specialised operations onto one platform with one set of business data.',
+      a: 'MAVRO is the Super ERP for Indian businesses: an enterprise resource planning (ERP) platform for companies in every industry, from manufacturers and distributors to pharma, IT and professional services, and printing, made by SaiSatwik Technologies in Greater Noida, India. It brings base modules (accounting, payroll, order to cash, procure to pay, production, inventory), portals for vendors and the sales channel, and premium modules for specialised operations onto one platform with one set of business data.',
       link: { label: 'Explore the platform', href: '/platform' },
     },
     {
       q: 'Who is MAVRO ERP built for?',
-      a: 'MAVRO is built for businesses running at scale: OEM suppliers, multi-line and multi-plant manufacturers, distribution-led companies with dealer and retailer networks, pharma manufacturers, and service providers such as IT companies. It suits businesses that need finance, operations, HR and channel data in one place, in real time, with Indian compliance built in.',
+      a: 'MAVRO is built for businesses in every industry that need finance, operations, HR and channel data in one place, in real time, with Indian compliance built in: multi-plant manufacturers and OEM suppliers, distributors with dealer and retailer networks, pharma and healthcare, IT and professional services, printing and packaging, retail, logistics and more.',
       link: { label: 'See industries', href: '#industries' },
     },
     {
@@ -663,4 +663,4 @@ export const inlineCtas = {
   },
 };
 
-export const footerNote = 'Enterprise ERP for manufacturers, distributors and service providers: base modules, portals and premium modules on one platform.';
+export const footerNote = 'The Super ERP for Indian businesses in every industry: base modules, portals and premium modules on one platform.';

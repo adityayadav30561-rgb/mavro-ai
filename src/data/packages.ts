@@ -81,7 +81,7 @@ export const packageContent: Record<Pack, PackageContent> = {
       },
     ],
     seo: {
-      title: `MAVRO Base modules: ${nBase} core ERP modules for manufacturers`,
+      title: `MAVRO Base modules: ${nBase} core ERP modules for every business`,
       description: `The ${nBase} MAVRO Base modules: accounting, payroll, order to cash, procure to pay, production, inventory, sales force automation, gate entry and more, on one set of records with Indian GST and payroll compliance.`,
     },
   },

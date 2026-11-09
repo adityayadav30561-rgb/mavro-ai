@@ -1,7 +1,7 @@
 # MAVRO website: start here
 
-Marketing website for **MAVRO** (MAVRO.AI), a Super ERP by **SaiSatwik Technologies** for manufacturers,
-distributors and exporters. Vite 5 + React 18 + TypeScript, prerendered to static HTML; the hero art is drawn in code with anidoodle.
+Marketing website for **MAVRO** (MAVRO.AI), a Super ERP by **SaiSatwik Technologies** for Indian businesses in
+every industry (user, 2026-11-09). Vite 5 + React 18 + TypeScript, prerendered to static HTML; the hero art is drawn in code with anidoodle.
 
 ## Read before doing anything
 
@@ -40,6 +40,7 @@ npx tsc --noEmit  # typecheck only
   redraw, recolour or substitute it; only on light backgrounds.
 - **No invented claims:** no made-up statistics, testimonials, certifications or customer results. Product facts
   come from the decks (docs/PRODUCT.md). Sample data in mockups is labelled as illustrative.
+  Until launch, industry pages may carry invented framing only when marked `draft` (DECISIONS.md, "No invented claims").
 - **Verify in the browser** at desktop, laptop (1366×768) and phone widths before calling work done
   (docs/VERIFY.md), then run `npm run build`.
 - **Git: https://github.com/adityayadav30561-rgb/mavro-ai** (public). **`main` ONLY, no exceptions** (user, repeated
