@@ -43,6 +43,23 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-11-09, **D2 SEO, AEO and GEO, part 1** (user's answers in DECISIONS.md, "D2"). On `main`.
+  - **Facts:** `site.facts` (pricing depends on need, cloud or on-premise, client owns its data), word for word in
+    new FAQs (homepage: "How much does MAVRO ERP cost?", "Is MAVRO cloud-based or on-premise?"; platform; security:
+    "Who owns our data in MAVRO?"). The homepage dropped "Is MAVRO available on mobile?" to stay at 1.19 screens.
+  - **Head:** `lang="en-IN"`, `og:locale en_IN`, `og:image` (public/og.png, 1200×630 from the hero art, `npm run og`)
+    with size and alt, `summary_large_image`, self-referencing `hreflang` en-IN + x-default on indexable pages.
+  - **Structured data:** the MAVRO SoftwareApplication is now on every page (module pages' `isPartOf` resolves);
+    Organization has a description, `areaServed` India and a sales `contactPoint`; no price, rating or `sameAs`.
+  - **robots.txt** allows every crawler and names the AI crawlers; noindex pages are not disallowed (crawlers must
+    read their noindex). **llms.txt** (`src/seo/llms.ts`, built by prerender): key facts and every indexable page
+    by group; drafts never listed. Sitemap has no `lastmod` on purpose (Google only trusts an accurate one).
+  - **Titles and descriptions:** homepage, hub (now "Industry ERP software…", no longer competing with the
+    homepage), the four industries, platform and packages, ERP Connect, implementation, security, customers and
+    contact all within 60 / 160 characters; nine module titles over 70 shortened. 64 module-page length warnings
+    left for D5.
+  - **`qa/seocheck.cjs`** (VERIFY.md): no errors on 67 pages.
+
 - 2026-11-09, **Industry renames** (user): Pharma → "Pharma and healthcare", Service providers → "IT and professional
   services" (slug `it-services`, tab label "IT services"; `lower`/`tab` fields on `Industry`, `inSentence()` in home.ts).
 

@@ -135,7 +135,7 @@ export const content: ModuleContent<'transportation-management'> = {
     },
   ],
   seo: {
-    title: 'Transportation management software (TMS) with e-way bill and ePOD | MAVRO',
+    title: 'Transport management software with e-way bill and ePOD | MAVRO',
     description:
       'MAVRO Transportation Management: a control tower for every shipment, multi-drop load building, transporter allocation on rate contracts, live GPS tracking, ePOD, freight bill matching and e-way bill compliance.',
   },

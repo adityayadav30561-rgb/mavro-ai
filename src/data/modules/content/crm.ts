@@ -122,7 +122,7 @@ export const content: ModuleContent<'crm'> = {
     },
   ],
   seo: {
-    title: 'CRM for manufacturers and distributors: lead scoring and routing | MAVRO',
+    title: 'CRM software with lead scoring and routing | MAVRO',
     description:
       'MAVRO CRM: one de-duplicated lead register, lead scoring on verified GST, credit and trade signals, territory routing with a first-response SLA, and conversion by source.',
   },

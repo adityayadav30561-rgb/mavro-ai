@@ -53,20 +53,9 @@ const home: Route = {
   crumbs: [],
   inSitemap: true,
   priority: 1,
-  // The product and the FAQ section (the same text as the visible questions, as search engines require).
-  // No ratings or prices are claimed.
+  // The FAQ section (the same text as the visible questions, as search engines require). The product itself
+  // (SoftwareApplication) is on every page, in seo/head.ts.
   schema: () => [
-    {
-      '@type': 'SoftwareApplication',
-      '@id': `${site.url}/#software`,
-      name: site.name,
-      applicationCategory: 'BusinessApplication',
-      applicationSubCategory: 'Enterprise resource planning',
-      operatingSystem: 'Web',
-      description: site.description,
-      url: site.url,
-      publisher: { '@id': `${site.url}/#organization` },
-    },
     faqPage(`${site.url}/#faq`, faq.items),
   ],
 };

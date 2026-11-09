@@ -12,7 +12,7 @@ export const erpConnect = {
   seo: {
     title: 'ERP Connect: MAVRO alongside SAP, Oracle and Tally | MAVRO',
     description:
-      'Run MAVRO alongside SAP, Oracle, Tally or a legacy ERP. Two-way sync through the MAVRO Database, simple role-based screens and a mobile app for every user, with the ERP left as the system of record.',
+      'Run MAVRO alongside SAP, Oracle, Tally or a legacy ERP: two-way sync through the MAVRO Database, simple role-based screens and a mobile app for every user.',
   },
 
   hero: {

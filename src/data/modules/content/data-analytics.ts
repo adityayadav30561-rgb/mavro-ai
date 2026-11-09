@@ -124,7 +124,7 @@ export const content: ModuleContent<'data-analytics'> = {
     },
   ],
   seo: {
-    title: 'Data pipelines, quality and lineage for your ERP data | MAVRO Data Analytics',
+    title: 'Data pipelines, quality and lineage for ERP data | MAVRO',
     description:
       'MAVRO Data Analytics: pipeline health and the nightly window, lineage with quality gates that hold bad data, owned metrics with freshness promises, and alerts for anomalies and forecast model drift.',
   },

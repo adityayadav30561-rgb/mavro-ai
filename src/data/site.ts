@@ -37,9 +37,13 @@ export const site = {
     deployment: 'MAVRO can run in the cloud or on-premise, on the client’s own servers.',
     data: 'The client owns its data in MAVRO.',
   },
-  title: 'MAVRO | The Super ERP for Indian businesses in every industry',
+  /** Language and region of every page (`<html lang>`, og:locale, JSON-LD inLanguage). D4's GCC pages add their own. */
+  locale: { lang: 'en-IN', og: 'en_IN' },
+  /** The default share image (public/og.png, made by `npm run og` from the hero art). */
+  shareImage: { path: '/og.png', width: 1200, height: 630, alt: 'MAVRO, the Super ERP for Indian businesses: an isometric plant where one order moves through every department.' },
+  title: 'MAVRO | Super ERP software for every Indian business',
   description:
-    'MAVRO is the Super ERP for Indian businesses in every industry: base ERP modules, HR and payroll, vendor and channel portals and premium modules on one platform, with GST built in, and it connects to SAP, Oracle, Tally and legacy ERPs.',
+    'MAVRO is the Super ERP for Indian businesses: core ERP, HR and payroll, vendor and channel portals and specialised modules on one platform, with GST built in.',
 } as const;
 
 /** Calls to action. Labels are temporary copy; destinations are the in-page targets. */

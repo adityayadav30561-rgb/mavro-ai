@@ -37,6 +37,16 @@ function structuredData(route: Route) {
         '@id': org,
         name: site.company,
         url: site.url,
+        description: `${site.company} makes ${site.name}, the Super ERP for Indian businesses in every industry.`,
+        areaServed: { '@type': 'Country', name: 'India' },
+        contactPoint: {
+          '@type': 'ContactPoint',
+          contactType: 'sales',
+          email: site.contactEmail,
+          telephone: site.contactPhone.replace(/\s/g, ''),
+          areaServed: 'IN',
+          availableLanguage: 'en',
+        },
         logo: `${site.url}/apple-touch-icon.png`,
         brand: { '@type': 'Brand', name: site.name },
         email: site.contactEmail,
@@ -50,6 +60,21 @@ function structuredData(route: Route) {
           addressCountry: site.office.country,
         },
       },
+      // The product, on every page so module pages (isPartOf) and AI answers reach one entity. No price or rating:
+      // pricing depends on the business (site.facts), and no ratings are claimed.
+      {
+        '@type': 'SoftwareApplication',
+        '@id': `${site.url}/#software`,
+        name: site.name,
+        applicationCategory: 'BusinessApplication',
+        applicationSubCategory: 'Enterprise resource planning',
+        operatingSystem: 'Web, Android, iOS',
+        description: site.description,
+        url: site.url,
+        image: `${site.url}${site.shareImage.path}`,
+        inLanguage: site.locale.lang,
+        publisher: { '@id': org },
+      },
       {
         '@type': 'WebSite',
         '@id': `${site.url}/#website`,
@@ -57,7 +82,7 @@ function structuredData(route: Route) {
         name: site.name,
         description: site.description,
         publisher: { '@id': org },
-        inLanguage: 'en',
+        inLanguage: site.locale.lang,
       },
       ...breadcrumbs,
       ...(route.schema?.() ?? []),
@@ -69,27 +94,36 @@ function structuredData(route: Route) {
  * Everything between the head markers in index.html, for one prerendered page. Pages outside the sitemap
  * (hidden and utility pages) are noindex. The 404 page has no canonical or og:url: it is served at whatever
  * address was missing, so there is no one URL to name.
- * An Open Graph image is deliberately absent until brand artwork exists; add og:image and twitter:image here.
+ * Every page shares the default image (site.shareImage, `npm run og`); the site is en-IN.
  */
 export function renderHead(route: Route) {
   const title = escape(route.title);
   const description = escape(route.description);
   const url = absolute(route.path);
   const isNotFound = route.page === 'NotFound';
+  const image = `${site.url}${site.shareImage.path}`;
   const json = JSON.stringify(structuredData(route)).replace(/</g, '\\u003c');
 
   return [
     `<title>${title}</title>`,
     `<meta name="description" content="${description}" />`,
     !isNotFound && `<link rel="canonical" href="${url}" />`,
+    // India at the root; D4's GCC pages will add their own alternates (IMPLEMENTATION-PLAN.md, D4).
+    route.inSitemap && `<link rel="alternate" hreflang="${site.locale.lang}" href="${url}" />`,
+    route.inSitemap && `<link rel="alternate" hreflang="x-default" href="${url}" />`,
     `<meta name="robots" content="${route.inSitemap ? 'index, follow' : 'noindex, follow'}" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="${escape(site.name)}" />`,
     `<meta property="og:title" content="${title}" />`,
     `<meta property="og:description" content="${description}" />`,
     !isNotFound && `<meta property="og:url" content="${url}" />`,
-    `<meta property="og:locale" content="en" />`,
-    `<meta name="twitter:card" content="summary" />`,
+    `<meta property="og:locale" content="${site.locale.og}" />`,
+    `<meta property="og:image" content="${image}" />`,
+    `<meta property="og:image:width" content="${site.shareImage.width}" />`,
+    `<meta property="og:image:height" content="${site.shareImage.height}" />`,
+    `<meta property="og:image:alt" content="${escape(site.shareImage.alt)}" />`,
+    `<meta name="twitter:card" content="summary_large_image" />`,
+    `<meta name="twitter:image" content="${image}" />`,
     `<meta name="twitter:title" content="${title}" />`,
     `<meta name="twitter:description" content="${description}" />`,
     `<script type="application/ld+json">${json}</script>`,

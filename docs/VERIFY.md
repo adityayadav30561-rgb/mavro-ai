@@ -20,6 +20,10 @@ With the dev server running (`npm run dev`):
 
 ## Scripted checks (Playwright, dev server running)
 
+- `node qa/seocheck.cjs` (after `npm run build`, no server): every built page's title and description (unique,
+  length warnings), canonical, robots vs sitemap, og:image, `lang="en-IN"`, JSON-LD parsing and `@id` references,
+  FAQPage questions visible on the page, no noindex page in sitemap.xml or llms.txt. Exits 1 on an error.
+  `npm run linkcheck` never fails by itself: check its output says `dead []`.
 - `node qa/pagecheck.cjs / /platform /modules/order-to-cash`: each path at 1440x900, 1366x768 and 390x844: one
   H1, no horizontal overflow, no broken images, no console errors; then each section's height in screens at
   1440x900 (target about 0.75–1.2). Exits 1 on a failure.

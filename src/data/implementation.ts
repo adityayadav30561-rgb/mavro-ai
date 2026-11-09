@@ -15,7 +15,7 @@ export const implementationPage = {
   seo: {
     title: 'Implementation and support: live in 25 to 30 days | MAVRO',
     description:
-      'How MAVRO goes live in 25 to 30 days: discovery and setup, a first go-live in week three, full go-live in week four, a dedicated resource, go-live hypercare and AMS support after it, with every current tool mapped to a MAVRO module.',
+      'How MAVRO goes live in 25 to 30 days: discovery and setup, first go-live in week three, full go-live in week four, a dedicated resource and AMS support after.',
   },
   hero: {
     title: 'Live in 25 to 30 days,',

@@ -135,7 +135,7 @@ export const content: ModuleContent<'mvlens-vendor-audit'> = {
     },
   ],
   seo: {
-    title: 'Vendor audit software: supplier audits, CAPA, quality agreements | MAVRO',
+    title: 'Vendor audit software: supplier audits and CAPA | MAVRO',
     description:
       'mVLens Vendor Audit in MAVRO: role-based portals for audit managers, auditors, approvers and coordinators, an eight-step audit lifecycle, rule-based site classification, CAPA tracking and e-signed quality agreements.',
   },

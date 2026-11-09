@@ -11,6 +11,7 @@ npm run dev        # http://localhost:5180
 npm run build      # type-check, bundle, prerender to static HTML in dist/
 npm run preview    # serve dist/ on http://localhost:5181 (clean URLs and the 404 page, as a static host would)
 npm run shots      # re-capture the product screenshots (needs the dev server running)
+npm run og         # rebuild the share image public/og.png from the hero art and headline (scripts/og.mjs)
 npm run linkcheck  # after a build: crawl dist/ for dead links, missing anchors, orphans and click depth
 npm run brand      # regenerate the web logo and icons from brand/mavro-logo.jpg
 npm run clients    # regenerate the client logos from brand/clientele-slide.webp

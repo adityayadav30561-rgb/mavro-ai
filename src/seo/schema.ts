@@ -9,7 +9,7 @@ export const faqPage = (url: string, items: readonly FaqItem[]) => ({
   '@type': 'FAQPage',
   '@id': url,
   url,
-  inLanguage: 'en',
+  inLanguage: 'en-IN',
   mainEntity: items.map((item) => ({
     '@type': 'Question',
     name: item.q,

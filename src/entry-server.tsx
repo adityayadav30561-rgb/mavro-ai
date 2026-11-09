@@ -5,6 +5,7 @@ import { loadPage, type Route } from './routes';
 
 export { site } from './data/site';
 export { renderHead } from './seo/head';
+export { llmsTxt } from './seo/llms';
 export { notFoundRoute, routes } from './routes';
 
 /** Static HTML for one route, injected into its file by scripts/prerender.mjs. */

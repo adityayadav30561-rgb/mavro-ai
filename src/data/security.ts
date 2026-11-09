@@ -12,9 +12,9 @@ import type { ModuleSlug } from './modules';
 
 export const securityPage = {
   seo: {
-    title: 'Security and compliance: GST, statutory payroll and data protection | MAVRO',
+    title: 'ERP security and GST and payroll compliance | MAVRO',
     description:
-      'How MAVRO protects your data and keeps you compliant: AES-256 encryption, role and field-level access, MFA and SSO, a tamper-proof audit trail kept 7 years, RPO under 4 hours and RTO under 8, and GST, e-invoicing, e-way bills, PF, ESI, TDS, PT and CLRA built in.',
+      'AES-256 encryption, field-level access, MFA and SSO, a tamper-proof 7-year audit trail, and GST, e-invoicing, e-way bills, PF, ESI, TDS and PT built in.',
   },
   hero: {
     title: 'Compliant by design,',

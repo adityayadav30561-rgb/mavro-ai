@@ -123,7 +123,7 @@ export const content: ModuleContent<'roster-ledger'> = {
     },
   ],
   seo: {
-    title: 'Shift roster software: coverage, swaps and overtime | MAVRO Roster Ledger',
+    title: 'Shift roster software: coverage, swaps and overtime | MAVRO',
     description:
       'MAVRO Roster Ledger: shift coverage by department, an auto-roster from the production plan checked against skills and rest rules, supervisor sign-off, swaps and overtime against budget, and rosters on the app.',
   },

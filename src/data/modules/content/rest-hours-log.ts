@@ -123,7 +123,7 @@ export const content: ModuleContent<'rest-hours-log'> = {
     },
   ],
   seo: {
-    title: 'Working hours and rest compliance software for plants | MAVRO Rest Hours Log',
+    title: 'Rest hours and working time compliance software | MAVRO',
     description:
       'MAVRO Rest Hours Log: biometric punches reconciled to the roster, rolling duty and rest checked against hour limits and fatigue rules, violations approved with compensatory rest, and registers for inspector returns.',
   },

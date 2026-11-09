@@ -83,7 +83,7 @@ export const packageContent: Record<Pack, PackageContent> = {
     ],
     seo: {
       title: `MAVRO Base modules: ${nBase} core ERP modules for every business`,
-      description: `The ${nBase} MAVRO Base modules: accounting, payroll, order to cash, procure to pay, production, inventory, sales force automation, gate entry and more, on one set of records with Indian GST and payroll compliance.`,
+      description: `The ${nBase} MAVRO Base modules: accounting, payroll, order to cash, procure to pay, production, inventory and more, on one set of records with GST compliance.`,
     },
   },
   portal: {
@@ -124,8 +124,8 @@ export const packageContent: Record<Pack, PackageContent> = {
       },
     ],
     seo: {
-      title: 'MAVRO Portals: vendor, distributor, dealer and retailer portals',
-      description: `The ${nPortal} MAVRO portals: Vendor, Distributor, Dealer and Retailer, self-service for suppliers and the sales channel on the same orders, stock and credit as your ERP.`,
+      title: 'MAVRO vendor, distributor, dealer and retailer portals',
+      description: `The ${nPortal} MAVRO portals: Vendor, Distributor, Dealer and Retailer, self-service for suppliers and the channel on the same orders, stock and credit as your ERP.`,
     },
   },
   premium: {
@@ -167,7 +167,7 @@ export const packageContent: Record<Pack, PackageContent> = {
     ],
     seo: {
       title: `MAVRO Premium modules: ${nPremium} specialised ERP modules`,
-      description: `The ${nPremium} MAVRO Premium modules: transportation, warehouse, fleet, scheme and rebate, auctions, PPDS, shop floor control, audits, budgets, learning, contract labour, analytics and document management.`,
+      description: `The ${nPremium} MAVRO Premium modules: transportation, warehouse, fleet, schemes, auctions, PPDS, shop floor, audits, budgets, learning, contract labour and analytics.`,
     },
   },
 };
@@ -285,8 +285,8 @@ export const platformPage = {
     },
   ],
   seo: {
-    title: 'MAVRO platform: one cloud ERP for finance, supply chain, plants and the channel',
-    description: `The MAVRO platform: ${nBase + nPortal + nPremium} base, portal and premium modules on one cloud-native architecture with workflow and rules engine, audit trail, role-based access, a mobile app and integration APIs.`,
+    title: 'MAVRO platform: base, portal and premium ERP modules',
+    description: `The MAVRO platform: ${nBase + nPortal + nPremium} base, portal and premium modules on one cloud-native architecture, with workflow, audit trail, role-based access, a mobile app and APIs.`,
   },
 };
 

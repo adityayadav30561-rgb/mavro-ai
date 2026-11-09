@@ -124,7 +124,7 @@ export const content: ModuleContent<'project-management'> = {
     },
   ],
   seo: {
-    title: 'Capex project management software: portfolio, milestones, change requests | MAVRO',
+    title: 'Project management software with budgets and milestones | MAVRO',
     description:
       'MAVRO Project Management: portfolio health against budget and schedule, milestone plans with baselines, dependencies and qualification gates, change requests routed by delegation, and a project register.',
   },

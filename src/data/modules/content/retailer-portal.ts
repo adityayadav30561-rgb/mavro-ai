@@ -122,7 +122,7 @@ export const content: ModuleContent<'retailer-portal'> = {
     },
   ],
   seo: {
-    title: 'Retailer ordering app with offers, loyalty and returns | MAVRO Retailer Portal',
+    title: 'Retailer ordering app with offers, loyalty and returns | MAVRO',
     description:
       'MAVRO Retailer Portal: a retailer ordering app with reorder prompts, a best-offer basket builder with substitutions on real stock, loyalty points and returns in one queue, and order and payment status by distributor.',
   },

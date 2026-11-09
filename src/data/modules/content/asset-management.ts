@@ -124,7 +124,7 @@ export const content: ModuleContent<'asset-management'> = {
     },
   ],
   seo: {
-    title: 'Asset management software: maintenance, register, depreciation | MAVRO',
+    title: 'Asset management software: maintenance and depreciation | MAVRO',
     description:
       'MAVRO Asset Management: uptime and breakdowns by site, a tagged asset register with written-down value, preventive maintenance and calibration, critical spares, physical verification and a period depreciation run.',
   },

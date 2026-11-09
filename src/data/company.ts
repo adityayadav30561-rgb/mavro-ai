@@ -14,7 +14,7 @@ export const customersPage = {
   seo: {
     title: 'Customer stories: what clients changed with MAVRO | MAVRO',
     description:
-      'Three recent MAVRO projects by SaiSatwik Technologies: EUDR due diligence in 2 hours instead of 4 weeks, 85% fewer freight billing disputes alongside SAP, and vendor onboarding in 48 hours instead of 5 weeks.',
+      'Three MAVRO projects: EUDR due diligence in 2 hours instead of 4 weeks, 85% fewer freight billing disputes alongside SAP, vendor onboarding in 48 hours.',
   },
   hero: {
     title: 'What clients changed',
@@ -31,7 +31,7 @@ export const contactPage = {
   seo: {
     title: 'Contact SaiSatwik Technologies: request a MAVRO demo | MAVRO',
     description:
-      'Request a MAVRO demo built around your process, or reach the team directly at contact@saisatwik.com or +91 92114 29011. Head office: Galaxy Blue Sapphire, Greater Noida.',
+      'Request a MAVRO demo built around your process, or reach SaiSatwik Technologies at contact@saisatwik.com or +91 92114 29011, Greater Noida.',
   },
   hero: {
     title: 'Talk to the team',

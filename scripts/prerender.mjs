@@ -7,7 +7,8 @@
  *   2. replaces the head block with that route's metadata and structured data
  *   3. preloads the one font file the first viewport needs, and the route's page chunk (so hydration does not
  *      wait for it)
- *   4. writes robots.txt, and sitemap.xml from the routes marked `inSitemap`
+ *   4. writes robots.txt (every crawler allowed, AI crawlers named: user, 2026-11-09), sitemap.xml and llms.txt
+ *      from the routes marked `inSitemap` (no lastmod: Google only trusts an accurate one, and the build date is not)
  *
  * Each page then hydrates in the browser (src/entry-client.tsx).
  */
@@ -19,7 +20,7 @@ const root = path.resolve(import.meta.dirname, '..');
 const dist = path.join(root, 'dist');
 const ssr = path.join(root, 'dist-ssr');
 
-const { render, renderHead, routes, site } = await import(pathToFileURL(path.join(ssr, 'entry-server.js')).href);
+const { llmsTxt, render, renderHead, routes, site } = await import(pathToFileURL(path.join(ssr, 'entry-server.js')).href);
 
 const assets = await readdir(path.join(dist, 'assets'));
 const displayFont = assets.find((file) => /^manrope-latin-wght-normal-.+\.woff2$/.test(file));
@@ -81,7 +82,13 @@ const sitemap = routes
   )
   .join('');
 
-await writeFile(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`);
+// Noindex pages (drafts, utility pages) are NOT disallowed: crawlers must fetch them to read their noindex.
+const aiCrawlers = ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Applebot-Extended', 'CCBot', 'Bingbot'];
+await writeFile(
+  path.join(dist, 'robots.txt'),
+  `# Every crawler, search and AI alike, may read the whole site (user, 2026-11-09).\nUser-agent: *\nAllow: /\n\n${aiCrawlers.map((bot) => `User-agent: ${bot}`).join('\n')}\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`,
+);
+await writeFile(path.join(dist, 'llms.txt'), llmsTxt(routes));
 await writeFile(
   path.join(dist, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemap}</urlset>\n`,

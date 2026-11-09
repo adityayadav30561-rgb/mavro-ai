@@ -61,7 +61,7 @@ export const industryContent: IndustryContent[] = [
     seo: {
       title: 'ERP for manufacturers: OEM and multi-line plants | MAVRO',
       description:
-        'MAVRO for OEM suppliers and multi-line plants: work orders, BOM and routing, live OEE and WIP by shift across plants, vendor portal and three-way matched buying, statutory payroll and GST built in.',
+        'ERP for OEM suppliers and multi-line plants: work orders, BOM and routing, live OEE and WIP by shift, vendor portal, three-way match, GST and payroll.',
     },
     hero: {
       lead: 'For OEM suppliers and multi-line plants running at scale: production, shop floor, buying, stock, payroll and finance on one system, live by shift and by plant, with Indian compliance built in.',
@@ -177,7 +177,7 @@ export const industryContent: IndustryContent[] = [
     seo: {
       title: 'ERP for pharma and healthcare manufacturers | MAVRO',
       description:
-        'MAVRO for pharma and healthcare manufacturers: batch records against the GMP master, QC release, batch, lot and expiry traceability, FEFO warehousing, vendor audits and compliance, on one platform.',
+        'ERP for pharma and healthcare manufacturers: batch records against the GMP master, QC release, batch and expiry traceability, FEFO and vendor audits.',
     },
     hero: {
       lead: 'For healthcare manufacturers with a broad portfolio, batch-controlled production and a stockist network: production, quality, stock, purchasing, sales and finance in one system, with batch traceability built in.',
@@ -289,9 +289,9 @@ export const industryContent: IndustryContent[] = [
   {
     slug: 'distribution',
     seo: {
-      title: 'ERP for distribution: dealer, distributor and retail networks | MAVRO',
+      title: 'ERP for distributors, dealers and retail networks | MAVRO',
       description:
-        'MAVRO for distribution-led businesses: one order book for distributors, dealers and retailers, schemes and rebates checked at order entry, field sales on mobile, portals for every level of the channel, and GST e-invoicing built in.',
+        'One order book for distributors, dealers and retailers: schemes checked at order entry, field sales on mobile, channel portals and GST e-invoicing built in.',
     },
     hero: {
       lead: 'For businesses that sell through dealers, distributors and retailers: the field force, schemes, orders, warehouse and every level of the channel on one order book, with GST built in.',
@@ -407,7 +407,7 @@ export const industryContent: IndustryContent[] = [
     seo: {
       title: 'ERP for IT and professional services firms | MAVRO',
       description:
-        'MAVRO for IT companies and professional services: client projects against budget, schedule and change requests, time cards, attendance and payroll with PF, ESI, PT and TDS, travel and expense claims checked against policy, and billing.',
+        'ERP for IT and professional services: client projects against budget and change requests, time cards, payroll with PF, ESI, PT and TDS, expenses and billing.',
     },
     hero: {
       lead: 'For IT companies and professional services: client projects, the people on them and what they cost on one system, from the time card to payroll and from the milestone to the invoice.',
@@ -528,9 +528,9 @@ export const contentFor = (slug: IndustrySlug) => industryContent.find((content)
 /** The industries hub, /industries: every industry the site names, linked to its page. */
 export const industriesHub = {
   seo: {
-    title: 'ERP for every industry in India | MAVRO',
+    title: 'Industry ERP software: manufacturing, pharma, retail | MAVRO',
     description:
-      'MAVRO is the Super ERP for Indian businesses in every industry: manufacturing, distribution, pharma, IT and professional services, printing and packaging, retail, logistics, textiles, food, chemicals, construction and agriculture.',
+      'MAVRO ERP configured by industry: manufacturing, distribution, pharma, IT services, printing, retail, logistics, food, chemicals, construction and more.',
   },
   crumb: 'Industries',
   hero: {
