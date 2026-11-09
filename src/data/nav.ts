@@ -228,7 +228,8 @@ const label = (link: NavLink, text: string): NavLink => ({ ...link, label: text 
 export const footerColumns: { title: string; links: NavLink[] }[] = [
   { title: 'Platform', links: [overviewLink, ...branches.map((branch) => branch.link)] },
   { title: 'Popular modules', links: popular },
-  { title: 'Solutions', links: industryLinks },
+  // The city pages are reached from here and from each other, never from the header (DECISIONS.md, "D3").
+  { title: 'Solutions', links: [...industryLinks, { label: 'ERP across India', page: '/erp-software', icon: 'pin' }] },
   { title: 'Resources', links: [label(implementationLink, 'Implementation'), securityLink, storiesLink, faqLink] },
   {
     title: 'Company',

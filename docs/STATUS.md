@@ -44,6 +44,15 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-11-09, **D3 city pages, batch 1** (decisions: DECISIONS.md "D3 city pages"). On `main`.
+  - Template `pages/CityPage.tsx`, index `pages/CitiesIndex.tsx` (`/erp-software`, cities by region), data
+    `src/data/cities.ts` (states with GST code and professional tax line, sources in its header; cities with presence,
+    industries, areas, FAQ, nearby). New block **PlaceLinks** (nearby cities). Routes with Service + FAQPage JSON-LD,
+    `areaServed` City in State; ProfessionalService with the address on Greater Noida only. Footer Solutions link
+    "ERP across India"; llms.txt "Locations" group. New check **`qa/similarity.cjs`** (VERIFY.md).
+  - Pilots: Greater Noida (head office), Pune (team or partner), Surat (remote). Similarity max 0.25 (limit 0.35);
+    sweep, a11y, seocheck, linkcheck clean.
+
 - 2026-11-09, **Main script split (user: "split the script now")**: launch checklist row 7 done. On `main`.
   - Module content loads per page: each `content/<slug>.ts` is its own chunk, found by `import.meta.glob`
     (`content/index.ts`: `contentSlugs`, `loadContent`, `loadAllContent`, `contentFor` which throws for a module not

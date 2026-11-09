@@ -1,0 +1,34 @@
+/* Place links (blocks/PlaceLinks.tsx): pills with a pin, wrapping. */
+.places {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .625rem;
+}
+
+.places a {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .625rem 1rem;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-weight: 600;
+  color: var(--ink);
+  transition:
+    box-shadow var(--d-2) var(--ease),
+    color var(--d-2) var(--ease);
+}
+
+.places a:hover {
+  color: var(--blue);
+  box-shadow: inset 0 0 0 1px var(--blue-200);
+}
+
+.places .icon:first-child {
+  color: var(--blue);
+}
+
+.places__arrow {
+  color: var(--ink-3);
+}

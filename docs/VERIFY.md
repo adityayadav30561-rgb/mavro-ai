@@ -30,6 +30,8 @@ With the dev server running (`npm run dev`):
 - `node qa/a11ycheck.cjs` (same server): axe-core (WCAG 2.1 A/AA and best practices; `axe-core` is a dev
   dependency) on one page per template at 1440 and 390 wide, plus a keyboard pass checking a visible focus ring
   on the first 40 Tab stops. Exits 1 on a serious or critical violation.
+- `node qa/similarity.cjs` (after `npm run build`): pairwise similarity of the city pages' main text (five-word
+  shingles, Jaccard); exits 1 above 0.35 (`MAX=`). Near-identical location pages read as doorway pages.
 - `node qa/pagecheck.cjs / /platform /modules/order-to-cash`: each path at 1440x900, 1366x768 and 390x844: one
   H1, no horizontal overflow, no broken images, no console errors; then each section's height in screens at
   1440x900 (target about 0.75–1.2). Exits 1 on a failure.

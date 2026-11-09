@@ -73,7 +73,8 @@ section (src/links.ts), so a module page never links to a missing page.
 | `Audience` | Audience.tsx | `industries` [{name, icon, who, note, href or null}], `roles` [{name, task, works?}], `labels` {industries, roles, works, see}, `screensHref` | Module (who uses it) |
 | `FlowStrip` | FlowStrip.tsx | `stages` [{label?, nodes [{name, href?, icon?, note?, kind?}]}] (`note`: what passes along the link), `layout` (columns/chain), `legend`, `note`. Kinds: shared, configured, current | Module (where it sits), industry (order flow), package |
 | `ModuleCards` | ModuleCards.tsx | `cards` [{name, summary, icon, tier, href or null, screen?, alt?}], `more` (link label); exactly four or eight cards run four across on desktops | Package, industry, related modules |
-| `IndustryGrid` | IndustryGrid.tsx | `cards` [{name, icon, who, title, modules? (names, as chips), href or null}], `more` (link label, followed by the industry's name): three across on desktops, two on tablets, one on phones | Industries hub |
+| `IndustryGrid` | IndustryGrid.tsx | `cards` [{name, icon, who, title, modules? (names, as chips), href or null}], `more` (link label, followed by the industry's name): three across on desktops, two on tablets, one on phones | Industries hub, city index (`/erp-software`) |
+| `PlaceLinks` | PlaceLinks.tsx | `places` [{name, href}], `label` (before each name, e.g. "ERP software in"): pills with a pin, wrapping | City pages (nearby cities) |
 | `PlatformStrip` | PlatformStrip.tsx | the eight features of deck slide 12 (`data/platform.ts`), identical everywhere; optional `module` {name, icon, tier, label} draws the module on top, wired into the features. Light or night band | Every module page, platform |
 | `ChainDiagram` | ChainDiagram.tsx | `title`, `nodes` [{id, name, icon, link}], `core`, `active` (omit to light every portal), `badge` | Homepage Explore (Portals), portal pages, Portals package page |
 | `HeroScreens` | HeroScreens.tsx | `lead` {screen, alt}, `behind?`, `phone?`, `note`. A package or platform hero's visual for PageHero `variant="module"`: the lead screen bleeding off the edge, a second module's screen standing behind it (hidden under 1024px), a phone in front | Package pages, platform |
@@ -109,7 +110,7 @@ section (src/links.ts), so a module page never links to a missing page.
 Class prefixes of blocks taken from the homepage keep their old names (`faq__`, `proof__` for story cards,
 `impl__` for the timeline, `cx__` for the board, `pc__` for the chain, `trust__`) so the homepage markup did not
 change. New blocks: `ph` (page hero), `crumbs`, `sframe`, `tour`, `cap`, `ww`, `aud`, `fs`, `mc`, `pstrip`, `arch`, `ba`,
-`dt`, `cta`, `ig` (industry grid).
+`dt`, `cta`, `ig` (industry grid), `places`.
 
 ## Adding a block
 

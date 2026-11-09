@@ -3,6 +3,7 @@ import { blogPage, careersPage, companyText, contactPage, customersPage, opening
 import { erpConnect } from './data/erp-connect';
 import { faq, industries } from './data/home';
 import { implementationPage } from './data/implementation';
+import { cities, citiesIndex, cityPath, cityTemplate, states } from './data/cities';
 import { industriesHub, industryContent } from './data/industries';
 import { securityPage } from './data/security';
 import { contentFor, contentSlugs, entryBySlug, loadContent, modulePage, moduleSlugs, packs, type ModuleSlug } from './data/modules';
@@ -183,6 +184,72 @@ const industryRoutes: Route[] = [
   }),
 ];
 
+/** The city index and one page per city in src/data/cities.ts (D3; the template: src/pages/CityPage.tsx). */
+const cityCrumb: Crumb = { name: cityTemplate.crumb, path: cityTemplate.indexPath };
+const cityRoutes: Route[] = [
+  {
+    path: cityTemplate.indexPath,
+    page: 'CitiesIndex',
+    title: citiesIndex.seo.title,
+    description: citiesIndex.seo.description,
+    crumbs: [cityCrumb],
+    inSitemap: true,
+    priority: 0.7,
+    schema: () => [faqPage(`${site.url}${cityTemplate.indexPath}#faq`, citiesIndex.faq.items)],
+  },
+  ...cities.map((city): Route => {
+    const path = cityPath(city);
+    const state = states[city.state];
+    return {
+      path,
+      page: 'CityPage',
+      title: city.seo.title,
+      description: city.seo.description,
+      crumbs: [cityCrumb, { name: city.name, path }],
+      inSitemap: true,
+      priority: 0.6,
+      schema: () => [
+        {
+          '@type': 'Service',
+          '@id': `${site.url}${path}#service`,
+          name: `MAVRO ERP software in ${city.name}`,
+          serviceType: 'ERP software and implementation',
+          provider: { '@id': `${site.url}/#organization` },
+          isRelatedTo: { '@id': `${site.url}/#software` },
+          areaServed: {
+            '@type': 'City',
+            name: city.name,
+            ...(city.aka && { alternateName: city.aka }),
+            containedInPlace: { '@type': 'State', name: state.name },
+          },
+        },
+        // The one real office (DECISIONS.md, "D3"): only the head-office city carries the business's address.
+        ...(city.presence === 'head-office'
+          ? [
+              {
+                '@type': 'ProfessionalService',
+                '@id': `${site.url}${path}#office`,
+                name: `${site.company}, head office`,
+                parentOrganization: { '@id': `${site.url}/#organization` },
+                telephone: site.contactPhone.replace(/\s/g, ''),
+                email: site.contactEmail,
+                address: {
+                  '@type': 'PostalAddress',
+                  streetAddress: site.office.street,
+                  addressLocality: site.office.city,
+                  postalCode: site.office.postalCode,
+                  addressRegion: site.office.region,
+                  addressCountry: site.office.country,
+                },
+              },
+            ]
+          : []),
+        faqPage(`${site.url}${path}#faq`, city.faq),
+      ],
+    };
+  }),
+];
+
 const trustRoutes: Route[] = [
   {
     path: '/implementation',
@@ -271,6 +338,7 @@ export const routes: Route[] = [
   ...platformRoutes,
   erpConnectRoute,
   ...industryRoutes,
+  ...cityRoutes,
   ...trustRoutes,
   ...companyRoutes,
   ...moduleRoutes,

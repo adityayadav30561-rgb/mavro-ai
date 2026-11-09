@@ -11,6 +11,7 @@ import { FaqBlock } from '../blocks/FaqBlock';
 import { FlowStrip } from '../blocks/FlowStrip';
 import { InlineCta } from '../blocks/InlineCta';
 import { IndustryGrid } from '../blocks/IndustryGrid';
+import { PlaceLinks } from '../blocks/PlaceLinks';
 import { ModuleCards } from '../blocks/ModuleCards';
 import { IntegrationHub } from '../blocks/IntegrationHub';
 import { PackageStack } from '../blocks/PackageStack';
@@ -219,6 +220,16 @@ export function Page() {
         </Entry>
         <Entry name="IndustryGrid" file="blocks/IndustryGrid.tsx" use="Industries hub">
           <IndustryGrid cards={industryCards} more="MAVRO for" />
+        </Entry>
+        <Entry name="PlaceLinks" file="blocks/PlaceLinks.tsx" use="City pages (nearby cities)">
+          <PlaceLinks
+            label="ERP software in"
+            places={[
+              { name: 'Noida', href: '/erp-software/noida' },
+              { name: 'Delhi', href: '/erp-software/delhi' },
+              { name: 'Ghaziabad', href: '/erp-software/ghaziabad' },
+            ]}
+          />
         </Entry>
         <Entry name="PackagePlate" file="blocks/PackagePlate.tsx" use="Package hero, platform hero">
           <div className="lib__narrow">

@@ -15,6 +15,7 @@ export function llmsTxt(routes: readonly Route[]) {
   const group = (test: (path: string) => boolean) => live.filter((route) => test(route.path)).map(line);
   const isModule = (path: string) => path.startsWith('/modules/');
   const isIndustry = (path: string) => path.startsWith('/industries');
+  const isCity = (path: string) => path.startsWith('/erp-software');
   const isPlatform = (path: string) => path === '/platform' || path === '/erp-connect' || Object.values(packs).some((pack) => pack.page === path);
 
   return [
@@ -43,13 +44,17 @@ export function llmsTxt(routes: readonly Route[]) {
     '',
     ...group(isIndustry),
     '',
+    '## Locations',
+    '',
+    ...group(isCity),
+    '',
     '## Modules',
     '',
     ...group(isModule),
     '',
     '## Company',
     '',
-    ...group((path) => !isModule(path) && !isIndustry(path) && !isPlatform(path)),
+    ...group((path) => !isModule(path) && !isIndustry(path) && !isCity(path) && !isPlatform(path)),
     '',
   ].join('\n');
 }
