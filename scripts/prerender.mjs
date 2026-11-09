@@ -90,3 +90,7 @@ await writeFile(
 await rm(ssr, { recursive: true, force: true });
 await rm(path.join(dist, '.vite'), { recursive: true, force: true });
 console.log(`prerendered ${written.length} pages for ${site.url}:\n  ${written.join('\n  ')}`);
+
+// Draft pages (content written before launch, noindex, out of the sitemap): launch QA needs this list empty.
+const drafts = routes.filter((route) => route.draft).map((route) => route.path);
+if (drafts.length) console.log(`\n${drafts.length} draft pages (noindex, not in the sitemap; replace before launch):\n  ${drafts.join('\n  ')}`);

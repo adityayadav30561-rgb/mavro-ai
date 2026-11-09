@@ -9,7 +9,7 @@
 
 .ind__tabs {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
   gap: .75rem;
 }
 
@@ -450,4 +450,23 @@
 
 .ind__page:hover .icon {
   translate: .1875rem 0;
+}
+
+/* Under the panel: the hub with every industry. */
+.ind__all {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.ind__all a {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+.ind__all a:hover {
+  text-decoration: underline;
+  text-underline-offset: .2em;
 }

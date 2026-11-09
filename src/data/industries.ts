@@ -10,18 +10,26 @@
  * and any certification the decks do not state.
  */
 import type { IconName } from '../components/Icon';
+import type { ScreenName } from '../components/Screen';
+import { draftIndustries } from './industries-draft';
 import type { IndustrySlug } from './home';
 import type { ModuleSlug } from './modules';
 
 export interface IndustryContent {
   slug: IndustrySlug;
+  /**
+   * Set on a page written before launch beyond what the decks say (user, 2026-11-09: "invent the claims, we will
+   * remove and add real things once we are ready to launch the site"): what on the page is invented. A draft page
+   * is noindex and left out of the sitemap, and the build lists it; launch QA (Phase 28) needs none left.
+   */
+  draft?: string;
   seo: { title: string; description: string };
   hero: { lead: string; facts: { value: string; label: string }[] };
   /** The hero's screens: the industry's own screen, optionally a module screen behind it and a phone in front. */
   screens: {
-    lead: { screen: `industries/${string}`; alt: string };
-    behind?: { screen: `${ModuleSlug}/${string}` };
-    phone?: { screen: `industries/${string}` | `platform/${string}` | `${ModuleSlug}/${string}`; alt: string };
+    lead: { screen: ScreenName; alt: string };
+    behind?: { screen: ScreenName };
+    phone?: { screen: ScreenName; alt: string };
   };
   gaps: { title: string; rest: string; lead: string; items: { icon: IconName; title: string; tag: string; points: string[] }[] };
   /** The module each flow stage opens, by its label in the homepage card (core and middle stages alike). */
@@ -43,8 +51,8 @@ export const industryTemplate = {
   modulesMore: 'See the module',
   storiesTitle: { title: 'What clients', rest: 'changed with MAVRO.' },
   storiesLead: 'Recent projects delivered by SaiSatwik Technologies. Clients are anonymised; the results are verified.',
-  faq: { title: 'Questions about MAVRO for', lead: 'Answers from the product decks.' },
-  cta: { title: 'See MAVRO', rest: 'run your process.', body: 'A demo built around your own documents, approvals and plants, and a 25–30 day plan to go live.' },
+  faq: { title: 'Questions about MAVRO for', lead: 'Answers from the product decks.', draftLead: 'How MAVRO’s modules fit this industry.' },
+  cta: { title: 'See MAVRO', rest: 'run your process.', body: 'A demo built around your own documents, approvals and sites, and a 25–30 day plan to go live.' },
 };
 
 export const industryContent: IndustryContent[] = [
@@ -510,4 +518,68 @@ export const industryContent: IndustryContent[] = [
   },
 ];
 
+industryContent.push(...draftIndustries);
+
+/** Industry pages still carrying draft content (see `draft`). */
+export const draftIndustryPages = industryContent.filter((content) => content.draft).map((content) => content.slug);
+
 export const contentFor = (slug: IndustrySlug) => industryContent.find((content) => content.slug === slug);
+
+/** The industries hub, /industries: every industry the site names, linked to its page. */
+export const industriesHub = {
+  seo: {
+    title: 'ERP for every industry in India | MAVRO',
+    description:
+      'MAVRO is the Super ERP for Indian businesses in every industry: manufacturing, distribution, pharma, IT and professional services, printing and packaging, retail, logistics, textiles, food, chemicals, construction and agriculture.',
+  },
+  crumb: 'Industries',
+  hero: {
+    title: 'One ERP,',
+    rest: 'configured for every industry.',
+    lead: 'Every business takes an order and gets paid. What happens in between differs by industry, so MAVRO keeps the same core and configures the middle: the modules, the working record and what each step is traced by.',
+  },
+  grid: {
+    title: 'Find',
+    rest: 'your industry.',
+    lead: 'Each industry has its own page: the order flow with every stage linked to its module, the modules it runs on and the compliance built in.',
+    more: 'MAVRO for',
+    modules: 'Runs on',
+  },
+  core: {
+    title: 'The same core',
+    rest: 'in every industry.',
+    lead: 'What does not change from one industry to the next.',
+    tiles: [
+      { icon: 'database', title: 'One set of business data', body: 'Customers, items, pricing, GST, inventory, ledgers, roles and audit, shared by every module.' },
+      { icon: 'rules', title: 'Configured, not rewritten', body: 'Each industry’s middle steps are configured on the same platform, so an upgrade reaches every business at once.' },
+      { icon: 'receipt', title: 'Indian compliance built in', body: 'GST, e-invoicing, e-way bills and statutory payroll in the modules that create the records.' },
+      { icon: 'link', title: 'Alongside your ERP', body: 'ERP Connect syncs two ways with SAP, Oracle, Tally or a legacy ERP, so modules can be added without a replacement.' },
+      { icon: 'layers', title: 'Base, portals and premium', body: 'Core ERP and HR and payroll, portals for vendors and the sales channel, and premium modules for specialised operations.' },
+      { icon: 'rocket', title: 'Live in 25–30 days', body: 'A phased implementation: priority modules first, then the rest as the team settles in.' },
+    ] satisfies { icon: IconName; title: string; body: string }[],
+  },
+  faq: {
+    title: 'Questions about',
+    rest: 'MAVRO by industry',
+    lead: 'What businesses ask about fitting MAVRO to their industry.',
+    items: [
+      {
+        q: 'Which industries does MAVRO serve?',
+        a: 'MAVRO is built for Indian businesses in every industry. It has pages for manufacturing, distribution, pharma, IT and professional services, printing and packaging, retail and ecommerce, logistics, textiles and apparel, food and beverage, chemicals, construction and real estate, and agriculture and plantations.',
+      },
+      {
+        q: 'Is MAVRO a different product for each industry?',
+        a: 'No. Every industry runs on the same platform and the same set of business data. The order’s start (enquiry, quotation, order) and end (invoice, payment) are shared; the steps in between are configured with the modules that industry needs.',
+      },
+      {
+        q: 'My industry is not listed. Can MAVRO still fit?',
+        a: 'Most likely. Every business takes an order and gets paid, and MAVRO’s base modules, portals and premium modules cover finance, sales, supply chain, production, people and data. A demo built around your own documents and approvals shows the fit.',
+      },
+      {
+        q: 'Does MAVRO include Indian compliance for every industry?',
+        a: 'Yes. GST with e-invoicing, GSTR returns and ITC reconciliation, e-way bills and statutory payroll with PF, ESI, TDS and PT are built into the modules for every industry.',
+      },
+    ],
+  },
+  cta: { title: 'See MAVRO', rest: 'run your process.', body: 'A demo built around your own documents and approvals, and a 25–30 day plan to go live.' },
+};

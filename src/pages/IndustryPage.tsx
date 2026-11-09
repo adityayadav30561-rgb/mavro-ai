@@ -108,7 +108,7 @@ export function Page() {
         id="faq"
         title={`${t.faq.title} ${industry.name.toLowerCase()}`}
         treatment="mark"
-        lead={t.faq.lead}
+        lead={content.draft ? t.faq.draftLead : t.faq.lead}
         items={content.faq}
       />
 

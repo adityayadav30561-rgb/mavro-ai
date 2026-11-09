@@ -267,6 +267,56 @@ const paths = {
       <circle cx="18" cy="5.5" r="2.2" className="i-fill" />
     </>
   ),
+  /* Industry icons (the /industries hub and the Solutions menu). */
+  printer: (
+    <>
+      <path d="M7 8V3.5h10V8" />
+      <path d="M7 16.5H4.5V8h15v8.5H17" />
+      <path d="M7 13h10v7.5H7z" className="i-fill-soft" />
+      <circle cx="16.5" cy="10.5" r="1" className="i-fill" />
+    </>
+  ),
+  cart: (
+    <>
+      <path d="M3 4h2.5l2.2 10.5h10.8L20.5 7H6.6" />
+      <circle cx="9" cy="19" r="1.6" />
+      <circle cx="17" cy="19" r="1.6" className="i-fill" />
+    </>
+  ),
+  shirt: (
+    <>
+      <path d="M9 3.5 4 6l1.5 4.5 2.5-1v11h8v-11l2.5 1L20 6l-5-2.5" />
+      <path d="M9 3.5a3 3 0 0 0 6 0" className="i-fill-soft" />
+    </>
+  ),
+  cup: (
+    <>
+      <path d="M5 8h11v6.5a5.5 5.5 0 0 1-11 0z" />
+      <path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16" />
+      <path d="M8.5 3.5v2M12 3.5v2" />
+      <circle cx="10.5" cy="13" r="1.4" className="i-fill" />
+    </>
+  ),
+  flask: (
+    <>
+      <path d="M9.5 3.5h5M10.5 3.5v6L5 19a1 1 0 0 0 .9 1.5h12.2A1 1 0 0 0 19 19l-5.5-9.5v-6" />
+      <path d="M7.5 15h9l1.6 3.5H5.9z" className="i-fill-soft" />
+    </>
+  ),
+  building: (
+    <>
+      <path d="M4.5 20.5V8l7-4.5 7 4.5v12.5" />
+      <path d="M3 20.5h18M9 20.5V15h6v5.5" />
+      <rect x="10.5" y="9" width="3" height="3" rx="0.6" className="i-fill" />
+    </>
+  ),
+  leaf: (
+    <>
+      <path d="M5 19c0-8 5-13.5 14.5-14.5C19 13.5 13.5 19 5 19z" />
+      <path d="M5 19 13 11" />
+      <circle cx="15.5" cy="8.5" r="1.4" className="i-fill" />
+    </>
+  ),
   rules: (
     <>
       <path d="M4 7h8.5M17.5 7H20M4 17h2.5M11.5 17H20" />

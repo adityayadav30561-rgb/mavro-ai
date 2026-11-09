@@ -219,7 +219,19 @@ export const implementation = {
   ] satisfies { icon: IconName; title: string; body: string }[],
 };
 
-export type IndustrySlug = 'manufacturing' | 'distribution' | 'pharma' | 'service-providers';
+export type IndustrySlug =
+  | 'manufacturing'
+  | 'distribution'
+  | 'pharma'
+  | 'service-providers'
+  | 'printing-packaging'
+  | 'retail-ecommerce'
+  | 'logistics'
+  | 'textiles-apparel'
+  | 'food-beverage'
+  | 'chemicals'
+  | 'construction-real-estate'
+  | 'agriculture-plantation';
 
 export interface Industry {
   name: string;
@@ -236,6 +248,8 @@ export interface Industry {
   fulfil: string;
   /** Modules featured in Explore the platform; each chip opens that module there. */
   modules: string[];
+  /** One of the homepage tabs and the Solutions menu's industries; the rest are on /industries. */
+  featured?: boolean;
 }
 
 /**
@@ -251,12 +265,15 @@ export const industries = {
   shared: 'Customers, items, pricing, GST, inventory, ledgers, roles and audit',
   core: { start: ['Enquiry', 'Quotation', 'Order'], end: ['Invoice', 'Payment'] },
   modulesLabel: 'Modules to see',
+  /** Under the tabs and in the Solutions menu: the hub with every industry. */
+  all: { label: 'All industries', href: '/industries' },
   /** Under the points, once the industry has its page: "MAVRO for pharma". */
   pageLink: 'MAVRO for',
   list: [
     {
       name: 'Manufacturing',
       slug: 'manufacturing',
+      featured: true,
       icon: 'production',
       who: 'OEM suppliers and multi-line plants',
       title: 'OEM and aftermarket lines, run from one plan.',
@@ -274,6 +291,7 @@ export const industries = {
     {
       name: 'Distribution',
       slug: 'distribution',
+      featured: true,
       icon: 'distribution',
       who: 'Dealer, distributor and retail networks',
       title: 'Your whole channel on one order book.',
@@ -291,6 +309,7 @@ export const industries = {
     {
       name: 'Pharma',
       slug: 'pharma',
+      featured: true,
       icon: 'quality',
       who: 'Multi-plant, GMP-regulated manufacturing',
       title: 'Batch records, QC release and shelf life, built in.',
@@ -308,6 +327,7 @@ export const industries = {
     {
       name: 'Service providers',
       slug: 'service-providers',
+      featured: true,
       icon: 'workflow',
       who: 'IT companies and professional services',
       title: 'Projects, people and costs on one system.',
@@ -322,8 +342,148 @@ export const industries = {
       fulfil: 'Handover',
       modules: ['prj', 'hrms', 'acc', 'o2c'],
     },
+    {
+      name: 'Printing and packaging',
+      slug: 'printing-packaging',
+      featured: true,
+      icon: 'printer',
+      who: 'Commercial printers and packaging converters',
+      title: 'Every job planned, costed and shipped on time.',
+      points: [
+        'Job-wise BOM and routing: board, ink, plates and press time on every job card',
+        'Press schedules by machine and shift, with live output and downtime',
+        'Paper and board stock by lot, bought before a job runs short',
+      ],
+      record: 'Job card',
+      trace: 'Job and lot number',
+      middle: ['Job planning', 'Prepress', 'Press run', 'Finishing'],
+      fulfil: 'Dispatch',
+      modules: ['ppds', 'prd', 'sfc', 'inv', 'o2c'],
+    },
+    {
+      name: 'Retail and ecommerce',
+      slug: 'retail-ecommerce',
+      icon: 'cart',
+      who: 'Retail chains, D2C brands and marketplace sellers',
+      title: 'Stores, marketplaces and stock on one order book.',
+      points: [
+        'Marketplace and webstore orders and returns in one order book',
+        'Stock by store and warehouse, picked and packed with barcodes',
+        'A retailer app for ordering, offers and loyalty',
+      ],
+      record: 'Customer order',
+      trace: 'SKU and batch',
+      middle: ['Channel sync', 'Allocation', 'Pick and pack', 'Ship'],
+      fulfil: 'Delivery',
+      modules: ['ecm', 'o2c', 'wms', 'inv', 'retailer'],
+    },
+    {
+      name: 'Logistics',
+      slug: 'logistics',
+      icon: 'transport',
+      who: 'Transporters, 3PLs and warehousing companies',
+      title: 'Loads, fleet and proof of delivery, live.',
+      points: [
+        'Shipments built into loads and lanes and tracked to proof of delivery',
+        'Vehicles, trips, fuel and maintenance on one fleet register',
+        'Bin-level warehousing with inbound putaway and RF picking',
+      ],
+      record: 'Shipment',
+      trace: 'Consignment and vehicle',
+      middle: ['Booking', 'Load planning', 'Gate out', 'In transit'],
+      fulfil: 'Proof of delivery',
+      modules: ['tms', 'flt', 'wms', 'gte', 'acc'],
+    },
+    {
+      name: 'Textiles and apparel',
+      slug: 'textiles-apparel',
+      icon: 'shirt',
+      who: 'Spinning, weaving, garment and home textile units',
+      title: 'From fabric lot to finished carton, traced.',
+      points: [
+        'Style and size-wise BOM and routing through cutting, stitching and finishing',
+        'Job workers and contract labour costed, with their compliance checked',
+        'Fabric and trims by lot across stores and job workers',
+      ],
+      record: 'Production order',
+      trace: 'Style and fabric lot',
+      middle: ['Sampling', 'Cutting', 'Stitching', 'Finishing'],
+      fulfil: 'Dispatch',
+      modules: ['prd', 'sfc', 'inv', 'clp', 'hrms'],
+    },
+    {
+      name: 'Food and beverage',
+      slug: 'food-beverage',
+      icon: 'cup',
+      who: 'Food processors, dairies and beverage makers',
+      title: 'Batches, shelf life and the route to market in one flow.',
+      points: [
+        'Batch production with yields, and QC release before stock moves',
+        'Expiry tracked and stock picked first-expiry-first-out on every order line',
+        'Distributor orders with schemes checked at order entry',
+      ],
+      record: 'Batch',
+      trace: 'Batch and expiry',
+      middle: ['Procurement', 'Processing', 'QC release', 'Packing'],
+      fulfil: 'Dispatch',
+      modules: ['prd', 'inv', 'o2c', 'distributor', 'snr'],
+    },
+    {
+      name: 'Chemicals',
+      slug: 'chemicals',
+      icon: 'flask',
+      who: 'Speciality chemical, paint and process manufacturers',
+      title: 'Formulas, batches and documents on one record.',
+      points: [
+        'Batches made against a master recipe, with yields and QC release',
+        'Batch and lot traceability from raw material to customer',
+        'Vendor audits and versioned documents for every material',
+      ],
+      record: 'Batch record',
+      trace: 'Batch and lot',
+      middle: ['Batch planning', 'Processing', 'QC release', 'Filling'],
+      fulfil: 'Dispatch',
+      modules: ['ppds', 'prd', 'inv', 'mvl', 'dms'],
+    },
+    {
+      name: 'Construction and real estate',
+      slug: 'construction-real-estate',
+      icon: 'building',
+      who: 'Contractors, developers and property owners',
+      title: 'Projects, sites and properties on one ledger.',
+      points: [
+        'Projects tracked against budget, milestones and change requests',
+        'Site materials, contract labour and equipment costed to the project',
+        'Properties, leases and rent in one register',
+      ],
+      record: 'Project',
+      trace: 'Site and milestone',
+      middle: ['Planning', 'Procurement', 'Site work', 'Inspection'],
+      fulfil: 'Handover',
+      modules: ['prj', 'p2p', 'clp', 'ast', 'res'],
+    },
+    {
+      name: 'Agriculture and plantations',
+      slug: 'agriculture-plantation',
+      icon: 'leaf',
+      who: 'Plantations, agri-processors and forest-product exporters',
+      title: 'Every plot, harvest and lot traced to the buyer.',
+      points: [
+        'Plots mapped and harvests logged, with chain of custody to every lot',
+        'EUDR due-diligence statements built from the plot and lot records',
+        'Seasonal workers rostered, marked present and paid with statutory deductions',
+      ],
+      record: 'Harvest lot',
+      trace: 'Plot and lot',
+      middle: ['Plot mapping', 'Harvest', 'Processing', 'Chain of custody'],
+      fulfil: 'Dispatch',
+      modules: ['fsc', 'ros', 'hrms', 'inv', 'o2c'],
+    },
   ] satisfies Industry[],
 };
+
+/** The industries on the homepage tabs and in the Solutions menu; /industries lists them all. */
+export const featuredIndustries = industries.list.filter((industry) => industry.featured);
 
 export const showcase = {
   title: 'Powerful operations.',
@@ -436,7 +596,7 @@ export const faq = {
     {
       q: 'Who is MAVRO ERP built for?',
       a: 'MAVRO is built for businesses in every industry that need finance, operations, HR and channel data in one place, in real time, with Indian compliance built in: multi-plant manufacturers and OEM suppliers, distributors with dealer and retailer networks, pharma and healthcare, IT and professional services, printing and packaging, retail, logistics and more.',
-      link: { label: 'See industries', href: '#industries' },
+      link: { label: 'See industries', href: '/industries' },
     },
     {
       q: 'Which modules does MAVRO include?',

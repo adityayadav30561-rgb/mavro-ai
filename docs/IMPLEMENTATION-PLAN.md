@@ -267,7 +267,9 @@ has its 3–4 bespoke screens, and its links (menu, related modules, package dat
   template; performance pass (image sizes, chunking, Lighthouse); `robots.txt`, `sitemap.xml`, canonical URLs on
   the production domain (once decided); docs final (README, STATUS, a short "how to add a module page" guide).
 - **Depends on:** 27.
-- **Done when:** every check above passes or is listed with the user's sign-off; Stage C closed in STATUS.md.
+- **Done when:** every check above passes or is listed with the user's sign-off; **no draft pages left** (`npm run
+  build` lists none: every industry page's `draft` replaced with real material, DECISIONS.md "No invented claims");
+  Stage C closed in STATUS.md.
 
 ---
 
@@ -291,6 +293,9 @@ printing and pharma alongside manufacturing and distribution). **India first**, 
 own pages, then **the UAE and the GCC countries**.
 
 ### D1: Content optimisation
+
+**Done 2026-11-09** (STATUS.md, "Most recent work"): repositioned for every industry, `/industries` hub, eight
+draft industry pages. Left for an optional D1b: a copy polish of the module, platform and package pages.
 
 - **Goal:** every page's copy is clear, consistent and persuasive for a business buyer in **any industry** in India
   (the user: "we serve all type of industries"), without adding a single product fact the decks do not state.

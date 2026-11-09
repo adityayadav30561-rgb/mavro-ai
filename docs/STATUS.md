@@ -4,12 +4,13 @@ _Last updated: 2026-11-09. Update this file at the end of every task and before 
 
 ## Where we are
 
-**Phases 1–27 done (2026-10-31), and the homepage hero redrawn with anidoodle (2026-10-31). Next, in the user's
-order, each in its own session: D1 content optimisation (for every industry) → D2 SEO, AEO and GEO (India) →
-Phase 28 launch QA → D3 Indian city pages → D4 UAE and GCC → D5 high-volume module queries**
+**Phases 1–27 done (2026-10-31), the homepage hero redrawn with anidoodle (2026-10-31), and D1 content optimisation
+done (2026-11-09: the Super ERP for Indian businesses in every industry, an `/industries` hub and eight draft
+industry pages). Next, in the user's order, each in its own session: D2 SEO, AEO and GEO (India) → Phase 28 launch
+QA → D3 Indian city pages → D4 UAE and GCC → D5 high-volume module queries**
 ([IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md), Stage D; the user's market and audience in DECISIONS.md). Every planned page with content exists
-(58 prerendered: 42 module pages, platform and package pages, ERP Connect, four industries, implementation,
-security, customers, contact, 404); Company, Privacy, Terms, the blog and careers wait for the user's text (Open
+(66 prerendered: 42 module pages, platform and package pages, ERP Connect, the industries hub and twelve industry
+pages (eight of them drafts), implementation, security, customers, contact, 404); Company, Privacy, Terms, the blog and careers wait for the user's text (Open
 items). The site plan ([SITE-PLAN.md](SITE-PLAN.md)) was approved on 2026-10-23. See [WORKFLOW.md](WORKFLOW.md).
 
 **Starting a new session (any machine or account):** `git checkout main && git pull origin main`; read CLAUDE.md,
@@ -41,6 +42,35 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-11-09, **D1 content optimisation: every industry.** On `main`, two commits.
+  - **Repositioning** (user's picks): hero "The Super ERP / for Indian businesses.", a lead naming core ERP, HR and
+    payroll, portals and specialised modules for every industry; site title and description, the FAQ ("What is",
+    "Who is it for"), the industries lead, the footer note and the Base package title no longer say "manufacturers
+    and distributors" only.
+  - **Industries:** twelve in `industries.list` (home.ts): the four existing plus **printing and packaging, retail
+    and ecommerce, logistics, textiles and apparel, food and beverage, chemicals, construction and real estate,
+    agriculture and plantations**. `featured` marks the five on the homepage tabs and in the Solutions menu,
+    drawer and footer (manufacturing, distribution, pharma, service providers, printing and packaging), followed by
+    "All industries". Left out on purpose: staffing (Contract Labour Supply/Purchase are the principal employer's
+    side, so a manpower-supplier page would be mis-grounded), FMCG (inside distribution and food), automotive
+    (inside manufacturing), education and shipping (no modules for them).
+  - **`/industries` hub** (`pages/IndustriesHub.tsx`, content `industriesHub` in industries.ts): every industry as a
+    card (new block **IndustryGrid**, in the library and LIBRARY.md), the shared core as six tiles, FAQ (FAQPage
+    JSON-LD), CTA; in the sitemap. Industry breadcrumbs are now Industries → industry. The homepage FAQ's "See
+    industries" and a "See all 12 industries" link under the tabs open it.
+  - **Draft pages** (user: "invent the claims, we will remove and add real things once we are ready to launch"):
+    the eight new pages live in `src/data/industries-draft.ts`, each with `draft` set. A draft page is **noindex,
+    out of the sitemap, and listed at the end of `npm run build`**; its FAQ lead says "How MAVRO's modules fit this
+    industry" instead of "Answers from the product decks". Grounded: every capability line names what a module's
+    own page says; every screen is a module screen with that module's own alt text (`shot()`). Invented: the
+    framing, the three gaps, two hero facts per page, the FAQ wording. Never invented: figures, customers,
+    results, certifications, named-regulation claims. New icons: printer, cart, shirt, cup, flask, building, leaf.
+  - Checked: `qa/pagecheck.cjs` on /, /industries, all eight drafts, manufacturing and /_library at 1440, 1366, 390
+    (one H1, no overflow, no broken images, no errors); homepage industries section 1.11 screens (was 1.03) with
+    five tabs and the hub link; build passes; linkcheck 66 pages, no dead links.
+  - **Not done in D1 (D1b, optional, ask the user):** a copy polish of the 42 module pages and the platform and
+    package pages; they were written from the decks and already serve every industry.
 
 - 2026-11-09, **Inner-page demo buttons open `/contact`; the user's market strategy recorded.** On `main`.
   - **Demo links** (user: yes): every "Request a demo" off the homepage and Contact (page buttons, CTA bands, inline
@@ -870,9 +900,7 @@ items when context is heavy.
 
 ## Next steps
 
-1. **D1: Content optimisation** (its own session; IMPLEMENTATION-PLAN.md, Stage D): reposition the copy for every
-   industry (the user: IT, printing, pharma and all). Ask the user first for the industries to name, a new hero
-   headline (offer options) and whether more industry pages are wanted.
+1. **D1 is done** (2026-11-09). Before launch, the eight draft industry pages need real material (Open items).
 2. **D2: SEO, AEO and GEO for India** (its own session). Ask the user first for the inputs listed there: the
    production domain, a share image, official profiles, the AI-crawler policy, pricing/hosting answers, the Company
    page text.
@@ -887,7 +915,8 @@ items when context is heavy.
 |---|---|---|
 | Production domain | `site.url` in `src/data/site.ts` | `https://mavro.example` placeholder |
 | Demo form endpoint | `site.demoEndpoint` in `src/data/site.ts` | `null`, so the form opens a pre-filled email to contact@saisatwik.com. Set a form service URL (Formspree, Basin, HubSpot or MAVRO's own API) that accepts a JSON POST to receive requests directly |
-| Industry list | `industries` in `src/data/home.ts` | Manufacturing, Distribution, Pharma, Service providers (Service providers replaced Exporters at the user's request, 2026-10-23). Confirm with the user before launch |
+| **Draft industry pages** | `src/data/industries-draft.ts` (`draft` on each) | **eight drafts**: printing and packaging, retail and ecommerce, logistics, textiles and apparel, food and beverage, chemicals, construction and real estate, agriculture and plantations. Noindex and out of the sitemap; `npm run build` lists them. Before launch: replace the invented framing, gaps, hero facts and FAQ with real material, ideally give each its own industry screen (they reuse module screens, e.g. a machining schedule on the printing page), then delete `draft`. Phase 28 needs none left |
+| Industry list | `industries` in `src/data/home.ts` | twelve (user, 2026-11-09: "all other major industries which use erp or the erp modules we have made"); five featured. Confirm before launch |
 | Testimonials / case studies | `proof` in `src/data/home.ts` | three anonymised stories from deck slide 23 (approved 2026-10-23). Named stories, quotes or logos per story only with the client's approval |
 | Social share image | `src/seo/head.ts` | none |
 | FAQ: pricing and hosting | `faq.items` in home.ts | not answered: the decks do not state a pricing model, deployment options beyond "cloud-native" or data ownership terms. Add those questions once the user supplies the answers |

@@ -122,7 +122,11 @@ From the connectivity deck plus the B1 flow deck:
 9. FAQ + CTA.
 Real screens: the MAVRO App's boutique screen for an ERP user, and a mobile approval screen.
 
-### 3.5 Industry pages (4)
+### 3.5 Industry pages (12) and the industries hub
+
+**D1 (2026-11-09):** twelve industries, five featured on the homepage and in the menu; eight are drafts until launch
+(`src/data/industries-draft.ts`). `/industries` lists them all (IndustryGrid cards, the shared core, FAQ, CTA);
+breadcrumbs run Industries → industry.
 
 | # | Section | Content |
 |---|---|---|

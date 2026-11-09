@@ -1,0 +1,110 @@
+/* Industry cards (blocks/IndustryGrid.tsx): icon, name and who, headline, module chips, link. */
+.ig {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(.875rem, 1.6vw, 1.5rem);
+}
+
+.ig__item {
+  display: flex;
+}
+
+.ig__card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: var(--r-3);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
+  transition:
+    transform var(--d-2) var(--ease),
+    box-shadow var(--d-2) var(--ease);
+}
+
+a.ig__card:hover {
+  transform: translateY(-.25rem);
+  box-shadow: var(--shadow-float);
+}
+
+a.ig__card:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.ig__head {
+  display: flex;
+  align-items: center;
+  gap: .875rem;
+}
+
+.ig__icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--r-3);
+  background: var(--blue-50);
+  color: var(--blue);
+}
+
+.ig__name {
+  display: grid;
+  gap: .125rem;
+}
+
+.ig__name b {
+  font-size: var(--t-h3);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.ig__name span {
+  font-size: .875rem;
+  color: var(--ink-3);
+}
+
+.ig__title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.ig__mods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .375rem;
+}
+
+.ig__mods span {
+  padding: .25rem .625rem;
+  border-radius: var(--r-pill);
+  background: var(--paper);
+  font-size: .8125rem;
+  color: var(--ink-2);
+}
+
+.ig__more {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  margin-top: auto;
+  font-size: .9375rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+@media (max-width: 1023px) {
+  .ig {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .ig {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

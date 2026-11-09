@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Icon, type IconName } from '../components/Icon';
-import { industries } from '../data/home';
+import { featuredIndustries as list, industries } from '../data/home';
 import { catalogue, channelPortals, moduleById, modulePage, packs, vendorPortal, type Pack } from '../data/modules';
 import { hasPage } from '../links';
 import { useTabs, vars } from '../motion/hooks';
@@ -30,14 +30,14 @@ function moduleLink(id: string): { name: string; icon: IconName; pack: Pack; pag
  * the module's own page (until one exists, that module in Explore the platform, via data-module).
  */
 export function Industries() {
-  const { active, select, tabProps, panelProps } = useTabs(industries.list.length, 'industry');
-  const industry = industries.list[active];
+  const { active, select, tabProps, panelProps } = useTabs(list.length, 'industry');
+  const industry = list[active];
 
   // #industry-pharma (the header's Solutions links, until the industry pages exist) scrolls here, to the marker
   // below, and picks that industry's tab.
   useEffect(() => {
     const fromHash = (hash: string) => {
-      const index = industries.list.findIndex((item) => `#industry-${item.slug}` === hash);
+      const index = list.findIndex((item) => `#industry-${item.slug}` === hash);
       if (index >= 0) select(index);
     };
     fromHash(window.location.hash);
@@ -63,7 +63,7 @@ export function Industries() {
 
   return (
     <section id="industries" className="section section--paper ind" aria-labelledby="ind-title">
-      {industries.list.map((item) => (
+      {list.map((item) => (
         <span key={item.slug} id={`industry-${item.slug}`} className="ind__anchor" aria-hidden="true" />
       ))}
       <div className="page">
@@ -75,8 +75,8 @@ export function Industries() {
         </header>
 
         <div className="ind__wrap" data-reveal>
-          <div className="ind__tabs" role="tablist" aria-label="Industry">
-            {industries.list.map((item, index) => (
+          <div className="ind__tabs" role="tablist" aria-label="Industry" style={vars({ '--n': list.length })}>
+            {list.map((item, index) => (
               <button key={item.name} type="button" className="ind__tab" {...tabProps(index)}>
                 <span className="ind__tab-icon">
                   <Icon name={item.icon} size={20} />
@@ -158,6 +158,15 @@ export function Industries() {
             </div>
           </div>
         </div>
+
+        {hasPage(industries.all.href) && (
+          <p className="ind__all">
+            <a href={industries.all.href}>
+              See all {industries.list.length} industries
+              <Icon name="arrow" size={14} />
+            </a>
+          </p>
+        )}
       </div>
     </section>
   );

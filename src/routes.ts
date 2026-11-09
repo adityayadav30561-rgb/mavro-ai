@@ -3,7 +3,7 @@ import { blogPage, careersPage, companyText, contactPage, customersPage, opening
 import { erpConnect } from './data/erp-connect';
 import { faq, industries } from './data/home';
 import { implementationPage } from './data/implementation';
-import { industryContent } from './data/industries';
+import { industriesHub, industryContent } from './data/industries';
 import { securityPage } from './data/security';
 import { entryBySlug, moduleContent, modulePage, packs } from './data/modules';
 import { notFound, pipelineCheck } from './data/pages';
@@ -40,6 +40,9 @@ export interface Route {
   inSitemap: boolean;
   /** Sitemap priority (default 0.8). */
   priority?: number;
+  /** Draft content to replace before launch (an industry page's `draft`); such a route is noindex, out of the
+   *  sitemap, and the build lists it. */
+  draft?: string;
 }
 
 const home: Route = {
@@ -144,21 +147,37 @@ const erpConnectRoute: Route = {
   schema: () => [faqPage(`${site.url}/erp-connect#faq`, erpConnect.faq)],
 };
 
-/** One page per industry with content in src/data/industries.ts (the template: src/pages/IndustryPage.tsx). */
-const industryRoutes: Route[] = industryContent.map((content) => {
-  const industry = industries.list.find((item) => item.slug === content.slug)!;
-  const path = `/industries/${industry.slug}`;
-  return {
-    path,
-    page: 'IndustryPage',
-    title: content.seo.title,
-    description: content.seo.description,
-    crumbs: [{ name: industry.name, path }],
+const hubCrumb: Crumb = { name: industriesHub.crumb, path: '/industries' };
+
+/** The industries hub and one page per industry with content in src/data/industries.ts (the template:
+ *  src/pages/IndustryPage.tsx). Draft industry pages are noindex and out of the sitemap until launch. */
+const industryRoutes: Route[] = [
+  {
+    path: '/industries',
+    page: 'IndustriesHub',
+    title: industriesHub.seo.title,
+    description: industriesHub.seo.description,
+    crumbs: [hubCrumb],
     inSitemap: true,
-    priority: 0.8,
-    schema: () => [faqPage(`${site.url}${path}#faq`, content.faq)],
-  };
-});
+    priority: 0.9,
+    schema: () => [faqPage(`${site.url}/industries#faq`, industriesHub.faq.items)],
+  },
+  ...industryContent.map((content): Route => {
+    const industry = industries.list.find((item) => item.slug === content.slug)!;
+    const path = `/industries/${industry.slug}`;
+    return {
+      path,
+      page: 'IndustryPage',
+      title: content.seo.title,
+      description: content.seo.description,
+      crumbs: [hubCrumb, { name: industry.name, path }],
+      inSitemap: !content.draft,
+      priority: 0.8,
+      draft: content.draft,
+      schema: () => [faqPage(`${site.url}${path}#faq`, content.faq)],
+    };
+  }),
+];
 
 const trustRoutes: Route[] = [
   {

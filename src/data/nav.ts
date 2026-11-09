@@ -1,6 +1,6 @@
 import type { IconName } from '../components/Icon';
 import type { Link } from '../links';
-import { industries, proof } from './home';
+import { featuredIndustries, industries, proof } from './home';
 import { modulePage, moduleById, packs, portals, type Module, type Pack, type Portal } from './modules';
 import { site } from './site';
 
@@ -111,13 +111,23 @@ export const portalLinks = portals.map((portal) => ({ portal, link: moduleLink(p
 
 /* ---------- Solutions ---------- */
 
-export const industryLinks: NavLink[] = industries.list.map((industry) => ({
-  label: industry.name,
-  page: `/industries/${industry.slug}`,
-  fallback: `#industry-${industry.slug}`,
-  icon: industry.icon,
-  note: industry.who,
-}));
+/** The featured industries (the homepage tabs), then the hub with every industry. */
+export const industryLinks: NavLink[] = [
+  ...featuredIndustries.map((industry) => ({
+    label: industry.name,
+    page: `/industries/${industry.slug}`,
+    fallback: `#industry-${industry.slug}`,
+    icon: industry.icon,
+    note: industry.who,
+  })),
+  {
+    label: industries.all.label,
+    page: industries.all.href,
+    fallback: '#industries',
+    icon: 'layers',
+    note: `${industries.list.length} industries, one platform`,
+  },
+];
 
 export const needLinks: NavLink[] = [
   {

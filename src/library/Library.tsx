@@ -10,6 +10,7 @@ import { CtaBand } from '../blocks/CtaBand';
 import { FaqBlock } from '../blocks/FaqBlock';
 import { FlowStrip } from '../blocks/FlowStrip';
 import { InlineCta } from '../blocks/InlineCta';
+import { IndustryGrid } from '../blocks/IndustryGrid';
 import { ModuleCards } from '../blocks/ModuleCards';
 import { IntegrationHub } from '../blocks/IntegrationHub';
 import { PackageStack } from '../blocks/PackageStack';
@@ -54,6 +55,16 @@ import './library.css';
  * the route exists only under `npm run dev` and is never built (src/routes.ts). docs/LIBRARY.md documents each
  * block. Measure it like any page: qa/measure.html?path=/_library.
  */
+
+// Three industry cards from the homepage list (the hub shows them all).
+const industryCards = industries.list.slice(0, 3).map((industry) => ({
+  name: industry.name,
+  icon: industry.icon,
+  who: industry.who,
+  title: industry.title,
+  modules: ['Order to Cash', 'Inventory Management', 'Accounting'],
+  href: `/industries/${industry.slug}`,
+}));
 
 const heroes = ['module', 'industry', 'package', 'solution', 'simple'] as const;
 
@@ -205,6 +216,9 @@ export function Page() {
         </Entry>
         <Entry name="ModuleCards" file="blocks/ModuleCards.tsx" use="Package, industry, related modules">
           <ModuleCards cards={cards} more="See the module" />
+        </Entry>
+        <Entry name="IndustryGrid" file="blocks/IndustryGrid.tsx" use="Industries hub">
+          <IndustryGrid cards={industryCards} more="MAVRO for" />
         </Entry>
         <Entry name="PackagePlate" file="blocks/PackagePlate.tsx" use="Package hero, platform hero">
           <div className="lib__narrow">
