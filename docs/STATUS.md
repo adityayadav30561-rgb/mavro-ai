@@ -7,10 +7,10 @@ _Last updated: 2026-11-09. Update this file at the end of every task and before 
 **Phases 1–27 done (2026-10-31), the homepage hero redrawn with anidoodle (2026-10-31), and D1 content optimisation
 done (2026-11-09: the Super ERP for Indian businesses in every industry, an `/industries` hub and eight draft
 industry pages), and D2 SEO, AEO and GEO done (2026-11-09; the domain, profiles and Company text wait on the user).
-Phase 28 launch QA checks are done; launch waits on the user's sign-off (Launch checklist below). Then, in the
-user's order, each in its own session: D3 Indian city pages → D4 UAE and GCC → D5 high-volume module queries**
+Phase 28 launch QA checks are done; launch waits on the user's sign-off (Launch checklist below). D3 city pages
+done (25 cities, 2026-11-09). Then, in the user's order, each in its own session: D4 UAE and GCC → D5 high-volume module queries**
 ([IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md), Stage D; the user's market and audience in DECISIONS.md). Every planned page with content exists
-(66 prerendered: 42 module pages, platform and package pages, ERP Connect, the industries hub and twelve industry
+(92 prerendered: 42 module pages, 25 city pages and their index, platform and package pages, ERP Connect, the industries hub and twelve industry
 pages (eight of them drafts), implementation, security, customers, contact, 404); Company, Privacy, Terms, the blog and careers wait for the user's text (Open
 items). The site plan ([SITE-PLAN.md](SITE-PLAN.md)) was approved on 2026-10-23. See [WORKFLOW.md](WORKFLOW.md).
 
@@ -58,6 +58,43 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
     Surat: two remote Gujarat pages share the state block and delivery text); all checks clean.
   - Batch 4: Chennai, Bengaluru/Bangalore, Kolkata (team), Ludhiana (Punjab team), Hyderabad, Coimbatore (remote).
     Similarity max still 0.32; all checks clean.
+  - Batch 5: Indore (remote), Bhopal (team), Jaipur (remote), Baddi (team; no professional tax line, sources
+    conflict for Himachal Pradesh). **D3 done: 25 city pages + index**; similarity max 0.32 over 300 pairs; sweep 26
+    pages × 9 sizes, a11y, seocheck, linkcheck (91 pages, depth ≤ 2) clean.
+  - **What each city needs from the user:** nothing to publish. To strengthen any page: an address for the cities
+    with a team or partner (then LocalBusiness markup can be added), approved client names per city, and the city
+    list's next additions.
+
+#### City pages (D3)
+
+| City | State | Presence |
+|---|---|---|
+| Greater Noida | uttar-pradesh | Head office (address, ProfessionalService markup) |
+| Pune | maharashtra | Team or partner (user list) |
+| Surat | gujarat | Remote, on site when agreed |
+| Delhi | delhi | Team or partner (user list) |
+| Noida | uttar-pradesh | Team or partner (user list) |
+| Gurugram (Gurgaon) | haryana | Remote, on site when agreed |
+| Faridabad | haryana | Remote, on site when agreed |
+| Ghaziabad | uttar-pradesh | Remote, on site when agreed |
+| Lucknow | uttar-pradesh | Team or partner (user list) |
+| Mumbai | maharashtra | Team or partner (user list) |
+| Ahmedabad | gujarat | Remote, on site when agreed |
+| Vadodara | gujarat | Remote, on site when agreed |
+| Rajkot | gujarat | Remote, on site when agreed |
+| Nashik | maharashtra | Remote, on site when agreed |
+| Kanpur | uttar-pradesh | Remote, on site when agreed |
+| Chennai | tamil-nadu | Team or partner (user list) |
+| Bengaluru (Bangalore) | karnataka | Team or partner (user list) |
+| Hyderabad | telangana | Remote, on site when agreed |
+| Coimbatore | tamil-nadu | Remote, on site when agreed |
+| Kolkata | west-bengal | Team or partner (user list) |
+| Ludhiana | punjab | Team or partner in Punjab (user list) |
+| Indore | madhya-pradesh | Remote, on site when agreed |
+| Bhopal | madhya-pradesh | Team or partner (user list) |
+| Jaipur | rajasthan | Remote, on site when agreed |
+| Baddi | himachal-pradesh | Team or partner (user list) |
+
 
 - 2026-11-09, **Main script split (user: "split the script now")**: launch checklist row 7 done. On `main`.
   - Module content loads per page: each `content/<slug>.ts` is its own chunk, found by `import.meta.glob`
@@ -979,7 +1016,7 @@ items when context is heavy.
 2. **D2 is done** (2026-11-09). Waiting on the user: the domain, `sameAs` profile links and the About text (at launch).
 3. **Phase 28: Launch QA** (recommended here, before the growth work): includes removing `/pipeline-check` and
    rerunning `npm run linkcheck`.
-4. **D3: Indian city pages**, then **D4: UAE and GCC pages**, then **D5: high-volume module queries** (payroll,
+4. **D3 is done** (25 city pages). Next **D4: UAE and GCC pages**, then **D5: high-volume module queries** (payroll,
    HRMS and the like), each in its own session, each starting with the questions listed in its section.
 
 ## Launch checklist (Phase 28): what needs the user

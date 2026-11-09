@@ -850,6 +850,142 @@ export const cities: City[] = [
       description: 'ERP for Ludhiana’s hosiery and knitwear makers, bicycle and bicycle part manufacturers and Focal Point auto part units: production, stock, dealers and GST.',
     },
   },
+  {
+    slug: 'indore',
+    name: 'Indore',
+    state: 'madhya-pradesh',
+    region: 'central',
+    presence: 'remote',
+    knownFor: 'auto, pharma, soya and namkeen.',
+    lead: 'For the auto component and pharma plants of Pithampur and Sanwer Road, Indore’s soya processors and namkeen makers, and the traders of central India: plants, batches, distributors, payroll with Madhya Pradesh professional tax, and GST on one system.',
+    areas: ['Pithampur industrial area', 'Sanwer Road', 'Palda', 'Dewas (nearby)'],
+    industries: [
+      { slug: 'manufacturing', note: 'Vehicle and auto component plants in Pithampur, supplying assembly lines on tight schedules.' },
+      { slug: 'pharma', note: 'Pharma formulation units in Pithampur, running batches with QC release and expiry on every line.' },
+      { slug: 'food-beverage', note: 'Soya processors and the city’s namkeen makers, selling through distributors across India with shelf life to watch.' },
+    ],
+    faq: [
+      {
+        q: 'Can a namkeen maker track shelf life to the distributor?',
+        a: 'Yes. Inventory Management tracks every batch by expiry and allocates order lines first-expiry-first-out, and the Distributor Portal lets distributors order and raise claims against the same stock.',
+      },
+      {
+        q: 'Can MAVRO run a pharma unit in Pithampur?',
+        a: 'Yes. Production Management keeps batch records with stage-wise sign-off, and no batch reaches finished goods without QC release.',
+      },
+      {
+        q: 'Does MAVRO deduct Madhya Pradesh professional tax?',
+        a: 'Yes. HRMS and Payroll deducts professional tax for employees in Madhya Pradesh alongside PF, ESI and TDS.',
+      },
+    ],
+    nearby: ['bhopal', 'vadodara', 'ahmedabad'],
+    seo: {
+      title: 'ERP software in Indore and Pithampur | MAVRO',
+      description: 'ERP for Pithampur’s auto and pharma plants, Indore’s soya processors and namkeen makers and central India traders: batches, distributors, payroll and GST.',
+    },
+  },
+  {
+    slug: 'bhopal',
+    name: 'Bhopal',
+    state: 'madhya-pradesh',
+    region: 'central',
+    presence: 'team',
+    knownFor: 'heavy electrical engineering and Mandideep’s plants.',
+    lead: 'For the heavy electrical and engineering suppliers of Govindpura, the pharma, food and textile plants of nearby Mandideep, and the traders of the state capital: order-wise production, batches, channel, payroll with Madhya Pradesh professional tax, and GST on one system.',
+    areas: ['Govindpura Industrial Area', 'Mandideep', 'Bagroda', 'Bhopal BHEL township'],
+    industries: [
+      { slug: 'manufacturing', note: 'Fabricators and engineering suppliers in Govindpura serving heavy electrical equipment makers, building to drawings and orders.' },
+      { slug: 'pharma', note: 'Pharma plants in Mandideep, south of the city, with batch records and QC release on every batch.' },
+      { slug: 'distribution', note: 'Distributors and stockists supplying central Madhya Pradesh from the capital.' },
+    ],
+    faq: [
+      {
+        q: 'Can a Govindpura fabricator track each order against its drawing and cost?',
+        a: 'Yes. Production Management runs a work order per customer order with its BOM and routing, and Document Management keeps the drawings versioned against it.',
+      },
+      {
+        q: 'Is there a MAVRO team in Bhopal?',
+        a: 'SaiSatwik Technologies has a team or partner on the ground in Bhopal, and implementation follows the 25–30 day plan with on-site discovery, training and go-live.',
+      },
+      {
+        q: 'Can one MAVRO setup cover a Bhopal office and a Mandideep plant?',
+        a: 'Yes. MAVRO runs offices, plants and warehouses on one platform, with stock by location and books per entity.',
+      },
+    ],
+    nearby: ['indore', 'lucknow'],
+    seo: {
+      title: 'ERP software in Bhopal and Mandideep | MAVRO',
+      description: 'ERP for Bhopal’s heavy electrical and engineering suppliers in Govindpura, Mandideep’s pharma and food plants and the capital’s traders: production and GST.',
+    },
+  },
+  {
+    slug: 'jaipur',
+    name: 'Jaipur',
+    state: 'rajasthan',
+    region: 'north',
+    presence: 'remote',
+    knownFor: 'gems and jewellery, textiles and handicrafts.',
+    lead: 'For Jaipur’s gems and jewellery makers in Sitapura and Johari Bazaar, the block printers and garment exporters of Sanganer and Bagru, its engineering units, and the craft brands selling online: lots and job work, production, channels, payroll and GST on one system.',
+    areas: ['Sitapura Industrial Area and SEZ', 'VKI Area', 'Sanganer', 'Bagru', 'Johari Bazaar'],
+    industries: [
+      { slug: 'textiles-apparel', note: 'Block printers and garment exporters of Sanganer and Bagru, where fabric moves between printers, dyers and stitching units.' },
+      { slug: 'manufacturing', note: 'Gems and jewellery makers in Sitapura and engineering units in the VKI Area, where every piece or part is tracked through each stage.' },
+      { slug: 'retail-ecommerce', note: 'Handicraft, home décor and ethnic wear brands selling through marketplaces, their own webstores and stores.' },
+    ],
+    faq: [
+      {
+        q: 'Can MAVRO track fabric between block printers and stitching units?',
+        a: 'Yes. Fabric sent out for printing, dyeing or stitching stays on the books by lot in Inventory Management, and each return is recorded against the production order.',
+      },
+      {
+        q: 'Can a Jaipur craft brand sell on marketplaces from one stock?',
+        a: 'Yes. Ecommerce Integration brings marketplace and webstore orders and returns into one order book and keeps stock in sync, so a piece sold on one channel disappears from the others.',
+      },
+      {
+        q: 'Does Rajasthan need professional tax in payroll?',
+        a: 'No. Rajasthan does not levy professional tax, so HRMS and Payroll runs PF, ESI and TDS for Jaipur employees without it.',
+      },
+    ],
+    nearby: ['delhi', 'gurugram', 'ahmedabad'],
+    seo: {
+      title: 'ERP software in Jaipur for jewellery and textiles | MAVRO',
+      description: 'ERP for Jaipur’s gems and jewellery makers, Sanganer and Bagru block printers and garment exporters, and craft brands online: job work, channels and GST.',
+    },
+  },
+  {
+    slug: 'baddi',
+    name: 'Baddi',
+    state: 'himachal-pradesh',
+    region: 'north',
+    presence: 'team',
+    knownFor: 'pharma, FMCG and their packaging.',
+    lead: 'For the pharma plants of the Baddi–Barotiwala–Nalagarh belt, the FMCG and packaged food plants beside them, and the carton, label and foil makers that supply both: batch records, QC release, vendor audits, packaging jobs, payroll and GST on one system.',
+    areas: ['Baddi', 'Barotiwala', 'Nalagarh', 'Jharmajri'],
+    industries: [
+      { slug: 'pharma', note: 'One of India’s largest pharma manufacturing clusters, where many plants make for brand owners and every batch needs its record and release.' },
+      { slug: 'food-beverage', note: 'FMCG and packaged food plants, shipping to distributors across North India with shelf life on every batch.' },
+      { slug: 'printing-packaging', note: 'Carton, label and foil makers supplying the cluster’s pharma and FMCG plants, job by job.' },
+    ],
+    faq: [
+      {
+        q: 'Can a Baddi plant that makes for several brand owners keep their batches apart?',
+        a: 'Yes. Each batch runs against its own master with stage-wise sign-off and QC release, and Inventory Management tracks stock by batch, lot and expiry, so every customer’s batches are traced separately.',
+      },
+      {
+        q: 'Can MAVRO manage audits of our packaging suppliers?',
+        a: 'Yes. mVLens Vendor Audit plans supplier audits, records findings, follows CAPA to closure and keeps quality agreements per supplier.',
+      },
+      {
+        q: 'Is there a MAVRO team near Baddi?',
+        a: 'SaiSatwik Technologies has a team or partner on the ground in Baddi, and implementation follows the 25–30 day plan with on-site discovery, training and go-live.',
+      },
+    ],
+    nearby: ['ludhiana', 'delhi'],
+    seo: {
+      title: 'ERP software in Baddi for pharma plants | MAVRO',
+      description: 'ERP for the pharma plants of Baddi, Barotiwala and Nalagarh, FMCG plants and their packaging suppliers: batch records, QC release, vendor audits and GST.',
+    },
+  },
 ];
 
 export const cityBySlug = (slug: string) => cities.find((city) => city.slug === slug);

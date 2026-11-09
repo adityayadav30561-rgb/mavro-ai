@@ -402,6 +402,10 @@ for the rest as they are added, each page listing its alternates (`en-IN` ↔ `e
 
 ### D3: Indian city pages
 
+**Done 2026-11-09** (STATUS.md: the 25 cities and their presence; DECISIONS.md "D3 city pages"). Template
+`pages/CityPage.tsx`, index `pages/CitiesIndex.tsx`, data `src/data/cities.ts`, check `qa/similarity.cjs`.
+Adding a city: an entry in `cities` (and its state if new), then build, `node qa/similarity.cjs` and the usual checks.
+
 - **Goal:** rank for "ERP software in <city>" style queries in the user's target cities, without the pages being
   near-copies (Google treats near-identical location pages as doorway pages and can demote the whole site).
 - **Ask the user first:** the city list and its order; for each city whether SaiSatwik has an office, staff or
