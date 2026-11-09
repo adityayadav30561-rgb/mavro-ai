@@ -6,8 +6,8 @@ _Last updated: 2026-11-09. Update this file at the end of every task and before 
 
 **Phases 1–27 done (2026-10-31), the homepage hero redrawn with anidoodle (2026-10-31), and D1 content optimisation
 done (2026-11-09: the Super ERP for Indian businesses in every industry, an `/industries` hub and eight draft
-industry pages). Next, in the user's order, each in its own session: D2 SEO, AEO and GEO (India) → Phase 28 launch
-QA → D3 Indian city pages → D4 UAE and GCC → D5 high-volume module queries**
+industry pages), and D2 SEO, AEO and GEO done (2026-11-09; the domain, profiles and Company text wait on the user).
+Next, in the user's order, each in its own session: Phase 28 launch QA → D3 Indian city pages → D4 UAE and GCC → D5 high-volume module queries**
 ([IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md), Stage D; the user's market and audience in DECISIONS.md). Every planned page with content exists
 (66 prerendered: 42 module pages, platform and package pages, ERP Connect, the industries hub and twelve industry
 pages (eight of them drafts), implementation, security, customers, contact, 404); Company, Privacy, Terms, the blog and careers wait for the user's text (Open
@@ -928,9 +928,7 @@ items when context is heavy.
 ## Next steps
 
 1. **D1 is done** (2026-11-09). Before launch, the eight draft industry pages need real material (Open items).
-2. **D2: SEO, AEO and GEO for India** (its own session). Ask the user first for the inputs listed there: the
-   production domain, a share image, official profiles, the AI-crawler policy, pricing/hosting answers, the Company
-   page text.
+2. **D2 is done** (2026-11-09). Waiting on the user: the domain, `sameAs` profile links and the About text (at launch).
 3. **Phase 28: Launch QA** (recommended here, before the growth work): includes removing `/pipeline-check` and
    rerunning `npm run linkcheck`.
 4. **D3: Indian city pages**, then **D4: UAE and GCC pages**, then **D5: high-volume module queries** (payroll,
