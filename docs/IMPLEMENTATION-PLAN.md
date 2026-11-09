@@ -90,7 +90,10 @@ For each module in the phase:
 | 25 | Implementation and Security and compliance pages | 2 pages | Done (2026-10-31) |
 | 26 | Customers, Company, Contact, Legal, blog and careers scaffolds | 5 pages + 2 hidden | Done (2026-10-31; Company, Legal, blog, careers wait for content) |
 | 27 | Homepage integration and cross-linking | homepage links to pages | Done (2026-10-31) |
-| 28 | Launch QA | full-site audit | To do |
+| — | Homepage hero redrawn with anidoodle (user's request, outside the plan) | the isometric plant loop | Done (2026-10-31) |
+| D1 | Content optimisation (user's request, one session) | copy across every page | To do: next |
+| D2 | SEO, AEO and GEO (user's request, its own session, after D1) | metadata, structured data, answer and AI-engine readiness | To do |
+| 28 | Launch QA | full-site audit | To do: after D1 and D2 |
 
 Module pages: 1 + 17 base + 4 portals + 20 premium = 42. Pages in total: 60 (SITE-PLAN.md section 2).
 
@@ -262,6 +265,87 @@ has its 3–4 bespoke screens, and its links (menu, related modules, package dat
   the production domain (once decided); docs final (README, STATUS, a short "how to add a module page" guide).
 - **Depends on:** 27.
 - **Done when:** every check above passes or is listed with the user's sign-off; Stage C closed in STATUS.md.
+
+---
+
+## Stage D: refinement workstreams (user, 2026-11-09)
+
+The user's order: **D1 content optimisation in one session, then D2 SEO, AEO and GEO in another, one after the
+other, never together; then Phase 28 launch QA** (QA last, so it checks the final copy and metadata). Each
+workstream starts from a clean `main`, reads the files below first, and ends with STATUS.md updated, a commit and
+a push, like a phase.
+
+### D1: Content optimisation
+
+- **Goal:** every page's copy is clear, consistent and persuasive for a manufacturing, distribution or services
+  buyer in India, without adding a single fact the decks do not state.
+- **Read first:** CLAUDE.md (rules, especially "No invented claims"), DECISIONS.md (what the user liked and
+  rejected, including the "Left out on purpose" list), PRODUCT.md (the facts), docs/source/ (the decks, slide by
+  slide), LIBRARY.md (which block shows which text, so length changes do not break a layout).
+- **Where the copy lives** (never in components): `src/data/home.ts` (homepage, FAQ, stories, industries cards),
+  `site.ts`, `nav.ts` (menu notes), `modules/catalogue.ts` (module names and one-line summaries, used everywhere),
+  `modules/content/<slug>.ts` (42 module pages; schema in `schema.ts`), `modules/template.ts` (shared module page
+  headings), `platform.ts`, `packages.ts`, `erp-connect.ts`, `industries.ts`, `implementation.ts`, `security.ts`,
+  `company.ts`, `pages.ts` (404). Product screen copy is in `prototype/` (illustrative data; changing it means
+  recapturing with `npm run shots`).
+- **Approach:**
+  1. Inventory: list every page and its data file; read each page in the browser, not only the data.
+  2. Consistency: the same names everywhere (Base modules / Portals / Premium modules; module names exactly as
+     in the catalogue; "25–30 days"; "SAP, Oracle, Tally"); one spelling convention (the site uses British
+     spelling: organisation, specialised); counts stay computed from the catalogue, never typed.
+  3. Clarity: lead with the buyer's outcome, short sentences, no jargon a plant head would not use; headlines
+     and leads that fit their blocks (check at 1366 and 390).
+  4. Repetition: the homepage, package pages, industry pages and module pages describe the same modules; vary
+     the angle per page instead of repeating sentences.
+  5. Calls to action: one clear ask per section; settle the open question first (should inner-page "Request a
+     demo" open `/contact`? STATUS.md, Next steps).
+  6. Ask the user before changing anything listed in DECISIONS.md, and record every preference they give.
+- **Not in D1:** titles, meta descriptions, structured data, FAQ-for-search rewriting (that is D2); new pages.
+- **Done when:** every page re-read in the browser at 1440 and 390; `node qa/pagecheck.cjs <paths>` passes (one
+  H1, no overflow, no console errors, sections about 0.75–1.2 screens); `npm run build` and `npm run linkcheck`
+  pass; STATUS.md lists what changed per page; DECISIONS.md has any new preferences.
+
+### D2: SEO, AEO and GEO
+
+- **Goal:** each page is found and understood by search engines (SEO), answers questions directly enough to be
+  quoted by answer engines and featured snippets (AEO), and gives AI assistants consistent, citable facts about
+  MAVRO and SaiSatwik Technologies (GEO).
+- **Read first:** the same as D1, plus `src/seo/head.ts`, `src/seo/schema.ts`, `src/routes.ts`,
+  `scripts/prerender.mjs` and README.md (Pages and routes).
+- **What exists today** (built in Phases 1–27):
+  - Per route in `src/routes.ts`: title and meta description (from each page's `seo` block in its data file),
+    breadcrumbs (BreadcrumbList), `inSitemap`, priority, JSON-LD.
+  - `head.ts`: canonical, robots (`index, follow` for sitemap routes, `noindex` otherwise; the 404 has no
+    canonical), Open Graph and Twitter tags (no image yet: `og:image` deliberately absent until artwork exists).
+  - `schema.ts` + head: Organization (with PostalAddress) and WebSite on every page; SoftwareApplication on the
+    homepage and every module page; FAQPage on the homepage and on every page with its own FAQ (modules, packages,
+    platform, ERP Connect, industries, implementation, security).
+  - `prerender.mjs`: one static HTML per route, `sitemap.xml` (routes with `inSitemap`), `robots.txt` (allow all).
+  - The homepage FAQ was already written for SEO/AEO/GEO (questions phrased as buyers search; see the comment above
+    `faq` in home.ts).
+- **Blocked on the user (ask at the start of D2):**
+  - the production domain: `site.url` in `site.ts` is `https://mavro.example`, and canonical URLs, Open Graph,
+    JSON-LD and the sitemap all read it;
+  - a social share image (or approval to make one from the hero art);
+  - official profiles for Organization `sameAs` (LinkedIn and so on): never guess them;
+  - whether AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended) may crawl the site (robots.txt);
+  - answers the decks do not give: pricing model, hosting and deployment options, data ownership (open FAQ items).
+- **Approach:**
+  1. SEO: one search intent per page; unique titles (about 60 characters) and descriptions (about 155); heading
+     order; internal links with descriptive text; image alt text; `og:image` per template once approved; sitemap
+     priorities and `lastmod`.
+  2. AEO: an answer-first sentence at the top of each section that answers a question; FAQ answers that stand
+     alone (40–60 words, the question's words in the first sentence); FAQPage only for questions visible on the
+     page; definitions ("What is MAVRO ERP Connect?") phrased the way people ask.
+  3. GEO: the same facts stated the same way on every page (what MAVRO is, who makes it, the packages, the
+     25–30 day rollout, the ERPs it connects to); an `llms.txt` at the site root summarising the site with links to
+     the key pages (generated by `prerender.mjs` from the route table); Organization and Product entities linked by
+     `@id`; quotable, specific sentences with no invented figures.
+  4. Validate: every template's JSON-LD (a schema validator), `npm run build`, `npm run linkcheck`, Lighthouse SEO
+     on the main templates.
+- **Done when:** the checks above pass or list what waits on the user; STATUS.md records every change and the
+  remaining user inputs; DECISIONS.md records the user's choices (crawler policy, domain, share image).
+
 
 ---
 

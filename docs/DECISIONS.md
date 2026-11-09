@@ -217,3 +217,11 @@ From the product deck, not used because they are unverifiable marketing claims: 
 "400+ AI capabilities" and the AI slides, "exports to 60+ countries", competitor comparison table. The
 implementation time ("25 to 30 day phased implementation") is used, as stated in the deck. The slide 23 success
 stories are used since 2026-10-23, with the user's approval (see Customer stories).
+
+## Working order after the pages (user, 2026-11-09)
+
+| Decision | Choice | Why |
+|---|---|---|
+| Next workstreams | **Content optimisation in one session, then SEO, AEO and GEO in another, one after the other, not together**; launch QA (Phase 28) after both | User: "suppose in another session i want to optimise the content of the site, and in another session i will do the seo aeo and geo, all one after the another, not together". Plan: IMPLEMENTATION-PLAN.md, Stage D |
+| Continuity | Everything needed to continue lives in the repository's docs, so a new session or a new account loses no context | User: "if i start a new session, or even on a new account, nothing will be lost context wise" |
+

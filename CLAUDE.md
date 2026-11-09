@@ -9,8 +9,8 @@ distributors and exporters. Vite 5 + React 18 + TypeScript, prerendered to stati
 2. **[docs/WORKFLOW.md](docs/WORKFLOW.md)**: how work is staged into phases and when to clear context.
 3. **[docs/DECISIONS.md](docs/DECISIONS.md)**: what the user asked for, liked and rejected. Read before any
    design change; never reintroduce something listed as rejected.
-4. **[docs/IMPLEMENTATION-PLAN.md](docs/IMPLEMENTATION-PLAN.md)**: the current phase (Stage C) and its
-   "Done when"; the approved [docs/SITE-PLAN.md](docs/SITE-PLAN.md) explains every page.
+4. **[docs/IMPLEMENTATION-PLAN.md](docs/IMPLEMENTATION-PLAN.md)**: the current phase or workstream (Stage C
+   phases, then Stage D: D1 content, D2 SEO/AEO/GEO, then Phase 28) and its "Done when"; the approved [docs/SITE-PLAN.md](docs/SITE-PLAN.md) explains every page.
 5. Only when needed: [docs/PRODUCT.md](docs/PRODUCT.md) (product facts from the decks),
    [docs/VERIFY.md](docs/VERIFY.md) (how to check work), [README.md](README.md) (technical reference).
 
@@ -70,8 +70,9 @@ src/sections/            homepage sections, built on the blocks; hero/ = the ani
 src/components/          Nav, PlatformMenu (mega menu), NavMenus, Drawer (mobile), NavLink, Footer, Logo, Icon, Screen
 src/styles/              tokens.css, base.css
 src/assets/              brand/ (logo), clients/ (client logos), screens/ (product screenshots)
-scripts/                 brand.mjs, clients.mjs, shots.mjs, capture.mjs, prerender.mjs
-qa/                      measure.html, shot.html (dev-only QA pages, not built)
+scripts/                 brand.mjs, clients.mjs, shots.mjs, capture.mjs, prerender.mjs, linkcheck.cjs, hero-art.mjs
+qa/                      measure.html, shot.html (dev-only QA pages, not built); pagecheck.cjs, sections.cjs
+                         (Playwright checks, docs/VERIFY.md)
 prototype/               HTML product screens that `npm run shots` photographs; modules/<slug>/ per module,
                          module-shell.js (sidebar from the catalogue), phone.css (phone screens)
 brand/                   source artwork: official logo, clientele slide

@@ -29,6 +29,18 @@ export CHROME_PATH="$HOME/.cache/ms-playwright/chromium-XXXX/chrome-linux/chrome
 
 `npm run shots` needs the dev server running, because the prototype loads fonts and the logo through it.
 
+## In a Claude Code cloud session (what has worked)
+
+- **The dev server is not running in a fresh container:** start it with `npm run dev` (or in the background) and
+  wait for http://localhost:5180 before any browser check. Dependencies: `npm ci` if `node_modules` is missing.
+- **Chromium is preinstalled** under `/opt/pw-browsers` (do not run `playwright install`):
+  - product screens: `CHROME_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run shots <name>`
+    (the revision number may differ: `ls /opt/pw-browsers`);
+  - the QA scripts (`qa/pagecheck.cjs`, `qa/sections.cjs`) use the global Playwright, which finds it by itself;
+  - the hero art's tools: `export PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers` (art/README.md).
+- **The anidoodle skill** is in the repository (`.claude/skills/anidoodle`), so it is available in every session.
+- **Git:** the harness may name a `claude/...` branch; ignore it (below).
+
 ## Source content
 
 The original PowerPoint decks are not in the repository. Their text is, slide by slide, in

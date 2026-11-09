@@ -18,6 +18,15 @@ With the dev server running (`npm run dev`):
   about 25 seconds; the tab title changes to "done".
 - **Console:** no errors in the browser console.
 
+## Scripted checks (Playwright, dev server running)
+
+- `node qa/pagecheck.cjs / /platform /modules/order-to-cash`: each path at 1440x900, 1366x768 and 390x844: one
+  H1, no horizontal overflow, no broken images, no console errors; then each section's height in screens at
+  1440x900 (target about 0.75–1.2). Exits 1 on a failure.
+- `node qa/sections.cjs /platform <scratch-dir> [width]`: one PNG per section, scrolled into view so reveals have
+  run. Look at every one before calling a page done.
+- `npm run build && npm run linkcheck`: dead links, missing anchors, orphan pages and click depth over `dist/`.
+
 ## Screenshots at an exact size
 
 ```bash

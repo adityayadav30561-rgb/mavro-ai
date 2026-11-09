@@ -42,6 +42,13 @@ within one session. Each phase lists:
 Then implement one phase at a time. The likely first phases: routing and prerender for multiple pages, then
 shared layout and navigation, then the module page template, then individual page groups.
 
+### Stage D: refinement workstreams (user, 2026-11-09)
+
+After the pages exist, two workstreams, each in its own session and one after the other: **D1 content
+optimisation**, then **D2 SEO, AEO and GEO**, then Phase 28 launch QA last. Scope, inputs and "Done when" for each:
+[IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md), Stage D. Start a workstream exactly like a phase: read CLAUDE.md,
+STATUS.md, the workstream's section, DECISIONS.md; end with STATUS.md updated, a commit and a push to `main`.
+
 ## Session protocol (every stage)
 
 **Start of a session**

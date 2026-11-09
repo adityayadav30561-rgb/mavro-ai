@@ -1,15 +1,19 @@
 # Status
 
-_Last updated: 2026-10-30. Update this file at the end of every task and before clearing context._
+_Last updated: 2026-11-09. Update this file at the end of every task and before clearing context._
 
 ## Where we are
 
-**Stage C (phased implementation). Phases 1–27 done (2026-10-31); next: Phase 28, launch QA. Every planned page with content exists; Company, Privacy, Terms, the blog and careers wait for the
-user's text (Open items).** The
-homepage is done (Stage A). The site plan ([SITE-PLAN.md](SITE-PLAN.md), 60 pages) was approved on 2026-10-23,
-and the phased plan is [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md): 28 phases (foundations 1–5, module
-pages 6–20, other pages 21–26, homepage integration 27, launch QA 28). One phase per session; the user approves
-the module template after Phase 5. See [WORKFLOW.md](WORKFLOW.md).
+**Phases 1–27 done (2026-10-31), and the homepage hero redrawn with anidoodle (2026-10-31). Next, in the user's
+order, each in its own session: D1 content optimisation → D2 SEO, AEO and GEO → Phase 28 launch QA**
+([IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md), Stage D and Phase 28). Every planned page with content exists
+(58 prerendered: 42 module pages, platform and package pages, ERP Connect, four industries, implementation,
+security, customers, contact, 404); Company, Privacy, Terms, the blog and careers wait for the user's text (Open
+items). The site plan ([SITE-PLAN.md](SITE-PLAN.md)) was approved on 2026-10-23. See [WORKFLOW.md](WORKFLOW.md).
+
+**Starting a new session (any machine or account):** `git checkout main && git pull origin main`; read CLAUDE.md,
+this file's "Where we are" and "Next steps", the workstream's section in IMPLEMENTATION-PLAN.md, DECISIONS.md;
+cloud specifics (browser paths, dev server) in [CLOUD.md](CLOUD.md); checks in [VERIFY.md](VERIFY.md).
 
 Everything builds (`npm run build` passes) and has been checked in the browser at phone, tablet, laptop and
 large-monitor sizes. The project is on GitHub (public, by the user's choice): https://github.com/adityayadav30561-rgb/mavro-ai. See docs/CLOUD.md.
@@ -36,6 +40,15 @@ demo. Links come from `src/data/nav.ts` and go to real pages as routes are added
 land on the homepage section that covers them. Mobile: full-screen drawer with module search and accordions.
 
 ## Most recent work (newest first)
+
+- 2026-11-09, **Docs checked for continuity; Stage D planned** (user: make sure nothing is lost between sessions or
+  accounts; next a content session, then an SEO/AEO/GEO session, one after the other). On `main`.
+  - Everything was already committed and pushed. Added: Stage D in IMPLEMENTATION-PLAN.md (D1 content
+    optimisation, D2 SEO/AEO/GEO with today's SEO inventory and the inputs to ask the user for, then Phase 28);
+    WORKFLOW.md and DECISIONS.md record the order; CLOUD.md gains the cloud-session notes (dev server, preinstalled
+    Chromium paths, the skill); VERIFY.md documents the new `qa/pagecheck.cjs` and `qa/sections.cjs` (the helpers
+    used throughout Phases 21–27, previously only in a session's scratch folder) and `npm run linkcheck`; this
+    file's header now says where to start a new session.
 
 - 2026-10-31, **Homepage hero redrawn with anidoodle** (user: "start making the hero section with anidoodle"). On `main`.
   - **Intake (user's answers):** a looping machine, Isometric cutaway style, a miniature plant on a loop. Defaults
@@ -844,9 +857,12 @@ items when context is heavy.
 
 ## Next steps
 
-1. **Phase 28: Launch QA** (IMPLEMENTATION-PLAN.md Phase 28): read its scope first. Includes removing
-   `/pipeline-check`, rerunning `npm run linkcheck`, and asking the user whether inner-page "Request a demo" should
-   open `/contact`.
+1. **D1: Content optimisation** (its own session; IMPLEMENTATION-PLAN.md, Stage D). First settle with the user:
+   should inner-page "Request a demo" open `/contact` (same form) instead of the homepage form?
+2. **D2: SEO, AEO and GEO** (its own session, after D1). Ask the user first for the inputs listed there: the
+   production domain, a share image, official profiles, the AI-crawler policy, pricing/hosting answers.
+3. **Phase 28: Launch QA** (IMPLEMENTATION-PLAN.md): includes removing `/pipeline-check` and rerunning
+   `npm run linkcheck`.
 
 ## Open items (need the user or real assets)
 
