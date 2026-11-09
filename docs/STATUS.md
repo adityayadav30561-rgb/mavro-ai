@@ -52,6 +52,8 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
     "ERP across India"; llms.txt "Locations" group. New check **`qa/similarity.cjs`** (VERIFY.md).
   - Pilots: Greater Noida (head office), Pune (team or partner), Surat (remote). Similarity max 0.25 (limit 0.35);
     sweep, a11y, seocheck, linkcheck clean.
+  - Batch 2: Delhi and Noida (team), Gurugram/Gurgaon, Faridabad, Ghaziabad (remote), Lucknow (team). Similarity
+    max 0.30 (Lucknow ~ Noida); all checks clean.
 
 - 2026-11-09, **Main script split (user: "split the script now")**: launch checklist row 7 done. On `main`.
   - Module content loads per page: each `content/<slug>.ts` is its own chunk, found by `import.meta.glob`
