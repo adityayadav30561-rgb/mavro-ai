@@ -441,6 +441,210 @@ export const cities: City[] = [
       description: 'ERP for Lucknow’s chikankari and garment makers, traders and distributors and services firms: job work, stock, credit, retailer app, payroll and GST.',
     },
   },
+  {
+    slug: 'mumbai',
+    name: 'Mumbai',
+    state: 'maharashtra',
+    region: 'west',
+    presence: 'team',
+    knownFor: 'pharma head offices, trading and port logistics.',
+    lead: 'For the pharma and chemical companies run from Mumbai with plants in Taloja, Tarapur and beyond, the trading houses of its markets, and the warehouses of Bhiwandi and the port at Nhava Sheva: plants, batches, stock, payroll and GST on one system.',
+    areas: ['Taloja MIDC', 'TTC MIDC (Thane–Belapur)', 'Tarapur MIDC', 'Bhiwandi warehousing', 'Jawaharlal Nehru Port, Nhava Sheva'],
+    industries: [
+      { slug: 'pharma', note: 'Pharma companies with head offices in Mumbai and plants in Maharashtra and other states, where batch records and QC release have to reach the head office the same day.' },
+      { slug: 'logistics', note: 'Warehouses in Bhiwandi and transporters serving the port, moving imports and exports through North Konkan every day.' },
+      { slug: 'chemicals', note: 'Speciality and bulk chemical units in the Thane–Belapur belt, Taloja and Tarapur, where batches and material documents must trace end to end.' },
+    ],
+    faq: [
+      {
+        q: 'Our head office is in Mumbai and our plants are in other states. Can MAVRO cover both?',
+        a: 'Yes. MAVRO runs multiple entities and plants on one platform, so the Mumbai office sees batch records, QC release, stock and finance from every plant as they are posted.',
+      },
+      {
+        q: 'Can MAVRO run a Bhiwandi warehouse?',
+        a: 'Yes. Warehouse Management runs bin-level putaway, RF picking and dispatch with barcodes, and Gate Entry records every vehicle in and out against its documents.',
+      },
+      {
+        q: 'We trade on Tally today. Can we add MAVRO without moving the books?',
+        a: 'Yes. ERP Connect runs MAVRO alongside Tally, syncing two ways through the MAVRO Database, so the accounts stay in Tally while teams use MAVRO’s screens and mobile app.',
+      },
+    ],
+    nearby: ['pune', 'nashik', 'surat'],
+    seo: {
+      title: 'ERP software in Mumbai for pharma and trading | MAVRO',
+      description: 'ERP for Mumbai’s pharma and chemical companies with plants in Taloja and Tarapur, trading houses and Bhiwandi warehouses: batches, stock, payroll and GST.',
+    },
+  },
+  {
+    slug: 'ahmedabad',
+    name: 'Ahmedabad',
+    state: 'gujarat',
+    region: 'west',
+    presence: 'remote',
+    knownFor: 'pharma, chemicals and textiles.',
+    lead: 'For Ahmedabad’s pharma makers around Changodar, its chemical and dye units in Vatva, Naroda and Odhav, and its textile mills and processors: batch production, QC release, lot traceability, payroll with Gujarat professional tax, and GST on one system.',
+    areas: ['Vatva GIDC', 'Naroda GIDC', 'Odhav GIDC', 'Changodar', 'Sanand'],
+    industries: [
+      { slug: 'pharma', note: 'Formulation and API makers in and around Changodar, where batch records, QC release and expiry decide what can ship.' },
+      { slug: 'chemicals', note: 'Dye, pigment and speciality chemical units in Vatva, Naroda and Odhav, running batches against recipes.' },
+      { slug: 'textiles-apparel', note: 'Textile mills and processors in the city long known for cotton textiles, tracking lots from fabric to finished goods.' },
+    ],
+    faq: [
+      {
+        q: 'Can MAVRO hold a pharma batch until QC releases it?',
+        a: 'Yes. In Production Management no batch reaches finished goods without QC release, and Inventory Management tracks every batch by expiry, so nothing ships before it is released.',
+      },
+      {
+        q: 'Can a dye unit in Vatva trace a batch to its raw materials?',
+        a: 'Yes. Every material is tracked by batch and lot, so a finished batch traces back to the lots it consumed and forward to the customers it reached.',
+      },
+      {
+        q: 'Does MAVRO deduct Gujarat professional tax for Ahmedabad employees?',
+        a: 'Yes. HRMS and Payroll deducts professional tax for employees in Gujarat alongside PF, ESI and TDS, and posts payroll to the ledger.',
+      },
+    ],
+    nearby: ['vadodara', 'surat', 'rajkot'],
+    seo: {
+      title: 'ERP software in Ahmedabad for pharma and chemicals | MAVRO',
+      description: 'ERP for Ahmedabad’s pharma makers, chemical and dye units in Vatva, Naroda and Odhav, and textile processors: batches, QC release, payroll and GST.',
+    },
+  },
+  {
+    slug: 'vadodara',
+    name: 'Vadodara',
+    state: 'gujarat',
+    region: 'west',
+    presence: 'remote',
+    knownFor: 'chemicals, petrochemicals and engineering.',
+    lead: 'For Vadodara’s chemical and petrochemical units in Nandesari and around the refinery belt, and its engineering and power equipment makers in Makarpura, Por and Savli: batches, vendor audits, controlled documents, projects, payroll and GST on one system.',
+    areas: ['Nandesari GIDC', 'Makarpura GIDC', 'Por GIDC', 'Savli GIDC', 'Waghodia'],
+    industries: [
+      { slug: 'chemicals', note: 'Chemical and petrochemical units in Nandesari and nearby, where raw materials are audited and every batch has its documents.' },
+      { slug: 'manufacturing', note: 'Engineering, electrical and power equipment makers in Makarpura, Por and Savli, building to order with long lead times.' },
+      { slug: 'construction-real-estate', note: 'Contractors and project companies serving the plants of central Gujarat, tracking budgets, milestones and site labour.' },
+    ],
+    faq: [
+      {
+        q: 'Can MAVRO manage audits of our chemical suppliers?',
+        a: 'Yes. mVLens Vendor Audit plans supplier audits, records findings, follows CAPA to closure and keeps quality agreements per supplier.',
+      },
+      {
+        q: 'Can we keep specifications and data sheets under version control?',
+        a: 'Yes. Document Management keeps documents versioned and approved, with every change on record and requests for documents tracked.',
+      },
+      {
+        q: 'Can MAVRO track a long-lead engineering order as a project?',
+        a: 'Yes. Project Management tracks each order against its budget and milestones with change requests, while Production Management runs the work orders behind it.',
+      },
+    ],
+    nearby: ['ahmedabad', 'surat', 'indore'],
+    seo: {
+      title: 'ERP software in Vadodara for chemicals and engineering | MAVRO',
+      description: 'ERP for Vadodara’s chemical units in Nandesari and engineering makers in Makarpura, Por and Savli: batches, vendor audits, documents, projects and GST.',
+    },
+  },
+  {
+    slug: 'rajkot',
+    name: 'Rajkot',
+    state: 'gujarat',
+    region: 'west',
+    presence: 'remote',
+    knownFor: 'castings, pumps, engines and auto parts.',
+    lead: 'For Rajkot’s foundries, pump and engine makers and auto part manufacturers in Aji, Shapar–Veraval and Metoda, and the edible oil mills of Saurashtra: production, rework, dealers, payroll with Gujarat professional tax, and GST on one system.',
+    areas: ['Aji GIDC', 'Shapar–Veraval industrial area', 'Metoda GIDC', 'Lodhika GIDC'],
+    industries: [
+      { slug: 'manufacturing', note: 'Foundries, machine shops and makers of diesel engines, pumps and auto parts, where rework and rejection eat into every order.' },
+      { slug: 'distribution', note: 'Pump and engine makers selling through dealers across India, with dealer stock, schemes and warranty claims to manage.' },
+      { slug: 'food-beverage', note: 'Groundnut and cottonseed oil mills of Saurashtra, running batches against seasonal seed buying.' },
+    ],
+    faq: [
+      {
+        q: 'Can MAVRO show rework and rejection on a Rajkot shop floor?',
+        a: 'Yes. Shop Floor Control records output, downtime and rework by job card and shift, so rejection is seen as it happens, not at month end.',
+      },
+      {
+        q: 'Can our dealers see their stock and claims online?',
+        a: 'Yes. The Dealer Portal shows dealers their offtake and stock cover, suggests replenishment, and handles their claims against the same orders and schemes.',
+      },
+      {
+        q: 'Can an oil mill buy seed and track oil by lot in MAVRO?',
+        a: 'Yes. Procure to Pay runs indents, RFQs and purchase orders matched to the goods receipt and invoice, and Inventory Management tracks seed and oil by lot from intake to dispatch.',
+      },
+    ],
+    nearby: ['ahmedabad', 'vadodara', 'surat'],
+    seo: {
+      title: 'ERP software in Rajkot for foundries and pump makers | MAVRO',
+      description: 'ERP for Rajkot’s foundries, pump, engine and auto part makers in Aji, Shapar–Veraval and Metoda, and Saurashtra oil mills: shop floor, dealers and GST.',
+    },
+  },
+  {
+    slug: 'nashik',
+    name: 'Nashik',
+    state: 'maharashtra',
+    region: 'west',
+    presence: 'remote',
+    knownFor: 'auto and engineering, wine and farm produce.',
+    lead: 'For Nashik’s auto and engineering suppliers in Satpur, Ambad and Sinnar, its wineries, and the grape and onion growers and exporters of the district: production, batches, produce traceability, payroll with Maharashtra professional tax, and GST on one system.',
+    areas: ['Satpur MIDC', 'Ambad MIDC', 'Sinnar MIDC', 'Dindori and the vineyard belt', 'Lasalgaon onion market'],
+    industries: [
+      { slug: 'manufacturing', note: 'Auto component and engineering suppliers in Satpur, Ambad and Sinnar, delivering to vehicle and equipment makers’ schedules.' },
+      { slug: 'food-beverage', note: 'Wineries of the Nashik vineyard belt, where harvest, fermentation batches, bottling and distributors follow each other.' },
+      { slug: 'agriculture-plantation', note: 'Grape and onion growers, packhouses and exporters, where produce has to be traced from the farm to the buyer.' },
+    ],
+    faq: [
+      {
+        q: 'Can a Nashik winery track batches from harvest to bottle?',
+        a: 'Yes. Production Management runs each batch with its yields and QC release, and Inventory Management tracks bottled stock by batch, so every bottle traces back to its batch.',
+      },
+      {
+        q: 'Can MAVRO record which farm a lot of produce came from?',
+        a: 'Yes. Plots are mapped and harvests logged in the FSC Portal, and each lot carries its plots and harvest record through packing and dispatch.',
+      },
+      {
+        q: 'Does MAVRO handle Maharashtra professional tax for Nashik staff?',
+        a: 'Yes. HRMS and Payroll deducts professional tax for employees in Maharashtra alongside PF, ESI and TDS.',
+      },
+    ],
+    nearby: ['pune', 'mumbai'],
+    seo: {
+      title: 'ERP software in Nashik for auto, wine and agri | MAVRO',
+      description: 'ERP for Nashik’s auto and engineering suppliers in Satpur, Ambad and Sinnar, its wineries, and grape and onion exporters: production, batches and traceability.',
+    },
+  },
+  {
+    slug: 'kanpur',
+    name: 'Kanpur',
+    state: 'uttar-pradesh',
+    region: 'north',
+    presence: 'remote',
+    knownFor: 'leather, textiles and engineering.',
+    lead: 'For Kanpur’s leather goods and saddlery makers around Jajmau, its hosiery and garment units, engineering works in Panki and Dada Nagar, and the wholesalers supplying central Uttar Pradesh: production, lots, contract labour, credit, payroll and GST on one system.',
+    areas: ['Jajmau', 'Panki Industrial Area', 'Dada Nagar', 'Fazalganj', 'Rooma'],
+    industries: [
+      { slug: 'manufacturing', note: 'Leather goods, saddlery and footwear makers and engineering works, many of them exporting, where every order has its own materials and deadline.' },
+      { slug: 'textiles-apparel', note: 'Hosiery and garment units in a city long known for its mills, cutting and stitching against orders and job workers.' },
+      { slug: 'distribution', note: 'Wholesalers supplying retailers across central Uttar Pradesh, on credit and schemes.' },
+    ],
+    faq: [
+      {
+        q: 'Can a Kanpur leather goods exporter track materials by lot?',
+        a: 'Yes. Inventory Management tracks leather and other materials by lot across stores, and material issued to each export order is booked against its production order.',
+      },
+      {
+        q: 'Can MAVRO keep contract labour compliant for a Kanpur factory?',
+        a: 'Yes. Contract Labour Supply checks CLRA, PF, ESIC and wage evidence before a contractor bill is certified, so the compliance proof is on record before payment.',
+      },
+      {
+        q: 'Do Kanpur employers deduct professional tax?',
+        a: 'No. Uttar Pradesh does not levy professional tax, so HRMS and Payroll runs PF, ESI and TDS for Kanpur employees without it.',
+      },
+    ],
+    nearby: ['lucknow', 'delhi'],
+    seo: {
+      title: 'ERP software in Kanpur for leather and textiles | MAVRO',
+      description: 'ERP for Kanpur’s leather goods and saddlery makers around Jajmau, hosiery and garment units and engineering works: lots, contract labour, payroll and GST.',
+    },
+  },
 ];
 
 export const cityBySlug = (slug: string) => cities.find((city) => city.slug === slug);
