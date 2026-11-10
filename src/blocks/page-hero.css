@@ -72,6 +72,13 @@ body:has(.ph.section--night) .nav {
   .ph[data-simple] .ph__grid {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  /* A facts card is shorter than a product screen: without a logo band, the hero sizes to its content instead of
+     most of the screen, so no empty band opens under it (blog, city index). */
+  .ph:has(.fcard):not([data-band]) {
+    min-height: 0;
+    padding-bottom: clamp(2.5rem, 6vh, 4rem);
+  }
 }
 
 /* With a band at its foot (module pages: the clients) the hero stacks its grid over the band, and the grid takes

@@ -200,6 +200,7 @@ export const post: PostBody = {
         { kind: 'p', text: 'MAVRO’s [payroll software](/modules/hrms-and-payroll) computes PF in every payroll run and has the ECR challan ready each month. It handles ESI eligibility, deductions and returns in the same run.' },
         { kind: 'figure', module: 'hrms-and-payroll', caption: 'The workforce dashboard in MAVRO HRMS and Payroll: headcount, attendance and attrition by unit.' },
         { kind: 'p', text: 'Attendance from biometric, web and mobile punches locks at the payroll cut-off and flows into the run. Contributions are worked out on the month’s actual pay, and payroll posts to the ledger on approval.' },
+        { kind: 'p', text: 'Joiners, leavers, pay revisions and arrears flow through the same run, so contributions follow the month’s real pay without anyone re-keying it.' },
         { kind: 'p', text: 'For the tax deducted from the same salary, see [Form 16 is now Form 130](/blog/form-16-to-form-130). For how statutory payroll sits with the rest of MAVRO’s compliance, see [security and compliance](/security-and-compliance).' },
       ],
     },

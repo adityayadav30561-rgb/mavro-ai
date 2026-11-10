@@ -78,9 +78,6 @@ export function Page() {
               </div>
             </div>
             <div className="post__main">
-              <p className="post__dates">
-                Published {longDate(meta.published)} · facts checked {longDate(meta.checked)} · {meta.minutes} minute read
-              </p>
               <ArticleBody
                 takeawaysTitle={blogPage.takeaways}
                 takeaways={post.takeaways}

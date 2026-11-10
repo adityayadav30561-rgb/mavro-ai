@@ -85,7 +85,7 @@ export const postIndex: PostMeta[] = [
   {
     slug: 'form-16-to-form-130',
     type: 'informational',
-    minutes: 4,
+    minutes: 8,
     title: 'Form 16 is now Form 130: salary TDS after April 2026',
     description: 'What the Income-tax Act, 2025 changed for salary TDS: Form 16 becomes Form 130, which form applies to which year, the tax year, and the quarterly return.',
     published: '2026-11-10',
@@ -96,8 +96,8 @@ export const postIndex: PostMeta[] = [
   {
     slug: 'gst-e-invoicing-rules',
     type: 'informational',
-    minutes: 4,
-    title: 'GST e-invoicing rules: the ₹5 crore and 30-day limits',
+    minutes: 8,
+    title: 'GST e-invoicing rules: ₹5 crore and 30-day limits',
     description: 'Who must e-invoice under GST (the ₹5 crore turnover threshold and exemptions), what the IRN and QR code are, and the 30-day reporting rule from ₹10 crore.',
     published: '2026-11-10',
     checked: '2026-11-10',
@@ -107,7 +107,7 @@ export const postIndex: PostMeta[] = [
   {
     slug: 'gstr-2b-and-ims',
     type: 'informational',
-    minutes: 4,
+    minutes: 8,
     title: 'GSTR-2B and IMS: how to claim input tax credit',
     description: 'How the GST Invoice Management System works with GSTR-2B and GSTR-3B: accept, reject or keep pending, what happens if you do nothing, and a monthly routine.',
     published: '2026-11-10',
