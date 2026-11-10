@@ -45,6 +45,15 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-11-10, **Design pass on the pages built in D1–D5** (user: "fix the design of the pages you made later... check
+  for errors on each page"). On `main`.
+  - The industries hub, city index, 25 city pages, 9 Gulf pages and the blog had a text-only hero (an empty right
+    half) and city headlines of five lines. They now use the solution hero with a new block **FactCard** (key facts,
+    areas or industry and city links); city and Gulf H1s read "ERP software in <place>." with the "known for" line in
+    the card. The city index puts the regions with few cities (South, East, Central) in one section.
+  - Errors: sweep of every page (107 × 9 sizes) 0 failures; axe on 12 later templates 0 violations; dev-server
+    pagecheck, seocheck, linkcheck and similarity clean.
+
 - 2026-11-10, **D5 high-volume module queries, batch 1** (decisions: DECISIONS.md "D5"). On `main`.
   - **Articles** (`src/data/posts/`): a light index (`postIndex`: title, description, dates, related module) and one
     body file per article, loaded per page like module content (`Route.posts`, `loadPosts`, `postFor`; prerender
