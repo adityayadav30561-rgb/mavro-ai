@@ -70,6 +70,24 @@ export const postIndex: PostMeta[] = [
     module: 'accounting',
     moduleLink: 'accounting and GST software.',
   },
+  {
+    slug: 'fifo-vs-fefo',
+    title: 'FIFO vs FEFO: which stock should leave first?',
+    description: 'The difference between FIFO and FEFO, when they give different answers, which goods need FEFO, minimum shelf life rules, and why FEFO fails in practice.',
+    published: '2026-11-10',
+    checked: '2026-11-10',
+    module: 'warehouse-management',
+    moduleLink: 'warehouse management software.',
+  },
+  {
+    slug: 'cycle-counting',
+    title: 'Cycle counting vs the annual stock-take',
+    description: 'What cycle counting is, why it beats a once-a-year count, how ABC analysis sets the frequency, how to run a count, and if it replaces the stock-take.',
+    published: '2026-11-10',
+    checked: '2026-11-10',
+    module: 'inventory-management',
+    moduleLink: 'inventory management software.',
+  },
 ];
 
 const loaders = import.meta.glob<{ post: PostBody }>(['./*.ts', '!./index.ts']);

@@ -122,6 +122,10 @@ export const content: ModuleContent<'warehouse-management'> = {
       a: 'MAVRO allocates batches by remaining shelf life when the order is released, so the nearest-expiry batch is picked first and the picker scans the batch to confirm it. Customer or depot rules for minimum remaining shelf life are applied at allocation, so long-dated stock goes where it is required.',
     },
     {
+      q: 'Does MAVRO WMS support FIFO and LIFO as well as FEFO?',
+      a: 'Yes. The issue order is set per item as FIFO, FEFO or LIFO, by remaining shelf life where it applies, and enforced at allocation, so pickers are sent to the right batch.',
+    },
+    {
       q: 'Does MAVRO WMS work with barcode scanners and Android phones?',
       a: 'Yes. MAVRO Warehouse Management runs on RF handhelds and Android phones for putaway, picking and counting, and works offline. Every pick, pack and count is confirmed by scanning the bin, item and batch, so short picks and mis-scans are caught at the bin.',
     },
@@ -134,9 +138,11 @@ export const content: ModuleContent<'warehouse-management'> = {
       a: 'Yes. MAVRO Warehouse Management enforces client ownership on every bin, keeps each client’s stock segregated and bills storage days and handling to client statements according to each contract.',
     },
   ],
+  headline: 'Warehouse management software (WMS) for India',
+  lead: 'MAVRO Warehouse Management is warehouse management software (WMS) for batch-controlled goods: bin-level stock, directed putaway, FIFO, FEFO or LIFO issue order, wave picking confirmed by scan, and dispatch clearance.',
   seo: {
-    title: 'Warehouse management software (WMS) with FEFO and RF picking | MAVRO',
+    title: 'Warehouse management software (WMS) for India | MAVRO',
     description:
-      'MAVRO Warehouse Management: bin-level stock with expiry watch, guided inbound with QC sampling and directed putaway, FEFO allocation, wave picking by RF scan, staging and dispatch with e-way bill checks.',
+      'MAVRO warehouse management software (WMS): bin-level stock, directed putaway, FIFO or FEFO allocation, wave picking by RF scan and dispatch clearance.',
   },
 };

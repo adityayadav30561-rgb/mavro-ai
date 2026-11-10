@@ -119,13 +119,19 @@ export const content: ModuleContent<'inventory-management'> = {
       a: 'Yes. MAVRO tracks stock by batch, lot or serial number in every store and bin, with its status: free, reserved, in inspection or on hold. Expiry dates drive near-expiry alerts and first-expiry-first-out issue, and every movement is traced to the document that caused it.',
     },
     {
+      q: 'Can MAVRO show stock value and days of cover?',
+      a: 'Yes. The stock position shows value and days of cover for every store, with reorder and expiry signals, so shortages and ageing stock are seen before they cost money.',
+    },
+    {
       q: 'How are stock write-offs controlled in MAVRO?',
       a: 'Every adjustment in MAVRO needs a reason. Rejected, returned and damaged lots wait for a quality disposition before they can be written off, and approval limits send larger write-offs and count variances beyond tolerance to the plant head. The posting to the ledger is shown before approval.',
     },
   ],
+  headline: 'Inventory management software for India',
+  lead: 'MAVRO Inventory Management is inventory management software for Indian manufacturers and distributors: stock by store, bin, batch and expiry with days of cover, ABC cycle counts that raise variances, and every write-off approved with a reason.',
   seo: {
-    title: 'Inventory management software: stock, cycle counts, batches | MAVRO',
+    title: 'Inventory management software for India | MAVRO',
     description:
-      'MAVRO Inventory Management: store-wise stock value and cover, batch, bin and expiry tracking, ABC cycle counts with variance approval and replenishment, and write-offs approved with QA disposition.',
+      'MAVRO inventory management software: stock by store, bin, batch and expiry with days of cover, ABC cycle counts with variances, and approved write-offs.',
   },
 };

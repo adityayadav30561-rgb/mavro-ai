@@ -63,6 +63,9 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
   - Batch 2: Accounting (H1 "Accounting and GST software for India", answer-first lead, title 45 characters, FAQs on
     e-invoicing and GSTIN checks from the deck) and two GST guides: e-invoicing rules (₹5 crore, IRN and QR, the
     30-day rule from ₹10 crore) and GSTR-2B with IMS (the decks predate IMS, so MAVRO's support for it is not claimed).
+  - Batch 3: Inventory Management and Warehouse Management (query H1s, answer-first leads, titles and descriptions
+    within limits, one more FAQ each from the decks) and two guides: FIFO vs FEFO, and cycle counting vs the annual
+    stock-take (no fixed count intervals: sources range from weekly to quarterly).
 
 #### Query → page (D5; from public research, re-check with Search Console after launch)
 
@@ -74,6 +77,10 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 | accounting software India, GST accounting software, GST return software | `/modules/accounting` |
 | GST e-invoicing applicability, e-invoice limit, 30-day IRP rule (also "GST e-invoicing software": the article links to Order to Cash and Accounting) | `/blog/gst-e-invoicing-rules` |
 | GSTR-2B reconciliation, IMS GST, how to claim ITC | `/blog/gstr-2b-and-ims` |
+| inventory management software India, stock management software | `/modules/inventory-management` |
+| warehouse management software, WMS software India | `/modules/warehouse-management` |
+| FIFO vs FEFO, first expired first out | `/blog/fifo-vs-fefo` |
+| cycle counting, cycle count vs stock take, ABC cycle counting | `/blog/cycle-counting` |
 
 - 2026-11-10, **D4 UAE and GCC pages, batch 1** (decisions: DECISIONS.md "D4"). On `main`.
   - Template `pages/GccPage.tsx` (country and city pages), data `src/data/gcc.ts` (country facts and sources in its
