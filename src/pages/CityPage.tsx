@@ -1,6 +1,7 @@
 import { CapabilityTiles, type CapabilityTile } from '../blocks/CapabilityTiles';
 import { ClientBand } from '../blocks/ClientBand';
 import { CtaBand } from '../blocks/CtaBand';
+import { FactCard } from '../blocks/FactCard';
 import { FaqBlock } from '../blocks/FaqBlock';
 import { PageHero } from '../blocks/PageHero';
 import { PlaceLinks } from '../blocks/PlaceLinks';
@@ -11,6 +12,8 @@ import { site } from '../data/site';
 import { queryLinks } from '../data/query-links';
 import { hasPage } from '../links';
 import { usePath } from '../routing';
+
+const cap = (text: string) => text.charAt(0).toUpperCase() + text.slice(1).replace(/\.$/, '');
 
 /**
  * The city page template (D3; data src/data/cities.ts): hero with the city's own lead and its state's facts, the
@@ -67,23 +70,35 @@ export function Page() {
   return (
     <>
       <PageHero
-        variant="simple"
+        variant="solution"
         chip={{ label: `${city.name}, ${state.name}`, icon: 'pin' }}
-        title={`ERP software in ${city.name}`}
-        rest={`for ${city.knownFor}`}
+        title={t.heroTitle}
+        rest={`${city.name}.`}
         lead={city.lead}
-        facts={[
-          { value: state.gstCode, label: `GST state code, ${state.name}` },
-          {
-            value: city.presence === 'head-office' ? 'Head office' : city.presence === 'remote' ? 'Remote + on site' : 'Local team',
-            label: city.presence === 'head-office' ? site.office.street.split(',').slice(-1)[0].trim() : city.presence === 'remote' ? 'On-site work when agreed' : 'Team or partner nearby',
-          },
-          { value: '25–30 days', label: 'Phased implementation' },
-        ]}
         actions={[
           { label: t.demo, interest: null },
           { label: `Industries in ${city.name}`, href: '#industries' },
         ]}
+        visual={
+          <FactCard
+            icon="pin"
+            title={where}
+            subtitle={`${state.name}, India`}
+            rows={[
+              { icon: 'production', label: 'Known for', value: cap(city.knownFor) },
+              { icon: 'receipt', label: 'GST state code', value: state.gstCode, note: `GSTINs registered in ${state.name} start ${state.gstCode}` },
+              {
+                icon: 'people',
+                label: city.presence === 'head-office' ? 'Head office' : 'Who you work with',
+                value: city.presence === 'head-office' ? 'SaiSatwik Technologies' : city.presence === 'remote' ? 'Remote, on site when agreed' : 'A local team or partner',
+                note: city.presence === 'head-office' ? `${site.office.street}, ${site.office.city}` : city.presence === 'state-team' ? `On the ground in ${state.name}` : undefined,
+              },
+              { icon: 'rocket', label: 'Implementation', value: '25–30 days', note: 'Phased, with one dedicated resource' },
+            ]}
+            chipsLabel="Industrial areas"
+            chips={city.areas.map((label) => ({ label }))}
+          />
+        }
         band={<ClientBand />}
       />
 

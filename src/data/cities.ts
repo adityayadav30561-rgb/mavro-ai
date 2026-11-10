@@ -114,6 +114,8 @@ export interface City {
 export const cityTemplate = {
   indexPath: '/erp-software',
   crumb: 'ERP software in India',
+  /** The hero headline before the city's name: "ERP software in Pune." */
+  heroTitle: 'ERP software in',
   demo: 'Request a demo',
   icon: 'pin' as IconName,
   industries: { title: 'Built for the way', rest: 'businesses here work.' },
@@ -1003,6 +1005,8 @@ export const citiesIndex = {
     lead: 'MAVRO is made in Greater Noida by SaiSatwik Technologies and runs businesses across India. Find your city: the industries it runs on, the state’s GST and payroll rules MAVRO handles, and how implementation reaches you.',
   },
   list: { title: 'Find', rest: 'your city.', lead: 'Each city has its own page.', more: 'ERP software in' },
+  /** One section for the regions with only a few city pages. */
+  otherRegions: 'South, East and Central India',
   /** The Gulf countries served from India (D4), after the Indian regions. */
   gulf: { title: 'Beyond India:', rest: 'the Gulf.', lead: 'Businesses in the UAE, Saudi Arabia and Qatar, served from India.' },
   faq: {

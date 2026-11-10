@@ -1,6 +1,7 @@
 import { CapabilityTiles, type CapabilityTile } from '../blocks/CapabilityTiles';
 import { ClientBand } from '../blocks/ClientBand';
 import { CtaBand } from '../blocks/CtaBand';
+import { FactCard } from '../blocks/FactCard';
 import { FaqBlock } from '../blocks/FaqBlock';
 import { IndustryGrid } from '../blocks/IndustryGrid';
 import { PageHero } from '../blocks/PageHero';
@@ -11,6 +12,8 @@ import { gccPath, gccPlace, gccTemplate as t } from '../data/gcc';
 import { industries, inSentence } from '../data/home';
 import { hasPage } from '../links';
 import { usePath } from '../routing';
+
+const cap = (text: string) => text.charAt(0).toUpperCase() + text.slice(1).replace(/\.$/, '');
 
 /**
  * The Gulf template (D4; data src/data/gcc.ts), for a country page (/ae/erp-software) and its city pages
@@ -48,20 +51,34 @@ export function Page() {
   return (
     <>
       <PageHero
-        variant="simple"
+        variant="solution"
         chip={{ label: city ? `${city.name}, ${country.name}` : country.name, icon: 'pin' }}
-        title={`ERP software in ${name}`}
-        rest={`for ${place.knownFor}`}
+        title="ERP software in"
+        rest={`${name}.`}
         lead={place.lead}
-        facts={[
-          { value: country.currency, label: 'and other currencies' },
-          { value: 'From India', label: 'On-site visits when agreed' },
-          { value: '25–30 days', label: 'Phased implementation' },
-        ]}
         actions={[
           { label: t.demo, interest: null },
           { label: `Industries in ${name}`, href: '#industries' },
         ]}
+        visual={
+          <FactCard
+            icon="pin"
+            title={Name}
+            subtitle={city ? country.name : 'Served from India'}
+            rows={[
+              { icon: 'production', label: 'Known for', value: cap(place.knownFor) },
+              { icon: 'receipt', label: 'Built in', value: country.compliance.tiles.map((tile) => tile.title).join(' · ') },
+              { icon: 'finance', label: 'Currency', value: `${country.currency} and others`, note: 'With a live multi-currency P&L' },
+              { icon: 'rocket', label: 'Implementation', value: '25–30 days, from India', note: 'On-site visits when agreed' },
+            ]}
+            chipsLabel={city || !country.cities.length ? 'Areas and zones' : 'City pages'}
+            chips={
+              city || !country.cities.length
+                ? (place.areas ?? []).map((label) => ({ label }))
+                : country.cities.map((item) => ({ label: item.name, icon: 'pin' as const, href: gccPath(country, item) }))
+            }
+          />
+        }
         band={<ClientBand />}
       />
 

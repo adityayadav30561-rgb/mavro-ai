@@ -74,6 +74,7 @@ section (src/links.ts), so a module page never links to a missing page.
 | `FlowStrip` | FlowStrip.tsx | `stages` [{label?, nodes [{name, href?, icon?, note?, kind?}]}] (`note`: what passes along the link), `layout` (columns/chain), `legend`, `note`. Kinds: shared, configured, current | Module (where it sits), industry (order flow), package |
 | `ModuleCards` | ModuleCards.tsx | `cards` [{name, summary, icon, tier, href or null, screen?, alt?}], `more` (link label); exactly four or eight cards run four across on desktops | Package, industry, related modules |
 | `IndustryGrid` | IndustryGrid.tsx | `cards` [{name, icon, who, title, modules? (names, as chips), href or null}], `more` (link label, followed by the industry's name): three across on desktops, two on tablets, one on phones | Industries hub, city index (`/erp-software`) |
+| `FactCard` | FactCard.tsx | `title`, `subtitle?`, `icon`, `rows` [{icon, label, value, note?, href?}], `chipsLabel?`, `chips` [{label, icon?, href?}]: a page's key facts as a hero visual (PageHero `variant="solution"`), same language as the Contact card | City and Gulf pages, industries hub, city index, blog |
 | `ArticleList` | ArticleList.tsx | `items` [{href, title, summary, meta?}]: one card per article at a readable width, arrow on the right | Blog list, module page guides |
 | `SourceList` | SourceList.tsx | `sources` [{label, url}], `checked` (date), `title`: a numbered list of sources with the date the facts were checked, shown on the page | Blog articles |
 | `PlaceLinks` | PlaceLinks.tsx | `places` [{name, href}], `label` (before each name, e.g. "ERP software in"): pills with a pin, wrapping | City pages (nearby cities) |
@@ -112,7 +113,7 @@ section (src/links.ts), so a module page never links to a missing page.
 Class prefixes of blocks taken from the homepage keep their old names (`faq__`, `proof__` for story cards,
 `impl__` for the timeline, `cx__` for the board, `pc__` for the chain, `trust__`) so the homepage markup did not
 change. New blocks: `ph` (page hero), `crumbs`, `sframe`, `tour`, `cap`, `ww`, `aud`, `fs`, `mc`, `pstrip`, `arch`, `ba`,
-`dt`, `cta`, `ig` (industry grid), `places`, `alist`, `sources`.
+`dt`, `cta`, `ig` (industry grid), `places`, `alist`, `sources`, `fcard`.
 
 ## Adding a block
 

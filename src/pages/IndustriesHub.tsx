@@ -1,6 +1,7 @@
 import { CapabilityTiles } from '../blocks/CapabilityTiles';
 import { ClientBand } from '../blocks/ClientBand';
 import { CtaBand } from '../blocks/CtaBand';
+import { FactCard } from '../blocks/FactCard';
 import { FaqBlock } from '../blocks/FaqBlock';
 import { IndustryGrid } from '../blocks/IndustryGrid';
 import { PageHero } from '../blocks/PageHero';
@@ -32,7 +33,7 @@ export function Page() {
   return (
     <>
       <PageHero
-        variant="simple"
+        variant="solution"
         title={h.hero.title}
         rest={h.hero.rest}
         lead={h.hero.lead}
@@ -40,6 +41,23 @@ export function Page() {
           { label: 'Request a demo', interest: null },
           { label: 'Find your industry', href: '#list' },
         ]}
+        visual={
+          <FactCard
+            icon="layers"
+            title={`${industries.list.length} industries`}
+            subtitle="One platform, configured for each"
+            rows={[
+              { icon: 'database', label: 'Shared by every industry', value: 'Customers, items, pricing, GST, ledgers', note: 'Inventory, roles and audit on one set of data' },
+              { icon: 'rules', label: 'Configured per industry', value: 'The steps between order and payment' },
+            ]}
+            chipsLabel="Every industry has its own page"
+            chips={industries.list.map((industry) => ({
+              label: industry.tab ?? industry.name,
+              icon: industry.icon,
+              href: hasPage(`/industries/${industry.slug}`) ? `/industries/${industry.slug}` : undefined,
+            }))}
+          />
+        }
         band={<ClientBand />}
       />
 

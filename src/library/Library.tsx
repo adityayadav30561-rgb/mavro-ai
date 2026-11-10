@@ -13,6 +13,7 @@ import { InlineCta } from '../blocks/InlineCta';
 import { IndustryGrid } from '../blocks/IndustryGrid';
 import { PlaceLinks } from '../blocks/PlaceLinks';
 import { ArticleList } from '../blocks/ArticleList';
+import { FactCard } from '../blocks/FactCard';
 import { SourceList } from '../blocks/SourceList';
 import { ModuleCards } from '../blocks/ModuleCards';
 import { IntegrationHub } from '../blocks/IntegrationHub';
@@ -222,6 +223,21 @@ export function Page() {
         </Entry>
         <Entry name="IndustryGrid" file="blocks/IndustryGrid.tsx" use="Industries hub">
           <IndustryGrid cards={industryCards} more="MAVRO for" />
+        </Entry>
+        <Entry name="FactCard" file="blocks/FactCard.tsx" use="Hero visual: city, Gulf, industries hub, city index, blog">
+          <div className="lib__narrow">
+            <FactCard
+              icon="pin"
+              title="Pune"
+              subtitle="Maharashtra, India"
+              rows={[
+                { icon: 'production', label: 'Known for', value: 'Auto components, engineering and IT services' },
+                { icon: 'receipt', label: 'GST state code', value: '27', note: 'GSTINs registered in Maharashtra start 27' },
+              ]}
+              chipsLabel="Industrial areas"
+              chips={[{ label: 'Chakan MIDC' }, { label: 'Talegaon MIDC' }, { label: 'Hinjewadi' }]}
+            />
+          </div>
         </Entry>
         <Entry name="ArticleList" file="blocks/ArticleList.tsx" use="Blog list, module page guides">
           <ArticleList

@@ -1,4 +1,5 @@
 import { CtaBand } from '../blocks/CtaBand';
+import { FactCard } from '../blocks/FactCard';
 import { FaqBlock } from '../blocks/FaqBlock';
 import { IndustryGrid } from '../blocks/IndustryGrid';
 import { PageHero } from '../blocks/PageHero';
@@ -30,6 +31,16 @@ export function Page() {
     }))
     .filter((group) => group.cards.length > 0);
 
+  // Regions with only a few cities share a section, so no section holds a lone card.
+  const big = groups.filter((group) => group.cards.length >= 5);
+  const small = groups.filter((group) => group.cards.length < 5);
+  const sections = [
+    ...big.map((group) => ({ id: group.region, title: regions[group.region], cards: group.cards })),
+    ...(small.length
+      ? [{ id: small.map((group) => group.region).join('-'), title: c.otherRegions, cards: small.flatMap((group) => group.cards) }]
+      : []),
+  ];
+
   const gulf = gccCountries.map((country) => ({
     name: country.name,
     lower: country.inText,
@@ -42,7 +53,7 @@ export function Page() {
   return (
     <>
       <PageHero
-        variant="simple"
+        variant="solution"
         title={c.hero.title}
         rest={c.hero.rest}
         lead={c.hero.lead}
@@ -50,23 +61,40 @@ export function Page() {
           { label: t.demo, interest: null },
           { label: 'Find your city', href: `#${groups[0]?.region ?? 'faq'}` },
         ]}
+        visual={
+          <FactCard
+            icon="pin"
+            title={`${cities.length} cities in India`}
+            subtitle="And the UAE, Saudi Arabia and Qatar"
+            rows={[
+              ...groups.map((group) => ({
+                icon: 'pin' as const,
+                label: regions[group.region],
+                value: `${group.cards.length} ${group.cards.length === 1 ? 'city' : 'cities'}`,
+                note: group.cards.map((card) => card.name).join(', '),
+              })),
+            ]}
+            chipsLabel="Beyond India"
+            chips={gccCountries.map((country) => ({ label: country.name, icon: 'pin' as const, href: gccPath(country) }))}
+          />
+        }
       />
 
-      {groups.map((group, index) => (
+      {sections.map((section, index) => (
         <Section
-          key={group.region}
-          id={group.region}
+          key={section.id}
+          id={section.id}
           tone={index % 2 ? undefined : 'paper'}
-          title={regions[group.region]}
+          title={section.title}
           treatment="soft"
           lead={index === 0 ? c.list.lead : undefined}
         >
-          <IndustryGrid cards={group.cards} more={c.list.more} />
+          <IndustryGrid cards={section.cards} more={c.list.more} />
         </Section>
       ))}
 
       {gulf.length > 0 && (
-        <Section id="gulf" tone={groups.length % 2 ? undefined : 'paper'} title={c.gulf.title} rest={c.gulf.rest} treatment="grad" lead={c.gulf.lead}>
+        <Section id="gulf" tone={sections.length % 2 ? undefined : 'paper'} title={c.gulf.title} rest={c.gulf.rest} treatment="grad" lead={c.gulf.lead}>
           <IndustryGrid cards={gulf} more={c.list.more} />
         </Section>
       )}

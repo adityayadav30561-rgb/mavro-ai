@@ -1,5 +1,6 @@
 import { ArticleList } from '../blocks/ArticleList';
 import { CtaBand } from '../blocks/CtaBand';
+import { FactCard } from '../blocks/FactCard';
 import { ModuleCards } from '../blocks/ModuleCards';
 import { PageHero } from '../blocks/PageHero';
 import { Prose } from '../blocks/Prose';
@@ -8,8 +9,11 @@ import { sectionClass } from '../blocks/SectionHead';
 import { SourceList } from '../blocks/SourceList';
 import { blogPage } from '../data/company';
 import { longDate, postFor, postIndex, postMeta, postPath } from '../data/posts';
+import { entryBySlug, modulePage, type ModuleSlug } from '../data/modules';
 import { usePath } from '../routing';
-import { cardFor } from './module-card';
+import { cardFor, iconOf } from './module-card';
+
+const entryIcon = (slug: ModuleSlug) => iconOf(entryBySlug(slug));
 import './company-pages.css';
 
 /**
@@ -25,7 +29,23 @@ export function Page() {
     const post = postFor(meta.slug);
     return (
       <>
-        <PageHero variant="simple" title={meta.title} lead={meta.description} />
+        <PageHero
+          variant="solution"
+          title={meta.title}
+          lead={meta.description}
+          visual={
+            <FactCard
+              icon="receipt"
+              title="Guide"
+              subtitle={`Supports ${entryBySlug(meta.module).name}`}
+              rows={[
+                { icon: 'calendar', label: 'Published', value: longDate(meta.published) },
+                { icon: 'check', label: 'Facts checked', value: longDate(meta.checked), note: `${post.sources.length} sources, listed under the guide` },
+                { icon: entryIcon(meta.module), label: 'The module behind it', value: entryBySlug(meta.module).name, href: modulePage(entryBySlug(meta.module)) },
+              ]}
+            />
+          }
+        />
         <section id="article" className={sectionClass('paper', '')}>
           <div className="page">
             <Prose
@@ -45,7 +65,25 @@ export function Page() {
 
   return (
     <>
-      <PageHero variant="simple" title={blogPage.title} rest={blogPage.rest} lead={blogPage.lead} />
+      <PageHero
+        variant="solution"
+        title={blogPage.title}
+        rest={blogPage.rest}
+        lead={blogPage.lead}
+        visual={
+          <FactCard
+            icon="receipt"
+            title={`${postIndex.length} guides`}
+            subtitle="Sources and checked dates on every guide"
+            chipsLabel="Topics, with the module behind each"
+            chips={[...new Set(postIndex.map((item) => item.module))].map((slug) => ({
+              label: entryBySlug(slug).name,
+              icon: entryIcon(slug),
+              href: modulePage(entryBySlug(slug)),
+            }))}
+          />
+        }
+      />
       <section id="posts" className={sectionClass('paper', '')}>
         <div className="page">
           <ArticleList

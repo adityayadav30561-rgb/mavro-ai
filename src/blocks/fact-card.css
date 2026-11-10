@@ -1,0 +1,136 @@
+/* Fact card (blocks/FactCard.tsx): a page's key facts as a hero visual. */
+.fcard {
+  width: min(100%, 30rem);
+  margin: 0;
+  padding: 1.5rem;
+  border-radius: var(--r-4);
+  background: var(--surface);
+  box-shadow: var(--shadow-float);
+}
+
+.fcard figcaption {
+  display: flex;
+  align-items: center;
+  gap: .875rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.fcard__mark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--r-3);
+  background: var(--grad-brand);
+  color: var(--white);
+}
+
+.fcard figcaption b {
+  display: block;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.fcard figcaption small,
+.fcard__rows small {
+  display: block;
+  color: var(--fg-3);
+  font-size: var(--t-label);
+  font-weight: 600;
+}
+
+.fcard__rows {
+  display: grid;
+}
+
+.fcard__rows li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: .875rem;
+  align-items: start;
+  padding: .875rem 0;
+}
+
+.fcard__rows li + li {
+  border-top: 1px solid var(--line);
+}
+
+.fcard__icon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--r-2);
+  background: var(--blue-50);
+  color: var(--blue);
+}
+
+.fcard__rows a,
+.fcard__rows b {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.fcard__rows a {
+  color: var(--blue);
+}
+
+.fcard__note {
+  display: block;
+  color: var(--fg-2);
+  font-size: var(--t-small);
+}
+
+.fcard__chips {
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.fcard__rows + .fcard__chips {
+  margin-top: .25rem;
+}
+
+.fcard__chips p {
+  margin-bottom: .625rem;
+  color: var(--fg-3);
+  font-size: var(--t-label);
+  font-weight: 600;
+}
+
+.fcard__chips ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .375rem;
+}
+
+.fcard__chips a,
+.fcard__chips span {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  padding: .3125rem .625rem;
+  border-radius: var(--r-pill);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: .8125rem;
+  color: var(--ink-2);
+}
+
+.fcard__chips a {
+  color: var(--ink);
+  transition: box-shadow var(--d-2) var(--ease), color var(--d-2) var(--ease);
+}
+
+.fcard__chips a:hover {
+  color: var(--blue);
+  box-shadow: inset 0 0 0 1px var(--blue-200);
+}
+
+.fcard__chips .icon {
+  color: var(--blue);
+}
