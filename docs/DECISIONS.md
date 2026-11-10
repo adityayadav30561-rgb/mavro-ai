@@ -292,3 +292,13 @@ stories are used since 2026-10-23, with the user's approval (see Customer storie
 | Keyword data | None supplied: queries chosen from public research and how Indian buyers phrase them; re-check against Search Console after launch | User: "No, use public research" |
 | Articles | **Yes**: supporting guides on the blog (`posts` in company.ts), each linking to its module page, factual, sources cited, dated, published as SaiSatwik Technologies | User: "Yes, write guides" |
 | Comparison pages | **None**: no competitor names anywhere | User: "Not now" (consistent with the earlier left-out competitor table) |
+
+## Blog (user, 2026-11-10)
+
+| Decision | Choice | Why |
+|---|---|---|
+| Layout | **Wider**: the article column plus a sticky sidebar (contents, CTA) on desktops; tables, charts and figures span the column | User: "THE BLOG SHOULD HAVE MORE WIDTH" |
+| Rich content | **Images in between, tables, charts**: module screens (their own alt text, labelled illustrative), tables, bar charts from computed or labelled example data, callouts, steps | User: "THERE SHOULD BE IMAGES IN BETWEEN, TABLES, CHARTS ETC" |
+| Search | **Every post built for SEO, AEO and GEO**: one query per post, question-shaped headings with answer-first sentences, key takeaways at the top, a visible FAQ (FAQPage), Article JSON-LD, sources and dates shown | User: "EACH BLOG SHOULD BE FOCUSED WITH SEO AEO AND GEO" |
+| Length and readability | **1,500–2,000 words**, short paragraphs (≤ 60 words, ≤ 3 sentences), lists over comma chains; checked by `qa/postcheck.cjs` | User: "EACH BLOG LENGTH SHOULD BE 1500-2000 WORDS, EASY READABILITY, SHORTER PARAGRAPHS" |
+| Types | **12 posts: 4 informational, 4 informational + selling, 4 selling** (plan in STATUS.md). Selling posts use deck facts only, no competitor names, no invented numbers | User: "SOME INFORMATIONAL BLOGS, AND SOME WHICH WILL BE WRITTEN TO SELL OUR PRODUCT, AND SOME FOR INFORMATIONAL + SELLING. SO PLAN 12 BLOGS IN TOTAL" |

@@ -45,6 +45,24 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+#### Blog plan: 12 posts (user, 2026-11-10; my plan, open to veto)
+
+| # | Type | Slug | Target query | Links to (owns the head term) | Facts from |
+|---|---|---|---|---|---|
+| 1 | Informational | pf-and-esi-contributions | how to calculate PF and ESI | HRMS and Payroll | verified law (D5) |
+| 2 | Informational | form-16-to-form-130 | Form 130, salary TDS 2026 | HRMS and Payroll | verified law (D5) |
+| 3 | Informational | gst-e-invoicing-rules | e-invoice applicability, 30-day rule | Accounting | verified law (D5) |
+| 4 | Informational | gstr-2b-and-ims | GSTR-2B, IMS, how to claim ITC | Accounting | verified practice (D5) |
+| 5 | Info + selling | fifo-vs-fefo | FIFO vs FEFO | Warehouse Management | practice + WMS deck |
+| 6 | Info + selling | cycle-counting | cycle counting vs stock-take | Inventory Management | practice + product deck |
+| 7 | Info + selling | three-way-matching | three-way match PO GRN invoice | Vendor Invoice Management | practice + product deck |
+| 8 | Info + selling | signs-you-need-an-erp | when does a business need an ERP | Platform | practice + decks |
+| 9 | Selling | erp-access-without-more-licences | give staff ERP access without more licences | ERP Connect | connectivity deck |
+| 10 | Selling | how-long-erp-implementation | how long does an ERP implementation take | Implementation | implementation decks |
+| 11 | Selling | dealer-and-distributor-portals | dealer and distributor portal | Portals | product deck |
+| 12 | Selling | attendance-to-payslip | biometric attendance to payroll | HRMS and Payroll | HRMS deck |
+
+
 - 2026-11-10, **Design pass on the pages built in D1–D5** (user: "fix the design of the pages you made later... check
   for errors on each page"). On `main`.
   - The industries hub, city index, 25 city pages, 9 Gulf pages and the blog had a text-only hero (an empty right
