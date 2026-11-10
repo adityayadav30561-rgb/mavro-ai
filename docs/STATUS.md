@@ -53,6 +53,8 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
     the Gulf pages under Locations. seocheck now checks lang, og:locale and hreflang agree per page;
     `qa/similarity.cjs` takes several folders as one set.
   - Pages: the UAE and Dubai. All checks clean.
+  - Batch 2: Abu Dhabi and Sharjah (four city questions each, to keep the UAE cities apart). Similarity max 0.31
+    (Abu Dhabi ~ Dubai); all checks clean.
 
 - 2026-11-09, **D3 city pages, batch 1** (decisions: DECISIONS.md "D3 city pages"). On `main`.
   - Template `pages/CityPage.tsx`, index `pages/CitiesIndex.tsx` (`/erp-software`, cities by region), data

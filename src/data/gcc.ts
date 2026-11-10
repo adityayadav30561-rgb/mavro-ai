@@ -151,10 +151,82 @@ export const gccCountries: GccCountry[] = [
             q: 'Can MAVRO run a Jebel Ali warehouse?',
             a: 'Yes. Warehouse Management runs bin-level putaway, RF picking and dispatch with barcodes, and Gate Entry records every vehicle in and out against its documents.',
           },
+          {
+            q: 'Can our buyers in other countries place orders online?',
+            a: 'Yes. The Distributor / B2B Portal gives each buyer an order builder that checks schemes, stock and credit before the order is submitted, and shows their orders, credit and outstanding, and claims.',
+          },
         ],
         seo: {
           title: 'ERP software in Dubai for trading and logistics | MAVRO',
           description: 'ERP for Dubai’s trading houses in Deira and JAFZA, Jebel Ali logistics firms and contractors: multi-currency orders, warehouses, WPS payroll and UAE VAT.',
+        },
+      },
+      {
+        slug: 'abu-dhabi',
+        name: 'Abu Dhabi',
+        knownFor: 'energy services, industry and construction.',
+        lead: 'For the energy services firms, manufacturers and contractors of Abu Dhabi, from Mussafah and ICAD to KIZAD beside Khalifa Port: equipment and maintenance, fleets, plants, sites, payroll with WPS and gratuity, and UAE VAT on one system.',
+        areas: ['Mussafah', 'Industrial City of Abu Dhabi (ICAD)', 'Khalifa Industrial Zone (KIZAD)', 'Khalifa Port'],
+        industries: [
+          { slug: 'manufacturing', note: 'Metals, building materials and food plants in ICAD and KIZAD, where production, stock and suppliers meet one plan.' },
+          { slug: 'construction-real-estate', note: 'Contractors and developers working across the emirate, with subcontractors, equipment and site labour on every project.' },
+          { slug: 'logistics', note: 'Freight and transport companies around Khalifa Port and the industrial zones, running their own fleets.' },
+        ],
+        faq: [
+          {
+            q: 'Can an energy services company manage its equipment in MAVRO?',
+            a: 'Yes. Asset Management keeps every asset on a tagged register with its maintenance plan, calibration, spares and depreciation, and shows uptime and breakdowns by site.',
+          },
+          {
+            q: 'Can MAVRO run a contractor’s vehicle and equipment fleet?',
+            a: 'Yes. Fleet Management keeps vehicles, trips, fuel, maintenance and documents on one register, with each vehicle’s running cost in view.',
+          },
+          {
+            q: 'Can a Mussafah contractor track subcontracted labour?',
+            a: 'Yes. Contract Labour Purchase handles requisitions, deployment and attendance-based billing for contract workers, and Project Management costs them to each project.',
+          },
+          {
+            q: 'Can we run tenders for materials and services in MAVRO?',
+            a: 'Yes. Auction and Bidding runs reverse auctions, sealed bids and RFQs with approved vendors only, shows savings against the ceiling, and records the award and its approvals.',
+          },
+        ],
+        seo: {
+          title: 'ERP software in Abu Dhabi for industry and projects | MAVRO',
+          description: 'ERP for Abu Dhabi’s energy services firms, ICAD and KIZAD manufacturers and contractors: assets, fleets, plants, projects, WPS payroll and UAE VAT.',
+        },
+      },
+      {
+        slug: 'sharjah',
+        name: 'Sharjah',
+        knownFor: 'manufacturing, wholesale and printing.',
+        lead: 'For Sharjah’s manufacturers in its industrial areas and the SAIF and Hamriyah free zones, the wholesalers supplying the Northern Emirates, and its printers and publishers: production, buying across currencies, jobs, payroll with WPS and gratuity, and UAE VAT on one system.',
+        areas: ['Sharjah Industrial Areas', 'Sharjah Airport International Free Zone (SAIF Zone)', 'Hamriyah Free Zone', 'Sharjah Publishing City'],
+        industries: [
+          { slug: 'manufacturing', note: 'Plastics, metal, chemical and food plants in the industrial areas and free zones, making to stock and to order.' },
+          { slug: 'distribution', note: 'Wholesalers and distributors supplying retailers across Sharjah and the Northern Emirates, on credit.' },
+          { slug: 'printing-packaging', note: 'Printers, publishers and packaging makers, including those in Sharjah Publishing City, running many jobs at once.' },
+        ],
+        faq: [
+          {
+            q: 'Can MAVRO cost production in a Sharjah plant?',
+            a: 'Yes. Production Management runs work orders with their BOM and routing, and the material and hours booked against each order give its actual cost.',
+          },
+          {
+            q: 'Can we buy from suppliers in India and China in their currencies?',
+            a: 'Yes. Procure to Pay raises RFQs and purchase orders in the supplier’s currency, matches them to the goods receipt and invoice, and the Vendor Portal lets suppliers work online.',
+          },
+          {
+            q: 'Can a Sharjah printer schedule jobs on its presses?',
+            a: 'Yes. PPDS schedules jobs on each machine and shift against capacity, and Shop Floor Control shows output and downtime as the shift runs.',
+          },
+          {
+            q: 'Can the shops we supply order from their phones?',
+            a: 'Yes. The Retailer Portal lets shops order, see offers and loyalty points and raise returns from the app, and every order lands in your order book.',
+          },
+        ],
+        seo: {
+          title: 'ERP software in Sharjah for manufacturers | MAVRO',
+          description: 'ERP for Sharjah’s manufacturers in its industrial areas and the SAIF and Hamriyah free zones, wholesalers and printers: production, buying and UAE VAT.',
         },
       },
     ],
