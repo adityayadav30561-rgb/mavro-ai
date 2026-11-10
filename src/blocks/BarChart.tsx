@@ -7,6 +7,8 @@ export interface BarChartProps {
   categories: readonly string[];
   series: readonly { name: string; values: readonly number[] }[];
   format: 'inr' | 'number' | 'percent' | 'days';
+  /** Stack the series in one bar (parts of a whole), or give each its own bar (values that do not add up). */
+  layout?: 'stack' | 'group';
 }
 
 /** Series colours, in fixed order (validated with the dataviz skill's checker against the light surface). */
@@ -27,9 +29,10 @@ export const formatValue = (value: number, format: BarChartProps['format']) =>
  * a legend for two or more series, the total at each bar's end, a tooltip per segment on hover and keyboard focus, and
  * the numbers as a table behind "Show the numbers". Server-rendered and deterministic.
  */
-export function BarChart({ title, caption, categories, series, format }: BarChartProps) {
+export function BarChart({ title, caption, categories, series, format, layout = 'stack' }: BarChartProps) {
   const totals = categories.map((_, c) => series.reduce((sum, s) => sum + s.values[c], 0));
-  const max = Math.max(...totals) || 1;
+  const grouped = layout === 'group' && series.length > 1;
+  const max = (grouped ? Math.max(...series.flatMap((s) => s.values)) : Math.max(...totals)) || 1;
   return (
     <figure className="bchart">
       <p className="bchart__title">{title}</p>
@@ -47,6 +50,25 @@ export function BarChart({ title, caption, categories, series, format }: BarChar
         {categories.map((category, c) => (
           <li key={category}>
             <span className="bchart__label">{category}</span>
+            {grouped ? (
+              <span className="bchart__group">
+                {series.map((s, i) => (
+                  <span key={s.name} className="bchart__track">
+                    <span className="bchart__bar" style={vars({ '--w': `${(s.values[c] / max) * 100}%` })}>
+                      <span
+                        className="bchart__seg"
+                        role="img"
+                        tabIndex={0}
+                        aria-label={`${category}, ${s.name}: ${formatValue(s.values[c], format)}`}
+                        data-tip={`${s.name}: ${formatValue(s.values[c], format)}`}
+                        style={vars({ '--c': colours[i], '--f': 1 })}
+                      />
+                    </span>
+                    <b className="bchart__total num">{formatValue(s.values[c], format)}</b>
+                  </span>
+                ))}
+              </span>
+            ) : (
             <span className="bchart__track">
               <span className="bchart__bar" style={vars({ '--w': `${(totals[c] / max) * 100}%` })}>
                 {series.map((s, i) =>
@@ -65,6 +87,7 @@ export function BarChart({ title, caption, categories, series, format }: BarChar
               </span>
               <b className="bchart__total num">{formatValue(totals[c], format)}</b>
             </span>
+            )}
           </li>
         ))}
       </ul>
@@ -81,7 +104,7 @@ export function BarChart({ title, caption, categories, series, format }: BarChar
                   {s.name}
                 </th>
               ))}
-              {series.length > 1 && <th scope="col">Total</th>}
+              {series.length > 1 && !grouped && <th scope="col">Total</th>}
             </tr>
           </thead>
           <tbody>
@@ -93,7 +116,7 @@ export function BarChart({ title, caption, categories, series, format }: BarChar
                     {formatValue(s.values[c], format)}
                   </td>
                 ))}
-                {series.length > 1 && <td className="num">{formatValue(totals[c], format)}</td>}
+                {series.length > 1 && !grouped && <td className="num">{formatValue(totals[c], format)}</td>}
               </tr>
             ))}
           </tbody>

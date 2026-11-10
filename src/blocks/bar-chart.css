@@ -143,3 +143,14 @@
 .bchart__data td {
   text-align: right;
 }
+
+/* Grouped: one thinner bar per series under each label. */
+.bchart__group {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.bchart__group .bchart__bar {
+  height: 1rem;
+}

@@ -56,6 +56,7 @@ export type PostBlock =
       categories: string[];
       series: { name: string; values: number[] }[];
       format: 'inr' | 'number' | 'percent' | 'days';
+      layout?: 'stack' | 'group';
     }
   | { kind: 'callout'; tone: 'tip' | 'note' | 'warning'; title: string; text: string }
   | { kind: 'steps'; items: { title: string; text: string }[] };
@@ -118,7 +119,7 @@ export const postIndex: PostMeta[] = [
   {
     slug: 'fifo-vs-fefo',
     type: 'hybrid',
-    minutes: 4,
+    minutes: 8,
     title: 'FIFO vs FEFO: which stock should leave first?',
     description: 'The difference between FIFO and FEFO, when they give different answers, which goods need FEFO, minimum shelf life rules, and why FEFO fails in practice.',
     published: '2026-11-10',
@@ -129,13 +130,36 @@ export const postIndex: PostMeta[] = [
   {
     slug: 'cycle-counting',
     type: 'hybrid',
-    minutes: 4,
+    minutes: 8,
     title: 'Cycle counting vs the annual stock-take',
     description: 'What cycle counting is, why it beats a once-a-year count, how ABC analysis sets the frequency, how to run a count, and if it replaces the stock-take.',
     published: '2026-11-10',
     checked: '2026-11-10',
     module: 'inventory-management',
     moduleLink: 'inventory management software.',
+  },
+  {
+    slug: 'three-way-matching',
+    title: 'Three-way matching: PO, goods receipt and invoice',
+    description: 'What three-way matching is, how it differs from two- and four-way matching, tolerances, common mismatches, GST input credit, and how MAVRO runs it.',
+    type: 'hybrid',
+    published: '2026-11-10',
+    checked: '2026-11-10',
+    minutes: 8,
+    module: 'vendor-invoice-management',
+    moduleLink: 'vendor invoice management software.',
+  },
+  {
+    slug: 'signs-you-need-an-erp',
+    title: 'When does a business need an ERP? 8 signs',
+    description: 'The signs a business has outgrown spreadsheets and separate tools, what each costs, what to look for in an ERP, and how MAVRO fits beside what you keep.',
+    type: 'hybrid',
+    published: '2026-11-10',
+    checked: '2026-11-10',
+    minutes: 8,
+    module: 'accounting',
+    moduleLink: 'ERP software for Indian businesses.',
+    page: { name: 'The MAVRO platform', href: '/platform' },
   },
 ];
 
