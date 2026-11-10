@@ -10,32 +10,71 @@ import type { ModuleSlug } from '../modules/slugs';
  * facts in a body are stated only where an official source or two reputable sources agree, dated, with the sources
  * shown on the page; "How MAVRO handles this" says only what the decks say.
  */
+/** Informational (the rules), selling (the product) or both (the practice, then how MAVRO does it). */
+export type PostType = 'informational' | 'hybrid' | 'selling';
+
+export const postTypes: Record<PostType, string> = {
+  informational: 'Guide',
+  hybrid: 'Guide and how MAVRO does it',
+  selling: 'MAVRO in practice',
+};
+
 export interface PostMeta {
   slug: string;
   title: string;
   /** The meta description and the lead under the title. */
   description: string;
+  type: PostType;
   /** ISO dates: first published, and when its facts were last checked. */
   published: string;
   checked: string;
-  /** The module page it supports and links to. */
+  /** Reading time in minutes (qa/postcheck.cjs checks it against the body). */
+  minutes: number;
+  /** The page it supports and links to: a module, or another page that owns the head term. */
   module: ModuleSlug;
-  /** How the related-module link reads: the commercial query the module page owns, e.g. "payroll software". */
+  /** How the related-page link reads: the commercial query that page owns, e.g. "payroll software". */
   moduleLink: string;
+  /** Another page than the module's, when it owns the head term (e.g. /erp-connect). */
+  page?: { name: string; href: string };
 }
+
+/**
+ * Text in a block is plain, with one markup: [link text](/path) for a link (internal links: linkcheck verifies them).
+ * Charts show computed data (worked examples) or example data said to be an example in the caption, never invented
+ * statistics. Figures are a module's lead screen (modules/leads.ts), with that screen's own alt text.
+ */
+export type PostBlock =
+  | { kind: 'p'; text: string }
+  | { kind: 'list'; items: string[]; ordered?: boolean }
+  | { kind: 'table'; caption: string; head: string[]; rows: string[][]; note?: string }
+  | { kind: 'figure'; module: ModuleSlug; caption: string }
+  | {
+      kind: 'chart';
+      title: string;
+      caption: string;
+      /** Each category is one bar; series stack within it. */
+      categories: string[];
+      series: { name: string; values: number[] }[];
+      format: 'inr' | 'number' | 'percent' | 'days';
+    }
+  | { kind: 'callout'; tone: 'tip' | 'note' | 'warning'; title: string; text: string }
+  | { kind: 'steps'; items: { title: string; text: string }[] };
 
 export interface PostBody {
   slug: string;
-  /** Question-shaped headings, each section opening with a sentence that answers it. */
-  sections: { heading: string; paragraphs: string[] }[];
-  /** What MAVRO does about it: deck facts only, never a claim about a rule the decks predate. */
-  mavro: string[];
+  /** Three to five sentences that answer the post's question on their own (quotable by answer engines). */
+  takeaways: string[];
+  /** Question-shaped headings, each opening with a sentence that answers it. */
+  sections: { id: string; heading: string; blocks: PostBlock[] }[];
+  faq: { q: string; a: string }[];
   sources: { label: string; url: string }[];
 }
 
 export const postIndex: PostMeta[] = [
   {
     slug: 'pf-and-esi-contributions',
+    type: 'informational',
+    minutes: 8,
     title: 'How PF and ESI contributions are calculated in 2026',
     description: 'PF and ESI rates for employer and employee, the new ₹25,000 EPF wage ceiling, the ESI limit, a worked example and what the labour codes changed.',
     published: '2026-11-10',
@@ -45,6 +84,8 @@ export const postIndex: PostMeta[] = [
   },
   {
     slug: 'form-16-to-form-130',
+    type: 'informational',
+    minutes: 4,
     title: 'Form 16 is now Form 130: salary TDS after April 2026',
     description: 'What the Income-tax Act, 2025 changed for salary TDS: Form 16 becomes Form 130, which form applies to which year, the tax year, and the quarterly return.',
     published: '2026-11-10',
@@ -54,6 +95,8 @@ export const postIndex: PostMeta[] = [
   },
   {
     slug: 'gst-e-invoicing-rules',
+    type: 'informational',
+    minutes: 4,
     title: 'GST e-invoicing rules: the ₹5 crore and 30-day limits',
     description: 'Who must e-invoice under GST (the ₹5 crore turnover threshold and exemptions), what the IRN and QR code are, and the 30-day reporting rule from ₹10 crore.',
     published: '2026-11-10',
@@ -63,6 +106,8 @@ export const postIndex: PostMeta[] = [
   },
   {
     slug: 'gstr-2b-and-ims',
+    type: 'informational',
+    minutes: 4,
     title: 'GSTR-2B and IMS: how to claim input tax credit',
     description: 'How the GST Invoice Management System works with GSTR-2B and GSTR-3B: accept, reject or keep pending, what happens if you do nothing, and a monthly routine.',
     published: '2026-11-10',
@@ -72,6 +117,8 @@ export const postIndex: PostMeta[] = [
   },
   {
     slug: 'fifo-vs-fefo',
+    type: 'hybrid',
+    minutes: 4,
     title: 'FIFO vs FEFO: which stock should leave first?',
     description: 'The difference between FIFO and FEFO, when they give different answers, which goods need FEFO, minimum shelf life rules, and why FEFO fails in practice.',
     published: '2026-11-10',
@@ -81,6 +128,8 @@ export const postIndex: PostMeta[] = [
   },
   {
     slug: 'cycle-counting',
+    type: 'hybrid',
+    minutes: 4,
     title: 'Cycle counting vs the annual stock-take',
     description: 'What cycle counting is, why it beats a once-a-year count, how ABC analysis sets the frequency, how to run a count, and if it replaces the stock-take.',
     published: '2026-11-10',

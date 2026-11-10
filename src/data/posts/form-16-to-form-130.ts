@@ -8,44 +8,55 @@ import type { PostBody } from './index';
  */
 export const post: PostBody = {
   slug: 'form-16-to-form-130',
+  takeaways: [],
   sections: [
     {
+      id: 'what-replaced-form-16',
       heading: 'What replaced Form 16?',
-      paragraphs: [
-        'Form 130 replaces Form 16 as the certificate of tax deducted from salary. The Income-tax Act, 2025 and the Income-tax Rules, 2026 replaced the Income-tax Act, 1961 from 1 April 2026 and renumbered the forms; Form 16A, the certificate for TDS on other payments, became Form 131.',
+      blocks: [
+        { kind: 'p', text: 'Form 130 replaces Form 16 as the certificate of tax deducted from salary. The Income-tax Act, 2025 and the Income-tax Rules, 2026 replaced the Income-tax Act, 1961 from 1 April 2026 and renumbered the forms; Form 16A, the certificate for TDS on other payments, became Form 131.' },
       ],
     },
     {
+      id: 'which-form-applies-to-which-year',
       heading: 'Which form applies to which year?',
-      paragraphs: [
-        'The year decides the form. Salary paid in the financial year 2025-26, which ended on 31 March 2026, falls under the old Act, so employers issued the old Form 16 for it, due by 15 June 2026.',
-        'Salary paid from 1 April 2026 falls under the new Act, so the certificate for tax year 2026-27 is the new Form 130.',
+      blocks: [
+        { kind: 'p', text: 'The year decides the form. Salary paid in the financial year 2025-26, which ended on 31 March 2026, falls under the old Act, so employers issued the old Form 16 for it, due by 15 June 2026.' },
+        { kind: 'p', text: 'Salary paid from 1 April 2026 falls under the new Act, so the certificate for tax year 2026-27 is the new Form 130.' },
       ],
     },
     {
+      id: 'what-is-a-tax-year',
       heading: 'What is a “tax year”?',
-      paragraphs: [
-        'The new Act uses one “tax year”, the twelve months from 1 April, in place of the old pair of “previous year” (when income is earned) and “assessment year” (when it is assessed). Tax year 2026-27 runs from 1 April 2026 to 31 March 2027.',
+      blocks: [
+        { kind: 'p', text: 'The new Act uses one “tax year”, the twelve months from 1 April, in place of the old pair of “previous year” (when income is earned) and “assessment year” (when it is assessed). Tax year 2026-27 runs from 1 April 2026 to 31 March 2027.' },
       ],
     },
     {
+      id: 'do-employers-still-file-a-quarterly-tds',
       heading: 'Do employers still file a quarterly TDS return on salaries?',
-      paragraphs: [
-        'Yes. Employers still deduct tax from salary every month and report it quarterly. For the old Act’s last year, the return was Form 24Q, with the last quarter due by 31 May 2026.',
-        'From tax year 2026-27 the quarterly return has a new form number under the 2026 Rules. Reports differ on the number, so take it from the forms notified on the income tax department’s website.',
+      blocks: [
+        { kind: 'p', text: 'Yes. Employers still deduct tax from salary every month and report it quarterly. For the old Act’s last year, the return was Form 24Q, with the last quarter due by 31 May 2026.' },
+        { kind: 'p', text: 'From tax year 2026-27 the quarterly return has a new form number under the 2026 Rules. Reports differ on the number, so take it from the forms notified on the income tax department’s website.' },
       ],
     },
     {
+      id: 'what-should-payroll-teams-check-now',
       heading: 'What should payroll teams check now?',
-      paragraphs: [
-        'That this year’s salary TDS is reported on the new forms, that employee certificates for 2026-27 will be issued as Form 130, and that last year’s Form 16 and Form 24Q records are kept for the old Act’s assessments.',
+      blocks: [
+        { kind: 'p', text: 'That this year’s salary TDS is reported on the new forms, that employee certificates for 2026-27 will be issued as Form 130, and that last year’s Form 16 and Form 24Q records are kept for the old Act’s assessments.' },
+      ],
+    },
+    {
+      id: 'how-mavro-handles-this',
+      heading: 'How MAVRO handles this',
+      blocks: [
+        { kind: 'p', text: 'MAVRO HRMS and Payroll computes TDS on salary every month, lets each employee choose the old or new tax regime for the financial year, takes investment declarations with proofs online, and generates employees’ TDS certificates in the app.' },
+        { kind: 'p', text: 'Employees download their payslips and tax certificates from the MAVRO app or the self-service portal.' },
       ],
     },
   ],
-  mavro: [
-    'MAVRO HRMS and Payroll computes TDS on salary every month, lets each employee choose the old or new tax regime for the financial year, takes investment declarations with proofs online, and generates employees’ TDS certificates in the app.',
-    'Employees download their payslips and tax certificates from the MAVRO app or the self-service portal.',
-  ],
+  faq: [],
   sources: [
     {
       label: 'Business Today: Form 16 to Form 130, the new forms from 1 April 2026',

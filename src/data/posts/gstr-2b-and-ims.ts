@@ -9,44 +9,55 @@ import type { PostBody } from './index';
  */
 export const post: PostBody = {
   slug: 'gstr-2b-and-ims',
+  takeaways: [],
   sections: [
     {
+      id: 'what-is-gstr-2b',
       heading: 'What is GSTR-2B?',
-      paragraphs: [
-        'GSTR-2B is the monthly statement of input tax credit available to a buyer, built from what its suppliers have reported. It is the reference for how much credit can be claimed in GSTR-3B for the month.',
+      blocks: [
+        { kind: 'p', text: 'GSTR-2B is the monthly statement of input tax credit available to a buyer, built from what its suppliers have reported. It is the reference for how much credit can be claimed in GSTR-3B for the month.' },
       ],
     },
     {
+      id: 'what-does-the-invoice-management-system',
       heading: 'What does the Invoice Management System (IMS) change?',
-      paragraphs: [
-        'IMS lets the buyer act on each supplier document before it reaches GSTR-2B. As soon as a supplier saves an invoice, debit note or credit note in GSTR-1, IFF or GSTR-1A, it appears on the buyer’s IMS dashboard.',
-        'The buyer can accept it, reject it or keep it pending. Accepted documents count towards credit in GSTR-2B and flow into GSTR-3B; rejected ones are left out; pending ones are held back until the buyer acts.',
+      blocks: [
+        { kind: 'p', text: 'IMS lets the buyer act on each supplier document before it reaches GSTR-2B. As soon as a supplier saves an invoice, debit note or credit note in GSTR-1, IFF or GSTR-1A, it appears on the buyer’s IMS dashboard.' },
+        { kind: 'p', text: 'The buyer can accept it, reject it or keep it pending. Accepted documents count towards credit in GSTR-2B and flow into GSTR-3B; rejected ones are left out; pending ones are held back until the buyer acts.' },
       ],
     },
     {
+      id: 'what-happens-if-the-buyer-does-nothing',
       heading: 'What happens if the buyer does nothing?',
-      paragraphs: [
-        'A document the buyer does not act on is treated as accepted, so its credit flows through as if it had been checked. That makes reviewing the dashboard every month part of the close, not an option.',
-        'After changing actions on documents, the buyer recomputes GSTR-2B on the portal so the statement reflects them.',
+      blocks: [
+        { kind: 'p', text: 'A document the buyer does not act on is treated as accepted, so its credit flows through as if it had been checked. That makes reviewing the dashboard every month part of the close, not an option.' },
+        { kind: 'p', text: 'After changing actions on documents, the buyer recomputes GSTR-2B on the portal so the statement reflects them.' },
       ],
     },
     {
+      id: 'does-accepting-an-invoice-in-ims-make-th',
       heading: 'Does accepting an invoice in IMS make the credit valid?',
-      paragraphs: [
-        'No. IMS is a document-level workflow; it does not replace the conditions for claiming input tax credit. The buyer still needs a valid tax invoice, the goods or services actually received and the supplier’s tax paid, so each document is checked against the purchase record before it is accepted.',
+      blocks: [
+        { kind: 'p', text: 'No. IMS is a document-level workflow; it does not replace the conditions for claiming input tax credit. The buyer still needs a valid tax invoice, the goods or services actually received and the supplier’s tax paid, so each document is checked against the purchase record before it is accepted.' },
       ],
     },
     {
+      id: 'a-monthly-routine-that-works',
       heading: 'A monthly routine that works',
-      paragraphs: [
-        'Match each supplier document to the purchase order, the goods receipt and the booked bill. Accept what matches, reject what is wrong or not yours, keep pending what is waiting on the supplier, recompute GSTR-2B, then claim the credit in GSTR-3B.',
+      blocks: [
+        { kind: 'p', text: 'Match each supplier document to the purchase order, the goods receipt and the booked bill. Accept what matches, reject what is wrong or not yours, keep pending what is waiting on the supplier, recompute GSTR-2B, then claim the credit in GSTR-3B.' },
+      ],
+    },
+    {
+      id: 'how-mavro-handles-this',
+      heading: 'How MAVRO handles this',
+      blocks: [
+        { kind: 'p', text: 'In MAVRO, vendor invoices are matched three ways against the purchase order and the goods receipt in Vendor Invoice Management, and matched daily against GSTR-2B, so input tax credit is claimed only on invoices that match.' },
+        { kind: 'p', text: 'Vendors are verified by GSTIN and PAN on onboarding, and MAVRO Accounting builds GSTR-1 and GSTR-3B from the posted documents.' },
       ],
     },
   ],
-  mavro: [
-    'In MAVRO, vendor invoices are matched three ways against the purchase order and the goods receipt in Vendor Invoice Management, and matched daily against GSTR-2B, so input tax credit is claimed only on invoices that match.',
-    'Vendors are verified by GSTIN and PAN on onboarding, and MAVRO Accounting builds GSTR-1 and GSTR-3B from the posted documents.',
-  ],
+  faq: [],
   sources: [
     { label: 'Tally: what is changing in GSTR-2B and GSTR-3B with IMS', url: 'https://tallysolutions.com/gst/ims-impact-on-gstr-2b-gstr-3b/' },
     { label: 'Taxmann: GST Invoice Management System (IMS) and ITC claims', url: 'https://www.taxmann.com/post/blog/gst-invoice-management-system-ims/' },

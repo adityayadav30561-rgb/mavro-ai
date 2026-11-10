@@ -1,0 +1,145 @@
+/* Bar chart (blocks/BarChart.tsx): horizontal stacked bars in HTML, per the dataviz skill's mark specs. */
+.bchart {
+  margin: 0;
+  padding: 1.25rem 1.25rem 1rem;
+  border-radius: var(--r-3);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.bchart__title {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.bchart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .375rem 1rem;
+  margin-top: .5rem;
+  font-size: var(--t-small);
+  color: var(--fg-2);
+}
+
+.bchart__legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.bchart__legend span {
+  width: .75rem;
+  height: .75rem;
+  border-radius: 3px;
+  background: var(--c);
+}
+
+.bchart__rows {
+  display: grid;
+  gap: .75rem;
+  margin-top: 1rem;
+}
+
+.bchart__rows li {
+  display: grid;
+  grid-template-columns: minmax(6rem, 30%) minmax(0, 1fr);
+  gap: .75rem;
+  align-items: center;
+}
+
+.bchart__label {
+  font-size: var(--t-small);
+  color: var(--fg-2);
+}
+
+.bchart__track {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-width: 0;
+  /* the single baseline */
+  border-left: 1px solid var(--line-2, var(--line));
+}
+
+.bchart__bar {
+  display: flex;
+  gap: 2px;
+  width: calc(var(--w) * 0.8);
+  min-width: 4px;
+  height: 1.5rem;
+}
+
+.bchart__seg {
+  position: relative;
+  flex: var(--f) 1 0;
+  min-width: 2px;
+  background: var(--c);
+  outline-offset: 2px;
+}
+
+.bchart__seg:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
+.bchart__seg::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + .5rem);
+  left: 50%;
+  z-index: 2;
+  translate: -50% 0;
+  padding: .375rem .625rem;
+  border-radius: var(--r-1);
+  background: var(--navy);
+  color: var(--white);
+  font-size: var(--t-label);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--d-1) var(--ease);
+}
+
+.bchart__seg:hover::after,
+.bchart__seg:focus-visible::after {
+  opacity: 1;
+}
+
+.bchart__total {
+  flex: none;
+  font-size: var(--t-small);
+  color: var(--ink);
+}
+
+.bchart figcaption {
+  margin-top: 1rem;
+  font-size: var(--t-small);
+  color: var(--fg-2);
+}
+
+.bchart__data {
+  margin-top: .5rem;
+  font-size: var(--t-small);
+}
+
+.bchart__data summary {
+  cursor: pointer;
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.bchart__data table {
+  width: 100%;
+  margin-top: .5rem;
+  border-collapse: collapse;
+}
+
+.bchart__data th,
+.bchart__data td {
+  padding: .375rem .5rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.bchart__data td {
+  text-align: right;
+}

@@ -394,6 +394,7 @@ const companyRoutes: Route[] = [
                 },
                 citation: postFor(meta.slug).sources.map((source) => source.url),
               },
+              ...(postFor(meta.slug).faq.length ? [faqPage(`${site.url}${path}#faq`, postFor(meta.slug).faq)] : []),
             ],
           };
         }),

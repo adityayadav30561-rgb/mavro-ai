@@ -7,39 +7,49 @@ import type { PostBody } from './index';
  */
 export const post: PostBody = {
   slug: 'gst-e-invoicing-rules',
+  takeaways: [],
   sections: [
     {
+      id: 'who-must-issue-gst-e-invoices',
       heading: 'Who must issue GST e-invoices?',
-      paragraphs: [
-        'A business must issue e-invoices for its business-to-business supplies once its aggregate annual turnover (AATO) has passed ₹5 crore in any financial year since 2017-18. The threshold has been ₹5 crore since 1 August 2023.',
-        'Some businesses are exempt whatever their turnover: banks, NBFCs and insurers, goods transport agencies, passenger transport services and multiplex cinema admissions, among others.',
+      blocks: [
+        { kind: 'p', text: 'A business must issue e-invoices for its business-to-business supplies once its aggregate annual turnover (AATO) has passed ₹5 crore in any financial year since 2017-18. The threshold has been ₹5 crore since 1 August 2023.' },
+        { kind: 'p', text: 'Some businesses are exempt whatever their turnover: banks, NBFCs and insurers, goods transport agencies, passenger transport services and multiplex cinema admissions, among others.' },
       ],
     },
     {
+      id: 'what-makes-an-invoice-an-e-invoice',
       heading: 'What makes an invoice an e-invoice?',
-      paragraphs: [
-        'An e-invoice is an invoice reported to the government’s Invoice Registration Portal (IRP), which returns an Invoice Reference Number (IRN) and a signed QR code to print on it.',
-        'For a business that must e-invoice, an invoice without a valid IRN is not a valid tax invoice, which puts the buyer’s input tax credit at risk.',
+      blocks: [
+        { kind: 'p', text: 'An e-invoice is an invoice reported to the government’s Invoice Registration Portal (IRP), which returns an Invoice Reference Number (IRN) and a signed QR code to print on it.' },
+        { kind: 'p', text: 'For a business that must e-invoice, an invoice without a valid IRN is not a valid tax invoice, which puts the buyer’s input tax credit at risk.' },
       ],
     },
     {
+      id: 'what-is-the-30-day-reporting-rule',
       heading: 'What is the 30-day reporting rule?',
-      paragraphs: [
-        'Businesses with an AATO of ₹10 crore or more must report each invoice, credit note and debit note to the IRP within 30 days of its date; after that the portal will not accept it. The rule has applied at ₹10 crore since 1 April 2025.',
-        'Businesses below ₹10 crore are not bound by the 30-day limit, but still have to e-invoice once they pass ₹5 crore.',
+      blocks: [
+        { kind: 'p', text: 'Businesses with an AATO of ₹10 crore or more must report each invoice, credit note and debit note to the IRP within 30 days of its date; after that the portal will not accept it. The rule has applied at ₹10 crore since 1 April 2025.' },
+        { kind: 'p', text: 'Businesses below ₹10 crore are not bound by the 30-day limit, but still have to e-invoice once they pass ₹5 crore.' },
       ],
     },
     {
+      id: 'what-should-finance-teams-check',
       heading: 'What should finance teams check?',
-      paragraphs: [
-        'Each year’s turnover against the thresholds; that invoices, credit notes and debit notes are reported on the day they are raised rather than in batches; and that the IRN and QR code reach the printed and emailed invoice.',
+      blocks: [
+        { kind: 'p', text: 'Each year’s turnover against the thresholds; that invoices, credit notes and debit notes are reported on the day they are raised rather than in batches; and that the IRN and QR code reach the printed and emailed invoice.' },
+      ],
+    },
+    {
+      id: 'how-mavro-handles-this',
+      heading: 'How MAVRO handles this',
+      blocks: [
+        { kind: 'p', text: 'MAVRO is GST-compliant at every touchpoint, with e-invoicing built in: invoices are raised as e-invoices from the order or contract in Order to Cash, not keyed in afterwards.' },
+        { kind: 'p', text: 'The same posted invoices, credit notes and vendor bills feed GSTR-1 and GSTR-3B in MAVRO Accounting, so the returns and the books agree.' },
       ],
     },
   ],
-  mavro: [
-    'MAVRO is GST-compliant at every touchpoint, with e-invoicing built in: invoices are raised as e-invoices from the order or contract in Order to Cash, not keyed in afterwards.',
-    'The same posted invoices, credit notes and vendor bills feed GSTR-1 and GSTR-3B in MAVRO Accounting, so the returns and the books agree.',
-  ],
+  faq: [],
   sources: [
     { label: 'Tally: e-invoicing rules in India, 2026', url: 'https://tallysolutions.com/accounting/e-invoicing-rules-in-india/' },
     { label: 'GimBooks: is the ₹5 crore e-invoice rule still applicable in 2026?', url: 'https://www.gimbooks.com/blog/5-crore-e-invoice-turnover-rule-2026/amp/' },

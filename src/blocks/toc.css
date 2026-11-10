@@ -1,0 +1,46 @@
+/* Contents (blocks/Toc.tsx). */
+.toc {
+  padding: 1.25rem;
+  border-radius: var(--r-3);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.toc p {
+  font-size: var(--t-label);
+  font-weight: 700;
+  color: var(--fg-3);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.toc ol {
+  display: grid;
+  gap: .125rem;
+  margin-top: .625rem;
+  counter-reset: toc;
+}
+
+.toc li {
+  counter-increment: toc;
+}
+
+.toc a {
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  padding: .375rem .5rem;
+  border-radius: var(--r-1);
+  font-size: var(--t-small);
+  line-height: 1.4;
+  color: var(--fg-2);
+}
+
+.toc a::before {
+  content: counter(toc);
+  color: var(--fg-3);
+}
+
+.toc a:hover {
+  background: var(--blue-50);
+  color: var(--ink);
+}
