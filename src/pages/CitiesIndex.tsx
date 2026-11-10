@@ -34,7 +34,7 @@ export function Page() {
     name: country.name,
     lower: country.inText,
     icon: t.icon,
-    who: country.cities.map((city) => city.name).join(', '),
+    who: country.cities.length ? country.cities.map((city) => city.name).join(', ') : (country.areas?.[0] ?? ''),
     title: `Known for ${country.knownFor}`,
     href: hasPage(gccPath(country)) ? gccPath(country) : null,
   }));

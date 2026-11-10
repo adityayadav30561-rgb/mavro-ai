@@ -71,7 +71,7 @@ export function Page() {
         title={t.industries.title}
         rest={t.industries.rest}
         treatment="grad"
-        lead={'areas' in place ? `${Name}: ${place.areas.join(', ')}.` : undefined}
+        lead={place.areas ? `${Name}: ${place.areas.join(', ')}.` : undefined}
       >
         <CapabilityTiles tiles={industryTiles} columns={3} />
       </Section>

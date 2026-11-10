@@ -8,9 +8,9 @@ _Last updated: 2026-11-09. Update this file at the end of every task and before 
 done (2026-11-09: the Super ERP for Indian businesses in every industry, an `/industries` hub and eight draft
 industry pages), and D2 SEO, AEO and GEO done (2026-11-09; the domain, profiles and Company text wait on the user).
 Phase 28 launch QA checks are done; launch waits on the user's sign-off (Launch checklist below). D3 city pages
-done (25 cities, 2026-11-09). Then, in the user's order, each in its own session: D4 UAE and GCC → D5 high-volume module queries**
+done (25 cities, 2026-11-09). D4 Gulf pages done (UAE, Saudi Arabia, Qatar, 2026-11-10). Next: D5 high-volume module queries**
 ([IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md), Stage D; the user's market and audience in DECISIONS.md). Every planned page with content exists
-(92 prerendered: 42 module pages, 25 city pages and their index, platform and package pages, ERP Connect, the industries hub and twelve industry
+(101 prerendered: 42 module pages, 25 Indian city pages and their index, 9 Gulf pages, platform and package pages, ERP Connect, the industries hub and twelve industry
 pages (eight of them drafts), implementation, security, customers, contact, 404); Company, Privacy, Terms, the blog and careers wait for the user's text (Open
 items). The site plan ([SITE-PLAN.md](SITE-PLAN.md)) was approved on 2026-10-23. See [WORKFLOW.md](WORKFLOW.md).
 
@@ -55,6 +55,19 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
   - Pages: the UAE and Dubai. All checks clean.
   - Batch 2: Abu Dhabi and Sharjah (four city questions each, to keep the UAE cities apart). Similarity max 0.31
     (Abu Dhabi ~ Dubai); all checks clean.
+  - Batch 3: Saudi Arabia (ZATCA e-invoicing, VAT on e-invoices, Arabic and SAR; no payroll claims) with Riyadh,
+    Jeddah and Dammam, and Qatar (one page; no tax claims at all, Qatar has no VAT in force; multi-entity, multi-currency
+    and ERP Connect from the decks). **D4 done: 3 country + 6 city pages.** Similarity max 0.31 over the six Gulf
+    cities; sweep, a11y, seocheck, linkcheck (100 pages, depth ≤ 3) clean. The Saudi city pages were my scope call
+    (the option said "if wanted"); the user can drop them.
+
+#### Gulf pages (D4)
+
+| Page | Locale | What it claims |
+|---|---|---|
+| UAE: `/ae/erp-software`, Dubai, Abu Dhabi, Sharjah | en-AE | UAE VAT, WPS, gratuity, Arabic, AED (user-confirmed) |
+| Saudi Arabia: `/sa/erp-software`, Riyadh, Jeddah, Dammam | en-SA | ZATCA Fatoora Phase 2 with QR, 15% VAT on e-invoices, Arabic, SAR (user-confirmed) |
+| Qatar: `/qa/erp-software` | en-QA | Arabic, QAR; multi-entity, multi-currency and ERP Connect (decks); no tax claims |
 
 - 2026-11-09, **D3 city pages, batch 1** (decisions: DECISIONS.md "D3 city pages"). On `main`.
   - Template `pages/CityPage.tsx`, index `pages/CitiesIndex.tsx` (`/erp-software`, cities by region), data
@@ -1028,8 +1041,8 @@ items when context is heavy.
 2. **D2 is done** (2026-11-09). Waiting on the user: the domain, `sameAs` profile links and the About text (at launch).
 3. **Phase 28: Launch QA** (recommended here, before the growth work): includes removing `/pipeline-check` and
    rerunning `npm run linkcheck`.
-4. **D3 is done** (25 city pages). Next **D4: UAE and GCC pages**, then **D5: high-volume module queries** (payroll,
-   HRMS and the like), each in its own session, each starting with the questions listed in its section.
+4. **D3 and D4 are done** (25 Indian city pages; 9 Gulf pages). Next: **D5: high-volume module queries** (payroll,
+   HRMS and the like), in its own session, starting with the questions listed in its section.
 
 ## Launch checklist (Phase 28): what needs the user
 

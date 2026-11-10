@@ -46,6 +46,8 @@ export interface GccCountry {
   currency: string;
   knownFor: string;
   lead: string;
+  /** Well-known industrial areas, ports and zones (a country with no city pages names its own). */
+  areas?: string[];
   /** What MAVRO does there for tax, payroll and language: only what the user confirmed (header). */
   compliance: { title: string; lead: string; tiles: CapabilityTile[] };
   industries: [CityIndustry, CityIndustry, CityIndustry];
@@ -233,6 +235,186 @@ export const gccCountries: GccCountry[] = [
     seo: {
       title: 'ERP software in the UAE with VAT and WPS | MAVRO',
       description: 'MAVRO ERP for UAE traders, logistics firms, contractors and manufacturers: UAE VAT, WPS salary files, gratuity, Arabic and AED, served from India.',
+    },
+  },
+  {
+    key: 'sa',
+    name: 'Saudi Arabia',
+    inText: 'Saudi Arabia',
+    locale: { lang: 'en-SA', og: 'en_SA' },
+    currency: 'SAR',
+    knownFor: 'distribution, construction and industry.',
+    lead: 'For Saudi distributors and wholesalers, contractors and manufacturers across the Kingdom’s cities and industrial cities: orders, stock, projects and plants on one system, with ZATCA e-invoicing, SAR and Arabic built in.',
+    compliance: {
+      title: 'ZATCA e-invoicing,',
+      lead: 'Handled in the modules that create the records.',
+      tiles: [
+        { icon: 'receipt', title: 'ZATCA e-invoicing', body: 'E-invoices to ZATCA’s Fatoora requirements, with the QR code, integrated with ZATCA’s platform under Phase 2.' },
+        { icon: 'claims', title: 'VAT on every e-invoice', body: 'Saudi VAT at the standard 15% on each e-invoice, from the order or contract that created it.' },
+        { icon: 'finance', title: 'Arabic and SAR', body: 'Arabic support, and SAR alongside the other currencies you buy and sell in, with a live multi-currency P&L.' },
+      ],
+    },
+    industries: [
+      { slug: 'distribution', note: 'Distributors and wholesalers serving retailers across the Kingdom, with schemes, credit and long delivery routes.' },
+      { slug: 'construction-real-estate', note: 'Contractors and developers on projects across the Kingdom, with budgets, subcontractors and equipment to track.' },
+      { slug: 'manufacturing', note: 'Plants in the industrial cities, making building materials, plastics, metals and food to order and to stock.' },
+    ],
+    faq: [
+      {
+        q: 'Is MAVRO compliant with ZATCA e-invoicing?',
+        a: 'Yes. MAVRO issues e-invoices to ZATCA’s Fatoora requirements, with the QR code, and integrates with ZATCA’s platform under Phase 2.',
+      },
+      {
+        q: 'Can MAVRO run alongside SAP in our Saudi entity?',
+        a: 'Yes. ERP Connect runs MAVRO beside SAP, Oracle or a legacy ERP, syncing two ways through the MAVRO Database, so SAP stays the system of record.',
+      },
+      {
+        q: 'Does SaiSatwik have an office in Saudi Arabia?',
+        a: 'No. SaiSatwik Technologies serves Saudi businesses from India: discovery, configuration and training run remotely on the 25–30 day plan, with on-site visits when agreed.',
+      },
+    ],
+    cities: [
+      {
+        slug: 'riyadh',
+        name: 'Riyadh',
+        knownFor: 'head offices, construction and distribution.',
+        lead: 'For the companies run from Riyadh with branches across the Kingdom, the contractors building in and around the capital, and the distributors of the central region: entities and branches, projects, channel and ZATCA e-invoicing on one system.',
+        areas: ['Riyadh Second Industrial City', 'Sudair Industrial City', 'King Abdullah Financial District', 'Olaya'],
+        industries: [
+          { slug: 'construction-real-estate', note: 'Contractors and developers on projects in and around the capital, tracking budgets, milestones, subcontractors and change requests.' },
+          { slug: 'distribution', note: 'Distributors serving the central region and beyond from Riyadh, with field sales, schemes and credit.' },
+          { slug: 'it-services', note: 'Head offices, consultancies and service firms in the business districts, with projects, people and travel across branches.' },
+        ],
+        faq: [
+          {
+            q: 'Can a Riyadh head office see every branch in one place?',
+            a: 'Yes. MAVRO runs entities and branches on one platform, with books per entity and stock by location, and role dashboards across them.',
+          },
+          {
+            q: 'Can a contractor track change requests and their cost?',
+            a: 'Yes. Project Management tracks each project against its approved budget and schedule, and sends change requests with their cost and time impact for approval.',
+          },
+          {
+            q: 'Can field sales teams book orders on their phones?',
+            a: 'Yes. Sales Force Automation gives reps beat plans and mobile order booking, with schemes and credit checked as the order is taken.',
+          },
+        ],
+        seo: {
+          title: 'ERP software in Riyadh with ZATCA e-invoicing | MAVRO',
+          description: 'ERP for Riyadh head offices with branches across the Kingdom, contractors and distributors: entities, projects, field sales and ZATCA e-invoicing.',
+        },
+      },
+      {
+        slug: 'jeddah',
+        name: 'Jeddah',
+        knownFor: 'port trade, food and retail.',
+        lead: 'For Jeddah’s importers and logistics companies working through Jeddah Islamic Port, its food makers and distributors, and its retail chains and online sellers: shipments, batches and shelf life, stores and marketplaces, and ZATCA e-invoicing on one system.',
+        areas: ['Jeddah Islamic Port', 'Jeddah Industrial Cities', 'Al Khumrah', 'Al Sulaimaniyah'],
+        industries: [
+          { slug: 'logistics', note: 'Importers, freight forwarders and transporters moving goods through Jeddah Islamic Port to the rest of the Kingdom.' },
+          { slug: 'food-beverage', note: 'Food makers and importers selling through distributors and stores, with batches and expiry on every line.' },
+          { slug: 'retail-ecommerce', note: 'Retail chains and online sellers with stores, marketplaces and warehouses on one stock.' },
+        ],
+        faq: [
+          {
+            q: 'Can MAVRO track imported shipments to delivery?',
+            a: 'Yes. Transportation Management builds shipments into loads and lanes, tracks them in a control tower and closes them with an electronic proof of delivery.',
+          },
+          {
+            q: 'Can a Jeddah food business pick stock by expiry?',
+            a: 'Yes. Inventory Management tracks every batch by expiry and allocates order lines first-expiry-first-out, so older stock leaves first.',
+          },
+          {
+            q: 'Can a retailer sell in stores and on marketplaces from one stock?',
+            a: 'Yes. Ecommerce Integration brings marketplace and webstore orders and returns into one order book and keeps stock in sync across channels.',
+          },
+        ],
+        seo: {
+          title: 'ERP software in Jeddah for trade, food and retail | MAVRO',
+          description: 'ERP for Jeddah’s importers and logistics firms at Jeddah Islamic Port, food makers and retail chains: shipments, expiry, stores and ZATCA e-invoicing.',
+        },
+      },
+      {
+        slug: 'dammam',
+        name: 'Dammam',
+        knownFor: 'oil and gas services, petrochemicals and fabrication.',
+        lead: 'For the oil and gas service companies, fabricators and chemical suppliers of Dammam, Al Khobar and nearby Jubail, and the logistics firms at King Abdulaziz Port: assets and maintenance, vendor audits, documents, shipments and ZATCA e-invoicing on one system.',
+        areas: ['Dammam Second and Third Industrial Cities', 'Jubail Industrial City', 'King Abdulaziz Port', 'Al Khobar'],
+        industries: [
+          { slug: 'chemicals', note: 'Chemical makers and suppliers serving the petrochemical plants of the Eastern Province, with batches and documents for every material.' },
+          { slug: 'manufacturing', note: 'Fabrication and engineering shops building to order for the energy sector, with long lead times and inspections.' },
+          { slug: 'logistics', note: 'Freight and transport companies around King Abdulaziz Port and the industrial cities.' },
+        ],
+        faq: [
+          {
+            q: 'Can an oil and gas service company maintain its equipment in MAVRO?',
+            a: 'Yes. Asset Management keeps a tagged register with each asset’s preventive maintenance, calibration, critical spares and depreciation, and uptime by site.',
+          },
+          {
+            q: 'Can MAVRO audit our suppliers and keep their documents?',
+            a: 'Yes. mVLens Vendor Audit plans audits, records findings and follows CAPA to closure, and Document Management keeps certificates and specifications versioned.',
+          },
+          {
+            q: 'Can a fabricator track an order as a project?',
+            a: 'Yes. Project Management tracks each order against its budget and milestones, while Production Management runs the work orders behind it.',
+          },
+        ],
+        seo: {
+          title: 'ERP software in Dammam for energy services | MAVRO',
+          description: 'ERP for Dammam, Al Khobar and Jubail oil and gas service firms, fabricators and chemical suppliers: assets, vendor audits, documents and ZATCA e-invoicing.',
+        },
+      },
+    ],
+    seo: {
+      title: 'ERP software in Saudi Arabia with ZATCA e-invoicing | MAVRO',
+      description: 'MAVRO ERP for Saudi distributors, contractors and manufacturers: ZATCA Phase 2 e-invoicing with QR code, VAT, Arabic and SAR, served from India.',
+    },
+  },
+  {
+    key: 'qa',
+    name: 'Qatar',
+    inText: 'Qatar',
+    locale: { lang: 'en-QA', og: 'en_QA' },
+    currency: 'QAR',
+    knownFor: 'construction, trading and logistics.',
+    lead: 'For Qatar’s contractors and developers, its trading and distribution companies, and the logistics firms around Hamad Port and the industrial cities: projects, stock, orders and shipments on one system, in QAR and the other currencies you trade in.',
+    areas: ['Doha', 'Hamad Port', 'Doha Industrial Area', 'Mesaieed Industrial City', 'Ras Laffan Industrial City'],
+    compliance: {
+      title: 'QAR, Arabic and several companies,',
+      lead: 'Your companies, your currencies and the ERP you already run, on one platform.',
+      tiles: [
+        { icon: 'finance', title: 'Arabic and QAR', body: 'Arabic support, and QAR alongside the other currencies you buy and sell in, with a live multi-currency P&L.' },
+        { icon: 'layers', title: 'Several companies, one system', body: 'Entities and branches on one platform, with books per entity and stock by location.' },
+        { icon: 'link', title: 'Alongside your ERP', body: 'ERP Connect runs MAVRO beside SAP, Oracle or a legacy ERP, syncing two ways through the MAVRO Database.' },
+      ],
+    },
+    industries: [
+      { slug: 'construction-real-estate', note: 'Contractors and developers on projects across Doha and beyond, with budgets, subcontractors, equipment and site labour.' },
+      { slug: 'distribution', note: 'Trading and distribution companies importing for the Qatari market, with stock, credit and several currencies.' },
+      { slug: 'logistics', note: 'Freight, warehousing and transport companies around Hamad Port and the industrial cities of Mesaieed and Ras Laffan.' },
+    ],
+    faq: [
+      {
+        q: 'Can a Qatar contractor track subcontractors and equipment?',
+        a: 'Yes. Project Management tracks each project against budget and milestones, Contract Labour Purchase handles subcontracted labour, and Asset Management and Fleet Management keep equipment and vehicles.',
+      },
+      {
+        q: 'Can MAVRO trade in QAR and other currencies?',
+        a: 'Yes. Orders, purchases and invoices run in QAR and other currencies, and the P&L is live across currencies.',
+      },
+      {
+        q: 'Can MAVRO run a warehouse near Hamad Port?',
+        a: 'Yes. Warehouse Management runs bin-level putaway, RF picking and dispatch with barcodes, and Transportation Management tracks shipments to proof of delivery.',
+      },
+      {
+        q: 'Does SaiSatwik have an office in Qatar?',
+        a: 'No. SaiSatwik Technologies serves Qatari businesses from India: discovery, configuration and training run remotely on the 25–30 day plan, with on-site visits when agreed.',
+      },
+    ],
+    cities: [],
+    seo: {
+      title: 'ERP software in Qatar for contractors and traders | MAVRO',
+      description: 'MAVRO ERP for Qatar’s contractors, trading companies and logistics firms near Hamad Port: projects, stock, shipments, Arabic and QAR, served from India.',
     },
   },
 ];

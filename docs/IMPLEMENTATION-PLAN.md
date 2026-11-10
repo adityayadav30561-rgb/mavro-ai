@@ -424,6 +424,10 @@ Adding a city: an entry in `cities` (and its state if new), then build, `node qa
 
 ### D4: UAE and GCC pages
 
+**Done 2026-11-10** (STATUS.md, "Gulf pages"; DECISIONS.md "D4"). Template `pages/GccPage.tsx`, data
+`src/data/gcc.ts`. Adding a country or city: an entry there, a locale for a new country, then the usual checks and
+`node qa/similarity.cjs /ae/erp-software/ /sa/erp-software/`.
+
 - **Goal:** pages for the UAE first, then the other GCC countries, for searches in those markets.
 - **Ask the user first (none of this is in the decks):** which countries; what MAVRO supports there today, for
   example UAE VAT, Saudi ZATCA e-invoicing, WPS payroll, Arabic, AED and other currencies (the decks state
