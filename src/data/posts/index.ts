@@ -52,6 +52,24 @@ export const postIndex: PostMeta[] = [
     module: 'hrms-and-payroll',
     moduleLink: 'payroll software.',
   },
+  {
+    slug: 'gst-e-invoicing-rules',
+    title: 'GST e-invoicing rules: the ₹5 crore and 30-day limits',
+    description: 'Who must e-invoice under GST (the ₹5 crore turnover threshold and exemptions), what the IRN and QR code are, and the 30-day reporting rule from ₹10 crore.',
+    published: '2026-11-10',
+    checked: '2026-11-10',
+    module: 'accounting',
+    moduleLink: 'accounting and GST software.',
+  },
+  {
+    slug: 'gstr-2b-and-ims',
+    title: 'GSTR-2B and IMS: how to claim input tax credit',
+    description: 'How the GST Invoice Management System works with GSTR-2B and GSTR-3B: accept, reject or keep pending, what happens if you do nothing, and a monthly routine.',
+    published: '2026-11-10',
+    checked: '2026-11-10',
+    module: 'accounting',
+    moduleLink: 'accounting and GST software.',
+  },
 ];
 
 const loaders = import.meta.glob<{ post: PostBody }>(['./*.ts', '!./index.ts']);

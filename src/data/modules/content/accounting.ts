@@ -114,6 +114,14 @@ export const content: ModuleContent<'accounting'> = {
       a: 'Yes. MAVRO builds GSTR-1 and GSTR-3B from posted invoices, credit notes and vendor bills, so the returns and the books always agree. Vendor invoices are matched daily against GSTR-2B, and input tax credit is claimed only on invoices that match.',
     },
     {
+      q: 'Does MAVRO generate GST e-invoices?',
+      a: 'Yes. MAVRO is GST-compliant at every touchpoint, with e-invoicing built in: invoices are raised as e-invoices from the transaction, and the same posted documents feed GSTR-1 and GSTR-3B.',
+    },
+    {
+      q: 'Does MAVRO check a vendor’s GSTIN?',
+      a: 'Yes. Vendors are verified by GSTIN and PAN when they are onboarded, and vendor invoices are matched against GSTR-2B before input tax credit is claimed.',
+    },
+    {
       q: 'Can MAVRO handle multiple companies and plants?',
       a: 'Yes. MAVRO Accounting runs multiple entities, branches and plants on one platform, in multiple currencies. Inter-entity balances are agreed and eliminated, and consolidated statements are produced from the posted ledger without spreadsheets.',
     },
@@ -122,9 +130,11 @@ export const content: ModuleContent<'accounting'> = {
       a: 'MAVRO reconciles bank, inter-entity and clearing accounts as the month runs rather than at the end. Journals post automatically from source documents, manual journals go through maker-checker approval, and the close checklist shows what is left before a period is locked.',
     },
   ],
+  headline: 'Accounting and GST software for India',
+  lead: 'MAVRO Accounting is accounting and GST software for Indian businesses: a live general ledger posted from every transaction, GSTR-1 and GSTR-3B built from posted invoices, input tax credit matched against GSTR-2B, and statements across entities.',
   seo: {
-    title: 'Accounting software with GST returns and auto journals | MAVRO',
+    title: 'Accounting and GST software for India | MAVRO',
     description:
-      'MAVRO Accounting: a live general ledger posted from every transaction, GST returns built from posted invoices, bank reconciliation by rules and multi-entity statements.',
+      'MAVRO Accounting and GST software: a live general ledger from every transaction, GSTR-1 and GSTR-3B from posted invoices, GSTR-2B matching and e-invoicing.',
   },
 };

@@ -60,6 +60,9 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
   - Fixed: the IT services page no longer names the Gratuity Act (replaced by the Code on Social Security).
   - Main script now 430 KB: the city and Gulf data from D3/D4 (routes import it), not the articles (own chunks).
     Splitting that data like module content is a possible follow-up.
+  - Batch 2: Accounting (H1 "Accounting and GST software for India", answer-first lead, title 45 characters, FAQs on
+    e-invoicing and GSTIN checks from the deck) and two GST guides: e-invoicing rules (₹5 crore, IRN and QR, the
+    30-day rule from ₹10 crore) and GSTR-2B with IMS (the decks predate IMS, so MAVRO's support for it is not claimed).
 
 #### Query → page (D5; from public research, re-check with Search Console after launch)
 
@@ -68,6 +71,9 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 | payroll software, HRMS software, HR and payroll software India | `/modules/hrms-and-payroll` |
 | how to calculate PF and ESI, EPF wage ceiling 2026, ESI contribution rate | `/blog/pf-and-esi-contributions` |
 | Form 16 new form, Form 130, TDS on salary 2026 | `/blog/form-16-to-form-130` |
+| accounting software India, GST accounting software, GST return software | `/modules/accounting` |
+| GST e-invoicing applicability, e-invoice limit, 30-day IRP rule (also "GST e-invoicing software": the article links to Order to Cash and Accounting) | `/blog/gst-e-invoicing-rules` |
+| GSTR-2B reconciliation, IMS GST, how to claim ITC | `/blog/gstr-2b-and-ims` |
 
 - 2026-11-10, **D4 UAE and GCC pages, batch 1** (decisions: DECISIONS.md "D4"). On `main`.
   - Template `pages/GccPage.tsx` (country and city pages), data `src/data/gcc.ts` (country facts and sources in its
