@@ -8,6 +8,7 @@ import { Section } from '../blocks/Section';
 import { cityBySlug, cityPath, cityTemplate as t, states } from '../data/cities';
 import { industries, inSentence } from '../data/home';
 import { site } from '../data/site';
+import { queryLinks } from '../data/query-links';
 import { hasPage } from '../links';
 import { usePath } from '../routing';
 
@@ -41,9 +42,15 @@ export function Page() {
       icon: 'receipt',
       title: 'GST and e-invoicing',
       body: `Invoices for ${state.name} carry GSTINs starting ${state.gstCode}; e-invoicing, GSTR-1, GSTR-3B and ITC reconciliation run from the transactions.`,
+      link: queryLinks.gst,
     },
     { icon: 'transport', title: 'E-way bills', body: 'Transportation Management keeps e-way bill compliance on every shipment leaving or entering the state.' },
-    { icon: 'people', title: 'Statutory payroll', body: state.pt ?? 'PF, ESI and TDS computed in HRMS and Payroll, with payroll posted to the ledger.' },
+    {
+      icon: 'people',
+      title: 'Statutory payroll',
+      body: state.pt ?? 'PF, ESI and TDS computed in HRMS and Payroll, with payroll posted to the ledger.',
+      link: queryLinks.payroll,
+    },
   ];
 
   const deliveryTiles: CapabilityTile[] = [

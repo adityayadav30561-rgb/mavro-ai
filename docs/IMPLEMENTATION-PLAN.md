@@ -440,6 +440,11 @@ Adding a city: an entry in `cities` (and its state if new), then build, `node qa
 
 ### D5: High-volume module queries (payroll, HRMS and the like)
 
+**Done 2026-11-10** (STATUS.md: the query → page table; DECISIONS.md "D5"). Module pages: HRMS and Payroll, Accounting,
+Inventory Management, Warehouse Management (`headline`, answer-first `lead`, fuller FAQ). Guides in `src/data/posts/`
+(one file per article, loaded per page). Adding a guide: an index entry and a body file there, sources and checked date
+included, then the usual checks; give it one query that no other page targets.
+
 - **Goal:** keep and grow rankings for the general modules with the most searches (payroll software, HRMS,
   accounting, inventory management, CRM, procurement, warehouse management and similar), where MAVRO competes
   with single-purpose products.

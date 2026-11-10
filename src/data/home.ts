@@ -3,6 +3,7 @@
  * copy can be revised without touching layout or animation code. All of it is temporary marketing copy, written
  * to evaluate the design; none of it states a figure, certification or customer result.
  */
+import { queryLinks } from './query-links';
 import { site } from './site';
 import type { ChainNode } from '../blocks/ChainDiagram';
 import type { Story } from '../blocks/StoryCards';
@@ -634,12 +635,12 @@ export const faq = {
     {
       q: 'Is MAVRO GST compliant?',
       a: 'Yes. MAVRO applies GST at every touchpoint: e-invoices with place-of-supply checks before posting, GSTR-1 and GSTR-3B built from transactions, input tax credit protected by GSTR-2B reconciliation that holds mismatched vendors, and e-way bills on every movement of goods.',
-      link: { label: 'India compliance in MAVRO', href: '/security-and-compliance#compliance' },
+      link: queryLinks.gst,
     },
     {
       q: 'Does MAVRO handle Indian payroll and statutory compliance?',
       a: 'Yes. The MAVRO HRMS and Payroll module calculates PF, ESI, TDS and professional tax inside the payroll run, along with bonus and LTA, syncs attendance to payroll and posts the payroll journal to the general ledger on approval. For contract labour, bills can be held until PF, ESIC and wage evidence is complete.',
-      link: { label: 'India compliance in MAVRO', href: '/security-and-compliance#compliance' },
+      link: queryLinks.payroll,
     },
     {
       q: 'Can our vendors, distributors and dealers use MAVRO?',

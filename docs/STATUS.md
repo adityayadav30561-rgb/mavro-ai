@@ -8,7 +8,8 @@ _Last updated: 2026-11-09. Update this file at the end of every task and before 
 done (2026-11-09: the Super ERP for Indian businesses in every industry, an `/industries` hub and eight draft
 industry pages), and D2 SEO, AEO and GEO done (2026-11-09; the domain, profiles and Company text wait on the user).
 Phase 28 launch QA checks are done; launch waits on the user's sign-off (Launch checklist below). D3 city pages
-done (25 cities, 2026-11-09). D4 Gulf pages done (UAE, Saudi Arabia, Qatar, 2026-11-10). Next: D5 high-volume module queries**
+done (25 cities, 2026-11-09). D4 Gulf pages done (UAE, Saudi Arabia, Qatar, 2026-11-10). D5 high-volume module queries done (2026-11-10). Stage D
+is complete; what remains is the launch checklist (user sign-off) and the user's answers in Open items**
 ([IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md), Stage D; the user's market and audience in DECISIONS.md). Every planned page with content exists
 (101 prerendered: 42 module pages, 25 Indian city pages and their index, 9 Gulf pages, platform and package pages, ERP Connect, the industries hub and twelve industry
 pages (eight of them drafts), implementation, security, customers, contact, 404); Company, Privacy, Terms, the blog and careers wait for the user's text (Open
@@ -66,6 +67,10 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
   - Batch 3: Inventory Management and Warehouse Management (query H1s, answer-first leads, titles and descriptions
     within limits, one more FAQ each from the decks) and two guides: FIFO vs FEFO, and cycle counting vs the annual
     stock-take (no fixed count intervals: sources range from weekly to quarterly).
+  - Batch 4, internal links: the GST and payroll answers in the homepage FAQ, the GST and payroll tiles on all 25
+    city pages and on the industry pages now link to Accounting and HRMS with the search phrase as link text
+    (`src/data/query-links.ts`). **D5 done**: four module pages aimed at their searches, six guides, the query → page
+    table below; build, seocheck, linkcheck (depth ≤ 3), sweep and a11y clean.
 
 #### Query → page (D5; from public research, re-check with Search Console after launch)
 
@@ -1079,8 +1084,8 @@ items when context is heavy.
 2. **D2 is done** (2026-11-09). Waiting on the user: the domain, `sameAs` profile links and the About text (at launch).
 3. **Phase 28: Launch QA** (recommended here, before the growth work): includes removing `/pipeline-check` and
    rerunning `npm run linkcheck`.
-4. **D3 and D4 are done** (25 Indian city pages; 9 Gulf pages). Next: **D5: high-volume module queries** (payroll,
-   HRMS and the like), in its own session, starting with the questions listed in its section.
+4. **D3, D4 and D5 are done.** Next: the launch checklist (Phase 28) and the Open items that need the user. After
+   launch: re-check the query → page table against Search Console, and add guides where searches show demand.
 
 ## Launch checklist (Phase 28): what needs the user
 

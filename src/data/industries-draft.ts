@@ -12,6 +12,7 @@
 import type { IconName } from '../components/Icon';
 import type { ScreenName } from '../components/Screen';
 import type { IndustryContent } from './industries';
+import { queryLinks } from './query-links';
 import { contentFor, type ModuleSlug } from './modules';
 
 const DRAFT = 'Industry framing, gaps, hero facts and FAQ written before launch; capabilities from the module pages.';
@@ -36,13 +37,13 @@ function shot(name: ScreenName): { screen: ScreenName; alt: string } {
 
 /** Compliance tiles shared by most industries (the same wording as the manufacturing page, from the deck). */
 const c = {
-  gst: { icon: 'receipt', title: 'GST at every touchpoint', body: 'Auto e-invoicing; GSTR-1, GSTR-3B and ITC generated; GSTR-2B reconciled against vendor invoices.' },
+  gst: { icon: 'receipt', title: 'GST at every touchpoint', body: 'Auto e-invoicing; GSTR-1, GSTR-3B and ITC generated; GSTR-2B reconciled against vendor invoices.', link: queryLinks.gst },
   eway: { icon: 'transport', title: 'E-way bills on every movement', body: 'Transportation Management keeps e-way bill and insurance compliance on every shipment.' },
-  payroll: { icon: 'people', title: 'Statutory payroll', body: 'PF, ESI, TDS and PT in HRMS and Payroll, with attendance synced and payroll posted to the GL.' },
+  payroll: { icon: 'people', title: 'Statutory payroll', body: 'PF, ESI, TDS and PT in HRMS and Payroll, with attendance synced and payroll posted to the GL.', link: queryLinks.payroll },
   labour: { icon: 'shield', title: 'Contract labour', body: 'CLRA, PF, ESIC and wage evidence checked before a contractor bill is certified.' },
   gate: { icon: 'gate', title: 'Gate and weighbridge', body: 'Inward and outward against the PO, weighbridge integration and a security audit trail at the gate.' },
   audit: { icon: 'eye', title: 'Audit trail', body: 'Every transaction logged with who, when and which device; vendors verified by GSTIN and PAN on onboarding.' },
-} satisfies Record<string, { icon: IconName; title: string; body: string }>;
+} satisfies Record<string, { icon: IconName; title: string; body: string; link?: { label: string; href: string } }>;
 
 const facts = (a: [string, string], b: [string, string]) => [
   { value: a[0], label: a[1] },

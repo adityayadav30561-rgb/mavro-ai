@@ -64,7 +64,8 @@ src/pages/               one module per page type (Home.tsx = homepage section o
                          template for every /modules/<slug>, NotFound)
 src/blocks/              the section library: every reusable block (docs/LIBRARY.md); gallery at /_library (dev)
 src/library/             the dev-only gallery page and its sample data
-src/data/                site.ts, nav.ts, home.ts, modules/, platform.ts, packages.ts, erp-connect.ts, industries.ts (+ industries-draft.ts: draft pages),
+src/data/                site.ts, nav.ts, home.ts, modules/, posts/ (blog guides, one file each), platform.ts, packages.ts,
+                         erp-connect.ts, industries.ts (+ industries-draft.ts: draft pages), cities.ts, gcc.ts, query-links.ts,
                          implementation.ts, security.ts, company.ts, pages.ts
                          (all content)
 src/sections/            homepage sections, built on the blocks; hero/ = the anidoodle plant (HeroPlant + generated

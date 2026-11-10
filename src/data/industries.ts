@@ -13,6 +13,7 @@ import type { IconName } from '../components/Icon';
 import type { ScreenName } from '../components/Screen';
 import { draftIndustries } from './industries-draft';
 import type { IndustrySlug } from './home';
+import { queryLinks } from './query-links';
 import type { ModuleSlug } from './modules';
 
 export interface IndustryContent {
@@ -36,7 +37,7 @@ export interface IndustryContent {
   flow: { title: string; rest: string; lead: string; links: Record<string, ModuleSlug>; note: string };
   /** Modules after the homepage card's, to make eight cards (two rows of four). */
   modules: { title: string; rest: string; lead: string; more: ModuleSlug[] };
-  compliance: { title: string; rest: string; lead: string; items: { icon: IconName; title: string; body: string }[] };
+  compliance: { title: string; rest: string; lead: string; items: { icon: IconName; title: string; body: string; link?: { label: string; href: string } }[] };
   /** Indexes into the homepage customer stories (`proof.stories`) that match this industry; none, no section. */
   stories: number[];
   faq: { q: string; a: string }[];
@@ -136,9 +137,9 @@ export const industryContent: IndustryContent[] = [
       rest: 'built in rather than bolted on.',
       lead: 'Indian statutory requirements handled in the modules that create the records, not in spreadsheets afterwards.',
       items: [
-        { icon: 'receipt', title: 'GST at every touchpoint', body: 'Auto e-invoicing; GSTR-1, GSTR-3B and ITC generated; GSTR-2B reconciled against vendor invoices.' },
+        { icon: 'receipt', title: 'GST at every touchpoint', body: 'Auto e-invoicing; GSTR-1, GSTR-3B and ITC generated; GSTR-2B reconciled against vendor invoices.', link: queryLinks.gst },
         { icon: 'transport', title: 'E-way bills on every movement', body: 'Transportation Management keeps e-way bill and insurance compliance on every shipment.' },
-        { icon: 'people', title: 'Statutory payroll', body: 'PF, ESI, TDS and PT in HRMS and Payroll, with attendance synced and payroll posted to the GL.' },
+        { icon: 'people', title: 'Statutory payroll', body: 'PF, ESI, TDS and PT in HRMS and Payroll, with attendance synced and payroll posted to the GL.', link: queryLinks.payroll },
         { icon: 'shield', title: 'Contract labour', body: 'CLRA, PF, ESIC and wage evidence checked before a contractor bill is certified.' },
         { icon: 'gate', title: 'Gate and weighbridge', body: 'Inward and outward against the PO, weighbridge integration and a security audit trail at the gate.' },
         { icon: 'eye', title: 'Audit trail', body: 'Every transaction logged with who, when and which device; vendors verified by GSTIN and PAN on onboarding.' },
@@ -366,7 +367,7 @@ export const industryContent: IndustryContent[] = [
       rest: 'at the order, not after it.',
       lead: 'GST, e-way bills, schemes and credit are checked where the order is entered and the goods move.',
       items: [
-        { icon: 'receipt', title: 'GST e-invoicing', body: 'Auto e-invoicing at every touchpoint, with e-invoice and place-of-supply eligibility checked before posting; GSTR-1 and GSTR-3B generated.' },
+        { icon: 'receipt', title: 'GST e-invoicing', body: 'Auto e-invoicing at every touchpoint, with e-invoice and place-of-supply eligibility checked before posting; GSTR-1 and GSTR-3B generated.', link: queryLinks.gst },
         { icon: 'transport', title: 'E-way bills on every movement', body: 'Transportation Management keeps e-way bill and insurance compliance on every shipment, through to proof of delivery.' },
         { icon: 'scheme', title: 'Schemes checked at order entry', body: 'Distributor, dealer and retailer schemes applied as orders are entered, with accruals tracked against settlements.' },
         { icon: 'claims', title: 'Claims and credit notes', body: 'Every claim checked against its scheme, the bills behind it and earlier claims before a credit note is raised.' },
@@ -480,10 +481,10 @@ export const industryContent: IndustryContent[] = [
       rest: 'computed inside MAVRO.',
       lead: 'Indian statutory payroll is built in, not bolted on: every computation and filing happens inside the platform.',
       items: [
-        { icon: 'people', title: 'PF and ESI', body: 'Contributions computed with the ECR challan ready every month; ESI eligibility, deductions and returns handled automatically.' },
+        { icon: 'people', title: 'PF and ESI', body: 'Contributions computed with the ECR challan ready every month; ESI eligibility, deductions and returns handled automatically.', link: queryLinks.payroll },
         { icon: 'receipt', title: 'TDS, Form 16 and 24Q', body: 'Monthly TDS computed, Form 16 generated in the app, and declarations carried through Form 12BB to the quarterly 24Q return.' },
         { icon: 'rules', title: 'Professional tax and gratuity', body: 'State-wise PT slabs applied without manual lookup; gratuity accrued and paid in payroll.' },
-        { icon: 'finance', title: 'GST e-invoicing for services', body: 'GST-compliant invoicing with e-invoicing built in, and contractor payments tracked GST-compliant.' },
+        { icon: 'finance', title: 'GST e-invoicing for services', body: 'GST-compliant invoicing with e-invoicing built in, and contractor payments tracked GST-compliant.', link: queryLinks.gst },
         { icon: 'travel', title: 'Travel policy', body: 'Trips checked against grade entitlements before anyone books; missing receipts and GST-invalid claims held out of the payment run.' },
         { icon: 'calendar', title: 'Leave and attendance', body: 'Approvals with an audit trail, regional holiday calendars, and a payroll cut-off that turns late regularisations into arrears.' },
       ],
