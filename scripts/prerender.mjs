@@ -20,11 +20,11 @@ const root = path.resolve(import.meta.dirname, '..');
 const dist = path.join(root, 'dist');
 const ssr = path.join(root, 'dist-ssr');
 
-const { llmsTxt, loadAllContent, render, renderHead, routes, site } = await import(
+const { llmsTxt, loadAllContent, loadAllPosts, render, renderHead, routes, site } = await import(
   pathToFileURL(path.join(ssr, 'entry-server.js')).href
 );
 // Module content loads per page in the browser; here every page, title and structured data needs it, so load it all.
-await loadAllContent();
+await Promise.all([loadAllContent(), loadAllPosts()]);
 
 const assets = await readdir(path.join(dist, 'assets'));
 const displayFont = assets.find((file) => /^manrope-latin-wght-normal-.+\.woff2$/.test(file));
@@ -59,6 +59,11 @@ function pagePreloads(route) {
     const content = manifest[`src/data/modules/content/${slug}.ts`];
     if (!content) throw new Error(`prerender: no chunk for module content "${slug}" in the client manifest`);
     collect(content, files);
+  }
+  for (const slug of route.posts ?? []) {
+    const post = manifest[`src/data/posts/${slug}.ts`];
+    if (!post) throw new Error(`prerender: no chunk for article "${slug}" in the client manifest`);
+    collect(post, files);
   }
   return [...files]
     .filter((file) => !entryChunks.has(file))

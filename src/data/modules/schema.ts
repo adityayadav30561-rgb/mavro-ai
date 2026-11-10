@@ -67,4 +67,8 @@ export interface ModuleContent<S extends ModuleSlug = ModuleSlug> {
   /** Three to five questions written for search, as on the homepage (FAQPage structured data). */
   faq: readonly [FaqItem, FaqItem, FaqItem, ...FaqItem[]];
   seo: { title: string; description: string };
+  /** The page's H1 when it targets a search (D5), e.g. "HRMS and payroll software for India"; else the module name. */
+  headline?: string;
+  /** An answer-first hero lead for that search (deck facts only); else the tagline. */
+  lead?: string;
 }

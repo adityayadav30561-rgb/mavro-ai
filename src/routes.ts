@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
-import { blogPage, careersPage, companyText, contactPage, customersPage, openings, posts, privacyText, termsText } from './data/company';
+import { blogPage, careersPage, companyText, contactPage, customersPage, openings, privacyText, termsText } from './data/company';
+import { postFor, postIndex, postPath } from './data/posts';
 import { erpConnect } from './data/erp-connect';
 import { faq, industries } from './data/home';
 import { implementationPage } from './data/implementation';
@@ -44,6 +45,8 @@ export interface Route {
   priority?: number;
   /** Language and region of the page (`<html lang>`, og:locale, hreflang); India (site.locale) unless set (D4). */
   locale?: { lang: string; og: string };
+  /** The articles (src/data/posts/) the page reads; loaded before it renders, like `content`. */
+  posts?: readonly string[];
   /** The modules whose content (src/data/modules/content/) the page reads; loaded before it renders. */
   content?: readonly ModuleSlug[];
   /** Draft content to replace before launch (an industry page's `draft`); such a route is noindex, out of the
@@ -354,18 +357,46 @@ const companyRoutes: Route[] = [
   ).flatMap(([path, name, text]): Route[] =>
     text ? [{ path, page: 'TextPage', title: text.seo.title, description: text.seo.description, crumbs: [{ name, path }], inSitemap: true, priority: 0.3 }] : [],
   ),
-  ...(posts.length
+  ...(postIndex.length
     ? [
         { path: '/blog', page: 'Blog', ...blogPage.seo, crumbs: [{ name: 'Blog', path: '/blog' }], inSitemap: true, priority: 0.5 },
-        ...posts.map((post) => ({
-          path: `/blog/${post.slug}`,
-          page: 'Blog',
-          title: `${post.title} | MAVRO`,
-          description: post.summary,
-          crumbs: [{ name: 'Blog', path: '/blog' }, { name: post.title, path: `/blog/${post.slug}` }],
-          inSitemap: true,
-          priority: 0.5,
-        })),
+        ...postIndex.map((meta): Route => {
+          const path = postPath(meta);
+          return {
+            path,
+            page: 'Blog',
+            title: `${meta.title} | MAVRO`,
+            description: meta.description,
+            crumbs: [{ name: 'Blog', path: '/blog' }, { name: meta.title, path }],
+            inSitemap: true,
+            priority: 0.6,
+            posts: [meta.slug],
+            // The related module card reads the module's lead screen only (modules/leads.ts): no content to load.
+            schema: () => [
+              {
+                '@type': 'Article',
+                '@id': `${site.url}${path}#article`,
+                headline: meta.title,
+                description: meta.description,
+                datePublished: meta.published,
+                dateModified: meta.checked,
+                inLanguage: site.locale.lang,
+                mainEntityOfPage: `${site.url}${path}`,
+                image: `${site.url}${site.shareImage.path}`,
+                author: { '@id': `${site.url}/#organization` },
+                publisher: { '@id': `${site.url}/#organization` },
+                // The module the article supports (its own page carries the full node under the same @id).
+                about: {
+                  '@type': 'SoftwareApplication',
+                  '@id': `${site.url}${modulePage(entryBySlug(meta.module))}#software`,
+                  name: `MAVRO ${entryBySlug(meta.module).name}`,
+                  url: `${site.url}${modulePage(entryBySlug(meta.module))}`,
+                },
+                citation: postFor(meta.slug).sources.map((source) => source.url),
+              },
+            ],
+          };
+        }),
       ]
     : []),
   ...(openings.length

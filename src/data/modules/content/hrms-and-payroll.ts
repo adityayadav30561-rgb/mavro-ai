@@ -132,12 +132,26 @@ export const content: ModuleContent<'hrms-and-payroll'> = {
       a: 'Yes. MAVRO has a native Android and iOS app that works offline and syncs when back online. Employees punch in from approved locations, apply for leave and see their balances, download payslips and Form 16, and managers approve requests from push alerts.',
     },
     {
+      q: 'Does MAVRO generate the PF ECR challan?',
+      a: 'Yes. MAVRO computes PF contributions in every payroll run and has the ECR challan ready each month, and handles ESI eligibility, deductions and returns in the same run.',
+    },
+    {
+      q: 'Can employees choose the old or new tax regime in MAVRO?',
+      a: 'Yes. Each employee picks the old or new tax regime for the financial year, declares investments and uploads proofs online, and MAVRO computes monthly TDS from that choice.',
+    },
+    {
+      q: 'Does MAVRO handle gratuity, LTA and regional holidays?',
+      a: 'Yes. MAVRO accrues and pays gratuity, manages LTA claims, exemptions and proofs, and keeps regional and festival holiday calendars per state and plant.',
+    },
+    {
       q: 'How long does it take to implement MAVRO HRMS?',
       a: 'MAVRO HRMS is implemented in 25 to 30 days. The first two weeks cover discovery, configuration and a trial migration; attendance and payroll go live in week three, and leave, self-service and the mobile app in week four, with support after go-live.',
     },
   ],
+  headline: 'HRMS and payroll software for India',
+  lead: 'MAVRO HRMS and Payroll is HRMS and payroll software for Indian businesses: one record for every employee, attendance and leave from biometric and mobile punches, and payroll with PF, ESI, professional tax and TDS, posted to the ledger.',
   seo: {
-    title: 'HRMS and payroll software for India: attendance, PF, ESI, TDS | MAVRO',
+    title: 'HRMS and payroll software for India | MAVRO',
     description:
       'MAVRO HRMS and Payroll: a governed employee register, onboarding, leave and attendance from biometric and geo-fenced mobile punches, and payroll with PF, ESI, professional tax, TDS and Form 16.',
   },

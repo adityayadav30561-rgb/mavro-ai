@@ -44,6 +44,31 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-11-10, **D5 high-volume module queries, batch 1** (decisions: DECISIONS.md "D5"). On `main`.
+  - **Articles** (`src/data/posts/`): a light index (`postIndex`: title, description, dates, related module) and one
+    body file per article, loaded per page like module content (`Route.posts`, `loadPosts`, `postFor`; prerender
+    loads all and preloads the article's chunk). Article page: question-shaped sections, "How MAVRO handles this"
+    (deck facts only), visible sources and checked date (new block **SourceList**), the related module as a card,
+    Article JSON-LD (author and publisher the Organization, `citation` the sources). `/blog` lists them (new block
+    **ArticleList**) and turns on the Resources menu's Blog link.
+  - **Module pages:** optional `headline` (H1) and answer-first `lead` in the content schema; a "Guides" section lists
+    the module's articles.
+  - **HRMS and Payroll:** H1 "HRMS and payroll software for India", answer-first lead, title 43 characters, three more
+    FAQs from the HRMS deck (ECR challan, tax regime, gratuity/LTA/holidays). Articles: "How PF and ESI contributions
+    are calculated in 2026" (₹25,000 EPF ceiling from 17 Sep 2026, ESI, worked example, labour-code wage rule) and
+    "Form 16 is now Form 130: salary TDS after April 2026".
+  - Fixed: the IT services page no longer names the Gratuity Act (replaced by the Code on Social Security).
+  - Main script now 430 KB: the city and Gulf data from D3/D4 (routes import it), not the articles (own chunks).
+    Splitting that data like module content is a possible follow-up.
+
+#### Query → page (D5; from public research, re-check with Search Console after launch)
+
+| Query (India) | Page |
+|---|---|
+| payroll software, HRMS software, HR and payroll software India | `/modules/hrms-and-payroll` |
+| how to calculate PF and ESI, EPF wage ceiling 2026, ESI contribution rate | `/blog/pf-and-esi-contributions` |
+| Form 16 new form, Form 130, TDS on salary 2026 | `/blog/form-16-to-form-130` |
+
 - 2026-11-10, **D4 UAE and GCC pages, batch 1** (decisions: DECISIONS.md "D4"). On `main`.
   - Template `pages/GccPage.tsx` (country and city pages), data `src/data/gcc.ts` (country facts and sources in its
     header). Routes per country `/ae/erp-software` and city `/ae/erp-software/dubai`, each with its own locale
@@ -1076,6 +1101,7 @@ the site itself:
 
 | Item | Where | Now |
 |---|---|---|
+| **Payroll after the 2025–26 law changes** | `hrms-and-payroll.ts`, security.ts, industries.ts | the decks name Form 16, 24Q and 12BB and the Gratuity Act. Ask the user whether MAVRO already issues the renamed forms (Form 130 and the new quarterly return), applies the ₹25,000 EPF ceiling from 17 Sep 2026, follows the labour codes' wage definition and the Code on Social Security's gratuity rules. Until then the site states the law in articles and only deck facts about MAVRO |
 | **Arabic: interface or invoices?** | `src/data/gcc.ts` | the user's option read "Arabic interface or bilingual invoices"; the pages say only "Arabic support". Ask which (or both) |
 | **UAE e-invoicing** | `src/data/gcc.ts` | the UAE is phasing in e-invoicing; MAVRO's support is not confirmed, so the pages do not mention it. Ask the user |
 | **Qatar VAT** | `src/data/gcc.ts` header | no VAT in force (checked 2026-11-10); re-check before launch and whenever Qatar announces it |

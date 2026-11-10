@@ -50,6 +50,13 @@ export const moduleTemplate = {
     /** Under the module's name on the plate; {name} here is the package. */
     module: 'One of the {name}',
   },
+  /** Articles that support the module (src/data/posts/), after the FAQ; shown only when there are some. */
+  guides: {
+    title: 'Guides',
+    rest: 'to the rules behind it.',
+    lead: 'What the rules say, with worked examples and sources.',
+    checked: 'Checked',
+  },
   related: {
     title: 'Related',
     rest: 'modules.',

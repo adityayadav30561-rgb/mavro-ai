@@ -12,6 +12,8 @@ import { FlowStrip } from '../blocks/FlowStrip';
 import { InlineCta } from '../blocks/InlineCta';
 import { IndustryGrid } from '../blocks/IndustryGrid';
 import { PlaceLinks } from '../blocks/PlaceLinks';
+import { ArticleList } from '../blocks/ArticleList';
+import { SourceList } from '../blocks/SourceList';
 import { ModuleCards } from '../blocks/ModuleCards';
 import { IntegrationHub } from '../blocks/IntegrationHub';
 import { PackageStack } from '../blocks/PackageStack';
@@ -220,6 +222,24 @@ export function Page() {
         </Entry>
         <Entry name="IndustryGrid" file="blocks/IndustryGrid.tsx" use="Industries hub">
           <IndustryGrid cards={industryCards} more="MAVRO for" />
+        </Entry>
+        <Entry name="ArticleList" file="blocks/ArticleList.tsx" use="Blog list, module page guides">
+          <ArticleList
+            items={[
+              { href: '/blog/pf-and-esi-contributions', title: 'How PF and ESI contributions are calculated in 2026', summary: 'Rates, the EPF wage ceiling and a worked example.', meta: 'Checked 10 November 2026' },
+              { href: '/blog/form-16-to-form-130', title: 'Form 16 is now Form 130: salary TDS after April 2026', summary: 'What the Income-tax Act, 2025 changed for salary TDS.', meta: 'Checked 10 November 2026' },
+            ]}
+          />
+        </Entry>
+        <Entry name="SourceList" file="blocks/SourceList.tsx" use="Blog articles">
+          <SourceList
+            title="Sources"
+            checked="10 November 2026"
+            sources={[
+              { label: 'BDO India: PF wage ceiling increased to ₹25,000', url: 'https://www.bdo.in/en-gb/insights/alerts-updates/alert-new-epf-ceiling-hiked' },
+              { label: 'ClearTax: TDS and TCS changes from April 2026', url: 'https://cleartax.in/s/tds-and-tcs-changes-from-april-2026' },
+            ]}
+          />
         </Entry>
         <Entry name="PlaceLinks" file="blocks/PlaceLinks.tsx" use="City pages (nearby cities)">
           <PlaceLinks

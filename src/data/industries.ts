@@ -482,7 +482,7 @@ export const industryContent: IndustryContent[] = [
       items: [
         { icon: 'people', title: 'PF and ESI', body: 'Contributions computed with the ECR challan ready every month; ESI eligibility, deductions and returns handled automatically.' },
         { icon: 'receipt', title: 'TDS, Form 16 and 24Q', body: 'Monthly TDS computed, Form 16 generated in the app, and declarations carried through Form 12BB to the quarterly 24Q return.' },
-        { icon: 'rules', title: 'Professional tax and gratuity', body: 'State-wise PT slabs applied without manual lookup; gratuity accrued and paid as per the Gratuity Act.' },
+        { icon: 'rules', title: 'Professional tax and gratuity', body: 'State-wise PT slabs applied without manual lookup; gratuity accrued and paid in payroll.' },
         { icon: 'finance', title: 'GST e-invoicing for services', body: 'GST-compliant invoicing with e-invoicing built in, and contractor payments tracked GST-compliant.' },
         { icon: 'travel', title: 'Travel policy', body: 'Trips checked against grade entitlements before anyone books; missing receipts and GST-invalid claims held out of the payment run.' },
         { icon: 'calendar', title: 'Leave and attendance', body: 'Approvals with an audit trail, regional holiday calendars, and a payroll cut-off that turns late regularisations into arrears.' },

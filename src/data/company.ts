@@ -71,16 +71,7 @@ export const companyText: TextContent | null = null;
 export const privacyText: TextContent | null = null;
 export const termsText: TextContent | null = null;
 
-export interface Post {
-  slug: string;
-  title: string;
-  date: string;
-  summary: string;
-  paragraphs: string[];
-}
-
-/** The blog: no posts yet, so no /blog route. */
-export const posts: Post[] = [];
+/* Blog articles live in src/data/posts/ (D5): one file per article, loaded per page. */
 
 export interface Opening {
   title: string;
@@ -93,9 +84,17 @@ export interface Opening {
 export const openings: Opening[] = [];
 
 export const blogPage = {
-  seo: { title: 'Blog: articles and product notes | MAVRO', description: 'Articles and product notes from the team behind MAVRO.' },
-  title: 'Articles and',
-  rest: 'product notes.',
+  seo: {
+    title: 'Guides to Indian payroll, GST and inventory | MAVRO',
+    description: 'Guides from the team behind MAVRO to Indian payroll, GST and inventory rules: what they say, worked examples, sources and the date each was checked.',
+  },
+  title: 'Guides to',
+  rest: 'payroll, GST and stock.',
+  lead: 'What the rules say and how they work in practice, with worked examples, sources and the date each guide was checked.',
+  mavro: 'How MAVRO handles this',
+  sources: 'Sources',
+  module: { title: 'The module behind it:', more: 'See the module' },
+  cta: { title: 'See MAVRO', rest: 'run your payroll, GST and stock.', body: 'A demo built around your own documents and approvals, and a 25–30 day plan to go live.' },
 };
 
 export const careersPage = {

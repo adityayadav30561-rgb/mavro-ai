@@ -1,5 +1,6 @@
 import { Audience } from '../blocks/Audience';
 import { ClientBand } from '../blocks/ClientBand';
+import { ArticleList } from '../blocks/ArticleList';
 import { CapabilityTiles } from '../blocks/CapabilityTiles';
 import { ChainDiagram } from '../blocks/ChainDiagram';
 import { CtaBand } from '../blocks/CtaBand';
@@ -26,6 +27,7 @@ import {
   type ModuleLink,
   type ModuleSlug,
 } from '../data/modules';
+import { longDate, postPath, postsFor } from '../data/posts';
 import { target } from '../links';
 import { useHref, usePath } from '../routing';
 import './module-page.css';
@@ -74,6 +76,7 @@ export function Page() {
       .map((other) => other.slug)
       .slice(0, 4);
   const cards = related.map(cardFor);
+  const guides = postsFor(slug);
 
   // Where it sits: what feeds it and what it feeds. Portal pages draw the supply-to-retail chain beside it.
   const flow = (
@@ -91,8 +94,8 @@ export function Page() {
       <PageHero
         variant="module"
         chip={{ label: pack.name, tier: entry.pack }}
-        title={name}
-        lead={content.tagline}
+        title={content.headline ?? name}
+        lead={content.lead ?? content.tagline}
         actions={[
           { label: t.demo, interest, module: name },
           { label: t.seeScreens, href: '#screens' },
@@ -219,6 +222,19 @@ export function Page() {
         lead={fill(t.faq.lead, name)}
         items={content.faq}
       />
+
+      {guides.length > 0 && (
+        <Section id="guides" title={t.guides.title} rest={t.guides.rest} treatment="soft" lead={t.guides.lead}>
+          <ArticleList
+            items={guides.map((meta) => ({
+              href: postPath(meta),
+              title: meta.title,
+              summary: meta.description,
+              meta: `${t.guides.checked} ${longDate(meta.checked)}`,
+            }))}
+          />
+        </Section>
+      )}
 
       <CtaBand
         title={fill(t.cta.title, name)}
