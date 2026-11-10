@@ -283,3 +283,12 @@ stories are used since 2026-10-23, with the user's approval (see Customer storie
 | What MAVRO supports there | **Confirmed by the user:** UAE VAT invoicing (VAT on sales and purchases, TRN on documents, VAT return figures; UAE corporate tax *not* included), Saudi ZATCA (Fatoora) e-invoicing (QR code, Phase 2 integration), UAE WPS salary files and end-of-service gratuity under UAE labour law, Arabic and the local currencies (AED, SAR, QAR). Nothing else country-specific is claimed (no Saudi or Qatari payroll rules, no UAE e-invoicing) | User ticked all four options as supported today; the plan forbids claiming a country's compliance without the user's confirmation |
 | Presence | **None in the Gulf**: served from India (remote implementation, on-site visits when agreed). No Gulf address, no LocalBusiness markup | User: "None, served from India" |
 | Contact | Same as India: contact@saisatwik.com, +91 92114 29011 | User: "Same contact as India" |
+
+## D5 high-volume module queries (user, 2026-11-10)
+
+| Decision | Choice | Why |
+|---|---|---|
+| Modules to lead | **HRMS and Payroll; Accounting with GST; Inventory Management and Warehouse Management** | User picked "HRMS and Payroll", "Accounting + GST", "Inventory + Warehouse" |
+| Keyword data | None supplied: queries chosen from public research and how Indian buyers phrase them; re-check against Search Console after launch | User: "No, use public research" |
+| Articles | **Yes**: supporting guides on the blog (`posts` in company.ts), each linking to its module page, factual, sources cited, dated, published as SaiSatwik Technologies | User: "Yes, write guides" |
+| Comparison pages | **None**: no competitor names anywhere | User: "Not now" (consistent with the earlier left-out competitor table) |
