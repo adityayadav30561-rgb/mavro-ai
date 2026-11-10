@@ -32,6 +32,10 @@ elements), in the order of `ppt/presentation.xml`.
   - deployment: "cloud and on prem both options are there";
   - data ownership: "data is owned by the client".
 - The market: every industry, India first, then Indian cities, then the UAE and GCC (DECISIONS.md).
+- **Gulf support, from the user (2026-11-10), not in the decks** (stated on the D4 pages, `src/data/gcc.ts`): UAE VAT
+  invoicing (VAT on sales and purchases, TRN on documents, VAT return figures; not UAE corporate tax), Saudi ZATCA
+  (Fatoora) e-invoicing with QR code and Phase 2 integration, UAE WPS salary files and end-of-service gratuity under UAE
+  labour law, Arabic support and the local currencies (AED, SAR, QAR). No Gulf office: served from India.
 
 ## Packages and modules (all live)
 

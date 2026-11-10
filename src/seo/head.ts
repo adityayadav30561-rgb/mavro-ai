@@ -38,13 +38,14 @@ function structuredData(route: Route) {
         name: site.company,
         url: site.url,
         description: `${site.company} makes ${site.name}, the Super ERP for Indian businesses in every industry.`,
-        areaServed: { '@type': 'Country', name: 'India' },
+        // India, and the Gulf markets served from India (DECISIONS.md, D4).
+        areaServed: ['India', 'United Arab Emirates', 'Saudi Arabia', 'Qatar'].map((name) => ({ '@type': 'Country', name })),
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'sales',
           email: site.contactEmail,
           telephone: site.contactPhone.replace(/\s/g, ''),
-          areaServed: 'IN',
+          areaServed: ['IN', 'AE', 'SA', 'QA'],
           availableLanguage: 'en',
         },
         logo: `${site.url}/apple-touch-icon.png`,
@@ -101,6 +102,7 @@ export function renderHead(route: Route) {
   const description = escape(route.description);
   const url = absolute(route.path);
   const isNotFound = route.page === 'NotFound';
+  const locale = route.locale ?? site.locale;
   const image = `${site.url}${site.shareImage.path}`;
   const json = JSON.stringify(structuredData(route)).replace(/</g, '\\u003c');
 
@@ -109,15 +111,17 @@ export function renderHead(route: Route) {
     `<meta name="description" content="${description}" />`,
     !isNotFound && `<link rel="canonical" href="${url}" />`,
     // India at the root; D4's GCC pages will add their own alternates (IMPLEMENTATION-PLAN.md, D4).
-    route.inSitemap && `<link rel="alternate" hreflang="${site.locale.lang}" href="${url}" />`,
-    route.inSitemap && `<link rel="alternate" hreflang="x-default" href="${url}" />`,
+    // Self-referencing only: a page has no equivalent in another locale (a Dubai page is not a translation of an
+    // Indian one), and hreflang may only pair equivalent pages. India's pages are also the x-default.
+    route.inSitemap && `<link rel="alternate" hreflang="${locale.lang}" href="${url}" />`,
+    route.inSitemap && !route.locale && `<link rel="alternate" hreflang="x-default" href="${url}" />`,
     `<meta name="robots" content="${route.inSitemap ? 'index, follow' : 'noindex, follow'}" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="${escape(site.name)}" />`,
     `<meta property="og:title" content="${title}" />`,
     `<meta property="og:description" content="${description}" />`,
     !isNotFound && `<meta property="og:url" content="${url}" />`,
-    `<meta property="og:locale" content="${site.locale.og}" />`,
+    `<meta property="og:locale" content="${locale.og}" />`,
     `<meta property="og:image" content="${image}" />`,
     `<meta property="og:image:width" content="${site.shareImage.width}" />`,
     `<meta property="og:image:height" content="${site.shareImage.height}" />`,

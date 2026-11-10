@@ -74,7 +74,9 @@ const written = [];
 
 for (const route of routes) {
   const body = await render(route);
+  const lang = (route.locale ?? site.locale).lang;
   const html = template
+    .replace('<html lang="en-IN">', () => `<html lang="${lang}">`)
     .replace(/<!--head:start-->[\s\S]*?<!--head:end-->/, () => renderHead(route) + fontPreload + pagePreloads(route))
     .replace('<!--app-html-->', () => body);
   if (html === template) throw new Error('prerender: markers not found in dist/index.html');

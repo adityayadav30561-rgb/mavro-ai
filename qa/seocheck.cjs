@@ -4,7 +4,7 @@
 //
 // Per page: one <title> and description, unique across indexable pages, with length warnings (title ≤ 60
 // characters, description 70–160); canonical absolute and equal to the page's own URL; robots meta matches the
-// sitemap (indexable ⇔ listed); og:image and lang="en-IN"; images have alt, links have an href and say where they go; JSON-LD parses, every `@id` reference resolves inside
+// sitemap (indexable ⇔ listed); og:image; lang, og:locale and hreflang agree; images have alt, links have an href and say where they go; JSON-LD parses, every `@id` reference resolves inside
 // the page's graph, every FAQPage question appears in the page's visible text. Site-wide: no noindex page in
 // sitemap.xml or llms.txt, every sitemap URL has a page. Used by D2, Phase 28, and the city and GCC pages (D3, D4).
 const fs = require('fs');
@@ -60,7 +60,14 @@ for (const file of files) {
   const url = `${origin}${route === '/' ? '/' : route}`;
   pages.add(url);
 
-  if (!/<html lang="en-IN">/.test(html)) err(route, 'html lang is not en-IN');
+  // Each page's language is its route's locale (India en-IN, the Gulf en-AE, en-SA, en-QA): <html lang>, og:locale and
+  // the self-referencing hreflang must agree.
+  const lang = one(html, /<html lang="([^"]+)"/);
+  if (!/^en-(IN|AE|SA|QA)$/.test(lang ?? '')) err(route, `html lang is ${lang}`);
+  const og = one(html, /<meta property="og:locale" content="([^"]+)"/);
+  if (og !== lang?.replace('-', '_')) err(route, `og:locale ${og} does not match lang ${lang}`);
+  const self = one(html, /<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/);
+  if (indexable && route !== '/404' && self !== lang) err(route, `hreflang ${self} does not match lang ${lang}`);
   if (!title) err(route, 'no title');
   if (!description) err(route, 'no meta description');
   if (!/<meta property="og:image" content="https?:\/\//.test(html)) err(route, 'no absolute og:image');

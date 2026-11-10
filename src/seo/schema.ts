@@ -5,11 +5,11 @@
 import type { FaqItem } from '../blocks/FaqBlock';
 
 /** FAQPage for an FAQ block; `url` is the block's address, e.g. https://…/#faq. */
-export const faqPage = (url: string, items: readonly FaqItem[]) => ({
+export const faqPage = (url: string, items: readonly FaqItem[], lang = 'en-IN') => ({
   '@type': 'FAQPage',
   '@id': url,
   url,
-  inLanguage: 'en-IN',
+  inLanguage: lang,
   mainEntity: items.map((item) => ({
     '@type': 'Question',
     name: item.q,

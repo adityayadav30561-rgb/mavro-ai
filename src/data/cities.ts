@@ -1003,6 +1003,8 @@ export const citiesIndex = {
     lead: 'MAVRO is made in Greater Noida by SaiSatwik Technologies and runs businesses across India. Find your city: the industries it runs on, the state’s GST and payroll rules MAVRO handles, and how implementation reaches you.',
   },
   list: { title: 'Find', rest: 'your city.', lead: 'Each city has its own page.', more: 'ERP software in' },
+  /** The Gulf countries served from India (D4), after the Indian regions. */
+  gulf: { title: 'Beyond India:', rest: 'the Gulf.', lead: 'Businesses in the UAE, Saudi Arabia and Qatar, served from India.' },
   faq: {
     title: 'Questions about',
     rest: 'MAVRO across India',

@@ -346,8 +346,8 @@ JSON-LD checks. Run Lighthouse locally in Phase 28.
 
 **URL scheme for D4 (decided now so nothing moves later):** India stays at the root (`/`, `/modules/…`, hreflang
 `en-IN`). The GCC pages go under a country prefix, `/ae/…` for the UAE and `/sa/`, `/qa/`, `/om/`, `/kw/`, `/bh/`
-for the rest as they are added, each page listing its alternates (`en-IN` ↔ `en-AE` …) and the root as
-`x-default`. `site.locale` and the hreflang lines in `src/seo/head.ts` are where D4 adds them.
+for the rest as they are added. (D4 refined this: each Gulf page has only a self-referencing hreflang, since it has
+no equivalent page in another locale.) `site.locale` and the hreflang lines in `src/seo/head.ts` are where D4 adds them.
 
 - **Goal:** each page is found and understood by search engines (SEO), answers questions directly enough to be
   quoted by answer engines and featured snippets (AEO), and gives AI assistants consistent, citable facts about
@@ -429,9 +429,10 @@ Adding a city: an entry in `cities` (and its state if new), then build, `node qa
   example UAE VAT, Saudi ZATCA e-invoicing, WPS payroll, Arabic, AED and other currencies (the decks state
   multi-currency, nothing country-specific); local presence, partners or clients; pricing or contact differences.
   **Never claim a country's compliance without the user's confirmation.**
-- **Build:** country (and later city) pages from a template, `hreflang` (`en-AE`, `en-SA` and so on) on the scheme
-  planned in D2, country-specific FAQ and structured data (`areaServed`), contact details for the region if any.
-- **Done when:** as D3, plus `hreflang` validated across the India and GCC pages.
+- **Build:** country (and later city) pages from a template, each page in its own locale (`en-AE`, `en-SA`, `en-QA`:
+  `<html lang>`, og:locale and a self-referencing `hreflang`; no cross-locale hreflang, because a Gulf page has no
+  equivalent Indian page), country-specific FAQ and structured data (`areaServed`), contact details for the region if any.
+- **Done when:** as D3, plus each page's lang, og:locale and hreflang agree (`qa/seocheck.cjs`).
 
 ### D5: High-volume module queries (payroll, HRMS and the like)
 

@@ -15,7 +15,7 @@ export function llmsTxt(routes: readonly Route[]) {
   const group = (test: (path: string) => boolean) => live.filter((route) => test(route.path)).map(line);
   const isModule = (path: string) => path.startsWith('/modules/');
   const isIndustry = (path: string) => path.startsWith('/industries');
-  const isCity = (path: string) => path.startsWith('/erp-software');
+  const isCity = (path: string) => /^\/((ae|sa|qa)\/)?erp-software/.test(path);
   const isPlatform = (path: string) => path === '/platform' || path === '/erp-connect' || Object.values(packs).some((pack) => pack.page === path);
 
   return [

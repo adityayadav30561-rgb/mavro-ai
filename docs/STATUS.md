@@ -44,6 +44,16 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-11-10, **D4 UAE and GCC pages, batch 1** (decisions: DECISIONS.md "D4"). On `main`.
+  - Template `pages/GccPage.tsx` (country and city pages), data `src/data/gcc.ts` (country facts and sources in its
+    header). Routes per country `/ae/erp-software` and city `/ae/erp-software/dubai`, each with its own locale
+    (`Route.locale`: `<html lang>` set by prerender, og:locale, a self-referencing hreflang, FAQPage `inLanguage`);
+    Service JSON-LD with `areaServed` Country/City; Organization `areaServed` now India, UAE, Saudi Arabia and
+    Qatar. The `/erp-software` index ends with a "Beyond India: the Gulf" section of country cards. llms.txt lists
+    the Gulf pages under Locations. seocheck now checks lang, og:locale and hreflang agree per page;
+    `qa/similarity.cjs` takes several folders as one set.
+  - Pages: the UAE and Dubai. All checks clean.
+
 - 2026-11-09, **D3 city pages, batch 1** (decisions: DECISIONS.md "D3 city pages"). On `main`.
   - Template `pages/CityPage.tsx`, index `pages/CitiesIndex.tsx` (`/erp-software`, cities by region), data
     `src/data/cities.ts` (states with GST code and professional tax line, sources in its header; cities with presence,
@@ -1051,6 +1061,9 @@ the site itself:
 
 | Item | Where | Now |
 |---|---|---|
+| **Arabic: interface or invoices?** | `src/data/gcc.ts` | the user's option read "Arabic interface or bilingual invoices"; the pages say only "Arabic support". Ask which (or both) |
+| **UAE e-invoicing** | `src/data/gcc.ts` | the UAE is phasing in e-invoicing; MAVRO's support is not confirmed, so the pages do not mention it. Ask the user |
+| **Qatar VAT** | `src/data/gcc.ts` header | no VAT in force (checked 2026-11-10); re-check before launch and whenever Qatar announces it |
 | Production domain | `site.url` in `src/data/site.ts` | `https://mavro.example` placeholder |
 | Demo form endpoint | `site.demoEndpoint` in `src/data/site.ts` | `null`, so the form opens a pre-filled email to contact@saisatwik.com. Set a form service URL (Formspree, Basin, HubSpot or MAVRO's own API) that accepts a JSON POST to receive requests directly |
 | **Draft industry pages** | `src/data/industries-draft.ts` (`draft` on each) | **eight drafts**: printing and packaging, retail and ecommerce, logistics, textiles and apparel, food and beverage, chemicals, construction and real estate, agriculture and plantations. Noindex and out of the sitemap; `npm run build` lists them. Their cards in home.ts `industries.list` (headline, who, points, flow labels) are drafts too and show on the indexed homepage tabs (printing) and `/industries` hub. Before launch: replace the invented framing, gaps, hero facts and FAQ, and those cards, with real material, ideally give each its own industry screen (they reuse module screens, e.g. a machining schedule on the printing page), then delete `draft`. Phase 28 needs none left |

@@ -4,6 +4,7 @@ import { IndustryGrid } from '../blocks/IndustryGrid';
 import { PageHero } from '../blocks/PageHero';
 import { Section } from '../blocks/Section';
 import { cities, citiesIndex as c, cityPath, cityTemplate as t, regions, states, type Region } from '../data/cities';
+import { gccCountries, gccPath } from '../data/gcc';
 import { hasPage } from '../links';
 
 const order: Region[] = ['north', 'west', 'south', 'east', 'central'];
@@ -28,6 +29,15 @@ export function Page() {
         })),
     }))
     .filter((group) => group.cards.length > 0);
+
+  const gulf = gccCountries.map((country) => ({
+    name: country.name,
+    lower: country.inText,
+    icon: t.icon,
+    who: country.cities.map((city) => city.name).join(', '),
+    title: `Known for ${country.knownFor}`,
+    href: hasPage(gccPath(country)) ? gccPath(country) : null,
+  }));
 
   return (
     <>
@@ -54,6 +64,12 @@ export function Page() {
           <IndustryGrid cards={group.cards} more={c.list.more} />
         </Section>
       ))}
+
+      {gulf.length > 0 && (
+        <Section id="gulf" tone={groups.length % 2 ? undefined : 'paper'} title={c.gulf.title} rest={c.gulf.rest} treatment="grad" lead={c.gulf.lead}>
+          <IndustryGrid cards={gulf} more={c.list.more} />
+        </Section>
+      )}
 
       <FaqBlock id="faq" title={c.faq.title} rest={c.faq.rest} treatment="mark" items={c.faq.items} />
 

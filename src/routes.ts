@@ -4,6 +4,7 @@ import { erpConnect } from './data/erp-connect';
 import { faq, industries } from './data/home';
 import { implementationPage } from './data/implementation';
 import { cities, citiesIndex, cityPath, cityTemplate, states } from './data/cities';
+import { gccCountries, gccPath } from './data/gcc';
 import { industriesHub, industryContent } from './data/industries';
 import { securityPage } from './data/security';
 import { contentFor, contentSlugs, entryBySlug, loadContent, modulePage, moduleSlugs, packs, type ModuleSlug } from './data/modules';
@@ -41,6 +42,8 @@ export interface Route {
   inSitemap: boolean;
   /** Sitemap priority (default 0.8). */
   priority?: number;
+  /** Language and region of the page (`<html lang>`, og:locale, hreflang); India (site.locale) unless set (D4). */
+  locale?: { lang: string; og: string };
   /** The modules whose content (src/data/modules/content/) the page reads; loaded before it renders. */
   content?: readonly ModuleSlug[];
   /** Draft content to replace before launch (an industry page's `draft`); such a route is noindex, out of the
@@ -250,6 +253,52 @@ const cityRoutes: Route[] = [
   }),
 ];
 
+/** The Gulf pages (D4): a page per country and per city in src/data/gcc.ts, each in its own locale. */
+const gccRoutes: Route[] = gccCountries.flatMap((country) => {
+  const countryPath = gccPath(country);
+  const countryCrumb: Crumb = { name: country.name, path: countryPath };
+  const service = (path: string, name: string, area: Record<string, unknown>) => ({
+    '@type': 'Service',
+    '@id': `${site.url}${path}#service`,
+    name: `MAVRO ERP software in ${name}`,
+    serviceType: 'ERP software and implementation',
+    provider: { '@id': `${site.url}/#organization` },
+    isRelatedTo: { '@id': `${site.url}/#software` },
+    areaServed: area,
+  });
+  const countryArea = { '@type': 'Country', name: country.name };
+  return [
+    {
+      path: countryPath,
+      page: 'GccPage',
+      title: country.seo.title,
+      description: country.seo.description,
+      crumbs: [countryCrumb],
+      inSitemap: true,
+      priority: 0.7,
+      locale: country.locale,
+      schema: () => [service(countryPath, country.name, countryArea), faqPage(`${site.url}${countryPath}#faq`, country.faq, country.locale.lang)],
+    },
+    ...country.cities.map((city): Route => {
+      const path = gccPath(country, city);
+      return {
+        path,
+        page: 'GccPage',
+        title: city.seo.title,
+        description: city.seo.description,
+        crumbs: [countryCrumb, { name: city.name, path }],
+        inSitemap: true,
+        priority: 0.6,
+        locale: country.locale,
+        schema: () => [
+          service(path, city.name, { '@type': 'City', name: city.name, containedInPlace: countryArea }),
+          faqPage(`${site.url}${path}#faq`, city.faq, country.locale.lang),
+        ],
+      };
+    }),
+  ];
+});
+
 const trustRoutes: Route[] = [
   {
     path: '/implementation',
@@ -339,6 +388,7 @@ export const routes: Route[] = [
   erpConnectRoute,
   ...industryRoutes,
   ...cityRoutes,
+  ...gccRoutes,
   ...trustRoutes,
   ...companyRoutes,
   ...moduleRoutes,
