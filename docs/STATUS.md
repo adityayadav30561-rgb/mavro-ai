@@ -1,6 +1,6 @@
 # Status
 
-_Last updated: 2026-11-09. Update this file at the end of every task and before clearing context._
+_Last updated: 2026-11-10. Update this file at the end of every task and before clearing context._
 
 ## Where we are
 
@@ -12,7 +12,7 @@ done (25 cities, 2026-11-09). D4 Gulf pages done (UAE, Saudi Arabia, Qatar, 2026
 is complete; what remains is the launch checklist (user sign-off) and the user's answers in Open items**
 ([IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md), Stage D; the user's market and audience in DECISIONS.md). Every planned page with content exists
 (101 prerendered: 42 module pages, 25 Indian city pages and their index, 9 Gulf pages, platform and package pages, ERP Connect, the industries hub and twelve industry
-pages (eight of them drafts), implementation, security, customers, contact, 404); Company, Privacy, Terms, the blog and careers wait for the user's text (Open
+pages (eight of them drafts), implementation, security, customers, contact, 404, the blog with 12 posts); Company, Privacy, Terms and careers wait for the user's text (Open
 items). The site plan ([SITE-PLAN.md](SITE-PLAN.md)) was approved on 2026-10-23. See [WORKFLOW.md](WORKFLOW.md).
 
 **Starting a new session (any machine or account):** `git checkout main && git pull origin main`; read CLAUDE.md,
@@ -45,7 +45,22 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
-#### Blog plan: 12 posts (user, 2026-11-10; my plan, open to veto)
+- 2026-11-10, **Blog overhaul done: 12 posts live** (user: wider layout; images, tables and charts in between; each
+  post focused for SEO, AEO and GEO; 1,500–2,000 words with short paragraphs; informational, selling and both; see
+  DECISIONS.md "Blog"). On `main`.
+  - Layout: two columns (`.post__grid`, article plus a sticky sidebar with the contents and a demo card), FactCard hero.
+  - New blocks: **ArticleBody** (paragraphs, lists, tables, lead-screen figures, charts, callouts, steps),
+    **BarChart**, **Toc**, **RichText** (in LIBRARY.md and `/_library`). Bodies are one file per post in
+    `src/data/posts/<slug>.ts`, loaded per page; `postIndex` in `src/data/posts/index.ts` holds the metadata and type.
+  - Each post: 3–5 key takeaways, question headings, an FAQ (FAQPage JSON-LD), Article JSON-LD with `citation`,
+    sources and the date checked shown on the page.
+  - `qa/postcheck.cjs` (after `npm run build`) checks the brief on every post: 1,500–2,000 words, the minute label,
+    paragraphs ≤ 60 words and ≤ 3 sentences, sections ≤ 300 words, 3–5 takeaways, a visual, ≥ 2 internal links,
+    ≥ 3 FAQs, JSON-LD, title ≤ 60 and description ≤ 160 characters. All 12 pass (1,537–1,601 words).
+  - Selling posts use deck facts and the three verified customer stories only; their charts are the plan's own
+    numbers or labelled examples.
+
+#### Blog plan: 12 posts (user, 2026-11-10; all written)
 
 | # | Type | Slug | Target query | Links to (owns the head term) | Facts from |
 |---|---|---|---|---|---|
@@ -113,6 +128,12 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 | warehouse management software, WMS software India | `/modules/warehouse-management` |
 | FIFO vs FEFO, first expired first out | `/blog/fifo-vs-fefo` |
 | cycle counting, cycle count vs stock take, ABC cycle counting | `/blog/cycle-counting` |
+| three-way matching, PO GRN invoice match | `/blog/three-way-matching` |
+| when does a business need an ERP, signs you need an ERP | `/blog/signs-you-need-an-erp` |
+| reduce ERP licence costs, ERP access for all users | `/blog/erp-access-without-more-licences` |
+| how long does an ERP implementation take | `/blog/how-long-erp-implementation` |
+| dealer portal, distributor portal, B2B ordering portal | `/blog/dealer-and-distributor-portals` |
+| biometric attendance to payroll, attendance payroll integration | `/blog/attendance-to-payslip` |
 
 - 2026-11-10, **D4 UAE and GCC pages, batch 1** (decisions: DECISIONS.md "D4"). On `main`.
   - Template `pages/GccPage.tsx` (country and city pages), data `src/data/gcc.ts` (country facts and sources in its
@@ -1159,7 +1180,7 @@ the site itself:
 | FAQ: pricing and hosting | `site.facts` in site.ts | **answered (user, 2026-11-09)**: no fixed pricing (depends on need), cloud and on-premise, client owns its data; in the homepage, platform and security FAQs. A real price list or plans only if the user gives one |
 | Official profiles (`sameAs`) and About text | `src/seo/head.ts` Organization; `companyText` in company.ts | **at launch (user)**. Never guess profile URLs |
 | **Company (About), Privacy policy, Terms of use** | `companyText`, `privacyText`, `termsText` in `src/data/company.ts` (`TextContent`: SEO, title, lead, updated, sections) | **waiting for the user's text.** Template ready (`src/pages/TextPage.tsx`); the route, the menu/footer link and the sitemap entry appear once the text is filled in. Never fill with invented copy |
-| **Blog posts** | `posts` in `src/data/company.ts` | **none yet.** Templates ready (`src/pages/Blog.tsx`: `/blog` list and `/blog/<slug>`); the Resources menu shows Blog once there is a post |
+| **Blog posts** | `postIndex` in `src/data/posts/index.ts`, bodies in `src/data/posts/<slug>.ts` | **12 live (2026-11-10).** New posts: add a body file and an index entry, then `node qa/postcheck.cjs` after the build. Re-check statutory facts when the law changes (Open items) |
 | **Careers openings** | `openings` in `src/data/company.ts` | **none yet.** Template ready (`src/pages/Careers.tsx`, apply by email); the Company menu and footer show Careers once there is an opening |
 | One stylesheet for all pages | `cssCodeSplit: false` in vite.config.ts | every page loads the full CSS (96 kB, about 19 kB gzip, after Phase 2's blocks); revisit in the Phase 28 performance pass as pages grow |
 | 404 has no canonical | `src/seo/head.ts` | deliberate (the plan said "own canonical"): the 404 answers at any missing URL, so it names none and is noindex |

@@ -15,6 +15,9 @@ import { PlaceLinks } from '../blocks/PlaceLinks';
 import { ArticleList } from '../blocks/ArticleList';
 import { FactCard } from '../blocks/FactCard';
 import { SourceList } from '../blocks/SourceList';
+import { ArticleBody } from '../blocks/ArticleBody';
+import { BarChart } from '../blocks/BarChart';
+import { Toc } from '../blocks/Toc';
 import { ModuleCards } from '../blocks/ModuleCards';
 import { IntegrationHub } from '../blocks/IntegrationHub';
 import { PackageStack } from '../blocks/PackageStack';
@@ -256,6 +259,44 @@ export function Page() {
               { label: 'ClearTax: TDS and TCS changes from April 2026', url: 'https://cleartax.in/s/tds-and-tcs-changes-from-april-2026' },
             ]}
           />
+        </Entry>
+        <Entry name="ArticleBody" file="blocks/ArticleBody.tsx" use="Blog articles (paragraphs, lists, tables, figures, charts, callouts, steps; RichText for [links](/path))">
+          <ArticleBody
+            takeawaysTitle="Key takeaways"
+            takeaways={['Attendance locks at the payroll cut-off.', 'Late items are paid as arrears next month.']}
+            sections={[
+              {
+                id: 'lib-cut-off',
+                heading: 'What happens at the payroll cut-off?',
+                blocks: [
+                  { kind: 'p', text: 'Attendance locks. See [HRMS and payroll](/modules/hrms-and-payroll).' },
+                  { kind: 'table', caption: 'Sample table', head: ['Request', 'Outcome'], rows: [['Before cut-off', 'In this run'], ['After cut-off', 'Arrears next month']] },
+                  { kind: 'callout', tone: 'tip', title: 'In practice', text: 'Run one parallel month before switching off the old tool.' },
+                  { kind: 'steps', items: [{ title: 'Lock', text: 'Attendance locks.' }, { title: 'Run', text: 'Payroll runs on the locked feed.' }] },
+                ],
+              },
+            ]}
+          />
+        </Entry>
+        <Entry name="BarChart" file="blocks/BarChart.tsx" use="Blog articles (inside ArticleBody)">
+          <BarChart
+            title="Example month: requests by how they reached payroll"
+            caption="Illustrative data."
+            categories={['Within SLA', 'Late, before cut-off', 'Arrears']}
+            series={[{ name: 'Requests', values: [212, 18, 4] }]}
+            format="number"
+          />
+          <BarChart
+            title="Grouped layout, two series"
+            caption="Illustrative data."
+            categories={['Employer', 'Employee']}
+            series={[{ name: 'PF', values: [1800, 1800] }, { name: 'ESI', values: [650, 150] }]}
+            format="inr"
+            layout="group"
+          />
+        </Entry>
+        <Entry name="Toc" file="blocks/Toc.tsx" use="Blog article sidebar">
+          <Toc title="In this article" items={[{ id: 'lib-cut-off', label: 'What happens at the payroll cut-off?' }, { id: 'lib-run', label: 'What does the payroll run do?' }]} />
         </Entry>
         <Entry name="PlaceLinks" file="blocks/PlaceLinks.tsx" use="City pages (nearby cities)">
           <PlaceLinks
