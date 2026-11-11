@@ -52,12 +52,15 @@ npx tsc --noEmit  # typecheck only
   and ask the user; never fall back to another branch. Commit at the end of every phase and push,
   so the next session, on any machine or Claude account, starts from the latest state. Working from a cloud
   session or another machine: [docs/CLOUD.md](docs/CLOUD.md) (setup, browser for screenshots, deck text).
-- **Keep the tracker current (Phase 2 onward).** The boss reads the project tracker, a Claude Sheet:
+- **Keep the tracker current (Phase 2 onward).** The boss reads the work tracker for all projects, a Claude Sheet:
   https://claude.ai/artifact/3oUiDK3bTsF5XbCynfNEfF (Claude Docs connector: container project
-  `16af9166-f0e3-431a-8877-8ad4580655c6`, node `8d609e7c-0be4`, engine `workbook`). Tabs: Summary (formulas only),
-  Development, Design, Pages, Content & SEO, Blog, Timeline. Planned tasks are one brief sentence; when a task starts,
-  set it In progress and write what is done as points ("• ..."), with iterations and dates; add a Timeline row per
-  working day with its commit count. Update it at the end of every task, with STATUS.md.
+  `16af9166-f0e3-431a-8877-8ad4580655c6`, node `8d609e7c-0be4`, engine `workbook`). Tabs by department, every one
+  with a **Project** column (a dropdown; this site is "MAVRO Website"): Summary (formulas only), Projects,
+  Development, Design, Content & SEO, Blog work, Blog posts (one row per published post), Pages, Project management,
+  Timeline. Task tabs: ID, Project, Phase (free text), Task, Status, What was done (points), Iterations, Started,
+  Finished. Planned tasks are one brief sentence; when a task starts, set it In progress and write what is done as
+  points ("• ..."); add a Timeline row per working day with its commit count. A new project needs a Projects row, its
+  name in every Project dropdown, and a row in both Summary tables. Update the tracker at the end of every task.
 - **Keep the docs current.** At the end of every task, update docs/STATUS.md (and DECISIONS.md when the user
   gives a preference). The next session depends on it.
 

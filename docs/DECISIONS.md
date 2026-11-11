@@ -313,3 +313,8 @@ stories are used since 2026-10-23, with the user's approval (see Customer storie
   (development, content and SEO, pages, etc.), so the boss can see the work. Done work is written in points with
   iterations; future tasks as brief sentences, expanded into points as they start. No Google or Microsoft connector
   is available, so it is a Claude Sheet (claude.ai link, downloads as .xlsx): see CLAUDE.md for its ids.
+- The tracker covers all projects, not only this site (user, 2026-11-11): tabs stay by department, with a Project
+  column on every tab, so "how many blogs did we post" is one count split by project. Added on my advice: a Projects
+  register, a Summary with a project × department table, a Blog posts tab separate from blog tasks, a Project
+  management tab for work with no department, and Phase as free text. First other projects: Laminates Customer
+  Portal (`portals`), Amazon MTR Portal (`amazon-mtr`), Staffing CRM (`staffing_crm`), filled from their repos.
