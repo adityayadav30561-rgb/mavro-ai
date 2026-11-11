@@ -1,9 +1,16 @@
 /* Article body (blocks/ArticleBody.tsx): long-form text at a readable measure, visuals spanning the column. */
 .abody {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 2.75rem;
   min-width: 0;
   color: var(--fg);
+}
+
+/* Grid children may not grow past the column: a wide chart or table scrolls in its own box instead. */
+.abody > *,
+.abody__section > * {
+  min-width: 0;
 }
 
 .abody p,

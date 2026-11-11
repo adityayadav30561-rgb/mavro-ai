@@ -17,7 +17,7 @@ export const post: PostBody = {
   sections: [
     {
       id: 'short-answer',
-      heading: 'How long does an ERP implementation take?',
+      heading: 'How long does an ERP implementation take in practice?',
       blocks: [
         { kind: 'p', text: 'It depends on what is being implemented and how ready the business is. A phased rollout of the modules a business needs first can go live in weeks; trying to change everything at once can take far longer.' },
         { kind: 'p', text: 'MAVRO is implemented in 25 to 30 days. Priority modules go live first, the rest follow, and the business runs on MAVRO by the end of the first month.' },

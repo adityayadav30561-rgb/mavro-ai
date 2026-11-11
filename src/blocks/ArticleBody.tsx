@@ -43,7 +43,8 @@ function Block({ block }: { block: ArticleBlock }) {
     }
     case 'table':
       return (
-        <div className="abody__table">
+        // Focusable and labelled, because a wide table scrolls sideways inside this box on phones.
+        <div className="abody__table" role="region" aria-label={block.caption} tabIndex={0}>
           <table>
             <caption>{block.caption}</caption>
             <thead>

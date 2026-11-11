@@ -45,6 +45,11 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-11-11, **Blog fix: charts and tables were clipped on phones.** The article grid let a section grow to the
+  chart's natural width, and `<main>` clips overflow, so the sweep (page-level overflow) could not see it. Fixed with
+  `minmax(0, 1fr)` and `min-width: 0` on `.abody` children; wide tables and the chart's number table now scroll in
+  their own box (focusable, labelled regions). Checked every post at 360–1366 for content wider than the column: none.
+  Also: an empty table header (cycle counting) and a first heading that repeated the title (implementation post).
 - 2026-11-10, **Blog overhaul done: 12 posts live** (user: wider layout; images, tables and charts in between; each
   post focused for SEO, AEO and GEO; 1,500–2,000 words with short paragraphs; informational, selling and both; see
   DECISIONS.md "Blog"). On `main`.

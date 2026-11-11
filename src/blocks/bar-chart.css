@@ -118,6 +118,7 @@
 
 .bchart__data {
   margin-top: .5rem;
+  overflow-x: auto;
   font-size: var(--t-small);
 }
 

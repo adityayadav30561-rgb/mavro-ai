@@ -26,7 +26,7 @@ export const post: PostBody = {
         {
           kind: 'table',
           caption: 'Cycle counting and the annual stock-take compared',
-          head: ['', 'Cycle counting', 'Annual stock-take'],
+          head: ['Aspect', 'Cycle counting', 'Annual stock-take'],
           rows: [
             ['How much is counted', 'A few items or bins at a time', 'Everything at once'],
             ['How often', 'Daily or weekly, all year', 'Once or twice a year'],
