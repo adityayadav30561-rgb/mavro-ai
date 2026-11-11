@@ -302,3 +302,14 @@ stories are used since 2026-10-23, with the user's approval (see Customer storie
 | Search | **Every post built for SEO, AEO and GEO**: one query per post, question-shaped headings with answer-first sentences, key takeaways at the top, a visible FAQ (FAQPage), Article JSON-LD, sources and dates shown | User: "EACH BLOG SHOULD BE FOCUSED WITH SEO AEO AND GEO" |
 | Length and readability | **1,500–2,000 words**, short paragraphs (≤ 60 words, ≤ 3 sentences), lists over comma chains; checked by `qa/postcheck.cjs` | User: "EACH BLOG LENGTH SHOULD BE 1500-2000 WORDS, EASY READABILITY, SHORTER PARAGRAPHS" |
 | Types | **12 posts: 4 informational, 4 informational + selling, 4 selling** (plan in STATUS.md). Selling posts use deck facts only, no competitor names, no invented numbers | User: "SOME INFORMATIONAL BLOGS, AND SOME WHICH WILL BE WRITTEN TO SELL OUR PRODUCT, AND SOME FOR INFORMATIONAL + SELLING. SO PLAN 12 BLOGS IN TOTAL" |
+
+## Phase 2 and the tracker (user, 2026-11-11)
+
+- "Phase 1 was just the website being complete." Phase 2: redesign the website and its pages; decide which pages stay
+  and which go; design the look, heroes and sections; design the location pages; update the content with frameworks
+  set from the start (what each page type contains); set up GTM, Google Analytics and Search Console; a framework
+  for writing the best possible blogs (importing from GitHub repos is allowed at any step).
+- Everything is tracked in one spreadsheet that is current whenever its link is opened, with tabs by area
+  (development, content and SEO, pages, etc.), so the boss can see the work. Done work is written in points with
+  iterations; future tasks as brief sentences, expanded into points as they start. No Google or Microsoft connector
+  is available, so it is a Claude Sheet (claude.ai link, downloads as .xlsx): see CLAUDE.md for its ids.

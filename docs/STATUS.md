@@ -1,6 +1,6 @@
 # Status
 
-_Last updated: 2026-11-10. Update this file at the end of every task and before clearing context._
+_Last updated: 2026-11-11. Update this file at the end of every task and before clearing context._
 
 ## Where we are
 
@@ -45,6 +45,11 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-11-11, **Phase 2 started: project tracker created** (DECISIONS.md "Phase 2 and the tracker").
+  https://claude.ai/artifact/3oUiDK3bTsF5XbCynfNEfF, a Claude Sheet: Summary (live counts by area and status),
+  Development, Design, Pages (inventory with a Phase 2 keep / redesign / merge / remove decision), Content & SEO,
+  Blog, Timeline. Phase 1 written in points; Phase 2 tasks in one line each. **Next:** plan Phase 2's steps and phases
+  with the user, then add them to the tracker.
 - 2026-11-11, **Blog fix: charts and tables were clipped on phones.** The article grid let a section grow to the
   chart's natural width, and `<main>` clips overflow, so the sweep (page-level overflow) could not see it. Fixed with
   `minmax(0, 1fr)` and `min-width: 0` on `.abody` children; wide tables and the chart's number table now scroll in
