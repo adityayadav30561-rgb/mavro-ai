@@ -318,3 +318,5 @@ stories are used since 2026-10-23, with the user's approval (see Customer storie
   register, a Summary with a project × department table, a Blog posts tab separate from blog tasks, a Project
   management tab for work with no department, and Phase as free text. First other projects: Laminates Customer
   Portal (`portals`), Amazon MTR Portal (`amazon-mtr`), Staffing CRM (`staffing_crm`), filled from their repos.
+- SaiSatwik Website is a tracked project (user, 2026-11-13): its blog posts from October and November 2026 are in
+  Blog posts, so blog counts split by project (MAVRO Website vs SaiSatwik Website).

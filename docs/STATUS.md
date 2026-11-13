@@ -1,6 +1,6 @@
 # Status
 
-_Last updated: 2026-11-11. Update this file at the end of every task and before clearing context._
+_Last updated: 2026-11-13. Update this file at the end of every task and before clearing context._
 
 ## Where we are
 
@@ -45,6 +45,12 @@ land on the homepage section that covers them. Mobile: full-screen drawer with m
 
 ## Most recent work (newest first)
 
+- 2026-11-13, **Tracker: SaiSatwik Website added** (user: "add the blogs we added in October and November on the
+  SaiSatwik website"). 32 posts from 13 Oct to 10 Nov read from the site's WordPress API
+  (saisatwik.com/wp-json/wp/v2/posts): 22 in SAP (SAP PS guides, then Gulf SAP PS/EPPM posts), 10 in App Development
+  (GCC mobile app guides). One row each in Blog posts (title, date, words, URL), two series rows in Blog work, a
+  Projects row and a row in both Summary tables; Type and Target search left blank (not stated on the site). The
+  site was blocked by the session network, so a personal environment "mavro-ai" allowing saisatwik.com was created.
 - 2026-11-11, **Phase 2 started: project tracker created** (DECISIONS.md "Phase 2 and the tracker").
   https://claude.ai/artifact/3oUiDK3bTsF5XbCynfNEfF, a Claude Sheet: Summary (live counts by area and status),
   Development, Design, Pages (inventory with a Phase 2 keep / redesign / merge / remove decision), Content & SEO,
